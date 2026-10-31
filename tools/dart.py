@@ -38,12 +38,19 @@ def api_json(path, **params):
 
 
 def corp_codes():
-    """종목코드(6자리) -> DART 고유번호(8자리) 표. 하루 한 번만 내려받아 저장해 둔다."""
+    """종목코드(6자리) -> DART 고유번호(8자리) 표. 파일이 커서(약 3.6MB, 클라우드에서 수 분) 7일에 한 번만 내려받는다."""
     path = CACHE / "dart_corp_codes.json"
-    if path.exists() and datetime.now().timestamp() - path.stat().st_mtime < 86400:
+    if path.exists() and datetime.now().timestamp() - path.stat().st_mtime < 7 * 86400:
         return json.loads(path.read_text(encoding="utf-8"))
     (key,) = require_env("DART_API_KEY")
-    raw = http_get(f"{API}/corpCode.xml", {"crtfc_key": key}, timeout=60)
+    print("DART 회사 코드표를 내려받는 중입니다 (몇 분 걸릴 수 있음)...", file=sys.stderr)
+    try:
+        raw = http_get(f"{API}/corpCode.xml", {"crtfc_key": key}, timeout=60)
+    except OSError as e:
+        if path.exists():  # 새로 못 받으면 예전 표라도 쓴다
+            print(f"코드표 갱신 실패({e}), 저장된 표를 사용합니다.", file=sys.stderr)
+            return json.loads(path.read_text(encoding="utf-8"))
+        raise
     with zipfile.ZipFile(io.BytesIO(raw)) as z:
         root = ET.fromstring(z.read(z.namelist()[0]))
     table = {}

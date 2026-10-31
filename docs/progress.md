@@ -7,11 +7,12 @@
 - [x] 환경 변수 5개 등록 (사용자) — 값이 맞는지는 아직 확인 전
 - [x] `tools/tg_channel.py`: 공개 채널 수집·분류·리포트 파싱·중복 표시 — 실제 채널(`ked_epic_ai`) 200개 글로 테스트 완료
 - [x] `tools/telegram_send.py`: 전송, 4000자 넘으면 나눠 보내기 — 나누기 기능만 테스트, 실제 전송은 확인 전
-- [x] `tools/dart.py`: 공시 목록, 주요 재무 — 코드만 작성, 실제 호출은 확인 전
+- [x] `tools/dart.py`: 공시 목록 실제 호출 확인 (2026-10-31, 최근 7일 삼성전자 17건·SK하이닉스 11건). 회사 코드표(3.6MB)가 클라우드에서 약 3분 걸려 7일간 캐시하도록 수정. 새 세션 첫 실행은 다시 3분 걸림. `fin`은 아직 실행 전
 
 ## 다음 할 일 (순서대로)
-1. [ ] **새 세션에서 키 확인**: `python3 tools/telegram_send.py --test` → 사용자 휴대폰에 메시지가 오는지 확인
-2. [ ] `python3 tools/dart.py list --days 7` 실행해서 DART 동작 확인, 필요하면 수정
+1. [ ] **텔레그램 키 다시 등록 (사용자)**: 2026-10-31 테스트 실패(HTTP 404). `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`, `KIS_APP_KEY`, `KIS_APP_SECRET` 4개가 모두 똑같은 36자 값으로 들어가 있음 → 각자 맞는 값으로 다시 넣고 새 세션에서 `python3 tools/telegram_send.py --test`
+   - 봇 토큰 형식: `숫자:영문숫자` (BotFather가 준 값), 채팅 ID: 숫자(그룹이면 `-`로 시작)
+2. [x] DART 공시 목록 동작 확인 (`fin`은 다음에 확인)
 3. [ ] KIS 시세 조회 도구 (`tools/kis_quote.py`): 9443 포트 접속 확인, 토큰 캐시, 현재가·수급
 4. [ ] yfinance 도구 (`tools/us_quote.py`)
 5. [ ] 네이버 뉴스: PlayMCP 연결 확인 또는 네이버 검색 API로 대체
