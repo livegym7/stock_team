@@ -30,6 +30,7 @@
    - **접속 테스트 결과: HTTP 403 `access_denied` "IP address not allowed"**. 도메인 허용은 정상(서버가 답함), 토스가 **허용 IP 목록**에 없는 곳의 호출을 막은 것. 토스 FAQ: 클라우드처럼 IP가 바뀌는 환경은 등록해도 막힘, 고정 IP 필요. 키 값이 맞는지는 IP 단계에서 막혀 확인 못 함
    - `tools/toss_quote.py` 작성(`price`/`investor`/`daily`, 토큰 `data/cache/toss_token.json` 24시간 재사용, 권한 600). 문서의 예시 응답으로 해석 부분만 확인, **실제 호출 확인 전**. 네이버와 숫자 비교도 아직
    - 다음(선택): ① 고정 IP가 있는 내 컴퓨터에서 실행하고 그 IP를 WTS 설정 > Open API > 허용 IP 관리에 등록 ② 지금처럼 네이버 도구 사용(현재 충분함)
+   - **결정(2026-10-31, 사용자): 국내 시세는 네이버 도구로 간다.** 토스 도구는 보류(내 컴퓨터에서 쓸 일이 생기면 재개)
 4. [ ] yfinance 도구 (`tools/us_quote.py`)
 5. [ ] 네이버 뉴스: PlayMCP 연결 확인 또는 네이버 검색 API로 대체
 6. [ ] 서브에이전트 정의 (`.claude/agents/`)
