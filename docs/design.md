@@ -9,8 +9,8 @@
 |---|---|---|
 | 팀장 (메인 세션) | 아래 전체 | 일을 나눠 주고, 결과를 모아 보고서 작성, 텔레그램 전송 |
 | 국내시세 | 네이버 증권 (`naver_quote.py`), KIS·토스는 클라우드 접속 불가 | 현재가, 등락률, 거래량, 외국인·기관 수급, 52주 고저 |
-| 해외시세 | yfinance | 미국 지수·관심종목, 환율, 미 10년물 금리, VIX |
-| 뉴스 | 네이버 뉴스 (PlayMCP) | 종목별 주요 뉴스, 호재·악재 분류 |
+| 해외시세 | Yahoo 차트 API (`us_quote.py`) | 미국 지수·관심종목, 환율, 미 10년물 금리, VIX |
+| 뉴스 | 네이버 증권 종목 뉴스·구글 뉴스 RSS (`news.py`) | 종목별 주요 뉴스, 호재·악재 분류 |
 | 공시 | DART | 신규 공시, 중요 공시(실적·증자·최대주주 변동 등) 표시 |
 | 텔레그램 채널 | 공개 채널 (`config/channels.toml`) | 리포트 요약, 목표주가 변경, 시황, 입법예고 |
 | 검증 | 위 결과 전체 | 반대 근거 찾기, 오래된 데이터·숫자 오류 점검, 채널 내용을 공식 출처와 대조 |
@@ -64,11 +64,19 @@
 - 접근 토큰은 자주 새로 받으면 제한이 걸리므로 `data/cache/`에 저장해 재사용 (24시간 유효).
 - **조회 API만** 구현.
 
-### yfinance — 예정
-- `pip install yfinance` 필요. 도메인: query1/query2.finance.yahoo.com, fc.yahoo.com.
+### Yahoo Finance — 사용 중 (`tools/us_quote.py`, 비공식)
+- yfinance 패키지 없이 `query1.finance.yahoo.com/v8/finance/chart/티커?range=1mo&interval=1d`를 직접 호출 (키 불필요).
+- 전일 종가는 meta의 `chartPreviousClose`(기간 시작 전 값)가 아니라 기준 시각 이전 마지막 일봉 종가로 계산.
+- 지수 `^GSPC ^IXIC ^DJI ^SOX`, 환율 `KRW=X`(역외 시세), 금리 `^TNX`(% 그대로), `^VIX`. 일봉 가격은 수정주가 아님.
 
-### 네이버 뉴스 (PlayMCP) — 확인 필요
-- 사용자의 PlayMCP 연결이 클라우드 세션에서 되는지 확인. 안 되면 네이버 검색 API(무료, 키 발급)로 대체.
+### 뉴스 — 사용 중 (`tools/news.py`, 키 불필요)
+- PlayMCP는 클라우드 세션에 연결되지 않음(2026-10-31 확인).
+- 종목 뉴스: `m.stock.naver.com/api/news/stock/코드?pageSize=30` — 같은 사건 기사가 묶음으로 오고 `total`이 기사 수. robots.txt가 막고 있으므로 최소 호출.
+- 키워드: 구글 뉴스 RSS `news.google.com/rss/search?q=검색어 when:18h&hl=ko&gl=KR&ceid=KR:ko` (개인 피드 용도).
+- 제목·언론사·시각·링크만 저장. 더 필요하면 네이버 검색 API(키 발급) 검토.
+
+### 네이버 증권 주의: 등락률
+- 현재가 API의 '전일'·등락률은 넥스트레이드 애프터마켓 포함 값이라 KRX 종가 기준과 다르다. `naver_quote.py price`는 KRX 일봉으로 다시 계산한다.
 
 ### 네이버증권 리서치 — 보조 수단
 - 공식 API 없음. 텔레그램 채널로 대부분 보완되므로 우선순위 낮음.

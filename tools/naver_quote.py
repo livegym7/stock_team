@@ -8,6 +8,7 @@
     python3 tools/naver_quote.py price --stock 005930        # 특정 종목 (종목코드)
     python3 tools/naver_quote.py investor --stock 005930     # 최근 일별 개인·외국인·기관 순매수 (수량)
     python3 tools/naver_quote.py daily --stock 005930 --days 120   # 일봉 (수정주가)
+    python3 tools/naver_quote.py index                       # 코스피·코스닥 지수
 
 출력 형식은 tools/kis_quote.py와 같다 (source, fetched_at, results).
 """
@@ -82,14 +83,24 @@ def price_all(codes):
         time.sleep(0.3)
         info = {t["code"]: t for t in get_json(MOBILE + code + "/integration").get("totalInfos", [])}
         val = lambda k: info.get(k, {}).get("value")
+        price = num(d.get("closePriceRaw") or d.get("closePrice"))
+        # 네이버의 '전일'·등락은 넥스트레이드(NXT) 애프터마켓까지 포함한 값이라 한국거래소(KRX) 종가와 다를 수 있다
+        # (예: 2026-10-30 삼성전자 네이버 전일 232,000원, KRX 전일 종가 230,500원). 등락은 KRX 일봉으로 다시 계산한다
+        trade_date = (d.get("localTradedAt") or "")[:10].replace("-", "")
+        time.sleep(0.3)
+        prev = [r for r in daily(code, name, 5)["rows"] if r["date"] < trade_date]
+        prev_close = prev[-1]["close"] if prev else None
+        change = price - prev_close if (price is not None and prev_close) else None
         out.append({
             "stock": name or d.get("stockName"), "code": code,
             "traded_at": d.get("localTradedAt"),     # 시세 기준 시각 (장 마감 후·휴일에는 마지막 거래일)
             "market_status": d.get("marketStatus"),  # OPEN(장중) / CLOSE(마감)
             # 아래 가격·거래량은 한국거래소(KRX) 기준. 넥스트레이드(NXT) 거래는 빠져 있다
-            "price": num(d.get("closePriceRaw") or d.get("closePrice")),
-            "change": num(d.get("compareToPreviousClosePriceRaw") or d.get("compareToPreviousClosePrice")),
-            "change_pct": num(d.get("fluctuationsRatioRaw") or d.get("fluctuationsRatio")),
+            "price": price,
+            "prev_close": prev_close, "prev_date": prev[-1]["date"] if prev else None,  # KRX 전일 종가
+            "change": change,
+            "change_pct": round(change / prev_close * 100, 2) if change is not None else None,
+            "naver_change_pct": num(d.get("fluctuationsRatioRaw") or d.get("fluctuationsRatio")),  # 참고: 네이버 표시값
             "open": num(d.get("openPriceRaw")), "high": num(d.get("highPriceRaw")), "low": num(d.get("lowPriceRaw")),
             "volume": num(d.get("accumulatedTradingVolumeRaw")),
             "value_mil": round(num(d["accumulatedTradingValueRaw"]) / 1e6) if d.get("accumulatedTradingValueRaw") else None,
@@ -100,6 +111,19 @@ def price_all(codes):
             "market_cap_eok": eok(val("marketValue")),  # 시가총액 (억원)
             "foreign_ratio": num(val("foreignRate")),   # 외국인 보유 한도 대비 소진율 (%)
         })
+    return out
+
+
+def index_all():
+    out = []
+    for code in ("KOSPI", "KOSDAQ"):
+        d = get_json(MOBILE.replace("/stock/", "/index/") + code + "/basic")
+        out.append({
+            "index": d.get("stockName") or code, "code": code, "traded_at": d.get("localTradedAt"),
+            "price": num(d.get("closePrice")), "change": num(d.get("compareToPreviousClosePrice")),
+            "change_pct": num(d.get("fluctuationsRatio")),
+        })
+        time.sleep(0.3)
     return out
 
 
@@ -157,10 +181,13 @@ def main():
     sd = sub.add_parser("daily", help="일봉")
     sd.add_argument("--stock", required=True, help="종목코드 6자리")
     sd.add_argument("--days", type=int, default=120, help="거래일 수")
+    sub.add_parser("index", help="코스피·코스닥 지수")
     a = p.parse_args()
 
-    codes = targets(a.stock)
-    if a.cmd == "price":
+    codes = targets(getattr(a, "stock", None))
+    if a.cmd == "index":
+        results = index_all()
+    elif a.cmd == "price":
         results = price_all(codes)
     else:
         results = []
