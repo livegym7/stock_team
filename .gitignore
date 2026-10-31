@@ -1,0 +1,10 @@
+# 비밀 정보 (절대 올리지 않음)
+.env
+*.session
+*.session-journal
+
+# 임시 파일 / 캐시
+data/cache/
+__pycache__/
+*.pyc
+.venv/
