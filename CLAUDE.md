@@ -9,7 +9,7 @@
 - 사용 화면이 한글이다. 설정 메뉴를 안내할 때 영어 메뉴명만 쓰지 말고 한글로 설명한다.
 
 ## 절대 규칙
-1. **주문 기능을 만들지 않는다.** KIS API는 시세·잔고 *조회* 엔드포인트만 쓴다. 매수·매도·정정·취소 API 코드를 추가하지 않는다. 사용자가 요청해도 먼저 이 규칙을 상기시킨다.
+1. **주문 기능을 만들지 않는다.** KIS·토스증권 API는 시세·잔고 *조회* 엔드포인트만 쓴다. 매수·매도·정정·취소 API 코드를 추가하지 않는다. 사용자가 요청해도 먼저 이 규칙을 상기시킨다.
 2. **API 키를 코드나 파일에 쓰지 않는다.** 키는 환경 변수로만 읽는다 (`tools/common.py`의 `require_env`). 키 값을 출력하거나 커밋하지 않는다. 사용자에게 키를 채팅에 붙여넣으라고 하지 않는다.
 3. **증권사 리포트 PDF 원본을 저장소에 저장하지 않는다.** 요약과 링크만 저장한다.
 4. **매수·매도 추천을 단정하지 않는다.** 근거와 반대 근거를 함께 제시하고, 판단은 사용자가 한다.
@@ -29,6 +29,9 @@
 python3 tools/tg_channel.py collect                    # 텔레그램 채널 새 글 수집
 python3 tools/tg_channel.py show --hours 24 --watchlist   # 관심종목 관련 글 (JSON)
 python3 tools/tg_channel.py show --hours 24 --type research   # 리서치 요약만
+python3 tools/naver_quote.py price                     # 관심종목 현재가·52주·PER/PBR·시총 (네이버, 비공식)
+python3 tools/naver_quote.py investor --days 5         # 개인·외국인·기관 순매수 수량
+python3 tools/naver_quote.py daily --stock 005930 --days 120   # 일봉 (수정주가)
 python3 tools/dart.py list --days 3                    # 관심종목 공시
 python3 tools/dart.py fin --stock 005930 --year 2026 --quarter 3
 python3 tools/telegram_send.py --test                  # 텔레그램 연결 테스트

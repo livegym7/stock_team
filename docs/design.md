@@ -8,7 +8,7 @@
 | 팀원 | 데이터 | 하는 일 |
 |---|---|---|
 | 팀장 (메인 세션) | 아래 전체 | 일을 나눠 주고, 결과를 모아 보고서 작성, 텔레그램 전송 |
-| 국내시세 | KIS API (조회만) | 현재가, 등락률, 거래량, 외국인·기관 수급, 52주 고저 |
+| 국내시세 | 네이버 증권 (`naver_quote.py`), KIS는 클라우드 접속 불가 | 현재가, 등락률, 거래량, 외국인·기관 수급, 52주 고저 |
 | 해외시세 | yfinance | 미국 지수·관심종목, 환율, 미 10년물 금리, VIX |
 | 뉴스 | 네이버 뉴스 (PlayMCP) | 종목별 주요 뉴스, 호재·악재 분류 |
 | 공시 | DART | 신규 공시, 중요 공시(실적·증자·최대주주 변동 등) 표시 |
@@ -44,7 +44,17 @@
 - 종목코드 → DART 고유번호 변환표(corpCode.xml)를 하루 한 번 받아 캐시.
 - `list.json`(공시 목록), `fnlttSinglAcnt.json`(주요 재무).
 
-### KIS (한국투자증권) — 예정
+### 네이버 증권 시세 — 사용 중 (`tools/naver_quote.py`, 비공식)
+- 현재가: `polling.finance.naver.com/api/realtime/domestic/stock/코드,코드` (여러 종목 한 번에)
+- 52주·PER·PBR·시총·외국인 소진율: `m.stock.naver.com/api/stock/코드/integration` (여기 거래량은 넥스트레이드 포함 통합값이라 쓰지 않음)
+- 투자자별 순매수(개인·외국인·기관, 수량만): `m.stock.naver.com/api/stock/코드/trend?pageSize=60&bizdate=YYYYMMDD`
+- 일봉: `api.finance.naver.com/siseJson.naver` — 가격 수정주가, 거래량 미수정
+- robots.txt가 수집을 막고 있으므로 관심종목만 최소 호출.
+
+### 토스증권 오픈API — 확인 중
+- API 서버 `openapi.tossinvest.com`, OAuth 2.0 Client Credentials. 상세는 `docs/progress.md` 참고. 조회만 쓴다.
+
+### KIS (한국투자증권) — 클라우드에서 접속 불가 (TLS reset)
 - 실전투자 서버 `openapi.koreainvestment.com:9443`. 클라우드에서 9443 포트 접속 가능한지 먼저 확인.
 - 접근 토큰은 자주 새로 받으면 제한이 걸리므로 `data/cache/`에 저장해 재사용 (24시간 유효).
 - **조회 API만** 구현.
@@ -71,6 +81,11 @@
 ```
 t.me
 finance.naver.com
+stock.naver.com
+m.stock.naver.com
+api.finance.naver.com
+polling.finance.naver.com
+developers.tossinvest.com
 opendart.fss.or.kr
 openapi.koreainvestment.com
 api.telegram.org

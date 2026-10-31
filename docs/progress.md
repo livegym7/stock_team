@@ -7,6 +7,11 @@
 - [x] 환경 변수 5개 등록 (사용자) — 값이 맞는지는 아직 확인 전
 - [x] `tools/tg_channel.py`: 공개 채널 수집·분류·리포트 파싱·중복 표시 — 실제 채널(`ked_epic_ai`) 200개 글로 테스트 완료
 - [x] `tools/telegram_send.py`: 전송, 4000자 넘으면 나눠 보내기 — 나누기 기능만 테스트, 실제 전송은 확인 전
+- [x] `tools/naver_quote.py` (2026-10-31): 네이버 증권으로 국내 시세 조회. `price`/`investor`/`daily`, 출력 형식은 `kis_quote.py`와 같음. 관심종목 2개로 실행 확인
+  - `price`: 현재가·등락·시고저·거래량·거래대금(한국거래소 기준, 넥스트레이드 제외), 52주 고저, PER/PBR(실적 기준 월 표시), 추정 PER, 시총(억원), 외국인 소진율. 현재가는 여러 종목 1번에, 나머지는 종목당 1번
+  - `investor`: 날짜별 **개인·외국인·기관 순매수 수량**(개인 나옴). 금액은 없음. 한 번에 60일, 그 이상은 이어 받기(65일 테스트 OK). 세 값의 합이 0이 아닌 건 기타법인 몫
+  - `daily`: **가격은 수정주가**(삼성전자 2018년 5월 50:1 분할 전 가격이 5만 원대로 나옴), **거래량은 수정 안 된 실제 값**. 거래정지일(가격 0)은 뺌
+  - 주의: 공식 API 아님. 4개 도메인 모두 robots.txt가 자동 수집을 막고 있음 → 관심종목만, 필요할 때만 호출. 응답 형식이 바뀌면 고쳐야 함
 - [x] `tools/dart.py`: 공시 목록 실제 호출 확인 (2026-10-31, 최근 7일 삼성전자 17건·SK하이닉스 11건). 회사 코드표(3.6MB)가 클라우드에서 약 3분 걸려 7일간 캐시하도록 수정. 새 세션 첫 실행은 다시 3분 걸림. `fin`은 아직 실행 전
 
 ## 다음 할 일 (순서대로)
@@ -16,7 +21,12 @@
 2. [x] DART 공시 목록 동작 확인 (`fin`은 다음에 확인)
 3. [ ] KIS 시세 조회 도구 (`tools/kis_quote.py`): 코드 작성 완료(`price`/`investor`/`daily`, 토큰 24시간 캐시), **실행 확인 전**
    - 2026-10-31: 클라우드에서 `openapi.koreainvestment.com`(9443·443), 모의투자 `openapivts...:29443` 모두 프록시 연결은 되지만 TLS 단계에서 KIS 쪽이 끊음(connection reset). 허용 도메인 문제가 아니라 KIS가 해외 클라우드 IP를 받지 않는 것으로 추정
-   - 대안 ① 내 컴퓨터(국내)에서 실행 ② 네이버 증권으로 대체: `finance.naver.com`은 `stock.naver.com`으로 넘어가서, `stock.naver.com`·`m.stock.naver.com`·`api.finance.naver.com` 등을 허용 도메인에 추가해야 함 (사용자 결정 대기)
+   - 대안 ① 내 컴퓨터(국내)에서 실행 ② 네이버 증권으로 대체 → **②로 대체 완료** (`tools/naver_quote.py`)
+3-1. [ ] 토스증권 오픈API (2026-10-31 확인)
+   - 문서(`developers.tossinvest.com/llms.txt`)에서 확인한 것: API 서버 `https://openapi.tossinvest.com`, 실시간 `wss://openapi-ws.tossinvest.com/ws/v1`, 인증은 OAuth 2.0 Client Credentials(키로 접근 토큰 발급 → `Authorization: Bearer`). 국내·미국 시세·호가·체결·캔들(봉), 종목정보, 환율, 장 운영일 제공. 계좌·주문 API도 있지만 **주문은 쓰지 않음**
+   - 확인 못 한 것: 토큰 발급 주소, 현재가·일봉 주소, 투자자별 매매동향 제공 여부(목록에 안 보임), IP 화이트리스트, 호출 제한. 상세 문서가 `openapi.tossinvest.com/openapi-docs/...`에서만 내려오는데 이 도메인이 허용 목록에 없어서(connect_rejected) 못 읽음. 짐작으로 주소를 정하지 않음
+   - 토스 키 환경 변수도 아직 없음
+   - 다음: 사용자가 허용 도메인에 `openapi.tossinvest.com` 추가(실시간 쓰려면 `openapi-ws.tossinvest.com`도) + 키를 환경 변수(예: `TOSS_CLIENT_ID`, `TOSS_CLIENT_SECRET`)로 등록 → 새 세션에서 문서 읽고 토큰·현재가 1회 테스트. 네이버로 충분하면 급하지 않음
 4. [ ] yfinance 도구 (`tools/us_quote.py`)
 5. [ ] 네이버 뉴스: PlayMCP 연결 확인 또는 네이버 검색 API로 대체
 6. [ ] 서브에이전트 정의 (`.claude/agents/`)
