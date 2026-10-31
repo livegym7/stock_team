@@ -14,7 +14,9 @@
    - 봇 토큰 형식: `숫자:영문숫자` (BotFather가 준 값), 채팅 ID: 숫자(그룹이면 `-`로 시작)
    - 2026-10-31 재등록 후 재테스트: 형태는 모두 정상(봇 토큰 46자 `숫자:영문숫자`, 채팅 ID 10자리 숫자, KIS 키 36자·시크릿 180자로 서로 다름, 5개 값 중 겹치는 것 없음). 그러나 전송은 **HTTP 401 Unauthorized** → 봇 토큰 자체가 틀렸거나 재발급(/revoke)으로 무효가 된 값. BotFather에서 현재 토큰을 다시 복사해 넣어야 함
 2. [x] DART 공시 목록 동작 확인 (`fin`은 다음에 확인)
-3. [ ] KIS 시세 조회 도구 (`tools/kis_quote.py`): 9443 포트 접속 확인, 토큰 캐시, 현재가·수급
+3. [ ] KIS 시세 조회 도구 (`tools/kis_quote.py`): 코드 작성 완료(`price`/`investor`/`daily`, 토큰 24시간 캐시), **실행 확인 전**
+   - 2026-10-31: 클라우드에서 `openapi.koreainvestment.com`(9443·443), 모의투자 `openapivts...:29443` 모두 프록시 연결은 되지만 TLS 단계에서 KIS 쪽이 끊음(connection reset). 허용 도메인 문제가 아니라 KIS가 해외 클라우드 IP를 받지 않는 것으로 추정
+   - 대안 ① 내 컴퓨터(국내)에서 실행 ② 네이버 증권으로 대체: `finance.naver.com`은 `stock.naver.com`으로 넘어가서, `stock.naver.com`·`m.stock.naver.com`·`api.finance.naver.com` 등을 허용 도메인에 추가해야 함 (사용자 결정 대기)
 4. [ ] yfinance 도구 (`tools/us_quote.py`)
 5. [ ] 네이버 뉴스: PlayMCP 연결 확인 또는 네이버 검색 API로 대체
 6. [ ] 서브에이전트 정의 (`.claude/agents/`)

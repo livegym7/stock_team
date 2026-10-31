@@ -42,18 +42,19 @@ def require_env(*names):
     return [os.environ[n] for n in names]
 
 
-def http_get(url, params=None, timeout=20):
+def http_get(url, params=None, timeout=20, headers=None):
     if params:
         url = url + "?" + urllib.parse.urlencode(params)
-    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT, **(headers or {})})
     with urllib.request.urlopen(req, timeout=timeout) as resp:
         return resp.read()
 
 
-def http_post_json(url, payload, timeout=20):
+def http_post_json(url, payload, timeout=20, headers=None):
     data = json.dumps(payload).encode("utf-8")
     req = urllib.request.Request(
-        url, data=data, headers={"Content-Type": "application/json", "User-Agent": USER_AGENT}
+        url, data=data,
+        headers={"Content-Type": "application/json", "User-Agent": USER_AGENT, **(headers or {})},
     )
     with urllib.request.urlopen(req, timeout=timeout) as resp:
         return json.loads(resp.read())
