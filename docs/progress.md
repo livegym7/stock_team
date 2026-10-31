@@ -12,6 +12,7 @@
 ## 다음 할 일 (순서대로)
 1. [ ] **텔레그램 키 다시 등록 (사용자)**: 2026-10-31 테스트 실패(HTTP 404). `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`, `KIS_APP_KEY`, `KIS_APP_SECRET` 4개가 모두 똑같은 36자 값으로 들어가 있음 → 각자 맞는 값으로 다시 넣고 새 세션에서 `python3 tools/telegram_send.py --test`
    - 봇 토큰 형식: `숫자:영문숫자` (BotFather가 준 값), 채팅 ID: 숫자(그룹이면 `-`로 시작)
+   - 2026-10-31 재등록 후 재테스트: 형태는 모두 정상(봇 토큰 46자 `숫자:영문숫자`, 채팅 ID 10자리 숫자, KIS 키 36자·시크릿 180자로 서로 다름, 5개 값 중 겹치는 것 없음). 그러나 전송은 **HTTP 401 Unauthorized** → 봇 토큰 자체가 틀렸거나 재발급(/revoke)으로 무효가 된 값. BotFather에서 현재 토큰을 다시 복사해 넣어야 함
 2. [x] DART 공시 목록 동작 확인 (`fin`은 다음에 확인)
 3. [ ] KIS 시세 조회 도구 (`tools/kis_quote.py`): 9443 포트 접속 확인, 토큰 캐시, 현재가·수급
 4. [ ] yfinance 도구 (`tools/us_quote.py`)
