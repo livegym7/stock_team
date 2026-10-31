@@ -8,7 +8,7 @@
 | 팀원 | 데이터 | 하는 일 |
 |---|---|---|
 | 팀장 (메인 세션) | 아래 전체 | 일을 나눠 주고, 결과를 모아 보고서 작성, 텔레그램 전송 |
-| 국내시세 | 네이버 증권 (`naver_quote.py`), KIS는 클라우드 접속 불가 | 현재가, 등락률, 거래량, 외국인·기관 수급, 52주 고저 |
+| 국내시세 | 네이버 증권 (`naver_quote.py`), KIS·토스는 클라우드 접속 불가 | 현재가, 등락률, 거래량, 외국인·기관 수급, 52주 고저 |
 | 해외시세 | yfinance | 미국 지수·관심종목, 환율, 미 10년물 금리, VIX |
 | 뉴스 | 네이버 뉴스 (PlayMCP) | 종목별 주요 뉴스, 호재·악재 분류 |
 | 공시 | DART | 신규 공시, 중요 공시(실적·증자·최대주주 변동 등) 표시 |
@@ -51,8 +51,13 @@
 - 일봉: `api.finance.naver.com/siseJson.naver` — 가격 수정주가, 거래량 미수정
 - robots.txt가 수집을 막고 있으므로 관심종목만 최소 호출.
 
-### 토스증권 오픈API — 확인 중
-- API 서버 `openapi.tossinvest.com`, OAuth 2.0 Client Credentials. 상세는 `docs/progress.md` 참고. 조회만 쓴다.
+### 토스증권 오픈API — 도구 작성, 클라우드에서는 허용 IP 때문에 막힘 (`tools/toss_quote.py`)
+- 문서: `openapi.tossinvest.com/openapi-docs/overview.md`, `faq.md`, `latest/openapi.json`(정답 기준).
+- 토큰: `POST /oauth2/token` (form 형식, client credentials). 24시간 유효, 클라이언트당 1개만 유효 → `data/cache/toss_token.json`에 저장해 재사용.
+- 현재가 `GET /api/v1/prices?symbols=a,b` (가격·시각만), 일봉 `GET /api/v1/candles?symbol=&interval=1d&count=200&before=`, 투자자별 매매동향 `GET /api/v1/stocks/{종목}/investor-trading?count=100&until=` (수량만).
+- 국내 시세는 KRX+NXT 통합. 52주·PER·PBR·시총은 없음 → 네이버.
+- **허용 IP 등록 필수** (WTS 설정 > Open API > 허용 IP 관리). 클라우드 세션은 IP가 고정이 아니라 403. 고정 IP 컴퓨터에서 쓸 때만 의미 있음.
+- 받은 데이터는 본인 투자 목적에만 쓰고 제3자 배포 금지(토스 이용 정책). 시세 조회만 쓰고 계좌·주문 API는 쓰지 않는다.
 
 ### KIS (한국투자증권) — 클라우드에서 접속 불가 (TLS reset)
 - 실전투자 서버 `openapi.koreainvestment.com:9443`. 클라우드에서 9443 포트 접속 가능한지 먼저 확인.
@@ -86,6 +91,8 @@ m.stock.naver.com
 api.finance.naver.com
 polling.finance.naver.com
 developers.tossinvest.com
+openapi.tossinvest.com
+corp.tossinvest.com
 opendart.fss.or.kr
 openapi.koreainvestment.com
 api.telegram.org

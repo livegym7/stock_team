@@ -21,6 +21,7 @@
 | `DART_API_KEY` | DART 전자공시 |
 | `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID` | 텔레그램 알림 |
 | `KIS_APP_KEY`, `KIS_APP_SECRET` | 한국투자증권 시세 조회 |
+| `TOSS_CLIENT_ID`, `TOSS_CLIENT_SECRET` | 토스증권 시세 조회 (허용 IP 등록된 곳에서만 동작) |
 
 환경 변수는 새 세션을 열어야 적용된다. 없으면 도구가 어떤 이름이 빠졌는지 알려주고 종료한다.
 
@@ -32,6 +33,7 @@ python3 tools/tg_channel.py show --hours 24 --type research   # 리서치 요약
 python3 tools/naver_quote.py price                     # 관심종목 현재가·52주·PER/PBR·시총 (네이버, 비공식)
 python3 tools/naver_quote.py investor --days 5         # 개인·외국인·기관 순매수 수량
 python3 tools/naver_quote.py daily --stock 005930 --days 120   # 일봉 (수정주가)
+python3 tools/toss_quote.py price                      # 토스증권 시세 (허용 IP 필요, 클라우드에선 403)
 python3 tools/dart.py list --days 3                    # 관심종목 공시
 python3 tools/dart.py fin --stock 005930 --year 2026 --quarter 3
 python3 tools/telegram_send.py --test                  # 텔레그램 연결 테스트

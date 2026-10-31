@@ -22,11 +22,14 @@
 3. [ ] KIS 시세 조회 도구 (`tools/kis_quote.py`): 코드 작성 완료(`price`/`investor`/`daily`, 토큰 24시간 캐시), **실행 확인 전**
    - 2026-10-31: 클라우드에서 `openapi.koreainvestment.com`(9443·443), 모의투자 `openapivts...:29443` 모두 프록시 연결은 되지만 TLS 단계에서 KIS 쪽이 끊음(connection reset). 허용 도메인 문제가 아니라 KIS가 해외 클라우드 IP를 받지 않는 것으로 추정
    - 대안 ① 내 컴퓨터(국내)에서 실행 ② 네이버 증권으로 대체 → **②로 대체 완료** (`tools/naver_quote.py`)
-3-1. [ ] 토스증권 오픈API (2026-10-31 확인)
-   - 문서(`developers.tossinvest.com/llms.txt`)에서 확인한 것: API 서버 `https://openapi.tossinvest.com`, 실시간 `wss://openapi-ws.tossinvest.com/ws/v1`, 인증은 OAuth 2.0 Client Credentials(키로 접근 토큰 발급 → `Authorization: Bearer`). 국내·미국 시세·호가·체결·캔들(봉), 종목정보, 환율, 장 운영일 제공. 계좌·주문 API도 있지만 **주문은 쓰지 않음**
-   - 확인 못 한 것: 토큰 발급 주소, 현재가·일봉 주소, 투자자별 매매동향 제공 여부(목록에 안 보임), IP 화이트리스트, 호출 제한. 상세 문서가 `openapi.tossinvest.com/openapi-docs/...`에서만 내려오는데 이 도메인이 허용 목록에 없어서(connect_rejected) 못 읽음. 짐작으로 주소를 정하지 않음
-   - 토스 키 환경 변수도 아직 없음
-   - 다음: 사용자가 허용 도메인에 `openapi.tossinvest.com` 추가(실시간 쓰려면 `openapi-ws.tossinvest.com`도) + 키를 환경 변수(예: `TOSS_CLIENT_ID`, `TOSS_CLIENT_SECRET`)로 등록 → 새 세션에서 문서 읽고 토큰·현재가 1회 테스트. 네이버로 충분하면 급하지 않음
+3-1. [ ] 토스증권 오픈API — **문서 확인·도구 작성 완료, 허용 IP 때문에 클라우드에서 실행 불가** (2026-10-31)
+   - 환경 변수 `TOSS_CLIENT_ID`, `TOSS_CLIENT_SECRET` 등록 확인(이름만 확인, 값은 안 봄)
+   - 문서 확인(openapi.json v1.2.28 기준): 서버 `https://openapi.tossinvest.com`, 토큰 `POST /oauth2/token`(form 형식, `grant_type=client_credentials`·`client_id`·`client_secret`), **24시간 유효, 클라이언트당 토큰 1개**(새로 받으면 이전 것 무효). 현재가 `GET /api/v1/prices?symbols=`(최대 200종목), 일봉 `GET /api/v1/candles?interval=1d`(한 번 200개, 수정주가 기본), **투자자별 매매동향 있음** `GET /api/v1/stocks/{종목}/investor-trading`(개인·외국인·기관·기타법인 순매수 수량, 기관 7개 세부, 외국인 지분율. 금액 없음). 호출 제한: 시세 초당 15회, 캔들 20회, 매매동향 10회, 토큰 5회
+   - 토스에 없는 것: 52주 고저, PER/PBR, 시가총액, 공식 등락률(현재가 API는 가격·시각만 줌) → 네이버 도구로
+   - 국내 시세는 KRX+NXT(넥스트레이드) **통합값**, 외국인은 **등록외국인** 기준 → 네이버(KRX만)와 숫자가 조금 다를 수 있음
+   - **접속 테스트 결과: HTTP 403 `access_denied` "IP address not allowed"**. 도메인 허용은 정상(서버가 답함), 토스가 **허용 IP 목록**에 없는 곳의 호출을 막은 것. 토스 FAQ: 클라우드처럼 IP가 바뀌는 환경은 등록해도 막힘, 고정 IP 필요. 키 값이 맞는지는 IP 단계에서 막혀 확인 못 함
+   - `tools/toss_quote.py` 작성(`price`/`investor`/`daily`, 토큰 `data/cache/toss_token.json` 24시간 재사용, 권한 600). 문서의 예시 응답으로 해석 부분만 확인, **실제 호출 확인 전**. 네이버와 숫자 비교도 아직
+   - 다음(선택): ① 고정 IP가 있는 내 컴퓨터에서 실행하고 그 IP를 WTS 설정 > Open API > 허용 IP 관리에 등록 ② 지금처럼 네이버 도구 사용(현재 충분함)
 4. [ ] yfinance 도구 (`tools/us_quote.py`)
 5. [ ] 네이버 뉴스: PlayMCP 연결 확인 또는 네이버 검색 API로 대체
 6. [ ] 서브에이전트 정의 (`.claude/agents/`)
