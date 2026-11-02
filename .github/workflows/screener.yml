@@ -1,0 +1,31 @@
+# 매일 장마감 뒤 감시 목록 만들기 → 텔레그램 전송
+# 비밀 값(저장소 설정 > 비밀과 변수 > Actions): TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID
+name: 감시 목록 (저녁)
+
+on:
+  schedule:
+    - cron: "10 7 * * 1-5"   # 평일 16:10 한국시간 (UTC 07:10). 깃허브 사정으로 몇 분~수십 분 늦을 수 있음
+  workflow_dispatch:          # Actions 화면에서 직접 실행 버튼
+
+jobs:
+  screener:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: 감시 목록 만들고 텔레그램 전송
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          TZ: Asia/Seoul
+        run: python tools/screener.py --send
+      - name: 결과 파일 보관 (14일)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: screener-${{ github.run_id }}
+          path: data/bus/
+          retention-days: 14
