@@ -1,13 +1,11 @@
-# 관심종목 목록
-# 종목을 추가하려면 아래 [[stocks]] 블록을 복사해서 이름과 코드만 바꾸세요.
+# 관심종목 목록 (보유하지 않았지만 지켜볼 종목)
+# 종목을 추가하려면 아래 예시 블록의 # 을 지우고 이름과 코드만 바꾸세요.
 # market: KR = 국내, US = 해외(미국)
+# 보유 종목은 config/positions.toml에 적습니다 (여기 다시 적지 않아도 자동으로 포함).
+#
+# [[stocks]]
+# name = "삼성전기"
+# code = "009150"
+# market = "KR"
 
-[[stocks]]
-name = "삼성전자"
-code = "005930"
-market = "KR"
-
-[[stocks]]
-name = "SK하이닉스"
-code = "000660"
-market = "KR"
+stocks = []

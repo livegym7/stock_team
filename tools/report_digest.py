@@ -6,7 +6,7 @@
 기간 안 리포트·채널 글·공시·차트 상태를 붙인다.
 
 사용법:
-    python3 tools/report_digest.py                 # 기간 자동: 오전 실행 = 직전 평일 14:45~지금, 오후 = 오늘 09:45~지금
+    python3 tools/report_digest.py                 # 기간 자동: 오전 실행 = 직전 평일 15:00~지금, 오후 = 오늘 06:00~지금
     python3 tools/report_digest.py --since "2026-11-02 10:00"
     python3 tools/report_digest.py --collect       # 채널 새 글부터 모으고
 
@@ -20,7 +20,7 @@ import time
 from collections import defaultdict
 from datetime import datetime, timedelta
 
-from common import DATA, http_get, load_toml, watchlist
+from common import DATA, http_get, positions, watchlist
 from naver_quote import KST
 
 POLLING = "https://polling.finance.naver.com/api/realtime/domestic/stock/"
@@ -28,20 +28,13 @@ TITLE_Q = re.compile(r'\|\s*[^|]+\|\s*"([^"]+)"')
 
 
 def default_since(now):
-    """예약 실행(평일 09:53·14:53)과 맞물리도록 앞 실행 직전부터 잡아 빈틈이 없게 한다 (몇 분 겹침)."""
-    if now.hour < 12:  # 오전 실행: 직전 평일 14:45부터
+    """오전 실행 = 직전 평일 15:00부터, 오후 실행 = 오늘 06:00부터 (사용자 지정 2026-11-02)."""
+    if now.hour < 12:
         d = now - timedelta(days=1)
         while d.weekday() >= 5:
             d -= timedelta(days=1)
-        return d.replace(hour=14, minute=45, second=0, microsecond=0)
-    return now.replace(hour=9, minute=45, second=0, microsecond=0)
-
-
-def positions():
-    try:
-        return load_toml("positions.toml").get("positions", [])
-    except FileNotFoundError:
-        return []
+        return d.replace(hour=15, minute=0, second=0, microsecond=0)
+    return now.replace(hour=6, minute=0, second=0, microsecond=0)
 
 
 def points(text):
@@ -165,7 +158,7 @@ def main():
     mine = [{"name": x["name"], "code": x["code"], "kind": "보유", "qty": x.get("qty"), "avg_price": x.get("avg_price"),
              "stop": x.get("stop")} for x in positions()]
     held = {m["code"] for m in mine}
-    mine += [{"name": s["name"], "code": s["code"], "kind": "관심"} for s in watchlist("KR") if s["code"] not in held]
+    mine += [{"name": s["name"], "code": s["code"], "kind": "관심"} for s in watchlist("KR") if s["code"] not in held and not s.get("held")]
 
     px = live_prices([uni[n]["code"] for n, _ in top if n in uni] + [m["code"] for m in mine])
 
@@ -188,6 +181,12 @@ def main():
         name = m["name"]
         it = stock_item(name, by_stock.get(name, []))
         it.update({k: v for k, v in m.items() if k not in ("name", "code")})
+        if m["kind"] == "보유" and it.get("price") and m.get("avg_price") and m.get("qty"):
+            it["pnl_won"] = round((it["price"] - m["avg_price"]) * m["qty"])
+            it["pnl_pct"] = round((it["price"] / m["avg_price"] - 1) * 100, 2)
+            it["value_won"] = round(it["price"] * m["qty"])
+            if m.get("stop"):
+                it["to_stop_pct"] = round((m["stop"] / it["price"] - 1) * 100, 1)
         it["month_reports"] = month.get(name, [])[-6:]
         it["channel_posts"] = [{"time": x["time"][:16].replace("T", " "), "channel": x["channel"], "type": t.CATEGORIES[x["type"]],
                                 "text": re.sub(r"https?://\S+", "", x["text"])[:300], "url": x["url"]}

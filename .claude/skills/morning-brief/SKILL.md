@@ -1,25 +1,26 @@
 ---
 name: morning-brief
-description: 장전 아침 브리핑. 관심종목 신규 공시, 전날 텔레그램 채널 리포트 요약(목표가 변경), 국내·해외 시세, 뉴스, 검증 코멘트를 모아 reports/YYYY-MM-DD/morning.md로 저장하고 텔레그램으로 보낸다. 사용자가 /morning-brief 를 입력하거나 "아침 브리핑" "장전 브리핑"을 요청할 때 쓴다.
+description: 장전 아침 브리핑(평일 07시 예약 실행). 보유·관심종목 신규 공시와 평가손익, 전날 텔레그램 채널 리포트 요약(목표가 변경), 국내·해외 시세, 뉴스, 검증 코멘트를 모아 reports/YYYY-MM-DD/morning.md로 저장하고 텔레그램으로 보낸다. 사용자가 /morning-brief 를 입력하거나 "아침 브리핑" "장전 브리핑"을 요청할 때 쓴다.
 ---
 
 # /morning-brief — 장전 아침 브리핑
 
-평일 08:20(한국시간) 전후에 실행하는 것을 기준으로 한다. 주말·휴일에 실행하면 "직전 거래일 기준"이라고 맨 위에 적는다.
+평일 07:00(한국시간) 전후에 실행하는 것을 기준으로 한다(미국장 마감 직후, 국내 장 시작 2시간 전). 주말·휴일에 실행하면 "직전 거래일 기준"이라고 맨 위에 적는다.
 
 ## 1. 데이터 모으기 (저장소 루트에서, 결과는 스크래치패드나 data/cache/에 임시 저장)
 ```bash
-python3 tools/dart.py list --days 3                      # 관심종목 공시 (새 세션 첫 실행은 코드표 때문에 약 3분 → 맨 먼저 백그라운드로)
+python3 tools/dart.py list --days 3                      # 보유·관심종목 공시 (새 세션 첫 실행은 코드표 때문에 약 3분 → 맨 먼저 백그라운드로)
 python3 tools/tg_channel.py collect                      # 채널 새 글 수집
 python3 tools/tg_channel.py summary --hours 30              # 채널별·분류별 글 수, 여러 채널이 다룬 소식
 python3 tools/tg_channel.py show --hours 30 --type report      # 리포트 (목표가 변경)
 python3 tools/tg_channel.py show --hours 30 --type macro       # 매크로 (policy·earnings·company도 같은 방식)
-python3 tools/tg_channel.py show --hours 30 --watchlist  # 관심종목 언급 글
+python3 tools/tg_channel.py show --hours 30 --watchlist  # 보유·관심종목 언급 글
 python3 tools/naver_quote.py index                       # 코스피·코스닥
-python3 tools/naver_quote.py price                       # 관심종목 종가·52주·PER/PBR
+python3 tools/naver_quote.py price                       # 보유·관심종목 종가·52주·PER/PBR
+cat config/positions.toml                                # 보유 수량·평균가 → 평가손익 계산
 python3 tools/naver_quote.py investor --days 5           # 개인·외국인·기관 순매수 수량
 python3 tools/us_quote.py price                          # 미국 지수·반도체·환율·10년물·VIX·관심종목(US)
-python3 tools/news.py stock --hours 18                   # 관심종목 뉴스 (네이버)
+python3 tools/news.py stock --hours 18                   # 보유·관심종목 뉴스 (네이버)
 python3 tools/news.py search --query "뉴욕증시" --hours 18   # 간밤 미국장 뉴스 (구글 뉴스)
 ```
 도구 하나가 실패해도 멈추지 말고, 그 칸에 "조회 실패(이유)"라고 적고 나머지로 브리핑을 만든다.
@@ -37,13 +38,14 @@ python3 tools/news.py search --query "뉴욕증시" --hours 18   # 간밤 미국
 
 2) 국내 직전 거래일  (출처: 네이버 증권, KRX 종가 MM/DD)
 - 코스피 x (±%), 코스닥 x (±%)
-- 종목별: 종가 (±%), 52주 고가 대비 위치, 외국인·기관 순매수 수량 (최근 1일 / 5일 합)
+- 보유 종목: 종가 (±%), 수량·평균가·평가손익(원, %), 손절가 있으면 거리, 52주 고가 대비 위치, 외국인·기관 순매수 수량 (최근 1일 / 5일 합)
+- 관심종목: 종가 (±%), 52주 고가 대비, 수급
 
 3) 신규 공시  (출처: DART, 접수일)
 - 없으면 "없음". 중요 공시(important=true)는 ⚠️ 표시
 
 4) 리포트·목표가 변경  (출처: 채널 요약 — 2차 자료, 원문 미확인)
-- 관심종목 리포트는 증권사·이전→변경 목표가·핵심 근거 1줄
+- 보유·관심종목 리포트는 증권사·이전→변경 목표가·핵심 근거 1줄 (자세한 리포트 정리는 10시 /report-brief가 맡으므로 여기선 짧게)
 - 전체 흐름: 상향 n건 / 하향 n건, 많이 하향된 업종·종목 몇 개 (중복 글은 도구가 이미 뺌)
 - 매크로·정책 핵심 2~3줄, 여러 채널이 다룬 소식(also_in) 우선. 분류가 틀린 글은 맞는 칸으로 옮겨 쓴다. '기타'는 쓰지 않는다
 

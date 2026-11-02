@@ -22,8 +22,19 @@ def load_toml(name):
         return tomllib.load(f)
 
 
+def positions():
+    """보유 종목 (config/positions.toml). 파일이 없으면 빈 목록."""
+    try:
+        return load_toml("positions.toml").get("positions", [])
+    except FileNotFoundError:
+        return []
+
+
 def watchlist(market=None):
-    stocks = load_toml("watchlist.toml").get("stocks", [])
+    """지켜볼 종목 = 보유 종목(국내로 간주) + 관심종목(config/watchlist.toml). 같은 종목은 한 번만."""
+    stocks = [{"name": p["name"], "code": p["code"], "market": p.get("market", "KR"), "held": True} for p in positions()]
+    seen = {s["code"] for s in stocks}
+    stocks += [s for s in load_toml("watchlist.toml").get("stocks", []) if s["code"] not in seen]
     if market:
         stocks = [s for s in stocks if s.get("market") == market]
     return stocks

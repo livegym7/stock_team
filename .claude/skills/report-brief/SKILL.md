@@ -7,7 +7,7 @@ description: 리포트 채널 브리핑 (평일 09:53·14:53 예약 실행). 증
 
 ## 1. 재료 모으기 (저장소 루트에서)
 ```bash
-python3 tools/report_digest.py --collect > /tmp/digest.json   # 기간 자동: 오전 = 직전 평일 14:45~지금, 오후 = 오늘 09:45~지금
+python3 tools/report_digest.py --collect > /tmp/digest.json   # 기간 자동: 오전 = 직전 평일 15:00~지금, 오후 = 오늘 06:00~지금
 ```
 - `main_stocks`(리포트 많은 순), `sectors`, `my_stocks`(보유 → 관심), `totals`, `window`를 읽는다.
 - `card_missing: true`인 주요 종목 상위 5개는 기업 카드를 만들어 `data/companies.json`에 추가한다 (`/company-card` 규칙: 웹 검색·공시로 사업 한 줄, `config/sector_taxonomy.toml` 안의 세부 섹터). 추가했으면 도구를 한 번 더 돌려 섹터 집계에 반영한다.
@@ -35,7 +35,7 @@ python3 tools/report_digest.py --collect > /tmp/digest.json   # 기간 자동: �
 그 밖에: 나머지 종목 한 줄씩
 
 💼 내 종목 (보유 먼저, 그다음 관심)
-[보유|관심] 종목 · 현재가(등락) [보유면 평균가·손익·손절가까지 거리]
+[보유|관심] 종목 · 현재가(등락) [보유면 수량·평균가·평가손익(원, %)·손절가까지 거리(손절가 있으면)]
  · 이번 기간 리포트 / 1개월 흐름과 최근 근거(상향·하향 각각)
  · 채널 글 요약(기업·실적·시황에서 이 종목 관련만)
  · 공시(3일, ⚠️ 중요 표시)
