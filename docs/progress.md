@@ -80,5 +80,7 @@
   - 한계: 셋업 판정은 근사(특히 컵 앤 핸들·VCP). 테마주 제외는 아직 자동 아님. RS는 시총 2,000억↑ 종목 안에서의 순위
 - GitHub Actions `.github/workflows/screener.yml`: 평일 16:10 자동 실행 + 텔레그램 전송, 수동 실행 버튼. 비밀 값 TELEGRAM_BOT_TOKEN·TELEGRAM_CHAT_ID 등록 완료(사용자)
 
+- 텔레그램 감시 목록을 **표 그림**으로 변경 (사용자 요청: 글 위주라 보기 힘듦): `screener.py`가 `reports/날짜/watchlist.html` → 크롬 캡처로 `watchlist.png` → `telegram_send.send_photo` + 짧은 설명. 크롬이 없으면 글로 보냄. 새 도구 `tools/render.py`(HTML→PNG), `telegram_send.py --photo`. 워크플로에 한글 글꼴(fonts-noto-cjk) 설치 추가
+
 ## 참고
 - `.claude/settings.json`(자주 쓰는 명령 자동 허용 설정)은 첫 세션에서 자동 생성이 막혀 아직 만들지 않음. 필요하면 사용자 확인 후 추가.

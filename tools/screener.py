@@ -308,6 +308,98 @@ def grade(it):
     return None
 
 
+SETUP_NAMES = {"A": "박스", "B": "컵핸들", "C": "VCP", "D": "HTF", "E": "신고가", "F": "로우치트", "G": "포켓피봇", "H": "이벤트"}
+CSS = """
+*{box-sizing:border-box} body{margin:0;background:#fff;color:#1b1f24;font-family:'Noto Sans CJK KR','Noto Sans KR','WenQuanYi Zen Hei',sans-serif;font-size:15px;width:%dpx}
+.wrap{padding:18px 20px} h1{font-size:21px;margin:0 0 4px} .sub{color:#6b7280;font-size:13px}
+.funnel{display:flex;gap:6px;margin:10px 0 4px;font-size:13px} .funnel span{background:#f1f3f6;border-radius:999px;padding:3px 10px} .funnel b{color:#d62728}
+h2{font-size:16px;margin:18px 0 6px} table{width:100%%;border-collapse:collapse}
+th{font-size:12px;color:#6b7280;font-weight:normal;text-align:right;padding:5px 6px;border-bottom:2px solid #e5e7eb;white-space:nowrap}
+th:first-child,th.l{text-align:left} td{padding:7px 6px;border-bottom:1px solid #eef0f3;text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+td.l{text-align:left} .nm{font-weight:700} .sec{display:block;font-size:11px;color:#6b7280;max-width:230px;overflow:hidden;text-overflow:ellipsis}
+.pill{font-size:12px;padding:2px 8px;border-radius:999px;background:#f1f3f6} .sig{background:#fde8e8;color:#d62728;font-weight:700} .near{background:#fff3e0;color:#b45309;font-weight:700}
+tr.hot td{background:#fff8f0} .bar{display:inline-block;width:60px;height:7px;background:#eef0f3;border-radius:4px;vertical-align:middle;margin-left:6px;overflow:hidden} .bar i{display:block;height:7px;background:#e8833a}
+.st{display:inline-block;font-size:11px;border:1px solid #cbd5e1;border-radius:4px;padding:0 4px;margin-left:2px} .up{color:#d62728} .dn{color:#1f5fbf}
+.legend{margin-top:14px;font-size:12px;color:#6b7280;line-height:1.7} .foot{margin-top:8px;font-size:11px;color:#9aa3ad}
+"""
+
+
+def _pill(r):
+    g = grade(r)
+    if g == "✅":
+        return '<span class="pill sig">✅ 신호</span>'
+    lv = r.get("levels") or {}
+    if lv and r["close"] >= lv["alert"]:
+        return '<span class="pill near">👀 임박</span>'
+    return '<span class="pill">대기</span>'
+
+
+def render_html(results, as_of, width=900):
+    watch = sorted((r for r in results if r["gate_pass"] and (r["setups"] or r["today"]) and r.get("levels")),
+                   key=lambda r: r["levels"]["distance_pct"])
+    running = sorted((r for r in results if r["gate_pass"] and r["stage"] == "1stage 진행 중"), key=lambda r: -(r["rs"] or 0))
+    near = sorted((r for r in results if r["gate_score"] == 6 and not r["gate_pass"]), key=lambda r: -(r["rs"] or 0))
+    d = f"{as_of[:4]}-{as_of[4:6]}-{as_of[6:]}"
+    h = [f"<!doctype html><meta charset='utf-8'><style>{CSS % width}</style><div class='wrap'>",
+         f"<h1>📋 감시 목록</h1><div class='sub'>{d} 종가 기준 · 출처: 네이버 증권 일봉(수정주가) · 시총 2,000억↑</div>",
+         f"<div class='funnel'><span>훑은 종목 {len(results):,}</span><span>→ 관문 통과 <b>{sum(r['gate_pass'] for r in results)}</b></span>"
+         f"<span>→ 셋업 <b>{len(watch)}</b></span><span>1stage 진행 중 <b>{len(running)}</b></span></div>"]
+    rows_n = 0
+    if watch:
+        h.append("<h2>📍 내일 알림 걸 가격 <span class='sub'>(기준가 가까운 순)</span></h2><table><tr><th>상태</th><th class='l'>종목 · 섹터</th>"
+                 "<th>현재가</th><th>알림가</th><th>기준가</th><th>남은 거리</th><th>1R 손절</th><th class='l'>셋업</th><th>RS</th></tr>")
+        for r in watch[:20]:
+            lv = r["levels"]
+            dist = lv["distance_pct"]
+            fill = max(0, min(100, 100 - dist * 4))  # 0%면 꽉 참, 25% 이상이면 빈 막대
+            setups = "".join(f"<span class='st'>{x} {SETUP_NAMES[x]}</span>" for x in r["setups"])
+            setups += "".join(f"<span class='st up'>오늘 {SETUP_NAMES.get(x, x)}</span>" for x in r["today"])
+            hot = " class='hot'" if grade(r) == "✅" or r["close"] >= lv["alert"] else ""
+            h.append(f"<tr{hot}><td class='l'>{_pill(r)}</td><td class='l'><span class='nm'>{r['stock']}</span><span class='sec'>{r['sector']}</span></td>"
+                     f"<td>{r['close']:,.0f}</td><td>{lv['alert']:,}</td><td><b>{lv['breakout']:,}</b></td>"
+                     f"<td>{'+' if dist >= 0 else ''}{dist}%<span class='bar'><i style='width:{fill:.0f}%'></i></span></td>"
+                     f"<td class='dn'>{lv['stop_1r']:,}</td><td class='l'>{setups or '-'}</td><td>{r['rs']}</td></tr>")
+            rows_n += 1
+        h.append("</table>")
+    else:
+        h.append("<h2>📍 내일 알림 걸 가격</h2><div class='sub'>관문을 모두 통과한 셋업 종목이 없습니다.</div>")
+    if running:
+        h.append("<h2>🚀 1stage 진행 중 <span class='sub'>(신고가 행진 · 조정에 들어가면 감시 대상)</span></h2><table>"
+                 "<tr><th class='l'>종목 · 섹터</th><th>현재가</th><th>1년 저점 대비</th><th>고점 대비</th><th>거래대금(20일)</th><th>RS</th></tr>")
+        for r in running[:10]:
+            h.append(f"<tr><td class='l'><span class='nm'>{r['stock']}</span><span class='sec'>{r['sector']}</span></td><td>{r['close']:,.0f}</td>"
+                     f"<td class='up'>+{r.get('run_pct') or 0}%</td><td>{r['off_high_pct']}%</td><td>{r['value20_eok']:,}억</td><td>{r['rs']}</td></tr>")
+            rows_n += 1
+        h.append("</table>")
+    if near:
+        h.append("<h2>🔸 관문 1개 부족 <span class='sub'>(RS 순, 상위 8)</span></h2><table><tr><th class='l'>종목 · 섹터</th><th>현재가</th><th class='l'>부족한 조건</th><th>RS</th></tr>")
+        for r in near[:8]:
+            miss = ", ".join(k for k, ok in r["checks"].items() if not ok)
+            h.append(f"<tr><td class='l'><span class='nm'>{r['stock']}</span><span class='sec'>{r['sector']}</span></td><td>{r['close']:,.0f}</td>"
+                     f"<td class='l'>{miss}</td><td>{r['rs']}</td></tr>")
+            rows_n += 1
+        h.append("</table>")
+    h.append("<div class='legend'>셋업: A 박스·깃발 · B 컵앤핸들 · C VCP · D HTF · E 신고가 대기 · F 로우치트 · G 포켓피봇 · H 거래량 터진 장대양봉<br>"
+             "알림가 = 기준가 -2% · 1R 손절 = 기준가 -7% · RS = 시총 2,000억↑ 종목 중 시장 대비 강도 순위(99가 최고)</div>"
+             "<div class='foot'>규칙 대입 결과이며 매수·매도 추천이 아닙니다. 차트를 직접 확인하고 판단은 본인이 합니다.</div></div>")
+    sections = sum(1 for x in (watch, running, near) if x)
+    height = 150 + sections * 75 + rows_n * 47 + 110
+    return "\n".join(h), height
+
+
+def caption(results, as_of):
+    watch = sorted((r for r in results if r["gate_pass"] and (r["setups"] or r["today"]) and r.get("levels")),
+                   key=lambda r: r["levels"]["distance_pct"])
+    sig = [r for r in watch if grade(r) == "✅"]
+    lines = [f"📋 감시 목록 ({as_of[4:6]}/{as_of[6:]} 종가) · 셋업 {len(watch)}개"]
+    if sig:
+        lines.append("✅ 오늘 신호: " + ", ".join(r["stock"] for r in sig))
+    if watch:
+        lines.append("기준가 가까운 순: " + ", ".join(f"{r['stock']}(+{r['levels']['distance_pct']}%)" for r in watch[:3]))
+    lines.append("※ 추천 아님, 판단은 본인")
+    return "\n".join(lines)
+
+
 def message(results, as_of):
     watch = [r for r in results if r["gate_pass"] and (r["setups"] or r["today"])]
     watch.sort(key=lambda r: (r.get("levels") or {}).get("distance_pct", 99))
@@ -375,9 +467,20 @@ def main():
     msg = message(results, as_of)
     print(msg)
     print(f"\n[{len(results)}종목, {time.time() - t0:.0f}초, 저장: {(out_dir / 'screener.json').relative_to(ROOT)}]", file=sys.stderr)
+    rep_dir = ROOT / "reports" / datetime.now(KST).strftime("%Y-%m-%d")
+    rep_dir.mkdir(parents=True, exist_ok=True)
+    html, height = render_html(results, as_of)
+    (rep_dir / "watchlist.html").write_text(html, encoding="utf-8")
+    from render import html_to_png
+    png = rep_dir / "watchlist.png"
+    ok = html_to_png(rep_dir / "watchlist.html", png, 900, height)
+    print(f"[표 그림: {png.relative_to(ROOT) if ok else '만들지 못함 (크롬 없음) → 글로 보냄'}]", file=sys.stderr)
     if a.send:
-        from telegram_send import send
-        send(msg)
+        from telegram_send import send, send_photo
+        if ok:
+            send_photo(png, caption(results, as_of))
+        else:
+            send(msg)
 
 
 if __name__ == "__main__":

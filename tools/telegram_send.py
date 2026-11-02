@@ -4,12 +4,17 @@
     python3 tools/telegram_send.py "보낼 내용"
     python3 tools/telegram_send.py --file reports/2026-11-02/morning.md
     python3 tools/telegram_send.py --test        # 연결 테스트 메시지
+    python3 tools/telegram_send.py --photo 그림.png --caption "설명"   # 그림 보내기
 
 필요한 환경 변수: TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID
 """
 import argparse
+import json
 import sys
 import urllib.error
+import urllib.request
+import uuid
+from pathlib import Path
 
 from common import http_post_json, require_env
 
@@ -52,13 +57,40 @@ def send(text):
     print(f"전송 완료: {len(chunks)}개 메시지")
 
 
+def send_photo(path, caption=""):
+    """그림 1장을 보낸다 (설명은 1,024자까지). 표준 라이브러리로 multipart 요청을 직접 만든다."""
+    token, chat_id = require_env("TELEGRAM_BOT_TOKEN", "TELEGRAM_CHAT_ID")
+    boundary = uuid.uuid4().hex
+    parts = []
+    for k, v in (("chat_id", chat_id), ("caption", caption[:1024])):
+        parts.append(f'--{boundary}\r\nContent-Disposition: form-data; name="{k}"\r\n\r\n{v}\r\n'.encode())
+    parts.append(f'--{boundary}\r\nContent-Disposition: form-data; name="photo"; filename="{Path(path).name}"\r\n'
+                 f"Content-Type: image/png\r\n\r\n".encode() + Path(path).read_bytes() + b"\r\n")
+    parts.append(f"--{boundary}--\r\n".encode())
+    req = urllib.request.Request(f"https://api.telegram.org/bot{token}/sendPhoto", data=b"".join(parts),
+                                 headers={"Content-Type": f"multipart/form-data; boundary={boundary}"})
+    try:
+        with urllib.request.urlopen(req, timeout=60) as resp:
+            res = json.loads(resp.read())
+    except urllib.error.HTTPError as e:
+        sys.exit(f"그림 전송 실패 (HTTP {e.code}): {e.read().decode('utf-8', 'replace')}")
+    if not res.get("ok"):
+        sys.exit(f"그림 전송 실패: {res.get('description')}")
+    print("그림 전송 완료")
+
+
 def main():
     p = argparse.ArgumentParser(description="텔레그램 메시지 보내기")
     p.add_argument("text", nargs="?", help="보낼 내용")
     p.add_argument("--file", help="내용을 읽을 파일")
     p.add_argument("--test", action="store_true", help="연결 테스트 메시지 보내기")
+    p.add_argument("--photo", help="보낼 그림 파일 (PNG)")
+    p.add_argument("--caption", default="", help="그림 설명")
     a = p.parse_args()
 
+    if a.photo:
+        send_photo(a.photo, a.caption)
+        return
     if a.test:
         text = "✅ stock_team 텔레그램 연결 테스트 메시지입니다."
     elif a.file:

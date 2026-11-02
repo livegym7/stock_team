@@ -16,6 +16,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: 한글 글꼴 설치 (표 그림용)
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq fonts-noto-cjk
       - name: 감시 목록 만들고 텔레그램 전송
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
@@ -27,5 +29,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: screener-${{ github.run_id }}
-          path: data/bus/
+          path: |
+            data/bus/
+            reports/
           retention-days: 14

@@ -1,7 +1,7 @@
 {
  "source": "네이버 일봉 (비공식)",
  "as_of": "20261102",
- "made_at": "2026-11-02T12:39:37+09:00",
+ "made_at": "2026-11-02T13:55:15+09:00",
  "rules": {
   "min_mcap_eok": 2000,
   "min_value_eok": 100,
@@ -26,11 +26,11 @@
    "code": "010580",
    "market": "KOSPI",
    "sector": "자동차부품",
-   "close": 3350.0,
+   "close": 3325.0,
    "date": "20261102",
    "rs": 96,
    "value20_eok": 242,
-   "off_high_pct": -19.3,
+   "off_high_pct": -19.9,
    "checks": {
     "정배열(일봉)": true,
     "정배열(주봉)": true,
@@ -62,13 +62,13 @@
     "is_52w_high": true
    },
    "today": [],
-   "vol_ratio": 0.11,
+   "vol_ratio": 0.12,
    "stage": "2stage 조정 중",
    "levels": {
     "breakout": 4150,
     "alert": 4067,
     "stop_1r": 3859,
-    "distance_pct": 23.9
+    "distance_pct": 24.8
    },
    "overhead_zone": null
   },
@@ -77,11 +77,11 @@
    "code": "030530",
    "market": "KOSDAQ",
    "sector": "반도체와반도체장비",
-   "close": 32100.0,
+   "close": 33700.0,
    "date": "20261102",
    "rs": 95,
-   "value20_eok": 475,
-   "off_high_pct": -36.6,
+   "value20_eok": 510,
+   "off_high_pct": -33.4,
    "checks": {
     "정배열(일봉)": true,
     "정배열(주봉)": true,
@@ -96,14 +96,16 @@
    "setups": [],
    "run_pct": null,
    "base": {
-    "pivot": 32600,
-    "pivot_date": "20260612",
-    "days": 95,
+    "pivot": 37300,
+    "pivot_date": "20260504",
+    "days": 121,
     "low": 13210,
-    "depth_pct": 59.5,
-    "stage1_pct": 534,
-    "giveback_pct": 71,
+    "depth_pct": 64.6,
+    "stage1_pct": 819,
+    "giveback_pct": 72,
     "pullbacks": [
+     36.2,
+     37.4,
      39.8,
      26.9,
      28.0,
@@ -118,19 +120,20 @@
      33.5,
      12.7
     ],
-    "vol_dryup": 1.14,
+    "vol_dryup": 1.2,
     "is_52w_high": false
    },
    "today": [
-    "돌파"
+    "돌파",
+    "H"
    ],
-   "vol_ratio": 1.96,
+   "vol_ratio": 2.87,
    "stage": "2stage 조정 중",
    "levels": {
-    "breakout": 32600,
-    "alert": 31948,
-    "stop_1r": 30318,
-    "distance_pct": 1.6
+    "breakout": 37300,
+    "alert": 36554,
+    "stop_1r": 34689,
+    "distance_pct": 10.7
    },
    "overhead_zone": [
     27231,
@@ -142,11 +145,11 @@
    "code": "003160",
    "market": "KOSPI",
    "sector": "반도체와반도체장비",
-   "close": 41300.0,
+   "close": 41975.0,
    "date": "20261102",
    "rs": 96,
-   "value20_eok": 367,
-   "off_high_pct": -9.9,
+   "value20_eok": 370,
+   "off_high_pct": -8.5,
    "checks": {
     "정배열(일봉)": true,
     "정배열(주봉)": true,
@@ -174,17 +177,17 @@
      26.3,
      16.9
     ],
-    "vol_dryup": 1.23,
+    "vol_dryup": 1.24,
     "is_52w_high": true
    },
    "today": [],
-   "vol_ratio": 1.3,
+   "vol_ratio": 1.48,
    "stage": "2stage 조정 중",
    "levels": {
     "breakout": 45850,
     "alert": 44933,
     "stop_1r": 42640,
-    "distance_pct": 11.0
+    "distance_pct": 9.2
    },
    "overhead_zone": null
   },
@@ -193,11 +196,11 @@
    "code": "021240",
    "market": "KOSPI",
    "sector": "가정용기기와용품",
-   "close": 104700.0,
+   "close": 105300.0,
    "date": "20261102",
    "rs": 81,
-   "value20_eok": 188,
-   "off_high_pct": -6.4,
+   "value20_eok": 189,
+   "off_high_pct": -5.8,
    "checks": {
     "정배열(일봉)": true,
     "정배열(주봉)": true,
@@ -210,8 +213,7 @@
    "gate_pass": true,
    "gate_score": 7,
    "setups": [
-    "A",
-    "F"
+    "A"
    ],
    "run_pct": null,
    "base": {
@@ -225,18 +227,17 @@
     "pullbacks": [
      10.4
     ],
-    "vol_dryup": 0.79,
+    "vol_dryup": 0.8,
     "is_52w_high": true
    },
    "today": [],
-   "vol_ratio": 0.36,
+   "vol_ratio": 0.46,
    "stage": "2stage 조정 중",
    "levels": {
     "breakout": 111800,
     "alert": 109564,
     "stop_1r": 103974,
-    "distance_pct": 6.8,
-    "low_cheat_trigger": 105900
+    "distance_pct": 6.2
    },
    "overhead_zone": null
   },
@@ -245,11 +246,11 @@
    "code": "396300",
    "market": "KOSDAQ",
    "sector": "전자장비와기기",
-   "close": 8510.0,
+   "close": 8560.0,
    "date": "20261102",
    "rs": 97,
-   "value20_eok": 909,
-   "off_high_pct": -27.2,
+   "value20_eok": 910,
+   "off_high_pct": -26.8,
    "checks": {
     "정배열(일봉)": true,
     "정배열(주봉)": true,
@@ -280,13 +281,13 @@
     "is_52w_high": true
    },
    "today": [],
-   "vol_ratio": 0.22,
+   "vol_ratio": 0.27,
    "stage": "2stage 조정 중",
    "levels": {
     "breakout": 11690,
     "alert": 11456,
     "stop_1r": 10872,
-    "distance_pct": 37.4
+    "distance_pct": 36.6
    },
    "overhead_zone": null
   },
@@ -295,11 +296,11 @@
    "code": "086450",
    "market": "KOSDAQ",
    "sector": "제약",
-   "close": 24050.0,
+   "close": 23850.0,
    "date": "20261102",
    "rs": 86,
-   "value20_eok": 157,
-   "off_high_pct": -23.0,
+   "value20_eok": 158,
+   "off_high_pct": -23.7,
    "checks": {
     "정배열(일봉)": true,
     "정배열(주봉)": true,
@@ -331,13 +332,13 @@
     "is_52w_high": false
    },
    "today": [],
-   "vol_ratio": 0.34,
+   "vol_ratio": 0.43,
    "stage": "2stage 조정 중",
    "levels": {
     "breakout": 26250,
     "alert": 25725,
     "stop_1r": 24412,
-    "distance_pct": 9.1
+    "distance_pct": 10.1
    },
    "overhead_zone": null
   },
@@ -346,11 +347,11 @@
    "code": "042510",
    "market": "KOSDAQ",
    "sector": "소프트웨어",
-   "close": 18010.0,
+   "close": 17960.0,
    "date": "20261102",
    "rs": 97,
-   "value20_eok": 966,
-   "off_high_pct": -19.8,
+   "value20_eok": 968,
+   "off_high_pct": -20.0,
    "checks": {
     "정배열(일봉)": true,
     "정배열(주봉)": true,
@@ -382,13 +383,13 @@
     "is_52w_high": true
    },
    "today": [],
-   "vol_ratio": 0.62,
+   "vol_ratio": 0.69,
    "stage": "2stage 조정 중",
    "levels": {
     "breakout": 22450,
     "alert": 22001,
     "stop_1r": 20878,
-    "distance_pct": 24.7
+    "distance_pct": 25.0
    },
    "overhead_zone": [
     16401,
@@ -402,11 +403,11 @@
    "code": "092870",
    "market": "KOSDAQ",
    "sector": "반도체와반도체장비",
-   "close": 59100.0,
+   "close": 58800.0,
    "date": "20261102",
    "rs": 99,
-   "value20_eok": 271,
-   "off_high_pct": -13.1,
+   "value20_eok": 273,
+   "off_high_pct": -13.5,
    "checks": {
     "정배열(일봉)": true,
     "정배열(주봉)": true,
@@ -419,10 +420,10 @@
    "gate_pass": true,
    "gate_score": 7,
    "setups": [],
-   "run_pct": 485,
+   "run_pct": 482,
    "base": null,
    "today": [],
-   "vol_ratio": 0.7,
+   "vol_ratio": 0.83,
    "stage": "1stage 진행 중"
   },
   {
@@ -430,11 +431,11 @@
    "code": "425420",
    "market": "KOSDAQ",
    "sector": "반도체 > 반도체 테스트(소켓·프로브카드·검사)",
-   "close": 84600.0,
+   "close": 84500.0,
    "date": "20261102",
    "rs": 98,
-   "value20_eok": 154,
-   "off_high_pct": -7.8,
+   "value20_eok": 155,
+   "off_high_pct": -8.0,
    "checks": {
     "정배열(일봉)": true,
     "정배열(주봉)": true,
@@ -450,35 +451,7 @@
    "run_pct": 260,
    "base": null,
    "today": [],
-   "vol_ratio": 0.51,
-   "stage": "1stage 진행 중"
-  },
-  {
-   "stock": "뉴파워프라즈마",
-   "code": "144960",
-   "market": "KOSDAQ",
-   "sector": "반도체와반도체장비",
-   "close": 14480.0,
-   "date": "20261102",
-   "rs": 97,
-   "value20_eok": 260,
-   "off_high_pct": -10.7,
-   "checks": {
-    "정배열(일봉)": true,
-    "정배열(주봉)": true,
-    "RS": true,
-    "고점 위치": true,
-    "시총": true,
-    "거래대금": true,
-    "1stage 상승": true
-   },
-   "gate_pass": true,
-   "gate_score": 7,
-   "setups": [],
-   "run_pct": 207,
-   "base": null,
-   "today": [],
-   "vol_ratio": 0.95,
+   "vol_ratio": 0.65,
    "stage": "1stage 진행 중"
   },
   {
@@ -486,11 +459,11 @@
    "code": "053800",
    "market": "KOSDAQ",
    "sector": "소프트웨어",
-   "close": 118400.0,
+   "close": 117200.0,
    "date": "20261102",
    "rs": 97,
-   "value20_eok": 398,
-   "off_high_pct": -7.1,
+   "value20_eok": 401,
+   "off_high_pct": -8.0,
    "checks": {
     "정배열(일봉)": true,
     "정배열(주봉)": true,
@@ -503,10 +476,38 @@
    "gate_pass": true,
    "gate_score": 7,
    "setups": [],
-   "run_pct": 133,
+   "run_pct": 131,
    "base": null,
    "today": [],
-   "vol_ratio": 2.19,
+   "vol_ratio": 2.49,
+   "stage": "1stage 진행 중"
+  },
+  {
+   "stock": "뉴파워프라즈마",
+   "code": "144960",
+   "market": "KOSDAQ",
+   "sector": "반도체와반도체장비",
+   "close": 14190.0,
+   "date": "20261102",
+   "rs": 96,
+   "value20_eok": 262,
+   "off_high_pct": -12.5,
+   "checks": {
+    "정배열(일봉)": true,
+    "정배열(주봉)": true,
+    "RS": true,
+    "고점 위치": true,
+    "시총": true,
+    "거래대금": true,
+    "1stage 상승": true
+   },
+   "gate_pass": true,
+   "gate_score": 7,
+   "setups": [],
+   "run_pct": 201,
+   "base": null,
+   "today": [],
+   "vol_ratio": 1.12,
    "stage": "1stage 진행 중"
   },
   {
@@ -514,11 +515,11 @@
    "code": "263860",
    "market": "KOSDAQ",
    "sector": "소프트웨어",
-   "close": 27800.0,
+   "close": 27150.0,
    "date": "20261102",
    "rs": 96,
-   "value20_eok": 186,
-   "off_high_pct": -7.9,
+   "value20_eok": 187,
+   "off_high_pct": -10.1,
    "checks": {
     "정배열(일봉)": true,
     "정배열(주봉)": true,
@@ -531,10 +532,10 @@
    "gate_pass": true,
    "gate_score": 7,
    "setups": [],
-   "run_pct": 153,
+   "run_pct": 147,
    "base": null,
    "today": [],
-   "vol_ratio": 2.41,
+   "vol_ratio": 2.64,
    "stage": "1stage 진행 중"
   }
  ],
@@ -589,15 +590,43 @@
    "overhead_zone": null
   },
   {
+   "stock": "아스플로",
+   "code": "159010",
+   "market": "KOSDAQ",
+   "sector": "기계",
+   "close": 32950.0,
+   "date": "20261102",
+   "rs": 99,
+   "value20_eok": 52,
+   "off_high_pct": -9.1,
+   "checks": {
+    "정배열(일봉)": true,
+    "정배열(주봉)": true,
+    "RS": true,
+    "고점 위치": true,
+    "시총": true,
+    "거래대금": false,
+    "1stage 상승": true
+   },
+   "gate_pass": false,
+   "gate_score": 6,
+   "setups": [],
+   "run_pct": 791,
+   "base": null,
+   "today": [],
+   "vol_ratio": 0.76,
+   "stage": "1stage 진행 중"
+  },
+  {
    "stock": "넥사다이내믹스",
    "code": "351320",
    "market": "KOSDAQ",
    "sector": "디스플레이장비및부품",
-   "close": 5290.0,
+   "close": 5350.0,
    "date": "20261102",
    "rs": 99,
    "value20_eok": 18,
-   "off_high_pct": -7.0,
+   "off_high_pct": -6.0,
    "checks": {
     "정배열(일봉)": true,
     "정배열(주봉)": true,
@@ -627,17 +656,17 @@
      17.6,
      10.4
     ],
-    "vol_dryup": 0.34,
+    "vol_dryup": 0.35,
     "is_52w_high": true
    },
    "today": [],
-   "vol_ratio": 0.07,
+   "vol_ratio": 0.12,
    "stage": "2stage 조정 중",
    "levels": {
     "breakout": 5690,
     "alert": 5576,
     "stop_1r": 5292,
-    "distance_pct": 7.6
+    "distance_pct": 6.4
    },
    "overhead_zone": null
   },
@@ -646,11 +675,11 @@
    "code": "219130",
    "market": "KOSDAQ",
    "sector": "반도체와반도체장비",
-   "close": 98100.0,
+   "close": 98000.0,
    "date": "20261102",
    "rs": 98,
    "value20_eok": 69,
-   "off_high_pct": -5.6,
+   "off_high_pct": -5.7,
    "checks": {
     "정배열(일봉)": true,
     "정배열(주봉)": true,
@@ -666,70 +695,19 @@
    "run_pct": 541,
    "base": null,
    "today": [],
-   "vol_ratio": 0.45,
+   "vol_ratio": 0.53,
    "stage": "1stage 진행 중"
-  },
-  {
-   "stock": "유니퀘스트",
-   "code": "077500",
-   "market": "KOSPI",
-   "sector": "반도체와반도체장비",
-   "close": 11680.0,
-   "date": "20261102",
-   "rs": 97,
-   "value20_eok": 73,
-   "off_high_pct": -8.0,
-   "checks": {
-    "정배열(일봉)": true,
-    "정배열(주봉)": true,
-    "RS": true,
-    "고점 위치": true,
-    "시총": true,
-    "거래대금": false,
-    "1stage 상승": true
-   },
-   "gate_pass": false,
-   "gate_score": 6,
-   "setups": [
-    "A"
-   ],
-   "run_pct": null,
-   "base": {
-    "pivot": 12690,
-    "pivot_date": "20261022",
-    "days": 7,
-    "low": 10290,
-    "depth_pct": 18.9,
-    "stage1_pct": 211,
-    "giveback_pct": 28,
-    "pullbacks": [
-     18.9,
-     13.9
-    ],
-    "vol_dryup": 2.2,
-    "is_52w_high": true
-   },
-   "today": [],
-   "vol_ratio": 1.18,
-   "stage": "2stage 조정 중",
-   "levels": {
-    "breakout": 12690,
-    "alert": 12436,
-    "stop_1r": 11802,
-    "distance_pct": 8.6
-   },
-   "overhead_zone": null
   },
   {
    "stock": "피에스케이홀딩스",
    "code": "031980",
    "market": "KOSDAQ",
    "sector": "반도체와반도체장비",
-   "close": 179900.0,
+   "close": 183500.0,
    "date": "20261102",
-   "rs": 97,
-   "value20_eok": 431,
-   "off_high_pct": -18.8,
+   "rs": 98,
+   "value20_eok": 434,
+   "off_high_pct": -17.2,
    "checks": {
     "정배열(일봉)": false,
     "정배열(주봉)": true,
@@ -757,17 +735,96 @@
      29.8,
      12.9
     ],
-    "vol_dryup": 0.92,
+    "vol_dryup": 0.93,
     "is_52w_high": true
    },
    "today": [],
-   "vol_ratio": 0.5,
+   "vol_ratio": 0.69,
    "stage": "2stage 조정 중",
    "levels": {
     "breakout": 221500,
     "alert": 217070,
     "stop_1r": 205995,
-    "distance_pct": 23.1
+    "distance_pct": 20.7
+   },
+   "overhead_zone": null
+  },
+  {
+   "stock": "인텍플러스",
+   "code": "064290",
+   "market": "KOSDAQ",
+   "sector": "반도체와반도체장비",
+   "close": 53200.0,
+   "date": "20261102",
+   "rs": 98,
+   "value20_eok": 223,
+   "off_high_pct": -17.9,
+   "checks": {
+    "정배열(일봉)": false,
+    "정배열(주봉)": true,
+    "RS": true,
+    "고점 위치": true,
+    "시총": true,
+    "거래대금": true,
+    "1stage 상승": true
+   },
+   "gate_pass": false,
+   "gate_score": 6,
+   "setups": [],
+   "run_pct": 385,
+   "base": null,
+   "today": [],
+   "vol_ratio": 1.04,
+   "stage": "1stage 진행 중"
+  },
+  {
+   "stock": "유니퀘스트",
+   "code": "077500",
+   "market": "KOSPI",
+   "sector": "반도체와반도체장비",
+   "close": 11900.0,
+   "date": "20261102",
+   "rs": 97,
+   "value20_eok": 73,
+   "off_high_pct": -6.2,
+   "checks": {
+    "정배열(일봉)": true,
+    "정배열(주봉)": true,
+    "RS": true,
+    "고점 위치": true,
+    "시총": true,
+    "거래대금": false,
+    "1stage 상승": true
+   },
+   "gate_pass": false,
+   "gate_score": 6,
+   "setups": [
+    "A"
+   ],
+   "run_pct": null,
+   "base": {
+    "pivot": 12690,
+    "pivot_date": "20261022",
+    "days": 7,
+    "low": 10290,
+    "depth_pct": 18.9,
+    "stage1_pct": 211,
+    "giveback_pct": 28,
+    "pullbacks": [
+     18.9,
+     13.9
+    ],
+    "vol_dryup": 2.21,
+    "is_52w_high": true
+   },
+   "today": [],
+   "vol_ratio": 1.4,
+   "stage": "2stage 조정 중",
+   "levels": {
+    "breakout": 12690,
+    "alert": 12436,
+    "stop_1r": 11802,
+    "distance_pct": 6.6
    },
    "overhead_zone": null
   },
@@ -776,10 +833,10 @@
    "code": "017900",
    "market": "KOSPI",
    "sector": "전자장비와기기",
-   "close": 8950.0,
+   "close": 8960.0,
    "date": "20261102",
    "rs": 97,
-   "value20_eok": 215,
+   "value20_eok": 216,
    "off_high_pct": -60.1,
    "checks": {
     "정배열(일봉)": true,
@@ -808,17 +865,17 @@
      38.7,
      23.0
     ],
-    "vol_dryup": 0.67,
+    "vol_dryup": 0.68,
     "is_52w_high": false
    },
    "today": [],
-   "vol_ratio": 0.65,
+   "vol_ratio": 0.7,
    "stage": "2stage 조정 중",
    "levels": {
     "breakout": 11450,
     "alert": 11221,
     "stop_1r": 10648,
-    "distance_pct": 27.9
+    "distance_pct": 27.8
    },
    "overhead_zone": [
     7967,
@@ -830,11 +887,11 @@
    "code": "200470",
    "market": "KOSDAQ",
    "sector": "반도체와반도체장비",
-   "close": 9640.0,
+   "close": 9840.0,
    "date": "20261102",
    "rs": 96,
-   "value20_eok": 164,
-   "off_high_pct": -26.4,
+   "value20_eok": 165,
+   "off_high_pct": -24.9,
    "checks": {
     "정배열(일봉)": false,
     "정배열(주봉)": true,
@@ -862,17 +919,17 @@
      29.6,
      19.7
     ],
-    "vol_dryup": 1.78,
+    "vol_dryup": 1.79,
     "is_52w_high": false
    },
    "today": [],
-   "vol_ratio": 0.77,
+   "vol_ratio": 0.92,
    "stage": "2stage 조정 중",
    "levels": {
     "breakout": 11100,
     "alert": 10878,
     "stop_1r": 10323,
-    "distance_pct": 15.1
+    "distance_pct": 12.8
    },
    "overhead_zone": null
   },
@@ -881,11 +938,11 @@
    "code": "078350",
    "market": "KOSDAQ",
    "sector": "반도체와반도체장비",
-   "close": 34150.0,
+   "close": 34600.0,
    "date": "20261102",
    "rs": 95,
-   "value20_eok": 178,
-   "off_high_pct": -22.9,
+   "value20_eok": 179,
+   "off_high_pct": -21.9,
    "checks": {
     "정배열(일봉)": false,
     "정배열(주봉)": true,
@@ -919,17 +976,17 @@
      27.7,
      21.9
     ],
-    "vol_dryup": 1.24,
+    "vol_dryup": 1.25,
     "is_52w_high": true
    },
    "today": [],
-   "vol_ratio": 0.53,
+   "vol_ratio": 0.73,
    "stage": "2stage 조정 중",
    "levels": {
     "breakout": 44300,
     "alert": 43414,
     "stop_1r": 41199,
-    "distance_pct": 29.7
+    "distance_pct": 28.0
    },
    "overhead_zone": null
   },
@@ -938,11 +995,11 @@
    "code": "071200",
    "market": "KOSDAQ",
    "sector": "건강관리기술",
-   "close": 11275.0,
+   "close": 11300.0,
    "date": "20261102",
    "rs": 94,
    "value20_eok": 4,
-   "off_high_pct": -19.9,
+   "off_high_pct": -19.7,
    "checks": {
     "정배열(일봉)": true,
     "정배열(주봉)": true,
@@ -977,26 +1034,114 @@
     "is_52w_high": true
    },
    "today": [],
-   "vol_ratio": 0.17,
+   "vol_ratio": 0.19,
    "stage": "2stage 조정 중",
    "levels": {
     "breakout": 14080,
     "alert": 13798,
     "stop_1r": 13094,
-    "distance_pct": 24.9
+    "distance_pct": 24.6
    },
    "overhead_zone": null
+  },
+  {
+   "stock": "롯데렌탈",
+   "code": "089860",
+   "market": "KOSPI",
+   "sector": "도로와철도운송",
+   "close": 50700.0,
+   "date": "20261102",
+   "rs": 92,
+   "value20_eok": 58,
+   "off_high_pct": -4.5,
+   "checks": {
+    "정배열(일봉)": true,
+    "정배열(주봉)": true,
+    "RS": true,
+    "고점 위치": true,
+    "시총": true,
+    "거래대금": false,
+    "1stage 상승": true
+   },
+   "gate_pass": false,
+   "gate_score": 6,
+   "setups": [
+    "A",
+    "E"
+   ],
+   "run_pct": null,
+   "base": {
+    "pivot": 53100,
+    "pivot_date": "20260901",
+    "days": 40,
+    "low": 47100,
+    "depth_pct": 11.3,
+    "stage1_pct": 99,
+    "giveback_pct": 23,
+    "pullbacks": [
+     11.3,
+     8.7,
+     4.9,
+     4.2,
+     7.6,
+     5.4,
+     6.4
+    ],
+    "vol_dryup": 1.08,
+    "is_52w_high": true
+   },
+   "today": [],
+   "vol_ratio": 0.82,
+   "stage": "2stage 조정 중",
+   "levels": {
+    "breakout": 53100,
+    "alert": 52038,
+    "stop_1r": 49383,
+    "distance_pct": 4.7
+   },
+   "overhead_zone": [
+    49132,
+    51778
+   ]
+  },
+  {
+   "stock": "골프존홀딩스",
+   "code": "121440",
+   "market": "KOSDAQ",
+   "sector": "레저용장비와제품",
+   "close": 8120.0,
+   "date": "20261102",
+   "rs": 91,
+   "value20_eok": 2,
+   "off_high_pct": -21.2,
+   "checks": {
+    "정배열(일봉)": true,
+    "정배열(주봉)": true,
+    "RS": true,
+    "고점 위치": true,
+    "시총": true,
+    "거래대금": false,
+    "1stage 상승": true
+   },
+   "gate_pass": false,
+   "gate_score": 6,
+   "setups": [],
+   "run_pct": 99,
+   "base": null,
+   "today": [],
+   "vol_ratio": 0.46,
+   "stage": "1stage 진행 중"
   },
   {
    "stock": "한중엔시에스",
    "code": "107640",
    "market": "KOSDAQ",
    "sector": "전기장비",
-   "close": 48200.0,
+   "close": 48050.0,
    "date": "20261102",
-   "rs": 91,
+   "rs": 90,
    "value20_eok": 88,
-   "off_high_pct": -34.0,
+   "off_high_pct": -34.2,
    "checks": {
     "정배열(일봉)": true,
     "정배열(주봉)": true,
@@ -1028,13 +1173,13 @@
     "is_52w_high": false
    },
    "today": [],
-   "vol_ratio": 0.36,
+   "vol_ratio": 0.41,
    "stage": "2stage 조정 중",
    "levels": {
     "breakout": 52000,
     "alert": 50960,
     "stop_1r": 48360,
-    "distance_pct": 7.9
+    "distance_pct": 8.2
    },
    "overhead_zone": [
     44365,
@@ -1042,43 +1187,15 @@
    ]
   },
   {
-   "stock": "골프존홀딩스",
-   "code": "121440",
-   "market": "KOSDAQ",
-   "sector": "레저용장비와제품",
-   "close": 8090.0,
-   "date": "20261102",
-   "rs": 91,
-   "value20_eok": 2,
-   "off_high_pct": -21.5,
-   "checks": {
-    "정배열(일봉)": true,
-    "정배열(주봉)": true,
-    "RS": true,
-    "고점 위치": true,
-    "시총": true,
-    "거래대금": false,
-    "1stage 상승": true
-   },
-   "gate_pass": false,
-   "gate_score": 6,
-   "setups": [],
-   "run_pct": 98,
-   "base": null,
-   "today": [],
-   "vol_ratio": 0.46,
-   "stage": "1stage 진행 중"
-  },
-  {
    "stock": "한국철강",
    "code": "104700",
    "market": "KOSPI",
    "sector": "철강",
-   "close": 12920.0,
+   "close": 12910.0,
    "date": "20261102",
    "rs": 88,
-   "value20_eok": 8,
-   "off_high_pct": -0.1,
+   "value20_eok": 9,
+   "off_high_pct": -0.2,
    "checks": {
     "정배열(일봉)": true,
     "정배열(주봉)": true,
@@ -1097,7 +1214,7 @@
     "돌파",
     "H"
    ],
-   "vol_ratio": 30.9,
+   "vol_ratio": 33.29,
    "stage": "1stage 진행 중"
   },
   {
@@ -1105,11 +1222,11 @@
    "code": "017890",
    "market": "KOSDAQ",
    "sector": "화학",
-   "close": 16340.0,
+   "close": 16370.0,
    "date": "20261102",
    "rs": 88,
    "value20_eok": 19,
-   "off_high_pct": -3.7,
+   "off_high_pct": -3.5,
    "checks": {
     "정배열(일봉)": true,
     "정배열(주봉)": true,
@@ -1122,22 +1239,75 @@
    "gate_pass": false,
    "gate_score": 6,
    "setups": [],
-   "run_pct": 80,
+   "run_pct": 81,
    "base": null,
    "today": [],
-   "vol_ratio": 0.54,
+   "vol_ratio": 0.65,
    "stage": "1stage 진행 중"
+  },
+  {
+   "stock": "하림지주",
+   "code": "003380",
+   "market": "KOSDAQ",
+   "sector": "식품",
+   "close": 11940.0,
+   "date": "20261102",
+   "rs": 86,
+   "value20_eok": 56,
+   "off_high_pct": -39.1,
+   "checks": {
+    "정배열(일봉)": true,
+    "정배열(주봉)": true,
+    "RS": true,
+    "고점 위치": true,
+    "시총": true,
+    "거래대금": false,
+    "1stage 상승": true
+   },
+   "gate_pass": false,
+   "gate_score": 6,
+   "setups": [
+    "A"
+   ],
+   "run_pct": null,
+   "base": {
+    "pivot": 12160,
+    "pivot_date": "20261016",
+    "days": 11,
+    "low": 10430,
+    "depth_pct": 14.2,
+    "stage1_pct": 72,
+    "giveback_pct": 34,
+    "pullbacks": [
+     14.2
+    ],
+    "vol_dryup": 1.01,
+    "is_52w_high": false
+   },
+   "today": [],
+   "vol_ratio": 0.93,
+   "stage": "2stage 조정 중",
+   "levels": {
+    "breakout": 12160,
+    "alert": 11917,
+    "stop_1r": 11309,
+    "distance_pct": 1.8
+   },
+   "overhead_zone": [
+    13084,
+    14016
+   ]
   },
   {
    "stock": "삼성화재",
    "code": "000810",
    "market": "KOSPI",
    "sector": "손해보험",
-   "close": 649000.0,
+   "close": 646000.0,
    "date": "20261102",
-   "rs": 85,
-   "value20_eok": 553,
-   "off_high_pct": -14.3,
+   "rs": 84,
+   "value20_eok": 556,
+   "off_high_pct": -14.7,
    "checks": {
     "정배열(일봉)": false,
     "정배열(주봉)": true,
@@ -1169,17 +1339,17 @@
      5.9,
      3.3
     ],
-    "vol_dryup": 0.91,
+    "vol_dryup": 0.92,
     "is_52w_high": false
    },
    "today": [],
-   "vol_ratio": 0.33,
+   "vol_ratio": 0.45,
    "stage": "2stage 조정 중",
    "levels": {
     "breakout": 705000,
     "alert": 690900,
     "stop_1r": 655650,
-    "distance_pct": 8.6
+    "distance_pct": 9.1
    },
    "overhead_zone": [
     604900,
@@ -1187,68 +1357,15 @@
    ]
   },
   {
-   "stock": "하림지주",
-   "code": "003380",
-   "market": "KOSDAQ",
-   "sector": "식품",
-   "close": 11630.0,
-   "date": "20261102",
-   "rs": 84,
-   "value20_eok": 55,
-   "off_high_pct": -40.7,
-   "checks": {
-    "정배열(일봉)": true,
-    "정배열(주봉)": true,
-    "RS": true,
-    "고점 위치": true,
-    "시총": true,
-    "거래대금": false,
-    "1stage 상승": true
-   },
-   "gate_pass": false,
-   "gate_score": 6,
-   "setups": [
-    "A"
-   ],
-   "run_pct": null,
-   "base": {
-    "pivot": 12160,
-    "pivot_date": "20261016",
-    "days": 11,
-    "low": 10430,
-    "depth_pct": 14.2,
-    "stage1_pct": 72,
-    "giveback_pct": 34,
-    "pullbacks": [
-     14.2
-    ],
-    "vol_dryup": 0.98,
-    "is_52w_high": false
-   },
-   "today": [],
-   "vol_ratio": 0.63,
-   "stage": "2stage 조정 중",
-   "levels": {
-    "breakout": 12160,
-    "alert": 11917,
-    "stop_1r": 11309,
-    "distance_pct": 4.6
-   },
-   "overhead_zone": [
-    13084,
-    14016
-   ]
-  },
-  {
    "stock": "글로벌텍스프리",
    "code": "204620",
    "market": "KOSDAQ",
    "sector": "기타금융",
-   "close": 5650.0,
+   "close": 5660.0,
    "date": "20261102",
    "rs": 82,
    "value20_eok": 47,
-   "off_high_pct": -21.9,
+   "off_high_pct": -21.7,
    "checks": {
     "정배열(일봉)": true,
     "정배열(주봉)": true,
@@ -1279,13 +1396,13 @@
     "is_52w_high": false
    },
    "today": [],
-   "vol_ratio": 0.23,
+   "vol_ratio": 0.27,
    "stage": "2stage 조정 중",
    "levels": {
     "breakout": 6450,
     "alert": 6321,
     "stop_1r": 5998,
-    "distance_pct": 14.2
+    "distance_pct": 14.0
    },
    "overhead_zone": [
     5756,
@@ -1297,11 +1414,11 @@
    "code": "030190",
    "market": "KOSPI",
    "sector": "상업서비스와공급품",
-   "close": 17240.0,
+   "close": 17220.0,
    "date": "20261102",
    "rs": 82,
    "value20_eok": 12,
-   "off_high_pct": -6.8,
+   "off_high_pct": -6.9,
    "checks": {
     "정배열(일봉)": true,
     "정배열(주봉)": true,
@@ -1343,17 +1460,17 @@
      5.2,
      3.6
     ],
-    "vol_dryup": 0.85,
+    "vol_dryup": 0.86,
     "is_52w_high": false
    },
    "today": [],
-   "vol_ratio": 0.28,
+   "vol_ratio": 0.37,
    "stage": "2stage 조정 중",
    "levels": {
     "breakout": 18000,
     "alert": 17640,
     "stop_1r": 16740,
-    "distance_pct": 4.4
+    "distance_pct": 4.5
    },
    "overhead_zone": [
     16578,
@@ -1365,11 +1482,11 @@
    "code": "013580",
    "market": "KOSPI",
    "sector": "건설",
-   "close": 23000.0,
+   "close": 23150.0,
    "date": "20261102",
    "rs": 80,
    "value20_eok": 23,
-   "off_high_pct": -30.9,
+   "off_high_pct": -30.5,
    "checks": {
     "정배열(일봉)": true,
     "정배열(주봉)": true,
@@ -1396,21 +1513,21 @@
     "pullbacks": [
      19.2
     ],
-    "vol_dryup": 1.76,
+    "vol_dryup": 1.77,
     "is_52w_high": false
    },
    "today": [],
-   "vol_ratio": 0.65,
+   "vol_ratio": 0.79,
    "stage": "2stage 조정 중",
    "levels": {
     "breakout": 27150,
     "alert": 26607,
     "stop_1r": 25250,
-    "distance_pct": 18.0
+    "distance_pct": 17.3
    },
    "overhead_zone": [
-    22250,
-    23100
+    25650,
+    26500
    ]
   },
   {
@@ -1418,11 +1535,11 @@
    "code": "011200",
    "market": "KOSPI",
    "sector": "해운사",
-   "close": 23450.0,
+   "close": 23600.0,
    "date": "20261102",
    "rs": 77,
-   "value20_eok": 415,
-   "off_high_pct": -6.0,
+   "value20_eok": 416,
+   "off_high_pct": -5.4,
    "checks": {
     "정배열(일봉)": true,
     "정배열(주봉)": true,
@@ -1449,17 +1566,17 @@
     "pullbacks": [
      10.3
     ],
-    "vol_dryup": 0.82,
+    "vol_dryup": 0.83,
     "is_52w_high": false
    },
    "today": [],
-   "vol_ratio": 0.47,
+   "vol_ratio": 0.57,
    "stage": "2stage 조정 중",
    "levels": {
     "breakout": 24250,
     "alert": 23765,
     "stop_1r": 22552,
-    "distance_pct": 3.4
+    "distance_pct": 2.8
    },
    "overhead_zone": null
   }
