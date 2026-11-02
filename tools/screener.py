@@ -37,7 +37,7 @@ RULES = {
     "min_base_days": 5,         # 조정 최소 1주, 사용자 확정
     "breakout_vol": 1.5,        # 돌파 거래량 (50일 평균 대비) [기본값]
     "alert_gap": 0.02,          # 알림가 = 기준가 -2% [책]
-    "one_r": 0.07,              # 1R = 7% [책 예시]
+    "one_r": 0.08,              # 1R = 손절 8%, 사용자 확정 (책 예시는 7%)
     "ma": (20, 60, 120),        # 정배열 이평선 [기본값]
 }
 
@@ -380,7 +380,7 @@ def render_html(results, as_of, width=900):
             rows_n += 1
         h.append("</table>")
     h.append("<div class='legend'>셋업: A 박스·깃발 · B 컵앤핸들 · C VCP · D HTF · E 신고가 대기 · F 로우치트 · G 포켓피봇 · H 거래량 터진 장대양봉<br>"
-             "알림가 = 기준가 -2% · 1R 손절 = 기준가 -7% · RS = 시총 2,000억↑ 종목 중 시장 대비 강도 순위(99가 최고)</div>"
+             "알림가 = 기준가 -2% · 1R 손절 = 기준가 -8% · RS = 시총 2,000억↑ 종목 중 시장 대비 강도 순위(99가 최고)</div>"
              "<div class='foot'>규칙 대입 결과이며 매수·매도 추천이 아닙니다. 차트를 직접 확인하고 판단은 본인이 합니다.</div></div>")
     sections = sum(1 for x in (watch, running, near) if x)
     height = 150 + sections * 75 + rows_n * 47 + 110

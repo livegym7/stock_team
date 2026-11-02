@@ -1,5 +1,5 @@
 # 보유 종목. 사면 추가하고, 다 팔면 지우세요. (Claude에게 "OO 10주 12,000 매수"라고 말해도 됩니다)
-# qty = 수량, avg_price = 평균 매수가, stop = 손절가(선택)
+# qty = 수량, avg_price = 평균 매수가, stop = 손절가 (기본 규칙: 평균가 -8%, config/account.toml)
 # 보유 종목은 관심종목처럼 시세·공시·뉴스·리포트 브리핑에 자동으로 포함됩니다.
 
 [[positions]]
@@ -7,9 +7,11 @@ name = "삼성전자"
 code = "005930"
 qty = 13
 avg_price = 221000
+stop = 203320      # 평균가 -8%
 
 [[positions]]
 name = "티에프이"
 code = "425420"
 qty = 39
 avg_price = 76300
+stop = 70196       # 평균가 -8%

@@ -3,7 +3,7 @@
 기간 안에 올라온 증권사 리포트 요약 글(채널 간 중복 제외)을 종목·섹터별로 묶고,
 종목마다 최근 1개월 리포트 흐름, 현재가, 목표가 여력을 붙인다.
 보유 종목(config/positions.toml)과 관심종목(config/watchlist.toml)은 따로 모아
-기간 안 리포트·채널 글·공시·차트 상태를 붙인다.
+기간 안 리포트·채널 글(실적·공시 글 포함)·차트 상태를 붙인다. 공시는 DART 대신 채널의 실적·공시 글로 본다.
 
 사용법:
     python3 tools/report_digest.py                 # 기간 자동: 오전 실행 = 직전 평일 15:00~지금, 오후 = 오늘 06:00~지금
@@ -195,18 +195,9 @@ def main():
                                and any(s["code"] == m["code"] for s in x.get("stocks", []))][-8:]
         it["tech"] = tech(m["code"])
         my_items.append(it)
-    try:
-        from dart import disclosures
-        for it in my_items:
-            it["disclosures"] = [{"date": d["date"], "title": d["title"], "important": d["important"], "url": d["url"]}
-                                 for d in disclosures(it["code"], it["stock"], 3)]
-    except SystemExit as e:
-        for it in my_items:
-            it["disclosures"] = f"건너뜀: {e}"
-
     print(json.dumps({
         "window": {"since": since.strftime("%Y-%m-%d %H:%M"), "until": now.strftime("%Y-%m-%d %H:%M")},
-        "source": "텔레그램 채널 리포트 요약(2차 자료), 현재가 네이버(표시 등락), 공시 DART",
+        "source": "텔레그램 채널 리포트 요약·실적·공시 글(2차 자료), 현재가 네이버(표시 등락)",
         "totals": {"reports": len(in_win), "stocks": len(by_stock),
                    "up": sum(r["direction"] == "상향" for rs in by_stock.values() for r in rs),
                    "down": sum(r["direction"] == "하향" for rs in by_stock.values() for r in rs)},
