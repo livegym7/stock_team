@@ -1,21 +1,245 @@
 {
  "_설명": "기업 카드 기본 정보. 사업 한 줄은 검색·공시로 확인해 Claude가 작성, 섹터는 config/sector_taxonomy.toml 안에서 고른다. sub_sectors는 두 번째 이후 사업(최대 2개).",
- "005930": {"name": "삼성전자", "sector": "반도체", "detail": "메모리", "sub_sectors": ["파운드리·시스템반도체", "가전·IT기기"],
+ "005930": {
+  "name": "삼성전자",
+  "sector": "반도체",
+  "detail": "메모리",
+  "sub_sectors": [
+   "파운드리·시스템반도체",
+   "가전·IT기기"
+  ],
   "one_liner": "DRAM·낸드 메모리와 파운드리, 스마트폰·가전을 함께 하는 종합 전자회사",
-  "updated": "2026-11-02", "sources": ["DART 사업보고서 (확인 예정)"]},
- "000660": {"name": "SK하이닉스", "sector": "반도체", "detail": "메모리", "sub_sectors": [],
+  "updated": "2026-11-02",
+  "sources": [
+   "DART 사업보고서 (확인 예정)"
+  ]
+ },
+ "000660": {
+  "name": "SK하이닉스",
+  "sector": "반도체",
+  "detail": "메모리",
+  "sub_sectors": [],
   "one_liner": "DRAM·HBM·낸드를 만드는 메모리 반도체 전문 회사",
-  "updated": "2026-11-02", "sources": ["DART 사업보고서 (확인 예정)"]},
- "425420": {"name": "티에프이", "sector": "반도체", "detail": "반도체 테스트(소켓·프로브카드·검사)", "sub_sectors": [],
+  "updated": "2026-11-02",
+  "sources": [
+   "DART 사업보고서 (확인 예정)"
+  ]
+ },
+ "425420": {
+  "name": "티에프이",
+  "sector": "반도체",
+  "detail": "반도체 테스트(소켓·프로브카드·검사)",
+  "sub_sectors": [],
   "one_liner": "반도체 후공정 테스트용 소켓·보드 등 테스트 하드웨어를 만드는 회사",
-  "updated": "2026-11-02", "sources": ["https://dealsite.co.kr/articles/93948", "https://www.semi.org/en/resources/member-directory/tfe-inc"]},
- "179880": {"name": "멜콘", "sector": "반도체", "detail": "반도체 전공정 장비", "sub_sectors": [],
+  "updated": "2026-11-02",
+  "sources": [
+   "https://dealsite.co.kr/articles/93948",
+   "https://www.semi.org/en/resources/member-directory/tfe-inc"
+  ]
+ },
+ "179880": {
+  "name": "멜콘",
+  "sector": "반도체",
+  "detail": "반도체 전공정 장비",
+  "sub_sectors": [],
   "one_liner": "노광·트랙 장비 안의 온습도와 초고순도 공기를 제어하는 장비(THC·XPS) 제조, 고객은 삼성전자·SK하이닉스 중심",
-  "updated": "2026-11-02", "sources": ["https://core.asiae.co.kr/article/2026073108532983245"]},
- "003670": {"name": "포스코퓨처엠", "sector": "2차전지", "detail": "양극재", "sub_sectors": ["음극재·전해질·분리막"],
+  "updated": "2026-11-02",
+  "sources": [
+   "https://core.asiae.co.kr/article/2026073108532983245"
+  ]
+ },
+ "003670": {
+  "name": "포스코퓨처엠",
+  "sector": "2차전지",
+  "detail": "양극재",
+  "sub_sectors": [
+   "음극재·전해질·분리막"
+  ],
   "one_liner": "2차전지 양극재·음극재를 만드는 포스코그룹 소재 회사",
-  "updated": "2026-11-02", "sources": ["DART 사업보고서 (확인 예정)"]},
- "009150": {"name": "삼성전기", "sector": "전자부품·IT하드웨어", "detail": "MLCC·수동부품", "sub_sectors": ["반도체 패키지 기판", "카메라모듈·광학"],
+  "updated": "2026-11-02",
+  "sources": [
+   "DART 사업보고서 (확인 예정)"
+  ]
+ },
+ "009150": {
+  "name": "삼성전기",
+  "sector": "전자부품·IT하드웨어",
+  "detail": "MLCC·수동부품",
+  "sub_sectors": [
+   "반도체 패키지 기판",
+   "카메라모듈·광학"
+  ],
   "one_liner": "MLCC(적층세라믹콘덴서)와 반도체 패키지 기판, 카메라모듈을 만드는 전자부품 회사",
-  "updated": "2026-11-02", "sources": ["DART 사업보고서 (확인 예정)"]}
+  "updated": "2026-11-02",
+  "sources": [
+   "DART 사업보고서 (확인 예정)"
+  ]
+ },
+ "000270": {
+  "name": "기아",
+  "sector": "자동차",
+  "detail": "완성차",
+  "sub_sectors": [],
+  "one_liner": "현대차그룹의 완성차 회사(승용·SUV·전기차)",
+  "updated": "2026-11-02",
+  "sources": [
+   "Claude 작성(공개 정보) — DART 사업보고서 확인 예정"
+  ]
+ },
+ "005380": {
+  "name": "현대차",
+  "sector": "자동차",
+  "detail": "완성차",
+  "sub_sectors": [],
+  "one_liner": "현대차그룹의 대표 완성차 회사(승용·SUV·하이브리드·전기차)",
+  "updated": "2026-11-02",
+  "sources": [
+   "Claude 작성(공개 정보) — DART 사업보고서 확인 예정"
+  ]
+ },
+ "012330": {
+  "name": "현대모비스",
+  "sector": "자동차",
+  "detail": "자동차 부품",
+  "sub_sectors": [],
+  "one_liner": "현대차그룹 핵심 부품(모듈·전동화·전장)과 A/S 부품을 공급하는 회사",
+  "updated": "2026-11-02",
+  "sources": [
+   "Claude 작성(공개 정보) — DART 사업보고서 확인 예정"
+  ]
+ },
+ "204320": {
+  "name": "HL만도",
+  "sector": "자동차",
+  "detail": "자동차 부품",
+  "sub_sectors": [],
+  "one_liner": "제동·조향·현가 장치와 자율주행 보조(ADAS) 부품을 만드는 회사",
+  "updated": "2026-11-02",
+  "sources": [
+   "Claude 작성(공개 정보) — DART 사업보고서 확인 예정"
+  ]
+ },
+ "011210": {
+  "name": "현대위아",
+  "sector": "자동차",
+  "detail": "자동차 부품",
+  "sub_sectors": [
+   "기계·로봇"
+  ],
+  "one_liner": "자동차 엔진·구동 부품과 공작기계를 만드는 현대차그룹 회사",
+  "updated": "2026-11-02",
+  "sources": [
+   "Claude 작성(공개 정보) — DART 사업보고서 확인 예정"
+  ]
+ },
+ "064350": {
+  "name": "현대로템",
+  "sector": "방산·우주",
+  "detail": "방산 체계",
+  "sub_sectors": [],
+  "one_liner": "K2 전차 등 방산 장비와 철도차량을 만드는 회사",
+  "updated": "2026-11-02",
+  "sources": [
+   "Claude 작성(공개 정보) — DART 사업보고서 확인 예정"
+  ]
+ },
+ "047040": {
+  "name": "대우건설",
+  "sector": "소재·산업재",
+  "detail": "건설",
+  "sub_sectors": [],
+  "one_liner": "주택·토목·플랜트·원전 시공을 하는 종합건설사",
+  "updated": "2026-11-02",
+  "sources": [
+   "Claude 작성(공개 정보) — DART 사업보고서 확인 예정"
+  ]
+ },
+ "000720": {
+  "name": "현대건설",
+  "sector": "소재·산업재",
+  "detail": "건설",
+  "sub_sectors": [],
+  "one_liner": "원전·플랜트·주택을 하는 현대차그룹 종합건설사",
+  "updated": "2026-11-02",
+  "sources": [
+   "Claude 작성(공개 정보) — DART 사업보고서 확인 예정"
+  ]
+ },
+ "375500": {
+  "name": "DL이앤씨",
+  "sector": "소재·산업재",
+  "detail": "건설",
+  "sub_sectors": [],
+  "one_liner": "주택(e편한세상)과 플랜트 중심의 종합건설사",
+  "updated": "2026-11-02",
+  "sources": [
+   "Claude 작성(공개 정보) — DART 사업보고서 확인 예정"
+  ]
+ },
+ "006360": {
+  "name": "GS건설",
+  "sector": "소재·산업재",
+  "detail": "건설",
+  "sub_sectors": [],
+  "one_liner": "주택(자이)·플랜트·수처리 사업을 하는 종합건설사",
+  "updated": "2026-11-02",
+  "sources": [
+   "Claude 작성(공개 정보) — DART 사업보고서 확인 예정"
+  ]
+ },
+ "307950": {
+  "name": "현대오토에버",
+  "sector": "인터넷·소프트웨어",
+  "detail": "소프트웨어·보안",
+  "sub_sectors": [],
+  "one_liner": "현대차그룹 IT 서비스와 차량용 소프트웨어(내비·SDV)를 하는 회사",
+  "updated": "2026-11-02",
+  "sources": [
+   "Claude 작성(공개 정보) — DART 사업보고서 확인 예정"
+  ]
+ },
+ "035720": {
+  "name": "카카오",
+  "sector": "인터넷·소프트웨어",
+  "detail": "플랫폼",
+  "sub_sectors": [],
+  "one_liner": "카카오톡을 기반으로 광고·커머스·콘텐츠를 하는 플랫폼 회사",
+  "updated": "2026-11-02",
+  "sources": [
+   "Claude 작성(공개 정보) — DART 사업보고서 확인 예정"
+  ]
+ },
+ "039490": {
+  "name": "키움증권",
+  "sector": "금융",
+  "detail": "증권",
+  "sub_sectors": [],
+  "one_liner": "개인 투자자 주식 거래 비중이 큰 온라인 증권사",
+  "updated": "2026-11-02",
+  "sources": [
+   "Claude 작성(공개 정보) — DART 사업보고서 확인 예정"
+  ]
+ },
+ "006280": {
+  "name": "녹십자",
+  "sector": "바이오·헬스케어",
+  "detail": "제약",
+  "sub_sectors": [],
+  "one_liner": "혈액제제(미국 알리글로 등)와 백신을 만드는 제약사",
+  "updated": "2026-11-02",
+  "sources": [
+   "Claude 작성(공개 정보) — DART 사업보고서 확인 예정"
+  ]
+ },
+ "036570": {
+  "name": "NC",
+  "sector": "인터넷·소프트웨어",
+  "detail": "게임",
+  "sub_sectors": [],
+  "one_liner": "리니지·아이온 등 PC·모바일 게임을 만드는 회사",
+  "updated": "2026-11-02",
+  "sources": [
+   "Claude 작성(공개 정보) — DART 사업보고서 확인 예정"
+  ]
+ }
 }

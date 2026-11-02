@@ -1,0 +1,11 @@
+# 보유 종목. 사면 추가하고, 다 팔면 지우세요. (Claude에게 "OO 10주 12,000 매수"라고 말해도 됩니다)
+# qty = 수량, avg_price = 평균 매수가, stop = 손절가(선택)
+#
+# [[positions]]
+# name = "코웨이"
+# code = "021240"
+# qty = 10
+# avg_price = 112100
+# stop = 103974
+
+positions = []
