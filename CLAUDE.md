@@ -32,6 +32,7 @@ python3 tools/tg_channel.py summary --hours 24         # 채널별·분류별 �
 python3 tools/tg_channel.py show --hours 24 --type report   # 분류: report earnings company market macro policy schedule other
 python3 tools/tg_channel.py show --hours 24 --watchlist     # 관심종목 관련 글 (JSON, 중복 제외)
 python3 tools/tg_channel.py company --stock 삼성전기 --days 14   # 기업 카드 정보 + 관련 채널 글
+python3 tools/tg_channel.py images --hours 24 --limit 30     # 채널 글 사진 받기 → data/cache/images/ (Claude가 Read로 열어 분석)
 python3 tools/universe.py                              # 국내 종목 목록(이름·코드·네이버 업종), 7일 캐시
 python3 tools/naver_quote.py price                     # 관심종목 현재가·52주·PER/PBR·시총 (네이버, 비공식)
 python3 tools/naver_quote.py investor --days 5         # 개인·외국인·기관 순매수 수량

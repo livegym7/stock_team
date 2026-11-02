@@ -38,3 +38,7 @@ description = "가치투자클럽 — 전일 실적발표 특징주, 기업 실�
 [[channels]]
 id = "shmstory"
 description = "시황맨의 주식이야기 — 장전 모닝 브리핑, 마감 시황, 연기금·수급 정리"
+
+[[channels]]
+id = "maddingStock"
+description = "스탁이지(AI 투자 어시스턴트) — 장마감 브리핑, 수급 체크, 이미지 카드 많음"
