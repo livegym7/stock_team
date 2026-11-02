@@ -2,7 +2,9 @@
 import json
 import os
 import sys
+import time
 import tomllib
+import urllib.error
 import urllib.parse
 import urllib.request
 from pathlib import Path
@@ -42,12 +44,22 @@ def require_env(*names):
     return [os.environ[n] for n in names]
 
 
-def http_get(url, params=None, timeout=20, headers=None):
+def http_get(url, params=None, timeout=20, headers=None, retries=2):
+    """연결이 잠깐 끊기면(서버 오류·네트워크 끊김) 2초, 4초 쉬고 다시 시도한다. 4xx 오류는 바로 넘긴다."""
     if params:
         url = url + "?" + urllib.parse.urlencode(params)
     req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT, **(headers or {})})
-    with urllib.request.urlopen(req, timeout=timeout) as resp:
-        return resp.read()
+    for attempt in range(retries + 1):
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as resp:
+                return resp.read()
+        except urllib.error.HTTPError as e:
+            if e.code < 500 or attempt == retries:
+                raise
+        except (urllib.error.URLError, ConnectionError, TimeoutError):
+            if attempt == retries:
+                raise
+        time.sleep(2 * (attempt + 1))
 
 
 def http_post_json(url, payload, timeout=20, headers=None):

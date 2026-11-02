@@ -1,0 +1,87 @@
+# 섹터 강도를 볼 ETF 목록. sector = config/sector_taxonomy.toml의 세부 섹터(또는 큰 섹터) 이름
+# 비교 기준(benchmark)은 KODEX 200. 섹터를 더하려면 블록을 복사해 code·name·sector만 바꾸면 됩니다.
+
+[benchmark]
+code = "069500"
+name = "KODEX 200"
+
+[[etfs]]
+code = "091160"
+name = "KODEX 반도체"
+sector = "반도체"
+[[etfs]]
+code = "471990"
+name = "KODEX AI반도체핵심장비"
+sector = "반도체 전공정 장비"
+[[etfs]]
+code = "471760"
+name = "TIGER AI반도체핵심공정"
+sector = "반도체 후공정·패키징 장비"
+[[etfs]]
+code = "305720"
+name = "KODEX 2차전지산업"
+sector = "2차전지"
+[[etfs]]
+code = "487240"
+name = "KODEX AI전력핵심설비"
+sector = "변압기·전력기기"
+[[etfs]]
+code = "0091P0"
+name = "TIGER 코리아원자력"
+sector = "원자력"
+[[etfs]]
+code = "466920"
+name = "SOL 조선TOP3플러스"
+sector = "조선"
+[[etfs]]
+code = "449450"
+name = "PLUS K방산"
+sector = "방산 체계"
+[[etfs]]
+code = "445290"
+name = "KODEX 로봇액티브"
+sector = "기계·로봇"
+[[etfs]]
+code = "091180"
+name = "KODEX 자동차"
+sector = "자동차"
+[[etfs]]
+code = "244580"
+name = "KODEX 바이오"
+sector = "바이오·헬스케어"
+[[etfs]]
+code = "228790"
+name = "TIGER 화장품"
+sector = "화장품"
+[[etfs]]
+code = "365000"
+name = "TIGER 인터넷TOP10"
+sector = "플랫폼"
+[[etfs]]
+code = "300950"
+name = "KODEX 게임산업"
+sector = "게임"
+[[etfs]]
+code = "091170"
+name = "KODEX 은행"
+sector = "은행"
+[[etfs]]
+code = "102970"
+name = "KODEX 증권"
+sector = "증권"
+[[etfs]]
+code = "140700"
+name = "KODEX 보험"
+sector = "보험"
+[[etfs]]
+code = "117700"
+name = "KODEX 건설"
+sector = "건설"
+[[etfs]]
+code = "117680"
+name = "KODEX 철강"
+sector = "철강·비철금속"
+[[etfs]]
+code = "307520"
+name = "TIGER 지주회사"
+sector = "지주회사"

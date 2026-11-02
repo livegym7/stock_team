@@ -40,6 +40,8 @@ python3 tools/naver_quote.py index                     # 코스피·코스닥 �
 python3 tools/us_quote.py price                        # 미국 지수·반도체·원/달러·10년물·VIX·관심종목(US) (Yahoo, 비공식)
 python3 tools/us_quote.py daily --symbol ^GSPC --days 60
 python3 tools/screener.py                              # 감시 목록 (시총 2천억↑ 훑기 → 셋업·기준가), --send 텔레그램
+python3 tools/sector_etf.py                            # 섹터 ETF 강도 (config/sector_etfs.toml)
+python3 tools/dashboard_data.py --collect              # 대시보드 데이터 12개 → data/dashboard/ (dashboard/README.md)
 python3 tools/chart.py                                 # 관심종목 주봉 + 매물대 차트 (reports/오늘/charts/에 SVG·PNG)
 python3 tools/news.py stock --hours 24                 # 관심종목 뉴스 (네이버 증권)
 python3 tools/news.py search --query "뉴욕증시" --hours 18   # 키워드 뉴스 (구글 뉴스 RSS)

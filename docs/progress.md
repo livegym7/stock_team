@@ -82,5 +82,11 @@
 
 - 텔레그램 감시 목록을 **표 그림**으로 변경 (사용자 요청: 글 위주라 보기 힘듦): `screener.py`가 `reports/날짜/watchlist.html` → 크롬 캡처로 `watchlist.png` → `telegram_send.send_photo` + 짧은 설명. 크롬이 없으면 글로 보냄. 새 도구 `tools/render.py`(HTML→PNG), `telegram_send.py --photo`. 워크플로에 한글 글꼴(fonts-noto-cjk) 설치 추가
 
+## 대시보드 v1 (2026-11-02)
+- Claude 아티팩트(대시보드 형식) https://claude.ai/artifact/6LDKCAjVkD2gUaZ1RYBP6C — 웹·모바일에서 확인
+- 구성: 신호등(코스피 vs 20·60일선) → 시장 날씨(지표 9개, 코스피 차트, 투자자별 순매수) → 분위기(목표가 상향/하향, 채널 분류, 주요 소식) → 섹터(ETF 순위, 업종 동반 상승) → 감시 목록·1stage 진행 중 → 일정·공시
+- 새 도구: `tools/sector_etf.py`(+`config/sector_etfs.toml` ETF 20개), `tools/dashboard_data.py`(데이터 12개), `common.http_get` 재시도(연결 끊김 시 2번 더)
+- 첫 데이터는 11/02 14:06 장중 값. **자동 갱신은 아직 없음** (Claude가 파일을 다시 올려야 함 → 예약 작업 필요)
+
 ## 참고
 - `.claude/settings.json`(자주 쓰는 명령 자동 허용 설정)은 첫 세션에서 자동 생성이 막혀 아직 만들지 않음. 필요하면 사용자 확인 후 추가.

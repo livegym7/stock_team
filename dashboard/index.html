@@ -1,0 +1,526 @@
+<meta name="dash-one-writer">
+<style>
+/* 위에서 아래로: 신호등 → 시장 날씨 → 분위기 → 섹터 → 감시 목록 → 일정·공시. 카드 그리드는 좁으면 한 줄 */
+.tf { --tf-up: #d6332b; --tf-down: #2f6fd6; --tf-up-soft: rgba(214, 51, 43, .12); --tf-down-soft: rgba(47, 111, 214, .12);
+  --tf-amber: #c27a12; --tf-amber-soft: rgba(194, 122, 18, .14);
+  font-family: var(--font-anthropic-sans); display: flex; flex-direction: column; gap: var(--cds-gap-xl); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .tf { --tf-up: #f2726b; --tf-down: #6ea3f5; --tf-up-soft: rgba(242, 114, 107, .16); --tf-down-soft: rgba(110, 163, 245, .16); --tf-amber: #e6a54a; --tf-amber-soft: rgba(230, 165, 74, .16); } }
+:root[data-theme="dark"] .tf { --tf-up: #f2726b; --tf-down: #6ea3f5; --tf-up-soft: rgba(242, 114, 107, .16); --tf-down-soft: rgba(110, 163, 245, .16); --tf-amber: #e6a54a; --tf-amber-soft: rgba(230, 165, 74, .16); }
+.tf-up { color: var(--tf-up); } .tf-down { color: var(--tf-down); }
+.tf-head { display: flex; gap: var(--cds-gap-lg); align-items: center; flex-wrap: wrap; }
+.tf-head-text { flex: 1 1 18rem; min-width: 0; display: flex; flex-direction: column; gap: var(--cds-gap-xs); }
+.tf-title { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); margin: 0; }
+.tf-take { margin: 0; font-size: var(--cds-font-size-body); color: var(--color-fg); }
+.tf-take b, .tf b { font-weight: 600; }
+.tf-light { width: 6.5rem; height: 2.4rem; flex: none; }
+.tf-nav { display: flex; gap: var(--cds-gap-xs); flex-wrap: wrap; }
+.tf-nav button { font: inherit; font-size: var(--cds-font-size-caption); padding: 4px 12px; border-radius: 999px; border: 1px solid var(--color-border-line); background: var(--color-panel); color: var(--color-fg); cursor: pointer; }
+.tf-nav button:hover, .tf-nav button:focus-visible { border-color: var(--color-fg-muted); }
+.tf-section { display: flex; flex-direction: column; gap: var(--cds-gap-md); scroll-margin-top: 1rem; }
+.tf-section-title { font-size: var(--cds-font-size-heading); font-weight: var(--cds-font-weight-medium); margin: 0; display: flex; align-items: baseline; gap: var(--cds-gap-sm); flex-wrap: wrap; }
+.tf-section-title small { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); font-weight: 400; }
+.tf-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); gap: var(--cds-gap-md); }
+.tf-card { background: var(--color-panel); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: var(--cds-pad-lg); display: flex; flex-direction: column; gap: var(--cds-gap-sm); min-width: 0; }
+.tf-card h3 { margin: 0; font-size: var(--cds-font-size-body); font-weight: var(--cds-font-weight-medium); }
+.tf-note { margin: 0; font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+.tf-tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr)); gap: var(--cds-gap-sm); }
+.tf-tile { border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: var(--cds-pad-sm) var(--cds-pad-md); display: flex; flex-direction: column; gap: 2px; background: var(--color-panel); min-width: 0; }
+.tf-tile-name { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+.tf-tile-val { font-family: var(--font-anthropic-serif); font-size: var(--cds-font-size-heading); font-variant-numeric: tabular-nums; }
+.tf-tile-chg { font-size: var(--cds-font-size-caption); font-variant-numeric: tabular-nums; }
+.tf-tile-time { font-size: 11px; color: var(--color-fg-muted); font-variant-numeric: tabular-nums; }
+.tf-chart { position: relative; width: 100%; min-height: 220px; }
+.tf-chart svg { display: block; }
+.tf-tip { position: absolute; pointer-events: none; background: var(--cds-surface-popover); border: 1px solid var(--cds-border); border-radius: var(--cds-radius); box-shadow: var(--cds-shadow-popover); padding: var(--cds-pad-xs) var(--cds-pad-sm); font-size: var(--cds-font-size-caption); white-space: nowrap; }
+.tf-tip-date { color: var(--cds-text-secondary); }
+.tf-bars { display: flex; flex-direction: column; gap: 6px; min-height: 9rem; }
+.tf-bar-row { display: grid; grid-template-columns: 5.5rem 1fr 5.5rem; gap: var(--cds-gap-sm); align-items: center; font-size: var(--cds-font-size-caption); font-variant-numeric: tabular-nums; }
+.tf-bar-row span:last-child { text-align: right; }
+.tf-track { position: relative; height: 12px; background: var(--cds-chart-grid); border-radius: 3px; overflow: hidden; }
+.tf-track i { position: absolute; top: 0; bottom: 0; border-radius: 3px; }
+.tf-mid { position: absolute; left: 50%; top: -2px; bottom: -2px; border-left: 1px solid var(--cds-chart-axis); }
+.tf-meter { display: flex; height: 22px; border-radius: var(--cds-radius); overflow: hidden; font-size: var(--cds-font-size-caption); min-height: 22px; }
+.tf-meter span { display: flex; align-items: center; padding: 0 8px; color: #fff; white-space: nowrap; overflow: hidden; }
+.tf-table-wrap { overflow-x: auto; max-width: 100%; }
+.tf-table { width: 100%; border-collapse: collapse; font-size: var(--cds-font-size-caption); font-variant-numeric: tabular-nums; }
+.tf-table th { text-align: right; font-weight: 400; color: var(--color-fg-muted); padding: 6px 8px; border-bottom: 1px solid var(--color-border-line); white-space: nowrap; position: sticky; top: 0; background: var(--color-panel); }
+.tf-table td { text-align: right; padding: 8px; border-bottom: 1px solid var(--color-border-line); white-space: nowrap; vertical-align: middle; }
+.tf-table th.tf-l, .tf-table td.tf-l { text-align: left; }
+.tf-table td.tf-wrap { white-space: normal; min-width: 14rem; }
+.tf-name { font-weight: 600; font-size: var(--cds-font-size-body); }
+.tf-sub { display: block; color: var(--color-fg-muted); font-size: 11px; max-width: 16rem; overflow: hidden; text-overflow: ellipsis; }
+.tf-pill { display: inline-block; font-size: 11px; padding: 1px 8px; border-radius: 999px; background: var(--cds-chart-grid); color: var(--color-fg); white-space: nowrap; }
+.tf-pill.tf-sig { background: var(--tf-up-soft); color: var(--tf-up); font-weight: 600; }
+.tf-pill.tf-near { background: var(--tf-amber-soft); color: var(--tf-amber); font-weight: 600; }
+.tf-pill.tf-ok { background: var(--tf-up-soft); color: var(--tf-up); }
+.tf-pill.tf-no { background: var(--tf-down-soft); color: var(--tf-down); }
+.tf-tag { display: inline-block; font-size: 11px; border: 1px solid var(--color-border-line); border-radius: 4px; padding: 0 5px; margin-right: 3px; }
+.tf-tag.tf-today { border-color: var(--tf-up); color: var(--tf-up); }
+.tf-dist { display: inline-flex; align-items: center; gap: 6px; }
+.tf-dist .tf-track { width: 56px; height: 7px; }
+.tf-dist .tf-track i { left: 0; background: var(--tf-amber); }
+.tf-chips { display: flex; flex-wrap: wrap; gap: 6px; min-height: 2rem; }
+.tf-chip { font-size: var(--cds-font-size-caption); border-radius: var(--cds-radius); padding: 4px 8px; border: 1px solid var(--color-border-line); display: flex; flex-direction: column; gap: 2px; min-width: 8.5rem; }
+.tf-chip .tf-track { height: 4px; }
+.tf-chip .tf-track i { left: 0; background: var(--tf-up); }
+.tf-chip.tf-weak .tf-track i { background: var(--tf-down); }
+.tf-legend { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); margin: 0; line-height: 1.7; }
+.tf-foot { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); margin: 0; }
+.tf a { color: inherit; text-decoration: underline; text-decoration-color: var(--color-border-line); text-underline-offset: 2px; }
+.tf a:hover { text-decoration-color: currentColor; }
+.tf [data-dash-source-state=empty] { color: transparent; }
+.tf [data-dash-source-state=refreshing] { opacity: .5; transition: opacity var(--cds-dur-slow); }
+.tf-fail { display: flex; align-items: center; justify-content: center; gap: 6px; color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); min-height: inherit; }
+.tf-fail::before { content: ""; width: .375rem; height: .375rem; border-radius: 50%; background: var(--color-bad); }
+</style>
+
+<div class="tf">
+  <header class="tf-head" id="top">
+    <div class="tf-light" data-draw="light" data-source="regime" aria-label="시장 국면 신호등"></div>
+    <div class="tf-head-text">
+      <h1 class="tf-title">추세추종 대시보드</h1>
+      <p class="tf-take">시장 국면 <b data-draw="regime-state" data-source="regime" data-field="state">—</b> · 코스피 <span data-draw="regime-close" data-source="regime" data-field="close">—</span> (<span data-draw="regime-date" data-source="regime" data-field="date">—</span>) · 20일선 대비 <span data-draw="regime-gap" data-source="regime" data-field="gap20">—</span> · 고점 대비 <span data-draw="regime-off" data-source="regime" data-field="off_high">—</span></p>
+      <p class="tf-note">신호등 규칙: 코스피 종가 &gt; 20일선 &gt; 60일선이면 🟢 상승 추세, 종가 &lt; 20일선 &lt; 60일선이면 🔴 하락 추세, 그 밖은 🟡 조정·반등 시도. 🔴일 때 돌파 알림은 참고로만 봅니다.</p>
+    </div>
+  </header>
+
+  <nav class="tf-nav" aria-label="바로가기">
+    <button type="button" data-go="weather">시장 날씨</button>
+    <button type="button" data-go="mood">분위기</button>
+    <button type="button" data-go="sectors">섹터</button>
+    <button type="button" data-go="watch">감시 목록</button>
+    <button type="button" data-go="events">일정·공시</button>
+  </nav>
+
+  <section class="tf-section" id="weather">
+    <h2 class="tf-section-title">시장 날씨 <small>지수·해외·매크로 · 국내는 네이버 증권, 해외는 Yahoo Finance(지연 가능)</small></h2>
+    <div class="tf-tiles">
+      <div class="tf-tile"><span class="tf-tile-name">코스피</span><span class="tf-tile-val" data-draw="mval" data-source="market" data-where="key=KOSPI" data-field="value">—</span><span class="tf-tile-chg" data-draw="mchg" data-source="market" data-where="key=KOSPI" data-field="change_pct">—</span><span class="tf-tile-time" data-draw="mtime" data-source="market" data-where="key=KOSPI" data-field="as_of">—</span></div>
+      <div class="tf-tile"><span class="tf-tile-name">코스닥</span><span class="tf-tile-val" data-draw="mval" data-source="market" data-where="key=KOSDAQ" data-field="value">—</span><span class="tf-tile-chg" data-draw="mchg" data-source="market" data-where="key=KOSDAQ" data-field="change_pct">—</span><span class="tf-tile-time" data-draw="mtime" data-source="market" data-where="key=KOSDAQ" data-field="as_of">—</span></div>
+      <div class="tf-tile"><span class="tf-tile-name">나스닥100 선물</span><span class="tf-tile-val" data-draw="mval" data-source="market" data-where="key=NQ" data-field="value">—</span><span class="tf-tile-chg" data-draw="mchg" data-source="market" data-where="key=NQ" data-field="change_pct">—</span><span class="tf-tile-time" data-draw="mtime" data-source="market" data-where="key=NQ" data-field="as_of">—</span></div>
+      <div class="tf-tile"><span class="tf-tile-name">S&amp;P 500</span><span class="tf-tile-val" data-draw="mval" data-source="market" data-where="key=SPX" data-field="value">—</span><span class="tf-tile-chg" data-draw="mchg" data-source="market" data-where="key=SPX" data-field="change_pct">—</span><span class="tf-tile-time" data-draw="mtime" data-source="market" data-where="key=SPX" data-field="as_of">—</span></div>
+      <div class="tf-tile"><span class="tf-tile-name">美 반도체지수</span><span class="tf-tile-val" data-draw="mval" data-source="market" data-where="key=SOX" data-field="value">—</span><span class="tf-tile-chg" data-draw="mchg" data-source="market" data-where="key=SOX" data-field="change_pct">—</span><span class="tf-tile-time" data-draw="mtime" data-source="market" data-where="key=SOX" data-field="as_of">—</span></div>
+      <div class="tf-tile"><span class="tf-tile-name">원/달러 (원)</span><span class="tf-tile-val" data-draw="mval" data-source="market" data-where="key=USDKRW" data-field="value">—</span><span class="tf-tile-chg" data-draw="mchg" data-source="market" data-where="key=USDKRW" data-field="change_pct">—</span><span class="tf-tile-time" data-draw="mtime" data-source="market" data-where="key=USDKRW" data-field="as_of">—</span></div>
+      <div class="tf-tile"><span class="tf-tile-name">WTI 유가 ($)</span><span class="tf-tile-val" data-draw="mval" data-source="market" data-where="key=WTI" data-field="value">—</span><span class="tf-tile-chg" data-draw="mchg" data-source="market" data-where="key=WTI" data-field="change_pct">—</span><span class="tf-tile-time" data-draw="mtime" data-source="market" data-where="key=WTI" data-field="as_of">—</span></div>
+      <div class="tf-tile"><span class="tf-tile-name">미 10년물 금리 (%)</span><span class="tf-tile-val" data-draw="mval" data-source="market" data-where="key=UST10" data-field="value">—</span><span class="tf-tile-chg" data-draw="mchg" data-source="market" data-where="key=UST10" data-field="change_pct">—</span><span class="tf-tile-time" data-draw="mtime" data-source="market" data-where="key=UST10" data-field="as_of">—</span></div>
+      <div class="tf-tile"><span class="tf-tile-name">VIX 공포지수</span><span class="tf-tile-val" data-draw="mval" data-source="market" data-where="key=VIX" data-field="value">—</span><span class="tf-tile-chg" data-draw="mchg" data-source="market" data-where="key=VIX" data-field="change_pct">—</span><span class="tf-tile-time" data-draw="mtime" data-source="market" data-where="key=VIX" data-field="as_of">—</span></div>
+    </div>
+    <p class="tf-note">상승은 빨강, 하락은 파랑 (한국식). 시각은 한국시간 기준 마지막 시세.</p>
+    <div class="tf-grid">
+      <div class="tf-card" id="kospi-card">
+        <h3>코스피와 20·60일선</h3>
+        <p class="tf-note">최근 160거래일 종가. 종가가 이평선 위에 있고 20일선이 60일선 위면 상승 추세.</p>
+        <div class="tf-chart" data-draw="kospi-chart" data-source="kospi_ma"></div>
+      </div>
+      <div class="tf-card" id="flows-card">
+        <h3>투자자별 순매수 <span class="tf-note" data-draw="flow-date" data-source="flows" data-row="0" data-field="date">—</span></h3>
+        <p class="tf-note">코스피·코스닥 시장 전체, 억원. 장중에는 잠정 값.</p>
+        <div class="tf-bars" data-draw="flows" data-source="flows"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tf-section" id="mood">
+    <h2 class="tf-section-title">시장 분위기 <small>텔레그램 6개 채널 · 출처: 채널 요약(2차 자료) · 채널 사이 중복 글은 한 건으로</small></h2>
+    <div class="tf-grid">
+      <div class="tf-card" id="reports-card">
+        <h3>리포트 목표주가 변경 (최근 36시간)</h3>
+        <p class="tf-note">상향 <b data-draw="rdir" data-source="report_dirs" data-where="direction=상향" data-field="count">—</b>건 · 하향 <b data-draw="rdir" data-source="report_dirs" data-where="direction=하향" data-field="count">—</b>건. 하향이 많을수록 증권사 눈높이가 낮아지는 중.</p>
+        <div class="tf-meter" data-draw="report-meter" data-source="report_dirs"></div>
+        <h3>최근 24시간 글 분류</h3>
+        <div class="tf-bars" data-draw="mix" data-source="channel_mix"></div>
+      </div>
+      <div class="tf-card" id="news-card">
+        <h3>주요 소식</h3>
+        <p class="tf-note">최근 24시간, 여러 채널이 함께 다룬 소식 먼저. 제목을 누르면 원문 글로 이동.</p>
+        <div class="tf-table-wrap">
+          <table class="tf-table" data-source="top_news" data-row-key="id">
+            <thead><tr><th class="tf-l" data-field="time">시각</th><th class="tf-l" data-field="category">분류</th><th data-field="channels">채널 수</th><th class="tf-l" data-field="title">내용</th></tr></thead>
+            <tbody data-draw="news"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tf-section" id="sectors">
+    <h2 class="tf-section-title">섹터 강도 <small>섹터 ETF · KODEX 200 대비 · 네이버 일봉 종가</small></h2>
+    <div class="tf-card" id="etf-card">
+      <h3>섹터 ETF 순위 (RS 점수 순)</h3>
+      <p class="tf-note">RS 점수 = 1년 20% · 6개월 30% · 3개월 50% 가중으로 KODEX 200보다 더 오른 정도(%p). 20일선 아래로 내려가면 그 섹터 추세가 꺾이는 신호일 수 있음.</p>
+      <div class="tf-table-wrap">
+        <table class="tf-table" data-source="sectors" data-row-key="etf">
+          <thead><tr><th class="tf-l" data-field="sector">섹터</th><th class="tf-l" data-field="etf">ETF</th><th data-field="rs_score">RS 점수</th><th data-field="r1w">1주</th><th data-field="r1m">1개월</th><th data-field="r3m">3개월</th><th data-field="above20">20일선</th><th data-field="gap20">이격</th><th data-field="off_high">고점 대비</th></tr></thead>
+          <tbody data-draw="etfs"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="tf-card" id="industry-card">
+      <h3>업종 동반 상승 <span class="tf-note" data-draw="ind-time" data-source="industries" data-row="0" data-field="time">—</span></h3>
+      <p class="tf-note">네이버 업종 79개 중 등락률 상위 10개와 하위 5개. 막대는 업종 안에서 오른 종목 비율. 등락률 +3% 이상이면서 70% 넘는 종목이 오르면 동반 상승으로 봄.</p>
+      <div class="tf-chips" data-draw="industries" data-source="industries"></div>
+    </div>
+  </section>
+
+  <section class="tf-section" id="watch">
+    <h2 class="tf-section-title">감시 목록 <small>시총 2,000억↑ 훑기 → 관문 7개 → 셋업 · 네이버 일봉 <span data-draw="watch-date" data-source="watch" data-row="0" data-field="date">—</span></small></h2>
+    <div class="tf-card" id="watch-card">
+      <h3>알림 걸 가격 (기준가 가까운 순)</h3>
+      <p class="tf-note">기준가 = 조정 구간 고점(매물대 상단), 알림가 = 기준가 −2%, 1R 손절 = 기준가 −7%. 규칙 대입 결과이며 추천이 아닙니다.</p>
+      <div class="tf-table-wrap">
+        <table class="tf-table" data-source="watch" data-row-key="code">
+          <thead><tr><th class="tf-l" data-field="status">상태</th><th class="tf-l" data-field="stock">종목 · 섹터</th><th data-field="close">현재가</th><th data-field="alert">알림가</th><th data-field="breakout">기준가</th><th data-field="distance_pct">남은 거리</th><th data-field="stop_1r">1R 손절</th><th class="tf-l" data-field="setups">셋업</th><th class="tf-l" data-field="today">오늘</th><th data-field="rs">RS</th></tr></thead>
+          <tbody data-draw="watch"></tbody>
+        </table>
+      </div>
+      <p class="tf-legend">셋업: A 박스·깃발 · B 컵앤핸들 · C VCP · D HTF · E 신고가 대기 · F 로우치트 · 오늘: 돌파 · G 포켓피봇 · H 거래량 터진 장대양봉. RS는 시총 2,000억↑ 종목 안에서 시장 대비 강도 순위(99가 최고).</p>
+    </div>
+    <div class="tf-card" id="running-card">
+      <h3>1stage 진행 중</h3>
+      <p class="tf-note">관문은 통과했지만 신고가 행진 중이라 아직 쉬는 구간이 없는 종목. 조정에 들어가면 감시 목록으로 넘어옴.</p>
+      <div class="tf-table-wrap">
+        <table class="tf-table" data-source="running" data-row-key="code">
+          <thead><tr><th class="tf-l" data-field="stock">종목 · 섹터</th><th data-field="close">현재가</th><th data-field="run_pct">1년 저점 대비</th><th data-field="off_high_pct">고점 대비</th><th data-field="value20_eok">거래대금(20일)</th><th data-field="rs">RS</th></tr></thead>
+          <tbody data-draw="running"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="tf-section" id="events">
+    <h2 class="tf-section-title">일정·공시</h2>
+    <div class="tf-grid">
+      <div class="tf-card" id="schedule-card">
+        <h3>일정 (채널, 최근 7일)</h3>
+        <p class="tf-note">출처: 채널 요약(2차 자료). 제목을 누르면 원문 글로 이동.</p>
+        <div class="tf-table-wrap">
+          <table class="tf-table" data-source="schedule" data-row-key="id">
+            <thead><tr><th class="tf-l" data-field="time">올린 시각</th><th class="tf-l" data-field="text">내용</th></tr></thead>
+            <tbody data-draw="schedule"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="tf-card" id="disclosure-card">
+        <h3>관심종목 공시 (DART, 최근 3일)</h3>
+        <p class="tf-note">⚠️는 실적·증자·자사주·최대주주 변동 같은 중요 공시.</p>
+        <div class="tf-table-wrap">
+          <table class="tf-table" data-source="disclosures" data-row-key="id">
+            <thead><tr><th class="tf-l" data-field="date">접수일</th><th class="tf-l" data-field="stock">종목</th><th class="tf-l" data-field="title">공시</th></tr></thead>
+            <tbody data-draw="disclosures"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <p class="tf-foot">자동으로 모은 자료이며 오류가 있을 수 있습니다. 매수·매도 판단은 본인이 합니다. 주문 기능은 없습니다.</p>
+</div>
+
+<script>
+  // 공통 도우미 (다른 스크립트와 함께 쓰려고 window에 둠)
+  window.tf = {
+    num: (v, d = 0) => (v == null || isNaN(+v)) ? '—' : d3.format(`,.${d}f`)(+v),
+    pct: (v, d = 1) => (v == null || isNaN(+v)) ? '—' : `${+v > 0 ? '+' : ''}${d3.format(`.${d}f`)(+v)}%`,
+    cls: (v) => (+v > 0 ? 'tf-up' : +v < 0 ? 'tf-down' : ''),
+    where: (el) => Object.fromEntries((el.dataset.where || '').split('&').filter(Boolean).map((p) => p.split('=').map(decodeURIComponent))),
+    find: (rows, w) => rows.find((r) => Object.entries(w).every(([k, v]) => String(r[k]) === v)),
+    fail: (el, s) => { el.replaceChildren(); if (s.status === 'error') { const f = document.createElement('div'); f.className = 'tf-fail'; f.textContent = 'Failed to load'; el.append(f); } else { el.textContent = '—'; } },
+    cell: (tr, text, cls) => { const td = document.createElement('td'); if (cls) td.className = cls; if (text instanceof Node) td.append(text); else td.textContent = text; tr.append(td); return td; },
+    fmt: d3.format(','),
+  };
+
+  // 바로가기
+  document.querySelectorAll('.tf-nav button[data-go]').forEach((b) => b.addEventListener('click', () => {
+    const el = document.getElementById(b.dataset.go);
+    if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); dash.setLink(el.id); }
+  }));
+
+  // 계산: 코스피 이평선과 신호등
+  dash.calc('kospi_ma', {
+    inputs: ['kospi_daily'], title: '코스피 20·60일 이동평균', description: '코스피 종가의 20일·60일 단순 이동평균.',
+    fn: (kospi_daily) => {
+      const c = kospi_daily.map((r) => +r.close);
+      const ma = (i, n) => (i + 1 < n ? null : d3.mean(c.slice(i + 1 - n, i + 1)));
+      return kospi_daily.map((r, i) => ({ date: r.date, close: +r.close, ma20: ma(i, 20), ma60: ma(i, 60) }));
+    },
+  });
+  dash.calc('regime', {
+    inputs: ['kospi_ma'], title: '시장 국면 신호등', description: '마지막 날 종가와 20·60일선 위치로 상승 추세/조정·반등 시도/하락 추세를 정함. 고점은 최근 160거래일 최고 종가.',
+    fn: (kospi_ma) => {
+      const last = kospi_ma[kospi_ma.length - 1];
+      const hi = d3.max(kospi_ma, (r) => r.close);
+      const state = last.close > last.ma20 && last.ma20 > last.ma60 ? '상승 추세' : last.close < last.ma20 && last.ma20 < last.ma60 ? '하락 추세' : '조정·반등 시도';
+      return [{ date: last.date, state, close: last.close, ma20: last.ma20, ma60: last.ma60, gap20: (last.close / last.ma20 - 1) * 100, off_high: (last.close / hi - 1) * 100 }];
+    },
+  });
+
+  const reg = () => { const s = dash.data('regime'); return s.status === 'ok' && s.data.length ? s.data[0] : null; };
+  dash.draw('light', (el) => {
+    const r = reg();
+    el.replaceChildren();
+    const on = r ? { '하락 추세': 0, '조정·반등 시도': 1, '상승 추세': 2 }[r.state] : -1;
+    const cols = ['var(--color-bad)', 'var(--color-warn)', 'var(--color-ok)'];
+    const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', '0 0 104 38').attr('role', 'img');
+    svg.append('rect').attr('x', 1).attr('y', 1).attr('width', 102).attr('height', 36).attr('rx', 18).attr('fill', 'var(--color-panel)').attr('stroke', 'var(--color-border-line)');
+    [0, 1, 2].forEach((i) => svg.append('circle').attr('cx', 20 + i * 32).attr('cy', 19).attr('r', 11)
+      .attr('fill', i === on ? cols[i] : 'var(--cds-chart-grid)'));
+  });
+  dash.draw('regime-state', (el) => { const r = reg(); el.textContent = r ? r.state : '—'; el.style.color = r ? { '하락 추세': 'var(--color-bad)', '조정·반등 시도': 'var(--color-warn)', '상승 추세': 'var(--color-ok)' }[r.state] : ''; });
+  dash.draw('regime-close', (el) => { const r = reg(); el.textContent = r ? tf.num(r.close, 2) : '—'; });
+  dash.draw('regime-date', (el) => { const r = reg(); el.textContent = r ? r.date : '—'; });
+  dash.draw('regime-gap', (el) => { const r = reg(); el.textContent = r ? tf.pct(r.gap20) : '—'; el.className = r ? tf.cls(r.gap20) : ''; });
+  dash.draw('regime-off', (el) => { const r = reg(); el.textContent = r ? tf.pct(r.off_high) : '—'; el.className = r ? tf.cls(r.off_high) : ''; });
+</script>
+
+<script>
+  // 시장 지표 타일
+  const mrow = (el) => { const s = dash.data('market'); return s.status === 'ok' ? tf.find(s.data, tf.where(el)) : null; };
+  dash.draw('mval', (el) => { const r = mrow(el); el.textContent = r ? tf.num(r.value, r.key === 'UST10' ? 3 : 2) : '—'; });
+  dash.draw('mchg', (el) => {
+    const r = mrow(el);
+    if (!r) { el.textContent = '—'; el.className = 'tf-tile-chg'; return; }
+    const arrow = +r.change_pct > 0 ? '▲' : +r.change_pct < 0 ? '▼' : '';
+    const abs = r.key === 'UST10' ? `${+r.change > 0 ? '+' : ''}${(+r.change).toFixed(3)}%p` : `${+r.change > 0 ? '+' : ''}${tf.num(r.change, 2)}`;
+    el.textContent = `${arrow} ${tf.pct(r.change_pct, 2)} (${abs})`;
+    el.className = 'tf-tile-chg ' + tf.cls(r.change_pct);
+  });
+  dash.draw('mtime', (el) => { const r = mrow(el); el.textContent = r ? String(r.as_of).replace('T', ' ') : '—'; });
+
+  // 코스피 차트
+  dash.draw('kospi-chart', (el) => {
+    const s = dash.data('kospi_ma');
+    if (s.status !== 'ok' || !s.data.length) { tf.fail(el, s); return; }
+    el.replaceChildren();
+    const rows = s.data.map((r) => ({ ...r, d: new Date(r.date) }));
+    const W = Math.max(280, el.clientWidth), H = 220, m = { t: 10, r: 64, b: 24, l: 8 };
+    const x = d3.scaleUtc(d3.extent(rows, (r) => r.d), [m.l, W - m.r]);
+    const lo = d3.min(rows, (r) => Math.min(r.close, r.ma60 ?? r.close)), hi = d3.max(rows, (r) => Math.max(r.close, r.ma20 ?? r.close));
+    const y = d3.scaleLinear([lo * 0.98, hi * 1.01], [H - m.b, m.t]).nice();
+    const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`);
+    svg.append('g').selectAll('line').data(y.ticks(4)).join('line').attr('x1', m.l).attr('x2', W - m.r).attr('y1', y).attr('y2', y).attr('stroke', 'var(--cds-chart-grid)');
+    svg.append('g').selectAll('text').data(y.ticks(4)).join('text').attr('x', W - m.r + 6).attr('y', (v) => y(v) + 4).attr('fill', 'var(--color-fg-muted)').attr('font-size', 11).text((v) => tf.fmt(v));
+    const xa = svg.append('g').attr('transform', `translate(0,${H - m.b})`).call(d3.axisBottom(x).ticks(Math.min(6, Math.floor(W / 90))).tickFormat(d3.utcFormat('%-m/%-d')).tickSizeOuter(0));
+    xa.attr('font-size', null).attr('font-family', null).selectAll('text').attr('fill', 'var(--color-fg-muted)').attr('font-size', 11);
+    xa.selectAll('line,path').attr('stroke', 'var(--cds-chart-axis)');
+    const series = [['close', '종가', dash.colors[0], 2], ['ma20', '20일선', dash.colors[1], 1.5], ['ma60', '60일선', dash.colors[2], 1.5]];
+    series.forEach(([k, , c, w]) => svg.append('path').datum(rows.filter((r) => r[k] != null))
+      .attr('fill', 'none').attr('stroke', c).attr('stroke-width', w).attr('stroke-linejoin', 'round').attr('stroke-linecap', 'round')
+      .attr('d', d3.line((r) => x(r.d), (r) => y(r[k]))));
+    // 범례 (왼쪽 위)
+    const lg = svg.append('g').attr('transform', `translate(${m.l + 4},${m.t + 10})`);
+    series.forEach(([, name, c], i) => { const g = lg.append('g').attr('transform', `translate(${i * 70},0)`); g.append('rect').attr('width', 10).attr('height', 3).attr('y', -4).attr('fill', c); g.append('text').attr('x', 14).attr('font-size', 11).attr('fill', 'var(--color-fg-muted)').text(name); });
+    // 툴팁
+    const tip = document.createElement('div'); tip.className = 'tf-tip'; tip.hidden = true; el.append(tip);
+    const dot = svg.append('circle').attr('r', 3.5).attr('fill', dash.colors[0]).attr('visibility', 'hidden');
+    const bis = d3.bisector((r) => r.d).center;
+    svg.append('rect').attr('x', m.l).attr('y', m.t).attr('width', W - m.l - m.r).attr('height', H - m.t - m.b).attr('fill', 'transparent')
+      .on('pointermove', (ev) => {
+        const [px] = d3.pointer(ev); const r = rows[bis(rows, x.invert(px))];
+        dot.attr('cx', x(r.d)).attr('cy', y(r.close)).attr('visibility', 'visible');
+        tip.replaceChildren();
+        const dd = document.createElement('div'); dd.className = 'tf-tip-date'; dd.textContent = r.date; tip.append(dd);
+        series.forEach(([k, name]) => { if (r[k] != null) { const l = document.createElement('div'); l.textContent = `${name} ${tf.num(r[k], 2)}`; tip.append(l); } });
+        tip.hidden = false;
+        const sx = x(r.d) / W * el.clientWidth;
+        tip.style.left = `${Math.min(Math.max(0, sx + 10), el.clientWidth - tip.offsetWidth)}px`; tip.style.top = '8px';
+      })
+      .on('pointerleave', () => { tip.hidden = true; dot.attr('visibility', 'hidden'); });
+  });
+
+  // 투자자별 순매수
+  dash.draw('flow-date', (el) => { const s = dash.data('flows'); el.textContent = s.status === 'ok' && s.data.length ? s.data[0].date : '—'; });
+  dash.draw('flows', (el) => {
+    const s = dash.data('flows');
+    if (s.status !== 'ok') { tf.fail(el, s); return; }
+    el.replaceChildren();
+    const mx = d3.max(s.data, (r) => Math.abs(+r.value_eok)) || 1;
+    s.data.forEach((r) => {
+      const row = document.createElement('div'); row.className = 'tf-bar-row';
+      const a = document.createElement('span'); a.textContent = `${r.market} ${r.investor}`;
+      const t = document.createElement('div'); t.className = 'tf-track';
+      const mid = document.createElement('div'); mid.className = 'tf-mid';
+      const b = document.createElement('i'); const w = Math.abs(+r.value_eok) / mx * 50;
+      b.style.width = `${w}%`; b.style.background = +r.value_eok >= 0 ? 'var(--tf-up)' : 'var(--tf-down)';
+      if (+r.value_eok >= 0) b.style.left = '50%'; else b.style.right = '50%';
+      t.append(b, mid);
+      const v = document.createElement('span'); v.textContent = `${+r.value_eok > 0 ? '+' : ''}${tf.fmt(+r.value_eok)}억`; v.className = tf.cls(r.value_eok);
+      row.append(a, t, v); el.append(row);
+    });
+  });
+</script>
+
+<script>
+  // 분위기
+  const rd = (el) => { const s = dash.data('report_dirs'); return s.status === 'ok' ? tf.find(s.data, tf.where(el)) : null; };
+  dash.draw('rdir', (el) => { const r = rd(el); el.textContent = r ? tf.fmt(r.count) : '—'; });
+  dash.draw('report-meter', (el) => {
+    const s = dash.data('report_dirs');
+    if (s.status !== 'ok') { tf.fail(el, s); return; }
+    el.replaceChildren();
+    const up = +(s.data.find((r) => r.direction === '상향') || {}).count || 0;
+    const dn = +(s.data.find((r) => r.direction === '하향') || {}).count || 0;
+    const tot = up + dn || 1;
+    [[up, '상향', 'var(--tf-up)'], [dn, '하향', 'var(--tf-down)']].forEach(([n, name, c]) => {
+      const sp = document.createElement('span'); sp.style.width = `${Math.max(n / tot * 100, n ? 8 : 0)}%`; sp.style.background = c;
+      sp.textContent = `${name} ${d3.format('.0%')(n / tot)}`; el.append(sp);
+    });
+  });
+  dash.draw('mix', (el) => {
+    const s = dash.data('channel_mix');
+    if (s.status !== 'ok') { tf.fail(el, s); return; }
+    el.replaceChildren();
+    const mx = d3.max(s.data, (r) => +r.count) || 1;
+    s.data.forEach((r) => {
+      const row = document.createElement('div'); row.className = 'tf-bar-row';
+      const a = document.createElement('span'); a.textContent = r.label;
+      const t = document.createElement('div'); t.className = 'tf-track';
+      const b = document.createElement('i'); b.style.left = '0'; b.style.width = `${+r.count / mx * 100}%`; b.style.background = dash.colors[0];
+      t.append(b);
+      const v = document.createElement('span'); v.textContent = `${tf.fmt(+r.count)}건`;
+      row.append(a, t, v); el.append(row);
+    });
+  });
+  dash.draw('news', (el) => {
+    const s = dash.data('top_news');
+    el.replaceChildren();
+    if (s.status !== 'ok') return;
+    s.data.forEach((r) => {
+      const tr = document.createElement('tr'); tr.dataset.key = r.id;
+      tf.cell(tr, r.time.slice(5), 'tf-l');
+      const p = document.createElement('span'); p.className = 'tf-pill'; p.textContent = r.category; tf.cell(tr, p, 'tf-l');
+      const ch = tf.cell(tr, String(r.channels)); if (+r.channels > 1) ch.style.fontWeight = '600';
+      const a = document.createElement('a'); a.href = r.url; a.target = '_blank'; a.rel = 'noopener'; a.textContent = r.title;
+      tf.cell(tr, a, 'tf-l tf-wrap');
+      el.append(tr);
+    });
+  });
+</script>
+
+<script>
+  // 섹터 ETF
+  dash.draw('etfs', (el) => {
+    const s = dash.data('sectors');
+    el.replaceChildren();
+    if (s.status !== 'ok') return;
+    s.data.forEach((r) => {
+      const tr = document.createElement('tr'); tr.dataset.key = r.etf;
+      const base = r.sector === '시장 (기준)';
+      const sec = tf.cell(tr, r.sector, 'tf-l'); if (!base) sec.style.fontWeight = '600'; else sec.style.color = 'var(--color-fg-muted)';
+      tf.cell(tr, r.etf, 'tf-l');
+      const rs = tf.cell(tr, base ? '0' : tf.num(r.rs_score, 1)); rs.className = tf.cls(r.rs_score); rs.style.fontWeight = '600';
+      ['r1w', 'r1m', 'r3m'].forEach((k) => { const c = tf.cell(tr, tf.pct(r[k])); c.className = tf.cls(r[k]); });
+      const p = document.createElement('span'); p.className = 'tf-pill ' + (r.above20 ? 'tf-ok' : 'tf-no'); p.textContent = r.above20 ? '위' : '아래';
+      tf.cell(tr, p);
+      const g = tf.cell(tr, tf.pct(r.gap20)); g.className = tf.cls(r.gap20);
+      tf.cell(tr, tf.pct(r.off_high));
+      el.append(tr);
+    });
+  });
+  // 업종 동반 상승
+  dash.draw('ind-time', (el) => { const s = dash.data('industries'); el.textContent = s.status === 'ok' && s.data.length ? `${s.data[0].time} 기준` : '—'; });
+  dash.draw('industries', (el) => {
+    const s = dash.data('industries');
+    if (s.status !== 'ok') { tf.fail(el, s); return; }
+    el.replaceChildren();
+    const sorted = [...s.data].sort((a, b) => +b.change_pct - +a.change_pct);
+    const pick = [...sorted.slice(0, 10).map((r) => [r, false]), ...sorted.slice(-5).map((r) => [r, true])];
+    pick.forEach(([r, weak]) => {
+      const c = document.createElement('div'); c.className = 'tf-chip' + (weak ? ' tf-weak' : '');
+      const hot = +r.change_pct >= 3 && +r.rise_ratio >= 0.7;
+      const n = document.createElement('b'); n.textContent = (hot ? '🔥 ' : '') + r.name;
+      const v = document.createElement('span'); v.textContent = `${tf.pct(r.change_pct, 2)} · ${r.rise}/${r.total} 상승`; v.className = tf.cls(r.change_pct);
+      const t = document.createElement('div'); t.className = 'tf-track';
+      const b = document.createElement('i'); b.style.width = `${+r.rise_ratio * 100}%`; t.append(b);
+      c.append(n, v, t); el.append(c);
+    });
+  });
+</script>
+
+<script>
+  // 감시 목록
+  dash.draw('watch-date', (el) => { const s = dash.data('watch'); el.textContent = s.status === 'ok' && s.data.length ? `${s.data[0].date} 기준` : '—'; });
+  const SET = { A: '박스', B: '컵핸들', C: 'VCP', D: 'HTF', E: '신고가', F: '로우치트', G: '포켓피봇', H: '장대양봉', '돌파': '돌파' };
+  const tags = (str, today) => {
+    const w = document.createElement('span');
+    String(str || '').split(',').filter(Boolean).forEach((k) => { const t = document.createElement('span'); t.className = 'tf-tag' + (today ? ' tf-today' : ''); t.textContent = `${k === '돌파' ? '' : k + ' '}${SET[k] || k}`; w.append(t); });
+    if (!w.childNodes.length) w.textContent = '—';
+    return w;
+  };
+  const nameCell = (tr, r) => {
+    const w = document.createElement('span');
+    const n = document.createElement('span'); n.className = 'tf-name'; n.textContent = r.stock;
+    const sub = document.createElement('span'); sub.className = 'tf-sub'; sub.textContent = r.sector;
+    w.append(n, sub); tf.cell(tr, w, 'tf-l');
+  };
+  dash.draw('watch', (el) => {
+    const s = dash.data('watch');
+    el.replaceChildren();
+    if (s.status !== 'ok') return;
+    s.data.forEach((r) => {
+      const tr = document.createElement('tr'); tr.dataset.key = r.code;
+      const p = document.createElement('span'); p.className = 'tf-pill' + (r.status === '신호' ? ' tf-sig' : r.status === '임박' ? ' tf-near' : ''); p.textContent = r.status;
+      tf.cell(tr, p, 'tf-l');
+      nameCell(tr, r);
+      tf.cell(tr, tf.num(r.close));
+      tf.cell(tr, tf.num(r.alert));
+      const b = tf.cell(tr, tf.num(r.breakout)); b.style.fontWeight = '600';
+      const d = document.createElement('span'); d.className = 'tf-dist';
+      const dv = document.createElement('span'); dv.textContent = tf.pct(r.distance_pct);
+      const tr2 = document.createElement('span'); tr2.className = 'tf-track'; const fill = document.createElement('i');
+      fill.style.width = `${Math.max(0, Math.min(100, 100 - +r.distance_pct * 4))}%`; tr2.append(fill);
+      d.append(dv, tr2); tf.cell(tr, d);
+      const st = tf.cell(tr, tf.num(r.stop_1r)); st.className = 'tf-down';
+      tf.cell(tr, tags(r.setups, false), 'tf-l');
+      tf.cell(tr, tags(r.today, true), 'tf-l');
+      tf.cell(tr, String(r.rs));
+      el.append(tr);
+    });
+  });
+  dash.draw('running', (el) => {
+    const s = dash.data('running');
+    el.replaceChildren();
+    if (s.status !== 'ok') return;
+    s.data.forEach((r) => {
+      const tr = document.createElement('tr'); tr.dataset.key = r.code;
+      nameCell(tr, r);
+      tf.cell(tr, tf.num(r.close));
+      const rp = tf.cell(tr, tf.pct(r.run_pct, 0)); rp.className = 'tf-up';
+      tf.cell(tr, tf.pct(r.off_high_pct));
+      tf.cell(tr, `${tf.num(r.value20_eok)}억`);
+      tf.cell(tr, String(r.rs));
+      el.append(tr);
+    });
+  });
+</script>
+
+<script>
+  // 일정·공시
+  dash.draw('schedule', (el) => {
+    const s = dash.data('schedule');
+    el.replaceChildren();
+    if (s.status !== 'ok') return;
+    s.data.forEach((r) => {
+      const tr = document.createElement('tr'); tr.dataset.key = r.id;
+      tf.cell(tr, r.time.slice(5), 'tf-l');
+      const w = document.createElement('span');
+      const a = document.createElement('a'); a.href = r.url; a.target = '_blank'; a.rel = 'noopener'; a.textContent = r.title; a.style.fontWeight = '600';
+      const body = document.createElement('span'); body.className = 'tf-sub'; body.style.whiteSpace = 'pre-line'; body.style.maxWidth = 'none';
+      body.textContent = r.text.split('\n').slice(1).filter((x) => x.trim()).slice(0, 6).join('\n');
+      w.append(a, body); tf.cell(tr, w, 'tf-l tf-wrap');
+      el.append(tr);
+    });
+  });
+  dash.draw('disclosures', (el) => {
+    const s = dash.data('disclosures');
+    el.replaceChildren();
+    if (s.status !== 'ok') return;
+    s.data.forEach((r) => {
+      const tr = document.createElement('tr'); tr.dataset.key = r.id;
+      tf.cell(tr, r.date.slice(5), 'tf-l');
+      tf.cell(tr, r.stock, 'tf-l');
+      const a = document.createElement('a'); a.href = r.url; a.target = '_blank'; a.rel = 'noopener'; a.textContent = (r.important ? '⚠️ ' : '') + r.title;
+      tf.cell(tr, a, 'tf-l tf-wrap');
+      el.append(tr);
+    });
+  });
+</script>
