@@ -11,8 +11,10 @@ description: 장전 아침 브리핑. 관심종목 신규 공시, 전날 텔레�
 ```bash
 python3 tools/dart.py list --days 3                      # 관심종목 공시 (새 세션 첫 실행은 코드표 때문에 약 3분 → 맨 먼저 백그라운드로)
 python3 tools/tg_channel.py collect                      # 채널 새 글 수집
-python3 tools/tg_channel.py show --hours 30 --type research    # 전날 리포트 요약 (목표가 변경)
-python3 tools/tg_channel.py show --hours 30 --watchlist  # 관심종목 언급 글 + 시황
+python3 tools/tg_channel.py summary --hours 30              # 채널별·분류별 글 수, 여러 채널이 다룬 소식
+python3 tools/tg_channel.py show --hours 30 --type report      # 리포트 (목표가 변경)
+python3 tools/tg_channel.py show --hours 30 --type macro       # 매크로 (policy·earnings·company도 같은 방식)
+python3 tools/tg_channel.py show --hours 30 --watchlist  # 관심종목 언급 글
 python3 tools/naver_quote.py index                       # 코스피·코스닥
 python3 tools/naver_quote.py price                       # 관심종목 종가·52주·PER/PBR
 python3 tools/naver_quote.py investor --days 5           # 개인·외국인·기관 순매수 수량
@@ -42,7 +44,8 @@ python3 tools/news.py search --query "뉴욕증시" --hours 18   # 간밤 미국
 
 4) 리포트·목표가 변경  (출처: 채널 요약 — 2차 자료, 원문 미확인)
 - 관심종목 리포트는 증권사·이전→변경 목표가·핵심 근거 1줄
-- 전체 흐름: 상향 n건 / 하향 n건, 많이 하향된 업종·종목 몇 개 (중복 글은 1건으로 센다)
+- 전체 흐름: 상향 n건 / 하향 n건, 많이 하향된 업종·종목 몇 개 (중복 글은 도구가 이미 뺌)
+- 매크로·정책 핵심 2~3줄, 여러 채널이 다룬 소식(also_in) 우선. 분류가 틀린 글은 맞는 칸으로 옮겨 쓴다. '기타'는 쓰지 않는다
 
 5) 뉴스  (출처: 네이버 증권 종목 뉴스, 언론사·시각)
 - 관련 기사 수(related)가 많은 순으로 종목당 2~3건. 호재/악재/중립 표시는 "추정"으로

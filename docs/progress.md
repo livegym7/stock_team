@@ -63,5 +63,14 @@
 - 확인한 데이터: 나스닥100 선물 `NQ=F`, WTI `CL=F`, 금 `GC=F`(Yahoo), 시장 수급 `m.stock.naver.com/api/index/KOSPI/trend`(억원, 실시간), 컨센서스 목표가(`integration`의 `consensusInfo`). 사업개요는 네이버 `description`이 비어 있음 → DART 사업보고서로. 브렌트 `BZ=F`는 월물 교체 때 값이 튀어 WTI 우선
 - 장중 감시 시험(스크래치): 업종 동반 상승 → 거래량 → 매물대 돌파 판정 동작 확인. 하락 추세 반등도 걸리므로 추세 조건 필터 필수. 실행 위치(사용자 컴퓨터 / GitHub Actions) 결정 대기
 
+## 채널 확장·분류·기업 카드 (2026-11-02)
+- 채널 6개로 확장: ked_epic_ai + bornlupin, TNBfolio, FastStockNews, nje2e, one_going (처음 수집 약 1,050개 글)
+- `tg_channel.py` 개편: 글마다 **리포트/실적·공시/기업/시황/매크로/정책·지정학/일정/기타** 자동 분류(키워드 규칙, Claude가 브리핑 때 한 번 더 확인), **채널 간 중복** 표시(같은 기사 링크, 같은 리포트, 글자 유사도 45%↑ → `dup_of`, 원본엔 `also_in`), 글에 나온 **종목 이름 표시**, `summary`·`company` 명령 추가. 72시간 기준 여러 채널이 함께 다룬 소식 9건 확인
+  - 한계: 키워드 규칙이라 일부 오분류(예: 수출 통계 글이 '기업'으로). 두 글자 한글 종목명(영광·동방 등 222개)은 일상 단어와 겹쳐 찾지 않음
+- `tools/universe.py`: 네이버 업종 79개 소속 종목 4,409개(이름·코드·업종·시총) → `data/cache/universe.json`, 7일 캐시, 받는 데 약 2분
+- `config/sector_taxonomy.toml`: 큰 섹터 12개, 세부 섹터 56개 (기업 섹터는 이 안에서만)
+- `data/companies.json`: 기업 카드 기본 정보 6개(삼성전자, SK하이닉스, 티에프이, 멜콘, 포스코퓨처엠, 삼성전기)
+- 스킬 `/company-card` 추가, `/morning-brief`를 새 분류 이름에 맞게 수정
+
 ## 참고
 - `.claude/settings.json`(자주 쓰는 명령 자동 허용 설정)은 첫 세션에서 자동 생성이 막혀 아직 만들지 않음. 필요하면 사용자 확인 후 추가.

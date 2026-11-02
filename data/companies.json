@@ -1,0 +1,21 @@
+{
+ "_설명": "기업 카드 기본 정보. 사업 한 줄은 검색·공시로 확인해 Claude가 작성, 섹터는 config/sector_taxonomy.toml 안에서 고른다. sub_sectors는 두 번째 이후 사업(최대 2개).",
+ "005930": {"name": "삼성전자", "sector": "반도체", "detail": "메모리", "sub_sectors": ["파운드리·시스템반도체", "가전·IT기기"],
+  "one_liner": "DRAM·낸드 메모리와 파운드리, 스마트폰·가전을 함께 하는 종합 전자회사",
+  "updated": "2026-11-02", "sources": ["DART 사업보고서 (확인 예정)"]},
+ "000660": {"name": "SK하이닉스", "sector": "반도체", "detail": "메모리", "sub_sectors": [],
+  "one_liner": "DRAM·HBM·낸드를 만드는 메모리 반도체 전문 회사",
+  "updated": "2026-11-02", "sources": ["DART 사업보고서 (확인 예정)"]},
+ "425420": {"name": "티에프이", "sector": "반도체", "detail": "반도체 테스트(소켓·프로브카드·검사)", "sub_sectors": [],
+  "one_liner": "반도체 후공정 테스트용 소켓·보드 등 테스트 하드웨어를 만드는 회사",
+  "updated": "2026-11-02", "sources": ["https://dealsite.co.kr/articles/93948", "https://www.semi.org/en/resources/member-directory/tfe-inc"]},
+ "179880": {"name": "멜콘", "sector": "반도체", "detail": "반도체 전공정 장비", "sub_sectors": [],
+  "one_liner": "노광·트랙 장비 안의 온습도와 초고순도 공기를 제어하는 장비(THC·XPS) 제조, 고객은 삼성전자·SK하이닉스 중심",
+  "updated": "2026-11-02", "sources": ["https://core.asiae.co.kr/article/2026073108532983245"]},
+ "003670": {"name": "포스코퓨처엠", "sector": "2차전지", "detail": "양극재", "sub_sectors": ["음극재·전해질·분리막"],
+  "one_liner": "2차전지 양극재·음극재를 만드는 포스코그룹 소재 회사",
+  "updated": "2026-11-02", "sources": ["DART 사업보고서 (확인 예정)"]},
+ "009150": {"name": "삼성전기", "sector": "전자부품·IT하드웨어", "detail": "MLCC·수동부품", "sub_sectors": ["반도체 패키지 기판", "카메라모듈·광학"],
+  "one_liner": "MLCC(적층세라믹콘덴서)와 반도체 패키지 기판, 카메라모듈을 만드는 전자부품 회사",
+  "updated": "2026-11-02", "sources": ["DART 사업보고서 (확인 예정)"]}
+}

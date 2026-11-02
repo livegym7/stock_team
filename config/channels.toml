@@ -1,6 +1,28 @@
 # 읽어올 공개 텔레그램 채널 목록
 # t.me/채널아이디 형태의 "공개" 채널만 됩니다.
+# 채널을 추가할 때는 아래 블록을 복사해서 id와 description(어떤 글이 올라오는지)만 바꾸세요.
+# 글 분류(리포트·실적·기업·시황·매크로·정책·일정·기타)는 채널과 상관없이 글마다 자동으로 합니다.
 
 [[channels]]
 id = "ked_epic_ai"
-description = "증권사 리포트 요약 (목표주가 변경, 투자의견), 입법예고 브리핑"
+description = "증권사 리포트 요약(목표주가 변경), 장전·장마감 시황, 퀀트 시그널, 입법예고"
+
+[[channels]]
+id = "bornlupin"
+description = "해외·국내 속보, 지정학(중동), 정부 정책, 외국계 리포트 요약"
+
+[[channels]]
+id = "TNBfolio"
+description = "해외 속보, 글로벌 기업 실적, 저녁 뉴스 모음"
+
+[[channels]]
+id = "FastStockNews"
+description = "뉴스 제목 + 링크 (사회 뉴스·잡담 섞임)"
+
+[[channels]]
+id = "nje2e"
+description = "증권사 리포트, 실적 공시 속보(예상치 대비), 수출입 통계"
+
+[[channels]]
+id = "one_going"
+description = "증시 일정, 시장 코멘트 (개인 글 섞임)"
