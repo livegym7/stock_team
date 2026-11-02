@@ -25,4 +25,4 @@ description = "증권사 리포트, 실적 공시 속보(예상치 대비), 수�
 
 [[channels]]
 id = "one_going"
-description = "증시 일정, 시장 코멘트 (개인 글 섞임)"
+description = "증시 일정이 목적 (개인 글이 많아 일정·시황 외에는 브리핑에서 뺌)"
