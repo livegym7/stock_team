@@ -57,5 +57,11 @@
 - 업종(인더스트리 액션) 데이터 확인: 네이버 `m.stock.naver.com/api/stocks/industry`(79개 업종, 당일 등락률·상승/하락 종목 수), `.../industry/번호`(소속 종목). **당일 값만 줌 → 매일 장마감 후 저장해서 이력을 쌓아야 함**. 종목 → 업종 번호는 `.../stock/코드/integration`의 `industryCode`
 - 다음: 텔레그램 사진 전송(`telegram_send.py --photo`), 업종 스냅샷 저장 도구, 셋업 판정 도구
 
+## 전략 재정리·대시보드 시안 (2026-11-02)
+- `docs/strategy.md`: ① 시장 분위기(채널·뉴스) → ② 지표(지수·수급·환율·나스닥 선물·유가 등) → ③ 섹터(ETF·업종 실시간) → ④ 셋업 스크리닝(저녁 준비 + 장중 감시 + 종가 확인) → ⑤ 기업 이해(사업개요 카드). 실행 시간표·구현 순서 포함
+- `docs/dashboard-mockup.html`: 화면 시안 (실제 받은 값 + "예시" 표시). 사용자 피드백 대기
+- 확인한 데이터: 나스닥100 선물 `NQ=F`, WTI `CL=F`, 금 `GC=F`(Yahoo), 시장 수급 `m.stock.naver.com/api/index/KOSPI/trend`(억원, 실시간), 컨센서스 목표가(`integration`의 `consensusInfo`). 사업개요는 네이버 `description`이 비어 있음 → DART 사업보고서로. 브렌트 `BZ=F`는 월물 교체 때 값이 튀어 WTI 우선
+- 장중 감시 시험(스크래치): 업종 동반 상승 → 거래량 → 매물대 돌파 판정 동작 확인. 하락 추세 반등도 걸리므로 추세 조건 필터 필수. 실행 위치(사용자 컴퓨터 / GitHub Actions) 결정 대기
+
 ## 참고
 - `.claude/settings.json`(자주 쓰는 명령 자동 허용 설정)은 첫 세션에서 자동 생성이 막혀 아직 만들지 않음. 필요하면 사용자 확인 후 추가.
