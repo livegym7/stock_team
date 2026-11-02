@@ -26,3 +26,15 @@ description = "증권사 리포트, 실적 공시 속보(예상치 대비), 수�
 [[channels]]
 id = "one_going"
 description = "증시 일정이 목적 (개인 글이 많아 일정·시황 외에는 브리핑에서 뺌)"
+
+[[channels]]
+id = "Jstockclass"
+description = "엄브렐라리서치 Jay — 외국계·증권사 리포트 해설(반도체·AI 등), 개인 코멘트 섞임"
+
+[[channels]]
+id = "corevalue"
+description = "가치투자클럽 — 전일 실적발표 특징주, 기업 실적·이슈 정리"
+
+[[channels]]
+id = "shmstory"
+description = "시황맨의 주식이야기 — 장전 모닝 브리핑, 마감 시황, 연기금·수급 정리"
