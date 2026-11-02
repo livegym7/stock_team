@@ -1,40 +1,40 @@
 {
- "made_at": "2026-11-02T14:06:12+09:00",
+ "made_at": "2026-11-02T14:49:35+09:00",
  "rows": [
   {
    "market": "코스피",
    "investor": "개인",
-   "value_eok": -12193,
+   "value_eok": -13970,
    "date": "2026-11-02"
   },
   {
    "market": "코스피",
    "investor": "외국인",
-   "value_eok": -3944,
+   "value_eok": -4077,
    "date": "2026-11-02"
   },
   {
    "market": "코스피",
    "investor": "기관",
-   "value_eok": 12114,
+   "value_eok": 13385,
    "date": "2026-11-02"
   },
   {
    "market": "코스닥",
    "investor": "개인",
-   "value_eok": -68,
+   "value_eok": -209,
    "date": "2026-11-02"
   },
   {
    "market": "코스닥",
    "investor": "외국인",
-   "value_eok": -318,
+   "value_eok": -252,
    "date": "2026-11-02"
   },
   {
    "market": "코스닥",
    "investor": "기관",
-   "value_eok": 439,
+   "value_eok": 510,
    "date": "2026-11-02"
   }
  ]

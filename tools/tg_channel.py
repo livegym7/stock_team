@@ -2,6 +2,7 @@
 
 사용법:
     python3 tools/tg_channel.py collect                       # 모든 채널의 새 글 수집 (data/telegram/에 저장)
+    python3 tools/tg_channel.py collect --since 2026-10-02    # 지난 글도 이 날짜까지 거슬러 받기
     python3 tools/tg_channel.py show --hours 24               # 최근 24시간 글 (중복 제외) JSON
     python3 tools/tg_channel.py show --hours 24 --type report # 분류별 (아래 CATEGORIES)
     python3 tools/tg_channel.py show --hours 24 --watchlist   # 관심종목 관련 글만
@@ -284,10 +285,32 @@ def mark_duplicates(all_posts, window=timedelta(hours=48), threshold=0.45):
         p.pop("_root", None)
 
 
-def collect_all():
+def backfill(channel, store, since, max_pages=400):
+    """저장된 가장 오래된 글보다 앞의 글을 since(날짜, YYYY-MM-DD)까지 거슬러 받는다."""
+    if not store:
+        return 0
+    before, added = min(store), 0
+    for _ in range(max_pages):
+        page = fetch_page(channel, before)
+        if not page:
+            break
+        for p in page:
+            if p["id"] not in store and p["time"][:10] >= since:
+                store[p["id"]] = p
+                added += 1
+        before = min(p["id"] for p in page)
+        if min(p["time"] for p in page)[:10] < since:
+            break
+        time.sleep(1)  # 서버에 부담을 주지 않도록 천천히
+    return added
+
+
+def collect_all(since=None):
     stores, counts = {}, {}
     for ch in channels():
         stores[ch["id"]], counts[ch["id"]] = collect(ch["id"])
+        if since:
+            counts[ch["id"]] += backfill(ch["id"], stores[ch["id"]], since)
     everything = [p for s in stores.values() for p in s.values()]
     for p in everything:  # 분류 규칙이 바뀌어도 저장된 글에 반영되도록 다시 분류
         enrich(p)
@@ -355,7 +378,8 @@ def company(stock, days):
 def main():
     p = argparse.ArgumentParser(description="공개 텔레그램 채널 글 수집/조회")
     sub = p.add_subparsers(dest="cmd", required=True)
-    sub.add_parser("collect")
+    cl = sub.add_parser("collect")
+    cl.add_argument("--since", help="이 날짜(YYYY-MM-DD)까지 지난 글도 거슬러 받기")
     s = sub.add_parser("show")
     s.add_argument("--hours", type=int, default=24)
     s.add_argument("--type", choices=list(CATEGORIES))
@@ -368,7 +392,7 @@ def main():
     a = p.parse_args()
 
     if a.cmd == "collect":
-        for ch, n in collect_all().items():
+        for ch, n in collect_all(a.since).items():
             print(f"{ch}: 새 글 {n}개")
     elif a.cmd == "show":
         show(a.hours, a.type, a.watchlist)
