@@ -19,6 +19,7 @@ python3 tools/tg_channel.py show --hours 30 --watchlist  # 보유·관심종목 
 python3 tools/naver_quote.py index                       # 코스피·코스닥
 python3 tools/naver_quote.py price                       # 보유·관심종목 종가·52주·PER/PBR
 cat config/positions.toml                                # 보유 수량·평균가 → 평가손익 계산
+python3 tools/risk.py                                    # R·CR·E (진행 R, 3R 도달 알림, CR 한도)
 python3 tools/naver_quote.py investor --days 5           # 개인·외국인·기관 순매수 수량
 python3 tools/us_quote.py price                          # 미국 지수·반도체·환율·10년물·VIX·관심종목(US)
 python3 tools/news.py search --query "뉴욕증시" --hours 18   # 간밤 미국장 뉴스 (구글 뉴스)
@@ -40,7 +41,8 @@ python3 tools/news.py search --query "뉴욕증시" --hours 18   # 간밤 미국
 
 2) 국내 직전 거래일  (출처: 네이버 증권, KRX 종가 MM/DD)
 - 코스피 x (±%), 코스닥 x (±%)
-- 보유 종목: 종가 (±%), 수량·평균가·평가손익(원, %), 손절가 있으면 거리, 52주 고가 대비 위치, 외국인·기관 순매수 수량 (최근 1일 / 5일 합)
+- 리스크 한 줄 (risk.py): E x% · CR x원(x%, xR / 한도 6%) · 새로 걸 수 있는 위험 x원. `alert`(3R 도달 → 손절가 본전으로)나 `warning`(CR 한도 초과)이 있으면 ⚠️로 맨 위에
+- 보유 종목: 종가 (±%), 수량·평균가·평가손익(원, %), 진행 R(예: +0.7R, 3R 가격까지 +x%), 손절가 거리, 52주 고가 대비 위치, 외국인·기관 순매수 수량 (최근 1일 / 5일 합)
 - 관심종목: 종가 (±%), 52주 고가 대비, 수급
 
 3) 주요 공시·실적  (출처: 채널의 실적·공시 글, 2차 자료)
