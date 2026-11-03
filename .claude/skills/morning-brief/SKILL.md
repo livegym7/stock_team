@@ -31,6 +31,8 @@ python3 tools/news.py search --query "뉴욕증시" --hours 18   # 간밤 미국
 ```
 📊 아침 브리핑 YYYY-MM-DD (요일) — HH:MM 기준
 
+💡 Claude 의견 (3~5줄) — 오늘 장에서 가장 중요한 것과 이유, 보유 종목·전략에 주는 의미 (CLAUDE.md "브리핑 작성 원칙": 많이 나온 순이 아니라 중요한 순)
+
 1) 간밤 미국장  (출처: Yahoo Finance, 현지 MM/DD 종가)
 - S&P500 x (±%), 나스닥 x (±%), 다우 x (±%), 필라델피아 반도체 x (±%)
 - 원/달러 x원 (±), 미 10년물 x% (±%p), VIX x (±%)

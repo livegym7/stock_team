@@ -63,6 +63,9 @@
 - 확인한 데이터: 나스닥100 선물 `NQ=F`, WTI `CL=F`, 금 `GC=F`(Yahoo), 시장 수급 `m.stock.naver.com/api/index/KOSPI/trend`(억원, 실시간), 컨센서스 목표가(`integration`의 `consensusInfo`). 사업개요는 네이버 `description`이 비어 있음 → DART 사업보고서로. 브렌트 `BZ=F`는 월물 교체 때 값이 튀어 WTI 우선
 - 장중 감시 시험(스크래치): 업종 동반 상승 → 거래량 → 매물대 돌파 판정 동작 확인. 하락 추세 반등도 걸리므로 추세 조건 필터 필수. 실행 위치(사용자 컴퓨터 / GitHub Actions) 결정 대기
 
+## 브리핑 작성 원칙 (2026-11-03 사용자 요청)
+- 모든 브리핑 맨 앞에 "💡 Claude 의견", 많이 나온 순이 아니라 중요한 순 → CLAUDE.md·morning-brief·report-brief 스킬에 반영
+
 ## 채널 확장·분류·기업 카드 (2026-11-02)
 - 채널 6개로 확장: ked_epic_ai + bornlupin, TNBfolio, FastStockNews, nje2e, one_going (처음 수집 약 1,050개 글)
 - 채널 9개로 확장 (2026-11-02 오후): Jstockclass(엄브렐라리서치 Jay, 리포트 해설), corevalue(가치투자클럽, 실적 특징주), shmstory(시황맨, 모닝 브리핑·마감 시황) — 1개월 백필 617개 글
