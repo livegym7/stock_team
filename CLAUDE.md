@@ -46,6 +46,7 @@ python3 tools/dashboard_data.py --collect              # 대시보드 데이터 
 python3 tools/risk.py                                  # R·CR·E 리스크 지표, 3R 도달 시 본전 손절 알림 / --size 매수가 손절가 → 살 수 있는 수량 / --card --send 포트폴리오 표 그림
 python3 tools/web_build.py                             # 웹 트레이딩룸 데이터 → web/index.html → Artifact https://claude.ai/artifact/C8B5Dd1zwtyyqP3c4e3ric 로 다시 올림 (url 지정)
 python3 tools/web_build.py --only channels             # 부분 새로고침: 채널 새 글만 모아 반영 ("채널만 새로고침" 요청 시, 몇 초)
+python3 tools/sector_map.py check                     # 업종 분류표(사용자 custom 53개) 빠진 종목·확인 필요 점검 / set --code --custom 로 채우기
 python3 tools/backtest.py                              # 검증실: 돌파 규칙 백테스트(3년 일봉, 약 1분·캐시) + 감시 목록 성적표 → data/backtest/
 python3 tools/report_digest.py --collect              # 리포트 브리핑 재료 (주요 종목·섹터·내 종목), /report-brief
 python3 tools/chart.py                                 # 관심종목 주봉 + 매물대 차트 (reports/오늘/charts/에 SVG·PNG)
@@ -80,4 +81,5 @@ python3 tools/telegram_send.py --file reports/날짜/파일.md
 - 스킬: `/morning-brief`, `/company-card`, `/report-brief` (`.claude/skills/`)
 - 보유 종목은 `config/positions.toml`(initial_stop = 처음 손절가·1R 기준, stop = 지금 손절가), 계좌·리스크 규칙은 `config/account.toml`
 - 리스크 규칙: 1R = 계좌 2%(30만 원), 처음 손절 −8%, **3R 도달 시 50% 익절 + 남은 물량 손절가 본전 → CR 0**, **3R 이후 20일선 종가 하향 돌파 시 나머지 전략 매도**, CR은 매수가 기준, **CR 한도 6%(3R)** (사용자 확정 2026-11-03)
+- 인더스트리 액션 업종 그룹은 `config/sector_map.csv`(사용자 엑셀 custom 분류, 2026-11-03)를 먼저 쓰고 없으면 네이버 업종. 신규 상장은 Claude가 추론해 채우고 애매하면 '확인 필요'로 표시 후 사용자에게 묻는다
 - 기업 섹터는 `config/sector_taxonomy.toml`의 세부 섹터 안에서만 고른다. 기업 카드 기본 정보는 `data/companies.json`

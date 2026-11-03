@@ -76,3 +76,13 @@ python3 tools/news.py search --query "뉴욕증시" --hours 18   # 간밤 미국
 python3 tools/telegram_send.py --file reports/YYYY-MM-DD/morning.md
 ```
 "전송 완료"가 나오면 보고서를 커밋한다. 실패하면 오류 메시지(토큰 값 없이)를 사용자에게 알린다.
+
+## 업종 분류표 점검 (짧게, 매번)
+```bash
+python3 tools/sector_map.py check
+```
+- `missing`(표에 없는 시총 2천억↑ 종목, 주로 신규 상장)이 있으면 사업 내용을 확인해 `config/sector_map.csv`의 custom 분류(`python3 tools/sector_map.py groups`의 기존 이름 중에서) 하나로 채운다:
+  `python3 tools/sector_map.py set --code 코드 --custom "분류" --source "Claude 추론(근거 한 줄)"`. 확신이 없으면 `--note "확인 필요: 후보 A·B"`.
+- `unsure`(확인 필요)가 있으면 브리핑 맨 끝에 "🏷️ 분류 확인 부탁: 종목 → 추정 분류(후보)" 한두 줄로 묻는다. 사용자가 답하면 set으로 고치고 메모를 지운다.
+- 새 분류 이름은 만들지 않는다(꼭 필요하면 사용자에게 먼저 묻는다).
+

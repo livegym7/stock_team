@@ -58,3 +58,13 @@ python3 tools/telegram_send.py --file reports/YYYY-MM-DD/report_brief_am.md
 git add data/telegram data/companies.json reports && git commit -m "리포트 브리핑 MM/DD 오전" && git push -u origin main
 ```
 전송 실패 시 오류 메시지(토큰 값 없이)를 남긴다.
+
+## 업종 분류표 점검 (짧게, 매번)
+```bash
+python3 tools/sector_map.py check
+```
+- `missing`(표에 없는 시총 2천억↑ 종목, 주로 신규 상장)이 있으면 사업 내용을 확인해 `config/sector_map.csv`의 custom 분류(`python3 tools/sector_map.py groups`의 기존 이름 중에서) 하나로 채운다:
+  `python3 tools/sector_map.py set --code 코드 --custom "분류" --source "Claude 추론(근거 한 줄)"`. 확신이 없으면 `--note "확인 필요: 후보 A·B"`.
+- `unsure`(확인 필요)가 있으면 브리핑 맨 끝에 "🏷️ 분류 확인 부탁: 종목 → 추정 분류(후보)" 한두 줄로 묻는다. 사용자가 답하면 set으로 고치고 메모를 지운다.
+- 새 분류 이름은 만들지 않는다(꼭 필요하면 사용자에게 먼저 묻는다).
+

@@ -71,7 +71,8 @@ ETF_BRANDS = ("KODEX", "TIGER", "RISE", "ACE", "SOL", "KBSTAR", "HANARO", "PLUS"
 def is_etf(name):
     """ETF·ETN과 우선주·스팩·리츠 (개별 성장주가 아닌 것)."""
     import re
-    return name.upper().startswith(tuple(b.upper() for b in ETF_BRANDS)) or bool(re.search(r"ETN|우$|우B$|우\(|스팩|리츠", name))
+    return name.upper().startswith(tuple(b.upper() for b in ETF_BRANDS)) or bool(
+        re.search(r"ETN|우$|우B$|우\(|스팩|리츠|액티브|채권|머니마켓|인프라$|리얼티$", name))
 
 
 def rules():
@@ -209,13 +210,17 @@ def run_backtest(limit=None, workers=4):
     chg = {}
     for s, rows in data:
         chg[s["code"]] = {rows[i]["date"]: rows[i]["close"] / rows[i - 1]["close"] - 1 for i in range(1, len(rows))}
+    # 업종 그룹: 사용자 분류(config/sector_map.csv custom) → 없으면 네이버 업종
+    from sector_map import custom_map
+    cmap = custom_map()
+    ind_of = {s["code"]: (cmap.get(s["code"]) or "네이버:" + s["industry"]) for s, _ in data}
     by_ind = defaultdict(list)
-    for s, _ in data:
-        by_ind[s["industry"]].append(s["code"])
-    ind_of = {s["code"]: s["industry"] for s, _ in data}
+    for code, g in ind_of.items():
+        by_ind[g].append(code)
     for t in trades:
         peers = [c for c in by_ind[ind_of[t["code"]]] if c != t["code"] and t["date"] in chg.get(c, {})]
         xs = [chg[c][t["date"]] for c in peers]
+        t["ia_group"] = ind_of[t["code"]]
         t["ia_peers"] = len(xs)
         t["ia_up_share"] = round(sum(1 for x in xs if x >= 0.02) / len(xs) * 100) if xs else None
         t["ia_median"] = round(statistics.median(xs) * 100, 1) if xs else None
@@ -244,7 +249,7 @@ def run_backtest(limit=None, workers=4):
         "by_ia": by(lambda t: t["ia"]),
         "by_kind_ia": by(lambda t: t["kind"] + " · " + t["ia"].split("(")[0]),
         "by_ia_market": by(lambda t: t["ia"].split("(")[0] + " · " + ("지수 20일선 위" if t["market_ok"] else "지수 20일선 아래")),
-        "ia_rule": "인더스트리 액션 = 신호일에 같은 네이버 업종(시총 2천억↑) 종목의 40% 이상이 +2%↑ 또는 업종 중앙값 +1.5%↑",
+        "ia_rule": "인더스트리 액션 = 신호일에 같은 업종(사용자 분류 custom, 없으면 네이버 업종 · 시총 2천억↑) 종목의 40% 이상이 +2%↑ 또는 업종 중앙값 +1.5%↑",
         "by_exit": dict(Counter(t["how"] for t in closed)),
         "r_hist": dict(sorted(Counter(max(-2, min(6, round(t["r"]))) for t in closed).items())),
         "curve": curve[::max(1, len(curve) // 200)] + curve[-1:],

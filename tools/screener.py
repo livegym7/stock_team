@@ -277,6 +277,8 @@ def run(codes_info, workers=4):
     vals = sorted(x for x in raws.values() if x is not None)
     pct = lambda x: None if x is None else round(sum(1 for y in vals if y <= x) / len(vals) * 99)
     companies = json.loads((DATA / "companies.json").read_text(encoding="utf-8"))
+    from sector_map import custom_map
+    cmap = custom_map()
     results = []
     for s, rows in data:
         rs = pct(raws[s["code"]])
@@ -290,7 +292,8 @@ def run(codes_info, workers=4):
         card = companies.get(s["code"])
         item = {
             "stock": s["name"], "code": s["code"], "market": s["market"],
-            "sector": f"{card['sector']} > {card['detail']}" if card else s["industry"],
+            "sector": f"{card['sector']} > {card['detail']}" if card else (cmap.get(s["code"]) or s["industry"]),
+            "group": cmap.get(s["code"]) or s["industry"],  # 인더스트리 액션용 업종 (사용자 분류 우선)
             "close": rows[-1]["close"], "date": rows[-1]["date"], "rs": rs, **extra,
             "checks": checks, "gate_pass": all(checks.values()), "gate_score": sum(checks.values()),
             "setups": a.get("setups", []), "run_pct": a.get("run_pct"), "base": a.get("base"), "today": ev, "vol_ratio": vr,
