@@ -69,6 +69,7 @@ th.l,td.l{text-align:left} tr:last-child td{border-bottom:0}
 tr.click{cursor:pointer} tr.click:hover td{background:var(--soft)}
 .rbar{width:90px;height:5px;background:var(--soft);border-radius:3px;margin-top:4px;position:relative}
 .rbar i{position:absolute;top:0;bottom:0;left:0;background:var(--ok);border-radius:3px}
+.sbar{width:70px;height:5px;background:var(--soft);border-radius:3px;margin-top:4px;margin-left:auto;overflow:hidden} .sbar i{display:block;height:100%;background:var(--accent)}
 .rbar::after{content:"";position:absolute;left:25%;top:-2px;bottom:-2px;width:1px;background:var(--muted)}
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
 .chip{border:1px solid var(--line);background:var(--panel);color:var(--fg);border-radius:99px;padding:4px 11px;font:inherit;font-size:12.5px;cursor:pointer}
@@ -231,7 +232,9 @@ function insightBlock(){
    <div class="panel"><h3>채널 특징주 · 24시간</h3>
     ${hot.length?`<div class="ins">${hot.map(h=>`<div class="insrow click" data-cq="${esc(h.stock)}"><div class="ihead"><b>${esc(h.stock)}</b><small class="muted">글 ${h.posts} · 채널 ${h.channels}</small>${h.up||h.down?`<span class="pill"><span class="up">상향 ${h.up}</span> / <span class="down">하향 ${h.down}</span></span>`:""}</div><div class="muted" style="font-size:12.5px">${esc(h.headline||"")}</div></div>`).join("")}</div>`:`<div class="empty">해당 없음</div>`}
     <div class="src">여러 채널·여러 글이 다룬 종목 순 (시황 나열 글 제외) · 출처: 채널(2차 자료)</div></div>
-   <div class="panel"><h3>섹터 · 1주 강한 곳 / 약한 곳</h3>
+   <div class="panel"><h3>섹터 · 주도 섹터 레이더 상위 3</h3>${(D.radar?.groups||[]).slice(0,3).map(x=>`<div class="bar" data-go="sectors" style="cursor:pointer"><span><b>${esc(x.group)}</b>${(D.radar.confirmed||[]).includes(x.group)?' <span class="pill ok">주도</span>':""}</span><div class="track"><i style="width:${x.score}%;background:var(--accent)"></i></div><span class="num">${x.score}</span></div>`).join("")||'<div class="muted">레이더 데이터 없음</div>'}
+    <div class="src" style="margin-bottom:10px">${(D.radar?.confirmed||[]).length?"확정 주도 섹터: "+esc(D.radar.confirmed.join(", ")):"확정된 주도 섹터 없음 — 섹터 메뉴에서 보고 정해 주세요"}</div>
+    <h3>섹터 ETF · 1주 강한 곳 / 약한 곳</h3>
     <div class="bars">${(I.sectors_up||[]).map(x=>`<div class="bar"><span>${esc(x.sector)}</span><div class="track"><i class="u" style="width:${Math.min(100,Math.abs(x.r1w)*8)}%"></i></div><span class="num up">${pc(x.r1w)}</span></div>`).join("")}
     ${(I.sectors_down||[]).map(x=>`<div class="bar"><span>${esc(x.sector)}</span><div class="track"><i class="d" style="width:${Math.min(100,Math.abs(x.r1w)*8)}%"></i></div><span class="num down">${pc(x.r1w)}</span></div>`).join("")}</div>
     <div class="src">섹터 ETF 1주 수익률 · 20일선 위 섹터: ${(D.sectors_etf?.results||[]).filter(x=>x.above20).map(x=>x.sector).join(", ")||"없음"} · 전 거래일 종가</div></div>
@@ -438,11 +441,26 @@ function viewWatch(){
 }
 
 /* ---------- 섹터 ---------- */
+function radarBlock(full){
+  const R=D.radar; if(!R||!R.groups)return full?`<div class="empty">레이더 데이터 없음 (평일 16:07 감시 목록과 함께 계산)</div>`:"";
+  const conf=new Set(R.confirmed||[]), G=R.groups.slice(0,full?12:3);
+  const hist=R.history||[], tops=[...new Set(hist.flatMap(h=>h.top.slice(0,3).map(t=>t.group)))].slice(0,10);
+  return `<div class="panel"><h3>🧭 주도 섹터 레이더 <span class="pill">${esc(R.as_of)} 종가</span> ${conf.size?`<span class="pill ok">확정: ${esc([...conf].join(", "))}</span>`:`<span class="pill warn">확정된 주도 섹터 없음</span>`}</h3>
+   <div style="overflow-x:auto"><table><tr><th class="l">#</th><th class="l">업종</th><th>점수</th><th>1개월 상대</th><th>1주 상대</th><th>20일선 위</th><th>55일 신고가</th><th>거래대금</th>${full?`<th class="l">앞선 종목</th><th>채널·리포트 7일</th>`:""}</tr>
+   ${G.map(x=>`<tr><td class="l num">${x.rank}</td><td class="l"><b>${esc(x.group)}</b> ${conf.has(x.group)?'<span class="pill ok">주도</span>':""}<br><small class="muted">${x.n}종목</small></td>
+    <td class="num"><b>${x.score}</b><div class="sbar"><i style="width:${x.score}%"></i></div></td>
+    <td class="num ${cls(x.rel1m_pct)}">${pc(x.rel1m_pct)}</td><td class="num ${cls(x.rel1w_pct)}">${pc(x.rel1w_pct)}</td><td class="num">${x.breadth_pct}%</td><td class="num">${x.newhigh_pct}%</td><td class="num">${x.money_x}배</td>
+    ${full?`<td class="l" style="white-space:normal;min-width:180px"><small>${x.leaders.map(l=>esc(l.name)+" "+pc(l.r1m_pct)).join(" · ")}</small></td><td class="num"><small>${x.mentions_7d!=null?`언급 ${x.mentions_7d} · <span class="up">↑${x.reports_up_7d}</span> <span class="down">↓${x.reports_down_7d}</span>`:"-"}</small></td>`:""}</tr>`).join("")}</table></div>
+   ${full&&hist.length?`<h3 style="margin-top:14px">최근 12주 순위 흐름 (주간 상위 3에 든 업종)</h3><div style="overflow-x:auto"><table><tr><th class="l">업종</th>${hist.map(h=>`<th>${h.date.slice(4,6)}/${h.date.slice(6)}</th>`).join("")}</tr>
+     ${tops.map(g=>`<tr><td class="l">${esc(g)}</td>${hist.map(h=>{const r=h.ranks[g];return `<td class="num" style="${r&&r<=3?"background:var(--accent-soft);font-weight:600":r&&r<=8?"background:var(--soft)":""}">${r??"-"}</td>`}).join("")}</tr>`).join("")}</table></div>`:""}
+   <div class="src">${esc(R.how||"")} · 숫자만 제시하고, 주도 섹터 확정은 본인이 합니다 ("이번 달 주도 섹터는 ○○"라고 말하면 반영) · ${esc(R.source||"")}</div></div>`;
+}
 function viewSectors(){
   const E=D.sectors_etf, F=D.report_flow||[];
   const etf=E&&E.results?E.results.slice().sort((a,b)=>b.rs_score-a.rs_score):[];
   const max=Math.max(1,...F.map(f=>f.up+f.down+f.new));
-  return `<h1>섹터</h1><div class="sub">돈이 어디로 가는지(ETF)와 증권사 눈높이가 어디로 가는지(리포트)를 같이 봅니다</div>
+  return `<h1>섹터</h1><div class="sub">돈이 어디로 가는지(레이더·ETF)와 증권사 눈높이가 어디로 가는지(리포트)를 같이 봅니다</div>
+  ${radarBlock(true)}<div style="height:16px"></div>
   <h2>섹터 ETF 강도</h2>${etf.length?`<div class="tw"><table><tr><th class="l">섹터</th><th class="l">ETF</th><th>강도</th><th>1주</th><th>1개월</th><th>3개월</th><th>12개월</th><th>20일선</th><th>고점대비</th></tr>
   ${etf.map(x=>`<tr><td class="l"><b>${esc(x.sector)}</b></td><td class="l muted">${esc(x.etf)}</td><td class="num">${x.rs_score}</td><td class="num ${cls(x.r1w)}">${pc(x.r1w)}</td><td class="num ${cls(x.r1m)}">${pc(x.r1m)}</td><td class="num ${cls(x.r3m)}">${pc(x.r3m)}</td><td class="num ${cls(x.r12m)}">${pc(x.r12m)}</td><td><span class="pill ${x.above20?"ok":""}">${x.above20?"위":"아래"}</span></td><td class="num">${pc(x.off_high)}</td></tr>`).join("")}</table></div>
   ${src(E.source+" · "+E.fetched_at+" · 기준 "+(E.benchmark?.etf||"")+" "+pc(E.benchmark?.r1w)+"(1주)")}`:`<div class="empty">ETF 데이터 없음</div>`}

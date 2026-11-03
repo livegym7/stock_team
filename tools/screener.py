@@ -517,6 +517,12 @@ def message(results, as_of):
     if cands:
         lines += ["", f"👀 후보 {len(cands)}개 (규칙 1~2개 부족 — 직접 판단, 웹 감시 목록 > 후보)"]
         lines += [f"- {r['stock']} ({r.get('group')}) 부족: {' · '.join(r['missing'][:2])}" for r in cands[:6]]
+    try:
+        rd = json.loads((DATA / "radar" / "latest.json").read_text(encoding="utf-8"))
+        lines += ["", "🧭 주도 섹터 레이더 상위 3 (점수 0~100): " + " · ".join(f"{x['group']} {x['score']}" for x in rd["groups"][:3])
+                  + (f" | 확정: {', '.join(rd['confirmed'])}" if rd.get("confirmed") else " | 확정된 주도 섹터 없음 — 정하면 알려 주세요")]
+    except Exception:
+        pass
     lines += ["", "※ 규칙 대입 결과이며 추천이 아닙니다. 판단은 본인이 합니다."]
     return "\n".join(lines)
 
@@ -555,6 +561,13 @@ def main():
                "near_miss": sorted((r for r in results if r["gate_score"] == 6 and not r["gate_pass"]),
                                    key=lambda r: -(r["rs"] or 0))[:30]}
     (out_dir / "screener.json").write_text(json.dumps(payload, ensure_ascii=False, indent=1), encoding="utf-8")
+    try:  # 주도 섹터 레이더 (같은 일봉 캐시 재사용, 몇 초)
+        import sector_radar
+        radar = sector_radar.build()
+        print("[레이더 상위: " + ", ".join(f"{x['group']} {x['score']}" for x in radar["groups"][:3]) + "]", file=sys.stderr)
+    except Exception as e:
+        radar = None
+        print(f"[레이더 실패: {e}]", file=sys.stderr)
     msg = message(results, as_of)
     print(msg)
     print(f"\n[{len(results)}종목, {time.time() - t0:.0f}초, 저장: {(out_dir / 'screener.json').relative_to(ROOT)}]", file=sys.stderr)

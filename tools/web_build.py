@@ -436,6 +436,8 @@ def main():
         data["sectors_etf"] = safe(lambda: json.loads(out))
     data["insights"] = safe(lambda: insights(data["watch"], data["sectors_etf"], allp, by_stock, now))
     data["lab"] = lab(data, now)
+    rp = DATA / "radar" / "latest.json"
+    data["radar"] = safe(lambda: json.loads(rp.read_text(encoding="utf-8"))) if rp.exists() else None
     data["refresh"] = {"owner": "livegym7", "repo": "stock_team", "workflow": "web-data.yml", "branch": "web-data", "path": "data.json"}
     data["parts"] = {k: data["built_at"] for k in ("market", "risk", "channels", "insights")}
     if a.data_out:
