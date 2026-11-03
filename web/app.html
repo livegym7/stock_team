@@ -213,7 +213,7 @@ function holdMini(r){
 function insightBlock(){
   const I=D.insights; if(!I||I.error)return "";
   const R=I.regime, L={green:["🟢","초록"],yellow:["🟡","노랑"],red:["🔴","빨강"]};
-  const st={"기준가 돌파 중":"ok","알림가 도달":"warn","기준가 근접":""};
+  const st={"기준가 돌파 중":"ok","돌파 중 · 업종 무반응":"warn","알림가 도달":"warn","기준가 근접":""};
   const setups=(I.setups||[]).slice(0,5), hot=I.hot||[], lead=I.leaders||[], held=new Set((D.risk?.positions||[]).map(p=>p.code));
   return `<div><h2>🔎 오늘의 인사이트 <span class="pill">${esc(I.at)} 계산</span></h2>
   ${R?`<div class="regime ${R.light}"><b>${L[R.light][0]} 시장 신호등 ${L[R.light][1]}</b> · ${esc(R.text)}<br><small class="muted">${esc(R.etf)} 20일선 대비 ${pc(R.gap20)} · 20일선 기울기 ${pc(R.slope20)} · 1주 ${pc(R.r1w)} · 1개월 ${pc(R.r1m)} · 고점 대비 ${pc(R.off_high)} (${esc(R.date)} 종가)</small></div>`:""}
@@ -493,7 +493,8 @@ function curveSvg(c){
    <text x="${P}" y="${H-4}" font-size="10" fill="var(--muted)">${esc(c[0][0])}</text><text x="${W-6}" y="${H-4}" font-size="10" text-anchor="end" fill="var(--muted)">${esc(c[c.length-1][0])}</text></svg></div>`;
 }
 const GLOSS={
- signals:[["돌파","셋업이 있는 조정 구간의 <b>기준가(조정 구간 고점)</b>를 <b>종가로 넘고</b>, 거래량이 50일 평균의 <b>1.5배 이상</b>인 날. 깡토 전략의 기본 진입 신호"],
+ signals:[["돌파","셋업이 있는 조정 구간의 <b>기준가(조정 구간 고점)</b>를 <b>종가로 넘고</b>, 거래량이 50일 평균의 <b>1.5배 이상</b>이며, <b>인더스트리 액션(같은 업종 동반 상승)</b>이 있는 날. 깡토 전략의 기본 진입 신호. 업종이 안 움직이면 '돌파(업종 무반응)'으로 표시되고 신호로 치지 않음"],
+  ["인더스트리 액션","같은 업종(사용자 분류, 없으면 네이버 업종 · 시총 2천억↑) 종목 중 <b>40% 이상이 +2%↑</b> 이거나 <b>업종 중앙값 +1.5%↑</b>. 비교 종목 3개 미만이면 확인 불가(통과 못 함). 돌파에만 필수, 포켓피봇은 적용 안 함"],
   ["포켓피봇","조정 중 <b>상승한 날의 거래량</b>이 직전 10일 중 <b>하락한 날의 최대 거래량보다 큰</b> 날 (10일선 −3%~+5% 근처). 기준가 돌파 전에 큰손 매수 흔적을 먼저 잡는 이른 신호"],
   ["H 이벤트","하루 +5% 이상 오르고 거래량 50일 평균의 2배 이상. 실적·뉴스 같은 사건으로 움직인 날 (감시 목록 '오늘' 칸)"]],
  setups:[["A","박스·깃발","조정 1주 이상, 앞선 상승분(1stage)의 50% 넘게 반납하지 않은 건전한 조정. 가장 넓은 기본형"],
@@ -529,6 +530,9 @@ function viewLab(){
      <div class="panel kpi"><span>승률</span><b>${A.win_rate}%</b><small class="muted">3R 도달 ${A.reach_3r_pct}% · 책 목표 30%↑</small></div>
      <div class="panel kpi"><span>손익비 (평균 이익 ÷ 평균 손실)</span><b>${A.payoff??"-"}</b><small class="muted">+${A.avg_win}R / ${A.avg_loss}R · 책 목표 3↑</small></div>
      <div class="panel kpi"><span>최대 낙폭 · 연속 손실</span><b>${A.max_dd_r}R</b><small class="muted">최대 ${A.max_loss_streak}번 연속 손실 · 평균 보유 ${A.avg_days}일</small></div></div>
+    ${B.compare_without_ia?`<div class="panel" style="margin-top:12px"><h3>인더스트리 액션 조건 효과 (돌파에 필수 적용)</h3><div style="overflow-x:auto"><table><tr><th class="l">구분</th><th>건수</th><th>승률</th><th>평균 R</th><th>이익/손실</th><th>PF</th><th>3R</th><th>보유</th></tr>
+     ${statRow("조건 없이 (전체)",B.compare_without_ia.all)}${statRow("조건 적용 (전체) ← 지금 규칙",A)}${statRow("돌파 · 조건 없이",B.compare_without_ia.breakout)}${statRow("돌파 · 조건 적용 ← 지금 규칙",(B.by_kind||{})["돌파"])}</table></div>
+     <div class="src">최대 낙폭: 조건 없이 ${B.compare_without_ia.all.max_dd_r}R → 적용 ${A.max_dd_r}R</div></div>`:""}
     <div class="panel" style="margin-top:12px"><h3>누적 R (청산일 순서)</h3>${curveSvg(B.curve)}<div class="src">모든 신호를 1R씩 똑같이 걸었다고 가정한 합계. 실제로는 CR 한도 6% 때문에 동시에 다 사지 못함</div></div>
     <div class="grid g2" style="margin-top:12px">
      <div class="panel"><h3>신호·셋업·시장별</h3><div style="overflow-x:auto"><table><tr><th class="l">구분</th><th>건수</th><th>승률</th><th>평균 R</th><th>이익/손실</th><th>PF</th><th>3R</th><th>보유</th></tr>

@@ -77,6 +77,12 @@
 - screener: ETF·ETN을 감시 목록에서 제외 (313개가 섞여 있었음)
 - 부분 새로고침 `web_build --only channels` (web/last_data.json 기반, 채널 피드·통계·특징주만). 새로고침 워크플로도 채널 수집 먼저 하도록
 
+## 인더스트리 액션 = 돌파 필수 조건 (사용자 확정 2026-11-03)
+- screener.IA_RULE / industry_action(): 감시 목록 '돌파'는 업종 동반 상승일 때만, 아니면 '돌파(업종 무반응)'(✅ 없음)
+- backtest: 돌파에 필수 적용(포켓피봇 제외), 조건 없는 결과는 compare_without_ia로 비교. 전체 923건 +0.38R(PF 1.55, 최대 낙폭 −56R) / 돌파 249건 +0.45R
+- 웹 인사이트 셋업 점검: 업종 실시간 동반 여부를 근거/반대 근거에 표시, 돌파 중인데 업종 무반응이면 '돌파 중 · 업종 무반응'
+- docs/setups.md에 규칙 추가
+
 ## 업종 분류표 (사용자 엑셀, 2026-11-03)
 - config/sector_map.csv: 사용자 WI26_SECTOR.xlsx의 SECTOR_MAP 2,554종목(wi26 48종 · custom 53종) + Claude 추론 11종목(7개 '확인 필요')
 - tools/sector_map.py check/set/groups. 브리핑 스킬에 '분류표 점검' 단계 추가(신규 상장 추론 → 애매하면 브리핑 끝에서 질문)

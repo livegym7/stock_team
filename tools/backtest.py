@@ -110,8 +110,8 @@ def simulate(rows, i, R):
     return {"r": round(realized, 2), "exit": None, "days": len(rows) - 1 - i, "how": "보유 중(평가)", "took": took}
 
 
-def scan(stock, rows, rs_at, bench_ok, R):
-    """한 종목의 과거 신호와 거래."""
+def scan(stock, rows, rs_at, bench_ok, R, ia_at=None, require_ia=True):
+    """한 종목의 과거 신호와 거래. require_ia면 돌파는 인더스트리 액션(업종 동반 상승)일 때만."""
     trades, busy_until = [], -1
     v = [r["volume"] for r in rows]
     h = [r["high"] for r in rows]
@@ -139,14 +139,16 @@ def scan(stock, rows, rs_at, bench_ok, R):
             continue
         setups = [s for s in prev.get("setups", []) if s in "ABCDEF"]
         kind = None
-        if base and setups and c[i] > prev.get("handle_high", base["pivot"]) and v[i] >= S.RULES["breakout_vol"] * vol50:
+        ia = ia_at(stock["code"], rows[i]["date"]) if ia_at else {"ia": "확인 불가"}
+        brk_ok = base and setups and c[i] > prev.get("handle_high", base["pivot"]) and v[i] >= S.RULES["breakout_vol"] * vol50
+        if brk_ok and (not require_ia or ia["ia"] == "동반 상승"):
             kind = "돌파"
         elif pp:
             kind = "포켓피봇"
         if not kind:
             continue
         res = simulate(rows, i, R)
-        trades.append({"stock": stock["name"], "code": stock["code"], "date": rows[i]["date"], "entry": c[i], "kind": kind,
+        trades.append({**ia, "stock": stock["name"], "code": stock["code"], "date": rows[i]["date"], "entry": c[i], "kind": kind,
                        "setups": setups, "rs": rs, "vol_ratio": round(v[i] / vol50, 2), "market_ok": bench_ok.get(rows[i]["date"]),
                        **res})
         busy_until = i + res["days"]
@@ -203,30 +205,25 @@ def run_backtest(limit=None, workers=4):
     bench = fetch_long("069500")
     bc = [r["close"] for r in bench]
     bench_ok = {bench[i]["date"]: bc[i] > sum(bc[i - 19:i + 1]) / 20 for i in range(19, len(bench))}
-    trades = []
-    for s, rows in data:
-        trades += scan(s, rows, rs_at, bench_ok, R)
-    trades.sort(key=lambda t: t["date"])
-    # 인더스트리 액션: 신호일에 같은 네이버 업종(시총 2천억↑ 종목들)이 함께 올랐나
-    chg = {}
-    for s, rows in data:
-        chg[s["code"]] = {rows[i]["date"]: rows[i]["close"] / rows[i - 1]["close"] - 1 for i in range(1, len(rows))}
-    # 업종 그룹: 사용자 분류(config/sector_map.csv custom) → 없으면 네이버 업종
+    # 인더스트리 액션: 신호일에 같은 업종(사용자 분류 custom → 없으면 네이버 업종, 시총 2천억↑)이 함께 올랐나
+    chg = {s["code"]: {rows[i]["date"]: rows[i]["close"] / rows[i - 1]["close"] - 1 for i in range(1, len(rows))} for s, rows in data}
     from sector_map import custom_map
     cmap = custom_map()
     ind_of = {s["code"]: (cmap.get(s["code"]) or "네이버:" + s["industry"]) for s, _ in data}
     by_ind = defaultdict(list)
     for code, g in ind_of.items():
         by_ind[g].append(code)
-    for t in trades:
-        peers = [c for c in by_ind[ind_of[t["code"]]] if c != t["code"] and t["date"] in chg.get(c, {})]
-        xs = [chg[c][t["date"]] for c in peers]
-        t["ia_group"] = ind_of[t["code"]]
-        t["ia_peers"] = len(xs)
-        t["ia_up_share"] = round(sum(1 for x in xs if x >= 0.02) / len(xs) * 100) if xs else None
-        t["ia_median"] = round(statistics.median(xs) * 100, 1) if xs else None
-        t["ia"] = ("확인 불가(같은 업종 3개 미만)" if len(xs) < 3 else
-                   "동반 상승" if (t["ia_up_share"] >= 40 or t["ia_median"] >= 1.5) else "나 홀로")
+
+    def ia_at(code, day):
+        xs = [chg[c][day] for c in by_ind[ind_of[code]] if c != code and day in chg[c]]
+        label, share, med = S.industry_action(xs)
+        return {"ia": label, "ia_group": ind_of[code], "ia_peers": len(xs), "ia_up_share": share, "ia_median": med}
+
+    trades, loose = [], []
+    for s, rows in data:
+        trades += scan(s, rows, rs_at, bench_ok, R, ia_at, require_ia=True)
+        loose += scan(s, rows, rs_at, bench_ok, R, ia_at, require_ia=False)
+    trades.sort(key=lambda t: t["date"])
     closed = [t for t in trades if t["exit"]]
     by = lambda key: {k: stats([t for t in closed if key(t) == k]) for k in sorted({key(t) for t in closed}, key=str)}
     setup_stats = {}
@@ -244,13 +241,17 @@ def run_backtest(limit=None, workers=4):
         "limits": ["지금 시총 2천억↑ 종목만 대상(사라진 종목 빠짐 → 성적이 좋게 나올 수 있음)", "시총 관문은 지금 값으로 판단",
                    "일봉만 사용: 같은 날 3R과 손절이 함께 닿으면 손절로 처리", "수수료·세금·슬리피지 미반영", "진입은 신호일 종가(장중 돌파가보다 불리할 수 있음)"],
         "all": stats(closed), "open_trades": len(trades) - len(closed),
+        "ia_required": True,
+        "compare_without_ia": {"all": stats([t for t in loose if t["exit"]]),
+                               "breakout": stats([t for t in loose if t["exit"] and t["kind"] == "돌파"])},
         "by_kind": by(lambda t: t["kind"]), "by_setup": setup_stats,
         "by_market": {("지수 20일선 위" if k else "지수 20일선 아래"): v for k, v in by(lambda t: bool(t["market_ok"])).items()},
         "by_year": by(lambda t: t["date"][:4]),
         "by_ia": by(lambda t: t["ia"]),
-        "by_kind_ia": by(lambda t: t["kind"] + " · " + t["ia"].split("(")[0]),
+        "by_kind_ia": {k: stats([t for t in loose if t["exit"] and t["kind"] + " · " + t["ia"].split("(")[0] == k])
+                       for k in sorted({t["kind"] + " · " + t["ia"].split("(")[0] for t in loose})},
         "by_ia_market": by(lambda t: t["ia"].split("(")[0] + " · " + ("지수 20일선 위" if t["market_ok"] else "지수 20일선 아래")),
-        "ia_rule": "인더스트리 액션 = 신호일에 같은 업종(사용자 분류 custom, 없으면 네이버 업종 · 시총 2천억↑) 종목의 40% 이상이 +2%↑ 또는 업종 중앙값 +1.5%↑",
+        "ia_rule": "인더스트리 액션(돌파 필수) = 신호일에 같은 업종(사용자 분류 custom, 없으면 네이버 업종 · 시총 2천억↑) 종목의 40% 이상이 +2%↑ 또는 업종 중앙값 +1.5%↑. 아래 '업종 동반/나 홀로' 줄은 조건 없이 잡은 신호를 나눠 본 비교",
         "by_exit": dict(Counter(t["how"] for t in closed)),
         "r_hist": dict(sorted(Counter(max(-2, min(6, round(t["r"]))) for t in closed).items())),
         "curve": curve[::max(1, len(curve) // 200)] + curve[-1:],

@@ -172,6 +172,7 @@ def insights(W, etf, allp, by_stock, now):
     """홈 인사이트: 시장 신호등 · 셋업 점검(감시 목록 × 지금 가격) · 주도주 · 채널 특징주 · 강한/약한 섹터.
     조건 충족 여부를 보여 줄 뿐 매수 추천이 아니다 (절대 규칙 4)."""
     import screener
+    S = screener
     out = {"at": now.strftime("%Y-%m-%d %H:%M")}
     # 1) 시장 신호등 (KODEX 200: 20일선 위/아래, 이평 정배열)
     b = (etf or {}).get("benchmark") or {}
@@ -185,7 +186,20 @@ def insights(W, etf, allp, by_stock, now):
     W = W or {}
     cands = W.get("watch", []) + [x for x in W.get("near_miss", []) if x.get("gate_score", 0) >= 6 and x.get("levels")]
     leaders = W.get("running", [])
-    q = polling([x["code"] for x in cands + leaders])
+    # 인더스트리 액션(지금 기준): 후보 종목의 업종(사용자 분류 → 네이버 업종) 다른 종목들 실시간 등락
+    from sector_map import custom_map
+    from universe import load as load_universe
+    from backtest import is_etf
+    cmap = custom_map()
+    uni = [u for u in load_universe()["stocks"] if (u.get("market_cap_eok") or 0) >= 2000 and not is_etf(u["name"])
+           and u.get("market") not in ("KONEX", "2")]
+    grp_of = {u["code"]: cmap.get(u["code"]) or "네이버:" + u["industry"] for u in uni}
+    members = defaultdict(list)
+    for c, g in grp_of.items():
+        members[g].append(c)
+    need = {grp_of.get(x["code"]) for x in cands if grp_of.get(x["code"])}
+    peer_codes = [c for g in need for c in members[g][:80]]
+    q = polling([x["code"] for x in cands + leaders] + peer_codes)
     frac = session_frac(now)
     rows = []
     for x in cands:
@@ -200,7 +214,7 @@ def insights(W, etf, allp, by_stock, now):
         pace = round(live.get("volume", 0) / (avgv * frac), 2) if avgv and live.get("volume") else None
         dist = round((pivot / price - 1) * 100, 1)
         if price >= pivot:
-            status, rank = "기준가 돌파 중", 0
+            status, rank = "기준가 돌파 중", 0  # 인더스트리 액션 없으면 아래에서 '업종 무반응'으로 바꿈
         elif price >= alert:
             status, rank = "알림가 도달", 1
         elif dist <= 5:
@@ -228,9 +242,19 @@ def insights(W, etf, allp, by_stock, now):
                 cons.append(f"거래량 페이스 {pace}배 (돌파 기준 1.5배 미만)")
         if x.get("overhead_zone"):
             cons.append("위쪽 매물대")
+        g = grp_of.get(x["code"])
+        xs = [q[c]["change_pct"] / 100 for c in members.get(g, [])[:80] if c != x["code"] and c in q]
+        ia, ia_share, ia_med = S.industry_action(xs) if g else ("확인 불가", None, None)
+        gname = (g or "").replace("네이버:", "")
+        if ia == "동반 상승":
+            pros.append(f"업종 동반 상승({gname} {ia_share}%가 +2%↑)")
+        else:
+            cons.append(f"인더스트리 액션 없음({gname}{'' if ia_share is None else f' {ia_share}%만 +2%↑'}) → 돌파해도 신호 아님")
         if out.get("regime", {}).get("light") == "red":
             cons.append("시장 신호등 빨강")
-        rows.append({"stock": x["stock"], "code": x["code"], "sector": x["sector"], "setups": x.get("setups", []),
+        if rank == 0 and ia != "동반 상승":
+            status = "돌파 중 · 업종 무반응"
+        rows.append({"ia": ia, "ia_group": gname, "stock": x["stock"], "code": x["code"], "sector": x["sector"], "setups": x.get("setups", []),
                      "price": price, "change_pct": live.get("change_pct"), "pivot": pivot, "alert": alert, "stop": lv.get("stop_1r"),
                      "dist_pct": dist, "pace": pace, "status": status, "rank": rank, "pros": pros, "cons": cons, "rs": x.get("rs")})
     out["setups"] = sorted(rows, key=lambda r: (r["rank"], r["dist_pct"]))[:8]

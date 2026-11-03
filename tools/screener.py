@@ -42,6 +42,23 @@ RULES = {
 }
 
 
+# 인더스트리 액션 (사용자 확정 2026-11-03: 돌파 신호의 필수 조건, 포켓피봇은 제외)
+# 같은 업종(config/sector_map.csv custom → 없으면 네이버 업종, 시총 2천억↑) 종목 중
+# 40% 이상이 +2%↑ 이거나 업종 중앙값이 +1.5%↑ 이면 '동반 상승'. 비교할 종목이 3개 미만이면 '확인 불가'(=통과 못 함).
+IA_RULE = {"up": 0.02, "min_up_share": 40, "min_median": 1.5, "min_peers": 3}
+
+
+def industry_action(changes):
+    """같은 업종 다른 종목들의 등락률(소수, 0.02=+2%) → (판정, +2%↑ 비율 %, 중앙값 %)."""
+    import statistics
+    if len(changes) < IA_RULE["min_peers"]:
+        return "확인 불가", None, None
+    share = round(sum(1 for x in changes if x >= IA_RULE["up"]) / len(changes) * 100)
+    med = round(statistics.median(changes) * 100, 1)
+    ok = share >= IA_RULE["min_up_share"] or med >= IA_RULE["min_median"]
+    return ("동반 상승" if ok else "나 홀로"), share, med
+
+
 # ---------- 데이터 ----------
 def fetch_daily(code, days=400):
     """일봉 1년여치. 같은 날 받은 캐시가 있으면 그걸 쓴다. 거래정지일(가격 0)은 뺀다."""
@@ -279,6 +296,12 @@ def run(codes_info, workers=4):
     companies = json.loads((DATA / "companies.json").read_text(encoding="utf-8"))
     from sector_map import custom_map
     cmap = custom_map()
+    # 오늘 업종별 등락 (인더스트리 액션)
+    day_chg = {s["code"]: rows[-1]["close"] / rows[-2]["close"] - 1 for s, rows in data if len(rows) > 1}
+    grp = {s["code"]: cmap.get(s["code"]) or "네이버:" + s["industry"] for s, _ in data}
+    members = {}
+    for code, g in grp.items():
+        members.setdefault(g, []).append(code)
     results = []
     for s, rows in data:
         rs = pct(raws[s["code"]])
@@ -286,6 +309,9 @@ def run(codes_info, workers=4):
         a = analyze(rows)
         prev = analyze(rows[:-1])
         ev, vr = today_events(rows, prev)
+        ia, ia_share, ia_med = industry_action([day_chg[c] for c in members[grp[s["code"]]] if c != s["code"] and c in day_chg])
+        if "돌파" in ev and ia != "동반 상승":
+            ev = ["돌파(업종 무반응)" if e == "돌파" else e for e in ev]  # 인더스트리 액션 없으면 돌파 신호로 치지 않음
         stage1 = a["base"]["stage1_pct"] if a.get("base") else a.get("run_pct", 0)
         stage1_ok = stage1 >= RULES["min_stage1"]
         checks["1stage 상승"] = stage1_ok
@@ -294,6 +320,7 @@ def run(codes_info, workers=4):
             "stock": s["name"], "code": s["code"], "market": s["market"],
             "sector": f"{card['sector']} > {card['detail']}" if card else (cmap.get(s["code"]) or s["industry"]),
             "group": cmap.get(s["code"]) or s["industry"],  # 인더스트리 액션용 업종 (사용자 분류 우선)
+            "ia": ia, "ia_up_share": ia_share, "ia_median": ia_med,
             "close": rows[-1]["close"], "date": rows[-1]["date"], "rs": rs, **extra,
             "checks": checks, "gate_pass": all(checks.values()), "gate_score": sum(checks.values()),
             "setups": a.get("setups", []), "run_pct": a.get("run_pct"), "base": a.get("base"), "today": ev, "vol_ratio": vr,
@@ -318,7 +345,7 @@ def run(codes_info, workers=4):
 def grade(it):
     core = set(it["setups"]) & set("ABCDE")
     if it["gate_pass"] and ("돌파" in it["today"] and core or "G" in it["today"]):
-        return "✅"  # 업종 동반 여부는 장중 감시에서 🔥로 올린다
+        return "✅"  # '돌파'는 인더스트리 액션(업종 동반 상승)까지 확인된 것만 (무반응이면 '돌파(업종 무반응)')
     if it["gate_pass"] and (core or "F" in it["setups"]):
         d = (it.get("levels") or {}).get("distance_pct")
         return "👀" if d is not None and d <= RULES["alert_gap"] * 100 else "대기"
