@@ -69,6 +69,16 @@ tr.click{cursor:pointer} tr.click:hover td{background:var(--soft)}
 .list{display:grid;gap:6px}
 .item{border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:9px 12px;cursor:pointer;text-align:left;font:inherit;color:inherit;width:100%}
 .item.on{border-color:var(--accent);box-shadow:inset 3px 0 0 var(--accent)}
+.bsel{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:6px;align-items:center;margin-bottom:10px}
+.bsel select{max-width:420px}
+.chip:disabled{opacity:.4;cursor:default}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.ladder{display:grid;gap:4px;margin-top:8px}
+.step{display:grid;grid-template-columns:86px 92px minmax(0,1fr) 64px;gap:8px;align-items:center;font-size:12.5px;padding:6px 8px;border-radius:6px;background:var(--soft)}
+.step.now{background:var(--accent-soft);box-shadow:inset 3px 0 0 var(--accent)}
+.step.done{opacity:.55}
+.step .lv{font-family:var(--mono);font-weight:600}
+.acts{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr))}
 .brief{white-space:pre-wrap;font-size:14px;line-height:1.7;min-width:0;overflow-wrap:anywhere}
 .split{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:14px}
 .feed{display:grid;gap:8px}
@@ -158,6 +168,14 @@ function alerts(r){
   if(r.warning)a.push("⚠️ "+esc(r.warning));
   return a.map(x=>`<div class="alert">${x}</div>`).join("");
 }
+function holdMini(r){
+  const ps=(r&&r.positions)||[]; if(!ps.length)return "";
+  return `<div class="tw" style="margin-top:10px"><table><tr><th class="l">보유 종목</th><th>현재가</th><th>평가손익</th><th>진행 R</th><th>손절가까지</th><th class="l">다음 기준</th></tr>
+  ${ps.map(p=>{const pct=p.price?(p.price/p.avg_price-1)*100:null, nx=nextStep(p);
+   return `<tr class="click" data-go="portfolio"><td class="l"><b>${esc(p.name)}</b> <small class="muted">${p.qty}주 · 평균 ${w(p.avg_price)}</small></td><td class="num"><b>${w(p.price)}</b></td>
+   <td class="num ${cls(p.pnl_won)}">${w(p.pnl_won)} <small>(${pc(pct)})</small></td><td class="num ${cls(p.r_multiple)}">${p.r_multiple==null?"-":(p.r_multiple>0?"+":"")+p.r_multiple.toFixed(2)+"R"}</td>
+   <td class="num">${pc(p.to_stop_pct)}</td><td class="l"><small>${esc(nx)}</small></td></tr>`}).join("")}</table></div>`;
+}
 function viewHome(){
   const op=latestOpinion(), wl=(D.watch?.watch||[]).slice().sort((a,b)=>(a.levels?.distance_pct??99)-(b.levels?.distance_pct??99)).slice(0,3);
   return `<h1>오늘</h1><div class="sub">${esc(D.built_at)} 기준 화면 · 숫자마다 출처와 시각을 따로 적었습니다</div>
@@ -165,7 +183,7 @@ function viewHome(){
   <section class="grid" style="gap:16px">
    <div>${op?`<h2>💡 Claude 의견 <span class="pill">${esc(op.kind_name)} · ${esc(op.date)}</span></h2><div class="opinion">${esc(op.opinion.replace(/^💡[^\n]*\n?/,""))}</div>`:`<div class="empty">아직 의견이 담긴 브리핑이 없습니다</div>`}</div>
    <div><h2>시장 한눈에</h2>${marketTiles()}</div>
-   <div><h2>내 계좌</h2>${riskKpis(D.risk)}${src((D.risk?.source||"")+" · "+(D.risk?.at||""))}</div>
+   <div><h2>내 계좌</h2>${riskKpis(D.risk)}${holdMini(D.risk)}${src((D.risk?.source||"")+" · "+(D.risk?.at||""))}</div>
    <div class="grid g2">
     <div><h2>오늘 일정</h2><div class="tl">${(D.schedule||[]).map(s=>`<a href="#${s.kind=="watchlist"?"watch":"briefs"}" data-kind="${s.kind}"><span class="num">${s.time}</span><span>${esc(s.name)}</span><span class="pill ${s.done?"ok":s.state.startsWith("늦음")?"warn":""}">${esc(s.state)}</span></a>`).join("")}</div></div>
     <div><h2>기준가에 가까운 감시 종목</h2>${wl.length?`<div class="tw"><table><tr><th class="l">종목</th><th>종가</th><th>기준가</th><th>거리</th><th>셋업</th></tr>${wl.map(x=>`<tr class="click" data-go="watch"><td class="l">${esc(x.stock)}<br><small class="muted">${esc(x.sector)}</small></td><td class="num">${w(x.close)}</td><td class="num">${w(x.levels?.breakout)}</td><td class="num">${pc(x.levels?.distance_pct)}</td><td>${(x.setups||[]).join(",")||"-"}</td></tr>`).join("")}</table></div>${src("감시 목록 "+(D.watch?.as_of||"")+" 종가 기준")}`:`<div class="empty">감시 목록 없음</div>`}</div>
@@ -179,8 +197,9 @@ function viewBriefs(){
   const sel=list.find(b=>b.file==ui.bf)||list[0];
   return `<h1>브리핑</h1><div class="sub">최근 3주 · 텔레그램으로 받은 글과 같은 내용</div>
   <div class="chips">${kinds.map(([v,n])=>`<button class="chip ${k==v?"on":""}" data-bk="${v}">${n}</button>`).join("")}</div>
-  ${list.length?`<div class="split"><div class="list">${list.map(b=>`<button class="item ${sel&&b.file==sel.file?"on":""}" data-bf="${esc(b.file)}"><b>${esc(b.kind_name)}</b> <span class="muted num">${esc(b.date)}</span><br><small class="muted">${esc(b.title).slice(0,60)}</small></button>`).join("")}</div>
-  <article class="panel brief">${esc(sel.text)}</article></div>`:`<div class="empty">이 종류의 브리핑이 아직 없습니다</div>`}`;
+  ${list.length?`<div class="bsel"><label for="bSel" class="sr">브리핑 고르기</label><select id="bSel">${list.map(b=>`<option value="${esc(b.file)}" ${b.file==sel.file?"selected":""}>${esc(b.date)} · ${esc(b.kind_name)}</option>`).join("")}</select>
+   <button class="chip" data-bnav="1" ${list.indexOf(sel)>=list.length-1?"disabled":""}>‹ 이전</button><button class="chip" data-bnav="-1" ${list.indexOf(sel)<=0?"disabled":""}>다음 ›</button></div>
+  <article class="panel brief">${esc(sel.text)}</article>`:`<div class="empty">이 종류의 브리핑이 아직 없습니다</div>`}`;
 }
 
 /* ---------- 포트폴리오 ---------- */
@@ -199,6 +218,9 @@ function viewPortfolio(){
    <td class="num">${w(p.stop)}<br><small class="muted">${pc(p.to_stop_pct)}</small></td><td class="num">${w(p.one_r_won)}<br><small class="muted">${p.one_r_vs_account}R</small></td>
    <td class="num ${cls(p.r_multiple)}"><b>${p.r_multiple==null?"-":(p.r_multiple>0?"+":"")+p.r_multiple.toFixed(2)+"R"}</b><div class="rbar" title="−1R ~ 3R"><i style="width:${bar}%"></i></div></td>
    <td class="num">${w(p.breakeven_price_at_3r)}<br><small class="muted">${pc(p.to_3r_pct)}</small></td><td class="num">${w(p.cr_won)}</td></tr>`}).join("")}</table></div>
+  <h2 style="margin-top:18px">다음 액션 · 가격별 규칙</h2>
+  <div class="acts">${ps.map(p=>actionCard(p)).join("")}</div>
+  ${src("확정 규칙: 처음 손절 −8%(1R) · 3R 도달 시 손절가를 본전으로(CR 0). 미정 규칙은 '미정'으로 표시 · 실제 주문은 증권사 앱에서 직접")}
   <div class="grid g2" style="margin-top:16px">
    <div class="panel"><h2>업종 쏠림</h2><div class="bars">${Object.entries(bySec).sort((a,b)=>b[1]-a[1]).map(([s,v])=>`<div class="bar"><span>${esc(s)}</span><div class="track"><i class="n" style="width:${v/tot*100}%;background:var(--accent)"></i></div><span class="num">${(v/tot*100).toFixed(0)}%</span></div>`).join("")}</div>
     <div class="src">보유 평가금액 기준. 한 업종에 몰려 있으면 나쁜 날 같이 빠집니다(CR이 한 번에 현실이 됨)</div></div>
@@ -208,6 +230,36 @@ function viewPortfolio(){
     <div class="src">1R ${w(r.one_r_account_won)}원과 CR 여유 ${w(r.room_for_new_risk_won)}원 중 작은 쪽으로 계산 · 주문 기능 없음</div></div>
   </div>
   <div class="panel" style="margin-top:12px"><h2>규칙</h2><small>자본 ${w(acc.capital)}원 · 1R = 계좌 ${(acc.risk_per_trade*100)}% · 처음 손절 −${acc.stop_pct*100}% · ${acc.breakeven_at_r}R 도달 시 손절가를 본전으로(그 종목 CR 0) · CR 한도 ${acc.max_open_risk*100}%</small></div>`;
+}
+function levels(p){
+  const a=D.account||{}, unit=p.avg_price-p.initial_stop, be=a.breakeven_at_r||3, take=a.take_profit_at_3r;
+  const L=[
+   {r:-1,price:p.stop<p.avg_price?p.stop:p.initial_stop,label:"손절",act:`전량 손절 · 손실 ${w(-(p.avg_price-p.stop)*p.qty)}원 (${((p.stop/p.avg_price-1)*100).toFixed(1)}%)`,kind:"stop"},
+   {r:0,price:p.avg_price,label:"본전",act:"평균 매수가",kind:"be"},
+   {r:1,price:p.avg_price+unit,label:"1R",act:`평가이익 ${w(unit*p.qty)}원 · 아직 손절가 그대로`,kind:"info"},
+   {r:2,price:p.avg_price+2*unit,label:"2R",act:`평가이익 ${w(2*unit*p.qty)}원`,kind:"info"},
+   {r:be,price:p.avg_price+be*unit,label:be+"R",act:`손절가를 본전 ${w(p.avg_price)}원으로 → CR ${w(p.cr_won)} → 0`+(take?` · ${take*100}% 익절(${Math.floor(p.qty*take)}주)`:` · 익절: 미정(책 기준 50%)`),kind:"key"}];
+  return L.filter((x,i)=>!(x.r==2&&be==2));
+}
+function nextStep(p){
+  if(p.price==null)return "-";
+  if(p.stop>=p.avg_price)return "손절가 본전 이상 · 추세 이탈 규칙 대기(미정)";
+  const L=levels(p).filter(x=>x.r>0&&x.price>p.price);
+  const k=L.find(x=>x.kind=="key")||L[0];
+  return k?`${w(k.price)}원(+${((k.price/p.price-1)*100).toFixed(1)}%) 도달 시 손절가 본전으로 · 이탈 시 ${w(p.stop)} 손절`:"3R 이상 → 손절가 본전으로 올릴 때";
+}
+function actionCard(p){
+  const L=levels(p).sort((a,b)=>b.price-a.price), cur=p.price;
+  let rows="", placed=false;
+  L.forEach(x=>{
+    if(!placed&&cur!=null&&cur>=x.price){rows+=`<div class="step now"><span class="lv">${w(cur)}</span><b>지금</b><span>${p.r_multiple>0?"+":""}${p.r_multiple?.toFixed(2)}R · 평가손익 ${w(p.pnl_won)}원</span><span></span></div>`;placed=true}
+    const d=cur?((x.price/cur-1)*100):null;
+    rows+=`<div class="step ${x.kind=="key"?"":""}"><span class="lv ${x.kind=="stop"?"down":x.kind=="key"?"up":""}">${w(x.price)}</span><b>${x.label}</b><span>${esc(x.act)}</span><span class="num muted">${d==null?"":pc(d)}</span></div>`;
+  });
+  if(!placed&&cur!=null)rows+=`<div class="step now"><span class="lv">${w(cur)}</span><b>지금</b><span>손절가 아래 · 손절 확인 필요</span><span></span></div>`;
+  return `<div class="panel"><h2>${esc(p.name)} <small class="muted">${p.qty}주 · 1R = ${w(p.avg_price-p.initial_stop)}원/주</small></h2>
+   <div style="font-size:13px"><b>다음 행동</b> · ${esc(nextStep(p))}</div><div class="ladder">${rows}</div>
+   <div class="src">3R 이후(추세 이탈 매도·불타기 등)는 아직 정하지 않음</div></div>`;
 }
 function calc(){
   const r=D.risk||{}, e=parseFloat(($("#cEntry")||{}).value), pctv=parseFloat(($("#cPct")||{}).value);
@@ -320,7 +372,8 @@ document.addEventListener("input",e=>{
   if(["cEntry","cStop","cPct"].includes(e.target.id))calc();
   if(e.target.id=="cq"){ui.cq=e.target.value;save();const pos=e.target.selectionStart;render();const el=$("#cq");el.focus();el.setSelectionRange(pos,pos)}
 });
-document.addEventListener("change",e=>{if(e.target.id=="chSel"){ui.ch=e.target.value;save();render()}});
+document.addEventListener("change",e=>{if(e.target.id=="chSel"){ui.ch=e.target.value;save();render()}if(e.target.id=="bSel"){ui.bf=e.target.value;save();render()}});
+document.addEventListener("click",e=>{const b=e.target.closest("[data-bnav]");if(!b||b.disabled)return;const o=$("#bSel");if(!o)return;const i=o.selectedIndex-parseInt(b.dataset.bnav);if(i>=0&&i<o.options.length){ui.bf=o.options[i].value;save();render()}});
 window.addEventListener("hashchange",()=>{render();window.scrollTo(0,0)});
 render();
 </script>
