@@ -75,6 +75,7 @@
 - 감시 목록 성적표(scorecard.json), 매매 일지(data/journal.jsonl, 비어 있음), 주간 리뷰 → 웹 검증실 탭 4개
 - 새로고침 버튼: 웹 → GitHub 커넥터(actions_run_trigger) → `.github/workflows/web-data.yml`이 web_build --data-out → web-data 브랜치 data.json → 웹이 get_file_contents로 읽어 다시 그림(약 3분). 시험 실행 성공(11/03 15:24)
 - screener: ETF·ETN을 감시 목록에서 제외 (313개가 섞여 있었음)
+- 부분 새로고침 `web_build --only channels` (web/last_data.json 기반, 채널 피드·통계·특징주만). 새로고침 워크플로도 채널 수집 먼저 하도록
 
 ## 웹 홈 인사이트 (2026-11-03)
 - web_build.insights(): 시장 신호등(KODEX200 20일선·정배열), 셋업 점검(감시 목록 기준가 × 네이버 현재가, 거래량 페이스, 근거/반대 근거), 주도주(1stage 진행 중 RS 상위), 채널 특징주(24h 여러 채널·글), 섹터 ETF 1주 강약

@@ -45,6 +45,7 @@ python3 tools/sector_etf.py                            # 섹터 ETF 강도 (conf
 python3 tools/dashboard_data.py --collect              # 대시보드 데이터 12개 → data/dashboard/ (dashboard/README.md)
 python3 tools/risk.py                                  # R·CR·E 리스크 지표, 3R 도달 시 본전 손절 알림 / --size 매수가 손절가 → 살 수 있는 수량 / --card --send 포트폴리오 표 그림
 python3 tools/web_build.py                             # 웹 트레이딩룸 데이터 → web/index.html → Artifact https://claude.ai/artifact/C8B5Dd1zwtyyqP3c4e3ric 로 다시 올림 (url 지정)
+python3 tools/web_build.py --only channels             # 부분 새로고침: 채널 새 글만 모아 반영 ("채널만 새로고침" 요청 시, 몇 초)
 python3 tools/backtest.py                              # 검증실: 돌파 규칙 백테스트(3년 일봉, 약 1분·캐시) + 감시 목록 성적표 → data/backtest/
 python3 tools/report_digest.py --collect              # 리포트 브리핑 재료 (주요 종목·섹터·내 종목), /report-brief
 python3 tools/chart.py                                 # 관심종목 주봉 + 매물대 차트 (reports/오늘/charts/에 SVG·PNG)

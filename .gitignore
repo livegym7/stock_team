@@ -9,3 +9,4 @@ __pycache__/
 *.pyc
 .venv/
 web/index.html
+web/last_data.json

@@ -381,7 +381,7 @@ function viewCompanies(){
 function viewChannels(){
   const t=ui.ct||"all", ch=ui.ch||"", P=(D.channels||[]).filter(p=>(t=="all"||p.type==t)&&(!ch||p.channel==ch));
   const cats=Object.entries(D.categories||{}).filter(([k])=>k!="other");
-  return `<h1>채널</h1><div class="sub">최근 48시간 · 채널 ${(D.channel_stats||[]).length}개 · 중복·잡담 제외 ${(D.channels||[]).length}개 글 · 출처: 채널(2차 자료)</div>
+  return `<h1>채널</h1><div class="sub"><b>채널 글 ${esc((D.parts&&D.parts.channels)||D.built_at)} 기준</b> · 최근 48시간 · 채널 ${(D.channel_stats||[]).length}개 · 중복·잡담 제외 ${(D.channels||[]).length}개 글 · 출처: 채널(2차 자료)</div>
   <div class="chips"><button class="chip ${t=="all"?"on":""}" data-ct="all">전체</button>${cats.map(([k,n])=>`<button class="chip ${t==k?"on":""}" data-ct="${k}">${n}</button>`).join("")}</div>
   <div style="margin-bottom:12px"><label for="chSel">채널<select id="chSel"><option value="">전체 채널</option>${(D.channel_stats||[]).map(c=>`<option value="${c.id}" ${ch==c.id?"selected":""}>${c.id}</option>`).join("")}</select></label></div>
   <div class="feed">${P.slice(0,150).map((p,i)=>`<div class="post" data-pi="${i}"><div class="meta"><span class="num">${esc(p.time)}</span><b>${esc(p.channel)}</b><span class="pill">${esc(p.type_name)}</span>${p.also_in.length?`<span class="pill ok">${p.also_in.length+1}개 채널</span>`:""}${p.photo?`<span class="pill">사진</span>`:""}${p.stocks.map(s=>`<span class="pill">${esc(s)}</span>`).join("")}<a href="${esc(p.url)}" target="_blank" rel="noopener">원문</a></div><div class="body">${esc(p.text)}</div></div>`).join("")||`<div class="empty">글 없음</div>`}</div>

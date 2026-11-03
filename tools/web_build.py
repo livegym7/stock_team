@@ -364,8 +364,11 @@ def main():
     p = argparse.ArgumentParser(description="웹 화면 데이터 만들기")
     p.add_argument("--no-live", action="store_true", help="시세 조회 생략")
     p.add_argument("--data-out", help="화면 대신 데이터 JSON만 이 경로에 쓰기 (깃허브 Actions 새로고침용)")
+    p.add_argument("--only", choices=["channels"], help="한 부분만 새로 (나머지는 지난 데이터 그대로). channels = 채널 새 글 수집 후 채널 피드·특징주만")
     a = p.parse_args()
     now = datetime.now(KST)
+    if a.only:
+        return partial(a.only, now)
     from universe import load as load_universe
     uni = {s["name"]: s for s in load_universe()["stocks"]}
     companies = {k: v for k, v in json.loads((DATA / "companies.json").read_text(encoding="utf-8")).items() if not k.startswith("_")}
@@ -408,18 +411,57 @@ def main():
     data["insights"] = safe(lambda: insights(data["watch"], data["sectors_etf"], allp, by_stock, now))
     data["lab"] = lab(data, now)
     data["refresh"] = {"owner": "livegym7", "repo": "stock_team", "workflow": "web-data.yml", "branch": "web-data", "path": "data.json"}
+    data["parts"] = {k: data["built_at"] for k in ("market", "risk", "channels", "insights")}
     if a.data_out:
         Path(a.data_out).parent.mkdir(parents=True, exist_ok=True)
         Path(a.data_out).write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
         print(json.dumps({"built_at": data["built_at"], "out": a.data_out}, ensure_ascii=False))
         return
-    WEB.mkdir(exist_ok=True)
-    tpl = (WEB / "app.html").read_text(encoding="utf-8")
-    blob = json.dumps(data, ensure_ascii=False).replace("</", "<\\/")
-    (WEB / "index.html").write_text(tpl.replace("/*__DATA__*/null", blob), encoding="utf-8")
+    blob = write_html(data)
     print(json.dumps({"built_at": data["built_at"], "out": "web/index.html", "kb": round(len(blob) / 1024),
                       "briefs": len(brief_rows), "companies": len(comp_list), "channels": len(data["channels"]),
                       "watch": len((data["watch"] or {}).get("watch", []))}, ensure_ascii=False))
+
+
+LAST = WEB / "last_data.json"   # 마지막 전체 데이터 (부분 새로고침용, 커밋 안 함)
+
+
+def write_html(data):
+    WEB.mkdir(exist_ok=True)
+    LAST.write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
+    tpl = (WEB / "app.html").read_text(encoding="utf-8")
+    blob = json.dumps(data, ensure_ascii=False).replace("</", "<\\/")
+    (WEB / "index.html").write_text(tpl.replace("/*__DATA__*/null", blob), encoding="utf-8")
+    return blob
+
+
+def partial(part, now):
+    """부분 새로고침: 지난 전체 데이터에서 한 부분만 바꿔 다시 쓴다 (시세·백테스트 등은 그대로)."""
+    if not LAST.exists():
+        raise SystemExit("지난 전체 데이터(web/last_data.json)가 없습니다. 먼저 python3 tools/web_build.py 로 전체를 만드세요")
+    data = json.loads(LAST.read_text(encoding="utf-8"))
+    stamp = now.strftime("%Y-%m-%d %H:%M")
+    if part == "channels":
+        import tg_channel
+        new = tg_channel.collect_all()
+        t, allp = tg_data()
+        data["channels"] = channel_feed(t, allp)
+        data["channel_stats"] = channel_stats(t, allp)
+        from universe import load as load_universe
+        uni = {s["name"]: s for s in load_universe()["stocks"]}
+        companies = {k: v for k, v in json.loads((DATA / "companies.json").read_text(encoding="utf-8")).items() if not k.startswith("_")}
+        by_stock, flow = report_rows(t, allp, companies, uni)
+        data["report_flow"] = flow
+        ins = data.get("insights") or {}
+        fresh = safe(lambda: insights({}, None, allp, by_stock, now))   # 특징주만 새로 (셋업·섹터는 그대로)
+        if isinstance(fresh, dict) and "hot" in fresh:
+            ins["hot"] = fresh["hot"]
+        data["insights"] = ins
+        data.setdefault("parts", {})["channels"] = stamp
+        info = {"new_posts": new}
+    data["built_at"] = max(data.get("built_at", ""), stamp)
+    write_html(data)
+    print(json.dumps({"part": part, "at": stamp, **info, "channels": len(data["channels"])}, ensure_ascii=False))
 
 
 if __name__ == "__main__":
