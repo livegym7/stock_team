@@ -287,5 +287,19 @@
   "sources": [
    "Claude 작성(공개 정보·리포트 요약) — DART 사업보고서 확인 예정"
   ]
+ },
+ "003160": {
+  "name": "디아이",
+  "sector": "반도체",
+  "detail": "반도체 테스트(소켓·프로브카드·검사)",
+  "sub_sectors": [],
+  "one_liner": "메모리 반도체 테스트 장비(패키지 번인 테스터, 자회사 디지털프론티어의 HBM 웨이퍼 테스터)를 삼성전자·SK하이닉스에 공급",
+  "updated": "2026-11-03",
+  "sources": [
+   "https://t.me/ked_epic_ai/38192",
+   "https://t.me/bornlupin/20573",
+   "https://t.me/nje2e/44790",
+   "DART 사업보고서 확인 예정"
+  ]
  }
 }
