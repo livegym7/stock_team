@@ -1,6 +1,6 @@
 {
- "made_at": "2026-11-03 17:03",
- "seconds": 55,
+ "made_at": "2026-11-03 17:13",
+ "seconds": 58,
  "universe": 794,
  "period": [
   "20240808",
@@ -1998,6 +1998,189 @@
    "days": 37,
    "how": "20일선 이탈",
    "took": true
+  }
+ ],
+ "worst": [
+  {
+   "stock": "네이처셀",
+   "code": "007390",
+   "date": "20250730",
+   "entry": 36900.0,
+   "kind": "돌파",
+   "setups": [
+    "A"
+   ],
+   "rs": 94,
+   "vol_ratio": 11.2,
+   "market_ok": true,
+   "r": -4.12,
+   "exit": "20250806",
+   "days": 5,
+   "how": "손절",
+   "took": false
+  },
+  {
+   "stock": "삼성화재",
+   "code": "000810",
+   "date": "20251211",
+   "entry": 630000.0,
+   "kind": "돌파",
+   "setups": [
+    "A"
+   ],
+   "rs": 76,
+   "vol_ratio": 2.26,
+   "market_ok": true,
+   "r": -2.44,
+   "exit": "20251212",
+   "days": 1,
+   "how": "손절",
+   "took": false
+  },
+  {
+   "stock": "에코아이",
+   "code": "448280",
+   "date": "20250522",
+   "entry": 12200.0,
+   "kind": "포켓피봇",
+   "setups": [
+    "A"
+   ],
+   "rs": 96,
+   "vol_ratio": 1.06,
+   "market_ok": true,
+   "r": -2.37,
+   "exit": "20250526",
+   "days": 2,
+   "how": "손절",
+   "took": false
+  },
+  {
+   "stock": "한올바이오파마",
+   "code": "009420",
+   "date": "20260325",
+   "entry": 57900.0,
+   "kind": "포켓피봇",
+   "setups": [
+    "A"
+   ],
+   "rs": 71,
+   "vol_ratio": 0.8,
+   "market_ok": false,
+   "r": -2.2,
+   "exit": "20260403",
+   "days": 7,
+   "how": "손절",
+   "took": false
+  },
+  {
+   "stock": "펩트론",
+   "code": "087010",
+   "date": "20250513",
+   "entry": 194600.0,
+   "kind": "돌파",
+   "setups": [
+    "A",
+    "D"
+   ],
+   "rs": 99,
+   "vol_ratio": 1.68,
+   "market_ok": true,
+   "r": -2.16,
+   "exit": "20250604",
+   "days": 15,
+   "how": "손절",
+   "took": false
+  },
+  {
+   "stock": "심텍",
+   "code": "222800",
+   "date": "20260922",
+   "entry": 148900.0,
+   "kind": "돌파",
+   "setups": [
+    "A",
+    "D"
+   ],
+   "rs": 97,
+   "vol_ratio": 2.4,
+   "market_ok": true,
+   "r": -1.64,
+   "exit": "20261015",
+   "days": 13,
+   "how": "손절",
+   "took": false
+  },
+  {
+   "stock": "테스",
+   "code": "095610",
+   "date": "20260325",
+   "entry": 68400.0,
+   "kind": "포켓피봇",
+   "setups": [
+    "A"
+   ],
+   "rs": 84,
+   "vol_ratio": 0.88,
+   "market_ok": false,
+   "r": -1.52,
+   "exit": "20260327",
+   "days": 2,
+   "how": "손절",
+   "took": false
+  },
+  {
+   "stock": "LG에너지솔루션",
+   "code": "373220",
+   "date": "20251211",
+   "entry": 446000.0,
+   "kind": "포켓피봇",
+   "setups": [
+    "A",
+    "C"
+   ],
+   "rs": 71,
+   "vol_ratio": 1.73,
+   "market_ok": true,
+   "r": -1.51,
+   "exit": "20251218",
+   "days": 5,
+   "how": "손절",
+   "took": false
+  },
+  {
+   "stock": "에이비엘바이오",
+   "code": "298380",
+   "date": "20260126",
+   "entry": 241000.0,
+   "kind": "돌파",
+   "setups": [
+    "A"
+   ],
+   "rs": 98,
+   "vol_ratio": 2.73,
+   "market_ok": true,
+   "r": -1.43,
+   "exit": "20260130",
+   "days": 4,
+   "how": "손절",
+   "took": false
+  },
+  {
+   "stock": "SK스퀘어",
+   "code": "402340",
+   "date": "20251210",
+   "entry": 324000.0,
+   "kind": "포켓피봇",
+   "setups": [],
+   "rs": 96,
+   "vol_ratio": 0.72,
+   "market_ok": true,
+   "r": -1.41,
+   "exit": "20251215",
+   "days": 3,
+   "how": "손절",
+   "took": false
   }
  ]
 }

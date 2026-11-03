@@ -230,6 +230,7 @@ def run_backtest(limit=None, workers=4):
         "curve": curve[::max(1, len(curve) // 200)] + curve[-1:],
         "recent": trades[-40:][::-1],
         "best": sorted(closed, key=lambda t: -t["r"])[:8],
+        "worst": sorted(closed, key=lambda t: t["r"])[:10],
     }
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "latest.json").write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
