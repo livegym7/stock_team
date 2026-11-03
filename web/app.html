@@ -530,18 +530,14 @@ function viewLab(){
      <div class="panel kpi"><span>승률</span><b>${A.win_rate}%</b><small class="muted">3R 도달 ${A.reach_3r_pct}% · 책 목표 30%↑</small></div>
      <div class="panel kpi"><span>손익비 (평균 이익 ÷ 평균 손실)</span><b>${A.payoff??"-"}</b><small class="muted">+${A.avg_win}R / ${A.avg_loss}R · 책 목표 3↑</small></div>
      <div class="panel kpi"><span>최대 낙폭 · 연속 손실</span><b>${A.max_dd_r}R</b><small class="muted">최대 ${A.max_loss_streak}번 연속 손실 · 평균 보유 ${A.avg_days}일</small></div></div>
-    ${B.compare_without_ia?`<div class="panel" style="margin-top:12px"><h3>인더스트리 액션 조건 효과 (돌파에 필수 적용)</h3><div style="overflow-x:auto"><table><tr><th class="l">구분</th><th>건수</th><th>승률</th><th>평균 R</th><th>이익/손실</th><th>PF</th><th>3R</th><th>보유</th></tr>
-     ${statRow("조건 없이 (전체)",B.compare_without_ia.all)}${statRow("조건 적용 (전체) ← 지금 규칙",A)}${statRow("돌파 · 조건 없이",B.compare_without_ia.breakout)}${statRow("돌파 · 조건 적용 ← 지금 규칙",(B.by_kind||{})["돌파"])}</table></div>
-     <div class="src">최대 낙폭: 조건 없이 ${B.compare_without_ia.all.max_dd_r}R → 적용 ${A.max_dd_r}R</div></div>`:""}
     <div class="panel" style="margin-top:12px"><h3>누적 R (청산일 순서)</h3>${curveSvg(B.curve)}<div class="src">모든 신호를 1R씩 똑같이 걸었다고 가정한 합계. 실제로는 CR 한도 6% 때문에 동시에 다 사지 못함</div></div>
     <div class="grid g2" style="margin-top:12px">
      <div class="panel"><h3>신호·셋업·시장별</h3><div style="overflow-x:auto"><table><tr><th class="l">구분</th><th>건수</th><th>승률</th><th>평균 R</th><th>이익/손실</th><th>PF</th><th>3R</th><th>보유</th></tr>
       ${Object.entries(B.by_kind||{}).map(([k,v])=>statRow(k,v)).join("")}
       ${Object.entries(B.by_setup||{}).map(([k,v])=>statRow("돌파 · 셋업 "+k+" "+({A:"박스",B:"컵핸들",C:"VCP",D:"HTF",E:"신고가",F:"로우치트"}[k]||""),v)).join("")}
       ${Object.entries(B.by_market||{}).map(([k,v])=>statRow(k,v)).join("")}
-      ${Object.entries(B.by_kind_ia||{}).filter(([k])=>!k.includes("확인 불가")).map(([k,v])=>statRow(k.replace("동반 상승","업종 동반 상승").replace("나 홀로","나 홀로 상승"),v)).join("")}
       ${Object.entries(B.by_year||{}).map(([k,v])=>statRow(k+"년 진입",v)).join("")}</table></div>
-      <div class="src">PF = 이익 합 ÷ 손실 합 (1보다 크면 남는 장사). 셋업은 한 신호에 여러 개 붙을 수 있음. ${esc(B.ia_rule||"")}</div></div>
+      <div class="src">지금 규칙(돌파는 인더스트리 액션 필수)으로 잡은 신호만. PF = 이익 합 ÷ 손실 합 (1보다 크면 남는 장사). 셋업은 한 신호에 여러 개 붙을 수 있음</div></div>
      <div class="panel"><h3>결과 분포 (R)</h3><div class="bars">${Object.entries(H).sort((a,b)=>a[0]-b[0]).map(([k,v])=>`<div class="bar"><span>${k<=-2?"−1.5R 미만 (갭 손절)":k>=6?"+5.5R 이상":k==-1?"약 −1R (손절)":(k>0?"+":"")+k+"R 안팎"}</span><div class="track"><i class="${k>0?"u":k<0?"d":"n"}" style="width:${v/hmax*100}%"></i></div><span class="num">${v}</span></div>`).join("")}</div>
       <div class="src">청산 방식: ${Object.entries(B.by_exit||{}).map(([k,v])=>esc(k)+" "+v).join(" · ")}</div>
       <h3 style="margin-top:14px">가장 잘 된 거래</h3><table>${(B.best||[]).slice(0,6).map(t=>`<tr><td class="l">${esc(t.stock)}<br><small class="muted">${esc(t.date)} · ${esc(t.kind)} ${(t.setups||[]).join(",")}</small></td><td class="num up">+${t.r}R</td><td class="num">${t.days}일</td></tr>`).join("")}</table>
