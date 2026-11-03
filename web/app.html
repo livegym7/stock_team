@@ -109,6 +109,7 @@ label{font-size:12px;color:var(--muted);display:grid;gap:4px}
 .cg{display:inline-flex} .cg .chip:first-child{border-radius:99px 0 0 99px} .cg .rb{border-radius:0 99px 99px 0;border-left:0;padding:4px 9px;color:var(--accent)}
 .gloss summary{cursor:pointer;list-style:none} .gloss summary::before{content:"▸ ";color:var(--muted)} .gloss[open] summary::before{content:"▾ "}
 td.wrap{white-space:normal;line-height:1.5} .gloss td{white-space:normal} .gloss td:first-child{white-space:nowrap}
+.rulecard ol{margin:4px 0 10px;padding-left:20px;line-height:1.7} .rulecard p{margin:4px 0 10px;line-height:1.6} .rulecard{border-color:var(--accent)}
 .bwhead{margin-bottom:8px;white-space:normal} .bwbody{white-space:pre-wrap;min-height:2em}
 .more{display:none}
 @media (max-width:820px){
@@ -572,7 +573,16 @@ function viewLab(){
 }
 function viewConfig(){
   const a=D.account||{};
-  return `<h1>규칙·일정</h1><div class="sub">바꾸고 싶으면 Claude에게 말해 주세요 (이 화면은 보기 전용)</div><div class="grid g2">
+  return `<h1>규칙·일정</h1><div class="sub">바꾸고 싶으면 Claude에게 말해 주세요 (이 화면은 보기 전용)</div>
+  <div class="panel rulecard"><h2>📌 매매 규칙 한 장 <span class="pill">고정 2026-11-03 ~ 신호 30건 또는 2027-01-31</span></h2>
+   <div class="grid g2">
+    <div><h3>🎯 사는 신호 (둘 중 하나)</h3><ol><li><b>돌파</b>: 쉬던 구간 고점을 <b>종가로</b> 넘음 + 거래량 <b>1.5배</b> + <b>업종이 같이 오름</b></li><li><b>포켓피봇</b>: 조정 중 큰 거래량 양봉 (10일선 근처)</li></ol>
+     <h3>✅ 종목 조건</h3><p>시장보다 강하고(<b>RS 70↑</b>) 거래가 충분한(<b>시총 2천억 · 거래대금 100억↑</b>) 상승 추세 종목. 돌파는 추세 조건 1개 정도 부족해도 OK</p></div>
+    <div><h3>🛡️ 사고 나서</h3><ol><li>손절 <b>−8%</b> (1R = 30만 원)</li><li><b>3R(+24%)</b>에서 절반 익절 + 손절가 <b>본전</b></li><li>그 뒤 <b>20일선 종가 이탈</b> 시 나머지 정리</li><li>동시에 걸 수 있는 손실 최대 <b>3R(90만 원)</b></li></ol>
+     <h3>👀 후보</h3><p>조건 1~2개 부족한 종목은 무엇이 부족한지와 함께 후보로. 고를지는 본인 판단</p></div>
+   </div>
+   <div class="src">근거: 백테스트 999건 · 승률 33% · 거래당 +0.44R (검증실). 세부 판정(셋업 A~F 등)은 Claude가 대신 함 · 원문 docs/rules.md</div></div>
+  <div class="grid g2" style="margin-top:12px">
   <div class="panel"><h2>계좌·리스크 규칙</h2><table><tr><td class="l">자본</td><td class="num">${w(a.capital)}원</td></tr><tr><td class="l">1R (1회 손실 한도)</td><td class="num">${a.risk_per_trade*100}% = ${w(a.capital*a.risk_per_trade)}원</td></tr><tr><td class="l">처음 손절</td><td class="num">−${a.stop_pct*100}%</td></tr><tr><td class="l">본전 손절로 올리는 시점</td><td class="num">${a.breakeven_at_r}R</td></tr><tr><td class="l">${a.breakeven_at_r}R 익절</td><td class="num">${Math.round((a.take_profit_at_3r||0)*100)}%</td></tr><tr><td class="l">3R 이후 매도</td><td class="num">${a.trail_ma||20}일선 종가 이탈</td></tr><tr><td class="l">CR 한도 (동시 손절 최대)</td><td class="num">${a.max_open_risk*100}% = ${w(a.capital*a.max_open_risk)}원</td></tr><tr><td class="l">펀더멘털</td><td class="num">점수로만 표시</td></tr></table></div>
   <div class="panel"><h2>자동 일정 (평일)</h2><div class="tl">${(D.schedule||[]).map(s=>`<a href="#${s.kind=="watchlist"?"watch":"briefs"}"><span class="num">${s.time}</span><span>${esc(s.name)}</span><span class="pill ${s.done?"ok":""}">${esc(s.state)}</span></a>`).join("")}</div><div class="src">Claude 예약 작업 · 결과는 텔레그램과 이 화면에 같이 남음</div></div>
   <div class="panel"><h2>데이터 출처</h2><small>국내 시세·일봉: 네이버 증권(비공식) · 해외: Yahoo Finance(비공식) · 리포트·뉴스: 텔레그램 채널 요약(2차 자료) · 기업 사업 한 줄: Claude가 공개 정보로 작성</small></div>
