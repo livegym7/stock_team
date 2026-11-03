@@ -41,8 +41,15 @@ def market(live):
         return json.loads(out)
     kr = safe(lambda: run("tools/naver_quote.py", "index"))
     us = safe(lambda: run("tools/us_quote.py", "price"))
-    want = ["^GSPC", "^IXIC", "^DJI", "^SOX", "KRW=X", "^TNX", "^VIX", "CL=F"]
-    usr = [r for r in us.get("results", []) if r.get("symbol") in want] if isinstance(us, dict) else []
+    import us_quote
+    extra = {"NQ=F": ("나스닥100 선물", "future"), "EWY": ("EWY 한국 ETF", "etf")}
+    want = ["EWY", "^GSPC", "^IXIC", "NQ=F", "^DJI", "^SOX", "KRW=X", "^TNX", "^VIX", "CL=F"]  # 화면 순서
+    got = {r["symbol"]: r for r in (us.get("results", []) if isinstance(us, dict) else []) if r.get("price") is not None}
+    for sym, (name, kind) in extra.items():
+        q = safe(lambda: us_quote.quote(sym, name, kind), {})
+        if q.get("price") is not None:
+            got[sym] = q
+    usr = [got[s] for s in want if s in got]
     syms = ["^KS11", "^KQ11"] + want
     return {"kr": kr.get("results", []) if isinstance(kr, dict) else [], "us": usr,
             "spark": {s: v for s in syms if (v := safe(lambda s=s: spark(s), {})) and v.get("c")},
