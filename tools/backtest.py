@@ -146,8 +146,14 @@ def scan(stock, rows, rs_at, bench_ok, R, ia_at=None, require_ia=True):
         kind = None
         ia = ia_at(stock["code"], rows[i]["date"]) if ia_at else {"ia": "확인 불가"}
         brk_ok = base and setups and c[i] > prev.get("handle_high", base["pivot"]) and v[i] >= S.RULES["breakout_vol"] * vol50
-        if gate_brk and brk_ok and (not require_ia or ia["ia"] == "동반 상승"):
+        mode = S.RULES.get("breakout_mode", "base")          # base: 베이스 기준가 돌파 / d55: 55일 신고가 돌파 / both
+        nd = S.RULES.get("breakout_days", 55)
+        brk55 = c[i] > max(h[i - nd:i]) and v[i] >= S.RULES["breakout_vol"] * vol50
+        ia_ok = not require_ia or ia["ia"] == "동반 상승"
+        if gate_brk and ia_ok and brk_ok and mode in ("base", "both"):
             kind = "돌파"
+        elif gate_brk and ia_ok and brk55 and mode in ("d55", "both"):
+            kind = f"{nd}일 신고가 돌파"
         elif gate_pp and pp:
             kind = "포켓피봇"
         if not kind:
