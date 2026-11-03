@@ -33,7 +33,10 @@ RULES = {
     "max_off_high": -50,        # 52주 고점 대비 %, 사용자 확정
     "min_rs": 70,               # RS 백분위 [책]
     "min_stage1": 50,           # 1stage 상승률 % [책]
-    "max_giveback": 50,         # 조정이 1stage 상승분의 몇 %까지 [책]
+    "max_giveback": 60,         # 조정이 1stage 상승분의 몇 %까지 (책 50% → 60%, 사용자 확정 2026-11-03: 깡토 실제 매매 사례)
+    "gate_allow_miss": 1,       # 돌파: 관문 7개 중 1개까지 미달 허용 (사용자 요청 2026-11-03, 백테스트로 선택)
+    "gate_allow_miss_pp": 0,    # 포켓피봇: 미달 허용 안 함 (허용하면 성적 나빠짐)
+    "gate_must": ("시총", "거래대금", "RS"),  # 미달 허용과 상관없이 꼭 통과해야 하는 관문
     "min_base_days": 5,         # 조정 최소 1주, 사용자 확정
     "breakout_vol": 1.5,        # 돌파 거래량 (50일 평균 대비) [기본값]
     "alert_gap": 0.02,          # 알림가 = 기준가 -2% [책]
@@ -322,7 +325,12 @@ def run(codes_info, workers=4):
             "group": cmap.get(s["code"]) or s["industry"],  # 인더스트리 액션용 업종 (사용자 분류 우선)
             "ia": ia, "ia_up_share": ia_share, "ia_median": ia_med,
             "close": rows[-1]["close"], "date": rows[-1]["date"], "rs": rs, **extra,
-            "checks": checks, "gate_pass": all(checks.values()), "gate_score": sum(checks.values()),
+            "checks": checks, "gate_score": sum(checks.values()),
+            # 관문: 돌파용은 1개 미달 허용(단 시총·거래대금·RS는 필수), 포켓피봇은 7/7 (사용자 확정 2026-11-03)
+            "gate_miss": [k for k, ok in checks.items() if not ok],
+            "gate_strict": all(checks.values()),
+            "gate_pass": (sum(not ok for ok in checks.values()) <= RULES["gate_allow_miss"]
+                          and all(checks.get(k, True) for k in RULES["gate_must"])),
             "setups": a.get("setups", []), "run_pct": a.get("run_pct"), "base": a.get("base"), "today": ev, "vol_ratio": vr,
             "stage": "1stage 진행 중" if not a.get("base") else "2stage 조정 중",
         }
@@ -344,7 +352,7 @@ def run(codes_info, workers=4):
 
 def grade(it):
     core = set(it["setups"]) & set("ABCDE")
-    if it["gate_pass"] and ("돌파" in it["today"] and core or "G" in it["today"]):
+    if (it["gate_pass"] and "돌파" in it["today"] and core) or (it.get("gate_strict") and "G" in it["today"]):
         return "✅"  # '돌파'는 인더스트리 액션(업종 동반 상승)까지 확인된 것만 (무반응이면 '돌파(업종 무반응)')
     if it["gate_pass"] and (core or "F" in it["setups"]):
         d = (it.get("levels") or {}).get("distance_pct")

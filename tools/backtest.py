@@ -1,7 +1,8 @@
 """검증실: 깡토 돌파 규칙을 과거 일봉에 대입해 성적을 낸다 (백테스트) + 감시 목록 성적표.
 
 규칙 (config/account.toml · screener.RULES 그대로):
-- 진입 신호: 그날까지 공통 관문 7개 통과(정배열 일봉·주봉, RS 70↑, 고점 −50% 이내, 시총, 거래대금 100억↑, 1stage 50%↑)
+- 진입 신호: 그날까지 공통 관문 7개(정배열 일봉·주봉, RS 70↑, 고점 −50% 이내, 시총, 거래대금 100억↑, 1stage 50%↑)
+  — 돌파는 1개 미달 허용(시총·거래대금·RS는 필수), 포켓피봇은 7/7 (2026-11-03)
   + 셋업(A~E, F) 있는 베이스의 기준가를 종가로 넘고 거래량이 50일 평균의 1.5배↑ (= "돌파")
   또는 포켓 피봇(G). 진입가 = 신호일 종가.
 - 처음 손절 −8%(1R). 장중 저가가 닿으면 손절가(갭이면 시가)에 나감.
@@ -135,20 +136,24 @@ def scan(stock, rows, rs_at, bench_ok, R, ia_at=None, require_ia=True):
         base = prev.get("base")
         stage1 = base["stage1_pct"] if base else prev.get("run_pct", 0)
         checks["1stage 상승"] = stage1 >= S.RULES["min_stage1"]
-        if not all(checks.values()):
+        miss = [k for k, ok in checks.items() if not ok]
+        must_ok = not any(k in miss for k in S.RULES.get("gate_must", ()))
+        gate_brk = must_ok and len(miss) <= S.RULES.get("gate_allow_miss", 0)        # 돌파: 미달 허용
+        gate_pp = must_ok and len(miss) <= S.RULES.get("gate_allow_miss_pp", 0)      # 포켓피봇: 따로
+        if not (gate_brk or gate_pp):
             continue
         setups = [s for s in prev.get("setups", []) if s in "ABCDEF"]
         kind = None
         ia = ia_at(stock["code"], rows[i]["date"]) if ia_at else {"ia": "확인 불가"}
         brk_ok = base and setups and c[i] > prev.get("handle_high", base["pivot"]) and v[i] >= S.RULES["breakout_vol"] * vol50
-        if brk_ok and (not require_ia or ia["ia"] == "동반 상승"):
+        if gate_brk and brk_ok and (not require_ia or ia["ia"] == "동반 상승"):
             kind = "돌파"
-        elif pp:
+        elif gate_pp and pp:
             kind = "포켓피봇"
         if not kind:
             continue
         res = simulate(rows, i, R)
-        trades.append({**ia, "stock": stock["name"], "code": stock["code"], "date": rows[i]["date"], "entry": c[i], "kind": kind,
+        trades.append({**ia, "gate_miss": miss, "stock": stock["name"], "code": stock["code"], "date": rows[i]["date"], "entry": c[i], "kind": kind,
                        "setups": setups, "rs": rs, "vol_ratio": round(v[i] / vol50, 2), "market_ok": bench_ok.get(rows[i]["date"]),
                        **res})
         busy_until = i + res["days"]
@@ -236,7 +241,8 @@ def run_backtest(limit=None, workers=4):
     period = (min(t["date"] for t in trades), max(t["date"] for t in trades)) if trades else (None, None)
     out = {
         "made_at": datetime.now(KST).strftime("%Y-%m-%d %H:%M"), "seconds": round(time.time() - t0),
-        "universe": len(data), "period": period, "rules": {**R, "breakout_vol": S.RULES["breakout_vol"], "gate": "관문 7/7"},
+        "universe": len(data), "period": period, "rules": {**R, "breakout_vol": S.RULES["breakout_vol"], "max_giveback": S.RULES["max_giveback"],
+                  "gate": f"돌파 관문 {S.RULES['gate_allow_miss']}개 미달 허용(필수: {', '.join(S.RULES['gate_must'])}) · 포켓피봇 7/7"},
         "source": "네이버 일봉(수정주가, 비공식) · 계산 Claude",
         "limits": ["지금 시총 2천억↑ 종목만 대상(사라진 종목 빠짐 → 성적이 좋게 나올 수 있음)", "시총 관문은 지금 값으로 판단",
                    "일봉만 사용: 같은 날 3R과 손절이 함께 닿으면 손절로 처리", "수수료·세금·슬리피지 미반영", "진입은 신호일 종가(장중 돌파가보다 불리할 수 있음)"],

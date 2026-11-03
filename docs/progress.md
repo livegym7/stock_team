@@ -77,6 +77,11 @@
 - screener: ETF·ETN을 감시 목록에서 제외 (313개가 섞여 있었음)
 - 부분 새로고침 `web_build --only channels` (web/last_data.json 기반, 채널 피드·통계·특징주만). 새로고침 워크플로도 채널 수집 먼저 하도록
 
+## 반납 60% · 관문 1개 미달 허용 (사용자 확정 2026-11-03)
+- 계기: 한국콜마 8/12(관문 7/7·업종 동반·거래량 8배 신고가 돌파인데 반납 59%로 셋업 없음), 코스맥스 8/11은 신고가 아님(52주 고점 −22%, 관문 3개 미달)
+- screener.RULES: max_giveback 60, gate_allow_miss 1(돌파), gate_allow_miss_pp 0, gate_must (시총, 거래대금, RS). gate_pass=돌파용 완화 관문, gate_strict=7/7
+- 백테스트: 전체 999건 승률 33.2% +0.44R PF 1.65 낙폭 −56R / 돌파 351건 +0.56R PF 1.87 / 포켓 648건 +0.38R (비교표는 docs/setups.md)
+
 ## 인더스트리 액션 = 돌파 필수 조건 (사용자 확정 2026-11-03)
 - screener.IA_RULE / industry_action(): 감시 목록 '돌파'는 업종 동반 상승일 때만, 아니면 '돌파(업종 무반응)'(✅ 없음)
 - backtest: 돌파에 필수 적용(포켓피봇 제외), 조건 없는 결과는 compare_without_ia로 비교. 전체 923건 +0.38R(PF 1.55, 최대 낙폭 −56R) / 돌파 249건 +0.45R
