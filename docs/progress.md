@@ -63,6 +63,11 @@
 - 확인한 데이터: 나스닥100 선물 `NQ=F`, WTI `CL=F`, 금 `GC=F`(Yahoo), 시장 수급 `m.stock.naver.com/api/index/KOSPI/trend`(억원, 실시간), 컨센서스 목표가(`integration`의 `consensusInfo`). 사업개요는 네이버 `description`이 비어 있음 → DART 사업보고서로. 브렌트 `BZ=F`는 월물 교체 때 값이 튀어 WTI 우선
 - 장중 감시 시험(스크래치): 업종 동반 상승 → 거래량 → 매물대 돌파 판정 동작 확인. 하락 추세 반등도 걸리므로 추세 조건 필터 필수. 실행 위치(사용자 컴퓨터 / GitHub Actions) 결정 대기
 
+## 웹 트레이딩룸 v1 (2026-11-03)
+- 설계 docs/web-design.md → 화면 web/app.html(틀) + tools/web_build.py(데이터 모아 web/index.html 생성, 생성물은 커밋 안 함)
+- 비공개 Artifact: https://claude.ai/artifact/C8B5Dd1zwtyyqP3c4e3ric (메뉴 9개: 오늘·브리핑·포트폴리오·감시 목록·섹터·기업·채널·검증실·규칙·일정)
+- 아직 자동 갱신 없음 (Claude가 web_build 후 같은 url로 다시 올려야 함)
+
 ## 리스크 지표 R·CR·E (2026-11-03)
 - `tools/risk.py`: 종목별 1R·진행 R·3R 가격, CR(매수가 기준), E, 남은 위험 여유, `--size`로 신규 수량 계산
 - 규칙: 3R 도달 → 손절가 본전(CR 0). positions.toml에 initial_stop 추가. 아침·리포트 브리핑 '내 종목'에 표시
