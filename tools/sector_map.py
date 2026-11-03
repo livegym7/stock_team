@@ -51,7 +51,8 @@ def group_of(code, naver_industry=None, cmap=None):
 def check(all_caps=False):
     from universe import load
     from backtest import is_etf
-    uni = [s for s in load()["stocks"] if not is_etf(s["name"]) and s.get("industry") != "기타"]
+    uni = [s for s in load()["stocks"] if not is_etf(s["name"]) and s.get("industry") != "기타"
+           and s.get("market") not in ("KONEX", "2")]  # 코넥스는 감시 대상이 아니라 점검에서 뺌
     rows = load_rows()
     have = {r["티커"].zfill(6) for r in rows if r.get("custom")}
     listed = {s["code"] for s in load()["stocks"]}

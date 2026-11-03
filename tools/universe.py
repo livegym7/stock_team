@@ -28,7 +28,7 @@ def fetch():
             for s in d["stocks"]:
                 stocks[s["itemCode"]] = {
                     "code": s["itemCode"], "name": s["stockName"],
-                    "market": {"0": "KOSPI", "1": "KOSDAQ"}.get(str(s.get("sosok")), s.get("sosok")),
+                    "market": {"0": "KOSPI", "1": "KOSDAQ", "2": "KONEX"}.get(str(s.get("sosok")), s.get("sosok")),
                     "industry": g["name"], "industry_no": g["no"],
                     "market_cap_eok": int(str(s.get("marketValue") or "0").replace(",", "") or 0),
                 }

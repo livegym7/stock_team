@@ -175,7 +175,8 @@ def run_backtest(limit=None, workers=4):
     t0 = time.time()
     R = rules()
     uni = [s for s in load_universe()["stocks"]
-           if (s.get("market_cap_eok") or 0) >= S.RULES["min_mcap_eok"] and not is_etf(s["name"])]  # ETF·ETN 제외
+           if (s.get("market_cap_eok") or 0) >= S.RULES["min_mcap_eok"] and not is_etf(s["name"])
+           and s.get("market") not in ("KONEX", "2")]  # ETF·ETN·코넥스 제외
     if limit:
         uni = sorted(uni, key=lambda s: -s["market_cap_eok"])[:limit]
 
