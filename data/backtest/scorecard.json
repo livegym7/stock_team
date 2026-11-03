@@ -1,0 +1,97 @@
+{
+ "made_at": "2026-11-03 15:21",
+ "lists": 1,
+ "rows": [
+  {
+   "list_day": "20261102",
+   "stock": "라온시큐어",
+   "code": "042510",
+   "pivot": 22450,
+   "setups": [
+    "A"
+   ],
+   "days_after": 1,
+   "broke": false,
+   "max_up_pct": 15.8,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261102",
+   "stock": "동국제약",
+   "code": "086450",
+   "pivot": 26250,
+   "setups": [
+    "A"
+   ],
+   "days_after": 1,
+   "broke": false,
+   "max_up_pct": 3.8,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261102",
+   "stock": "HT로보틱스",
+   "code": "396300",
+   "pivot": 11690,
+   "setups": [
+    "A"
+   ],
+   "days_after": 1,
+   "broke": false,
+   "max_up_pct": -1.5,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261102",
+   "stock": "코웨이",
+   "code": "021240",
+   "pivot": 111800,
+   "setups": [
+    "A"
+   ],
+   "days_after": 1,
+   "broke": false,
+   "max_up_pct": 1.8,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261102",
+   "stock": "디아이",
+   "code": "003160",
+   "pivot": 45850,
+   "setups": [
+    "A"
+   ],
+   "days_after": 1,
+   "broke": false,
+   "max_up_pct": -4.3,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261102",
+   "stock": "원익홀딩스",
+   "code": "030530",
+   "pivot": 37300,
+   "setups": [],
+   "days_after": 1,
+   "broke": false,
+   "max_up_pct": -1.2,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261102",
+   "stock": "에스엠벡셀",
+   "code": "010580",
+   "pivot": 4150,
+   "setups": [
+    "A"
+   ],
+   "days_after": 1,
+   "broke": false,
+   "max_up_pct": 0.3,
+   "low_vs_stop": true
+  }
+ ],
+ "broke": 0,
+ "total": 7
+}
