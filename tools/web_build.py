@@ -335,7 +335,7 @@ def report_rows(t, allp, companies, uni):
     return by_stock, flow
 
 
-def channel_feed(t, allp, hours=48):
+def channel_feed(t, allp, hours=72):
     since = datetime.now(KST) - timedelta(hours=hours)
     rows = []
     for x in sorted(allp, key=lambda p: p["time"], reverse=True):
