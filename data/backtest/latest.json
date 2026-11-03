@@ -1,5 +1,5 @@
 {
- "made_at": "2026-11-03 17:13",
+ "made_at": "2026-11-03 17:17",
  "seconds": 58,
  "universe": 794,
  "period": [
@@ -227,6 +227,223 @@
    "max_loss_streak": 29
   }
  },
+ "by_ia": {
+  "나 홀로": {
+   "n": 610,
+   "win_rate": 32.0,
+   "avg_r": 0.39,
+   "avg_win": 3.42,
+   "avg_loss": -1.03,
+   "payoff": 3.33,
+   "profit_factor": 1.56,
+   "total_r": 240.2,
+   "reach_3r_pct": 32.0,
+   "avg_days": 14.7,
+   "max_dd_r": -35.1,
+   "max_loss_streak": 31
+  },
+  "동반 상승": {
+   "n": 481,
+   "win_rate": 30.8,
+   "avg_r": 0.28,
+   "avg_win": 3.21,
+   "avg_loss": -1.03,
+   "payoff": 3.13,
+   "profit_factor": 1.39,
+   "total_r": 133.5,
+   "reach_3r_pct": 30.8,
+   "avg_days": 14.8,
+   "max_dd_r": -35.9,
+   "max_loss_streak": 21
+  },
+  "확인 불가(같은 업종 3개 미만)": {
+   "n": 23,
+   "win_rate": 30.4,
+   "avg_r": 0.09,
+   "avg_win": 2.59,
+   "avg_loss": -1.0,
+   "payoff": 2.58,
+   "profit_factor": 1.13,
+   "total_r": 2.1,
+   "reach_3r_pct": 30.4,
+   "avg_days": 27.9,
+   "max_dd_r": -7.2,
+   "max_loss_streak": 5
+  }
+ },
+ "by_kind_ia": {
+  "돌파 · 나 홀로": {
+   "n": 228,
+   "win_rate": 32.0,
+   "avg_r": 0.24,
+   "avg_win": 2.95,
+   "avg_loss": -1.04,
+   "payoff": 2.84,
+   "profit_factor": 1.34,
+   "total_r": 54.6,
+   "reach_3r_pct": 32.0,
+   "avg_days": 11.3,
+   "max_dd_r": -17.1,
+   "max_loss_streak": 14
+  },
+  "돌파 · 동반 상승": {
+   "n": 234,
+   "win_rate": 31.6,
+   "avg_r": 0.35,
+   "avg_win": 3.32,
+   "avg_loss": -1.02,
+   "payoff": 3.24,
+   "profit_factor": 1.5,
+   "total_r": 82.0,
+   "reach_3r_pct": 31.6,
+   "avg_days": 13.1,
+   "max_dd_r": -22.9,
+   "max_loss_streak": 18
+  },
+  "돌파 · 확인 불가": {
+   "n": 10,
+   "win_rate": 30.0,
+   "avg_r": -0.27,
+   "avg_win": 1.43,
+   "avg_loss": -1.0,
+   "payoff": 1.43,
+   "profit_factor": 0.61,
+   "total_r": -2.7,
+   "reach_3r_pct": 30.0,
+   "avg_days": 9,
+   "max_dd_r": -6.0,
+   "max_loss_streak": 6
+  },
+  "포켓피봇 · 나 홀로": {
+   "n": 382,
+   "win_rate": 31.9,
+   "avg_r": 0.49,
+   "avg_win": 3.69,
+   "avg_loss": -1.02,
+   "payoff": 3.62,
+   "profit_factor": 1.7,
+   "total_r": 185.6,
+   "reach_3r_pct": 31.9,
+   "avg_days": 16.8,
+   "max_dd_r": -28.9,
+   "max_loss_streak": 24
+  },
+  "포켓피봇 · 동반 상승": {
+   "n": 247,
+   "win_rate": 30.0,
+   "avg_r": 0.21,
+   "avg_win": 3.1,
+   "avg_loss": -1.03,
+   "payoff": 3.01,
+   "profit_factor": 1.29,
+   "total_r": 51.5,
+   "reach_3r_pct": 30.0,
+   "avg_days": 16.3,
+   "max_dd_r": -30.2,
+   "max_loss_streak": 19
+  },
+  "포켓피봇 · 확인 불가": {
+   "n": 13,
+   "win_rate": 30.8,
+   "avg_r": 0.37,
+   "avg_win": 3.46,
+   "avg_loss": -1.01,
+   "payoff": 3.44,
+   "profit_factor": 1.53,
+   "total_r": 4.8,
+   "reach_3r_pct": 30.8,
+   "avg_days": 42.4,
+   "max_dd_r": -3.1,
+   "max_loss_streak": 3
+  }
+ },
+ "by_ia_market": {
+  "나 홀로 · 지수 20일선 아래": {
+   "n": 133,
+   "win_rate": 36.1,
+   "avg_r": 0.67,
+   "avg_win": 3.64,
+   "avg_loss": -1.0,
+   "payoff": 3.62,
+   "profit_factor": 2.05,
+   "total_r": 89.2,
+   "reach_3r_pct": 36.1,
+   "avg_days": 19.0,
+   "max_dd_r": -11.8,
+   "max_loss_streak": 8
+  },
+  "나 홀로 · 지수 20일선 위": {
+   "n": 477,
+   "win_rate": 30.8,
+   "avg_r": 0.32,
+   "avg_win": 3.35,
+   "avg_loss": -1.03,
+   "payoff": 3.24,
+   "profit_factor": 1.44,
+   "total_r": 150.9,
+   "reach_3r_pct": 30.8,
+   "avg_days": 13.5,
+   "max_dd_r": -32.1,
+   "max_loss_streak": 28
+  },
+  "동반 상승 · 지수 20일선 아래": {
+   "n": 103,
+   "win_rate": 27.2,
+   "avg_r": 0.08,
+   "avg_win": 3.1,
+   "avg_loss": -1.04,
+   "payoff": 2.97,
+   "profit_factor": 1.11,
+   "total_r": 8.6,
+   "reach_3r_pct": 27.2,
+   "avg_days": 13.3,
+   "max_dd_r": -25.0,
+   "max_loss_streak": 22
+  },
+  "동반 상승 · 지수 20일선 위": {
+   "n": 378,
+   "win_rate": 31.7,
+   "avg_r": 0.33,
+   "avg_win": 3.24,
+   "avg_loss": -1.02,
+   "payoff": 3.17,
+   "profit_factor": 1.47,
+   "total_r": 125.0,
+   "reach_3r_pct": 31.7,
+   "avg_days": 15.1,
+   "max_dd_r": -33.7,
+   "max_loss_streak": 19
+  },
+  "확인 불가 · 지수 20일선 아래": {
+   "n": 5,
+   "win_rate": 20.0,
+   "avg_r": -0.27,
+   "avg_win": 2.72,
+   "avg_loss": -1.02,
+   "payoff": 2.67,
+   "profit_factor": 0.67,
+   "total_r": -1.3,
+   "reach_3r_pct": 20.0,
+   "avg_days": 34.6,
+   "max_dd_r": -3.1,
+   "max_loss_streak": 3
+  },
+  "확인 불가 · 지수 20일선 위": {
+   "n": 18,
+   "win_rate": 33.3,
+   "avg_r": 0.19,
+   "avg_win": 2.57,
+   "avg_loss": -1.0,
+   "payoff": 2.57,
+   "profit_factor": 1.28,
+   "total_r": 3.4,
+   "reach_3r_pct": 33.3,
+   "avg_days": 26,
+   "max_dd_r": -4.2,
+   "max_loss_streak": 4
+  }
+ },
+ "ia_rule": "인더스트리 액션 = 신호일에 같은 네이버 업종(시총 2천억↑) 종목의 40% 이상이 +2%↑ 또는 업종 중앙값 +1.5%↑",
  "by_exit": {
   "손절": 764,
   "20일선 이탈": 288,
@@ -1157,7 +1374,11 @@
    "exit": "20261029",
    "days": 1,
    "how": "손절",
-   "took": false
+   "took": false,
+   "ia_peers": 4,
+   "ia_up_share": 75,
+   "ia_median": 10.3,
+   "ia": "동반 상승"
   },
   {
    "stock": "한국화장품제조",
@@ -1175,7 +1396,11 @@
    "exit": "20261029",
    "days": 2,
    "how": "손절",
-   "took": false
+   "took": false,
+   "ia_peers": 19,
+   "ia_up_share": 11,
+   "ia_median": 0.2,
+   "ia": "나 홀로"
   },
   {
    "stock": "오킨스전자",
@@ -1191,7 +1416,11 @@
    "exit": "20261020",
    "days": 2,
    "how": "손절",
-   "took": false
+   "took": false,
+   "ia_peers": 91,
+   "ia_up_share": 96,
+   "ia_median": 7.7,
+   "ia": "동반 상승"
   },
   {
    "stock": "디아이",
@@ -1207,7 +1436,11 @@
    "exit": "20261020",
    "days": 2,
    "how": "손절",
-   "took": false
+   "took": false,
+   "ia_peers": 91,
+   "ia_up_share": 96,
+   "ia_median": 7.7,
+   "ia": "동반 상승"
   },
   {
    "stock": "DB손해보험",
@@ -1226,7 +1459,11 @@
    "exit": "20261026",
    "days": 9,
    "how": "손절",
-   "took": false
+   "took": false,
+   "ia_peers": 9,
+   "ia_up_share": 22,
+   "ia_median": -0.3,
+   "ia": "나 홀로"
   },
   {
    "stock": "뉴파워프라즈마",
@@ -1242,7 +1479,11 @@
    "exit": "20261014",
    "days": 1,
    "how": "손절",
-   "took": false
+   "took": false,
+   "ia_peers": 91,
+   "ia_up_share": 32,
+   "ia_median": 0.8,
+   "ia": "나 홀로"
   },
   {
    "stock": "코웨이",
@@ -1261,7 +1502,11 @@
    "exit": null,
    "days": 16,
    "how": "보유 중(평가)",
-   "took": false
+   "took": false,
+   "ia_peers": 4,
+   "ia_up_share": 0,
+   "ia_median": 0.8,
+   "ia": "나 홀로"
   },
   {
    "stock": "한미사이언스",
@@ -1279,7 +1524,11 @@
    "exit": "20261008",
    "days": 1,
    "how": "손절",
-   "took": false
+   "took": false,
+   "ia_peers": 51,
+   "ia_up_share": 16,
+   "ia_median": 0.3,
+   "ia": "나 홀로"
   },
   {
    "stock": "코스맥스",
@@ -1298,7 +1547,11 @@
    "exit": "20261013",
    "days": 3,
    "how": "손절",
-   "took": false
+   "took": false,
+   "ia_peers": 19,
+   "ia_up_share": 63,
+   "ia_median": 4.0,
+   "ia": "동반 상승"
   },
   {
    "stock": "지니언스",
@@ -1316,7 +1569,11 @@
    "exit": "20261008",
    "days": 2,
    "how": "손절",
-   "took": false
+   "took": false,
+   "ia_peers": 4,
+   "ia_up_share": 100,
+   "ia_median": 10.9,
+   "ia": "동반 상승"
   },
   {
    "stock": "SK이노베이션",
@@ -1334,7 +1591,11 @@
    "exit": "20261022",
    "days": 12,
    "how": "손절",
-   "took": false
+   "took": false,
+   "ia_peers": 4,
+   "ia_up_share": 75,
+   "ia_median": 2.9,
+   "ia": "동반 상승"
   },
   {
    "stock": "SK",
@@ -1352,7 +1613,11 @@
    "exit": "20261012",
    "days": 6,
    "how": "손절",
-   "took": false
+   "took": false,
+   "ia_peers": 4,
+   "ia_up_share": 50,
+   "ia_median": 1.9,
+   "ia": "동반 상승"
   },
   {
    "stock": "심텍",
@@ -1371,7 +1636,11 @@
    "exit": "20261015",
    "days": 13,
    "how": "손절",
-   "took": false
+   "took": false,
+   "ia_peers": 24,
+   "ia_up_share": 33,
+   "ia_median": 0.4,
+   "ia": "나 홀로"
   },
   {
    "stock": "대원전선",
@@ -1390,7 +1659,11 @@
    "exit": "20261008",
    "days": 9,
    "how": "손절",
-   "took": false
+   "took": false,
+   "ia_peers": 16,
+   "ia_up_share": 19,
+   "ia_median": 0.0,
+   "ia": "나 홀로"
   },
   {
    "stock": "가온전선",
@@ -1409,7 +1682,11 @@
    "exit": "20260929",
    "days": 5,
    "how": "손절",
-   "took": false
+   "took": false,
+   "ia_peers": 16,
+   "ia_up_share": 75,
+   "ia_median": 3.2,
+   "ia": "동반 상승"
   },
   {
    "stock": "LG생활건강",
@@ -1428,7 +1705,11 @@
    "exit": "20260929",
    "days": 8,
    "how": "손절",
-   "took": false
+   "took": false,
+   "ia_peers": 19,
+   "ia_up_share": 5,
+   "ia_median": -0.6,
+   "ia": "나 홀로"
   },
   {
    "stock": "한국콜마",
@@ -1446,7 +1727,11 @@
    "exit": "20261002",
    "days": 12,
    "how": "손절",
-   "took": false
+   "took": false,
+   "ia_peers": 19,
+   "ia_up_share": 37,
+   "ia_median": 0.0,
+   "ia": "나 홀로"
   },
   {
    "stock": "삼화콘덴서",
@@ -1465,7 +1750,11 @@
    "exit": "20261015",
    "days": 20,
    "how": "손절",
-   "took": false
+   "took": false,
+   "ia_peers": 26,
+   "ia_up_share": 4,
+   "ia_median": -2.5,
+   "ia": "나 홀로"
   },
   {
    "stock": "한국화장품제조",
@@ -1483,7 +1772,11 @@
    "exit": "20260914",
    "days": 1,
    "how": "손절",
-   "took": false
+   "took": false,
+   "ia_peers": 19,
+   "ia_up_share": 26,
+   "ia_median": 0.6,
+   "ia": "나 홀로"
   },
   {
    "stock": "티에스이",
@@ -1501,7 +1794,11 @@
    "exit": "20260911",
    "days": 1,
    "how": "손절",
-   "took": false
+   "took": false,
+   "ia_peers": 91,
+   "ia_up_share": 45,
+   "ia_median": 1.7,
+   "ia": "동반 상승"
   },
   {
    "stock": "빙그레",
@@ -1519,7 +1816,11 @@
    "exit": "20260916",
    "days": 4,
    "how": "손절",
-   "took": false
+   "took": false,
+   "ia_peers": 26,
+   "ia_up_share": 8,
+   "ia_median": 0.3,
+   "ia": "나 홀로"
   },
   {
    "stock": "LG",
@@ -1535,7 +1836,11 @@
    "exit": "20260929",
    "days": 12,
    "how": "손절",
-   "took": false
+   "took": false,
+   "ia_peers": 9,
+   "ia_up_share": 33,
+   "ia_median": 1.4,
+   "ia": "나 홀로"
   },
   {
    "stock": "한미사이언스",
@@ -1553,7 +1858,11 @@
    "exit": "20260910",
    "days": 2,
    "how": "손절",
-   "took": false
+   "took": false,
+   "ia_peers": 51,
+   "ia_up_share": 6,
+   "ia_median": -1.1,
+   "ia": "나 홀로"
   },
   {
    "stock": "삼성화재",
@@ -1572,7 +1881,11 @@
    "exit": "20260904",
    "days": 1,
    "how": "손절",
-   "took": false
+   "took": false,
+   "ia_peers": 9,
+   "ia_up_share": 78,
+   "ia_median": 3.1,
+   "ia": "동반 상승"
   },
   {
    "stock": "신한지주",
@@ -1592,7 +1905,11 @@
    "exit": "20261007",
    "days": 23,
    "how": "손절",
-   "took": false
+   "took": false,
+   "ia_peers": 8,
+   "ia_up_share": 38,
+   "ia_median": 0.9,
+   "ia": "나 홀로"
   },
   {
    "stock": "KB금융",
@@ -1610,7 +1927,11 @@
    "exit": "20261013",
    "days": 27,
    "how": "손절",
-   "took": false
+   "took": false,
+   "ia_peers": 8,
+   "ia_up_share": 25,
+   "ia_median": -0.1,
+   "ia": "나 홀로"
   },
   {
    "stock": "S-Oil",
@@ -1626,7 +1947,11 @@
    "exit": "20261023",
    "days": 38,
    "how": "손절",
-   "took": false
+   "took": false,
+   "ia_peers": 4,
+   "ia_up_share": 25,
+   "ia_median": -0.2,
+   "ia": "나 홀로"
   },
   {
    "stock": "삼성E&A",
@@ -1644,7 +1969,11 @@
    "exit": "20260902",
    "days": 5,
    "how": "손절",
-   "took": false
+   "took": false,
+   "ia_peers": 18,
+   "ia_up_share": 67,
+   "ia_median": 2.5,
+   "ia": "동반 상승"
   },
   {
    "stock": "씨젠",
@@ -1662,7 +1991,11 @@
    "exit": "20261022",
    "days": 39,
    "how": "20일선 이탈",
-   "took": true
+   "took": true,
+   "ia_peers": 5,
+   "ia_up_share": 60,
+   "ia_median": 4.2,
+   "ia": "동반 상승"
   },
   {
    "stock": "하나금융지주",
@@ -1680,7 +2013,11 @@
    "exit": "20261013",
    "days": 38,
    "how": "손절",
-   "took": false
+   "took": false,
+   "ia_peers": 8,
+   "ia_up_share": 25,
+   "ia_median": 1.1,
+   "ia": "나 홀로"
   },
   {
    "stock": "현대해상",
@@ -1698,7 +2035,11 @@
    "exit": "20260909",
    "days": 20,
    "how": "20일선 이탈",
-   "took": true
+   "took": true,
+   "ia_peers": 9,
+   "ia_up_share": 22,
+   "ia_median": 1.4,
+   "ia": "나 홀로"
   },
   {
    "stock": "대원전선",
@@ -1716,7 +2057,11 @@
    "exit": "20260807",
    "days": 2,
    "how": "손절",
-   "took": false
+   "took": false,
+   "ia_peers": 16,
+   "ia_up_share": 88,
+   "ia_median": 7.8,
+   "ia": "동반 상승"
   },
   {
    "stock": "SK이터닉스",
@@ -1732,7 +2077,11 @@
    "exit": "20260807",
    "days": 3,
    "how": "손절",
-   "took": false
+   "took": false,
+   "ia_peers": 11,
+   "ia_up_share": 100,
+   "ia_median": 7.9,
+   "ia": "동반 상승"
   },
   {
    "stock": "GS",
@@ -1748,7 +2097,11 @@
    "exit": "20260731",
    "days": 1,
    "how": "손절",
-   "took": false
+   "took": false,
+   "ia_peers": 4,
+   "ia_up_share": 50,
+   "ia_median": 0.2,
+   "ia": "동반 상승"
   },
   {
    "stock": "하나금융지주",
@@ -1764,7 +2117,11 @@
    "exit": "20260728",
    "days": 2,
    "how": "손절",
-   "took": false
+   "took": false,
+   "ia_peers": 8,
+   "ia_up_share": 12,
+   "ia_median": 0.2,
+   "ia": "나 홀로"
   },
   {
    "stock": "현대해상",
@@ -1780,7 +2137,11 @@
    "exit": "20260804",
    "days": 12,
    "how": "손절",
-   "took": false
+   "took": false,
+   "ia_peers": 9,
+   "ia_up_share": 33,
+   "ia_median": 0.3,
+   "ia": "나 홀로"
   },
   {
    "stock": "피에스케이홀딩스",
@@ -1798,7 +2159,11 @@
    "exit": "20260714",
    "days": 1,
    "how": "손절",
-   "took": false
+   "took": false,
+   "ia_peers": 91,
+   "ia_up_share": 7,
+   "ia_median": -4.1,
+   "ia": "나 홀로"
   },
   {
    "stock": "테스",
@@ -1816,7 +2181,11 @@
    "exit": "20260720",
    "days": 5,
    "how": "본전 청산",
-   "took": true
+   "took": true,
+   "ia_peers": 91,
+   "ia_up_share": 96,
+   "ia_median": 9.7,
+   "ia": "동반 상승"
   },
   {
    "stock": "브이엠",
@@ -1834,7 +2203,11 @@
    "exit": "20260714",
    "days": 2,
    "how": "손절",
-   "took": false
+   "took": false,
+   "ia_peers": 91,
+   "ia_up_share": 96,
+   "ia_median": 9.7,
+   "ia": "동반 상승"
   },
   {
    "stock": "KB금융",
@@ -1852,7 +2225,11 @@
    "exit": "20260729",
    "days": 13,
    "how": "손절",
-   "took": false
+   "took": false,
+   "ia_peers": 8,
+   "ia_up_share": 0,
+   "ia_median": -2.1,
+   "ia": "나 홀로"
   }
  ],
  "best": [
@@ -1873,7 +2250,11 @@
    "exit": "20260512",
    "days": 60,
    "how": "20일선 이탈",
-   "took": true
+   "took": true,
+   "ia_peers": 18,
+   "ia_up_share": 72,
+   "ia_median": 3.4,
+   "ia": "동반 상승"
   },
   {
    "stock": "원익홀딩스",
@@ -1891,7 +2272,11 @@
    "exit": "20251117",
    "days": 83,
    "how": "20일선 이탈",
-   "took": true
+   "took": true,
+   "ia_peers": 91,
+   "ia_up_share": 10,
+   "ia_median": -0.9,
+   "ia": "나 홀로"
   },
   {
    "stock": "삼성전기",
@@ -1909,7 +2294,11 @@
    "exit": "20260702",
    "days": 60,
    "how": "20일선 이탈",
-   "took": true
+   "took": true,
+   "ia_peers": 24,
+   "ia_up_share": 38,
+   "ia_median": 1.2,
+   "ia": "나 홀로"
   },
   {
    "stock": "삼천당제약",
@@ -1927,7 +2316,11 @@
    "exit": "20260331",
    "days": 73,
    "how": "20일선 이탈",
-   "took": true
+   "took": true,
+   "ia_peers": 51,
+   "ia_up_share": 29,
+   "ia_median": 0.9,
+   "ia": "나 홀로"
   },
   {
    "stock": "HJ중공업",
@@ -1945,7 +2338,11 @@
    "exit": "20250925",
    "days": 42,
    "how": "20일선 이탈",
-   "took": true
+   "took": true,
+   "ia_peers": 18,
+   "ia_up_share": 6,
+   "ia_median": -1.8,
+   "ia": "나 홀로"
   },
   {
    "stock": "삼표시멘트",
@@ -1963,7 +2360,11 @@
    "exit": "20260304",
    "days": 21,
    "how": "20일선 이탈",
-   "took": true
+   "took": true,
+   "ia_peers": 9,
+   "ia_up_share": 11,
+   "ia_median": -0.2,
+   "ia": "나 홀로"
   },
   {
    "stock": "로보티즈",
@@ -1981,7 +2382,11 @@
    "exit": "20251117",
    "days": 56,
    "how": "20일선 이탈",
-   "took": true
+   "took": true,
+   "ia_peers": 28,
+   "ia_up_share": 25,
+   "ia_median": 1.0,
+   "ia": "나 홀로"
   },
   {
    "stock": "두산에너빌리티",
@@ -1997,7 +2402,11 @@
    "exit": "20250704",
    "days": 37,
    "how": "20일선 이탈",
-   "took": true
+   "took": true,
+   "ia_peers": 28,
+   "ia_up_share": 43,
+   "ia_median": 1.5,
+   "ia": "동반 상승"
   }
  ],
  "worst": [
@@ -2017,7 +2426,11 @@
    "exit": "20250806",
    "days": 5,
    "how": "손절",
-   "took": false
+   "took": false,
+   "ia_peers": 15,
+   "ia_up_share": 0,
+   "ia_median": -2.8,
+   "ia": "나 홀로"
   },
   {
    "stock": "삼성화재",
@@ -2035,7 +2448,11 @@
    "exit": "20251212",
    "days": 1,
    "how": "손절",
-   "took": false
+   "took": false,
+   "ia_peers": 9,
+   "ia_up_share": 0,
+   "ia_median": 0.3,
+   "ia": "나 홀로"
   },
   {
    "stock": "에코아이",
@@ -2053,7 +2470,11 @@
    "exit": "20250526",
    "days": 2,
    "how": "손절",
-   "took": false
+   "took": false,
+   "ia_peers": 8,
+   "ia_up_share": 0,
+   "ia_median": -1.0,
+   "ia": "나 홀로"
   },
   {
    "stock": "한올바이오파마",
@@ -2071,7 +2492,11 @@
    "exit": "20260403",
    "days": 7,
    "how": "손절",
-   "took": false
+   "took": false,
+   "ia_peers": 51,
+   "ia_up_share": 59,
+   "ia_median": 2.3,
+   "ia": "동반 상승"
   },
   {
    "stock": "펩트론",
@@ -2090,7 +2515,11 @@
    "exit": "20250604",
    "days": 15,
    "how": "손절",
-   "took": false
+   "took": false,
+   "ia_peers": 14,
+   "ia_up_share": 50,
+   "ia_median": 1.9,
+   "ia": "동반 상승"
   },
   {
    "stock": "심텍",
@@ -2109,7 +2538,11 @@
    "exit": "20261015",
    "days": 13,
    "how": "손절",
-   "took": false
+   "took": false,
+   "ia_peers": 24,
+   "ia_up_share": 33,
+   "ia_median": 0.4,
+   "ia": "나 홀로"
   },
   {
    "stock": "테스",
@@ -2127,7 +2560,11 @@
    "exit": "20260327",
    "days": 2,
    "how": "손절",
-   "took": false
+   "took": false,
+   "ia_peers": 91,
+   "ia_up_share": 71,
+   "ia_median": 4.4,
+   "ia": "동반 상승"
   },
   {
    "stock": "LG에너지솔루션",
@@ -2146,7 +2583,11 @@
    "exit": "20251218",
    "days": 5,
    "how": "손절",
-   "took": false
+   "took": false,
+   "ia_peers": 26,
+   "ia_up_share": 8,
+   "ia_median": -0.6,
+   "ia": "나 홀로"
   },
   {
    "stock": "에이비엘바이오",
@@ -2164,7 +2605,11 @@
    "exit": "20260130",
    "days": 4,
    "how": "손절",
-   "took": false
+   "took": false,
+   "ia_peers": 15,
+   "ia_up_share": 100,
+   "ia_median": 5.7,
+   "ia": "동반 상승"
   },
   {
    "stock": "SK스퀘어",
@@ -2180,7 +2625,11 @@
    "exit": "20251215",
    "days": 3,
    "how": "손절",
-   "took": false
+   "took": false,
+   "ia_peers": 91,
+   "ia_up_share": 15,
+   "ia_median": -0.5,
+   "ia": "나 홀로"
   }
  ]
 }

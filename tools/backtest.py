@@ -205,6 +205,22 @@ def run_backtest(limit=None, workers=4):
     for s, rows in data:
         trades += scan(s, rows, rs_at, bench_ok, R)
     trades.sort(key=lambda t: t["date"])
+    # 인더스트리 액션: 신호일에 같은 네이버 업종(시총 2천억↑ 종목들)이 함께 올랐나
+    chg = {}
+    for s, rows in data:
+        chg[s["code"]] = {rows[i]["date"]: rows[i]["close"] / rows[i - 1]["close"] - 1 for i in range(1, len(rows))}
+    by_ind = defaultdict(list)
+    for s, _ in data:
+        by_ind[s["industry"]].append(s["code"])
+    ind_of = {s["code"]: s["industry"] for s, _ in data}
+    for t in trades:
+        peers = [c for c in by_ind[ind_of[t["code"]]] if c != t["code"] and t["date"] in chg.get(c, {})]
+        xs = [chg[c][t["date"]] for c in peers]
+        t["ia_peers"] = len(xs)
+        t["ia_up_share"] = round(sum(1 for x in xs if x >= 0.02) / len(xs) * 100) if xs else None
+        t["ia_median"] = round(statistics.median(xs) * 100, 1) if xs else None
+        t["ia"] = ("확인 불가(같은 업종 3개 미만)" if len(xs) < 3 else
+                   "동반 상승" if (t["ia_up_share"] >= 40 or t["ia_median"] >= 1.5) else "나 홀로")
     closed = [t for t in trades if t["exit"]]
     by = lambda key: {k: stats([t for t in closed if key(t) == k]) for k in sorted({key(t) for t in closed}, key=str)}
     setup_stats = {}
@@ -225,6 +241,10 @@ def run_backtest(limit=None, workers=4):
         "by_kind": by(lambda t: t["kind"]), "by_setup": setup_stats,
         "by_market": {("지수 20일선 위" if k else "지수 20일선 아래"): v for k, v in by(lambda t: bool(t["market_ok"])).items()},
         "by_year": by(lambda t: t["date"][:4]),
+        "by_ia": by(lambda t: t["ia"]),
+        "by_kind_ia": by(lambda t: t["kind"] + " · " + t["ia"].split("(")[0]),
+        "by_ia_market": by(lambda t: t["ia"].split("(")[0] + " · " + ("지수 20일선 위" if t["market_ok"] else "지수 20일선 아래")),
+        "ia_rule": "인더스트리 액션 = 신호일에 같은 네이버 업종(시총 2천억↑) 종목의 40% 이상이 +2%↑ 또는 업종 중앙값 +1.5%↑",
         "by_exit": dict(Counter(t["how"] for t in closed)),
         "r_hist": dict(sorted(Counter(max(-2, min(6, round(t["r"]))) for t in closed).items())),
         "curve": curve[::max(1, len(curve) // 200)] + curve[-1:],

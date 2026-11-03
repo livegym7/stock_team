@@ -535,8 +535,9 @@ function viewLab(){
       ${Object.entries(B.by_kind||{}).map(([k,v])=>statRow(k,v)).join("")}
       ${Object.entries(B.by_setup||{}).map(([k,v])=>statRow("돌파 · 셋업 "+k+" "+({A:"박스",B:"컵핸들",C:"VCP",D:"HTF",E:"신고가",F:"로우치트"}[k]||""),v)).join("")}
       ${Object.entries(B.by_market||{}).map(([k,v])=>statRow(k,v)).join("")}
+      ${Object.entries(B.by_kind_ia||{}).filter(([k])=>!k.includes("확인 불가")).map(([k,v])=>statRow(k.replace("동반 상승","업종 동반 상승").replace("나 홀로","나 홀로 상승"),v)).join("")}
       ${Object.entries(B.by_year||{}).map(([k,v])=>statRow(k+"년 진입",v)).join("")}</table></div>
-      <div class="src">PF = 이익 합 ÷ 손실 합 (1보다 크면 남는 장사). 셋업은 한 신호에 여러 개 붙을 수 있음</div></div>
+      <div class="src">PF = 이익 합 ÷ 손실 합 (1보다 크면 남는 장사). 셋업은 한 신호에 여러 개 붙을 수 있음. ${esc(B.ia_rule||"")}</div></div>
      <div class="panel"><h3>결과 분포 (R)</h3><div class="bars">${Object.entries(H).sort((a,b)=>a[0]-b[0]).map(([k,v])=>`<div class="bar"><span>${k<=-2?"−1.5R 미만 (갭 손절)":k>=6?"+5.5R 이상":k==-1?"약 −1R (손절)":(k>0?"+":"")+k+"R 안팎"}</span><div class="track"><i class="${k>0?"u":k<0?"d":"n"}" style="width:${v/hmax*100}%"></i></div><span class="num">${v}</span></div>`).join("")}</div>
       <div class="src">청산 방식: ${Object.entries(B.by_exit||{}).map(([k,v])=>esc(k)+" "+v).join(" · ")}</div>
       <h3 style="margin-top:14px">가장 잘 된 거래</h3><table>${(B.best||[]).slice(0,6).map(t=>`<tr><td class="l">${esc(t.stock)}<br><small class="muted">${esc(t.date)} · ${esc(t.kind)} ${(t.setups||[]).join(",")}</small></td><td class="num up">+${t.r}R</td><td class="num">${t.days}일</td></tr>`).join("")}</table>
