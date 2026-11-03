@@ -2,10 +2,10 @@
 # 비밀 값(저장소 설정 > 비밀과 변수 > Actions): TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID
 name: 감시 목록 (저녁)
 
+# 자동 실행은 Claude 예약 작업(평일 16:07)으로 옮김 — 11/02 깃허브 예약이 약 10시간 늦게(새벽 2시) 돌았기 때문.
+# 여기서는 Actions 화면의 직접 실행 버튼만 남겨 둔다 (예비용).
 on:
-  schedule:
-    - cron: "10 7 * * 1-5"   # 평일 16:10 한국시간 (UTC 07:10). 깃허브 사정으로 몇 분~수십 분 늦을 수 있음
-  workflow_dispatch:          # Actions 화면에서 직접 실행 버튼
+  workflow_dispatch:
 
 jobs:
   screener:
