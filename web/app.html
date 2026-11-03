@@ -418,15 +418,17 @@ function calc(){
 /* ---------- 감시 목록 ---------- */
 function viewWatch(){
   const W=D.watch; if(!W)return `<h1>감시 목록</h1><div class="empty">아직 감시 목록이 없습니다 (평일 16:07 생성)</div>`;
-  const grp=ui.wg||"watch", rows=(W[grp]||[]);
+  const grp=ui.wg||"signals", rows=(W[grp]||[]);
   const secs=[...new Set(rows.map(x=>x.sector))], sf=ui.ws||"";
   const list=rows.filter(x=>!sf||x.sector==sf);
-  const names={watch:"감시 (조정 중·셋업)",running:"1stage 진행 중",near_miss:"관문 1개 미달"};
+  const names={signals:"✅ 신호",candidates:"👀 후보 (내가 판단)",watch:"대기 (셋업·조건 충족)",running:"1stage 진행 중"};
   return `<h1>감시 목록</h1><div class="sub">${esc(W.source)} · ${esc(W.as_of)} 종가 기준 · 훑은 종목 ${w(W.count)}개 · 시총 ${w(W.rules?.min_mcap_eok)}억↑ · 거래대금 ${W.rules?.min_value_eok}억↑</div>
   <div class="chips">${Object.entries(names).map(([k,n])=>`<button class="chip ${grp==k?"on":""}" data-wg="${k}">${n} ${(W[k]||[]).length}</button>`).join("")}</div>
+  ${grp=="candidates"?`<div class="src" style="margin:-4px 0 10px">규칙을 1~2개 못 채웠지만 오늘 움직임(돌파·55일 신고가·포켓피봇·급등)이 있거나 기준가 10% 안인 종목. 부족한 조건을 보고 직접 판단하세요</div>`:""}
+  ${grp=="signals"&&!rows.length?`<div class="empty">오늘 규칙 신호(✅)는 없습니다. 👀 후보를 확인해 보세요</div>`:""}
   ${secs.length>1?`<div class="chips"><button class="chip ${!sf?"on":""}" data-ws="">전체 섹터</button>${secs.map(s=>`<button class="chip ${sf==s?"on":""}" data-ws="${esc(s)}">${esc(s)}</button>`).join("")}</div>`:""}
   ${list.length?`<div class="tw"><table><tr><th class="l">종목</th><th>종가</th><th>RS</th><th>고점대비</th><th>단계</th><th>셋업</th><th>기준가</th><th>알림가</th><th>손절가</th><th>기준가까지</th><th>조정</th><th class="l">오늘</th></tr>
-  ${list.map(x=>`<tr class="click" data-wd="${x.code}"><td class="l"><b>${esc(x.stock)}</b><br><small class="muted">${esc(x.sector)}</small></td><td class="num">${w(x.close)}</td><td class="num">${x.rs}</td><td class="num">${pc(x.off_high_pct)}</td>
+  ${list.map(x=>`<tr class="click" data-wd="${x.code}"><td class="l" style="white-space:normal;min-width:150px"><b>${esc(x.stock)}</b><br><small class="muted">${esc(x.group||x.sector)}</small>${grp=="candidates"&&(x.missing||[]).length?`<br><small class="warnt">부족: ${esc(x.missing.join(" · "))}</small>`:""}</td><td class="num">${w(x.close)}</td><td class="num">${x.rs}</td><td class="num">${pc(x.off_high_pct)}</td>
    <td><span class="pill">${esc(x.stage)}</span></td><td>${(x.setups||[]).join(", ")||"-"}</td><td class="num">${w(x.levels?.breakout)}</td><td class="num">${w(x.levels?.alert)}</td><td class="num">${w(x.levels?.stop_1r)}</td>
    <td class="num">${pc(x.levels?.distance_pct)}</td><td class="num">${x.base?`${x.base.days}일 · 반납 ${x.base.giveback_pct}%`:x.run_pct?`상승 ${x.run_pct}%`:"-"}</td><td class="l">${(x.today||[]).join(", ")||""}</td></tr>
    ${ui.wd==x.code?`<tr><td colspan="12" class="l" style="white-space:normal;background:var(--soft)">관문: ${Object.entries(x.checks||{}).map(([k,v])=>`<span class="pill ${v?"ok":"warn"}">${v?"✓":"✗"} ${esc(k)}</span>`).join(" ")}<br>

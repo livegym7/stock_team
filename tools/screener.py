@@ -315,6 +315,10 @@ def run(codes_info, workers=4):
         ia, ia_share, ia_med = industry_action([day_chg[c] for c in members[grp[s["code"]]] if c != s["code"] and c in day_chg])
         if "돌파" in ev and ia != "동반 상승":
             ev = ["돌파(업종 무반응)" if e == "돌파" else e for e in ev]  # 인더스트리 액션 없으면 돌파 신호로 치지 않음
+        # 참고 이벤트: 55일(분기) 신고가 돌파 — 규칙 신호는 아니고 후보 판단용 (2026-11-03)
+        hi55 = max(r["high"] for r in rows[-56:-1]) if len(rows) > 56 else None
+        if hi55 and rows[-1]["close"] > hi55 and vr and vr >= RULES["breakout_vol"]:
+            ev.append("55일 신고가")
         stage1 = a["base"]["stage1_pct"] if a.get("base") else a.get("run_pct", 0)
         stage1_ok = stage1 >= RULES["min_stage1"]
         checks["1stage 상승"] = stage1_ok
@@ -348,6 +352,31 @@ def run(codes_info, workers=4):
             item["overhead_zone"] = above[0] if above else None
         results.append(item)
     return results
+
+
+def tiers(results):
+    """✅ 신호(규칙 충족) / 👀 후보(1~2개 부족, 무엇이 부족한지 표시 — 사람이 판단) / 대기 / None."""
+    for r in results:
+        g = grade(r)
+        miss = list(r.get("gate_miss", []))
+        b = r.get("base") or {}
+        if b and not r["setups"] and b.get("giveback_pct", 0) > RULES["max_giveback"]:
+            miss.append(f"조정이 깊음(상승분 {b['giveback_pct']}% 반납)")
+        if "돌파(업종 무반응)" in r["today"]:
+            miss.append(f"업종 무반응({r.get('group')} {r.get('ia_up_share') or 0}%만 +2%↑)")
+        if not b:
+            miss.append("조정 구간 없음(1stage 진행 중)")
+        r["missing"] = miss
+        hot = any(e in r["today"] for e in ("돌파", "돌파(업종 무반응)", "55일 신고가", "G", "H"))
+        near = (r.get("levels") or {}).get("distance_pct")
+        if g == "✅":
+            r["tier"] = "신호"
+        elif g in ("👀", "대기"):
+            r["tier"] = "대기"
+        elif len(r.get("gate_miss", [])) <= 2 and (hot or (near is not None and near <= 10)):
+            r["tier"] = "후보"
+        else:
+            r["tier"] = None
 
 
 def grade(it):
@@ -484,6 +513,10 @@ def message(results, as_of):
     if running:
         lines += ["", f"🚀 1stage 진행 중 (신고가 행진, 조정 들어가면 감시 대상) {len(running)}개"]
         lines += [f"- {r['stock']} RS {r['rs']} · 1년 저점 대비 +{r.get('run_pct', '?')}% · {r['sector']}" for r in running[:10]]
+    cands = sorted((r for r in results if r.get("tier") == "후보"), key=lambda r: (len(r["missing"]), -(r["rs"] or 0)))
+    if cands:
+        lines += ["", f"👀 후보 {len(cands)}개 (규칙 1~2개 부족 — 직접 판단, 웹 감시 목록 > 후보)"]
+        lines += [f"- {r['stock']} ({r.get('group')}) 부족: {' · '.join(r['missing'][:2])}" for r in cands[:6]]
     lines += ["", "※ 규칙 대입 결과이며 추천이 아닙니다. 판단은 본인이 합니다."]
     return "\n".join(lines)
 
@@ -510,8 +543,12 @@ def main():
     as_of = max(r["date"] for r in results)
     out_dir = ROOT / "data" / "bus" / datetime.now(KST).strftime("%Y-%m-%d")
     out_dir.mkdir(parents=True, exist_ok=True)
+    tiers(results)
     payload = {"source": "네이버 일봉 (비공식)", "as_of": as_of, "made_at": datetime.now(KST).isoformat(timespec="seconds"),
                "rules": RULES, "count": len(results),
+               "signals": [r for r in results if r["tier"] == "신호"],
+               "candidates": sorted((r for r in results if r["tier"] == "후보"),
+                                    key=lambda r: (len(r["missing"]), -(r["rs"] or 0)))[:40],
                "watch": [r for r in results if r["gate_pass"] and (r["setups"] or r["today"])],
                "running": sorted((r for r in results if r["gate_pass"] and r["stage"] == "1stage 진행 중"),
                                  key=lambda r: -(r["rs"] or 0)),
