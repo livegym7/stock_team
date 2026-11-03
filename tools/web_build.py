@@ -273,6 +273,31 @@ def insights(W, etf, allp, by_stock, now):
     return out
 
 
+def lab(data, now):
+    """검증실: 백테스트 결과(tools/backtest.py) · 감시 목록 성적표 · 매매 일지 · 주간 리뷰."""
+    out = {}
+    for k, f in (("backtest", "latest.json"), ("scorecard", "scorecard.json")):
+        path = DATA / "backtest" / f
+        out[k] = safe(lambda: json.loads(path.read_text(encoding="utf-8"))) if path.exists() else None
+    jpath = DATA / "journal.jsonl"
+    out["journal"] = [json.loads(x) for x in jpath.read_text(encoding="utf-8").splitlines() if x.strip()][-50:][::-1] if jpath.exists() else []
+    # 주간 리뷰 (이번 주 월요일부터)
+    monday = (now - timedelta(days=now.weekday())).strftime("%Y-%m-%d")
+    etf = data.get("sectors_etf") or {}
+    res = sorted(etf.get("results") or [], key=lambda r: -(r.get("r1w") or -99))
+    rk = data.get("risk") or {}
+    out["weekly"] = {
+        "from": monday, "to": now.strftime("%Y-%m-%d"),
+        "kospi_1w": (etf.get("benchmark") or {}).get("r1w"), "bench": (etf.get("benchmark") or {}).get("etf"),
+        "top": [(r["sector"], r.get("r1w")) for r in res[:3]], "bottom": [(r["sector"], r.get("r1w")) for r in res[-3:][::-1]],
+        "briefs": sum(1 for b in data.get("briefs", []) if b["date"] >= monday),
+        "watch_n": len((data.get("watch") or {}).get("watch", [])),
+        "pnl_won": sum(p.get("pnl_won") or 0 for p in rk.get("positions", [])), "cr_pct": rk.get("CR_pct"), "e_pct": rk.get("E_pct"),
+        "journal_n": sum(1 for j in out["journal"] if j.get("date", "") >= monday),
+    }
+    return out
+
+
 def tg_data():
     import tg_channel as t
     allp = [x for c in t.channels() for x in t.load_store(c["id"]).values()]
@@ -338,6 +363,7 @@ def channel_stats(t, allp):
 def main():
     p = argparse.ArgumentParser(description="웹 화면 데이터 만들기")
     p.add_argument("--no-live", action="store_true", help="시세 조회 생략")
+    p.add_argument("--data-out", help="화면 대신 데이터 JSON만 이 경로에 쓰기 (깃허브 Actions 새로고침용)")
     a = p.parse_args()
     now = datetime.now(KST)
     from universe import load as load_universe
@@ -380,6 +406,13 @@ def main():
         out = subprocess.run(["python3", "tools/sector_etf.py"], cwd=ROOT, capture_output=True, text=True, timeout=300).stdout
         data["sectors_etf"] = safe(lambda: json.loads(out))
     data["insights"] = safe(lambda: insights(data["watch"], data["sectors_etf"], allp, by_stock, now))
+    data["lab"] = lab(data, now)
+    data["refresh"] = {"owner": "livegym7", "repo": "stock_team", "workflow": "web-data.yml", "branch": "web-data", "path": "data.json"}
+    if a.data_out:
+        Path(a.data_out).parent.mkdir(parents=True, exist_ok=True)
+        Path(a.data_out).write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
+        print(json.dumps({"built_at": data["built_at"], "out": a.data_out}, ensure_ascii=False))
+        return
     WEB.mkdir(exist_ok=True)
     tpl = (WEB / "app.html").read_text(encoding="utf-8")
     blob = json.dumps(data, ensure_ascii=False).replace("</", "<\\/")

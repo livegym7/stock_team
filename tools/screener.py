@@ -444,7 +444,8 @@ def main():
     a = p.parse_args()
 
     uni = load_universe()["stocks"]
-    pool = [s for s in uni if s["market_cap_eok"] >= RULES["min_mcap_eok"]
+    from backtest import is_etf  # ETF·ETN은 개별 종목이 아니라 감시 목록에서 뺀다 (2026-11-03)
+    pool = [s for s in uni if s["market_cap_eok"] >= RULES["min_mcap_eok"] and not is_etf(s["name"])
             and not re.search(r"우$|우B$|우\(|스팩|리츠|ETN", s["name"])]
     if a.stock:
         # RS 백분위를 매기려면 비교 대상이 필요하므로 전체를 쓰되 (캐시 활용) 한 종목만 출력
