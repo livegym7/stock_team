@@ -66,7 +66,7 @@
 ## 웹 트레이딩룸 v1 (2026-11-03)
 - 설계 docs/web-design.md → 화면 web/app.html(틀) + tools/web_build.py(데이터 모아 web/index.html 생성, 생성물은 커밋 안 함)
 - 비공개 Artifact: https://claude.ai/artifact/C8B5Dd1zwtyyqP3c4e3ric (메뉴 9개: 오늘·브리핑·포트폴리오·감시 목록·섹터·기업·채널·검증실·규칙·일정)
-- 아직 자동 갱신 없음 (Claude가 web_build 후 같은 url로 다시 올려야 함)
+- 자동 갱신: 예약 작업 `웹 트레이딩룸 갱신`(trig_01Nnaa9hUogvJvT6SsXCdoRZ) 평일 07:32·10:32·15:32·16:32, 전용 세션에서 web_build → 같은 url로 publish. 11/03 15:32 첫 실행 확인 필요
 
 ## 리스크 지표 R·CR·E (2026-11-03)
 - `tools/risk.py`: 종목별 1R·진행 R·3R 가격, CR(매수가 기준), E, 남은 위험 여유, `--size`로 신규 수량 계산
