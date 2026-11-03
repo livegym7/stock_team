@@ -1,7 +1,73 @@
 {
- "made_at": "2026-11-03 20:37",
+ "made_at": "2026-11-03 21:21",
  "lists": 2,
  "rows": [
+  {
+   "list_day": "20261103",
+   "stock": "HT로보틱스",
+   "code": "396300",
+   "pivot": 11690,
+   "setups": [
+    "A"
+   ],
+   "days_after": 0,
+   "broke": false,
+   "max_up_pct": 0.0,
+   "low_vs_stop": false
+  },
+  {
+   "list_day": "20261103",
+   "stock": "에이팩트",
+   "code": "200470",
+   "pivot": 11100,
+   "setups": [
+    "A"
+   ],
+   "days_after": 0,
+   "broke": false,
+   "max_up_pct": 0.0,
+   "low_vs_stop": false
+  },
+  {
+   "list_day": "20261103",
+   "stock": "삼성E&A",
+   "code": "028050",
+   "pivot": 67300,
+   "setups": [
+    "A"
+   ],
+   "days_after": 0,
+   "broke": false,
+   "max_up_pct": 0.0,
+   "low_vs_stop": false
+  },
+  {
+   "list_day": "20261103",
+   "stock": "HMM",
+   "code": "011200",
+   "pivot": 24250,
+   "setups": [
+    "A",
+    "B"
+   ],
+   "days_after": 0,
+   "broke": false,
+   "max_up_pct": 0.0,
+   "low_vs_stop": false
+  },
+  {
+   "list_day": "20261103",
+   "stock": "코웨이",
+   "code": "021240",
+   "pivot": 111800,
+   "setups": [
+    "A"
+   ],
+   "days_after": 0,
+   "broke": false,
+   "max_up_pct": 0.0,
+   "low_vs_stop": false
+  },
   {
    "list_day": "20261103",
    "stock": "에스엠벡셀",
@@ -17,11 +83,65 @@
   },
   {
    "list_day": "20261103",
+   "stock": "삼성화재",
+   "code": "000810",
+   "pivot": 705000,
+   "setups": [
+    "A",
+    "C"
+   ],
+   "days_after": 0,
+   "broke": false,
+   "max_up_pct": 0.0,
+   "low_vs_stop": false
+  },
+  {
+   "list_day": "20261103",
+   "stock": "셀트리온",
+   "code": "068270",
+   "pivot": 203500,
+   "setups": [
+    "A",
+    "F"
+   ],
+   "days_after": 0,
+   "broke": false,
+   "max_up_pct": 0.0,
+   "low_vs_stop": false
+  },
+  {
+   "list_day": "20261103",
    "stock": "동국제약",
    "code": "086450",
    "pivot": 26250,
    "setups": [
     "A"
+   ],
+   "days_after": 0,
+   "broke": false,
+   "max_up_pct": 0.0,
+   "low_vs_stop": false
+  },
+  {
+   "list_day": "20261103",
+   "stock": "에스원",
+   "code": "012750",
+   "pivot": 106500,
+   "setups": [
+    "A"
+   ],
+   "days_after": 0,
+   "broke": false,
+   "max_up_pct": 0.0,
+   "low_vs_stop": false
+  },
+  {
+   "list_day": "20261103",
+   "stock": "한진칼",
+   "code": "180640",
+   "pivot": 175900,
+   "setups": [
+    "E"
    ],
    "days_after": 0,
    "broke": false,
@@ -119,5 +239,5 @@
   }
  ],
  "broke": 0,
- "total": 9
+ "total": 18
 }
