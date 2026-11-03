@@ -127,6 +127,18 @@ td.wrap{white-space:normal;line-height:1.5} .gloss td{white-space:normal} .gloss
   h1{font-size:19px}
 }
 @media (prefers-reduced-motion:no-preference){.view{animation:fade .18s ease-out}@keyframes fade{from{opacity:.4}to{opacity:1}}}
+.ctool{display:flex;gap:8px;margin-bottom:8px}.ctool input{flex:1 1 auto;min-width:0;width:auto}.ctool select{flex:0 0 auto;width:auto;max-width:42%}
+#cdetail .g4{grid-template-columns:repeat(2,minmax(0,1fr))}.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.csplit{grid-template-columns:minmax(0,430px) minmax(0,1fr);align-items:start}
+.clist{display:grid;gap:4px;max-height:calc(100vh - 210px);overflow-y:auto;position:sticky;top:12px;padding-right:4px}
+.crow{display:grid;grid-template-columns:20px minmax(0,1fr) 64px 58px 64px 54px;gap:6px;align-items:center;border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:7px 9px;cursor:pointer;text-align:left;font:inherit;color:inherit;width:100%}
+.crow.on{border-color:var(--accent);box-shadow:inset 3px 0 0 var(--accent)} .crow:hover{border-color:var(--accent)}
+.crank{color:var(--muted);font-size:11px}.cname{display:flex;flex-direction:column;min-width:0}.cname b,.cname small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cnum{font-size:12.5px;text-align:right}.crep{font-size:11px;text-align:right;white-space:nowrap}
+.rsb{font-size:11.5px;font-weight:600;border-radius:6px;padding:2px 5px;white-space:nowrap;text-align:center}.rsb.hi{background:color-mix(in srgb,var(--up) 14%,transparent);color:var(--up)}.rsb.mid{background:var(--soft)}.rsb.lo{background:color-mix(in srgb,var(--down) 12%,transparent);color:var(--down)}
+.rsb small{font-size:10px}
+#cdetail h3{font-size:14px;margin:14px 0 6px}
+@media(max-width:820px){.csplit{grid-template-columns:minmax(0,1fr)}.clist{max-height:42vh;position:static}.crow{grid-template-columns:18px minmax(0,1fr) 54px 52px 60px}.crep{display:none}}
 </style>
 
 <div class="app">
@@ -473,18 +485,59 @@ function viewSectors(){
 }
 
 /* ---------- 기업 ---------- */
+const CSORT=[["rs","💪 강도순"],["imp","⭐ 중요도순"],["r1m","📈 1개월 수익률"],["rep","📑 리포트 많은 순"],["name","가나다"]];
+function cKey(c,k){const t=c.trend||{};return k=="rs"?(t.rs??-1):k=="imp"?(t.importance??0)*1000+(t.rs??0):k=="r1m"?(t.r1m??-999):k=="rep"?c.n_reports*1000+(t.rs??0):0}
+function rsBadge(t){if(t.rs==null)return `<span class="rsb muted">RS -</span>`;const cls=t.rs>=70?"hi":t.rs>=50?"mid":"lo";
+  const ch=t.rs_chg4w;return `<span class="rsb ${cls}" title="RS = 1년 수익률 가중 백분위(0~99), 70↑이 강함. 화살표 = 4주 전 대비">RS ${t.rs}${ch?` <small class="${ch>0?"up":"down"}">${ch>0?"▲":"▼"}${Math.abs(ch)}</small>`:""}</span>`}
+function miniLine(c,W=64,H=22){if(!c||c.length<3)return "";const lo=Math.min(...c),hi=Math.max(...c),rg=(hi-lo)||1,n=c.length;
+  const col=c[n-1]>=c[0]?"var(--up)":"var(--down)";return `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" aria-hidden="true"><path d="${c.map((v,i)=>(i?"L":"M")+(i/(n-1)*W).toFixed(1)+" "+(H-2-(v-lo)/rg*(H-4)).toFixed(1)).join("")}" fill="none" stroke="${col}" stroke-width="1.3"/></svg>`}
+function rsLine(h){if(!h||h.filter(x=>x!=null).length<3)return "";const W=260,H=70,n=h.length,y=v=>(H-6-(v/99)*(H-12)).toFixed(1),x=i=>(8+i/(n-1)*(W-16)).toFixed(1);
+  const pts=h.map((v,i)=>v==null?null:[x(i),y(v)]).filter(Boolean);
+  return `<svg viewBox="0 0 ${W} ${H}" width="100%" style="max-width:360px" aria-label="RS 12주 추이"><line x1="8" x2="${W-8}" y1="${y(70)}" y2="${y(70)}" stroke="var(--up)" stroke-dasharray="3 3" stroke-width=".8"/><text x="${W-8}" y="${+y(70)-3}" font-size="9" text-anchor="end" fill="var(--up)">70</text>
+   <path d="${pts.map((p,i)=>(i?"L":"M")+p[0]+" "+p[1]).join("")}" fill="none" stroke="var(--accent)" stroke-width="1.8"/>${pts.map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="2" fill="var(--accent)"/>`).join("")}
+   <text x="8" y="${H-1}" font-size="9" fill="var(--muted)">12주 전</text><text x="${W-8}" y="${H-1}" font-size="9" text-anchor="end" fill="var(--muted)">지금 ${h[n-1]??"-"}</text></svg>`}
+function priceChart(ch,tg){if(!ch||!ch.c||ch.c.length<5)return `<div class="empty">가격 데이터 없음</div>`;
+  const W=640,H=230,L=46,R=10,T=10,B=22,n=ch.c.length,idx=Object.fromEntries(ch.d.map((d,i)=>[d,i]));
+  const T2=(tg||[]).map(t=>({...t,i:idx[t.t.replace(/-/g,"")]})).filter(t=>t.i!=null);
+  const all=[...ch.c,...ch.ma50.filter(v=>v),...T2.map(t=>t.after)],lo=Math.min(...all)*0.98,hi=Math.max(...all)*1.02;
+  const x=i=>(L+i/(n-1)*(W-L-R)).toFixed(1),y=v=>(T+(hi-v)/(hi-lo)*(H-T-B)).toFixed(1);
+  const line=(a,st,sw,da="")=>{let d="";a.forEach((v,i)=>{if(v!=null)d+=(d&&a[i-1]!=null?"L":"M")+x(i)+" "+y(v)});return `<path d="${d}" fill="none" stroke="${st}" stroke-width="${sw}" ${da?`stroke-dasharray="${da}"`:""}/>`};
+  const nice=v=>{const m=Math.pow(10,Math.floor(Math.log10(v))-1);return Math.round(v/m)*m},ticks=[lo+(hi-lo)*.1,(lo+hi)/2,hi-(hi-lo)*.1].map(nice),dl=[0,Math.floor(n/2),n-1],fd=d=>d.slice(4,6)+"/"+d.slice(6);
+  return `<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="6개월 종가와 이동평균, 목표가">
+   ${ticks.map(v=>`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)" stroke-width=".6"/><text x="${L-4}" y="${+y(v)+3}" font-size="10" text-anchor="end" fill="var(--muted)">${w(v)}</text>`).join("")}
+   ${dl.map(i=>`<text x="${x(i)}" y="${H-6}" font-size="10" text-anchor="${i==0?"start":i==n-1?"end":"middle"}" fill="var(--muted)">${fd(ch.d[i])}</text>`).join("")}
+   ${line(ch.ma50,"var(--muted)",1.1,"4 3")}${line(ch.ma20,"var(--accent)",1.2)}${line(ch.c,"var(--fg)",1.8)}
+   ${T2.map(t=>`<circle cx="${x(t.i)}" cy="${y(t.after)}" r="4" fill="${t.dir=="상향"?"var(--up)":t.dir=="하향"?"var(--down)":"var(--muted)"}" fill-opacity=".85" stroke="var(--panel)" stroke-width="1"><title>${esc(t.t+" "+(t.broker||"")+" 목표가 "+w(t.after)+(t.dir?" ("+t.dir+")":""))}</title></circle>`).join("")}
+  </svg><div class="src">— 종가 · <span style="color:var(--accent)">— 20일선</span> · <span class="muted">┄ 50일선</span> · 점 = 리포트 목표가 (<span class="up">● 상향</span> <span class="down">● 하향</span> <span class="muted">● 신규·유지</span>) · 출처: 네이버 일봉(비공식), 채널 리포트 요약(2차 자료)</div>`}
 function viewCompanies(){
-  const q=(ui.cq||"").trim(), C=(D.companies||[]).filter(c=>!q||c.name.includes(q)||(c.detail||"").includes(q)||(c.sector||"").includes(q));
-  const sel=C.find(c=>c.code==ui.cc)||C[0];
-  return `<h1>기업</h1><div class="sub">기업 카드 ${(D.companies||[]).length}개 · 리포트는 최근 1개월 채널 요약(2차 자료)</div>
-  <div style="margin-bottom:12px"><label for="cq">이름·섹터로 찾기<input id="cq" value="${esc(q)}" placeholder="예: 반도체, 삼성"></label></div>
-  ${C.length?`<div class="split"><div class="list">${C.map(c=>`<button class="item ${sel&&c.code==sel.code?"on":""}" data-cc="${c.code}"><b>${esc(c.name)}</b> <small class="muted">${esc(c.detail)}</small><br><small class="muted">리포트 ${c.n_reports}건 · <span class="up">상향 ${c.up}</span> · <span class="down">하향 ${c.down}</span></small></button>`).join("")}</div>
-  <article class="panel"><h2 style="font-size:18px">${esc(sel.name)} <small class="muted num">${sel.code}</small></h2>
-   <div class="chips"><span class="pill">${esc(sel.sector)} › ${esc(sel.detail)}</span>${(sel.sub_sectors||[]).map(s=>`<span class="pill">${esc(s)}</span>`).join("")}${sel.market_cap_eok?`<span class="pill">시총 ${w(sel.market_cap_eok)}억</span>`:""}</div>
+  const q=(ui.cq||"").trim(), so=ui.cs||"rs", cf=ui.cf||"all", all=D.companies||[];
+  const secs=[...new Set(all.map(c=>c.sector).filter(Boolean))].sort();
+  let C=all.filter(c=>(!q||c.name.includes(q)||(c.detail||"").includes(q)||(c.sector||"").includes(q))
+     &&(cf=="all"||(cf=="mine"?((c.trend||{}).held||(c.trend||{}).watch):c.sector==cf)));
+  C=[...C].sort((a,b)=>so=="name"?a.name.localeCompare(b.name,"ko"):cKey(b,so)-cKey(a,so));
+  const sel=C.find(c=>c.code==ui.cc)||C[0], t=(sel&&sel.trend)||{};
+  const mark=c=>(c.trend||{}).held?"⭐":(c.trend||{}).watch?"☆":"";
+  return `<h1>기업</h1><div class="sub">기업 카드 ${all.length}개 · 강도 = RS(1년 수익률 가중 백분위, 시총 2천억↑ 종목 중) · 리포트는 최근 1개월 채널 요약(2차 자료)</div>
+  <div class="ctool"><label for="cq" class="sr">찾기</label><input id="cq" value="${esc(q)}" placeholder="🔍 이름·섹터로 찾기 (예: 반도체)">
+   <select id="cfSel" aria-label="범위"><option value="all">전체 섹터</option><option value="mine" ${cf=="mine"?"selected":""}>⭐ 보유·관심만</option>${secs.map(x=>`<option ${cf==x?"selected":""}>${esc(x)}</option>`).join("")}</select></div>
+  <div class="chips">${CSORT.map(([k,n])=>`<button class="chip ${so==k?"on":""}" data-cs="${k}">${n}</button>`).join("")}</div>
+  ${C.length?`<div class="split csplit"><div class="clist" role="list">${C.map((c,i)=>{const x=c.trend||{};return `<button class="crow ${sel&&c.code==sel.code?"on":""}" data-cc="${c.code}" role="listitem">
+     <span class="crank num">${i+1}</span><span class="cname"><b>${mark(c)}${esc(c.name)}</b><small class="muted">${esc(c.detail||"")}</small></span>
+     <span class="cspk">${miniLine(x.spark)}</span><span class="cnum num ${x.r1m>0?"up":x.r1m<0?"down":""}" title="1개월 수익률">${x.r1m==null?"-":pc(x.r1m)}</span>${rsBadge(x)}
+     ${c.up||c.down?`<span class="crep"><span class="up">🔺${c.up}</span> <span class="down">🔽${c.down}</span></span>`:`<span class="crep muted">-</span>`}</button>`}).join("")}</div>
+  <article class="panel" id="cdetail"><h2 style="font-size:18px">${mark(sel)}${esc(sel.name)} <small class="muted num">${sel.code}</small> ${rsBadge(t)}</h2>
+   <div class="chips"><span class="pill">${esc(sel.sector)} › ${esc(sel.detail)}</span>${(sel.sub_sectors||[]).map(s=>`<span class="pill">${esc(s)}</span>`).join("")}${sel.market_cap_eok?`<span class="pill">시총 ${w(sel.market_cap_eok)}억</span>`:""}${t.importance!=null?`<span class="pill" title="보유 40·관심 20 + 1개월 리포트 + 7일 채널 언급 + 목표가 쏠림">중요도 ${t.importance}</span>`:""}</div>
    <p style="margin:0 0 12px">${esc(sel.one_liner)}</p>
-   <div class="grid g4" style="margin-bottom:12px"><div class="tile"><span>1개월 리포트</span><b>${sel.n_reports}건</b></div><div class="tile"><span>상향 / 하향</span><b><span class="up">${sel.up}</span> / <span class="down">${sel.down}</span></b></div><div class="tile"><span>목표가 중앙값</span><b>${w(sel.median_target)}</b></div></div>
-   ${(sel.reports||[]).map(r=>`<div class="post"><div class="meta"><span class="num">${esc(r.time)}</span><b>${esc(r.broker||"")}</b><span class="num">${r.before?w(r.before)+" → ":""}${w(r.after)}</span>${r.direction?`<span class="pill ${r.direction=="상향"?"ok":r.direction=="하향"?"warn":""}">${esc(r.direction)}</span>`:""}</div><div>${(r.points||[]).map(x=>"· "+esc(x)).join("<br>")}</div></div>`).join("")||`<div class="empty">최근 1개월 리포트 없음</div>`}
-   ${src("사업 한 줄 업데이트 "+(sel.updated||"")+" · 출처 "+(sel.sources||[]).join(", "))}</article></div>`:`<div class="empty">찾는 기업이 없습니다</div>`}`;
+   <div class="grid g4" style="margin-bottom:10px">
+    <div class="tile"><span>종가 ${t.date?esc(t.date.slice(4,6)+"/"+t.date.slice(6)):""}</span><b>${w(t.price)}</b></div>
+    <div class="tile"><span>1주 / 1개월 / 3개월</span><b style="font-size:15px"><span class="${t.r1w>0?"up":"down"}">${pc(t.r1w)}</span> / <span class="${t.r1m>0?"up":"down"}">${pc(t.r1m)}</span> / <span class="${t.r3m>0?"up":"down"}">${pc(t.r3m)}</span></b></div>
+    <div class="tile"><span>52주 고점 대비</span><b>${pc(t.off_high)}</b></div>
+    <div class="tile"><span>이동평균선</span><b style="font-size:15px">${t.above20==null?"-":`20일 ${t.above20?'<span class="up">위</span>':'<span class="down">아래</span>'} · 50일 ${t.above50?'<span class="up">위</span>':'<span class="down">아래</span>'}`}</b></div></div>
+   <h3>가격 흐름 · 6개월</h3>${priceChart(t.chart,sel.target_hist)}
+   <h3>강도(RS) 추이 · 12주 <small class="muted">${t.rs_chg4w==null?"":`4주 전보다 ${t.rs_chg4w>0?"+":""}${t.rs_chg4w}`}</small></h3>${rsLine(t.rs_hist)}
+   <h3>리포트 · 최근 1개월 <small class="muted">${sel.n_reports}건 · <span class="up">🔺${sel.up}</span> <span class="down">🔽${sel.down}</span> · 목표가 중앙값 ${w(sel.median_target)}${sel.median_target&&t.price?` (현재가 대비 ${pc((sel.median_target/t.price-1)*100)})`:""}</small></h3>
+   ${(sel.reports||[]).map(r=>`<div class="post"><div class="meta"><span class="num">${esc(r.time)}</span><b>${esc(r.broker||"")}</b><span class="num">${r.before?w(r.before)+" → ":""}${w(r.after)}</span>${r.direction?`<span class="${r.direction=="상향"?"up":r.direction=="하향"?"down":"muted"}">${r.direction=="상향"?"🔺":r.direction=="하향"?"🔽":"🆕"} ${esc(r.direction)}</span>`:""}</div><div>${(r.points||[]).map(x=>"· "+esc(x)).join("<br>")}</div></div>`).join("")||`<div class="empty">최근 1개월 리포트 없음</div>`}
+   ${src("사업 한 줄 업데이트 "+(sel.updated||"")+" · 출처 "+(sel.sources||[]).join(", ")+" · 시세 네이버 일봉(비공식)")}</article></div>`:`<div class="empty">찾는 기업이 없습니다</div>`}`;
 }
 
 /* ---------- 채널 ---------- */
@@ -677,6 +730,7 @@ document.addEventListener("click",e=>{
   const lt=e.target.closest("[data-lt]"); if(lt){ui.lt=lt.dataset.lt;save();render();return}
   if(e.target.closest("#refreshBtn")){doRefresh();return}
   const bw=e.target.closest("[data-bw]"); if(bw){if(!bw.disabled)writeBrief(bw.dataset.bw);return}
+  const cs=e.target.closest("[data-cs]"); if(cs){ui.cs=cs.dataset.cs;save();render();return}
   const t=e.target.closest("[data-bk],[data-bf],[data-wg],[data-ws],[data-wd],[data-cc],[data-ct],[data-go],[data-kind],.post");
   if(!t)return;
   if(t.dataset.bk!=null){ui.bk=t.dataset.bk;ui.bf=null}
@@ -684,7 +738,7 @@ document.addEventListener("click",e=>{
   else if(t.dataset.wg!=null){ui.wg=t.dataset.wg;ui.ws=""}
   else if(t.dataset.ws!=null)ui.ws=t.dataset.ws;
   else if(t.dataset.wd!=null)ui.wd=ui.wd==t.dataset.wd?null:t.dataset.wd;
-  else if(t.dataset.cc!=null)ui.cc=t.dataset.cc;
+  else if(t.dataset.cc!=null){ui.cc=t.dataset.cc;save();render();if(innerWidth<=820){const d=$("#cdetail");d&&d.scrollIntoView({behavior:"smooth",block:"start"})}return}
   else if(t.dataset.ct!=null)ui.ct=t.dataset.ct;
   else if(t.dataset.go){location.hash=t.dataset.go;return}
   else if(t.dataset.kind){const k=t.dataset.kind;if(k!="watchlist"){ui.bk=k;ui.bf=null}save();return}
@@ -695,7 +749,7 @@ document.addEventListener("input",e=>{
   if(["cEntry","cStop","cPct"].includes(e.target.id))calc();
   if(e.target.id=="cq"){ui.cq=e.target.value;save();const pos=e.target.selectionStart;render();const el=$("#cq");el.focus();el.setSelectionRange(pos,pos)}
 });
-document.addEventListener("change",e=>{if(e.target.id=="chSel"){ui.ch=e.target.value;save();render()}if(e.target.id=="bSel"){ui.bf=e.target.value;save();render()}});
+document.addEventListener("change",e=>{if(e.target.id=="chSel"){ui.ch=e.target.value;save();render()}if(e.target.id=="bSel"){ui.bf=e.target.value;save();render()}if(e.target.id=="cfSel"){ui.cf=e.target.value;save();render()}});
 document.addEventListener("click",e=>{const b=e.target.closest("[data-bnav]");if(!b||b.disabled)return;const o=$("#bSel");if(!o)return;const i=o.selectedIndex-parseInt(b.dataset.bnav);if(i>=0&&i<o.options.length){ui.bf=o.options[i].value;save();render()}});
 window.addEventListener("hashchange",()=>{render();window.scrollTo(0,0)});
 if(D)mergeExtra();

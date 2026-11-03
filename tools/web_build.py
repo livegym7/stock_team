@@ -361,6 +361,87 @@ def report_rows(t, allp, companies, uni):
     return by_stock, flow
 
 
+def company_trends(comp_list, allp):
+    """기업 메뉴용: 강도(RS 백분위)와 그 추이, 가격 흐름, 중요도 점수. 일봉은 감시 목록 캐시 재사용."""
+    import screener as S
+    from common import CACHE, positions, watchlist
+    # 1) 전체 종목 RS 분포 (감시 목록이 받아 둔 일봉 캐시, 시총 2천억↑)
+    closes = {}
+    for f in (CACHE / "daily").glob("*.json"):
+        try:
+            rows = json.loads(f.read_text())["rows"]
+        except Exception:
+            continue
+        if len(rows) >= 130:
+            closes[f.stem] = [r["close"] for r in rows]
+    lags = list(range(0, 65, 5))  # 오늘, 1주 전 … 12주 전
+    dist = {}
+    for lag in lags:
+        vals = []
+        for c in closes.values():
+            x = S.rs_raw(c[:len(c) - lag] if lag else c)
+            if x is not None:
+                vals.append(x)
+        dist[lag] = sorted(vals)
+    rich = len(closes) >= 300  # 감시 목록 캐시가 충분할 때만 RS 계산. 아니면(깃허브 액션 등) 저장해 둔 값 사용
+    snap_path = DATA / "radar" / "company_rs.json"
+    snap = {}
+    if not rich and snap_path.exists():
+        snap = json.loads(snap_path.read_text(encoding="utf-8"))
+    pct = lambda lag, x: None if x is None or not rich or not dist[lag] else round(sum(1 for y in dist[lag] if y <= x) / len(dist[lag]) * 99)
+    held = {p["code"] for p in positions()}
+    watch = {w["code"] for w in watchlist() if w.get("code")}
+    since7 = datetime.now(KST) - timedelta(days=7)
+    mention = Counter()
+    for x in allp:
+        if x.get("dup_of") or datetime.fromisoformat(x["time"]) < since7:
+            continue
+        for st in x.get("stocks", [])[:3]:
+            mention[st["code"]] += 1
+    for c in comp_list:
+        code = c["code"]
+        rows = None
+        if code in closes:
+            rows = json.loads((CACHE / "daily" / f"{code}.json").read_text())["rows"]
+        else:
+            rows = safe(lambda: S.fetch_daily(code)) or []
+        cl = [r["close"] for r in rows]
+        tr = {"held": code in held, "watch": code in watch, "mentions_7d": mention[code]}
+        if len(cl) >= 30:
+            ret = lambda n: round((cl[-1] / cl[-1 - n] - 1) * 100, 1) if len(cl) > n else None
+            ma = lambda n: sum(cl[-n:]) / n if len(cl) >= n else None
+            hi = max(r["high"] for r in rows[-250:])
+            m20, m50 = ma(20), ma(50)
+            rs_hist = [{"lag": lag, "rs": pct(lag, S.rs_raw(cl[:len(cl) - lag] if lag else cl))} for lag in lags]
+            rs_now = rs_hist[0]["rs"]
+            rs_4w = next((h["rs"] for h in rs_hist if h["lag"] == 20), None)
+            last = rows[-125:]
+            tr.update({"price": cl[-1], "date": rows[-1]["date"], "r1w": ret(5), "r1m": ret(21), "r3m": ret(62),
+                       "off_high": round((cl[-1] / hi - 1) * 100, 1),
+                       "above20": m20 and cl[-1] > m20, "above50": m50 and cl[-1] > m50,
+                       "rs": rs_now, "rs_chg4w": (rs_now - rs_4w) if rs_now is not None and rs_4w is not None else None,
+                       "rs_hist": [h["rs"] for h in rs_hist][::-1],
+                       "chart": {"d": [r["date"] for r in last], "c": [r["close"] for r in last],
+                                 "ma20": [round(sum(cl[i - 19:i + 1]) / 20) if i >= 19 else None for i in range(len(cl) - len(last), len(cl))],
+                                 "ma50": [round(sum(cl[i - 49:i + 1]) / 50) if i >= 49 else None for i in range(len(cl) - len(last), len(cl))]},
+                       "spark": [round(x) for x in cl[-60:]]})
+        # 중요도: 보유 40 · 관심 20 · 1개월 리포트(최대 30) · 7일 채널 언급(최대 20) · 목표가 변경 쏠림(최대 10)
+        net = c["up"] - c["down"]
+        tr["importance"] = (40 if tr["held"] else 20 if tr["watch"] else 0) + min(c["n_reports"], 10) * 3 \
+            + min(tr["mentions_7d"], 10) * 2 + min(abs(net), 5) * 2
+        if not rich and code in snap:
+            tr.update(snap[code])
+        c["trend"] = tr
+        c["target_hist"] = [{"t": r["time"][:10], "after": r["after"], "dir": r.get("direction"), "broker": r.get("broker")}
+                            for r in c.pop("_all_reports", []) if r.get("after")]
+    if rich:
+        snap_path.parent.mkdir(parents=True, exist_ok=True)
+        snap_path.write_text(json.dumps({c["code"]: {k: c["trend"].get(k) for k in ("rs", "rs_chg4w", "rs_hist")}
+                                         for c in comp_list if c["trend"].get("rs") is not None}, ensure_ascii=False), encoding="utf-8")
+    return comp_list
+
+
+
 def channel_feed(t, allp, hours=72):
     since = datetime.now(KST) - timedelta(hours=hours)
     rows = []
@@ -409,10 +490,11 @@ def main():
         rs = by_stock.get(c["name"], [])
         afters = [r["after"] for r in rs if r.get("after")]
         comp_list.append({**c, "code": code, "market_cap_eok": uni.get(c["name"], {}).get("market_cap_eok"),
-                          "reports": rs[-8:][::-1], "n_reports": len(rs),
+                          "reports": rs[-8:][::-1], "n_reports": len(rs), "_all_reports": rs,
                           "up": sum(r.get("direction") == "상향" for r in rs), "down": sum(r.get("direction") == "하향" for r in rs),
                           "median_target": statistics.median(afters) if afters else None})
     comp_list.sort(key=lambda c: -c["n_reports"])
+    comp_list = safe(lambda: company_trends(comp_list, allp)) or [{k: v for k, v in c.items() if k != "_all_reports"} for c in comp_list]
 
     data = {
         "built_at": now.strftime("%Y-%m-%d %H:%M"),
