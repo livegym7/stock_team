@@ -107,6 +107,8 @@ label{font-size:12px;color:var(--muted);display:grid;gap:4px}
 .rbox{display:flex;gap:8px;align-items:center;font-size:11.5px;line-height:1.4} .rbox .chip{flex:none} .warnt{color:var(--warn)}
 .mobile-only{display:none}
 .cg{display:inline-flex} .cg .chip:first-child{border-radius:99px 0 0 99px} .cg .rb{border-radius:0 99px 99px 0;border-left:0;padding:4px 9px;color:var(--accent)}
+.gloss summary{cursor:pointer;list-style:none} .gloss summary::before{content:"▸ ";color:var(--muted)} .gloss[open] summary::before{content:"▾ "}
+td.wrap{white-space:normal;line-height:1.5} .gloss td{white-space:normal} .gloss td:first-child{white-space:nowrap}
 .bwhead{margin-bottom:8px;white-space:normal} .bwbody{white-space:pre-wrap;min-height:2em}
 .more{display:none}
 @media (max-width:820px){
@@ -428,7 +430,8 @@ function viewWatch(){
    <td class="num">${pc(x.levels?.distance_pct)}</td><td class="num">${x.base?`${x.base.days}일 · 반납 ${x.base.giveback_pct}%`:x.run_pct?`상승 ${x.run_pct}%`:"-"}</td><td class="l">${(x.today||[]).join(", ")||""}</td></tr>
    ${ui.wd==x.code?`<tr><td colspan="12" class="l" style="white-space:normal;background:var(--soft)">관문: ${Object.entries(x.checks||{}).map(([k,v])=>`<span class="pill ${v?"ok":"warn"}">${v?"✓":"✗"} ${esc(k)}</span>`).join(" ")}<br>
     ${x.base?`베이스 기준일 ${esc(x.base.pivot_date)} · 깊이 ${x.base.depth_pct}% · 1stage 상승 ${x.base.stage1_pct}% · 거래량 마름 ${x.base.vol_dryup??"-"}`:""} · 20일 거래대금 ${w(x.value20_eok)}억</td></tr>`:""}`).join("")}</table></div>`:`<div class="empty">해당 종목 없음</div>`}
-  ${src("기준가 = 조정 구간 고점(돌파 지점), 알림가 = 기준가 −2%, 손절가 = 기준가 −8%(1R). 화면 기록일 뿐 매수 추천이 아닙니다")}`;
+  ${src("기준가 = 조정 구간 고점(돌파 지점), 알림가 = 기준가 −2%, 손절가 = 기준가 −8%(1R). 화면 기록일 뿐 매수 추천이 아닙니다")}
+  ${glossary(true)}`;
 }
 
 /* ---------- 섹터 ---------- */
@@ -489,6 +492,30 @@ function curveSvg(c){
    <circle cx="${x(c.length-1)}" cy="${y(ys[ys.length-1])}" r="3" fill="var(--accent)"/>
    <text x="${P}" y="${H-4}" font-size="10" fill="var(--muted)">${esc(c[0][0])}</text><text x="${W-6}" y="${H-4}" font-size="10" text-anchor="end" fill="var(--muted)">${esc(c[c.length-1][0])}</text></svg></div>`;
 }
+const GLOSS={
+ signals:[["돌파","셋업이 있는 조정 구간의 <b>기준가(조정 구간 고점)</b>를 <b>종가로 넘고</b>, 거래량이 50일 평균의 <b>1.5배 이상</b>인 날. 깡토 전략의 기본 진입 신호"],
+  ["포켓피봇","조정 중 <b>상승한 날의 거래량</b>이 직전 10일 중 <b>하락한 날의 최대 거래량보다 큰</b> 날 (10일선 −3%~+5% 근처). 기준가 돌파 전에 큰손 매수 흔적을 먼저 잡는 이른 신호"],
+  ["H 이벤트","하루 +5% 이상 오르고 거래량 50일 평균의 2배 이상. 실적·뉴스 같은 사건으로 움직인 날 (감시 목록 '오늘' 칸)"]],
+ setups:[["A","박스·깃발","조정 1주 이상, 앞선 상승분(1stage)의 50% 넘게 반납하지 않은 건전한 조정. 가장 넓은 기본형"],
+  ["B","컵 앤 핸들","7~65주 동안 깊이 12~33%의 둥근 컵 → 고점 85% 이상 회복 → 1~5주, 15% 이내의 작은 손잡이. 기준가는 손잡이 고점"],
+  ["C","VCP (변동성 수축)","조정의 되돌림 폭이 2번 이상 계속 줄고(예: 25%→12%→6%) 마지막이 10% 미만, 거래량도 줄어듦. 매물이 말라 간다는 뜻"],
+  ["D","HTF (높고 좁은 깃발)","40일 안에 2배 이상 급등한 뒤 5~15일, 20% 이내로만 쉬는 형태. 드물지만 강한 종목"],
+  ["E","신고가 대기","기준가가 52주 신고가이고 지금 가격이 그 5% 안까지 올라온 상태. 넘으면 위에 매물이 없음"],
+  ["F","로우 치트","조정 구간 아래쪽 40% 안에서 최근 5일 폭 6% 이내로 쉬는 중. 그 5일 고점을 넘으면 기준가보다 낮은 가격에 이른 진입 가능 (손절도 짧음)"]],
+ terms:[["관문 7개","정배열(일봉) · 정배열(주봉) · RS 70↑ · 52주 고점 −50% 이내 · 시총 2천억↑ · 20일 평균 거래대금 100억↑ · 1stage 상승 50%↑. 모두 통과해야 신호로 인정"],
+  ["RS","상대강도. 전체 종목 중 몇 등인지 백분위(0~99). 12개월 20% · 6개월 30% · 3개월 50% 가중 수익률"],
+  ["1stage / 2stage","1stage = 조정 없이 오르는 구간, 2stage = 쉬면서 베이스(조정 구간)를 만드는 중. 2stage에서 셋업이 생김"],
+  ["기준가 · 알림가 · 손절가","기준가 = 돌파할 가격(조정 구간 고점), 알림가 = 기준가 −2%(미리 보기 시작), 손절가 = 진입가 −8%(1R)"],
+  ["거래량 페이스","오늘 누적 거래량 ÷ (20일 평균 × 장 경과 비율). 1.5배 이상이면 돌파 거래량 기준 충족 예상"]]};
+function glossary(open){
+  return `<details class="panel gloss" ${open&&ui.gl!==false?"open":""} style="margin-top:12px"><summary><h3 style="display:inline">용어 설명 · 신호와 셋업</h3></summary>
+  <div class="grid g2" style="margin-top:10px">
+   <div><h3>신호 종류</h3><table>${GLOSS.signals.map(([a,b])=>`<tr><td class="l"><b>${a}</b></td><td class="l wrap">${b}</td></tr>`).join("")}</table></div>
+   <div><h3>셋업 (조정 구간 모양)</h3><table>${GLOSS.setups.map(([a,n,b])=>`<tr><td class="l"><b>${a}</b></td><td class="l"><b>${n}</b></td><td class="l wrap">${b}</td></tr>`).join("")}</table></div>
+  </div>
+  <h3 style="margin-top:12px">그 밖의 용어</h3><table>${GLOSS.terms.map(([a,b])=>`<tr><td class="l"><b>${a}</b></td><td class="l wrap">${b}</td></tr>`).join("")}</table>
+  <div class="src">예: "돌파 A,E" = 박스형 조정(A)이면서 신고가 근처(E)인 종목이 기준가를 거래량과 함께 넘은 신호. 셋업은 한 종목에 여러 개 붙을 수 있음. 규칙 원문: docs/setups.md</div></details>`;
+}
 function viewLab(){
   const L=D.lab||{}, B=L.backtest, S=L.scorecard, Wk=L.weekly||{}, J=L.journal||[];
   const tab=ui.lt||"bt", tabs=[["bt","백테스트"],["sc","감시 목록 성적표"],["jr","매매 일지"],["wk","주간 리뷰"]];
@@ -515,7 +542,8 @@ function viewLab(){
       <h3 style="margin-top:14px">가장 잘 된 거래</h3><table>${(B.best||[]).slice(0,6).map(t=>`<tr><td class="l">${esc(t.stock)}<br><small class="muted">${esc(t.date)} · ${esc(t.kind)} ${(t.setups||[]).join(",")}</small></td><td class="num up">+${t.r}R</td><td class="num">${t.days}일</td></tr>`).join("")}</table></div></div>
     <div class="panel" style="margin-top:12px"><h3>최근 신호 40건</h3><div style="overflow-x:auto"><table><tr><th class="l">신호일</th><th class="l">종목</th><th class="l">종류</th><th>진입가</th><th>RS</th><th>거래량</th><th class="l">시장</th><th>결과</th><th class="l">청산</th></tr>
      ${(B.recent||[]).map(t=>`<tr><td class="l num">${esc(t.date)}</td><td class="l">${esc(t.stock)}</td><td class="l">${esc(t.kind)} ${(t.setups||[]).join(",")}</td><td class="num">${w(t.entry)}</td><td class="num">${t.rs??"-"}</td><td class="num">${t.vol_ratio}배</td><td class="l">${t.market_ok?"20일선 위":"아래"}</td><td class="num ${cls(t.r)}">${t.r>0?"+":""}${t.r}R</td><td class="l"><small>${esc(t.how)}${t.exit?" "+esc(t.exit):""}</small></td></tr>`).join("")}</table></div></div>
-    <div class="panel" style="margin-top:12px"><h3>읽을 때 주의</h3><small>${(B.limits||[]).map(x=>"· "+esc(x)).join("<br>")}</small></div>`;}
+    <div class="panel" style="margin-top:12px"><h3>읽을 때 주의</h3><small>${(B.limits||[]).map(x=>"· "+esc(x)).join("<br>")}</small></div>
+    ${glossary(true)}`;}
   }else if(tab=="sc"){
     body=S&&S.rows?.length?`<div class="sub">감시 목록 ${S.lists}번 · 종목 ${S.total}개 중 기준가 종가 돌파 ${S.broke}개 · ${esc(S.made_at)} 계산</div>
     <div class="tw"><table><tr><th class="l">목록 날짜</th><th class="l">종목</th><th>기준가</th><th class="l">셋업</th><th>지난 날</th><th class="l">결과</th></tr>
