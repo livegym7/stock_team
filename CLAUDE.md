@@ -43,7 +43,7 @@ python3 tools/us_quote.py daily --symbol ^GSPC --days 60
 python3 tools/screener.py                              # 감시 목록 (시총 2천억↑ 훑기 → 셋업·기준가), --send 텔레그램
 python3 tools/sector_etf.py                            # 섹터 ETF 강도 (config/sector_etfs.toml)
 python3 tools/dashboard_data.py --collect              # 대시보드 데이터 12개 → data/dashboard/ (dashboard/README.md)
-python3 tools/risk.py                                  # R·CR·E 리스크 지표, 3R 도달 시 본전 손절 알림 / --size 매수가 손절가 → 살 수 있는 수량
+python3 tools/risk.py                                  # R·CR·E 리스크 지표, 3R 도달 시 본전 손절 알림 / --size 매수가 손절가 → 살 수 있는 수량 / --card --send 포트폴리오 표 그림
 python3 tools/report_digest.py --collect              # 리포트 브리핑 재료 (주요 종목·섹터·내 종목), /report-brief
 python3 tools/chart.py                                 # 관심종목 주봉 + 매물대 차트 (reports/오늘/charts/에 SVG·PNG)
 python3 tools/news.py stock --hours 24                 # 관심종목 뉴스 (네이버 증권)
@@ -76,5 +76,5 @@ python3 tools/telegram_send.py --file reports/날짜/파일.md
 - 차트는 **주봉 캔들 + 매물대(거래대금 기준, 캔들 뒤에 연하게)를 한 그림에** 그리는 것이 기본 (`tools/chart.py`, 사용자 요청 2026-11-02)
 - 스킬: `/morning-brief`, `/company-card`, `/report-brief` (`.claude/skills/`)
 - 보유 종목은 `config/positions.toml`(initial_stop = 처음 손절가·1R 기준, stop = 지금 손절가), 계좌·리스크 규칙은 `config/account.toml`
-- 리스크 규칙: 1R = 계좌 2%(30만 원), 처음 손절 −8%, **3R 도달 시 손절가를 본전으로 → CR 0**, CR은 매수가 기준 (사용자 확정 2026-11-03)
+- 리스크 규칙: 1R = 계좌 2%(30만 원), 처음 손절 −8%, **3R 도달 시 손절가를 본전으로 → CR 0**, CR은 매수가 기준, **CR 한도 6%(3R)** (사용자 확정 2026-11-03)
 - 기업 섹터는 `config/sector_taxonomy.toml`의 세부 섹터 안에서만 고른다. 기업 카드 기본 정보는 `data/companies.json`

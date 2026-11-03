@@ -11,6 +11,7 @@
 사용법:
     python3 tools/risk.py                 # 현재가(네이버)로 계산, JSON
     python3 tools/risk.py --size 50000 46000   # 신규 매수 수량 계산: 매수 예정가 50,000, 손절가 46,000
+    python3 tools/risk.py --card [--send]      # 포트폴리오 표 그림(reports/오늘/portfolio.png), --send 텔레그램
 """
 import argparse
 import json
@@ -87,11 +88,76 @@ def size(entry, stop):
             "price_at_3r": round(entry + 3 * per_share), "note": "주문 기능 없음 — 수량 계산만"}
 
 
+def card(ev):
+    """포트폴리오 표를 HTML → PNG로."""
+    from common import ROOT
+    from render import html_to_png
+    def w(n): return f"{n:,.0f}" if n is not None else "-"
+    def cls(n): return "up" if n and n > 0 else "down" if n and n < 0 else ""
+    rows = ""
+    for p in ev["positions"]:
+        pct = (p["price"] / p["avg_price"] - 1) * 100 if p["price"] else None
+        bar = max(0, min(100, ((p["r_multiple"] or 0) + 1) / 4 * 100))  # -1R ~ 3R
+        rows += (f"<tr><td class=l><b>{p['name']}</b><br><small>{p['code']}</small></td>"
+                 f"<td>{p['qty']}</td><td>{w(p['avg_price'])}</td><td><b>{w(p['price'])}</b></td>"
+                 f"<td class={cls(pct)}>{w(p['pnl_won'])}<br><small>{pct:+.1f}%</small></td>"
+                 f"<td>{w(p['value_won'])}<br><small>{p['value_won']/ev['capital']*100:.1f}%</small></td>"
+                 f"<td>{w(p['stop'])}<br><small>{p['to_stop_pct']:+.1f}%</small></td>"
+                 f"<td>{w(p['one_r_won'])}<br><small>{p['one_r_vs_account']}R</small></td>"
+                 f"<td class={cls(p['r_multiple'])}><b>{p['r_multiple']:+.2f}R</b>"
+                 f"<div class=bar><i style='width:{bar:.0f}%'></i></div></td>"
+                 f"<td>{w(p['breakeven_price_at_3r'])}<br><small>{p['to_3r_pct']:+.1f}%</small></td>"
+                 f"<td>{w(p['cr_won'])}</td></tr>")
+    cr_use = ev["CR_pct"] / ev["CR_limit_pct"] * 100
+    alerts = "".join(f"<div class=alert>⚠️ {p['name']}: {p['alert']}</div>" for p in ev["positions"] if p.get("alert"))
+    if ev.get("warning"):
+        alerts += f"<div class=alert>⚠️ {ev['warning']}</div>"
+    html = f"""<!doctype html><meta charset=utf-8><style>
+body{{font-family:'Noto Sans CJK KR','WenQuanYi Zen Hei',sans-serif;margin:0;padding:18px;background:#fff;color:#1d2433;width:980px}}
+h1{{font-size:20px;margin:0 0 4px}} .sub{{color:#6b7280;font-size:12px;margin-bottom:12px}}
+.kpi{{display:flex;gap:10px;margin-bottom:12px}} .k{{flex:1;border:1px solid #e5e7eb;border-radius:8px;padding:8px 10px}}
+.k span{{font-size:11px;color:#6b7280}} .k b{{display:block;font-size:19px;margin-top:2px}} .k small{{color:#6b7280}}
+.gauge{{height:6px;background:#eef0f3;border-radius:3px;margin-top:5px}} .gauge i{{display:block;height:100%;border-radius:3px;background:#2563eb}}
+table{{border-collapse:collapse;width:100%;font-size:13px}} th{{background:#f3f4f6;font-size:11px;color:#4b5563;padding:6px 4px;border-bottom:1px solid #d1d5db}}
+td{{text-align:right;padding:7px 5px;border-bottom:1px solid #eef0f3;vertical-align:top}} td.l{{text-align:left}} small{{color:#6b7280;font-size:11px}}
+.up{{color:#d92d20}} .down{{color:#1d4ed8}} .bar{{height:4px;background:#eef0f3;margin-top:4px}} .bar i{{display:block;height:100%;background:#16a34a}}
+.alert{{background:#fff4e5;border:1px solid #f5c26b;padding:6px 10px;border-radius:6px;margin-bottom:8px;font-size:13px}}
+.foot{{font-size:11px;color:#6b7280;margin-top:10px;line-height:1.6}}</style>
+<h1>💼 포트폴리오 리스크 현황</h1><div class=sub>{ev['at']} 기준 · 현재가 네이버(표시값) · 자본 {w(ev['capital'])}원 · 1R = {w(ev['one_r_account_won'])}원(2%)</div>
+{alerts}<div class=kpi>
+<div class=k><span>E 노출도</span><b>{ev['E_pct']}%</b><small>투자 {w(ev['invested_won'])} / 현금 {w(ev['capital']-ev['invested_won'])}</small></div>
+<div class=k><span>CR 현재 위험 (매수가 기준)</span><b>{w(ev['CR_won'])}원</b><small>{ev['CR_pct']}% · {ev['CR_in_R']}R / 한도 {ev['CR_limit_pct']}%</small><div class=gauge><i style='width:{min(100,cr_use):.0f}%'></i></div></div>
+<div class=k><span>새로 걸 수 있는 위험</span><b>{w(ev['room_for_new_risk_won'])}원</b><small>약 {ev['room_for_new_risk_won']/ev['one_r_account_won']:.1f}R</small></div>
+<div class=k><span>평가손익 합계</span><b class={cls(sum(p['pnl_won'] or 0 for p in ev['positions']))}>{w(sum(p['pnl_won'] or 0 for p in ev['positions']))}원</b><small>보유 {len(ev['positions'])}종목</small></div></div>
+<table><tr><th>종목</th><th>수량</th><th>평균가</th><th>현재가</th><th>평가손익</th><th>평가금액<br>(비중)</th><th>손절가<br>(거리)</th><th>1R 금액</th><th>진행 R<br>(−1R~3R)</th><th>3R 가격<br>(본전 올림)</th><th>CR</th></tr>{rows}</table>
+<div class=foot>규칙: 처음 손절 −8% = 1R · 3R 도달 시 손절가를 본전으로 올림 → 그 종목 CR 0 · CR 한도 6%(동시 손절 최대 90만 원)<br>주문 기능 없음 — 계산과 알림만. 판단은 본인이 합니다.</div>"""
+    day = ev["at"][:10]
+    out = ROOT / "reports" / day
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "portfolio.html").write_text(html, encoding="utf-8")
+    png = out / "portfolio.png"
+    ok = html_to_png(out / "portfolio.html", png, 1016, 330 + 62 * len(ev["positions"]) + 40 * bool(alerts))
+    return png if ok else None
+
+
 def main():
     p = argparse.ArgumentParser(description="R·CR·E 리스크 지표")
     p.add_argument("--size", nargs=2, type=float, metavar=("매수가", "손절가"))
+    p.add_argument("--card", action="store_true", help="포트폴리오 표 그림 만들기")
+    p.add_argument("--send", action="store_true", help="--card 그림을 텔레그램으로")
     a = p.parse_args()
-    print(json.dumps(size(*a.size) if a.size else evaluate(), ensure_ascii=False, indent=1))
+    if a.size:
+        print(json.dumps(size(*a.size), ensure_ascii=False, indent=1))
+        return
+    ev = evaluate()
+    if a.card:
+        png = card(ev)
+        ev["card"] = str(png) if png else "그림 만들기 실패 (크롬 없음)"
+        if png and a.send:
+            from telegram_send import send_photo
+            send_photo(png, f"💼 포트폴리오 리스크 현황 {ev['at']} · E {ev['E_pct']}% · CR {ev['CR_pct']}% ({ev['CR_in_R']}R / 한도 6%)")
+            ev["sent"] = True
+    print(json.dumps(ev, ensure_ascii=False, indent=1))
 
 
 if __name__ == "__main__":

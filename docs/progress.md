@@ -66,7 +66,8 @@
 ## 리스크 지표 R·CR·E (2026-11-03)
 - `tools/risk.py`: 종목별 1R·진행 R·3R 가격, CR(매수가 기준), E, 남은 위험 여유, `--size`로 신규 수량 계산
 - 규칙: 3R 도달 → 손절가 본전(CR 0). positions.toml에 initial_stop 추가. 아침·리포트 브리핑 '내 종목'에 표시
-- 미정: CR 한도(제안 6% = 3R), 3R에서 일부 익절 여부
+- CR 한도 6%(3R) 확정. `risk.py --card --send`로 포트폴리오 표 그림(reports/날짜/portfolio.png) 전송
+- 미정: 3R에서 일부 익절 여부
 
 ## 브리핑 작성 원칙 (2026-11-03 사용자 요청)
 - 모든 브리핑 맨 앞에 "💡 Claude 의견", 많이 나온 순이 아니라 중요한 순 → CLAUDE.md·morning-brief·report-brief 스킬에 반영
