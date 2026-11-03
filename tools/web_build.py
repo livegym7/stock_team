@@ -12,7 +12,7 @@ import json
 import re
 import statistics
 from collections import Counter, defaultdict
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 from common import DATA, ROOT, channels, http_get, load_toml, positions
@@ -43,8 +43,30 @@ def market(live):
     us = safe(lambda: run("tools/us_quote.py", "price"))
     want = ["^GSPC", "^IXIC", "^DJI", "^SOX", "KRW=X", "^TNX", "^VIX", "CL=F"]
     usr = [r for r in us.get("results", []) if r.get("symbol") in want] if isinstance(us, dict) else []
+    syms = ["^KS11", "^KQ11"] + want
     return {"kr": kr.get("results", []) if isinstance(kr, dict) else [], "us": usr,
-            "source": "코스피·코스닥 네이버, 해외 Yahoo Finance (비공식)"}
+            "spark": {s: v for s in syms if (v := safe(lambda s=s: spark(s), {})) and v.get("c")},
+            "source": "코스피·코스닥 네이버, 해외 Yahoo Finance (비공식) · 미니 차트 Yahoo 5분봉(전일+당일)"}
+
+
+def spark(symbol, keep=80):
+    """미니 차트용: 전일+당일 5분봉 종가. 전일 구간 끝 = 당일 기준선(전일 종가)."""
+    d = json.loads(http_get("https://query1.finance.yahoo.com/v8/finance/chart/" + symbol, {"range": "2d", "interval": "5m"}))
+    r = d["chart"]["result"][0]
+    off = r["meta"].get("gmtoffset", 0)
+    pts = [(t, c) for t, c in zip(r.get("timestamp", []), r["indicators"]["quote"][0]["close"]) if c is not None]
+    if not pts:
+        return {}
+    day = lambda t: datetime.fromtimestamp(t + off, timezone.utc).strftime("%Y-%m-%d")
+    days = sorted({day(t) for t, _ in pts})
+    prev = [p for p in pts if day(p[0]) == days[0]] if len(days) > 1 else []
+    cur = [p for p in pts if day(p[0]) == days[-1]]
+    step = max(1, (len(prev) + len(cur)) // keep)
+    thin = lambda xs: xs[::step] + ([xs[-1]] if xs and (len(xs) - 1) % step else [])
+    prev, cur = thin(prev), thin(cur)
+    base = prev[-1][1] if prev else r["meta"].get("chartPreviousClose")
+    return {"c": [round(c, 2) for _, c in prev + cur], "split": len(prev), "base": round(base, 2) if base else None,
+            "day": days[-1], "last_kst": datetime.fromtimestamp(cur[-1][0] + 9 * 3600, timezone.utc).strftime("%m/%d %H:%M") if cur else None}
 
 
 def section(text, marker):
