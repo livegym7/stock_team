@@ -137,6 +137,142 @@ def watch():
             "running": [slim(x) for x in d.get("running", [])], "near_miss": [slim(x) for x in d.get("near_miss", [])[:15]]}
 
 
+def polling(codes):
+    """네이버 실시간: 현재가·등락·고가·누적 거래량."""
+    out = {}
+    codes = list(dict.fromkeys(c for c in codes if c))
+    for i in range(0, len(codes), 40):
+        d = safe(lambda: json.loads(http_get("https://polling.finance.naver.com/api/realtime/domestic/stock/" + ",".join(codes[i:i + 40]))), {})
+        for x in d.get("datas", []):
+            def num(k):
+                try:
+                    return float(str(x.get(k + "Raw") or x.get(k) or 0).replace(",", ""))
+                except ValueError:
+                    return 0.0
+            out[x["itemCode"]] = {"price": num("closePrice"), "change_pct": num("fluctuationsRatio"),
+                                  "high": num("highPrice"), "volume": num("accumulatedTradingVolume"),
+                                  "at": (x.get("localTradedAt") or "")[:16], "status": x.get("marketStatus")}
+    return out
+
+
+def session_frac(now):
+    """정규장(09:00~15:30) 중 지난 비율. 장 전·후는 1 (하루치로 봄)."""
+    m = now.hour * 60 + now.minute
+    return 1.0 if m < 540 or m >= 930 or now.weekday() >= 5 else max(0.05, (m - 540) / 390)
+
+
+def clean_head(text):
+    """글 첫 줄에서 [말머리]·✅ 같은 장식을 뗀 제목."""
+    first = re.sub(r"https?://\S+", "", text).strip().split("\n")[0]
+    first = re.sub(r"^(\s*(✅|📌|\[[^\]]*\]|【[^】]*】)\s*)+", "", first)
+    return first.strip()[:90]
+
+
+def insights(W, etf, allp, by_stock, now):
+    """홈 인사이트: 시장 신호등 · 셋업 점검(감시 목록 × 지금 가격) · 주도주 · 채널 특징주 · 강한/약한 섹터.
+    조건 충족 여부를 보여 줄 뿐 매수 추천이 아니다 (절대 규칙 4)."""
+    import screener
+    out = {"at": now.strftime("%Y-%m-%d %H:%M")}
+    # 1) 시장 신호등 (KODEX 200: 20일선 위/아래, 이평 정배열)
+    b = (etf or {}).get("benchmark") or {}
+    if b:
+        light = "green" if b.get("above20") and b.get("aligned") else "yellow" if b.get("above20") or (b.get("slope20") or 0) > 0 else "red"
+        out["regime"] = {"light": light, "etf": b.get("etf"), "gap20": b.get("gap20"), "slope20": b.get("slope20"),
+                         "r1w": b.get("r1w"), "r1m": b.get("r1m"), "off_high": b.get("off_high"), "date": b.get("date"),
+                         "text": {"green": "지수가 20일선 위 · 이평 정배열 → 돌파 매매에 우호적",
+                                  "yellow": "지수가 20일선 근처 · 방향 탐색 → 돌파는 거래량 확인을 더 엄격히",
+                                  "red": "지수가 20일선 아래 · 하락 추세 → 돌파 실패가 잦은 구간, 신규 진입은 작게"}[light]}
+    W = W or {}
+    cands = W.get("watch", []) + [x for x in W.get("near_miss", []) if x.get("gate_score", 0) >= 6 and x.get("levels")]
+    leaders = W.get("running", [])
+    q = polling([x["code"] for x in cands + leaders])
+    frac = session_frac(now)
+    rows = []
+    for x in cands:
+        lv = x.get("levels") or {}
+        live = q.get(x["code"], {})
+        price = live.get("price") or x.get("close")
+        pivot, alert = lv.get("breakout"), lv.get("alert")
+        if not pivot or not price or not x.get("value20_eok") or (live and not live.get("volume")):
+            continue  # 거래 없는 종목(신규 상장·거래정지)은 뺀다
+        vols = [d["volume"] for d in safe(lambda: screener.fetch_daily(x["code"]), [])[-21:-1]]
+        avgv = sum(vols) / len(vols) if vols else None
+        pace = round(live.get("volume", 0) / (avgv * frac), 2) if avgv and live.get("volume") else None
+        dist = round((pivot / price - 1) * 100, 1)
+        if price >= pivot:
+            status, rank = "기준가 돌파 중", 0
+        elif price >= alert:
+            status, rank = "알림가 도달", 1
+        elif dist <= 5:
+            status, rank = "기준가 근접", 2
+        else:
+            status, rank = "대기", 3
+        pros, cons = [], []
+        if x.get("gate_score") == 7:
+            pros.append("관문 7/7")
+        else:
+            cons.append("관문 " + ", ".join(k for k, v in (x.get("checks") or {}).items() if not v) + " 미달")
+        if x.get("rs", 0) >= 90:
+            pros.append(f"RS {x['rs']}")
+        bs = x.get("base") or {}
+        if bs.get("vol_dryup") and bs["vol_dryup"] < 0.8:
+            pros.append(f"조정 중 거래량 마름({bs['vol_dryup']})")
+        if bs.get("giveback_pct") is not None and bs["giveback_pct"] > 40:
+            cons.append(f"상승분 {bs['giveback_pct']}% 반납")
+        if x.get("today"):
+            pros.append("어제 " + ", ".join(x["today"]))
+        if rank <= 1:
+            if pace is not None and pace >= 1.5:
+                pros.append(f"거래량 페이스 {pace}배")
+            elif pace is not None:
+                cons.append(f"거래량 페이스 {pace}배 (돌파 기준 1.5배 미만)")
+        if x.get("overhead_zone"):
+            cons.append("위쪽 매물대")
+        if out.get("regime", {}).get("light") == "red":
+            cons.append("시장 신호등 빨강")
+        rows.append({"stock": x["stock"], "code": x["code"], "sector": x["sector"], "setups": x.get("setups", []),
+                     "price": price, "change_pct": live.get("change_pct"), "pivot": pivot, "alert": alert, "stop": lv.get("stop_1r"),
+                     "dist_pct": dist, "pace": pace, "status": status, "rank": rank, "pros": pros, "cons": cons, "rs": x.get("rs")})
+    out["setups"] = sorted(rows, key=lambda r: (r["rank"], r["dist_pct"]))[:8]
+    out["setups_note"] = f"감시 목록 {W.get('as_of', '')} 기준가 × 네이버 현재가({now.strftime('%H:%M')}). 거래량 페이스 = 오늘 누적 ÷ (20일 평균 × 장 경과 비율)"
+    # 2) 주도주: 1stage 진행 중 · RS 상위 (조정 없이 신고가 근처를 달리는 종목)
+    out["leaders"] = [{"stock": x["stock"], "code": x["code"], "sector": x["sector"], "rs": x["rs"], "run_pct": x.get("run_pct"),
+                       "off_high_pct": x.get("off_high_pct"), "price": q.get(x["code"], {}).get("price") or x["close"],
+                       "change_pct": q.get(x["code"], {}).get("change_pct")}
+                      for x in sorted(leaders, key=lambda x: (-x["rs"], -(x.get("run_pct") or 0)))[:6]]
+    # 3) 채널 특징주: 24시간 안에 여러 채널·여러 글이 다룬 종목
+    since = now - timedelta(hours=24)
+    cnt, chans, heads, kinds = Counter(), defaultdict(set), {}, defaultdict(Counter)
+    for x in allp:
+        if datetime.fromisoformat(x["time"]) < since or x["type"] in ("other", "market"):
+            continue
+        names = {x["stock"]} if x["type"] == "report" and x.get("stock") else {st["name"] for st in x.get("stocks", [])}
+        names = {n for n in names if n != x.get("broker") and not n.endswith("증권")} if x["type"] == "report" else names
+        if not names or len(names) > 3:  # 여러 종목 나열 글은 제외
+            continue
+        for n in names:
+            cnt[n] += 1
+            chans[n].add(x["channel"])
+            kinds[n][x["type"]] += 1
+            if n not in heads or x["type"] in ("earnings", "company"):
+                heads[n] = clean_head(x["text"])
+    today = now.strftime("%Y-%m-%d")
+    hot = []
+    for n, c in cnt.most_common(30):
+        rs = [r for r in by_stock.get(n, []) if r["time"].startswith(today)]
+        score = c + 2 * len(chans[n]) + len(rs)
+        hot.append({"stock": n, "posts": c, "channels": len(chans[n]), "headline": heads.get(n), "kinds": dict(kinds[n]),
+                    "reports_today": len(rs), "up": sum(r.get("direction") == "상향" for r in rs),
+                    "down": sum(r.get("direction") == "하향" for r in rs), "score": score})
+    out["hot"] = sorted(hot, key=lambda h: -h["score"])[:6]
+    # 4) 섹터: ETF 1주 수익률 상·하위
+    res = (etf or {}).get("results") or []
+    srt = sorted(res, key=lambda r: -(r.get("r1w") or -99))
+    out["sectors_up"] = [{k: r.get(k) for k in ("sector", "etf", "r1w", "r1m", "above20", "rs_score")} for r in srt[:3]]
+    out["sectors_down"] = [{k: r.get(k) for k in ("sector", "etf", "r1w", "r1m", "above20", "rs_score")} for r in srt[-3:][::-1]]
+    return out
+
+
 def tg_data():
     import tg_channel as t
     allp = [x for c in t.channels() for x in t.load_store(c["id"]).values()]
@@ -243,6 +379,7 @@ def main():
         import subprocess
         out = subprocess.run(["python3", "tools/sector_etf.py"], cwd=ROOT, capture_output=True, text=True, timeout=300).stdout
         data["sectors_etf"] = safe(lambda: json.loads(out))
+    data["insights"] = safe(lambda: insights(data["watch"], data["sectors_etf"], allp, by_stock, now))
     WEB.mkdir(exist_ok=True)
     tpl = (WEB / "app.html").read_text(encoding="utf-8")
     blob = json.dumps(data, ensure_ascii=False).replace("</", "<\\/")

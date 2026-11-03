@@ -49,7 +49,15 @@ h2{font-size:15px;margin:0 0 10px;letter-spacing:-.01em}
 .tile{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:9px 11px}
 .tile span{font-size:11px;color:var(--muted)} .trow{display:flex;justify-content:space-between;align-items:flex-end;gap:4px} .trow>div{min-width:0} .spk{flex:none;display:block} .tile b{display:block;font-family:var(--mono);font-size:16px;font-weight:600}
 .alert{background:var(--warn-soft);color:var(--fg);border:1px solid var(--warn);border-radius:8px;padding:8px 12px;margin-bottom:8px}
-.tl{display:grid;gap:6px}
+.tl{display:grid;gap:6px} .tl4{grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr))}
+h3{font-size:13.5px;margin:0 0 10px}
+.regime{border:1px solid var(--line);border-radius:10px;padding:10px 14px;background:var(--panel)}
+.regime.red{box-shadow:inset 3px 0 0 var(--down)} .regime.green{box-shadow:inset 3px 0 0 var(--ok)} .regime.yellow{box-shadow:inset 3px 0 0 var(--warn)}
+.ins{display:grid;gap:8px}
+.insrow{border-bottom:1px solid var(--line);padding-bottom:8px;cursor:pointer} .insrow:last-child{border-bottom:0;padding-bottom:0}
+.ihead{display:flex;gap:6px;align-items:baseline;flex-wrap:wrap} .ihead .pill{margin-left:auto}
+.ifig{font-size:12.5px;margin:2px 0}
+.pc{display:grid;gap:1px;font-size:12px} .pro{color:var(--ok)} .con{color:var(--warn)}
 .tl a{display:grid;grid-template-columns:56px 1fr auto;gap:10px;align-items:center;padding:8px 10px;border:1px solid var(--line);border-radius:8px;text-decoration:none;color:var(--fg);background:var(--panel)}
 .pill{display:inline-block;font-size:11px;padding:1px 8px;border-radius:99px;background:var(--soft);color:var(--muted);white-space:nowrap}
 .pill.ok{background:var(--accent-soft);color:var(--accent)} .pill.warn{background:var(--warn-soft);color:var(--warn)}
@@ -193,18 +201,43 @@ function holdMini(r){
    <td class="num ${cls(p.pnl_won)}">${w(p.pnl_won)} <small>(${pc(pct)})</small></td><td class="num ${cls(p.r_multiple)}">${p.r_multiple==null?"-":(p.r_multiple>0?"+":"")+p.r_multiple.toFixed(2)+"R"}</td>
    <td class="num">${pc(p.to_stop_pct)}</td><td class="l"><small>${esc(nx)}</small></td></tr>`}).join("")}</table></div>`;
 }
+function insightBlock(){
+  const I=D.insights; if(!I||I.error)return "";
+  const R=I.regime, L={green:["🟢","초록"],yellow:["🟡","노랑"],red:["🔴","빨강"]};
+  const st={"기준가 돌파 중":"ok","알림가 도달":"warn","기준가 근접":""};
+  const setups=(I.setups||[]).slice(0,5), hot=I.hot||[], lead=I.leaders||[], held=new Set((D.risk?.positions||[]).map(p=>p.code));
+  return `<div><h2>🔎 오늘의 인사이트 <span class="pill">${esc(I.at)} 계산</span></h2>
+  ${R?`<div class="regime ${R.light}"><b>${L[R.light][0]} 시장 신호등 ${L[R.light][1]}</b> · ${esc(R.text)}<br><small class="muted">${esc(R.etf)} 20일선 대비 ${pc(R.gap20)} · 20일선 기울기 ${pc(R.slope20)} · 1주 ${pc(R.r1w)} · 1개월 ${pc(R.r1m)} · 고점 대비 ${pc(R.off_high)} (${esc(R.date)} 종가)</small></div>`:""}
+  <div class="grid g2" style="margin-top:12px">
+   <div class="panel"><h3>셋업 점검 · 기준가와 지금 가격</h3>
+    ${setups.length?`<div class="ins">${setups.map(x=>`<div class="insrow click" data-go="watch">
+      <div class="ihead"><b>${esc(x.stock)}</b> <small class="muted">${esc(x.sector)} · ${(x.setups||[]).join(",")||"-"}</small><span class="pill ${st[x.status]??""}">${esc(x.status)}</span></div>
+      <div class="num ifig">${w(x.price)} <span class="${cls(x.change_pct)}">${pc(x.change_pct,2)}</span> → 기준가 ${w(x.pivot)} (${x.dist_pct<=0?"돌파":pc(x.dist_pct)}) · 손절 ${w(x.stop)}${x.pace!=null?` · 거래량 ${x.pace}배`:""}</div>
+      <div class="pc"><span class="pro">＋ ${esc(x.pros.join(" · ")||"-")}</span><span class="con">－ ${esc(x.cons.join(" · ")||"-")}</span></div></div>`).join("")}</div>`:`<div class="empty">감시 목록 종목 없음</div>`}
+    <div class="src">${esc(I.setups_note||"")} · 조건 충족 여부일 뿐 매수 추천이 아닙니다. 돌파는 거래량 1.5배 이상 + 종가 유지로 확인</div></div>
+   <div class="panel"><h3>주도주 · 조정 없이 달리는 종목</h3>
+    ${lead.length?`<div style="overflow-x:auto"><table>${lead.map(x=>`<tr><td class="l" style="white-space:normal"><b>${esc(x.stock)}</b>${held.has(x.code)?` <span class="pill ok">보유</span>`:""}<br><small class="muted">${esc(x.sector)}</small></td><td class="num">RS ${x.rs}</td><td class="num">상승 ${x.run_pct??"-"}%<br><small class="muted">고점 ${pc(x.off_high_pct)}</small></td><td class="num">${w(x.price)}<br><small class="${cls(x.change_pct)}">${pc(x.change_pct,2)}</small></td></tr>`).join("")}</table></div>`:`<div class="empty">해당 없음</div>`}
+    <div class="src">감시 목록의 '1stage 진행 중'(관문 7/7, 아직 조정 구간 없음). 조정(베이스)이 생기면 셋업 후보가 됨 · 현재가 네이버</div></div>
+   <div class="panel"><h3>채널 특징주 · 24시간</h3>
+    ${hot.length?`<div class="ins">${hot.map(h=>`<div class="insrow click" data-cq="${esc(h.stock)}"><div class="ihead"><b>${esc(h.stock)}</b><small class="muted">글 ${h.posts} · 채널 ${h.channels}</small>${h.up||h.down?`<span class="pill"><span class="up">상향 ${h.up}</span> / <span class="down">하향 ${h.down}</span></span>`:""}</div><div class="muted" style="font-size:12.5px">${esc(h.headline||"")}</div></div>`).join("")}</div>`:`<div class="empty">해당 없음</div>`}
+    <div class="src">여러 채널·여러 글이 다룬 종목 순 (시황 나열 글 제외) · 출처: 채널(2차 자료)</div></div>
+   <div class="panel"><h3>섹터 · 1주 강한 곳 / 약한 곳</h3>
+    <div class="bars">${(I.sectors_up||[]).map(x=>`<div class="bar"><span>${esc(x.sector)}</span><div class="track"><i class="u" style="width:${Math.min(100,Math.abs(x.r1w)*8)}%"></i></div><span class="num up">${pc(x.r1w)}</span></div>`).join("")}
+    ${(I.sectors_down||[]).map(x=>`<div class="bar"><span>${esc(x.sector)}</span><div class="track"><i class="d" style="width:${Math.min(100,Math.abs(x.r1w)*8)}%"></i></div><span class="num down">${pc(x.r1w)}</span></div>`).join("")}</div>
+    <div class="src">섹터 ETF 1주 수익률 · 20일선 위 섹터: ${(D.sectors_etf?.results||[]).filter(x=>x.above20).map(x=>x.sector).join(", ")||"없음"} · 전 거래일 종가</div></div>
+  </div></div>`;
+}
 function viewHome(){
-  const op=latestOpinion(), wl=(D.watch?.watch||[]).slice().sort((a,b)=>(a.levels?.distance_pct??99)-(b.levels?.distance_pct??99)).slice(0,3);
+  const op=latestOpinion();
   return `<h1>오늘</h1><div class="sub">${esc(D.built_at)} 기준 화면 · 숫자마다 출처와 시각을 따로 적었습니다</div>
   ${alerts(D.risk)}
   <section class="grid" style="gap:16px">
    <div>${op?`<h2>💡 Claude 의견 <span class="pill">${esc(op.kind_name)} · ${esc(op.date)}</span></h2><div class="opinion">${esc(op.opinion.replace(/^💡[^\n]*\n?/,""))}</div>`:`<div class="empty">아직 의견이 담긴 브리핑이 없습니다</div>`}</div>
+   ${insightBlock()}
    <div><h2>시장 한눈에</h2>${marketTiles()}</div>
    <div><h2>내 계좌</h2>${riskKpis(D.risk)}${holdMini(D.risk)}${src((D.risk?.source||"")+" · "+(D.risk?.at||""))}</div>
-   <div class="grid g2">
-    <div><h2>오늘 일정</h2><div class="tl">${(D.schedule||[]).map(s=>`<a href="#${s.kind=="watchlist"?"watch":"briefs"}" data-kind="${s.kind}"><span class="num">${s.time}</span><span>${esc(s.name)}</span><span class="pill ${s.done?"ok":s.state.startsWith("늦음")?"warn":""}">${esc(s.state)}</span></a>`).join("")}</div></div>
-    <div><h2>기준가에 가까운 감시 종목</h2>${wl.length?`<div class="tw"><table><tr><th class="l">종목</th><th>종가</th><th>기준가</th><th>거리</th><th>셋업</th></tr>${wl.map(x=>`<tr class="click" data-go="watch"><td class="l">${esc(x.stock)}<br><small class="muted">${esc(x.sector)}</small></td><td class="num">${w(x.close)}</td><td class="num">${w(x.levels?.breakout)}</td><td class="num">${pc(x.levels?.distance_pct)}</td><td>${(x.setups||[]).join(",")||"-"}</td></tr>`).join("")}</table></div>${src("감시 목록 "+(D.watch?.as_of||"")+" 종가 기준")}`:`<div class="empty">감시 목록 없음</div>`}</div>
-   </div></section>`;
+   <div><h2>오늘 일정</h2><div class="tl tl4">${(D.schedule||[]).map(s=>`<a href="#${s.kind=="watchlist"?"watch":"briefs"}" data-kind="${s.kind}"><span class="num">${s.time}</span><span>${esc(s.name)}</span><span class="pill ${s.done?"ok":s.state.startsWith("늦음")?"warn":""}">${esc(s.state)}</span></a>`).join("")}</div></div>
+  </section>`;
 }
 
 /* ---------- 브리핑 ---------- */
@@ -374,6 +407,7 @@ function render(){
   if(r=="portfolio")calc();
 }
 document.addEventListener("click",e=>{
+  const q=e.target.closest("[data-cq]"); if(q){ui.cq=q.dataset.cq;save();location.hash="companies";return}
   const t=e.target.closest("[data-bk],[data-bf],[data-wg],[data-ws],[data-wd],[data-cc],[data-ct],[data-go],[data-kind],.post");
   if(!t)return;
   if(t.dataset.bk!=null){ui.bk=t.dataset.bk;ui.bf=null}
