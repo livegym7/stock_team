@@ -174,16 +174,30 @@ def analyze(rows):
     ok_base = base_days >= RULES["min_base_days"] and giveback <= RULES["max_giveback"]
     if ok_base:
         setups.append("A")  # 박스·깃발: 건전한 조정 (가장 넓은 정의)
-    # B 컵 앤 핸들: 컵 7~65주, 깊이 12~33%, 바닥이 가운데쯤, 오른쪽 회복 후 손잡이
-    if 35 <= base_days <= 325 and 12 <= depth <= 33:
-        low_i = piv + l[piv:].index(base_low)
-        if 0.2 <= (low_i - piv) / base_days <= 0.8:
-            r_i = low_i + h[low_i:].index(max(h[low_i:]))
-            handle_days = n - 1 - r_i
-            handle_depth = (1 - min(l[r_i:]) / h[r_i]) * 100
-            if h[r_i] >= pivot * 0.85 and 5 <= handle_days <= 25 and handle_depth <= min(15, depth / 2):
-                setups.append("B")
-                out["handle_high"] = round(h[r_i])
+    # B 컵 앤 핸들 (2026-11-03 수정): 피벗(가장 최근에 깨지지 않은 고점)은 보통 '손잡이 시작 = 컵 오른쪽 끝'이라
+    #   예전처럼 피벗부터 지금까지를 컵으로 보면 컵이 생길 수 없었다(0건). 이제 피벗보다 35~325일 앞에서
+    #   '컵 왼쪽 끝'(피벗 이상이면서 그 뒤로 깨지지 않은 고점)을 찾고, 그 사이를 컵, 피벗 이후를 손잡이로 본다.
+    #   컵 7~65주, 깊이 12~33%, 바닥이 가운데쯤, 오른쪽 끝이 왼쪽의 85% 이상(피벗 정의상 거의 같음),
+    #   손잡이 5~25일, 깊이 15% 이하이면서 컵 깊이의 절반 이하.
+    left = None
+    for i in range(piv - 35, max(10, piv - 325) - 1, -1):
+        # 컵 왼쪽 끝: 앞뒤 10일 최고이고 컵 안쪽(왼쪽 끝~피벗 사이)보다 높으며, 오른쪽 끝(피벗)과 ±15% 안
+        if h[i] == max(h[max(0, i - 10):i + 11]) and h[i] >= max(h[i + 1:piv]) and 0.85 <= h[piv] / h[i] <= 1.15:
+            left = i
+            break
+    if left is not None:
+        cup_days = piv - left
+        cup_low = min(l[left:piv + 1])
+        cup_depth = (1 - cup_low / h[left]) * 100
+        low_i = left + l[left:piv + 1].index(cup_low)
+        handle_days = n - 1 - piv
+        handle_depth = (1 - min(l[piv:]) / h[piv]) * 100
+        if 35 <= cup_days <= 325 and 12 <= cup_depth <= 33 and 0.2 <= (low_i - left) / cup_days <= 0.8 \
+                and h[piv] >= h[left] * 0.85 and 5 <= handle_days <= 25 and handle_depth <= min(15, cup_depth / 2):
+            setups.append("B")
+            out["handle_high"] = round(h[piv])
+            out["cup"] = {"left_date": rows[left]["date"], "days": cup_days, "depth_pct": round(cup_depth, 1),
+                          "handle_days": handle_days, "handle_depth_pct": round(handle_depth, 1)}
     # C VCP: 되돌림 2번 이상 연속 감소, 마지막 한 자릿수, 거래량 감소
     if len(pulls) >= 2 and all(pulls[i] < pulls[i - 1] for i in range(len(pulls) - 2, len(pulls))) \
             and pulls[-1] < 10 and vol10 and vol50 and vol10 < vol50:
