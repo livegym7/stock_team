@@ -77,5 +77,5 @@ python3 tools/telegram_send.py --file reports/날짜/파일.md
 - 차트는 **주봉 캔들 + 매물대(거래대금 기준, 캔들 뒤에 연하게)를 한 그림에** 그리는 것이 기본 (`tools/chart.py`, 사용자 요청 2026-11-02)
 - 스킬: `/morning-brief`, `/company-card`, `/report-brief` (`.claude/skills/`)
 - 보유 종목은 `config/positions.toml`(initial_stop = 처음 손절가·1R 기준, stop = 지금 손절가), 계좌·리스크 규칙은 `config/account.toml`
-- 리스크 규칙: 1R = 계좌 2%(30만 원), 처음 손절 −8%, **3R 도달 시 손절가를 본전으로 → CR 0**, CR은 매수가 기준, **CR 한도 6%(3R)** (사용자 확정 2026-11-03)
+- 리스크 규칙: 1R = 계좌 2%(30만 원), 처음 손절 −8%, **3R 도달 시 50% 익절 + 남은 물량 손절가 본전 → CR 0**, **3R 이후 20일선 종가 하향 돌파 시 나머지 전략 매도**, CR은 매수가 기준, **CR 한도 6%(3R)** (사용자 확정 2026-11-03)
 - 기업 섹터는 `config/sector_taxonomy.toml`의 세부 섹터 안에서만 고른다. 기업 카드 기본 정보는 `data/companies.json`

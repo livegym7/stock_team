@@ -220,7 +220,7 @@ function viewPortfolio(){
    <td class="num">${w(p.breakeven_price_at_3r)}<br><small class="muted">${pc(p.to_3r_pct)}</small></td><td class="num">${w(p.cr_won)}</td></tr>`}).join("")}</table></div>
   <h2 style="margin-top:18px">다음 액션 · 가격별 규칙</h2>
   <div class="acts">${ps.map(p=>actionCard(p)).join("")}</div>
-  ${src("확정 규칙: 처음 손절 −8%(1R) · 3R 도달 시 손절가를 본전으로(CR 0). 미정 규칙은 '미정'으로 표시 · 실제 주문은 증권사 앱에서 직접")}
+  ${src("규칙: 처음 손절 −8%(1R) → 3R 도달 시 50% 익절 + 남은 물량 손절가 본전(CR 0) → 이후 20일선 종가 이탈 시 나머지 매도 · 실제 주문은 증권사 앱에서 직접")}
   <div class="grid g2" style="margin-top:16px">
    <div class="panel"><h2>업종 쏠림</h2><div class="bars">${Object.entries(bySec).sort((a,b)=>b[1]-a[1]).map(([s,v])=>`<div class="bar"><span>${esc(s)}</span><div class="track"><i class="n" style="width:${v/tot*100}%;background:var(--accent)"></i></div><span class="num">${(v/tot*100).toFixed(0)}%</span></div>`).join("")}</div>
     <div class="src">보유 평가금액 기준. 한 업종에 몰려 있으면 나쁜 날 같이 빠집니다(CR이 한 번에 현실이 됨)</div></div>
@@ -229,7 +229,7 @@ function viewPortfolio(){
     <div class="res" id="cRes"></div>
     <div class="src">1R ${w(r.one_r_account_won)}원과 CR 여유 ${w(r.room_for_new_risk_won)}원 중 작은 쪽으로 계산 · 주문 기능 없음</div></div>
   </div>
-  <div class="panel" style="margin-top:12px"><h2>규칙</h2><small>자본 ${w(acc.capital)}원 · 1R = 계좌 ${(acc.risk_per_trade*100)}% · 처음 손절 −${acc.stop_pct*100}% · ${acc.breakeven_at_r}R 도달 시 손절가를 본전으로(그 종목 CR 0) · CR 한도 ${acc.max_open_risk*100}%</small></div>`;
+  <div class="panel" style="margin-top:12px"><h2>규칙</h2><small>자본 ${w(acc.capital)}원 · 1R = 계좌 ${(acc.risk_per_trade*100)}% · 처음 손절 −${acc.stop_pct*100}% · ${acc.breakeven_at_r}R 도달 시 ${Math.round((acc.take_profit_at_3r||0)*100)}% 익절 + 남은 물량 손절가 본전(CR 0) · 이후 ${acc.trail_ma||20}일선 종가 이탈 시 나머지 매도 · CR 한도 ${acc.max_open_risk*100}%</small></div>`;
 }
 function levels(p){
   const a=D.account||{}, unit=p.avg_price-p.initial_stop, be=a.breakeven_at_r||3, take=a.take_profit_at_3r;
@@ -238,15 +238,18 @@ function levels(p){
    {r:0,price:p.avg_price,label:"본전",act:"평균 매수가",kind:"be"},
    {r:1,price:p.avg_price+unit,label:"1R",act:`평가이익 ${w(unit*p.qty)}원 · 아직 손절가 그대로`,kind:"info"},
    {r:2,price:p.avg_price+2*unit,label:"2R",act:`평가이익 ${w(2*unit*p.qty)}원`,kind:"info"},
-   {r:be,price:p.avg_price+be*unit,label:be+"R",act:`손절가를 본전 ${w(p.avg_price)}원으로 → CR ${w(p.cr_won)} → 0`+(take?` · ${take*100}% 익절(${Math.floor(p.qty*take)}주)`:` · 익절: 미정(책 기준 50%)`),kind:"key"}];
+   {r:be,price:p.avg_price+be*unit,label:be+"R",act:(take?`${Math.round(take*100)}% 익절 ${p.take_qty_at_3r}주(약 +${w(p.take_won_at_3r)}원 실현) + `:"")+`남은 물량 손절가를 본전 ${w(p.avg_price)}원으로 → CR ${w(p.cr_won)} → 0`,kind:"key"}];
+  const m=p["ma"+(p.trail_ma||20)];
+  if(p.stop>=p.avg_price&&m)L.push({r:-0.5,price:m,label:(p.trail_ma||20)+"일선",act:`종가로 하향 돌파하면 나머지 ${p.qty}주 전략 매도`,kind:"stop"});
   return L.filter((x,i)=>!(x.r==2&&be==2));
 }
 function nextStep(p){
   if(p.price==null)return "-";
-  if(p.stop>=p.avg_price)return "손절가 본전 이상 · 추세 이탈 규칙 대기(미정)";
+  const m=p["ma"+(p.trail_ma||20)];
+  if(p.stop>=p.avg_price)return m?`3R 이후 · ${p.trail_ma||20}일선 ${w(m)}원(${pc((m/p.price-1)*100)}) 종가 이탈 시 나머지 매도 · 손절가 본전 ${w(p.stop)}`:"3R 이후 · 20일선 종가 이탈 시 나머지 매도";
   const L=levels(p).filter(x=>x.r>0&&x.price>p.price);
   const k=L.find(x=>x.kind=="key")||L[0];
-  return k?`${w(k.price)}원(+${((k.price/p.price-1)*100).toFixed(1)}%) 도달 시 손절가 본전으로 · 이탈 시 ${w(p.stop)} 손절`:"3R 이상 → 손절가 본전으로 올릴 때";
+  return k?`${w(k.price)}원(+${((k.price/p.price-1)*100).toFixed(1)}%) 도달 시 ${p.take_qty_at_3r?p.take_qty_at_3r+"주 익절 + ":""}손절가 본전 · 이탈 시 ${w(p.stop)} 손절`:"3R 도달 → 50% 익절 + 손절가 본전으로 올릴 때";
 }
 function actionCard(p){
   const L=levels(p).sort((a,b)=>b.price-a.price), cur=p.price;
@@ -259,7 +262,7 @@ function actionCard(p){
   if(!placed&&cur!=null)rows+=`<div class="step now"><span class="lv">${w(cur)}</span><b>지금</b><span>손절가 아래 · 손절 확인 필요</span><span></span></div>`;
   return `<div class="panel"><h2>${esc(p.name)} <small class="muted">${p.qty}주 · 1R = ${w(p.avg_price-p.initial_stop)}원/주</small></h2>
    <div style="font-size:13px"><b>다음 행동</b> · ${esc(nextStep(p))}</div><div class="ladder">${rows}</div>
-   <div class="src">3R 이후(추세 이탈 매도·불타기 등)는 아직 정하지 않음</div></div>`;
+   <div class="src">${esc(p.phase||"")} · 3R 이후에는 ${p.trail_ma||20}일선(지금 ${w(p["ma"+(p.trail_ma||20)])}원)을 종가로 깨면 나머지 매도</div></div>`;
 }
 function calc(){
   const r=D.risk||{}, e=parseFloat(($("#cEntry")||{}).value), pctv=parseFloat(($("#cPct")||{}).value);
@@ -339,7 +342,7 @@ function viewLab(){
 function viewConfig(){
   const a=D.account||{};
   return `<h1>규칙·일정</h1><div class="sub">바꾸고 싶으면 Claude에게 말해 주세요 (이 화면은 보기 전용)</div><div class="grid g2">
-  <div class="panel"><h2>계좌·리스크 규칙</h2><table><tr><td class="l">자본</td><td class="num">${w(a.capital)}원</td></tr><tr><td class="l">1R (1회 손실 한도)</td><td class="num">${a.risk_per_trade*100}% = ${w(a.capital*a.risk_per_trade)}원</td></tr><tr><td class="l">처음 손절</td><td class="num">−${a.stop_pct*100}%</td></tr><tr><td class="l">본전 손절로 올리는 시점</td><td class="num">${a.breakeven_at_r}R</td></tr><tr><td class="l">CR 한도 (동시 손절 최대)</td><td class="num">${a.max_open_risk*100}% = ${w(a.capital*a.max_open_risk)}원</td></tr><tr><td class="l">펀더멘털</td><td class="num">점수로만 표시</td></tr></table></div>
+  <div class="panel"><h2>계좌·리스크 규칙</h2><table><tr><td class="l">자본</td><td class="num">${w(a.capital)}원</td></tr><tr><td class="l">1R (1회 손실 한도)</td><td class="num">${a.risk_per_trade*100}% = ${w(a.capital*a.risk_per_trade)}원</td></tr><tr><td class="l">처음 손절</td><td class="num">−${a.stop_pct*100}%</td></tr><tr><td class="l">본전 손절로 올리는 시점</td><td class="num">${a.breakeven_at_r}R</td></tr><tr><td class="l">${a.breakeven_at_r}R 익절</td><td class="num">${Math.round((a.take_profit_at_3r||0)*100)}%</td></tr><tr><td class="l">3R 이후 매도</td><td class="num">${a.trail_ma||20}일선 종가 이탈</td></tr><tr><td class="l">CR 한도 (동시 손절 최대)</td><td class="num">${a.max_open_risk*100}% = ${w(a.capital*a.max_open_risk)}원</td></tr><tr><td class="l">펀더멘털</td><td class="num">점수로만 표시</td></tr></table></div>
   <div class="panel"><h2>자동 일정 (평일)</h2><div class="tl">${(D.schedule||[]).map(s=>`<a href="#${s.kind=="watchlist"?"watch":"briefs"}"><span class="num">${s.time}</span><span>${esc(s.name)}</span><span class="pill ${s.done?"ok":""}">${esc(s.state)}</span></a>`).join("")}</div><div class="src">Claude 예약 작업 · 결과는 텔레그램과 이 화면에 같이 남음</div></div>
   <div class="panel"><h2>데이터 출처</h2><small>국내 시세·일봉: 네이버 증권(비공식) · 해외: Yahoo Finance(비공식) · 리포트·뉴스: 텔레그램 채널 요약(2차 자료) · 기업 사업 한 줄: Claude가 공개 정보로 작성</small></div>
   <div class="panel"><h2>지키는 선</h2><small>주문 기능 없음 · 매수·매도 단정 없음(근거와 반대 근거) · 숫자에 출처와 시각 · 증권사 PDF 원본 저장 안 함</small></div></div>`;

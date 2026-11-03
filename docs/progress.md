@@ -72,7 +72,7 @@
 - `tools/risk.py`: 종목별 1R·진행 R·3R 가격, CR(매수가 기준), E, 남은 위험 여유, `--size`로 신규 수량 계산
 - 규칙: 3R 도달 → 손절가 본전(CR 0). positions.toml에 initial_stop 추가. 아침·리포트 브리핑 '내 종목'에 표시
 - CR 한도 6%(3R) 확정. `risk.py --card --send`로 포트폴리오 표 그림(reports/날짜/portfolio.png) 전송
-- 미정: 3R에서 일부 익절 여부
+- 3R 도달 → 50% 익절 + 남은 물량 손절가 본전, 3R 이후 20일선 종가 하향 돌파 시 나머지 매도 (확정 2026-11-03). risk.py에 익절 수량·20일선·단계(phase)·알림 추가, 웹 '다음 액션' 사다리에 반영
 
 ## 브리핑 작성 원칙 (2026-11-03 사용자 요청)
 - 모든 브리핑 맨 앞에 "💡 Claude 의견", 많이 나온 순이 아니라 중요한 순 → CLAUDE.md·morning-brief·report-brief 스킬에 반영

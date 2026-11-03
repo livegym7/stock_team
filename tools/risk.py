@@ -6,7 +6,10 @@
        손절가를 본전(평균가) 이상으로 올리면 그 종목 CR = 0
 - E  : 노출도 = 평가금액 합계 ÷ 자본
 
-규칙 (config/account.toml): breakeven_at_r = 3 → 3R에 닿으면 손절가를 본전으로 올리라고 알림.
+규칙 (config/account.toml, 사용자 확정 2026-11-03):
+- 처음 손절 −8% = 1R
+- 3R 도달 → 50% 익절(take_profit_at_3r) + 남은 물량 손절가를 본전으로 (CR 0)
+- 3R 이후 → 20일선(trail_ma) 종가 하향 돌파 시 나머지 전략 매도
 
 사용법:
     python3 tools/risk.py                 # 현재가(네이버)로 계산, JSON
@@ -25,7 +28,18 @@ from report_digest import live_prices
 def rules():
     a = load_toml("account.toml")
     return {"capital": a["capital"], "risk_per_trade": a["risk_per_trade"], "stop_pct": a["stop_pct"],
-            "breakeven_at_r": a.get("breakeven_at_r", 3), "max_open_risk": a.get("max_open_risk", 0.06)}
+            "breakeven_at_r": a.get("breakeven_at_r", 3), "max_open_risk": a.get("max_open_risk", 0.06),
+            "take_profit_at_3r": a.get("take_profit_at_3r"), "trail_ma": a.get("trail_ma", 20)}
+
+
+def ma(code, n):
+    """n일 이동평균 (네이버 일봉, 마지막 봉은 장중이면 현재가). 실패하면 None."""
+    try:
+        import screener
+        c = [x["close"] for x in screener.fetch_daily(code)][-n:]
+        return round(sum(c) / n) if len(c) == n else None
+    except Exception:
+        return None
 
 
 def evaluate(pos=None, prices=None):
@@ -51,10 +65,21 @@ def evaluate(pos=None, prices=None):
                "breakeven_price_at_3r": round(target), "to_3r_pct": round((target / cur - 1) * 100, 1) if cur else None,
                "to_stop_pct": round((stop / cur - 1) * 100, 1) if cur else None,
                "cr_won": round(cr), "value_won": round(value)}
+        tp = r["take_profit_at_3r"]
+        row["take_qty_at_3r"] = int(qty * tp) if tp else None
+        row["take_won_at_3r"] = round(int(qty * tp) * (target - avg)) if tp else None
+        row["phase"] = "3R 이후 (추세 추종)" if stop >= avg else "초기 (1R 위험)"
+        m = ma(p["code"], r["trail_ma"])
+        row[f"ma{r['trail_ma']}"] = m
+        row["trail_ma"] = r["trail_ma"]
+        row["to_ma_pct"] = round((m / cur - 1) * 100, 1) if m and cur else None
         if r_mult is not None and r_mult >= r["breakeven_at_r"] and stop < avg:
-            row["alert"] = f"{r['breakeven_at_r']}R 도달 → 손절가를 본전 {avg:,}원으로 올릴 때 (지금 {stop:,}원)"
+            take = f"{row['take_qty_at_3r']}주({int(tp * 100)}%) 익절 + " if tp else ""
+            row["alert"] = f"{r['breakeven_at_r']}R 도달 → {take}남은 물량 손절가를 본전 {avg:,}원으로 (지금 {stop:,}원)"
         elif stop >= avg:
             row["note"] = "손절가 본전 이상 → 이 종목 CR 0"
+            if m and cur and cur < m:
+                row["alert"] = f"{r['trail_ma']}일선({m:,}원) 아래 → 종가로도 이탈하면 나머지 전략 매도"
         rows.append(row)
         total_value += value
         total_cr += cr
