@@ -22,7 +22,7 @@ WEB = ROOT / "web"
 SCHEDULE = [("06:55", "아침 브리핑", "morning"), ("09:53", "오전 리포트 브리핑", "report_brief_am"),
             ("14:53", "오후 리포트 브리핑", "report_brief_pm"), ("15:47", "마감 리뷰", "close"), ("16:07", "감시 목록", "watchlist")]
 KIND = {"morning": "아침 브리핑", "report_brief_am": "리포트 브리핑 · 오전", "report_brief_pm": "리포트 브리핑 · 오후",
-        "channels": "채널 정리", "close": "마감 리뷰", "weekly": "주간 리뷰"}
+        "channels": "채널 정리", "report_live": "리포트 정리", "close": "마감 리뷰", "weekly": "주간 리뷰"}
 
 
 def safe(fn, default=None):
@@ -127,7 +127,15 @@ def briefs(days=21):
                      "title": text.splitlines()[0].strip() if text else p.stem, "text": text,
                      "opinion": section(text, "💡") or section(text, "🧭")})
     rows.sort(key=lambda r: (r["date"], r["time"]), reverse=True)
-    return rows
+    # 1시간마다 쌓이는 채널·리포트 정리는 오늘 것만 다 보여 주고, 지난날은 마지막 1개만 (누적 정리라 마지막에 다 들어 있음)
+    today, seen, out = datetime.now(KST).strftime("%Y-%m-%d"), set(), []
+    for r in rows:
+        if r["kind"] in ("channels", "report_live") and r["date"] != today:
+            if (r["date"], r["kind"]) in seen:
+                continue
+            seen.add((r["date"], r["kind"]))
+        out.append(r)
+    return out
 
 
 def schedule(now, brief_rows):
@@ -705,6 +713,11 @@ def automation(now, data, allp):
             picked = [f for f in fs if json.loads(Path(f).read_text(encoding="utf-8")).get("picked")]
             last = Path(picked[-1]).stem.split("_")[1] if picked else None
             detail = "Claude가 고른 리포트 기록 기준"
+        elif chk == "live":
+            fs = sorted(glob.glob(str(ROOT / "reports" / today / "channels_[0-9]*.md")) + glob.glob(str(ROOT / "reports" / today / "report_live_[0-9]*.md")),
+                        key=lambda f: Path(f).stem[-4:])
+            last = (today + " " + Path(fs[-1]).stem[-4:-2] + ":" + Path(fs[-1]).stem[-2:]) if fs else None
+            detail = f"오늘 정리 {len(fs)}개 (채널·리포트)"
         elif chk == "web":
             last, detail = data.get("built_at"), "이 화면 데이터 시각"
         elif chk == "alerts":
@@ -957,6 +970,9 @@ def partial(part, now):
         if isinstance(fresh, dict) and "hot" in fresh:
             ins["hot"] = fresh["hot"]
         data["insights"] = ins
+        rows = briefs()   # 매시간 채널·리포트 정리가 막 저장됐을 수 있어 목록도 새로
+        data["briefs"] = rows
+        data["schedule"] = schedule(now, rows)
         data.setdefault("parts", {})["channels"] = stamp
         info = {"new_posts": new}
     data["built_at"] = max(data.get("built_at", ""), stamp)

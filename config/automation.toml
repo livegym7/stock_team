@@ -61,7 +61,7 @@ check = "weekly"
 
 [[tasks]]
 name = "웹 트레이딩룸 갱신"
-when = "평일 07:32·09:12·10:32·15:32·16:32"
+when = "평일 07:32·10:32·15:32·16:32 (전체)"
 due = "07:32"
 runner = "claude"
 tokens = "적음"
@@ -98,3 +98,11 @@ due = "07:00"
 runner = "build"
 tokens = "0"
 check = "channels"
+
+[[tasks]]
+name = "매시간 새로고침 + 채널·리포트 정리 (웹)"
+when = "평일 08~17시 매시 12분"
+due = "08:12"
+runner = "claude"
+tokens = "중간 (첫 회 많고, 이후는 새 글만)"
+check = "live"
