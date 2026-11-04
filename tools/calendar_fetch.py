@@ -26,6 +26,29 @@ EV = OUT / "events.json"
 IR_CACHE = OUT / "ir_cache.json"
 US_MAJOR = ["NVDA", "MSFT", "AAPL", "AMZN", "GOOGL", "META", "AVGO", "TSM", "MU", "AMD", "ORCL", "TSLA", "ASML", "QCOM", "INTC", "SNOW", "PLTR", "CRM", "ADBE", "MRVL"]
 FF_COUNTRY = {"USD": "미국", "CNY": "중국", "KRW": "한국", "JPY": "일본", "EUR": "유로존"}
+KO = [  # 자주 나오는 경제지표 이름 한글로 (앞에서부터 먼저 맞는 것)
+    (r"Core CPI", "근원 CPI(소비자물가)"), (r"\bCPI\b", "CPI(소비자물가)"), (r"Core PPI", "근원 PPI(생산자물가)"), (r"\bPPI\b", "PPI(생산자물가)"),
+    (r"Core PCE", "근원 PCE 물가"), (r"Non-Farm Employment Change", "비농업 고용"), (r"ADP Non-Farm", "ADP 민간 고용"),
+    (r"Unemployment Claims", "신규 실업수당 청구"), (r"Unemployment Rate", "실업률"), (r"Average Hourly Earnings", "시간당 임금"),
+    (r"JOLTS", "구인 건수(JOLTS)"), (r"Federal Funds Rate", "기준금리 결정"), (r"FOMC Statement", "FOMC 성명"),
+    (r"FOMC Meeting Minutes", "FOMC 의사록"), (r"FOMC Press Conference", "FOMC 기자회견"), (r"Fed Chair .* Speaks", "연준 의장 발언"),
+    (r"ISM Manufacturing PMI", "ISM 제조업 지수"), (r"ISM Services PMI", "ISM 서비스업 지수"), (r"Retail Sales", "소매판매"),
+    (r"Advance GDP|Prelim GDP|Final GDP|\bGDP\b", "GDP(성장률)"), (r"UoM Consumer Sentiment", "미시간대 소비심리"),
+    (r"CB Consumer Confidence", "소비자신뢰지수"), (r"Trade Balance", "무역수지"), (r"Congressional Elections", "중간선거"),
+    (r"BOJ Policy Rate", "일본은행 금리 결정"), (r"BOJ Gov .* Speaks", "일본은행 총재 발언"), (r"Main Refinancing Rate", "ECB 금리 결정"),
+    (r"Caixin Manufacturing PMI", "차이신 제조업 PMI"), (r"Manufacturing PMI", "제조업 PMI"), (r"Industrial Production", "산업생산"),
+]
+
+
+def ko_title(t):
+    for pat, ko in KO:
+        if re.search(pat, t):
+            pre = "(속보치) " if "Prelim" in t or "Advance" in t else ""
+            mm = " 월간" if "m/m" in t else " 연간" if "y/y" in t else ""
+            return f"{pre}{ko}{mm}"
+    return t
+
+
 UA = {"User-Agent": "Mozilla/5.0", "Accept": "application/json"}
 
 
@@ -45,7 +68,7 @@ def macro(now):
         t = datetime.fromisoformat(x["date"]).astimezone(KST)
         kind = "policy" if re.search(r"Rate|FOMC|Monetary|Fed Chair|Powell|BOJ|ECB|Press Conference", x["title"], re.I) else "macro"
         out.append({"date": t.strftime("%Y-%m-%d"), "time": t.strftime("%H:%M"), "kind": kind,
-                    "name": f"{FF_COUNTRY[x['country']]} {x['title']}",
+                    "name": f"{FF_COUNTRY[x['country']]} {ko_title(x['title'])}", "name_en": x["title"],
                     "detail": " · ".join(f"{k} {x[k]}" for k in ("forecast", "previous") if x.get(k)).replace("forecast", "예상").replace("previous", "이전"),
                     "source": "ForexFactory 경제 캘린더", "id": f"ff:{x['country']}:{x['title']}:{t:%Y%m%d}"})
     return out, None

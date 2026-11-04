@@ -666,12 +666,24 @@ def calendar(allp, now):
     from common import positions, watchlist
     held = {p["code"] for p in positions()}
     watch = {w.get("code") for w in watchlist()}
+    from universe import load as load_universe
+    mcap = {x["code"]: x.get("market_cap_eok") or 0 for x in load_universe()["stocks"]}
+    comp = set(json.loads((DATA / "companies.json").read_text(encoding="utf-8")))
+    rank = {"policy": 1, "macro": 2, "earnings_us": 3, "market": 4, "earnings_kr": 5, "earnings": 5}
     ev = []
     for e in d.get("events", []):
         e = dict(e)
+        e["mcap"] = mcap.get(e.get("code"), 0)
+        if e.get("source", "").startswith("ForexFactory") and " " in e["name"] and not e.get("name_en"):
+            ctry, en = e["name"].split(" ", 1)
+            e["name"], e["name_en"] = f"{ctry} {calendar_fetch.ko_title(en)}", en
+        e["rel"] = bool(e.get("code") and (e["code"] in held or e["code"] in watch or e["code"] in comp)) or e["kind"] in ("policy", "macro", "market", "earnings_us")
         e["days"] = (datetime.strptime(e["date"], "%Y-%m-%d").date() - now.date()).days
         e["mine"] = "held" if e.get("code") in held else "watch" if e.get("code") in watch else None
+        # 중요도 순: 보유·관심 > 금리·정책 > 경제지표 > 미국 실적 > 만기 > 국내 IR(시총 큰 순)
+        e["prio"] = (0 if e["mine"] else rank.get(e["kind"], 6)) * 1e7 - min(e["mcap"], 9_999_999) / 1
         ev.append(e)
+    ev.sort(key=lambda e: (e["date"], e["prio"]))
     since = now - timedelta(days=3)
     posts = [{"time": x["time"][:16].replace("T", " "), "channel": x["channel"], "text": re.sub(r"https?://\S+", "", x["text"]).strip()[:300], "url": x.get("url")}
              for x in sorted(allp, key=lambda p: p["time"], reverse=True)

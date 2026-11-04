@@ -167,7 +167,7 @@ tr.me td{background:var(--accent-soft)}
 .cd.empty{border:0;background:none;cursor:default}.cd .dn{font-size:12px;font-weight:600}.cd.sun .dn{color:var(--up)}.cd.sat .dn{color:var(--down)}
 .cd.today{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}.cd.on{background:var(--accent-soft)}
 .cev{display:block;font-size:10.5px;line-height:1.35;padding:0 4px;border-radius:4px;border-left:3px solid var(--c);background:color-mix(in srgb,var(--c) 10%,transparent);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.cd .more{font-size:10px;color:var(--muted)}
+.cd .more{font-size:10px;color:var(--muted)}.cd .dn{display:flex;justify-content:space-between;align-items:center}.cd .cnt{font-size:10px;font-weight:600;color:var(--muted);background:var(--soft);border-radius:8px;padding:0 5px}
 @media(max-width:820px){.cd{min-height:58px;padding:3px}.cev{font-size:0;height:6px;padding:0;border-left-width:0;background:var(--c)}.cd .dn{font-size:11px}}
 </style>
 
@@ -841,7 +841,7 @@ function ck(k){return CK[k]||["기타","#64748b","📅"]}
 function evTag(e){const [n,c]=ck(e.kind);return `<span class="etag" style="--c:${c}">${esc(n)}</span>`}
 function evRow(e){return `<div class="insrow"><div class="ihead">${evTag(e)} <b class="num">${esc(e.date.slice(5))}${e.time?" "+esc(e.time):""}</b> ${e.mine=="held"?"⭐":e.mine=="watch"?"☆":""}<b>${esc(e.name)}</b><span class="pill ${e.days>=0&&e.days<=2?"warn":""}">${e.days==0?"오늘":e.days==1?"내일":e.days<0?(-e.days)+"일 전":"D-"+e.days}</span></div>
   <div class="muted" style="font-size:12.5px">${esc(e.why||e.detail||"")}${e.source?` · 출처: ${esc(e.source)}`:""}${e.url?` · <a href="${esc(e.url)}" target="_blank" rel="noopener">원문</a>`:""}</div></div>`}
-function calEvents(){const off=new Set(ui.calOff||[]);return ((D.calendar||{}).events||[]).filter(e=>!off.has(e.kind=="earnings"?"earnings_kr":e.kind))}
+function calEvents(){const off=new Set(ui.calOff||[]);return ((D.calendar||{}).events||[]).filter(e=>!off.has(e.kind=="earnings"?"earnings_kr":e.kind)&&(!ui.calRel||e.rel)).sort((a,b)=>a.date.localeCompare(b.date)||(a.prio??0)-(b.prio??0))}
 function calBlock(days){const E=calEvents().filter(e=>e.days>=0&&(days==null||e.days<=days));
   return E.length?`<div class="ins">${E.slice(0,14).map(evRow).join("")}</div>`:`<div class="empty">${days?days+"일 안에 ":""}예정된 일정 없음</div>`}
 function calMonth(){
@@ -852,10 +852,10 @@ function calMonth(){
   const off=new Set(ui.calOff||[]);
   let cells="";for(let i=0;i<start;i++)cells+=`<div class="cd empty"></div>`;
   for(let d=1;d<=n;d++){const ds=`${ym}-${String(d).padStart(2,"0")}`, L=(by[ds]||[]), wd=(start+d-1)%7;
-    cells+=`<button class="cd ${ds==today?"today":""} ${ds==sel?"on":""} ${wd==0?"sun":wd==6?"sat":""}" data-cald="${ds}"><span class="dn">${d}</span>${L.slice(0,3).map(e=>`<span class="cev" style="--c:${ck(e.kind)[1]}">${e.mine?"⭐":""}${esc(e.name.replace(/\s*\(.*$/,"").slice(0,12))}</span>`).join("")}${L.length>3?`<span class="more">+${L.length-3}</span>`:""}</button>`}
+    cells+=`<button class="cd ${ds==today?"today":""} ${ds==sel?"on":""} ${wd==0?"sun":wd==6?"sat":""}" data-cald="${ds}"><span class="dn">${d}${L.length?`<small class="cnt">${L.length}</small>`:""}</span>${L.slice(0,L.length>3?2:3).map(e=>`<span class="cev" style="--c:${ck(e.kind)[1]}">${e.mine?"⭐":""}${esc(e.name.replace(/\s*\(.*$/,"").slice(0,12))}</span>`).join("")}${L.length>3?`<span class="more">외 ${L.length-2}개</span>`:""}</button>`}
   const SL=(by[sel]||[]).slice().sort((a,b)=>(a.time||"").localeCompare(b.time||""));
   return `<div class="calhead"><button class="chip" data-calm="${prev}">‹</button><b>${Y}년 ${M}월</b><button class="chip" data-calm="${next}">›</button><button class="chip" data-calm="${today.slice(0,7)}" data-cald="${today}">오늘</button></div>
-  <div class="chips">${Object.entries(CK).filter(([k])=>k!="earnings").map(([k,[nm,c,ic]])=>`<button class="chip ktag ${off.has(k)?"":"on"}" style="--c:${c}" data-calk="${k}">${ic} ${nm}</button>`).join("")}</div>
+  <div class="chips">${Object.entries(CK).filter(([k])=>k!="earnings").map(([k,[nm,c,ic]])=>`<button class="chip ktag ${off.has(k)?"":"on"}" style="--c:${c}" data-calk="${k}">${ic} ${nm}</button>`).join("")}<button class="chip ${ui.calRel?"on":""}" data-calrel="1" title="보유·관심·기업 메뉴 종목 + 경제지표·금리·미국 실적">⭐ 관련 종목만</button></div>
   <div class="cal"><div class="cw">일</div><div class="cw">월</div><div class="cw">화</div><div class="cw">수</div><div class="cw">목</div><div class="cw">금</div><div class="cw">토</div>${cells}</div>
   <h3 style="margin-top:14px">${esc(sel)} (${"일월화수목금토"[new Date(sel+"T00:00:00Z").getUTCDay()]}) 일정 ${SL.length}개</h3>
   ${SL.length?`<div class="ins">${SL.map(evRow).join("")}</div>`:`<div class="empty">이 날 일정 없음</div>`}
@@ -910,8 +910,8 @@ document.addEventListener("click",e=>{
   if(e.target.closest("#refreshBtn")){doRefresh();return}
   const rfb=e.target.closest("[data-rf]"); if(rfb){refreshPart(rfb.dataset.rf);return}
   const bw=e.target.closest("[data-bw]"); if(bw){if(!bw.disabled)writeBrief(bw.dataset.bw);return}
-  const cm=e.target.closest("[data-calm],[data-cald],[data-calk]");
-  if(cm){if(cm.dataset.calm)ui.calm=cm.dataset.calm;if(cm.dataset.cald)ui.cald=cm.dataset.cald;
+  const cm=e.target.closest("[data-calm],[data-cald],[data-calk],[data-calrel]");
+  if(cm){if(cm.dataset.calrel)ui.calRel=!ui.calRel;if(cm.dataset.calm)ui.calm=cm.dataset.calm;if(cm.dataset.cald)ui.cald=cm.dataset.cald;
     if(cm.dataset.calk){const o=new Set(ui.calOff||[]);o.has(cm.dataset.calk)?o.delete(cm.dataset.calk):o.add(cm.dataset.calk);ui.calOff=[...o]}save();render();return}
   const rt=e.target.closest("[data-rt]"); if(rt){ui.rt=rt.dataset.rt;save();render();return}
   const rk=e.target.closest("[data-rk]"); if(rk){ui.rk=rk.dataset.rk;ui.rd=null;save();render();return}

@@ -272,3 +272,9 @@
 - 기업 상세: 같은 업종(sector_map custom) 비교표 — 강도·1/3개월·고점 대비·시총·리포트·최근 실적
 - 웹 즉석 브리핑을 웹 페이지 저장소(db, collection "briefs")에도 저장 → 휴대폰·PC가 같은 누적 채널 종합을 이어 씀. localStorage는 보조. Artifact capabilities = sample + db
 - 안 쓰는 깃허브 새로고침 코드(doRefreshCb·ghMsg·parseFile) 삭제
+
+## 2026-11-04 일정 달력 + 자동 수집
+- tools/calendar_fetch.py (Claude 없이, 하루 1번, web_build가 부름): 경제지표 ForexFactory 이번 주 High(미·중·한·일·유로, 한국시간, 이름 한글화) · 국내 실적·IR = DART '기업설명회(IR)개최' 공시 30일치 → 문서에서 개최 일시(시총 2천억↑·기업 메뉴 종목, 문서 캐시 ir_cache.json) · 미국 실적 Nasdaq 21일(빅테크·반도체·관심 US) · config/calendar.toml(공식 확인). 지난 일정 40일 보관
+- 첫 수집 8분(DART 문서), 이후 캐시. 11월: 국내 IR 111건, 미국 실적 QCOM·NVDA, 경제지표·금리 9건
+- 웹 규칙·일정: 월간 달력(분류별 색, 날짜별 개수, 날짜 클릭 → 아래 상세, 분류 켜고 끄기, ⭐ 관련 종목만), 오늘 화면 2주 목록에 분류 태그. 중요도 순(보유·관심 > 금리 > 지표 > 미국 실적 > 만기 > 국내 IR 시총 큰 순)
+- 네이버는 공개 일정 API를 못 찾음(경제지표 경로 404)

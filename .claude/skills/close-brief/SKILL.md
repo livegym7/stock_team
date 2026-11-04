@@ -7,6 +7,7 @@ description: 장 마감 리뷰 (평일 15:47 예약). 오늘 시장 마감 숫�
 
 ## 1. 재료 (저장소 루트, 15:40 이후)
 ```bash
+python3 tools/calendar_fetch.py                     # 일정 (하루 한 번 받음): data/calendar/events.json — 오늘·내일 경제지표, 보유·관심·기업 메뉴 종목 IR, 미국 빅테크 실적
 python3 tools/tg_channel.py collect
 python3 tools/naver_quote.py index                 # 오늘 종가
 python3 tools/us_quote.py price                    # 미국 선물·환율 (지금 기준)

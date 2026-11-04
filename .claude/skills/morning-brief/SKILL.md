@@ -9,6 +9,7 @@ description: 장전 아침 브리핑(평일 07시 예약 실행). 보유 종목 
 
 ## 1. 데이터 모으기 (저장소 루트에서, 결과는 스크래치패드나 data/cache/에 임시 저장)
 ```bash
+python3 tools/calendar_fetch.py                     # 일정 (하루 한 번 받음): data/calendar/events.json — 오늘·내일 경제지표, 보유·관심·기업 메뉴 종목 IR, 미국 빅테크 실적
 python3 tools/tg_channel.py collect                      # 채널 새 글 수집
 python3 tools/tg_channel.py summary --hours 30              # 채널별·분류별 글 수, 여러 채널이 다룬 소식
 python3 tools/tg_channel.py show --hours 30 --type report      # 리포트 (목표가 변경)

@@ -52,6 +52,7 @@ python3 tools/web_build.py --only monitoring           # "모니터링 새로고
 python3 tools/sector_map.py check                     # 업종 분류표(사용자 custom 53개) 빠진 종목·확인 필요 점검 / set --code --custom 로 채우기
 python3 tools/backtest.py                              # 검증실: 돌파 규칙 백테스트(3년 일봉, 약 1분·캐시) + 감시 목록 성적표 → data/backtest/
 python3 tools/research.py status                       # 딥리서치: 분석한 드라이브 문서 / save·skip·context·save-synthesis (.claude/skills/deep-research)
+python3 tools/calendar_fetch.py                        # 일정 수집(하루 1번): 경제지표 ForexFactory · 국내 IR DART · 미국 실적 Nasdaq + config/calendar.toml → data/calendar/
 python3 tools/earnings.py                              # 채널 잠정실적 공시 → 실제 vs 예상(서프라이즈·쇼크), data/earnings/
 python3 tools/alerts.py --dry --force                  # 보유 종목 장중 알림 점검 (실제 실행은 깃허브 Actions 20분마다, Claude 안 씀)
 python3 tools/report_digest.py --collect              # 리포트 브리핑 재료 (주요 종목·섹터·내 종목), /report-brief
