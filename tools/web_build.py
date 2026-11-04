@@ -488,7 +488,15 @@ def build_companies(allp, uni, companies, by_stock, fetch_limit=10):
         base = {**card, "card": True} if card else {"name": name, "sector": grp, "detail": grp, "sub_sectors": [],
                                                       "one_liner": "", "card": False, "sources": []}
         afters = [r["after"] for r in rs if r.get("after")]
-        out[code] = {**base, "code": code, "market_cap_eok": u.get("market_cap_eok"),
+        chg = [r["after"] / r["before"] - 1 for r in rs if r.get("after") and r.get("before")]
+        latest = {}
+        for r in rs:   # 증권사별 가장 최근 목표가
+            if r.get("broker") and r.get("after"):
+                latest[r["broker"]] = {"broker": r["broker"], "before": r.get("before"), "after": r["after"], "dir": r.get("direction"), "time": r["time"][:10]}
+        rev = {"net": sum(r.get("direction") == "상향" for r in rs) - sum(r.get("direction") == "하향" for r in rs),
+               "avg_chg": round(statistics.mean(chg) * 100, 1) if chg else None,
+               "brokers": sorted(latest.values(), key=lambda x: x["time"], reverse=True)[:10]}
+        out[code] = {**base, "rev": rev, "code": code, "market_cap_eok": u.get("market_cap_eok"),
                      "reports": [{**r, "points": [x[:180] for x in r.get("points", [])][:3 if card else 2]} for r in rs[-(8 if card else 4):][::-1]],
                      "n_reports": len(rs), "_all_reports": rs,
                      "last_report": rs[-1]["time"] if rs else None,
@@ -522,7 +530,68 @@ def research(comp_list, allp):
         for c in safe(lambda: company_trends(stubs, allp, fetch_limit=8), []) or []:
             have[c["code"]] = c.get("trend") or {}
     keep = ("rs", "rs_chg4w", "r1m", "r3m", "off_high", "price", "spark", "held", "watch")
-    return {"docs": docs, "synthesis": syn, "folders": folders,
+    import screener as S
+
+    def closes(code):
+        return safe(lambda: S.fetch_daily(code), []) or []
+
+    def before(rows, day):
+        d = day.replace("-", "")
+        past = [r for r in rows if r["date"] < d]
+        return past[-1]["close"] if past else None
+
+    def after_n(rows, day, n):
+        d = day.replace("-", "")
+        fut = [r for r in rows if r["date"] >= d]
+        return fut[n - 1]["close"] if len(fut) >= n else None
+
+    bench = closes("069500")   # KODEX 200 (시장 기준)
+    bench_now = bench[-1]["close"] if bench else None
+
+    def perf(code, base, day):
+        rows = closes(code) if code else []
+        if not rows or not base:
+            return {}
+        now = rows[-1]["close"]
+        out = {"now": now, "ret": round((now / base - 1) * 100, 1)}
+        for label, n in (("w1", 5), ("m1", 21), ("m3", 63)):
+            v = after_n(rows, day, n)
+            if v:
+                out[label] = round((v / base - 1) * 100, 1)
+        return out
+
+    ideas_book = json.loads((rd / "ideas.json").read_text(encoding="utf-8")) if (rd / "ideas.json").exists() else {"ideas": {}}
+    ideas = []
+    for it in ideas_book["ideas"].values():
+        st = [{**x, **perf(x.get("code"), x.get("base"), it["first_seen"])} for x in it["stocks"]]
+        rets = [x["ret"] for x in st if x.get("ret") is not None]
+        b = round((bench_now / it["bench_base"] - 1) * 100, 1) if bench_now and it.get("bench_base") else None
+        avg = round(sum(rets) / len(rets), 1) if rets else None
+        ideas.append({**it, "stocks": st, "avg_ret": avg, "bench_ret": b, "excess": round(avg - b, 1) if avg is not None and b is not None else None})
+    ideas.sort(key=lambda x: x["first_seen"], reverse=True)
+    picks = []   # 문서별 Top pick·수혜 종목: 리포트 날 전 종가 대비
+    for d in docs:
+        if not d.get("date"):
+            continue
+        bb = before(bench, d["date"])
+        for st in d.get("stocks", []):
+            if st.get("code") and st.get("role") in ("Top pick", "수혜"):
+                rows = closes(st["code"])
+                base = before(rows, d["date"])
+                pf = perf(st["code"], base, d["date"])
+                if pf:
+                    picks.append({"doc": d["file_id"], "broker": d.get("broker"), "date": d["date"], "name": st["name"], "code": st["code"],
+                                  "role": st["role"], "target": st.get("target"), "base": base, **pf,
+                                  "bench_ret": round((bench_now / bb - 1) * 100, 1) if bb and bench_now else None})
+    by_broker = {}
+    for x in picks:
+        b = by_broker.setdefault(x["broker"] or "-", {"broker": x["broker"], "n": 0, "sum": 0.0, "win": 0, "excess": 0.0})
+        b["n"] += 1; b["sum"] += x["ret"]; b["win"] += x["ret"] > 0
+        b["excess"] += x["ret"] - (x.get("bench_ret") or 0)
+    brokers = sorted(({"broker": v["broker"], "n": v["n"], "avg": round(v["sum"] / v["n"], 1), "win": v["win"],
+                       "excess": round(v["excess"] / v["n"], 1)} for v in by_broker.values()), key=lambda x: -x["excess"])
+    return {"docs": docs, "synthesis": syn, "folders": folders, "ideas": ideas, "picks": picks, "brokers": brokers,
+            "bench": {"name": "KODEX 200", "now": bench_now},
             "trend": {c: {k: (have.get(c) or {}).get(k) for k in keep} for c in codes}}
 
 

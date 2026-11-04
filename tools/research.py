@@ -8,7 +8,8 @@
     python3 tools/research.py save --file 분석.json      # 문서 하나 분석 결과 저장 (형식은 .claude/skills/deep-research/SKILL.md)
     python3 tools/research.py skip --id 파일ID --title 이름 --reason "리포트 아님"
     python3 tools/research.py context                   # 종합 분석 재료: 전체 문서 요약 + 언급 종목의 시장 확인(RS·수익률·레이더)
-    python3 tools/research.py save-synthesis --file 종합.json
+    python3 tools/research.py save-synthesis --file 종합.json   # 아이디어는 성적표(ideas.json)에도 기록 (처음 나온 날 종가 = 기준가)
+    python3 tools/research.py record-ideas                       # 지금 종합으로 성적표만 다시 기록
 """
 import argparse
 import json
@@ -21,6 +22,7 @@ DIR = DATA / "research"
 DOCS = DIR / "docs"
 INDEX = DIR / "index.json"
 SYN = DIR / "synthesis.json"
+IDEAS = DIR / "ideas.json"   # 아이디어 성적표: 처음 나온 날·그날 종가를 기록해 두고 이후 성과를 잰다
 
 REQUIRED = ["file_id", "title", "url", "kind", "subject", "one_line", "summary", "thesis", "stocks", "sectors",
             "outlook", "risks", "claude"]
@@ -119,6 +121,46 @@ def cmd_context():
     }, ensure_ascii=False, indent=1))
 
 
+def close_on(code, day):
+    """그 날짜(YYYY-MM-DD) 전날까지의 마지막 종가 (네이버 일봉). 장중에 기록해도 기준가가 흔들리지 않게 '전 거래일 종가'를 쓴다."""
+    import screener as S
+    rows = S.fetch_daily(code)
+    d = day.replace("-", "")
+    past = [r for r in rows if r["date"] < d]
+    return (past[-1]["close"], past[-1]["date"]) if past else (None, None)
+
+
+def record_ideas(syn):
+    """종합의 아이디어를 성적표에 올린다. 처음 나온 아이디어만 기준가를 새로 잡고, 이미 있으면 상태만 갱신."""
+    from universe import load
+    uni = {s["name"]: s["code"] for s in load()["stocks"]}
+    book = json.loads(IDEAS.read_text(encoding="utf-8")) if IDEAS.exists() else {"ideas": {}}
+    day = syn["updated_at"][:10]
+    live = set()
+    for i in syn.get("ideas", []):
+        key = i["title"].strip()
+        live.add(key)
+        it = book["ideas"].get(key)
+        if not it:
+            stocks = []
+            for n in i.get("stocks", []):
+                code = uni.get(n)
+                px, pd = close_on(code, day) if code else (None, None)
+                stocks.append({"name": n, "code": code, "base": px, "base_date": pd})
+            bench, bd = close_on("069500", day)   # KODEX 200 = 코스피200 대신
+            it = book["ideas"][key] = {"title": key, "first_seen": day, "stocks": stocks, "bench_base": bench,
+                                       "confidence": i.get("confidence"), "horizon": i.get("horizon"),
+                                       "evidence_docs": i.get("evidence_docs", []), "thesis": i.get("thesis")}
+        it["active"] = True
+        it["last_seen"] = day
+        it["confidence_now"] = i.get("confidence")
+    for k, it in book["ideas"].items():
+        if k not in live:
+            it["active"] = False
+    IDEAS.write_text(json.dumps(book, ensure_ascii=False, indent=1), encoding="utf-8")
+    return len(book["ideas"])
+
+
 def cmd_save_syn(path):
     d = json.loads(open(path, encoding="utf-8").read())
     for k in ("headline", "ideas", "leading_sectors", "leading_stocks", "outlook"):
@@ -127,7 +169,8 @@ def cmd_save_syn(path):
     d["updated_at"] = now()
     d["docs_n"] = len(list(DOCS.glob("*.json")))
     SYN.write_text(json.dumps(d, ensure_ascii=False, indent=1), encoding="utf-8")
-    print(json.dumps({"synthesis": d["updated_at"], "ideas": len(d["ideas"])}, ensure_ascii=False))
+    n = record_ideas(d)
+    print(json.dumps({"synthesis": d["updated_at"], "ideas": len(d["ideas"]), "scorecard_ideas": n}, ensure_ascii=False))
 
 
 def main():
@@ -138,6 +181,7 @@ def main():
     s = sub.add_parser("skip"); s.add_argument("--id", required=True); s.add_argument("--title", default=""); s.add_argument("--reason", default="")
     sub.add_parser("context")
     s = sub.add_parser("save-synthesis"); s.add_argument("--file", required=True)
+    sub.add_parser("record-ideas")
     a = p.parse_args()
     if a.cmd == "status":
         cmd_status()
@@ -147,6 +191,8 @@ def main():
         cmd_skip(a.id, a.title, a.reason)
     elif a.cmd == "context":
         cmd_context()
+    elif a.cmd == "record-ideas":
+        print(json.dumps({"ideas": record_ideas(json.loads(SYN.read_text(encoding="utf-8")))}, ensure_ascii=False))
     else:
         cmd_save_syn(a.file)
 

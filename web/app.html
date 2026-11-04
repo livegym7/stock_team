@@ -528,8 +528,8 @@ function viewSectors(){
 }
 
 /* ---------- 기업 ---------- */
-const CSORT=[["rs","💪 강도순"],["imp","⭐ 중요도순"],["new","🆕 최근 리포트순"],["r1m","📈 1개월 수익률"],["rep","📑 리포트 많은 순"],["name","가나다"]];
-function cKey(c,k){const t=c.trend||{};if(k=="new")return c.last_report?+c.last_report.replace(/\D/g,""):0;return k=="rs"?(t.rs??-1):k=="imp"?(t.importance??0)*1000+(t.rs??0):k=="r1m"?(t.r1m??-999):k=="rep"?c.n_reports*1000+(t.rs??0):0}
+const CSORT=[["rs","💪 강도순"],["imp","⭐ 중요도순"],["new","🆕 최근 리포트순"],["r1m","📈 1개월 수익률"],["rev","🔺 목표가 상향순"],["rep","📑 리포트 많은 순"],["name","가나다"]];
+function cKey(c,k){const t=c.trend||{};if(k=="rev")return c.rev?c.rev.net*100+(c.rev.avg_chg||0):-9999;if(k=="new")return c.last_report?+c.last_report.replace(/\D/g,""):0;return k=="rs"?(t.rs??-1):k=="imp"?(t.importance??0)*1000+(t.rs??0):k=="r1m"?(t.r1m??-999):k=="rep"?c.n_reports*1000+(t.rs??0):0}
 function rsBadge(t){if(t.rs==null)return `<span class="rsb muted">RS -</span>`;const cls=t.rs>=70?"hi":t.rs>=50?"mid":"lo";
   const ch=t.rs_chg4w;return `<span class="rsb ${cls}" title="RS = 1년 수익률 가중 백분위(0~99), 70↑이 강함. 화살표 = 4주 전 대비">RS ${t.rs}${ch?` <small class="${ch>0?"up":"down"}">${ch>0?"▲":"▼"}${Math.abs(ch)}</small>`:""}</span>`}
 function miniLine(c,W=64,H=22){if(!c||c.length<3)return "";const lo=Math.min(...c),hi=Math.max(...c),rg=(hi-lo)||1,n=c.length;
@@ -583,6 +583,7 @@ function viewCompanies(){
     <div class="tile"><span>이동평균선</span><b style="font-size:15px">${t.above20==null?"-":`20일 ${t.above20?'<span class="up">위</span>':'<span class="down">아래</span>'} · 50일 ${t.above50?'<span class="up">위</span>':'<span class="down">아래</span>'}`}</b></div></div>
    <h3>가격 흐름 · 6개월</h3>${priceChart(t.chart,sel.target_hist)}
    <h3>강도(RS) 추이 · 12주 <small class="muted">${t.rs_chg4w==null?"":`4주 전보다 ${t.rs_chg4w>0?"+":""}${t.rs_chg4w}`}</small></h3>${rsLine(t.rs_hist)}
+   ${(sel.rev&&sel.rev.brokers||[]).length?`<h3>증권사별 최근 목표가 <small class="muted">31일 순상향 ${sel.rev.net>0?"+":""}${sel.rev.net} · 평균 변경 ${pc(sel.rev.avg_chg)}</small></h3><div class="tw"><table><tr><th class="l">증권사</th><th>날짜</th><th>이전</th><th>새 목표가</th><th>변경</th></tr>${sel.rev.brokers.map(b=>`<tr><td class="l">${b.dir=="상향"?"🔺":b.dir=="하향"?"🔽":"🆕"} ${esc(b.broker)}</td><td class="num">${esc(b.time.slice(5))}</td><td class="num">${w(b.before)}</td><td class="num"><b>${w(b.after)}</b></td><td>${b.before?retC((b.after/b.before-1)*100):"-"}</td></tr>`).join("")}</table></div>`:""}
    <h3>리포트 · 최근 1개월 <small class="muted">${sel.n_reports}건 · <span class="up">🔺${sel.up}</span> <span class="down">🔽${sel.down}</span> · 목표가 중앙값 ${w(sel.median_target)}${sel.median_target&&t.price?` (현재가 대비 ${pc((sel.median_target/t.price-1)*100)})`:""}</small></h3>
    ${(sel.reports||[]).map(r=>`<div class="post"><div class="meta"><span class="num">${esc(r.time)}</span><b>${esc(r.broker||"")}</b><span class="num">${r.before?w(r.before)+" → ":""}${w(r.after)}</span>${r.direction?`<span class="${r.direction=="상향"?"up":r.direction=="하향"?"down":"muted"}">${r.direction=="상향"?"🔺":r.direction=="하향"?"🔽":"🆕"} ${esc(r.direction)}</span>`:""}</div><div>${(r.points||[]).map(x=>"· "+esc(x)).join("<br>")}</div></div>`).join("")||`<div class="empty">최근 1개월 리포트 없음</div>`}
    ${src("사업 한 줄 업데이트 "+(sel.updated||"")+" · 출처 "+(sel.sources||[]).join(", ")+" · 시세 네이버 일봉(비공식)")}</article></div>`:`<div class="empty">찾는 기업이 없습니다</div>`}`;
@@ -598,9 +599,11 @@ function viewResearch(){
   const how=`<div class="panel howto"><b>리포트 추가하는 법</b><br>① 구글 드라이브 <b>${esc((R.folders||["리포트"]).join("”, “"))}</b> 폴더에 리포트 PDF를 올립니다<br>② Claude 대화에서 <b>"딥리서치 해줘"</b>라고 말합니다 → 새 파일을 읽고 분석·종합해 이 화면에 올립니다<br><small class="muted">원문은 드라이브에만 두고, 여기에는 요약·분석과 원문 링크만 저장합니다</small></div>`;
   if(!docs.length)return `<h1>딥리서치</h1><div class="sub">리포트 원문을 Claude가 읽고 기업·산업을 깊게 분석하는 곳</div>${how}`;
   const head=`<h1>딥리서치</h1><div class="sub">리포트 원문 ${docs.length}개 분석 · 종합 ${esc(S?S.updated_at:"없음")} · 출처: 증권사 리포트 원문(드라이브) + 시장 확인 네이버 일봉(비공식) · 판단은 본인이</div>
-  <div class="chips"><button class="chip ${tab=="syn"?"on":""}" data-rt="syn">🧭 종합</button><button class="chip ${tab=="docs"?"on":""}" data-rt="docs">📄 문서 ${docs.length}</button><button class="chip ${tab=="how"?"on":""}" data-rt="how">➕ 추가하는 법</button></div>`;
+  <div class="chips"><button class="chip ${tab=="syn"?"on":""}" data-rt="syn">🧭 종합</button><button class="chip ${tab=="docs"?"on":""}" data-rt="docs">📄 문서 ${docs.length}</button><button class="chip ${tab=="score"?"on":""}" data-rt="score">📈 성적표</button><button class="chip ${tab=="rev"?"on":""}" data-rt="rev">🔺 목표가 흐름</button><button class="chip ${tab=="how"?"on":""}" data-rt="how">➕ 추가하는 법</button></div>`;
   if(tab=="how")return head+how;
   if(tab=="docs")return head+researchDocs(docs);
+  if(tab=="score")return head+researchScore(R);
+  if(tab=="rev")return head+revFlow();
   if(!S)return head+`<div class="empty">아직 종합 분석이 없습니다. "딥리서치 해줘"라고 하면 만듭니다</div>`;
   const conf={"높음":"ok","중간":"","낮음":"warn"};
   return head+`
@@ -621,6 +624,30 @@ function viewResearch(){
    <div class="panel idea"><h3>⚖️ 엇갈리는 시각</h3>${(S.conflicts||[]).map(c=>`<p><b>${esc(c.topic)}</b><br><span class="pro">A</span> ${esc(c.a)}<br><span class="con">B</span> ${esc(c.b)}</p>`).join("")||`<div class="muted">없음</div>`}
     <h3 style="margin-top:12px">👀 다음에 확인할 것</h3>${(S.watch_next||[]).map(x=>`<div>· ${esc(x)}</div>`).join("")||`<div class="muted">-</div>`}</div></div>
   ${src("종합은 Claude 해석입니다. 리포트 숫자는 각 문서의 출처(증권사·날짜)를 따르고, 시장 확인 숫자는 웹 데이터 "+(D.built_at||"")+" 기준")}`;
+}
+function retC(v){return v==null?`<span class="muted">-</span>`:`<span class="num ${cls(v)}">${pc(v)}</span>`}
+function researchScore(R){
+  const I=R.ideas||[], P=R.picks||[], B=R.brokers||[];
+  return `<div class="sub" style="margin-top:-6px">기준가 = 아이디어·리포트가 나온 날 <b>전 거래일 종가</b>. 지금·1주·1개월·3개월 뒤 수익률을 KODEX 200(시장)과 비교합니다. 표본이 적을 때는 우연이 크니 숫자를 단정하지 마세요 · 출처: 네이버 일봉(비공식), 계산 Claude</div>
+  <h2>💡 투자 아이디어 성적</h2>
+  ${I.length?`<div class="tw"><table><tr><th class="l">아이디어</th><th>등록일</th><th>확신</th><th>평균</th><th>시장</th><th>초과</th><th class="l">종목별 (지금 · 1주 · 1개월)</th></tr>
+  ${I.map(i=>`<tr><td class="l" style="white-space:normal;min-width:180px"><b>${esc(i.title)}</b>${i.active?"":` <span class="pill">종합에서 빠짐</span>`}</td><td class="num">${esc(i.first_seen.slice(5))}</td><td>${esc(i.confidence||"-")}${i.confidence_now&&i.confidence_now!=i.confidence?` → ${esc(i.confidence_now)}`:""}</td>
+   <td>${retC(i.avg_ret)}</td><td>${retC(i.bench_ret)}</td><td><b>${retC(i.excess)}</b></td>
+   <td class="l" style="white-space:normal">${i.stocks.map(x=>`<span style="display:inline-block;margin:0 10px 2px 0">${esc(x.name)} ${retC(x.ret)}${x.w1!=null?` <small class="muted">1주 ${pc(x.w1)}</small>`:""}${x.m1!=null?` <small class="muted">1개월 ${pc(x.m1)}</small>`:""}</span>`).join("")}</td></tr>`).join("")}</table></div>`:`<div class="empty">아직 기록된 아이디어가 없습니다</div>`}
+  <div class="grid g2" style="margin-top:16px">
+   <div class="panel"><h3>🏦 증권사별 (리포트 Top pick·수혜 종목)</h3>${B.length?`<table><tr><th class="l">증권사</th><th>종목 수</th><th>평균</th><th>오른 종목</th><th>시장 대비</th></tr>${B.map(b=>`<tr><td class="l">${esc(b.broker)}</td><td class="num">${b.n}</td><td>${retC(b.avg)}</td><td class="num">${b.win}/${b.n}</td><td><b>${retC(b.excess)}</b></td></tr>`).join("")}</table>`:`<div class="empty">-</div>`}
+    <div class="src">리포트 날 전 거래일 종가 → 지금. 리포트 몇 개로는 실력이 아니라 운일 수 있습니다</div></div>
+   <div class="panel"><h3>📄 리포트 종목별</h3><div class="tw"><table><tr><th class="l">종목</th><th class="l">리포트</th><th>지금</th><th>1주</th><th>1개월</th></tr>${P.sort((a,b)=>b.ret-a.ret).map(x=>`<tr><td class="l"><b>${esc(x.name)}</b> <small class="muted">${esc(x.role)}</small></td><td class="l"><small>${esc((x.broker||"")+" "+x.date.slice(5))}</small></td><td>${retC(x.ret)}</td><td>${retC(x.w1)}</td><td>${retC(x.m1)}</td></tr>`).join("")}</table></div></div>
+  </div>`;
+}
+function revFlow(){
+  const C=(D.companies||[]).filter(c=>c.rev&&c.n_reports>=2).map(c=>({...c,score:c.rev.net*10+(c.rev.avg_chg||0)}));
+  const up=[...C].filter(c=>c.rev.net>0).sort((a,b)=>b.score-a.score).slice(0,15), down=[...C].filter(c=>c.rev.net<0).sort((a,b)=>a.score-b.score).slice(0,10);
+  const row=c=>`<tr class="click" data-cq="${esc(c.name)}"><td class="l"><b>${esc(c.name)}</b> <small class="muted">${esc(c.detail||"")}</small></td><td class="num"><span class="up">🔺${c.up}</span> <span class="down">🔽${c.down}</span></td><td>${retC(c.rev.avg_chg)}</td><td>${rsBadge(c.trend||{})}</td><td>${retC((c.trend||{}).r1m)}</td></tr>`;
+  return `<div class="sub" style="margin-top:-6px">최근 31일 채널 리포트의 <b>목표주가 변경</b>으로 본 추정치 흐름입니다. 영업이익 추정 변화는 원문이 있는 딥리서치 문서에서 봅니다. 목표가가 몰려 오르는데 강도(RS)도 높은 종목이 깡토 관점에서 함께 볼 만한 곳입니다 · 출처: 채널 리포트 요약(2차 자료)</div>
+  <div class="grid g2"><div class="panel"><h3>🔺 목표가 상향이 몰리는 종목</h3><div class="tw"><table><tr><th class="l">종목</th><th>상향/하향</th><th>평균 변경</th><th>강도</th><th>1개월</th></tr>${up.map(row).join("")||`<tr><td class="l muted">없음</td></tr>`}</table></div></div>
+  <div class="panel"><h3>🔽 목표가 하향이 몰리는 종목</h3><div class="tw"><table><tr><th class="l">종목</th><th>상향/하향</th><th>평균 변경</th><th>강도</th><th>1개월</th></tr>${down.map(row).join("")||`<tr><td class="l muted">없음</td></tr>`}</table></div></div></div>
+  ${src("종목을 누르면 기업 메뉴에서 증권사별 최근 목표가를 볼 수 있습니다 · 리포트 2건 이상 종목만")}`;
 }
 function researchDocs(docs){
   const kf=ui.rk||"all", L=docs.filter(d=>kf=="all"||d.kind==kf), sel=L.find(d=>d.file_id==ui.rd)||L[0];
