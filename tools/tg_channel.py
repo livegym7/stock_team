@@ -146,9 +146,37 @@ def classify(text, stocks=()):
     return "company" if (stocks or re.search(GLOBAL_COS, head)) else "other"
 
 
+# 버틀러 형식) 카카오게임즈 (293490)\n\n제목\n\n작성일: …\n작성자: IBK투자증권 (이승훈)\n\n투자의견: 매수 (BUY)\n목표주가: 16,000원 (상향🔺)
+BUTLER_RE = re.compile(r"^(.+?) \((\d{6}|[0-9A-Z]{6})\)\s*\n+(.+?)\n[\s\S]*?작성자:\s*([^\n(]+?)\s*(?:\(([^)\n]*)\))?\s*\n")
+BUTLER_TP_RE = re.compile(r"목표주가:\s*([\d,]+)원\s*\(([^)]*)\)")
+BUTLER_OP_RE = re.compile(r"투자의견:\s*([^\n(]+)")
+# 버틀러 종목별 모음) 한국항공우주 108,800원(+11.82%)\n(SK) 제목\n(DS) 제목 …
+DIGEST_RE = re.compile(r"^\S[^\n]{0,30} [\d,]+원\([+-]?[\d.]+%\)\n\([^)\n]{1,10}\) ")
+
+
+def broker_key(b):
+    """증권사 이름 맞추기용 짧은 이름 (삼성증권 = 삼성 = 삼성증권 (홍길동))."""
+    b = re.sub(r"\(.*?\)|\s", "", b or "")
+    b = re.sub(r"(금융투자|투자증권|증권|리서치)$", "", b)
+    return {"한투": "한국", "한국투자": "한국", "미래에셋": "미래", "신한투자": "신한", "IM": "iM", "아이엠": "iM"}.get(b, b) or None
+
+
 def parse_research(text):
     """리포트 글에서 종목, 방향, 목표가, 투자의견, 증권사를 뽑는다."""
     info = {}
+    m = BUTLER_RE.search(text)
+    if m:
+        info.update(stock=m.group(1).strip(), title=m.group(3).strip()[:120], broker=m.group(4).strip())
+        if m.group(5):
+            info["analyst"] = m.group(5).strip()
+        tp, op = BUTLER_TP_RE.search(text), BUTLER_OP_RE.search(text)
+        if tp:
+            info["target_after"] = int(tp.group(1).replace(",", ""))
+            d = tp.group(2)
+            info["direction"] = "상향" if "상향" in d else "하향" if "하향" in d else "신규" if "신규" in d else "유지"
+        if op:
+            info["opinion"] = op.group(1).strip()
+        return info
     t = TITLE_RE.search(text)
     if t:
         info["stock"], info["direction"] = t.group(1), t.group(2)
@@ -172,9 +200,14 @@ def parse_research(text):
 def enrich(p):
     p["stocks"] = find_stocks(p["text"])
     p["type"] = classify(p["text"], p["stocks"])
-    for k in ("stock", "direction", "target_before", "target_after", "opinion", "broker"):
+    for k in ("stock", "direction", "target_before", "target_after", "opinion", "broker", "title", "analyst", "digest"):
         p.pop(k, None)
-    if p["type"] == "report":
+    if "작성자:" in p["text"] and BUTLER_RE.search(p["text"]):   # 버틀러 리포트 1건 (목표가 없는 실적 속보 포함)
+        p["type"] = "report"
+    if DIGEST_RE.search(p["text"]):          # 버틀러 종목별 리포트 제목 모음
+        p["type"] = "report"
+        p["digest"] = True
+    if p["type"] == "report" and not p.get("digest"):
         p.update(parse_research(p["text"]))
     return p
 
@@ -189,6 +222,8 @@ def fetch_page(channel, before=None):
         post_id = block.split('"', 1)[0]
         body, tm = BODY_RE.search(block), TIME_RE.search(block)
         text = to_text(body.group(1)) if body else ""
+        if re.match(r"^.{0,60} pinned «", text):   # '고정 메시지' 알림은 글이 아님
+            continue
         photos = PHOTO_RE.findall(block)
         if photos and not text:
             text = "[사진]"
@@ -257,7 +292,9 @@ def collect(channel, max_pages=10):
             break
         before = oldest
         time.sleep(1)  # 서버에 부담을 주지 않도록 천천히
+    seen = datetime.now(KST).isoformat(timespec="seconds")
     for p in new:
+        p["seen"] = seen   # 수집한 시각 (늦게 수집된 옛 글도 다음 정리가 '새 글'로 받게)
         store[p["id"]] = p
     return store, len(new)
 
@@ -316,10 +353,10 @@ def mark_duplicates(all_posts, window=timedelta(hours=48), threshold=0.45):
         recent = [r for r in recent if t - r[0] < window]
         n = _norm(p["text"])
         g, arts = _grams(n), _article_ids(p["text"])
-        rkey = (p.get("stock"), p.get("broker"), p.get("target_after")) if p.get("broker") else None
+        rkey = (p.get("stock"), broker_key(p.get("broker")), p.get("target_after")) if p.get("broker") and p.get("stock") else None
         orig = None
         for r in recent:
-            if ((arts and arts & r[3]) or (rkey and rkey == r[4])) and not _different_subject(p, r[1]):
+            if (rkey and rkey == r[4]) or (arts and arts & r[3] and not _different_subject(p, r[1])):   # 리포트 키(종목·증권사·목표가)가 같으면 같은 리포트
                 orig = r[1]; break
             if len(n) < 15:
                 if n and n == _norm(r[1]["text"]) and p["text"].strip() != "[사진]":   # 사진만 있는 글끼리는 비교 안 함
@@ -339,6 +376,11 @@ def mark_duplicates(all_posts, window=timedelta(hours=48), threshold=0.45):
             p["_root"] = root
             if p["channel"] != root["channel"] and p["channel"] not in root.setdefault("also_in", []):
                 root["also_in"].append(p["channel"])
+            if rkey and rkey == (root.get("stock"), broker_key(root.get("broker")), root.get("target_after")):
+                # 같은 리포트를 여러 채널이 올리면 빠진 정보(이전 목표가·방향·의견·제목)를 원본에 합친다
+                for k in ("target_before", "direction", "opinion", "title", "analyst"):
+                    if p.get(k) and not root.get(k):
+                        root[k] = p[k]
         recent.append((t, p, g, arts, rkey))
     for p in posts:
         p.pop("_root", None)

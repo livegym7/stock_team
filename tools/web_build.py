@@ -666,7 +666,8 @@ def channel_feed(t, allp, hours=72, img_hours=24, img_budget=180):
         rows.append({"time": x["time"][:16].replace("T", " "), "channel": x["channel"], "type": x["type"],
                      "type_name": t.CATEGORIES[x["type"]], "text": re.sub(r"https?://\S+", "", text).strip()[:900],
                      "url": x["url"], "also_in": x.get("also_in", []), "photo": len(photos), "imgs": imgs, "link": lk,
-                     "views": x.get("views"), "stocks": [s["name"] for s in x.get("stocks", [])][:4]})
+                     "views": x.get("views"), "stocks": [s["name"] for s in x.get("stocks", [])][:4],
+                     "seen": (x.get("seen") or "")[:16].replace("T", " "), "digest": x.get("digest")})
     # 오래된 썸네일 정리 (3일)
     for f in THUMBS.glob("*.jpg") if THUMBS.exists() else []:
         if f.stat().st_mtime < now.timestamp() - 3 * 86400:

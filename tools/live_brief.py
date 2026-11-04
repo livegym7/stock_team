@@ -37,6 +37,23 @@ def latest(day, kind):
     return f"{day} {m.group(1)}:{m.group(2)}", f.read_text(encoding="utf-8")
 
 
+def cross_check(since):
+    """리포트 대조: 버틀러(butler_works)와 다른 리포트 채널이 같은 리포트를 다 받았는지 (종목·증권사·목표가 기준).
+    web_build가 쓰는 채널 저장소를 직접 읽는다 (중복으로 묶인 글까지 봐야 하므로)."""
+    import glob
+    P = [json.loads(l) for f in glob.glob(str(ROOT / "data" / "telegram" / "*.jsonl")) for l in open(f, encoding="utf-8")]
+    R = [p for p in P if p.get("type") == "report" and p.get("stock") and p.get("broker") and not p.get("digest")
+         and p["time"][:16].replace("T", " ") > since]
+    roots = [p for p in R if not p.get("dup_of")]
+    both = [p for p in roots if p["channel"] == "butler_works" and p.get("also_in") or p["channel"] != "butler_works" and "butler_works" in (p.get("also_in") or [])]
+    b_only = [p for p in roots if p["channel"] == "butler_works" and not p.get("also_in")]
+    o_only = [p for p in roots if p["channel"] != "butler_works" and "butler_works" not in (p.get("also_in") or [])]
+    moved = [p for p in b_only if p.get("direction") in ("상향", "하향", "신규")]
+    line = (f"리포트 {len(roots)}건(종목·증권사·목표가 기준 중복 제거) = 두 곳 다 {len(both)} · 버틀러에만 {len(b_only)} · 다른 채널에만 {len(o_only)}"
+            + (f" · 버틀러에만 있는 목표가 변경: " + ", ".join(f"{p['stock']}({p['broker']} {p['direction']} {p.get('target_after') or '-'})" for p in moved[:15]) if moved else ""))
+    return line
+
+
 def prev_weekday_1500(now):
     t = now - timedelta(days=1)
     while t.weekday() >= 5:
@@ -61,9 +78,12 @@ def prep():
     rp_start = prev_weekday_1500(now)  # 리포트는 전 거래일 15:00 이후를 오늘 몫으로 본다
     rp_since = rp_prev_at or rp_start
 
-    ch_new = [p for p in posts if p["time"] > ch_since and p["type"] not in REPORT_TYPES]
-    rp_new = [p for p in posts if p["time"] > rp_since and p["type"] in REPORT_TYPES]
-    rp_today = [p for p in posts if p["time"] > rp_start and p["type"] in REPORT_TYPES]
+    def fresh(p, since):   # 올라온 시각 또는 수집한 시각이 지난 정리 이후 (늦게 수집된 글도 놓치지 않게)
+        return p["time"] > since or (p.get("seen") or "") > since
+    ch_new = [p for p in posts if fresh(p, ch_since) and p["type"] not in REPORT_TYPES]
+    rp_new = [p for p in posts if fresh(p, rp_since) and p["time"] > rp_start and p["type"] in REPORT_TYPES and not p.get("digest")]
+    rp_today = [p for p in posts if p["time"] > rp_start and p["type"] in REPORT_TYPES and not p.get("digest")]
+    xcheck = cross_check(rp_start)
     raw = [x for x in (D.get("channel_raw") or []) if x[0] > ch_since]
     raw_today = [x for x in (D.get("channel_raw") or []) if x[0] >= day + " 00:00"]
 
@@ -157,6 +177,9 @@ def prep():
 {chr(10).join(line(p, 260) for p in ch_new[-150:]) or '(새 글 없음)'}
 
 {rp_part}
+
+[(B) 리포트 대조 — 머리줄 다음 줄에 그대로 한 줄로 적고, 버틀러에만 있는 목표가 변경은 빠짐없이 반영] {xcheck}
+- '유지' 리포트(대부분 버틀러)는 보유·관심 종목이거나 같은 종목 리포트가 3건↑일 때만 본문에 쓰고, 나머지는 머리줄 ➖유지 숫자에만 센다.
 
 [(B)용 리포트·실적 글 {len(rp_rows)}개 · {(rp_since if rp_prev else rp_start)[5:]} 이후 · 오늘 누적 {len(rp_today)}건]
 {chr(10).join(line(p, 300) for p in rp_rows[-120:]) or '(새 리포트 없음)'}

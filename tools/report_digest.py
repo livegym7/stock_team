@@ -52,7 +52,7 @@ def report_row(p):
         "time": p["time"][:16].replace("T", " "), "channel": p["channel"], "broker": p.get("broker"),
         "direction": p.get("direction") or ("신규" if "신규" in p["text"][:300] else None),
         "before": p.get("target_before"), "after": p.get("target_after"), "opinion": p.get("opinion"),
-        "title": m.group(1) if m else None, "points": points(p["text"]), "url": p["url"],
+        "title": m.group(1) if m else p.get("title"), "points": points(p["text"]), "url": p["url"],
     }
 
 

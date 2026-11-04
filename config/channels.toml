@@ -42,3 +42,7 @@ description = "시황맨의 주식이야기 — 장전 모닝 브리핑, 마감 
 [[channels]]
 id = "maddingStock"
 description = "스탁이지(AI 투자 어시스턴트) — 장마감 브리핑, 수급 체크, 이미지 카드 많음"
+
+[[channels]]
+id = "butler_works"
+description = "버틀러 — 증권사 리포트 1건씩 요약(종목·증권사·투자의견·목표가 상향/하향/유지), 종목별 리포트 제목 모음. 유지 리포트까지 있어 다른 채널과 대조용"
