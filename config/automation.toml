@@ -1,0 +1,100 @@
+# 자동 작업 목록 (웹 '규칙·일정 > 자동 작업 현황'에 표시). Claude가 관리.
+# runner: claude = Claude 예약 작업(토큰 사용) / actions = 깃허브 자동 실행(토큰 0) / build = 웹 데이터 만들 때 함께(토큰 0)
+# check: 실행됐는지 확인하는 방법 (report:파일이름 / bus / naver_pick / alerts / calendar / naver / channels / weekly)
+
+[[tasks]]
+name = "아침 브리핑"
+when = "평일 06:55"
+due = "06:55"
+runner = "claude"
+tokens = "보통"
+check = "report:morning"
+
+[[tasks]]
+name = "리포트 브리핑 오전"
+when = "평일 09:53"
+due = "09:53"
+runner = "claude"
+tokens = "보통"
+check = "report:report_brief_am"
+
+[[tasks]]
+name = "리포트 브리핑 오후"
+when = "평일 14:53"
+due = "14:53"
+runner = "claude"
+tokens = "보통"
+check = "report:report_brief_pm"
+
+[[tasks]]
+name = "마감 리뷰"
+when = "평일 15:47"
+due = "15:47"
+runner = "claude"
+tokens = "보통"
+check = "report:close"
+
+[[tasks]]
+name = "감시 목록"
+when = "평일 16:07"
+due = "16:07"
+runner = "claude"
+tokens = "적음"
+check = "bus"
+
+[[tasks]]
+name = "딥리서치 (네이버 3건 + 드라이브)"
+when = "평일 19:13"
+due = "19:13"
+runner = "claude"
+tokens = "많음"
+check = "naver_pick"
+
+[[tasks]]
+name = "주간 리뷰"
+when = "금 16:47"
+due = "16:47"
+days = "fri"
+runner = "claude"
+tokens = "보통"
+check = "weekly"
+
+[[tasks]]
+name = "웹 트레이딩룸 갱신"
+when = "평일 07:32·09:12·10:32·15:32·16:32"
+due = "07:32"
+runner = "claude"
+tokens = "적음"
+check = "web"
+
+[[tasks]]
+name = "보유 종목·감시 목록 장중 알림"
+when = "평일 장중 20분마다"
+due = "09:20"
+runner = "actions"
+tokens = "0"
+check = "alerts"
+
+[[tasks]]
+name = "일정 수집 (경제지표·IR·미국 실적)"
+when = "웹 갱신 때 하루 1번"
+due = "07:40"
+runner = "build"
+tokens = "0"
+check = "calendar"
+
+[[tasks]]
+name = "네이버 리서치 목록"
+when = "웹 갱신 때마다"
+due = "07:40"
+runner = "build"
+tokens = "0"
+check = "naver"
+
+[[tasks]]
+name = "텔레그램 채널 수집"
+when = "브리핑·웹 갱신 때마다"
+due = "07:00"
+runner = "build"
+tokens = "0"
+check = "channels"

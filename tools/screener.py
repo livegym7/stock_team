@@ -329,6 +329,7 @@ def run(codes_info, workers=4):
             "group": cmap.get(s["code"]) or s["industry"],  # 인더스트리 액션용 업종 (사용자 분류 우선)
             "ia": ia, "ia_up_share": ia_share, "ia_median": ia_med,
             "close": rows[-1]["close"], "date": rows[-1]["date"], "rs": rs, **extra,
+            "vol50": round(sum(r["volume"] for r in rows[-50:]) / min(50, len(rows))),   # 장중 돌파 알림의 거래량 비교용
             "checks": checks, "gate_score": sum(checks.values()),
             # 관문: 돌파용은 1개 미달 허용(단 시총·거래대금·RS는 필수), 포켓피봇은 7/7 (사용자 확정 2026-11-03)
             "gate_miss": [k for k, ok in checks.items() if not ok],

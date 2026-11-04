@@ -64,6 +64,11 @@ python3 tools/naver_quote.py index    # 장중이면 오늘 HH:MM 값
 - 리포트가 0건이면 "새 리포트 없음"과 내 종목 브리핑만 보낸다.
 - 숫자는 도구 결과와 리포트 글에 있는 것만. 지어내지 않는다. 매수·매도를 단정하지 않는다.
 
+## 2-1. 장중 알림 확인 (토큰 0, 깃허브 자동 실행 보완)
+```bash
+python3 tools/alerts.py      # 보유 종목·감시 목록 알림, 새 것만 텔레그램 (보낸 기록은 깃허브와 공유)
+```
+
 ## 3. 보내고 저장
 ```bash
 python3 tools/telegram_send.py --file reports/YYYY-MM-DD/report_brief_am.md

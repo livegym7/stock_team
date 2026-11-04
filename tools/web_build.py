@@ -624,6 +624,92 @@ def channel_feed(t, allp, hours=72):
     return rows
 
 
+def automation(now, data, allp):
+    """자동 작업 현황: config/automation.toml 목록마다 오늘 실행됐는지 결과 파일로 확인 (토큰 0)."""
+    import subprocess
+    tasks = (safe(lambda: load_toml("automation.toml"), {}) or {}).get("tasks", [])
+    today, hm, wd = now.strftime("%Y-%m-%d"), now.strftime("%H:%M"), now.weekday()
+    times = brief_times()
+
+    def mtime(p):
+        return datetime.fromtimestamp(p.stat().st_mtime, KST).strftime("%Y-%m-%d %H:%M") if p.exists() else None
+
+    alert_state = {}
+    try:
+        subprocess.run(["git", "fetch", "-q", "origin", "alert-state"], cwd=ROOT, capture_output=True, timeout=30)
+        alert_state = json.loads(subprocess.run(["git", "show", "origin/alert-state:state.json"], cwd=ROOT, capture_output=True, text=True, timeout=15).stdout or "{}")
+    except Exception:
+        pass
+    out = []
+    for t in tasks:
+        chk, last, detail = t.get("check", ""), None, ""
+        if chk.startswith("report:"):
+            name = chk.split(":", 1)[1]
+            f = ROOT / "reports" / today / f"{name}.md"
+            if f.exists():
+                last = today + " " + (times.get(f"reports/{today}/{name}.md") or mtime(f)[11:])
+            else:
+                fs = sorted(glob.glob(str(ROOT / "reports" / "*" / f"{name}.md")))
+                last = (Path(fs[-1]).parent.name + " " + (times.get(str(Path(fs[-1]).relative_to(ROOT))) or "")) if fs else None
+        elif chk == "weekly":
+            fs = sorted(glob.glob(str(ROOT / "reports" / "*" / "weekly.md")))
+            last = Path(fs[-1]).parent.name if fs else None
+        elif chk == "bus":
+            fs = sorted(glob.glob(str(DATA / "bus" / "*" / "screener.json")))
+            last = mtime(Path(fs[-1])) if fs else None
+        elif chk == "naver_pick":
+            fs = sorted(glob.glob(str(DATA / "naver_research" / "candidates_2*.json")))
+            picked = [f for f in fs if json.loads(Path(f).read_text(encoding="utf-8")).get("picked")]
+            last = Path(picked[-1]).stem.split("_")[1] if picked else None
+            detail = "Claude가 고른 리포트 기록 기준"
+        elif chk == "web":
+            last, detail = data.get("built_at"), "이 화면 데이터 시각"
+        elif chk == "alerts":
+            last = (alert_state.get("last_check") or "")[:16].replace("T", " ") or None
+            n = len((alert_state.get("sent") or {}).get(today, []))
+            detail = f"오늘 보낸 알림 {n}건" if alert_state else "기록 없음(아직 자동 실행 전)"
+        elif chk == "calendar":
+            c = data.get("calendar") or {}
+            last, detail = c.get("fetched_at"), ("일부 실패: " + ", ".join(c.get("errors") or [])) if c.get("errors") else ""
+        elif chk == "naver":
+            n = ((data.get("research") or {}).get("naver") or {})
+            last, detail = n.get("made_at"), f"오늘 {n.get('n_total', 0)}건"
+        elif chk == "channels":
+            ts = [x["time"] for x in allp]
+            last, detail = (max(ts)[:16].replace("T", " ") if ts else None), "가장 최근 수집된 글 시각"
+        run_today = bool(last and last[:10] == today)
+        is_day = (wd == 4) if t.get("days") == "fri" else wd < 5
+        late = is_day and hm > _plus(t.get("due", "23:59"), 40) and not run_today
+        state = "ok" if run_today else ("late" if late else ("wait" if is_day else "off"))
+        out.append({**t, "last": last, "detail": detail, "state": state})
+    # 데이터 출처 상태
+    src = []
+    m = data.get("market") or {}
+    src.append({"name": "국내 지수 (네이버)", "ok": bool(m.get("kr")), "note": ""})
+    src.append({"name": "해외 시세 (Yahoo)", "ok": bool(m.get("us")), "note": f"{len(m.get('us') or [])}개"})
+    src.append({"name": "보유 종목 현재가 (네이버)", "ok": bool((data.get("risk") or {}).get("positions")), "note": (data.get("risk") or {}).get("at", "")})
+    c = data.get("calendar") or {}
+    src.append({"name": "일정 (ForexFactory·DART·Nasdaq)", "ok": bool(c.get("events")) and not c.get("errors"), "note": ", ".join(c.get("errors") or [])})
+    n = (data.get("research") or {}).get("naver") or {}
+    src.append({"name": "네이버 리서치", "ok": bool(n.get("n_total")), "note": n.get("made_at", "")})
+    src.append({"name": "텔레그램 채널", "ok": bool(allp), "note": f"{len(data.get('channel_stats') or [])}개 채널"})
+    return {"tasks": out, "sources": src, "checked_at": now.strftime("%Y-%m-%d %H:%M")}
+
+
+def _alerts_backup(now):
+    import alerts
+    if not alerts.market_open(now):
+        return
+    import subprocess
+    subprocess.run(["python3", "tools/alerts.py"], cwd=ROOT, capture_output=True, timeout=180)
+
+
+def _plus(hm, minutes):
+    h, m = map(int, hm.split(":"))
+    t = h * 60 + m + minutes
+    return f"{min(t // 60, 23):02d}:{t % 60:02d}"
+
+
 def channel_raw(allp, hours=72):
     """브리핑 머리줄용 원래 글 수: [시각, 채널, 0=정리 대상 / 1=중복 / 2=잡담·짧은 글]."""
     since = datetime.now(KST) - timedelta(hours=hours)
@@ -764,6 +850,7 @@ def main():
         data["radar"] = safe(lambda: json.loads(rp.read_text(encoding="utf-8"))) if rp.exists() else None
     data["refresh"] = {"owner": "livegym7", "repo": "stock_team", "workflow": "web-data.yml", "branch": "web-data", "path": "data.json"}
     data["parts"] = {**(last.get("parts") or {}), **{k: data["built_at"] for k in ("market", "risk", "channels", "insights")}}
+    data["automation"] = safe(lambda: automation(now, data, allp))
     if a.only == "monitoring":   # 모니터링만: 분석 쪽은 지난 데이터 그대로
         keep = {k: last.get(k) for k in ("market", "risk", "trades", "briefs", "companies", "research", "earnings", "channels", "channel_stats", "report_flow", "schedule")}
         hot = (last.get("insights") or {}).get("hot")
@@ -780,6 +867,8 @@ def main():
         Path(a.data_out).write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
         print(json.dumps({"built_at": data["built_at"], "out": a.data_out}, ensure_ascii=False))
         return
+    # 장중이면 보유 종목·감시 목록 알림도 확인 (깃허브 자동 실행이 늦을 때 대비, 토큰 0)
+    safe(lambda: _alerts_backup(now))
     blob = write_html(data)
     print(json.dumps({"built_at": data["built_at"], "out": "web/index.html", "kb": round(len(blob) / 1024),
                       "briefs": len(brief_rows), "companies": len(comp_list), "channels": len(data["channels"]),

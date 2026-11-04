@@ -55,6 +55,7 @@ python3 tools/research.py status                       # 딥리서치: 분석한
 python3 tools/naver_research.py collect                # 네이버 리서치(국내종목·산업분석·투자전략) 목록·목표가·의견·요약 (1차 자료) / candidates(규칙 점수 후보, 토큰 0) / pdf --cat --nid(전문 글자, 원문 저장 안 함) / pick
 python3 tools/calendar_fetch.py                        # 일정 수집(하루 1번): 경제지표 ForexFactory · 국내 IR DART · 미국 실적 Nasdaq + config/calendar.toml → data/calendar/
 python3 tools/earnings.py                              # 채널 잠정실적 공시 → 실제 vs 예상(서프라이즈·쇼크), data/earnings/
+python3 tools/trades.py buy|sell|stop --name 종목 --qty --price   # 매매 기록(주문 아님) → positions.toml 자동 갱신·일지·R. "OO 샀어/팔았어/손절가 올렸어" 말하면 실행
 python3 tools/alerts.py --dry --force                  # 보유 종목 장중 알림 점검 (실제 실행은 깃허브 Actions 20분마다, Claude 안 씀)
 python3 tools/report_digest.py --collect              # 리포트 브리핑 재료 (주요 종목·섹터·내 종목), /report-brief
 python3 tools/chart.py                                 # 관심종목 주봉 + 매물대 차트 (reports/오늘/charts/에 SVG·PNG)
@@ -89,6 +90,8 @@ python3 tools/telegram_send.py --file reports/날짜/파일.md
 - 국내 시세는 `naver_quote.py`, 해외 시세는 `us_quote.py`를 쓴다 (KIS·토스는 클라우드에서 접속 불가).
 - 차트는 **주봉 캔들 + 매물대(거래대금 기준, 캔들 뒤에 연하게)를 한 그림에** 그리는 것이 기본 (`tools/chart.py`, 사용자 요청 2026-11-02)
 - 스킬: `/morning-brief`, `/company-card`, `/report-brief`, `/channel-brief`, `/close-brief`(평일 15:47 마감 리뷰), `/weekly-review`(금 16:47), `/deep-research`("딥리서치 해줘": 드라이브 리포트 원문 분석, 구글 드라이브 연결 필요) (`.claude/skills/`)
+- 사용자가 "샀다/팔았다/손절가 올렸다"고 하면 `tools/trades.py`로 기록한다(직접 positions.toml을 고치지 않음). 날짜·수량·가격이 빠졌으면 묻는다. 기록 후 규칙 점검(손절폭·1R) 결과를 알려 준다
+- 자동 작업 목록은 `config/automation.toml` (웹 규칙·일정 > 자동 작업 현황). 예약을 만들거나 끄면 여기도 고친다
 - 보유 종목은 `config/positions.toml`(initial_stop = 처음 손절가·1R 기준, stop = 지금 손절가), 계좌·리스크 규칙은 `config/account.toml`
 - **매매 규칙은 2026-11-03에 고정** (docs/rules.md 한 장 요약): 실제 신호 30건 또는 2027-01-31까지 바꾸지 않는다. 사용자가 바꾸자고 하면 고정 중임을 먼저 상기시킨다
 - 셋업 반납 한도 **60%**(책 50%), 관문은 **돌파 1개 미달 허용(RS·시총·거래대금 필수), 포켓피봇 7/7** (사용자 확정 2026-11-03)

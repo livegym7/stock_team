@@ -5,6 +5,7 @@
   - 3R 도달 (50% 익절 + 남은 물량 손절가 본전 규칙)
   - 3R 이후 20일선 아래 (종가로 확인 필요)
   - 하루 등락 -5% 이하 / +7% 이상
+  - 감시 목록(전날 16:07) 종목의 기준가 근접(−2% 이내)·장중 돌파 (예상 거래량 배수 포함)
   - 보유 종목이 주인공인 채널 새 글 (기업·실적·리포트·정책 글, 중복·잡담·시황 나열 제외, 지난 확인 이후)
 판단만 알린다. 매수·매도를 대신하지 않는다 (절대 규칙 1·4).
 
@@ -19,7 +20,7 @@ import json
 from datetime import datetime, timedelta
 from pathlib import Path
 
-from common import CACHE, positions
+from common import CACHE, DATA, positions
 from naver_quote import KST
 
 NEAR_STOP = 3.0      # 손절가까지 % 이내면 근접
@@ -35,6 +36,52 @@ def load_state(path):
         return json.loads(Path(path).read_text(encoding="utf-8"))
     except Exception:
         return {}
+
+
+def breakout_watch(now, sent, limit=40):
+    """전날 감시 목록(신호·후보·대기)의 기준가를 장중 현재가와 비교.
+    근접: 알림가(기준가 −2%) 이상 / 돌파 중: 기준가 이상 → 예상 거래량(지금까지 거래량 ÷ 장 경과 비율)이 50일 평균의 몇 배인지 함께."""
+    import glob
+    from common import http_get
+    files = sorted(glob.glob(str(DATA / "bus" / "*" / "screener.json")))
+    if not files:
+        return []
+    d = json.loads(Path(files[-1]).read_text(encoding="utf-8"))
+    items = []
+    for tier, key in (("✅신호", "signals"), ("👀후보", "candidates"), ("대기", "watch")):
+        for x in d.get(key) or []:
+            lv = x.get("levels") or {}
+            if lv.get("breakout"):
+                items.append((tier, x))
+    items = items[:limit]
+    if not items:
+        return []
+    codes = [x["code"] for _, x in items]
+    q = {}
+    for i in range(0, len(codes), 40):
+        raw = json.loads(http_get("https://polling.finance.naver.com/api/realtime/domestic/stock/" + ",".join(codes[i:i + 40])))
+        for r in raw.get("datas", []):
+            num = lambda k: float(str(r.get(k) or "0").replace(",", "")) if str(r.get(k) or "").replace(",", "").replace(".", "").lstrip("-").isdigit() else None
+            q[r["itemCode"]] = {"price": num("closePrice"), "chg": num("fluctuationsRatio"), "vol": num("accumulatedTradingVolume")}
+    opened = now.replace(hour=9, minute=0, second=0, microsecond=0)
+    frac = min(1.0, max(0.05, (now - opened).total_seconds() / (390 * 60)))   # 장 경과 비율 (9:00~15:30)
+    out = []
+    for tier, x in items:
+        c, lv, r = x["code"], x["levels"], q.get(x["code"]) or {}
+        px = r.get("price")
+        if not px:
+            continue
+        piv, alert_px = lv["breakout"], lv.get("alert") or lv["breakout"] * 0.98
+        vr = (r["vol"] / frac / x["vol50"]) if r.get("vol") and x.get("vol50") else None
+        vtxt = f" · 예상 거래량 {vr:.1f}배" if vr else ""
+        note = f"{tier} {x['stock']} {px:,.0f}원 ({r.get('chg') or 0:+.2f}%) · 기준가 {piv:,}"
+        miss = f" · 부족: {', '.join(x.get('missing') or [])}" if x.get("missing") else ""
+        if px > piv:
+            ok = vr is not None and vr >= 1.5
+            out.append((f"brk:{c}", f"🔔 {note} 돌파 중{vtxt}{' ✓' if ok else ''} — 종가 유지·거래량 1.5배·업종 동반 확인 필요{miss}"))
+        elif px >= alert_px:
+            out.append((f"near:{c}", f"👀 {note}까지 {(piv / px - 1) * 100:.1f}% 남음{vtxt}{miss}"))
+    return out
 
 
 def check(state, now):
@@ -67,6 +114,14 @@ def check(state, now):
             add(f"{p['code']}:drop", f"🔵 {head} — 오늘 {chg:+.2f}% 급락")
         if chg is not None and chg >= JUMP:
             add(f"{p['code']}:jump", f"🔴 {head} — 오늘 {chg:+.2f}% 급등 (3R까지 {p.get('to_3r_pct', 0):+.1f}%)")
+
+    # 감시 목록 장중 돌파·근접 (전날 16:07 감시 목록의 기준가 기준, 규칙만으로 판단)
+    try:
+        out_b = breakout_watch(now, sent)
+        for key, text in out_b:
+            add(key, text)
+    except Exception as e:
+        out.append(f"(감시 목록 확인 실패: {type(e).__name__})")
 
     # 채널 새 글 (보유 종목 언급)
     last = state.get("last_post_time") or (now - timedelta(hours=2)).isoformat(timespec="seconds")
@@ -120,6 +175,16 @@ def main():
         except Exception:
             pass
     state = load_state(a.state)
+    if a.state == str(CACHE / "alerts_state.json"):   # 로컬 실행: 깃허브 자동 실행이 보낸 기록도 합쳐서 같은 알림을 두 번 안 보냄
+        try:
+            import subprocess
+            subprocess.run(["git", "fetch", "-q", "origin", "alert-state"], capture_output=True, timeout=30)
+            gh = json.loads(subprocess.run(["git", "show", "origin/alert-state:state.json"], capture_output=True, text=True, timeout=15).stdout or "{}")
+            for d, keys in (gh.get("sent") or {}).items():
+                state.setdefault("sent", {})[d] = sorted(set(state.get("sent", {}).get(d, [])) | set(keys))
+            state["last_post_time"] = max(state.get("last_post_time") or "", gh.get("last_post_time") or "") or None
+        except Exception:
+            pass
     msgs, ev = check(state, now)
     sent = False
     if msgs and not a.dry:
