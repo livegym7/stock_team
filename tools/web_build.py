@@ -539,6 +539,13 @@ def channel_feed(t, allp, hours=72):
     return rows
 
 
+def channel_raw(allp, hours=72):
+    """브리핑 머리줄용 원래 글 수: [시각, 채널, 0=정리 대상 / 1=중복 / 2=잡담·짧은 글]."""
+    since = datetime.now(KST) - timedelta(hours=hours)
+    return [[x["time"][:16].replace("T", " "), x["channel"], 1 if x.get("dup_of") else 2 if x["type"] == "other" else 0]
+            for x in sorted(allp, key=lambda p: p["time"]) if datetime.fromisoformat(x["time"]) >= since]
+
+
 def channel_stats(t, allp):
     since = datetime.now(KST) - timedelta(days=30)
     out = []
@@ -595,6 +602,7 @@ def main():
         "research": safe(lambda: research(comp_list, allp)),
         "channels": channel_feed(t, allp),
         "channel_stats": channel_stats(t, allp),
+        "channel_raw": channel_raw(allp),
         "categories": t.CATEGORIES,
         "note": "보기 전용 · 주문 기능 없음 · 채널 글은 2차 자료",
     }
@@ -659,6 +667,7 @@ def partial(part, now):
         t, allp = tg_data()
         data["channels"] = channel_feed(t, allp)
         data["channel_stats"] = channel_stats(t, allp)
+        data["channel_raw"] = channel_raw(allp)
         from universe import load as load_universe
         uni = {s["name"]: s for s in load_universe()["stocks"]}
         companies = {k: v for k, v in json.loads((DATA / "companies.json").read_text(encoding="utf-8")).items() if not k.startswith("_")}

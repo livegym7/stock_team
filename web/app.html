@@ -331,6 +331,8 @@ function promptFor(kind){
   const P=(D.channels||[]).filter(p=>p.time>=since);
   const pick=kind=="channels"?P:kind=="morning"?P.filter(p=>p.type!="report"):P.filter(p=>p.type=="report"||p.type=="earnings");
   const mark=p=>prevAt&&p.time>prevAt?"🆕":"";
+  const raw=(D.channel_raw||[]).filter(x=>x[0]>=since), rawN=raw.length, rawCh=new Set(raw.map(x=>x[1])).size, dupN=raw.filter(x=>x[2]==1).length, othN=raw.filter(x=>x[2]==2).length;
+  const countLine=rawN?`채널 ${rawCh}개에서 글 ${rawN}개 수집 · 여러 채널 중복 ${dupN} · 짧은 잡담·링크만 ${othN} 제외 → 정리 대상 ${rawN-dupN-othN}개`:`정리 대상 ${pick.length}개`;
   const rows=pick.slice(0,220).map(p=>`${mark(p)}[${p.time}|${p.channel}|${p.type_name}${p.also_in.length?"|"+(p.also_in.length+1)+"개 채널":""}] ${p.text.replace(/\s+/g," ").slice(0,kind=="channels"?420:600)}`).join("\n");
   const r=D.risk||{}, pos=(r.positions||[]).map(p=>`${p.name} ${p.qty}주 평균 ${p.avg_price} 현재 ${p.price} (${p.r_multiple}R, 손절가 ${p.stop}, 3R ${p.breakeven_price_at_3r})`).join("; ");
   const krAt=(((D.market||{}).kr||[])[0]||{}).traded_at||"", krDay=krAt.slice(0,10), now=nowKst(), wd=new Date(now.slice(0,10)).getDay();
@@ -341,7 +343,7 @@ function promptFor(kind){
   const I=D.insights||{};
   const comp=Object.fromEntries((D.companies||[]).map(c=>[c.name,c.one_liner]));
   const fmt={
-    channels:"📡 텔레그램 채널 정리 · MM/DD(요일) HH:MM~HH:MM\n채널 수 · 글 수 · 출처: 채널 요약(2차 자료)\n\n💡 Claude 의견 (3~5줄)\n\n━━━━━━━━━━━━━━━\n1️⃣ 2️⃣ … 주제별 묶음 4~6개(중요한 순, 3개↑ 채널이 다룬 주제는 🔥): 주제 제목 줄 + 글머리 2~4개. 글머리 앞에 🔴 호재(추정) / 🔵 악재(추정) / ⚪ 중립\n\n📑 리포트 한눈에: 🔺상향 a · 🆕신규 c · 🔽하향 b, 중요한 것 3~5줄(🔺 상향 먼저, 🔽 하향은 뒤) `🔺 종목 증권사 이전→새 (+x%) · 이유`\n\n💼 내 종목: ⭐ 종목 ▲▼등락 · 관련 소식 (없으면 '직접 소식 없음')\n\n⚖️ 읽는 법 1줄\n※ 판단은 본인이 합니다.\n범례: 🔺상향 🔽하향 🆕신규 · ▲▼주가 · 🔴호재 🔵악재(추정) · 🔥여러 채널 · ⭐보유",
+    channels:"📡 텔레그램 채널 정리 · MM/DD(요일) HH:MM~HH:MM\n[글 수] 줄의 숫자 그대로 · 출처: 채널 요약(2차 자료)\n\n💡 Claude 의견 (3~5줄)\n\n━━━━━━━━━━━━━━━\n1️⃣ 2️⃣ … 주제별 묶음 4~6개(중요한 순, 3개↑ 채널이 다룬 주제는 🔥): 주제 제목 줄 + 글머리 2~4개. 글머리 앞에 🔴 호재(추정) / 🔵 악재(추정) / ⚪ 중립\n\n📑 리포트 한눈에: 🔺상향 a · 🆕신규 c · 🔽하향 b, 중요한 것 3~5줄(🔺 상향 먼저, 🔽 하향은 뒤) `🔺 종목 증권사 이전→새 (+x%) · 이유`\n\n💼 내 종목: ⭐ 종목 ▲▼등락 · 관련 소식 (없으면 '직접 소식 없음')\n\n⚖️ 읽는 법 1줄\n※ 판단은 본인이 합니다.\n범례: 🔺상향 🔽하향 🆕신규 · ▲▼주가 · 🔴호재 🔵악재(추정) · 🔥여러 채널 · ⭐보유",
     morning:"📊 아침 브리핑 · MM/DD(요일)\n\n💡 Claude 의견 (3~5줄)\n\n1) 간밤 미국장·환율·금리 (숫자는 아래 시장 데이터만)\n2) 시장 전체 주요 소식 5~8개 (실적·공시·정책·매크로, 중요한 순)\n3) 💼 내 종목: 손익·손절가 거리·관련 소식\n4) 오늘 볼 것 2~3줄\n※ 판단은 본인이 합니다.",
     report_brief_am:"📑 리포트 브리핑 · MM/DD(요일) 오전 (기간 표시)\n리포트 n건(m종목) · 🔺상향 a · 🆕신규 c · ➖유지 d · 🔽하향 b\n\n💡 Claude 의견 (3~5줄)\n\n🧭 핵심 흐름 3줄\n🔺 상향·🆕 신규 섹터: 한 줄씩 `🔺 섹터 · n건 · 평균 +x% · 종목`\n🔽 하향 섹터: 같은 형식\n📌 주요 종목 5~7개: `①🔺 종목 · 섹터 · 현재가 ▲▼x%` / 사업 한 줄 / `🔺 증권사 이전→새 (+x%)` 증권사마다 한 줄(의견 변경 ⬆️⬇️) / 근거 2줄\n💼 내 종목: ⭐보유 ☆관심, ⚠️ 경고 맨 앞\n⚖️ 읽는 법 1줄\n※ 판단은 본인이 합니다.\n범례: 🔺상향 🔽하향 🆕신규 ➖유지 · ▲▼주가 · ⭐보유 ☆관심",
   };
@@ -361,6 +363,7 @@ ${timeRule}
 ${fmt[kind]}
 
 [지금 시각] ${nowKst()} (한국시간) · 기간 ${since}~지금 · 데이터 기준 ${D.built_at}
+[글 수 — 머리줄에 이 숫자를 그대로 쓴다] ${countLine}${kind!="channels"?` (이 브리핑에 넘긴 글 ${pick.length}개)`:""}
 [시장 · ${mkNote}] ${mk}
 [시장 신호등] ${(I.regime||{}).text||"-"}
 [보유 종목] ${pos||"없음"} · E ${r.E_pct}% · CR ${r.CR_pct}% (한도 6%)

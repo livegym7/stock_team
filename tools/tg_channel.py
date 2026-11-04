@@ -50,8 +50,8 @@ KEYWORDS = {
     "report": r"목표주가|목표가|투자의견|BUY/TP|\bTP\b|Outperform|커버리지|신규편입|리포트|\[[^\]]*증권[^\]]*\]",
     "earnings": r"잠정실적|잠정\)|영업익|영업이익|순이익|매출액|가이던스|어닝|컨센서스 (?:상회|하회)|예상치|실적 발표|분기 실적|보고서명",
     "macro": r"금리|연준|Fed|FOMC|CPI|PCE|GDP|성장률|고용|실업|환율|달러|엔화|위안|유가|원유|OPEC|수출|수입|무역수지|PMI|국채|인플레|물가|한국은행|BOJ|ECB|경기",
-    "policy": r"대통령|정부|예산|국회|법안|입법|규제|선거|관세|트럼프|이란|전쟁|협상|외교|중동|국무장관|백악관|휴전|제재|공습",
-    "market": r"코스피|코스닥|증시|나스닥|S&P|다우|시황|장전|장마감|마감|특징주|수급|외국인|기관|순매수|순매도|상한가|급등|급락|지수|시총|사이드카",
+    "policy": r"대통령|정부|예산|국회|법안|입법|규제|선거|상원|하원|개표|당선|민주당|공화당|주지사|관세|트럼프|이란|전쟁|협상|외교|중동|국무장관|백악관|휴전|제재|공습",
+    "market": r"코스피|코스닥|증시|나스닥|S&P|다우|시황|장전|장마감|마감|특징주|데이마켓|프리마켓|애프터마켓|선물|상승 중|하락 중|수급|외국인|기관|순매수|순매도|상한가|급등|급락|지수|시총|사이드카",
     "schedule": r"일정|체킹|캘린더|D-\d|예정일|발표 예정|개최 예정",
 }
 # 기업·산업 뉴스 단서 (종목 목록에 없는 해외 기업 글을 '기업'으로 잡기 위해)
@@ -113,8 +113,8 @@ def classify(text, stocks=()):
         return "market"
     if tag == "한국은행":
         return "macro"
-    if text.startswith("💬") and "현재가" in text.split("\n")[0]:
-        return "other"
+    if text.startswith("💬") and "현재가" in text.split("\n")[0]:   # ked_epic_ai 특징주 코멘트
+        return "earnings" if re.search(KEYWORDS["earnings"], text) else "company"
 
     body = URL_RE.sub("", text)
     head = body[:400]
@@ -256,8 +256,29 @@ def _article_ids(text):
     ids = set()
     for u in URL_RE.findall(text):
         m = re.search(r"article/(\d+)/(\d+)", u)
-        ids.add(m.group(0) if m else u.split("?")[0].rstrip("/"))
+        if m:
+            ids.add(m.group(0))
+        else:   # 주소 뒤 ?값까지 비교 (DART·유튜브처럼 ?뒤가 글마다 다른 사이트). 추적용 꼬리(utm·si 등)만 뗀다
+            u = re.sub(r"[?&](utm_[^&]*|si|fbclid|leadSource)=[^&]*", "", u).rstrip("/?&")
+            ids.add(u)
     return ids
+
+
+def _subjects(p):
+    """글이 다루는 회사들: 잡힌 종목 이름 + 공시 양식의 '기업명'."""
+    names = {x["name"] for x in p.get("stocks", [])}
+    names |= set(re.findall(r"기업명\s*[:：]\s*([^\s(]+)", p["text"]))
+    return names
+
+
+def _different_subject(a, b):
+    """두 글이 다른 회사 이야기인지: 겹치는 회사가 없거나, 여러 회사 요약(3개↑) vs 한 회사 글."""
+    sa, sb = _subjects(a), _subjects(b)
+    if not (sa and sb):
+        return False
+    if min(len(sa), len(sb)) <= 1 < 3 <= max(len(sa), len(sb)):
+        return True
+    return not (sa & sb)
 
 
 def mark_duplicates(all_posts, window=timedelta(hours=48), threshold=0.45):
@@ -276,14 +297,20 @@ def mark_duplicates(all_posts, window=timedelta(hours=48), threshold=0.45):
         rkey = (p.get("stock"), p.get("broker"), p.get("target_after")) if p.get("broker") else None
         orig = None
         for r in recent:
-            if (arts and arts & r[3]) or (rkey and rkey == r[4]):
+            if ((arts and arts & r[3]) or (rkey and rkey == r[4])) and not _different_subject(p, r[1]):
                 orig = r[1]; break
             if len(n) < 15:
-                if n and n == _norm(r[1]["text"]):
+                if n and n == _norm(r[1]["text"]) and p["text"].strip() != "[사진]":   # 사진만 있는 글끼리는 비교 안 함
                     orig = r[1]; break
                 continue
-            if len(g & r[2]) / len(g | r[2]) >= threshold:
-                orig = r[1]; break
+            sim = len(g & r[2]) / len(g | r[2])
+            if sim < threshold:
+                continue
+            if _different_subject(p, r[1]):
+                continue
+            if p["channel"] == r[1]["channel"] and sim < 0.85:   # 같은 채널의 정기 업데이트(양식 같고 내용 다름)
+                continue
+            orig = r[1]; break
         if orig:
             root = orig.get("_root", orig)
             p["dup_of"] = f"{root['channel']}/{root['id']}"
