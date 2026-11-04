@@ -274,6 +274,7 @@ function viewHome(){
    ${insightBlock()}
    <div><h2>시장 한눈에</h2>${marketTiles()}</div>
    <div><h2>내 계좌</h2>${riskKpis(D.risk)}${holdMini(D.risk)}${src((D.risk?.source||"")+" · "+(D.risk?.at||""))}</div>
+   <div><h2>📅 다가오는 일정 · 2주</h2>${calBlock(14)}</div>
    <div><h2>오늘 일정</h2><div class="tl tl4">${(D.schedule||[]).map(s=>`<a href="#${s.kind=="watchlist"?"watch":"briefs"}" data-kind="${s.kind}"><span class="num">${s.time}</span><span>${esc(s.name)}</span><span class="pill ${s.done?"ok":s.state.startsWith("늦음")?"warn":""}">${esc(s.state)}</span></a>`).join("")}</div></div>
   </section>`;
 }
@@ -309,7 +310,7 @@ const BW={state:"idle",kind:null,name:"",msg:"",text:""};
 function tint(t){return esc(t).replace(/▲\s?[\d.,]+%?/g,m=>`<span class="up">${m}</span>`).replace(/▼\s?[\d.,]+%?/g,m=>`<span class="down">${m}</span>`)
   .replace(/(상향|호재)/g,'<span class="up">$1</span>').replace(/(하향|악재)/g,'<span class="down">$1</span>')
   .replace(/\(\+[\d.,]+%\)/g,m=>`<span class="up">${m}</span>`).replace(/\([−-][\d.,]+%\)/g,m=>`<span class="down">${m}</span>`);}
-const KNAME={report:"리포트 브리핑",morning:"아침 브리핑",report_brief_am:"리포트 브리핑 · 오전",report_brief_pm:"리포트 브리핑 · 오후",channels:"채널 정리"};
+const KNAME={close:"마감 리뷰",weekly:"주간 리뷰",report:"리포트 브리핑",morning:"아침 브리핑",report_brief_am:"리포트 브리핑 · 오전",report_brief_pm:"리포트 브리핑 · 오후",channels:"채널 정리"};
 function nowKst(){return new Date(Date.now()+9*3600e3).toISOString().slice(0,16).replace("T"," ")}
 function mergeExtra(){
   let ex=[];try{ex=JSON.parse(localStorage.getItem("tr-briefs-extra")||"[]")}catch(e){}
@@ -705,8 +706,9 @@ function viewChannels(){
   <div class="chips"><button class="chip ${t=="all"?"on":""}" data-ct="all">전체</button>${cats.map(([k,n])=>`<button class="chip ${t==k?"on":""}" data-ct="${k}">${n}</button>`).join("")}</div>
   <div style="margin-bottom:12px"><label for="chSel">채널<select id="chSel"><option value="">전체 채널</option>${(D.channel_stats||[]).map(c=>`<option value="${c.id}" ${ch==c.id?"selected":""}>${c.id}</option>`).join("")}</select></label></div>
   <div class="feed">${P.slice(0,150).map((p,i)=>`<div class="post" data-pi="${i}"><div class="meta"><span class="num">${esc(p.time)}</span><b>${esc(p.channel)}</b><span class="pill">${esc(p.type_name)}</span>${p.also_in.length?`<span class="pill ok">${p.also_in.length+1}개 채널</span>`:""}${p.photo?`<span class="pill">사진</span>`:""}${p.stocks.map(s=>`<span class="pill">${esc(s)}</span>`).join("")}<a href="${esc(p.url)}" target="_blank" rel="noopener">원문</a></div><div class="body">${esc(p.text)}</div></div>`).join("")||`<div class="empty">글 없음</div>`}</div>
-  <h2 style="margin-top:20px">채널 목록 (30일)</h2><div class="tw"><table><tr><th class="l">채널</th><th class="l">역할</th><th>글</th><th>하루</th><th>중복</th><th class="l">많은 분류</th></tr>
-  ${(D.channel_stats||[]).map(c=>`<tr><td class="l"><a href="https://t.me/${c.id}" target="_blank" rel="noopener">${c.id}</a></td><td class="l" style="white-space:normal;min-width:220px">${esc(c.description)}</td><td class="num">${c.posts_30d}</td><td class="num">${c.per_day}</td><td class="num">${c.dups}</td><td class="l">${c.top.map(([k,v])=>`${esc(k)} ${v}`).join(" · ")}</td></tr>`).join("")}</table></div>`;
+  <h2 style="margin-top:20px">채널 성향 (30일)</h2><div class="tw"><table><tr><th class="l">채널</th><th class="l">역할</th><th>하루 글</th><th title="다른 채널 글을 옮기지 않은 자기 글 비율">자기 글</th><th title="여러 채널이 다룬 소식에서 먼저 올린 비율">먼저 올림</th><th title="남이 먼저 올린 소식을 따라 올릴 때 늦은 시간(중앙값)">따라 올릴 때</th><th title="리포트·실적·기업 글 비율">기업·실적·리포트</th><th>많이 올리는 시각</th><th class="l">많은 분류</th></tr>
+  ${(D.channel_stats||[]).map(c=>`<tr><td class="l"><a href="https://t.me/${c.id}" target="_blank" rel="noopener">${c.id}</a></td><td class="l" style="white-space:normal;min-width:200px">${esc(c.description)}</td><td class="num">${c.per_day}</td><td class="num">${c.original_pct??"-"}%</td><td class="num">${c.first_pct==null?"-":`<b>${c.first_pct}%</b> <small class="muted">${c.first}/${c.first+c.follow}</small>`}</td><td class="num">${c.lag_min==null?"-":c.lag_min>=120?Math.round(c.lag_min/60)+"시간":c.lag_min+"분"}</td><td class="num">${c.useful_pct??"-"}%</td><td class="num">${(c.peak_hours||[]).map(h=>h+"시").join("·")}</td><td class="l">${(c.top||[]).map(([k,v])=>`${esc(k)} ${v}`).join(" · ")}</td></tr>`).join("")}</table></div>
+  ${src("먼저 올림 = 여러 채널이 같이 다룬 소식 중 이 채널이 처음 올린 비율 (속보성) · 따라 올릴 때 = 남이 먼저 올린 소식을 몇 분 늦게 올리는지 · 자기 글 = 다른 채널과 겹치지 않는 글 비율 (독자성) · 중복 판정은 글 내용·링크 기준이라 완벽하지 않습니다")}`;
 }
 
 /* ---------- 검증실 · 규칙 ---------- */
@@ -804,9 +806,13 @@ function viewLab(){
   return `<h1>검증실</h1><div class="sub">규칙이 과거에 실제로 통했는지, 내 매매가 규칙대로 갔는지 확인하는 곳</div>
   <div class="chips">${tabs.map(([k,n])=>`<button class="chip ${tab==k?"on":""}" data-lt="${k}">${n}</button>`).join("")}</div>${body}`;
 }
+function calBlock(days){const C=D.calendar||{},E=(C.events||[]).filter(e=>days==null||e.days<=days),K={macro:"📊",policy:"🏛️",market:"📈",earnings:"🧾"};
+  return E.length?`<div class="ins">${E.map(e=>`<div class="insrow"><div class="ihead"><b class="num">${esc(e.date.slice(5))}${e.time?" "+esc(e.time):""}</b> ${K[e.kind]||"📅"} <b>${esc(e.name)}</b><span class="pill ${e.days<=2?"warn":""}">${e.days==0?"오늘":e.days==1?"내일":"D-"+e.days}</span></div><div class="muted" style="font-size:12.5px">${esc(e.why||"")} · 출처: ${esc(e.source||"")}</div></div>`).join("")}</div>`:`<div class="empty">${days?days+"일 안에 ":""}예정된 일정 없음</div>`}
 function viewConfig(){
   const a=D.account||{};
   return `<h1>규칙·일정</h1><div class="sub">바꾸고 싶으면 Claude에게 말해 주세요 (이 화면은 보기 전용)</div>
+  <div class="grid g2" style="margin-bottom:16px"><div class="panel"><h2>📅 다가오는 일정</h2>${calBlock(null)}<div class="src">한국시간 · 공식 일정을 확인해 config/calendar.toml에 넣은 것만 (Claude 관리)</div></div>
+  <div class="panel"><h2>📡 채널 일정 글 (최근 3일)</h2>${((D.calendar||{}).channel_posts||[]).map(p=>`<div class="post"><div class="meta"><span class="num">${esc(p.time)}</span><b>${esc(p.channel)}</b><a href="${esc(p.url)}" target="_blank" rel="noopener">원문</a></div><div class="body">${esc(p.text)}</div></div>`).join("")||`<div class="empty">없음</div>`}</div></div>
   <div class="panel rulecard"><h2>📌 매매 규칙 한 장 <span class="pill">고정 2026-11-03 ~ 신호 30건 또는 2027-01-31</span></h2>
    <div class="grid g2">
     <div><h3>🎯 사는 신호 (둘 중 하나)</h3><ol><li><b>돌파</b>: 쉬던 구간 고점을 <b>종가로</b> 넘음 + 거래량 <b>1.5배</b> + <b>업종이 같이 오름</b></li><li><b>포켓피봇</b>: 조정 중 큰 거래량 양봉 (10일선 근처)</li></ol>

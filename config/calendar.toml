@@ -1,0 +1,48 @@
+# 다가오는 일정 (Claude가 관리, 시각은 한국시간). 웹 '오늘'·'규칙·일정'과 아침 브리핑에 쓰인다.
+# 날짜는 공식 일정 기준으로 확인한 것만 넣고 출처를 적는다. 지난 일정은 자동으로 숨겨진다.
+# kind: macro(거시) · policy(정책) · market(시장 구조) · earnings(실적)
+
+[[events]]
+date = "2026-11-10"
+time = "22:30"
+name = "미국 10월 CPI(소비자물가) 발표"
+kind = "macro"
+why = "금리 기대를 바꾸는 물가 지표 — 기술주·환율에 영향"
+source = "BLS 발표 일정(2차 확인: 경제 캘린더 여러 곳 일치)"
+
+[[events]]
+date = "2026-11-12"
+name = "국내 옵션 만기일 (11월 둘째 목요일)"
+kind = "market"
+why = "장 막판 수급 변동 가능"
+source = "거래소 규칙(매월 둘째 목요일)"
+
+[[events]]
+date = "2026-11-26"
+name = "한국은행 금융통화위원회 (올해 마지막 기준금리 결정)"
+kind = "policy"
+why = "원화·금리 민감 업종(은행·건설·성장주) 영향"
+source = "SBS Biz 등 보도(한국은행 연간 일정)"
+
+[[events]]
+date = "2026-12-10"
+name = "국내 선물·옵션 동시 만기일 (12월 둘째 목요일)"
+kind = "market"
+why = "분기 동시 만기 — 프로그램 매매로 변동성 커질 수 있음"
+source = "거래소 규칙"
+
+[[events]]
+date = "2026-12-10"
+time = "04:00"
+name = "미국 FOMC 금리 결정 (12/8~9 회의, 점도표 포함)"
+kind = "policy"
+why = "연준 금리·내년 전망(점도표) — 글로벌 위험자산 방향"
+source = "federalreserve.gov 2026 일정"
+
+[[events]]
+date = "2026-12-10"
+time = "22:30"
+name = "미국 11월 CPI 발표"
+kind = "macro"
+why = "FOMC 직후 물가 확인"
+source = "BLS 발표 일정(2차 확인)"

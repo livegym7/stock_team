@@ -20,9 +20,9 @@ from naver_quote import KST
 
 WEB = ROOT / "web"
 SCHEDULE = [("06:55", "아침 브리핑", "morning"), ("09:53", "오전 리포트 브리핑", "report_brief_am"),
-            ("14:53", "오후 리포트 브리핑", "report_brief_pm"), ("16:07", "감시 목록", "watchlist")]
+            ("14:53", "오후 리포트 브리핑", "report_brief_pm"), ("15:47", "마감 리뷰", "close"), ("16:07", "감시 목록", "watchlist")]
 KIND = {"morning": "아침 브리핑", "report_brief_am": "리포트 브리핑 · 오전", "report_brief_pm": "리포트 브리핑 · 오후",
-        "channels": "채널 정리"}
+        "channels": "채널 정리", "close": "마감 리뷰", "weekly": "주간 리뷰"}
 
 
 def safe(fn, default=None):
@@ -625,15 +625,49 @@ def channel_raw(allp, hours=72):
 
 
 def channel_stats(t, allp):
+    """채널 성향 30일: 글 수·분류, 여러 채널이 다룬 소식에서 '먼저 올린' 횟수와 따라 올릴 때 늦은 시간(분 중앙값), 많이 올리는 시간대."""
     since = datetime.now(KST) - timedelta(days=30)
+    ps30 = [x for x in allp if datetime.fromisoformat(x["time"]) >= since]
+    by_key = {f"{x['channel']}/{x['id']}": x for x in allp}
+    first, follow, delays = Counter(), Counter(), defaultdict(list)
+    for x in ps30:
+        if x.get("also_in") and not x.get("dup_of"):
+            first[x["channel"]] += 1
+        if x.get("dup_of"):
+            root = by_key.get(x["dup_of"])
+            if root and root["channel"] != x["channel"]:
+                follow[x["channel"]] += 1
+                delays[x["channel"]].append((datetime.fromisoformat(x["time"]) - datetime.fromisoformat(root["time"])).total_seconds() / 60)
     out = []
     for c in t.channels():
-        ps = [x for x in allp if x["channel"] == c["id"] and datetime.fromisoformat(x["time"]) >= since]
-        cnt = Counter(t.CATEGORIES[x["type"]] for x in ps if not x.get("dup_of"))
+        ps = [x for x in ps30 if x["channel"] == c["id"]]
+        own = [x for x in ps if not x.get("dup_of")]
+        cnt = Counter(t.CATEGORIES[x["type"]] for x in own)
+        hours = Counter(datetime.fromisoformat(x["time"]).hour for x in ps)
+        f, fo = first[c["id"]], follow[c["id"]]
         out.append({"id": c["id"], "description": c.get("description", ""), "posts_30d": len(ps),
                     "per_day": round(len(ps) / 30, 1), "dups": sum(1 for x in ps if x.get("dup_of")),
+                    "original_pct": round(len(own) / len(ps) * 100) if ps else None,
+                    "first": f, "follow": fo, "first_pct": round(f / (f + fo) * 100) if f + fo else None,
+                    "lag_min": round(statistics.median(delays[c["id"]])) if delays[c["id"]] else None,
+                    "peak_hours": [h for h, _ in hours.most_common(2)],
+                    "useful_pct": round(sum(1 for x in own if x["type"] in ("report", "earnings", "company")) / len(own) * 100) if own else None,
                     "top": cnt.most_common(3)})
     return out
+
+
+def calendar(allp, now):
+    """다가오는 일정: config/calendar.toml(공식 일정, 출처 포함) + 최근 3일 채널 '일정' 글."""
+    today = now.strftime("%Y-%m-%d")
+    ev = [e for e in (safe(lambda: load_toml("calendar.toml"), {}) or {}).get("events", []) if e.get("date", "") >= today]
+    for e in ev:
+        e["days"] = (datetime.strptime(e["date"], "%Y-%m-%d").date() - now.date()).days
+    ev.sort(key=lambda e: (e["date"], e.get("time", "")))
+    since = now - timedelta(days=3)
+    posts = [{"time": x["time"][:16].replace("T", " "), "channel": x["channel"], "text": re.sub(r"https?://\S+", "", x["text"]).strip()[:300], "url": x.get("url")}
+             for x in sorted(allp, key=lambda p: p["time"], reverse=True)
+             if x["type"] == "schedule" and not x.get("dup_of") and datetime.fromisoformat(x["time"]) >= since][:8]
+    return {"events": ev, "channel_posts": posts}
 
 
 def main():
@@ -682,6 +716,7 @@ def main():
         "channels": channel_feed(t, allp),
         "channel_stats": channel_stats(t, allp),
         "channel_raw": channel_raw(allp),
+        "calendar": safe(lambda: calendar(allp, now)),
         "categories": t.CATEGORIES,
         "note": "보기 전용 · 주문 기능 없음 · 채널 글은 2차 자료",
     }
@@ -747,6 +782,7 @@ def partial(part, now):
         data["channels"] = channel_feed(t, allp)
         data["channel_stats"] = channel_stats(t, allp)
         data["channel_raw"] = channel_raw(allp)
+        data["calendar"] = safe(lambda: calendar(allp, now))
         from universe import load as load_universe
         uni = {s["name"]: s for s in load_universe()["stocks"]}
         companies = {k: v for k, v in json.loads((DATA / "companies.json").read_text(encoding="utf-8")).items() if not k.startswith("_")}
