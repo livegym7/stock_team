@@ -657,17 +657,26 @@ def channel_stats(t, allp):
 
 
 def calendar(allp, now):
-    """다가오는 일정: config/calendar.toml(공식 일정, 출처 포함) + 최근 3일 채널 '일정' 글."""
-    today = now.strftime("%Y-%m-%d")
-    ev = [e for e in (safe(lambda: load_toml("calendar.toml"), {}) or {}).get("events", []) if e.get("date", "") >= today]
-    for e in ev:
+    """일정: tools/calendar_fetch.py가 모은 data/calendar/events.json(경제지표·국내 IR·미국 실적·직접 확인 일정, 하루 한 번)
+    + 최근 3일 채널 '일정' 글. 보유·관심·기업 메뉴 종목이면 표시."""
+    import calendar_fetch
+    d = safe(lambda: calendar_fetch.build(), {}) or {}
+    if not d.get("events"):
+        d = {"events": [{**e, "id": "m:" + e["date"]} for e in (safe(lambda: load_toml("calendar.toml"), {}) or {}).get("events", [])]}
+    from common import positions, watchlist
+    held = {p["code"] for p in positions()}
+    watch = {w.get("code") for w in watchlist()}
+    ev = []
+    for e in d.get("events", []):
+        e = dict(e)
         e["days"] = (datetime.strptime(e["date"], "%Y-%m-%d").date() - now.date()).days
-    ev.sort(key=lambda e: (e["date"], e.get("time", "")))
+        e["mine"] = "held" if e.get("code") in held else "watch" if e.get("code") in watch else None
+        ev.append(e)
     since = now - timedelta(days=3)
     posts = [{"time": x["time"][:16].replace("T", " "), "channel": x["channel"], "text": re.sub(r"https?://\S+", "", x["text"]).strip()[:300], "url": x.get("url")}
              for x in sorted(allp, key=lambda p: p["time"], reverse=True)
              if x["type"] == "schedule" and not x.get("dup_of") and datetime.fromisoformat(x["time"]) >= since][:8]
-    return {"events": ev, "channel_posts": posts}
+    return {"events": ev, "channel_posts": posts, "fetched_at": d.get("fetched_at"), "errors": d.get("errors", [])}
 
 
 def main():
