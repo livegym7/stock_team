@@ -1,6 +1,27 @@
 {
  "rows": [
   {
+   "name": "GS피앤엘",
+   "code": "499790",
+   "period": "2026.3Q",
+   "sales": 1661.0,
+   "sales_est": 1677.0,
+   "sales_surprise": -1.0,
+   "sales_yoy": 36.2,
+   "op": 413.0,
+   "op_est": 431.0,
+   "op_surprise": -4.2,
+   "op_yoy": 107.3,
+   "net": 281.0,
+   "net_est": 310.0,
+   "net_surprise": -9.4,
+   "net_yoy": 120.0,
+   "verdict": "부합",
+   "time": "2026-11-04 15:51",
+   "channel": "maddingStock",
+   "url": "https://t.me/maddingStock/19109"
+  },
+  {
    "name": "디지털대성",
    "code": "068930",
    "period": "2026.3Q",
