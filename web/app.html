@@ -20,7 +20,10 @@
 body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:14px;line-height:1.55}
 a{color:var(--accent)}
 .num{font-family:var(--mono);font-variant-numeric:tabular-nums}
-.up{color:var(--up)} .down{color:var(--down)} .muted{color:var(--muted)} small{font-size:12px}
+.up{color:var(--up)} .down{color:var(--down)} b.stk{font-weight:700} b.stk.own{color:var(--accent)}
+.post .pimgs{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.post .pimgs img{max-width:min(100%,420px);max-height:360px;border-radius:8px;border:1px solid var(--line);object-fit:contain;background:var(--bg)}
+.lcard{display:flex;gap:10px;margin-top:8px;padding:8px 10px;border-left:3px solid var(--accent);background:var(--bg);border-radius:6px;color:inherit;text-decoration:none;max-width:560px}.lcard:hover{background:var(--line)}.lcard div{min-width:0;flex:1}.lcard small{color:var(--accent);font-weight:600;display:block}.lcard b{display:block;font-size:13px;margin:2px 0}.lcard span{font-size:12px;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.lcard img{width:84px;height:84px;object-fit:cover;border-radius:6px;flex:none}
+.post .pmore{font-size:12px;margin-top:6px;display:inline-block} .muted{color:var(--muted)} small{font-size:12px}
 .app{display:grid;grid-template-columns:220px minmax(0,1fr);min-height:100%}
 nav.side{position:sticky;top:env(safe-area-inset-top,0px);height:100vh;border-right:1px solid var(--line);background:var(--panel);padding-block:18px;padding-left:max(14px,env(safe-area-inset-left,0px));padding-right:14px;display:flex;flex-direction:column;gap:2px}
 .brand{font-weight:700;font-size:16px;margin:0 8px 14px;letter-spacing:-.01em}
@@ -302,9 +305,16 @@ function viewBriefs(){
 }
 
 const fam=k=>{k=String(k||"");return k.startsWith("report")?"report":(k=="close"||k=="weekly")?"review":k};
-function tint(t){return esc(t).replace(/▲\s?[\d.,]+%?/g,m=>`<span class="up">${m}</span>`).replace(/▼\s?[\d.,]+%?/g,m=>`<span class="down">${m}</span>`)
+let NAME_RE=null;
+function boldNames(h){   // 종목명 굵게 (보유 종목은 강조색). 긴 이름 먼저 맞춘다
+  if(NAME_RE===null){const N=D&&D.stock_names||[];NAME_RE=N.length?new RegExp("("+N.map(n=>esc(n).replace(/[.*+?^${}()|[\]\\]/g,"\\$&")).join("|")+")","g"):false}
+  if(!NAME_RE)return h;
+  const own=new Set(((D.risk||{}).positions||[]).map(p=>p.name));
+  return h.split(/(<[^>]+>)/).map(s=>s.startsWith("<")?s:s.replace(NAME_RE,m=>`<b class="stk${own.has(m)?" own":""}">${m}</b>`)).join("");
+}
+function tint(t){return boldNames(esc(t).replace(/▲\s?[\d.,]+%?/g,m=>`<span class="up">${m}</span>`).replace(/▼\s?[\d.,]+%?/g,m=>`<span class="down">${m}</span>`)
   .replace(/(상향|호재)/g,'<span class="up">$1</span>').replace(/(하향|악재)/g,'<span class="down">$1</span>')
-  .replace(/\(\+[\d.,]+%\)/g,m=>`<span class="up">${m}</span>`).replace(/\([−-][\d.,]+%\)/g,m=>`<span class="down">${m}</span>`);}
+  .replace(/\(\+[\d.,]+%\)/g,m=>`<span class="up">${m}</span>`).replace(/\([−-][\d.,]+%\)/g,m=>`<span class="down">${m}</span>`));}
 function nowKst(){return new Date(Date.now()+9*3600e3).toISOString().slice(0,16).replace("T"," ")}
 
 /* ---------- 포트폴리오 ---------- */
@@ -353,11 +363,11 @@ function viewPortfolio(){
    <td class="num">${w(p.stop)}<br><small class="muted">${pc(p.to_stop_pct)}</small></td><td class="num">${w(p.one_r_won)}<br><small class="muted">${p.one_r_vs_account}R</small></td>
    <td class="num ${cls(p.r_multiple)}"><b>${p.r_multiple==null?"-":(p.r_multiple>0?"+":"")+p.r_multiple.toFixed(2)+"R"}</b><div class="rbar" title="−1R ~ 3R"><i style="width:${bar}%"></i></div></td>
    <td class="num">${w(p.breakeven_price_at_3r)}<br><small class="muted">${pc(p.to_3r_pct)}</small></td><td class="num">${w(p.cr_won)}</td></tr>`}).join("")}</table></div>
-  ${equityChart()}
-  ${journal()}
   <h2 style="margin-top:18px">다음 액션 · 가격별 규칙</h2>
   <div class="acts">${ps.map(p=>actionCard(p)).join("")}</div>
   ${src("규칙: 처음 손절 −8%(1R) → 3R 도달 시 50% 익절 + 남은 물량 손절가 본전(CR 0) → 이후 20일선 종가 이탈 시 나머지 매도 · 실제 주문은 증권사 앱에서 직접")}
+  ${equityChart()}
+  ${journal()}
   <div class="grid g2" style="margin-top:16px">
    <div class="panel"><h2>업종 쏠림</h2><div class="bars">${Object.entries(bySec).sort((a,b)=>b[1]-a[1]).map(([s,v])=>`<div class="bar"><span>${esc(s)}</span><div class="track"><i class="n" style="width:${v/tot*100}%;background:var(--accent)"></i></div><span class="num">${(v/tot*100).toFixed(0)}%</span></div>`).join("")}</div>
     <div class="src">보유 평가금액 기준. 한 업종에 몰려 있으면 나쁜 날 같이 빠집니다(CR이 한 번에 현실이 됨)</div></div>
@@ -680,13 +690,21 @@ function docDetail(d){
 }
 
 /* ---------- 채널 ---------- */
+function postCard(p,i){   // 텔레그램처럼: 머리줄 → 본문 → 사진 → 링크 카드
+  const imgs=p.imgs||[], n=+p.photo||0, L=p.link;
+  return `<div class="post" data-pi="${i}"><div class="meta"><span class="num">${esc(p.time)}</span><b>${esc(p.channel)}</b><span class="pill">${esc(p.type_name)}</span>${p.also_in.length?`<span class="pill ok">${p.also_in.length+1}개 채널</span>`:""}${p.stocks.map(s=>`<span class="pill">${esc(s)}</span>`).join("")}${p.views?`<small class="muted">👁 ${esc(p.views)}</small>`:""}<a href="${esc(p.url)}" target="_blank" rel="noopener">원문</a></div>
+  ${p.text?`<div class="body">${tint(p.text)}</div>`:""}
+  ${imgs.length?`<div class="pimgs">${imgs.map(d=>`<img src="${d}" alt="채널 글 사진" loading="lazy">`).join("")}</div>`:""}
+  ${n>imgs.length?`<a class="pmore" href="${esc(p.url)}" target="_blank" rel="noopener">📷 ${imgs.length?"사진 "+(n-imgs.length)+"장 더":"사진 "+n+"장"} · 원문에서 보기</a>`:""}
+  ${L?`<a class="lcard" href="${esc(L.url)}" target="_blank" rel="noopener"><div>${L.site_name?`<small>${esc(L.site_name)}</small>`:""}${L.title?`<b>${esc(L.title)}</b>`:""}${L.description?`<span>${esc(L.description)}</span>`:""}${!L.title&&!L.site_name?`<span>${esc(L.url)}</span>`:""}</div>${L.thumb?`<img src="${L.thumb}" alt="">`:""}</a>`:""}</div>`;
+}
 function viewChannels(){
   const t=ui.ct||"all", ch=ui.ch||"", P=(D.channels||[]).filter(p=>(t=="all"||p.type==t)&&(!ch||p.channel==ch));
   const cats=Object.entries(D.categories||{}).filter(([k])=>k!="other");
   return `<h1>채널</h1><div class="sub"><b>채널 글 ${esc((D.parts&&D.parts.channels)||D.built_at)} 기준</b> · 최근 72시간 · 채널 ${(D.channel_stats||[]).length}개 · 중복·잡담 제외 ${(D.channels||[]).length}개 글 · 출처: 채널(2차 자료)</div>
   <div class="chips"><button class="chip ${t=="all"?"on":""}" data-ct="all">전체</button>${cats.map(([k,n])=>`<button class="chip ${t==k?"on":""}" data-ct="${k}">${n}</button>`).join("")}</div>
   <div style="margin-bottom:12px"><label for="chSel">채널<select id="chSel"><option value="">전체 채널</option>${(D.channel_stats||[]).map(c=>`<option value="${c.id}" ${ch==c.id?"selected":""}>${c.id}</option>`).join("")}</select></label></div>
-  <div class="feed">${P.slice(0,150).map((p,i)=>`<div class="post" data-pi="${i}"><div class="meta"><span class="num">${esc(p.time)}</span><b>${esc(p.channel)}</b><span class="pill">${esc(p.type_name)}</span>${p.also_in.length?`<span class="pill ok">${p.also_in.length+1}개 채널</span>`:""}${p.photo?`<span class="pill">사진</span>`:""}${p.stocks.map(s=>`<span class="pill">${esc(s)}</span>`).join("")}<a href="${esc(p.url)}" target="_blank" rel="noopener">원문</a></div><div class="body">${esc(p.text)}</div></div>`).join("")||`<div class="empty">글 없음</div>`}</div>
+  <div class="feed">${P.slice(0,150).map((p,i)=>postCard(p,i)).join("")||`<div class="empty">글 없음</div>`}</div>
   <h2 style="margin-top:20px">채널 성향 (30일)</h2><div class="tw"><table><tr><th class="l">채널</th><th class="l">역할</th><th>하루 글</th><th title="다른 채널 글을 옮기지 않은 자기 글 비율">자기 글</th><th title="여러 채널이 다룬 소식에서 먼저 올린 비율">먼저 올림</th><th title="남이 먼저 올린 소식을 따라 올릴 때 늦은 시간(중앙값)">따라 올릴 때</th><th title="리포트·실적·기업 글 비율">기업·실적·리포트</th><th>많이 올리는 시각</th><th class="l">많은 분류</th></tr>
   ${(D.channel_stats||[]).map(c=>`<tr><td class="l"><a href="https://t.me/${c.id}" target="_blank" rel="noopener">${c.id}</a></td><td class="l" style="white-space:normal;min-width:200px">${esc(c.description)}</td><td class="num">${c.per_day}</td><td class="num">${c.original_pct??"-"}%</td><td class="num">${c.first_pct==null?"-":`<b>${c.first_pct}%</b> <small class="muted">${c.first}/${c.first+c.follow}</small>`}</td><td class="num">${c.lag_min==null?"-":c.lag_min>=120?Math.round(c.lag_min/60)+"시간":c.lag_min+"분"}</td><td class="num">${c.useful_pct??"-"}%</td><td class="num">${(c.peak_hours||[]).map(h=>h+"시").join("·")}</td><td class="l">${(c.top||[]).map(([k,v])=>`${esc(k)} ${v}`).join(" · ")}</td></tr>`).join("")}</table></div>
   ${src("먼저 올림 = 여러 채널이 같이 다룬 소식 중 이 채널이 처음 올린 비율 (속보성) · 따라 올릴 때 = 남이 먼저 올린 소식을 몇 분 늦게 올리는지 · 자기 글 = 다른 채널과 겹치지 않는 글 비율 (독자성) · 중복 판정은 글 내용·링크 기준이라 완벽하지 않습니다")}`;
@@ -898,6 +916,7 @@ document.addEventListener("input",e=>{
 });
 document.addEventListener("change",e=>{if(e.target.id=="chSel"){ui.ch=e.target.value;save();render()}if(e.target.id=="bSel"){ui.bf=e.target.value;save();render()}if(e.target.id=="cfSel"){ui.cf=e.target.value;save();render()}});
 document.addEventListener("click",e=>{const b=e.target.closest("[data-bnav]");if(!b||b.disabled)return;const o=$("#bSel");if(!o)return;const i=o.selectedIndex-parseInt(b.dataset.bnav);if(i>=0&&i<o.options.length){ui.bf=o.options[i].value;save();render()}});
-window.addEventListener("hashchange",()=>{render();window.scrollTo(0,0)});
+window.addEventListener("hashchange",()=>{if(route()!="companies"&&ui.cq){ui.cq="";save()}render();window.scrollTo(0,0)});   // 기업 검색어는 다른 메뉴로 가면 지움
+if(route()!="companies")ui.cq="";
 render();
 </script>

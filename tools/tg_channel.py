@@ -39,6 +39,11 @@ CATEGORIES = {
 BODY_RE = re.compile(r'<div class="tgme_widget_message_text[^"]*"[^>]*>(.*?)</div>', re.S)
 TIME_RE = re.compile(r'<time[^>]*datetime="([^"]+)"')
 PHOTO_RE = re.compile(r"tgme_widget_message_photo_wrap[^>]*background-image:url\('([^']+)'\)")
+# 링크 미리보기 카드 (텔레그램에 보이는 사이트명·제목·설명·썸네일)
+LINK_RE = re.compile(r'<a class="tgme_widget_message_link_preview" href="([^"]+)">(.*?)</a>', re.S)
+LINK_IMG_RE = re.compile(r"link_preview_(?:right_)?image\"[^>]*background-image:url\('([^']+)'\)")
+LINK_PART_RE = {k: re.compile(r'<div class="link_preview_%s[^"]*"[^>]*>(.*?)</div>' % k, re.S) for k in ("site_name", "title", "description")}
+VIEWS_RE = re.compile(r'tgme_widget_message_views">([^<]+)<')
 URL_RE = re.compile(r"https?://\S+")
 # ked_epic_ai 형식) 목표주가 180,000원 >> 160,000원 | 투자의견 매수-유지 | KB증권
 TARGET_RE = re.compile(r"목표주가\s*([\d,]+)원\s*>>\s*([\d,]+)원\s*\|\s*투자의견\s*([^|]+?)\s*\|\s*(\S.*)")
@@ -198,6 +203,21 @@ def fetch_page(channel, before=None):
         }
         if photos:
             post["photos"] = photos  # 텔레그램 CDN 주소 (시간이 지나면 만료될 수 있음)
+        lk = LINK_RE.search(block)
+        if lk:
+            inner = lk.group(2)
+            card = {"url": html.unescape(lk.group(1))}
+            for k, rx in LINK_PART_RE.items():
+                m = rx.search(inner)
+                if m:
+                    card[k] = to_text(m.group(1))[:300]
+            im = LINK_IMG_RE.search(inner)
+            if im:
+                card["image"] = im.group(1)
+            post["link"] = card
+        vw = VIEWS_RE.search(block)
+        if vw:
+            post["views"] = vw.group(1)
         posts.append(post)
     return posts
 
@@ -227,9 +247,11 @@ def collect(channel, max_pages=10):
         if not page:
             break
         new += [p for p in page if p["id"] > last and p["id"] not in store]
-        for p in page:  # 이미 저장된 글이면 사진 주소만 새로 고침 (CDN 주소가 만료되므로)
-            if p["id"] in store and p.get("photos"):
-                store[p["id"]]["photos"] = p["photos"]
+        for p in page:  # 이미 저장된 글이면 사진·링크 카드·조회수만 새로 고침 (CDN 주소가 만료되므로)
+            if p["id"] in store:
+                for k in ("photos", "link", "views"):
+                    if p.get(k):
+                        store[p["id"]][k] = p[k]
         oldest = min(p["id"] for p in page)
         if oldest <= last:
             break

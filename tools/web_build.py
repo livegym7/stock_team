@@ -619,16 +619,58 @@ def research(comp_list, allp):
             "trend": {c: {k: (have.get(c) or {}).get(k) for k in keep} for c in codes}}
 
 
-def channel_feed(t, allp, hours=72):
-    since = datetime.now(KST) - timedelta(hours=hours)
-    rows = []
+THUMBS = DATA / "cache" / "thumbs"
+
+
+def thumb(url, key, width):
+    """텔레그램 사진을 작게 줄여 페이지 안에 넣을 data 주소로 (웹 화면은 외부 사진 주소를 못 불러오므로).
+    한 번 받은 것은 data/cache/thumbs에 남겨 다시 받지 않는다. 사진 처리 도구(PIL)가 없거나 실패하면 None."""
+    import base64
+    import hashlib
+    f = THUMBS / (hashlib.sha1(key.encode()).hexdigest()[:16] + f"_{width}.jpg")
+    if not f.exists():
+        try:
+            from io import BytesIO
+            from PIL import Image
+            im = Image.open(BytesIO(http_get(url, timeout=15, retries=1))).convert("RGB")
+            im.thumbnail((width, width * 2))
+            THUMBS.mkdir(parents=True, exist_ok=True)
+            im.save(f, "JPEG", quality=55, optimize=True)
+        except Exception:
+            return None
+    return "data:image/jpeg;base64," + base64.b64encode(f.read_bytes()).decode()
+
+
+def channel_feed(t, allp, hours=72, img_hours=24, img_budget=180):
+    """채널 메뉴 글 목록. 최근 img_hours 시간 글은 사진·링크 썸네일을 작게 넣는다 (최대 img_budget장, 페이지 무게 때문)."""
+    now = datetime.now(KST)
+    since, img_since = now - timedelta(hours=hours), now - timedelta(hours=img_hours)
+    rows, used = [], 0
     for x in sorted(allp, key=lambda p: p["time"], reverse=True):
-        if datetime.fromisoformat(x["time"]) < since or x.get("dup_of") or x["type"] == "other":
+        tm = datetime.fromisoformat(x["time"])
+        if tm < since or x.get("dup_of") or x["type"] == "other":
             continue
+        photos, imgs = x.get("photos") or [], []
+        lk = dict(x.get("link") or {}) or None
+        if tm >= img_since:
+            for i, u in enumerate(photos[:2]):
+                if used < img_budget and (d := thumb(u, f"{x['url']}#{i}", 480)):
+                    imgs.append(d)
+                    used += 1
+            if lk and lk.get("image") and used < img_budget:
+                lk["thumb"] = thumb(lk["image"], x["url"] + "#link", 200)
+                used += bool(lk["thumb"])
+        if lk:
+            lk.pop("image", None)
+        text = x["text"] if x["text"] != "[사진]" else ""
         rows.append({"time": x["time"][:16].replace("T", " "), "channel": x["channel"], "type": x["type"],
-                     "type_name": t.CATEGORIES[x["type"]], "text": re.sub(r"https?://\S+", "", x["text"]).strip()[:700],
-                     "url": x["url"], "also_in": x.get("also_in", []), "photo": bool(x.get("photos")),
-                     "stocks": [s["name"] for s in x.get("stocks", [])][:4]})
+                     "type_name": t.CATEGORIES[x["type"]], "text": re.sub(r"https?://\S+", "", text).strip()[:900],
+                     "url": x["url"], "also_in": x.get("also_in", []), "photo": len(photos), "imgs": imgs, "link": lk,
+                     "views": x.get("views"), "stocks": [s["name"] for s in x.get("stocks", [])][:4]})
+    # 오래된 썸네일 정리 (3일)
+    for f in THUMBS.glob("*.jpg") if THUMBS.exists() else []:
+        if f.stat().st_mtime < now.timestamp() - 3 * 86400:
+            f.unlink(missing_ok=True)
     return rows
 
 
@@ -888,6 +930,7 @@ def main():
         "channels": channel_feed(t, allp),
         "channel_stats": channel_stats(t, allp),
         "channel_raw": channel_raw(allp),
+        "stock_names": safe(lambda: __import__("universe").bold_names(), []),
         "calendar": safe(lambda: calendar(allp, now)),
         "categories": t.CATEGORIES,
         "note": "보기 전용 · 주문 기능 없음 · 채널 글은 2차 자료",

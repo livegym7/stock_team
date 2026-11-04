@@ -40,15 +40,43 @@ def split_text(text, limit=LIMIT):
     return chunks
 
 
-def send(text):
+_NAME_RE = None
+
+
+def bold_html(text):
+    """종목명을 굵게 (텔레그램 HTML 모드). 종목 목록을 못 읽으면 글자만 안전하게 바꿔 돌려준다."""
+    global _NAME_RE
+    import html
+    import re
+    if _NAME_RE is None:
+        try:
+            from universe import bold_names
+            names = bold_names()
+            _NAME_RE = re.compile("|".join(re.escape(html.escape(n)) for n in names)) if names else False
+        except Exception:
+            _NAME_RE = False
+    out = html.escape(text, quote=False)
+    return _NAME_RE.sub(lambda m: f"<b>{m.group(0)}</b>", out) if _NAME_RE else out
+
+
+def send(text, bold=True):
+    """bold=True면 종목명을 굵게 보낸다 (HTML 모드). 형식 오류가 나면 그 조각은 그냥 글자로 다시 보낸다."""
     token, chat_id = require_env("TELEGRAM_BOT_TOKEN", "TELEGRAM_CHAT_ID")
     url = f"https://api.telegram.org/bot{token}/sendMessage"
-    chunks = split_text(text)
+    chunks = split_text(text, 3500 if bold else LIMIT)   # 굵게 표시 태그가 붙으므로 여유를 더 둔다
     for i, chunk in enumerate(chunks, 1):
         if len(chunks) > 1:
             chunk = f"({i}/{len(chunks)})\n" + chunk
+        body = {"chat_id": chat_id, "text": chunk, "disable_web_page_preview": True}
+        if bold:
+            body.update(text=bold_html(chunk), parse_mode="HTML")
         try:
-            res = http_post_json(url, {"chat_id": chat_id, "text": chunk, "disable_web_page_preview": True})
+            try:
+                res = http_post_json(url, body)
+            except urllib.error.HTTPError as e:
+                if not bold or e.code != 400:
+                    raise
+                res = http_post_json(url, {"chat_id": chat_id, "text": chunk, "disable_web_page_preview": True})
         except urllib.error.HTTPError as e:
             # 오류 메시지에 토큰이 섞이지 않도록 상태 코드와 텔레그램 설명만 출력
             sys.exit(f"전송 실패 (HTTP {e.code}): {e.read().decode('utf-8', 'replace')}")
