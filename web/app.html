@@ -157,6 +157,8 @@ article.idea h3{font-size:14px;margin:16px 0 6px}article.idea .opinion{white-spa
 .chain .node.hi{border-color:var(--up);background:color-mix(in srgb,var(--up) 7%,var(--panel))}.chain .node.lo{border-color:var(--down);background:color-mix(in srgb,var(--down) 6%,var(--panel))}
 .chain .nst{display:flex;flex-wrap:wrap;gap:4px}.rchip{white-space:nowrap}.chain .node{min-width:175px}.chain .nstat{font-size:12px}
 tr.me td{background:var(--accent-soft)}
+.bcheck{border:1px solid var(--line);background:var(--panel);border-radius:10px;padding:10px 12px;margin-bottom:10px;position:sticky;left:0;width:min(1000px,calc(100vw - 300px));box-sizing:border-box}.bcheck table{width:100%}.bcheck td{white-space:normal}
+@media(max-width:820px){.bcheck{width:calc(100vw - 48px)}}.bci{padding:4px 0;border-bottom:1px dashed var(--line)}.bci:last-child{border-bottom:0}
 .earn{border:1px solid var(--line);border-radius:8px;padding:8px 10px;margin-bottom:10px;font-size:13px;background:var(--soft)}
 @media(max-width:820px){.chain{flex-direction:column}.chain .arrow{transform:rotate(90deg)}}
 .etag{display:inline-block;font-size:11px;font-weight:600;padding:1px 6px;border-radius:5px;color:var(--c);background:color-mix(in srgb,var(--c) 13%,transparent);border:1px solid color-mix(in srgb,var(--c) 35%,transparent)}
@@ -435,6 +437,17 @@ async function writeBrief(kind){
 }
 
 /* ---------- 포트폴리오 ---------- */
+function journal(){
+  const T=D.trades; if(!T)return "";
+  const S=T.stats||{}, ty={buy:"🟥 매수",sell:"🟦 매도",stop:"🛡️ 손절가"};
+  return `<h2 style="margin-top:18px">📒 매매 일지 <small class="muted">기록은 Claude에게 "OO 10주 12,000에 샀어/팔았어", "OO 손절가 본전으로 올렸어"라고 말하면 됩니다</small></h2>
+  <div class="grid g4" style="margin-bottom:10px"><div class="tile"><span>끝난 거래</span><b>${S.n||0}건</b></div><div class="tile"><span>승률</span><b>${S.n?Math.round(S.win/S.n*100)+"%":"-"}</b></div>
+   <div class="tile"><span>평균 R · 합계</span><b class="${cls(S.avg_r)}">${S.avg_r==null?"-":(S.avg_r>0?"+":"")+S.avg_r+"R"}</b><small class="muted"> 합계 ${S.sum_r>0?"+":""}${S.sum_r||0}R</small></div>
+   <div class="tile"><span>실현 손익 · 규칙 지킴</span><b class="${cls(S.pnl_won)}">${w(S.pnl_won)}</b><small class="muted"> ${S.rule_ok||0}/${S.n||0}건</small></div></div>
+  ${(T.closed||[]).length?`<div class="tw"><table><tr><th class="l">종목</th><th>기간</th><th>수량·평균가</th><th>R</th><th>손익</th><th class="l">매도</th><th>규칙</th></tr>${T.closed.map(x=>`<tr><td class="l"><b>${esc(x.name)}</b>${x.setup?` <small class="muted">셋업 ${esc(x.setup)}</small>`:""}</td><td class="num">${esc(x.open.slice(5))}~${esc(x.close.slice(5))}</td><td class="num">${x.qty} · ${w(x.avg)}</td><td class="num ${cls(x.r)}"><b>${x.r==null?"-":(x.r>0?"+":"")+x.r+"R"}</b></td><td class="num ${cls(x.pnl_won)}">${w(x.pnl_won)}</td><td class="l" style="white-space:normal"><small>${x.exits.map(esc).join("<br>")}</small></td><td>${x.rule_ok?"✅":"⚠️"}</td></tr>`).join("")}</table></div>`:`<div class="empty">아직 끝난 거래가 없습니다. 팔면 여기에 R·손익·규칙 준수가 쌓입니다</div>`}
+  <details style="margin-top:8px"><summary class="muted">최근 기록 ${(T.log||[]).length}건</summary><div class="ins">${(T.log||[]).map(e=>`<div class="insrow"><b>${ty[e.type]||e.type}</b> <span class="num">${esc(e.date)}</span> ${esc(e.name)} ${e.type=="stop"?`${w(e.from)} → <b>${w(e.to)}</b>`:`${e.qty}주 @ ${w(e.price)}`}${e.r!=null?` · <b class="${cls(e.r)}">${e.r>0?"+":""}${e.r}R</b>`:""}${e.reason||e.note?` <small class="muted">${esc(e.reason||e.note)}</small>`:""}${Object.entries(e.checks||{}).filter(([k,v])=>v===false).map(([k])=>` <span class="pill warn">⚠️ ${esc(k)}</span>`).join("")}</div>`).join("")}</div></details>
+  <div class="src">R = (매도가 − 평균가) ÷ (평균가 − 처음 손절가) · 기록만 하는 기능이며 주문은 하지 않습니다 · 일지 시작 전 보유분은 매수일 확인 필요</div>`;
+}
 function viewPortfolio(){
   const r=D.risk||{}, ps=r.positions||[], comp=Object.fromEntries((D.companies||[]).map(c=>[c.code,c]));
   const bySec={};ps.forEach(p=>{const s=comp[p.code]?.sector||"기타";bySec[s]=(bySec[s]||0)+p.value_won});
@@ -450,6 +463,7 @@ function viewPortfolio(){
    <td class="num">${w(p.stop)}<br><small class="muted">${pc(p.to_stop_pct)}</small></td><td class="num">${w(p.one_r_won)}<br><small class="muted">${p.one_r_vs_account}R</small></td>
    <td class="num ${cls(p.r_multiple)}"><b>${p.r_multiple==null?"-":(p.r_multiple>0?"+":"")+p.r_multiple.toFixed(2)+"R"}</b><div class="rbar" title="−1R ~ 3R"><i style="width:${bar}%"></i></div></td>
    <td class="num">${w(p.breakeven_price_at_3r)}<br><small class="muted">${pc(p.to_3r_pct)}</small></td><td class="num">${w(p.cr_won)}</td></tr>`}).join("")}</table></div>
+  ${journal()}
   <h2 style="margin-top:18px">다음 액션 · 가격별 규칙</h2>
   <div class="acts">${ps.map(p=>actionCard(p)).join("")}</div>
   ${src("규칙: 처음 손절 −8%(1R) → 3R 도달 시 50% 익절 + 남은 물량 손절가 본전(CR 0) → 이후 20일선 종가 이탈 시 나머지 매도 · 실제 주문은 증권사 앱에서 직접")}
@@ -507,6 +521,38 @@ function calc(){
 }
 
 /* ---------- 감시 목록 ---------- */
+function buyCheck(x){
+  // 매수 전 체크리스트: 규칙(docs/rules.md) + 계좌 위험 + 일정·리포트·실적. 판단 보조일 뿐 추천이 아님
+  const L=x.levels||{}, R=D.risk||{}, entry=Math.max(L.breakout||x.close, x.close), stop=L.stop_1r||Math.round(entry*0.92);
+  const per=entry-stop, oneR=R.one_r_account_won||((D.account||{}).capital||0)*((D.account||{}).risk_per_trade||0.02), room=R.room_for_new_risk_won??oneR;
+  const q1=per>0?Math.floor(oneR/per):0, q2=per>0?Math.floor(Math.max(0,room)/per):0, qty=Math.min(q1,q2), cap=(D.account||{}).capital||1;
+  const held=(R.positions||[]).some(p=>p.code==x.code);
+  const ev=((D.calendar||{}).events||[]).filter(e=>e.code==x.code&&e.days>=0&&e.days<=10);
+  const comp=(D.companies||[]).find(c=>c.code==x.code), rev=comp&&comp.rev, ea=(D.earnings||{})[x.code], reg=(D.insights||{}).regime;
+  const isBrk=(x.setups||[]).length&&!(x.today||[]).some(t=>/포켓/.test(t));
+  const items=[
+    [x.gate_pass?"ok":"bad","관문 (돌파는 1개 미달 허용, RS·시총·거래대금 필수)",x.gate_pass?`통과 (${x.gate_score}/7)`:`부족: ${(x.missing||x.gate_miss||[]).join(", ")}`],
+    [x.ia=="동반 상승"?"ok":isBrk?"bad":"warn","업종 동반 상승 (돌파 필수)",`${esc(x.ia||"-")} · 업종 ${esc(x.group||"")} 상승 비율 ${x.ia_up_share??"-"}% · 중앙값 ${x.ia_median??"-"}%`],
+    [(x.vol_ratio||0)>=1.5?"ok":"warn","거래량 1.5배 (돌파 날)",`50일 평균 대비 ${x.vol_ratio??"-"}배 ${x.date?"("+esc(String(x.date).slice(4))+")":""}`],
+    [x.close>=(L.breakout||1e12)?"ok":"warn","종가로 기준가 위",`종가 ${w(x.close)} / 기준가 ${w(L.breakout)}`],
+    [room>=oneR?"ok":room>0?"warn":"bad","남은 위험 여유 (CR 한도 6%)",`새로 걸 수 있는 위험 ${w(room)}원 · 1R ${w(oneR)}원`],
+    [ev.length?"warn":"ok","가까운 실적·IR 일정 (10일)",ev.length?ev.map(e=>`${e.date.slice(5)} ${esc(e.name)} (D-${e.days})`).join(", ")+" — 발표 전후 변동 주의":"없음"],
+    [reg&&reg.light=="red"?"warn":"ok","시장 신호등",reg?`${esc(reg.light=="red"?"빨강":reg.light=="yellow"?"노랑":"초록")} · ${esc(reg.text||"")}`:"-"],
+    [rev?(rev.net>0?"ok":rev.net<0?"warn":"ok"):"ok","증권사 목표가 흐름 (31일)",rev?`순상향 ${rev.net>0?"+":""}${rev.net} · 평균 변경 ${pc(rev.avg_chg)}`:"리포트 없음"],
+    [ea?(ea.verdict=="쇼크"?"warn":"ok"):"ok","최근 실적",ea?`${esc(ea.period)} ${esc(ea.verdict||"")} ${ea.op_surprise!=null?pc(ea.op_surprise):""}`:"정보 없음"],
+    [held?"warn":"ok","이미 보유 중인지",held?"보유 중 — 추가 매수는 규칙상 따로 판단":"아님"],
+  ];
+  const ic={ok:"✅",warn:"⚠️",bad:"❌"}, n=items.filter(i=>i[0]=="ok").length, bad=items.filter(i=>i[0]=="bad").length;
+  return `<div class="bcheck"><b>🧾 매수 전 체크리스트</b> <span class="pill ${bad?"warn":"ok"}">${n}/${items.length} 충족${bad?` · ❌ ${bad}개`:""}</span>
+   <div class="grid g2" style="gap:10px;margin-top:6px"><div>${items.map(([st,k,v])=>`<div class="bci">${ic[st]} <b>${k}</b><br><small class="muted">${v}</small></div>`).join("")}</div>
+   <div class="panel" style="padding:10px"><b>수량 계산 (규칙 기준)</b><table style="margin-top:6px">
+    <tr><td class="l">진입가(기준가 또는 종가)</td><td class="num">${w(entry)}</td></tr><tr><td class="l">손절가 (−8%·1R)</td><td class="num">${w(stop)}</td></tr>
+    <tr><td class="l">1주당 위험</td><td class="num">${w(per)}</td></tr><tr><td class="l">1R(계좌 2%)로 살 수 있는 수량</td><td class="num">${q1}주</td></tr>
+    <tr><td class="l">남은 위험 여유로 가능한 수량</td><td class="num">${q2}주</td></tr><tr><td class="l"><b>규칙상 최대 수량</b></td><td class="num"><b>${qty}주</b></td></tr>
+    <tr><td class="l">투자 금액 · 계좌 비중</td><td class="num">${w(qty*entry)} · ${(qty*entry/cap*100).toFixed(1)}%</td></tr>
+    <tr><td class="l">3R 목표(절반 익절)</td><td class="num">${w(entry+per*3)}</td></tr></table>
+    <div class="src">❌가 있으면 규칙상 진입 조건이 아닙니다. 모두 ✅여도 매수 추천이 아니며 판단은 본인이 합니다 · 주문은 HTS에서 직접</div></div></div></div>`;
+}
 function viewWatch(){
   const W=D.watch; if(!W)return `<h1>감시 목록</h1><div class="empty">아직 감시 목록이 없습니다 (평일 16:07 생성)</div>`;
   const grp=ui.wg||"signals", rows=(W[grp]||[]);
@@ -522,7 +568,7 @@ function viewWatch(){
   ${list.map(x=>`<tr class="click" data-wd="${x.code}"><td class="l" style="white-space:normal;min-width:150px"><b>${esc(x.stock)}</b><br><small class="muted">${esc(x.group||x.sector)}</small>${grp=="candidates"&&(x.missing||[]).length?`<br><small class="warnt">부족: ${esc(x.missing.join(" · "))}</small>`:""}</td><td class="num">${w(x.close)}</td><td class="num">${x.rs}</td><td class="num">${pc(x.off_high_pct)}</td>
    <td><span class="pill">${esc(x.stage)}</span></td><td>${(x.setups||[]).join(", ")||"-"}</td><td class="num">${w(x.levels?.breakout)}</td><td class="num">${w(x.levels?.alert)}</td><td class="num">${w(x.levels?.stop_1r)}</td>
    <td class="num">${pc(x.levels?.distance_pct)}</td><td class="num">${x.base?`${x.base.days}일 · 반납 ${x.base.giveback_pct}%`:x.run_pct?`상승 ${x.run_pct}%`:"-"}</td><td class="l">${(x.today||[]).join(", ")||""}</td></tr>
-   ${ui.wd==x.code?`<tr><td colspan="12" class="l" style="white-space:normal;background:var(--soft)">관문: ${Object.entries(x.checks||{}).map(([k,v])=>`<span class="pill ${v?"ok":"warn"}">${v?"✓":"✗"} ${esc(k)}</span>`).join(" ")}<br>
+   ${ui.wd==x.code?`<tr><td colspan="12" class="l" style="white-space:normal;background:var(--soft)">${buyCheck(x)}관문: ${Object.entries(x.checks||{}).map(([k,v])=>`<span class="pill ${v?"ok":"warn"}">${v?"✓":"✗"} ${esc(k)}</span>`).join(" ")}<br>
     ${x.base?`베이스 기준일 ${esc(x.base.pivot_date)} · 깊이 ${x.base.depth_pct}% · 1stage 상승 ${x.base.stage1_pct}% · 거래량 마름 ${x.base.vol_dryup??"-"}`:""} · 20일 거래대금 ${w(x.value20_eok)}억</td></tr>`:""}`).join("")}</table></div>`:`<div class="empty">해당 종목 없음</div>`}
   ${src("기준가 = 조정 구간 고점(돌파 지점), 알림가 = 기준가 −2%, 손절가 = 기준가 −8%(1R). 화면 기록일 뿐 매수 추천이 아닙니다")}
   ${glossary(true)}`;

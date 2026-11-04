@@ -732,10 +732,11 @@ def main():
         "built_at": now.strftime("%Y-%m-%d %H:%M"),
         "market": market(not a.no_live),
         "risk": risk_now,
+        "trades": safe(lambda: __import__("trades").summary()),
         "account": load_toml("account.toml"),
         "schedule": schedule(now, brief_rows),
         "briefs": brief_rows,
-        "watch": last.get("watch") if a.only == "analysis" else watch(),
+        "watch": watch(),   # 감시 목록 파일만 읽음 (계산은 모니터링 새로고침·16:07 예약)
         "sectors_etf": None,
         "report_flow": flow,
         "companies": comp_list,
@@ -764,7 +765,7 @@ def main():
     data["refresh"] = {"owner": "livegym7", "repo": "stock_team", "workflow": "web-data.yml", "branch": "web-data", "path": "data.json"}
     data["parts"] = {**(last.get("parts") or {}), **{k: data["built_at"] for k in ("market", "risk", "channels", "insights")}}
     if a.only == "monitoring":   # 모니터링만: 분석 쪽은 지난 데이터 그대로
-        keep = {k: last.get(k) for k in ("market", "risk", "briefs", "companies", "research", "earnings", "channels", "channel_stats", "report_flow", "schedule")}
+        keep = {k: last.get(k) for k in ("market", "risk", "trades", "briefs", "companies", "research", "earnings", "channels", "channel_stats", "report_flow", "schedule")}
         hot = (last.get("insights") or {}).get("hot")
         data.update(keep)
         if isinstance(data.get("insights"), dict) and hot is not None:
