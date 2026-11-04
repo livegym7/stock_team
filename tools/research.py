@@ -61,8 +61,8 @@ def cmd_save(path):
         raise SystemExit(f"빠진 항목: {miss}")
     if d["kind"] not in KINDS:
         raise SystemExit(f"kind는 {KINDS} 중 하나")
-    if not str(d["url"]).startswith("https://drive.google.com/"):
-        raise SystemExit("url은 구글 드라이브 링크여야 합니다 (원문은 저장소에 두지 않음)")
+    if not str(d["url"]).startswith(("https://drive.google.com/", "https://stock.naver.com/research/")):
+        raise SystemExit("url은 구글 드라이브 또는 네이버 리서치 페이지 링크여야 합니다 (원문은 저장소에 두지 않음)")
     for k in ("text", "raw", "content"):   # 원문 통째 저장 방지
         d.pop(k, None)
     from universe import load

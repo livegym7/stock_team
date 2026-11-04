@@ -599,7 +599,14 @@ def research(comp_list, allp):
         b["excess"] += x["ret"] - (x.get("bench_ret") or 0)
     brokers = sorted(({"broker": v["broker"], "n": v["n"], "avg": round(v["sum"] / v["n"], 1), "win": v["win"],
                        "excess": round(v["excess"] / v["n"], 1)} for v in by_broker.values()), key=lambda x: -x["excess"])
-    return {"docs": docs, "synthesis": syn, "folders": folders, "ideas": ideas, "picks": picks, "brokers": brokers,
+    import naver_research as NR
+    cand = None
+    if safe(lambda: NR.collect(45)) is not None:   # 새 리포트만 받음 (보통 몇 초)
+        cand = safe(lambda: NR.candidates())
+    if not cand or isinstance(cand, dict) and cand.get("error"):
+        p = NR.DIR / "candidates_latest.json"
+        cand = json.loads(p.read_text(encoding="utf-8")) if p.exists() else None
+    return {"docs": docs, "synthesis": syn, "folders": folders, "ideas": ideas, "picks": picks, "brokers": brokers, "naver": cand,
             "bench": {"name": "KODEX 200", "now": bench_now},
             "trend": {c: {k: (have.get(c) or {}).get(k) for k in keep} for c in codes}}
 

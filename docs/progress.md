@@ -278,3 +278,10 @@
 - 첫 수집 8분(DART 문서), 이후 캐시. 11월: 국내 IR 111건, 미국 실적 QCOM·NVDA, 경제지표·금리 9건
 - 웹 규칙·일정: 월간 달력(분류별 색, 날짜별 개수, 날짜 클릭 → 아래 상세, 분류 켜고 끄기, ⭐ 관련 종목만), 오늘 화면 2주 목록에 분류 태그. 중요도 순(보유·관심 > 금리 > 지표 > 미국 실적 > 만기 > 국내 IR 시총 큰 순)
 - 네이버는 공개 일정 API를 못 찾음(경제지표 경로 404)
+
+## 2026-11-04 네이버 리서치 + 저녁 자동 선택
+- tools/naver_research.py: 네이버(Npay 증권) 리서치 비공개 API(stock.naver.com/api/stockSecurity/researches/v2/{company|industry|invest}, size≤50). 45일치 1,388/685/446건, data/naver_research/*.jsonl(요약 600자)
+- candidates: 규칙 점수(보유100·관심60, 목표가 ±8/15%, 의견 변경, 같은 날 여러 증권사, 실적 서프라이즈, RS 80↑, 강한 업종, 딥리서치 테마, 조회수 / 산업·전략은 내 종목 언급·강한 업종·전망성 제목, Daily·Weekly 감점), 국내종목 12(종목당 2)·산업 5·전략 3
+- pdf: attachUrl을 임시 폴더로 받아 pdftotext → 글자만 출력, 자동 삭제. research.py save가 네이버 링크 허용(file_id naver_<cat>_<nid>)
+- 웹 딥리서치 📰 오늘의 리포트 탭(후보·점수·이유·✅ 고른 것)
+- 예약: 평일 19:13 trig_01B6YRyKzNXZpRfwUvmiTLFF (네이버 후보 → Claude 3건 선택·전문 분석 → 드라이브 있으면 1~2건 → 종합·웹·텔레그램). 기존 드라이브 전용 trig_01Uey5ingxbCSxFav3HmubQ7은 일시정지(다른 세션 예약의 지시문은 여기서 못 고침)
