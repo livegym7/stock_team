@@ -697,7 +697,11 @@ function ghMsg(e){
   if(c=="not_in_manifest"||c=="approval_required")return "이 페이지에 깃허브 사용이 허용되지 않았습니다. 다시 누르고 '허용'을 선택해 주세요";
   if(c=="selection_required")return "깃허브 연결이 여러 개입니다. 위쪽 안내에서 하나를 골라 주세요";
   if(c=="tool_error")return "깃허브가 요청을 거절했습니다: "+String(e.message||"").slice(0,120);
-  return "잠시 연결이 안 됩니다. 몇 분 뒤 다시 눌러 주세요";
+  if(c=="not_granted"||c=="capability_disabled"||c=="capability_removed")return "이 화면에서는 깃허브 연결을 쓸 수 없습니다 (claude.ai 웹이나 앱에서 열어 주세요) ["+c+"]";
+  if(c=="blocked_by_policy")return "조직 정책이 이 깃허브 기능을 막고 있습니다 ["+c+"]";
+  if(c=="server_not_found")return "깃허브 연결을 찾을 수 없습니다. 설정 → 커넥터에서 GitHub를 다시 연결해 주세요 ["+c+"]";
+  if(c=="server_unavailable")return "깃허브 서버가 응답하지 않습니다. 몇 분 뒤 다시 눌러 주세요 ["+c+"]";
+  return "연결 오류 ["+(c||"알 수 없음")+"] "+String((e&&e.message)||"").slice(0,100)+" — 이 문구를 Claude에게 알려 주세요";
 }
 function doRefresh(){return new Promise(res=>doRefreshCb(res))}
 async function doRefreshCb(done){
@@ -707,8 +711,14 @@ async function doRefreshCb(done){
   const cfg=D.refresh||{owner:"livegym7",repo:"stock_team",workflow:"web-data.yml",branch:"web-data",path:"data.json"};
   RF.state="running";RF.started=Date.now();RF.msg="깃허브에 요청 보내는 중…";paintRefresh();
   const asked=new Date(Date.now()+9*3600e3-60e3).toISOString().slice(0,16).replace("T"," ");
-  try{await mcp.callTool(GH,"actions_run_trigger",{method:"run_workflow",owner:cfg.owner,repo:cfg.repo,workflow_id:cfg.workflow,ref:"main"},{cache:false})}
-  catch(e){RF.state="error";RF.msg=ghMsg(e);paintRefresh();done(false);return}
+  const run=()=>mcp.callTool(GH,"actions_run_trigger",{method:"run_workflow",owner:cfg.owner,repo:cfg.repo,workflow_id:cfg.workflow,ref:"main"},{cache:false});
+  try{await run()}
+  catch(e){
+    // 허용 창이 막 떠서 결정을 못 받은 경우(upstream_error + retryable)는 요청이 깃허브에 닿지 않았으므로 한 번만 다시 시도
+    if(e&&e.retryable&&e.code=="upstream_error"){RF.msg="깃허브 허용 확인 중… 잠시 뒤 한 번 더 시도";paintRefresh();
+      await new Promise(r=>setTimeout(r,Math.min(e.retryAfterMs||3000,15000)+Math.random()*1000));
+      try{await run()}catch(e2){RF.state="error";RF.msg=ghMsg(e2);paintRefresh();done(false);return}}
+    else{RF.state="error";RF.msg=ghMsg(e);paintRefresh();done(false);return}}
   let n=0;
   const tick=async()=>{
     n++;const min=Math.floor((Date.now()-RF.started)/60000);
