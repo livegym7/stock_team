@@ -1,6 +1,25 @@
 {
  "rows": [
   {
+   "name": "디지털대성",
+   "code": "068930",
+   "period": "2026.3Q",
+   "sales": 890.0,
+   "sales_est": 869.0,
+   "sales_surprise": 2.4,
+   "sales_yoy": 10.9,
+   "op": 275.0,
+   "op_est": 242.0,
+   "op_surprise": 13.6,
+   "op_yoy": 29.4,
+   "net": 239.0,
+   "net_yoy": 29.4,
+   "verdict": "서프라이즈",
+   "time": "2026-11-04 15:43",
+   "channel": "maddingStock",
+   "url": "https://t.me/maddingStock/19107"
+  },
+  {
    "name": "인크로스",
    "code": "216050",
    "period": null,
