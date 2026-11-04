@@ -353,9 +353,8 @@ async function writeBrief(kind){
   Object.assign(BW,{state:"data",kind,name:KNAME[kind],text:"",msg:""});ui.bk=kind;save();render();
   const age=(Date.parse(nowKst().replace(" ","T")+":00Z")-Date.parse(D.built_at.replace(" ","T")+":00Z"))/60000;
   let stale="";
-  if(age>20){BW.msg=`데이터가 ${Math.round(age)}분 전 것이라 먼저 새로 받습니다 (3~6분)`;render();
-    const ok=await doRefresh();
-    if(!ok)stale=`새 데이터를 못 받아 ${D.built_at} 데이터로 씁니다 (${RF.msg||"새로고침 실패"})`;}
+  if(age>20){
+    stale=`${D.built_at} 데이터로 씁니다. 더 새 데이터로 쓰려면 Claude에게 "새로고침해줘"라고 말한 뒤 다시 눌러 주세요`;}
   BW.state="writing";BW.msg=stale;render();
   const at=nowKst();
   try{
@@ -680,7 +679,7 @@ const RF={state:"idle",msg:"",started:null};
 const GH="GitHub";
 function refreshBox(){
   const busy=RF.state=="running";
-  return `<div class="rbox"><button id="refreshBtn" class="chip" ${busy?"disabled":""}>${busy?"⏳ 만드는 중":"↻ 새로고침"}</button>
+  return `<div class="rbox"><button id="refreshBtn" class="chip" ${busy?"disabled":""}>${busy?"⏳ 만드는 중":"↻ 새로고침 방법"}</button>
    <div><b>데이터 ${esc(D.built_at)} 기준</b>${RF.msg?`<br><span class="${RF.state=="error"?"warnt":""}">${esc(RF.msg)}</span>`:""}</div></div>`;
 }
 function paintRefresh(){document.querySelectorAll(".rslot").forEach(el=>el.innerHTML=refreshBox());const s=$("#side .built");if(s)s.innerHTML=refreshBox()+"<br>"+esc(D.note)}
@@ -703,7 +702,9 @@ function ghMsg(e){
   if(c=="server_unavailable")return "깃허브 서버가 응답하지 않습니다. 몇 분 뒤 다시 눌러 주세요 ["+c+"]";
   return "연결 오류 ["+(c||"알 수 없음")+"] "+String((e&&e.message)||"").slice(0,100)+" — 이 문구를 Claude에게 알려 주세요";
 }
-function doRefresh(){return new Promise(res=>doRefreshCb(res))}
+const REFRESH_HELP="새로고침은 Claude 대화에서 \"새로고침해줘\"(채널만은 \"채널만 새로고침\")라고 말해 주세요 · 자동 갱신 평일 07:32·09:12·10:32·15:32·16:32";
+// 깃허브 연결 방식(doRefreshCb)은 사용자 계정에 GitHub 커넥터가 없어 쓰지 않음 (2026-11-04). 버튼은 안내만 한다.
+function doRefresh(){RF.state="idle";RF.msg=REFRESH_HELP;paintRefresh();return Promise.resolve(false)}
 async function doRefreshCb(done){
   if(RF.state=="running"){done(false);return}
   const mcp=await claude.use("mcp").catch(()=>null);
