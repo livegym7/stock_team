@@ -42,7 +42,7 @@ def market(live):
     kr = safe(lambda: run("tools/naver_quote.py", "index"))
     us = safe(lambda: run("tools/us_quote.py", "price"))
     import us_quote
-    extra = {"NQ=F": ("나스닥100 선물", "future"), "EWY": ("EWY 한국 ETF", "etf")}
+    extra = {"NQ=F": ("나스닥100 선물", "future"), "EWY": ("EWY 한국 ETF", "etf"), "CL=F": ("WTI 원유", "future")}
     want = ["EWY", "^GSPC", "^IXIC", "NQ=F", "^DJI", "^SOX", "KRW=X", "^TNX", "^VIX", "CL=F"]  # 화면 순서
     got = {r["symbol"]: r for r in (us.get("results", []) if isinstance(us, dict) else []) if r.get("price") is not None}
     for sym, (name, kind) in extra.items():
@@ -91,8 +91,27 @@ def section(text, marker):
     return None
 
 
+def brief_times():
+    """보고서 파일이 처음 저장(커밋)된 한국 시각 {경로: "HH:MM"}. 예약 브리핑은 파일 이름에 시각이 없어서 커밋 시각을 쓴다."""
+    import subprocess
+    out = {}
+    try:
+        log = subprocess.run(["git", "log", "--diff-filter=A", "--name-only", "--format=@%cI", "--since=30 days ago", "--", "reports"],
+                             cwd=ROOT, capture_output=True, text=True, timeout=30).stdout
+    except Exception:
+        return out
+    cur = None
+    for line in log.splitlines():
+        if line.startswith("@"):
+            cur = datetime.fromisoformat(line[1:]).astimezone(KST).strftime("%H:%M")
+        elif line.strip() and cur:
+            out.setdefault(line.strip(), cur)
+    return out
+
+
 def briefs(days=21):
     rows = []
+    times = brief_times()
     since = (datetime.now(KST) - timedelta(days=days)).strftime("%Y-%m-%d")
     for f in sorted(glob.glob(str(ROOT / "reports" / "*" / "*.md")), reverse=True):
         p = Path(f)
@@ -101,9 +120,13 @@ def briefs(days=21):
             continue
         kind = next((k for k in KIND if p.stem.startswith(k)), "etc")
         text = p.read_text(encoding="utf-8")
-        rows.append({"date": day, "kind": kind, "kind_name": KIND.get(kind, p.stem), "file": f"reports/{day}/{p.name}",
+        rel = f"reports/{day}/{p.name}"
+        m = re.search(r"_(\d{2})(\d{2})$", p.stem)  # channels_1130 처럼 이름에 시각이 있으면 그걸 쓴다
+        tm = f"{m.group(1)}:{m.group(2)}" if m else times.get(rel) or datetime.fromtimestamp(p.stat().st_mtime, KST).strftime("%H:%M")
+        rows.append({"date": day, "time": tm, "kind": kind, "kind_name": KIND.get(kind, p.stem), "file": rel,
                      "title": text.splitlines()[0].strip() if text else p.stem, "text": text,
                      "opinion": section(text, "💡") or section(text, "🧭")})
+    rows.sort(key=lambda r: (r["date"], r["time"]), reverse=True)
     return rows
 
 
