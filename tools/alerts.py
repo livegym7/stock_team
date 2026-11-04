@@ -117,7 +117,8 @@ def check(state, now):
 
     # 감시 목록 장중 돌파·근접 (전날 16:07 감시 목록의 기준가 기준, 규칙만으로 판단)
     try:
-        out_b = breakout_watch(now, sent)
+        from common import load_toml
+        out_b = breakout_watch(now, sent) if (load_toml("features.toml") or {}).get("monitoring", True) else []   # 모니터링 중단 중엔 돌파 알림 끔
         for key, text in out_b:
             add(key, text)
     except Exception as e:

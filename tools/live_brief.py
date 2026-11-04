@@ -113,7 +113,24 @@ def prep():
     I = D.get("insights") or {}
     setups = "; ".join(f"{x['stock']} {x['status']} 기준가 {x['pivot']} 거리 {x['dist_pct']}%" for x in (I.get("setups") or [])[:5])
 
+    # 시장 온도계·수급·경제지표 (숫자 수집 결과, 시황 메뉴와 같은 값)
+    P, F, E = D.get("pulse") or {}, D.get("flows") or {}, D.get("econ") or {}
+    thermo = " / ".join(f"{m['name']} {m.get('change_pct')}% · 외국인 {m.get('foreign_eok')}억 · 기관 {m.get('institution_eok')}억 · 개인 {m.get('individual_eok')}억 · "
+                        f"오른 {m.get('up')} 내린 {m.get('down')} · 52주 신고가 {m.get('high52')} 신저가 {m.get('low52')}" for m in P.get("markets") or [])
+    inds = P.get("industries") or []
+    ind_line = ("강한 업종 " + ", ".join(f"{g['name']} {g['change_pct']}%" for g in inds[:5]) + " / 약한 업종 "
+                + ", ".join(f"{g['name']} {g['change_pct']}%" for g in inds[-5:][::-1])) if inds else "-"
+    secs = sorted(F.get("sectors") or [], key=lambda g: -abs(g["f1"] + g["i1"]))[:6]
+    flow_line = (f"({F.get('date')} 종가 기준) " + ", ".join(f"{g['group']} 외 {g['f1']}억·기 {g['i1']}억" for g in secs)) if secs else "-"
+    since_e = (now - timedelta(hours=26)).strftime("%Y-%m-%d %H:%M")
+    ev = [e for e in E.get("events") or [] if e.get("done") and e["at"] >= since_e and (e.get("importance", 0) >= 1 or e.get("forecast") is not None)]
+    econ_line = "; ".join(f"{e['flag']}{e['ko']} 실제 {e['actual']} (예상 {e['forecast']}, 이전 {e['previous']})"
+                          + {"above": " 예상 상회", "below": " 예상 하회", "inline": " 부합"}.get(e.get("surprise"), "") for e in ev) or "없음"
     common = f"""[지금 시각] {day} {hm} (한국시간) · 데이터 기준 {D.get('built_at')}
+[시장 온도계 · {P.get('at', '-')} 네이버] {thermo or '-'}
+[업종 등락] {ind_line}
+[업종 수급 큰 곳] {flow_line}
+[최근 26시간 발표된 경제지표 · TradingView] {econ_line}
 [시장 · {mk_note}] {mk_line}
 [시장 신호등] {(I.get('regime') or {}).get('text', '-')}
 [보유 종목] {pos or '없음'} · E {r.get('E_pct')}% · CR {r.get('CR_pct')}% (한도 6%)

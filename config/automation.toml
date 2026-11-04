@@ -36,7 +36,8 @@ check = "report:close"
 
 [[tasks]]
 name = "감시 목록"
-when = "평일 16:07"
+when = "평일 16:07 — 중단 중 (2026-11-04, 모니터링 잠시 중단)"
+paused = true
 due = "16:07"
 runner = "claude"
 tokens = "적음"
@@ -68,7 +69,7 @@ tokens = "적음"
 check = "web"
 
 [[tasks]]
-name = "보유 종목·감시 목록 장중 알림"
+name = "보유 종목 장중 알림 (감시 목록 돌파 알림은 중단 중)"
 when = "평일 장중 20분마다"
 due = "09:20"
 runner = "actions"

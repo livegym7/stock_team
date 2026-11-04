@@ -146,7 +146,10 @@ def schedule(now, brief_rows):
         if f.exists() and datetime.fromtimestamp(f.stat().st_mtime, KST).strftime("%H:%M") >= "16:00":
             have.add("watchlist")
     out = []
+    mon = (load_toml("features.toml") or {}).get("monitoring", True)
     for t, name, kind in SCHEDULE:
+        if kind == "watchlist" and not mon:
+            continue
         due = now.weekday() < 5 and now.strftime("%H:%M") >= t
         out.append({"time": t, "name": name, "kind": kind, "done": kind in have,
                     "state": "완료" if kind in have else ("늦음·확인 필요" if due else ("예정" if now.weekday() < 5 else "휴장"))})
@@ -675,6 +678,137 @@ def channel_feed(t, allp, hours=72, img_hours=24, img_budget=180):
     return rows
 
 
+# ---------------- 시황 분석 (2026-11-04 사용자 요청: 분석·시황 중심) ----------------
+def slim_flows(f):
+    """화면용 수급: 종목 전체 목록은 빼고 순위·업종만"""
+    return {k: v for k, v in f.items() if k != "stocks"} if isinstance(f, dict) else f
+
+
+def why_moved(pulse, allp, by_stock, flows, hours=36, n=12):
+    """많이 오르고 내린 종목에 그 종목을 다룬 채널 글·리포트·수급을 붙인다 ("왜 올랐나")."""
+    if not pulse:
+        return None
+    since = (datetime.now(KST) - timedelta(hours=hours)).isoformat()
+    posts = defaultdict(list)
+    for x in allp:
+        if x["time"] < since or x.get("dup_of") or x["type"] == "other" or x.get("digest"):
+            continue
+        for st in x.get("stocks", [])[:3]:
+            posts[st["name"]].append(x)
+    fl = {s["code"]: s for s in (flows or {}).get("stocks", [])}
+    def snip(text, name):
+        """여러 종목을 나열한 글이면 그 종목이 나오는 부분만"""
+        t = re.sub(r"https?://\S+", "", text).strip()
+        i = t.find(name)
+        if i > 60:
+            t = "… " + t[max(0, i - 10):]
+        return t[:180]
+
+    def one(m):
+        nm = m["name"]
+        # 그 종목이 주인공인 글만: 종목이 1~2개뿐이거나, 글 앞부분(80자)에 이름이 나오는 글
+        ps = [x for x in posts.get(nm, []) if len(x.get("stocks", [])) <= 2 or nm in x["text"][:80]]
+        ps.sort(key=lambda x: x["time"], reverse=True)
+        reps = [r for r in by_stock.get(m["name"], []) if r["time"] >= since[:16].replace("T", " ")]
+        f = fl.get(m["code"])
+        return {**m, "posts": [{"time": x["time"][5:16].replace("T", " "), "channel": x["channel"], "type": t_name(x["type"]),
+                                "text": snip(x["text"], nm), "url": x["url"]} for x in ps[:3]],
+                "n_posts": len(ps), "reports": [{"broker": r.get("broker"), "direction": r.get("direction"), "after": r.get("after")} for r in reps[:3]],
+                "flow": {"f1": f["f1"], "i1": f["i1"], "f_streak": f["f_streak"], "date": f["date"]} if f else None}
+    return {"at": pulse.get("at"), "up": [one(m) for m in pulse.get("movers_up", [])[:n]], "down": [one(m) for m in pulse.get("movers_down", [])[:n]]}
+
+
+def t_name(k):
+    import tg_channel
+    return tg_channel.CATEGORIES.get(k, k)
+
+
+def theme_talk(allp, flows, uni, days=5):
+    """업종별 '말 vs 주가': 채널·리포트 언급(최근 5일 vs 그 전 5일)과 실제 주가·수급을 나란히."""
+    from sector_map import custom_map
+    cmap = custom_map()
+    now = datetime.now(KST)
+    cur_s, prev_s = (now - timedelta(days=days)).isoformat(), (now - timedelta(days=days * 2)).isoformat()
+    code_of = {n: s["code"] for n, s in uni.items()}
+    talk = defaultdict(lambda: {"cur": 0, "prev": 0, "up": 0, "down": 0, "stocks": Counter()})
+    for x in allp:
+        if x["time"] < prev_s or x.get("dup_of") or x["type"] in ("other", "market", "macro", "policy", "schedule") or x.get("digest"):
+            continue
+        names = [st["name"] for st in x.get("stocks", [])][:3]
+        grps = {cmap.get(code_of.get(nm, "")) or uni.get(nm, {}).get("industry") for nm in names} - {None}
+        for g in grps:
+            t = talk[g]
+            if x["time"] >= cur_s:
+                t["cur"] += 1
+                t["up"] += x.get("direction") == "상향"
+                t["down"] += x.get("direction") == "하향"
+                for nm in names:
+                    if (cmap.get(code_of.get(nm, "")) or uni.get(nm, {}).get("industry")) == g:
+                        t["stocks"][nm] += 1
+            else:
+                t["prev"] += 1
+    sec = {g["group"]: g for g in (flows or {}).get("sectors", [])}
+    rows = []
+    for g, t in talk.items():
+        if t["cur"] + t["prev"] < 4:
+            continue
+        f = sec.get(g) or {}
+        r5, money = f.get("r5"), (f.get("f5", 0) + f.get("i5", 0)) if f else None
+        chg = (t["cur"] - t["prev"]) / max(t["prev"], 1)
+        loud = t["cur"] >= 6 and t["cur"] >= t["prev"] * 1.3
+        if r5 is None:
+            tag = ""
+        elif loud and r5 > 2 and (money or 0) > 0:
+            tag = "🔥 말·주가·수급 모두 ↑ (주도 후보)"
+        elif loud and r5 > 0:
+            tag = "📈 말과 주가 함께 ↑"
+        elif loud and r5 < -1:
+            tag = "⚠️ 말은 많은데 주가 ↓"
+        elif not loud and r5 > 4:
+            tag = "🤫 조용히 오름 (말 적음)"
+        elif t["cur"] < t["prev"] * 0.6 and r5 < 0:
+            tag = "🧊 관심 식는 중"
+        else:
+            tag = ""
+        rows.append({"group": g, "talk": t["cur"], "talk_prev": t["prev"], "talk_chg": round(chg * 100), "up": t["up"], "down": t["down"],
+                     "stocks": [n for n, _ in t["stocks"].most_common(4)], "r1": f.get("r1"), "r5": r5, "r20": f.get("r20"),
+                     "money5": money, "n": f.get("n"), "tag": tag})
+    rows.sort(key=lambda r: (not r["tag"].startswith(("🔥", "⚠️", "📈", "🤫")), -r["talk"]))
+    return {"at": now.strftime("%Y-%m-%d %H:%M"), "days": days, "rows": rows[:30],
+            "note": f"말 = 최근 {days}일 채널 글·리포트 중 그 업종 종목이 나온 글 수 (시황·매크로 글 제외, 중복 제외) · 주가·수급 = 시총 상위 300종목 기준 업종 시총가중 수익률·외국인+기관 5일 순매수(억)"}
+
+
+def consensus(allp, uni, days=30, window=90):
+    """종목별 목표가 컨센서스 추이: 날마다 '증권사별 가장 최근 목표가(90일 안)'의 평균. 증권사 2곳 이상인 종목만."""
+    from tg_channel import broker_key
+    now = datetime.now(KST)
+    since = (now - timedelta(days=days + window)).isoformat()
+    hist = defaultdict(list)   # 종목 → [(날짜, 증권사, 목표가)]
+    for x in allp:
+        if x["time"] < since or x["type"] != "report" or not x.get("stock") or not x.get("target_after") or not x.get("broker"):
+            continue
+        hist[x["stock"]].append((x["time"][:10], broker_key(x["broker"]), x["target_after"]))
+    out = {}
+    dates = [(now - timedelta(days=d)).strftime("%Y-%m-%d") for d in range(days, -1, -1)]
+    for name, rows in hist.items():
+        rows.sort()
+        series = []
+        for d in dates:
+            lo = (datetime.fromisoformat(d) - timedelta(days=window)).strftime("%Y-%m-%d")
+            latest = {}
+            for dt, b, tp in rows:
+                if lo <= dt <= d:
+                    latest[b] = tp
+            if len(latest) >= 2:
+                series.append([d, round(statistics.mean(latest.values())), len(latest)])
+        if len(series) < 2:
+            continue
+        first, last = series[0][1], series[-1][1]
+        out[name] = {"now": last, "n": series[-1][2], "chg_pct": round((last / first - 1) * 100, 1) if first else None,
+                     "series": series, "since": series[0][0]}
+    return out
+
+
 def equity(risk_now):
     """계좌 수익률 곡선: 매매 일지(data/trades) + 네이버 일봉 종가. 날마다 (실현 + 평가 손익) ÷ 계좌 원금, KODEX 200과 비교."""
     import screener as S
@@ -779,7 +913,7 @@ def automation(now, data, allp):
         run_today = bool(last and last[:10] == today)
         is_day = (wd == 4) if t.get("days") == "fri" else wd < 5
         late = is_day and hm > _plus(t.get("due", "23:59"), 40) and not run_today
-        state = "ok" if run_today else ("late" if late else ("wait" if is_day else "off"))
+        state = "off" if t.get("paused") else "ok" if run_today else ("late" if late else ("wait" if is_day else "off"))
         out.append({**t, "last": last, "detail": detail, "state": state})
     # 데이터 출처 상태
     src = []
@@ -893,9 +1027,11 @@ def main():
     now = datetime.now(KST)
     if a.only == "channels":
         return partial(a.only, now)
-    last = json.loads(LAST.read_text(encoding="utf-8")) if a.only and LAST.exists() else {}
+    last = json.loads(LAST.read_text(encoding="utf-8")) if LAST.exists() else {}
     if a.only and not last:
         raise SystemExit("지난 전체 데이터(web/last_data.json)가 없습니다. 먼저 python3 tools/web_build.py 로 전체를 만드세요")
+    if a.only == "monitoring" and not (load_toml("features.toml") or {}).get("monitoring", True):
+        raise SystemExit("모니터링이 중단 상태입니다 (config/features.toml monitoring = false)")
     if a.only == "monitoring":
         import subprocess
         # 감시 목록 다시 계산(섹터 레이더 포함). 텔레그램은 보내지 않음. 몇 분 걸림
@@ -932,11 +1068,26 @@ def main():
         "channel_stats": channel_stats(t, allp),
         "channel_raw": channel_raw(allp),
         "stock_names": safe(lambda: __import__("universe").bold_names(), []),
+        "pulse": safe(lambda: __import__("market_pulse").pulse()) if not a.no_live else last.get("pulse"),
+        "flows": safe(lambda: slim_flows(__import__("market_pulse").flows())) if not a.no_live else last.get("flows"),
+        "econ": safe(lambda: __import__("market_pulse").econ()) if not a.no_live else last.get("econ"),
         "calendar": safe(lambda: calendar(allp, now)),
         "categories": t.CATEGORIES,
         "note": "보기 전용 · 주문 기능 없음 · 채널 글은 2차 자료",
     }
-    if a.only == "analysis":
+    full_flows = safe(lambda: __import__("market_pulse").flows())   # 캐시(3시간)라 위와 같은 값
+    data["why"] = safe(lambda: why_moved(data.get("pulse"), allp, by_stock, full_flows if isinstance(full_flows, dict) and "stocks" in full_flows else None))
+    data["themes"] = safe(lambda: theme_talk(allp, full_flows if isinstance(full_flows, dict) and "sectors" in full_flows else None, uni))
+    cons = safe(lambda: consensus(allp, uni), {})
+    if isinstance(cons, dict) and "error" not in cons:
+        for c in comp_list:
+            if c["name"] in cons:
+                c["cons"] = cons[c["name"]]
+    mon = (load_toml("features.toml") or {}).get("monitoring", True)   # 모니터링 중단 중이면 감시 목록·섹터 ETF·검증실 계산을 건너뜀
+    data["features"] = {"monitoring": mon}
+    if not mon:
+        data["watch"], data["sectors_etf"] = (last or {}).get("watch") or data["watch"], (last or {}).get("sectors_etf")
+    elif a.only == "analysis":
         data["sectors_etf"] = last.get("sectors_etf")
     elif not a.no_live:
         import subprocess
@@ -944,8 +1095,8 @@ def main():
         data["sectors_etf"] = safe(lambda: json.loads(out))
     data["insights"] = safe(lambda: insights(data["watch"], data["sectors_etf"], allp, by_stock, now))
     rp = DATA / "radar" / "latest.json"
-    if a.only == "analysis":
-        data["lab"], data["radar"] = last.get("lab"), last.get("radar")
+    if a.only == "analysis" or not mon:
+        data["lab"], data["radar"] = (last or {}).get("lab"), (last or {}).get("radar")
     else:
         data["lab"] = lab(data, now)
         data["radar"] = safe(lambda: json.loads(rp.read_text(encoding="utf-8"))) if rp.exists() else None
@@ -953,7 +1104,7 @@ def main():
     data["parts"] = {**(last.get("parts") or {}), **{k: data["built_at"] for k in ("market", "risk", "channels", "insights")}}
     data["automation"] = safe(lambda: automation(now, data, allp))
     if a.only == "monitoring":   # 모니터링만: 분석 쪽은 지난 데이터 그대로
-        keep = {k: last.get(k) for k in ("market", "risk", "trades", "equity", "briefs", "companies", "research", "earnings", "channels", "channel_stats", "report_flow", "schedule")}
+        keep = {k: last.get(k) for k in ("market", "risk", "trades", "equity", "briefs", "companies", "research", "earnings", "channels", "channel_stats", "report_flow", "schedule", "pulse", "flows", "econ", "why", "themes")}
         hot = (last.get("insights") or {}).get("hot")
         data.update(keep)
         if isinstance(data.get("insights"), dict) and hot is not None:
@@ -1008,6 +1159,10 @@ def partial(part, now):
         by_stock, flow = report_rows(t, allp, companies, uni)
         data["report_flow"] = flow
         data["companies"] = build_companies(allp, uni, companies, by_stock, fetch_limit=0)
+        cons = safe(lambda: consensus(allp, uni), {})
+        for c in data["companies"]:
+            if isinstance(cons, dict) and c["name"] in cons:
+                c["cons"] = cons[c["name"]]
         data["earnings"] = safe(lambda: earnings_map())
         ins = data.get("insights") or {}
         fresh = safe(lambda: insights({}, None, allp, by_stock, now))   # 특징주만 새로 (셋업·섹터는 그대로)
