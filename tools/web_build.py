@@ -384,7 +384,7 @@ def report_rows(t, allp, companies, uni):
     return by_stock, flow
 
 
-def company_trends(comp_list, allp):
+def company_trends(comp_list, allp, fetch_limit=10):
     """기업 메뉴용: 강도(RS 백분위)와 그 추이, 가격 흐름, 중요도 점수. 일봉은 감시 목록 캐시 재사용."""
     import screener as S
     from common import CACHE, positions, watchlist
@@ -426,8 +426,11 @@ def company_trends(comp_list, allp):
         rows = None
         if code in closes:
             rows = json.loads((CACHE / "daily" / f"{code}.json").read_text())["rows"]
-        else:
+        elif fetch_limit > 0:   # 캐시에 없는 종목(주로 시총 2천억 미만)은 몇 개만 새로 받는다
+            fetch_limit -= 1
             rows = safe(lambda: S.fetch_daily(code)) or []
+        else:
+            rows = []
         cl = [r["close"] for r in rows]
         tr = {"held": code in held, "watch": code in watch, "mentions_7d": mention[code]}
         if len(cl) >= 30:
@@ -444,9 +447,9 @@ def company_trends(comp_list, allp):
                        "above20": m20 and cl[-1] > m20, "above50": m50 and cl[-1] > m50,
                        "rs": rs_now, "rs_chg4w": (rs_now - rs_4w) if rs_now is not None and rs_4w is not None else None,
                        "rs_hist": [h["rs"] for h in rs_hist][::-1],
-                       "chart": {"d": [r["date"] for r in last], "c": [r["close"] for r in last],
-                                 "ma20": [round(sum(cl[i - 19:i + 1]) / 20) if i >= 19 else None for i in range(len(cl) - len(last), len(cl))],
-                                 "ma50": [round(sum(cl[i - 49:i + 1]) / 50) if i >= 49 else None for i in range(len(cl) - len(last), len(cl))]},
+                       # 차트는 카드·보유·관심·리포트 2건↑ 종목만 (데이터 크기). 이동평균은 화면에서 계산하도록 50일 더 보냄
+                       "chart": {"d0": last[0]["date"][:4], "d": [r["date"][4:] for r in last], "c": [round(x) for x in cl[-(len(last) + 49):]]}
+                       if (c.get("card", True) or tr["held"] or tr["watch"] or c["n_reports"] >= 2) else None,
                        "spark": [round(x) for x in cl[-60:]]})
         # 중요도: 보유 40 · 관심 20 · 1개월 리포트(최대 30) · 7일 채널 언급(최대 20) · 목표가 변경 쏠림(최대 10)
         net = c["up"] - c["down"]
@@ -463,6 +466,34 @@ def company_trends(comp_list, allp):
                                          for c in comp_list if c["trend"].get("rs") is not None}, ensure_ascii=False), encoding="utf-8")
     return comp_list
 
+
+
+def build_companies(allp, uni, companies, by_stock, fetch_limit=10):
+    """기업 메뉴: 기업 카드가 있는 종목 + 최근 31일 채널 리포트가 있는 모든 종목.
+    카드가 없는 종목은 업종(사용자 분류 → 네이버)만 붙이고 사업 한 줄은 비워 둔다 (리포트 브리핑 때 Claude가 카드를 채움)."""
+    from sector_map import custom_map
+    cmap = custom_map()
+    out = {}
+    names = {c["name"]: code for code, c in companies.items()}
+    for name in set(names) | set(by_stock):
+        code = names.get(name) or uni.get(name, {}).get("code")
+        if not code or code in out:
+            continue
+        rs = by_stock.get(name, [])
+        card = companies.get(code)
+        u = uni.get(name, {})
+        grp = cmap.get(code) or u.get("industry") or "기타"
+        base = {**card, "card": True} if card else {"name": name, "sector": grp, "detail": grp, "sub_sectors": [],
+                                                      "one_liner": "", "card": False, "sources": []}
+        afters = [r["after"] for r in rs if r.get("after")]
+        out[code] = {**base, "code": code, "market_cap_eok": u.get("market_cap_eok"),
+                     "reports": [{**r, "points": [x[:180] for x in r.get("points", [])][:3 if card else 2]} for r in rs[-(8 if card else 4):][::-1]],
+                     "n_reports": len(rs), "_all_reports": rs,
+                     "last_report": rs[-1]["time"] if rs else None,
+                     "up": sum(r.get("direction") == "상향" for r in rs), "down": sum(r.get("direction") == "하향" for r in rs),
+                     "median_target": statistics.median(afters) if afters else None}
+    comp_list = sorted(out.values(), key=lambda c: -c["n_reports"])
+    return safe(lambda: company_trends(comp_list, allp, fetch_limit)) or [{k: v for k, v in c.items() if k != "_all_reports"} for c in comp_list]
 
 
 def channel_feed(t, allp, hours=72):
@@ -502,22 +533,15 @@ def main():
     from universe import load as load_universe
     uni = {s["name"]: s for s in load_universe()["stocks"]}
     companies = {k: v for k, v in json.loads((DATA / "companies.json").read_text(encoding="utf-8")).items() if not k.startswith("_")}
+    import tg_channel
+    collected = safe(lambda: tg_channel.collect_all())   # 브리핑 이후 올라온 리포트도 기업 메뉴에 바로 반영
     t, allp = tg_data()
     by_stock, flow = report_rows(t, allp, companies, uni)
     brief_rows = briefs()
 
     import risk
     risk_now = safe(lambda: risk.evaluate()) if not a.no_live else safe(lambda: risk.evaluate(prices={}))
-    comp_list = []
-    for code, c in companies.items():
-        rs = by_stock.get(c["name"], [])
-        afters = [r["after"] for r in rs if r.get("after")]
-        comp_list.append({**c, "code": code, "market_cap_eok": uni.get(c["name"], {}).get("market_cap_eok"),
-                          "reports": rs[-8:][::-1], "n_reports": len(rs), "_all_reports": rs,
-                          "up": sum(r.get("direction") == "상향" for r in rs), "down": sum(r.get("direction") == "하향" for r in rs),
-                          "median_target": statistics.median(afters) if afters else None})
-    comp_list.sort(key=lambda c: -c["n_reports"])
-    comp_list = safe(lambda: company_trends(comp_list, allp)) or [{k: v for k, v in c.items() if k != "_all_reports"} for c in comp_list]
+    comp_list = build_companies(allp, uni, companies, by_stock)
 
     data = {
         "built_at": now.strftime("%Y-%m-%d %H:%M"),
@@ -585,6 +609,7 @@ def partial(part, now):
         companies = {k: v for k, v in json.loads((DATA / "companies.json").read_text(encoding="utf-8")).items() if not k.startswith("_")}
         by_stock, flow = report_rows(t, allp, companies, uni)
         data["report_flow"] = flow
+        data["companies"] = build_companies(allp, uni, companies, by_stock, fetch_limit=0)
         ins = data.get("insights") or {}
         fresh = safe(lambda: insights({}, None, allp, by_stock, now))   # 특징주만 새로 (셋업·섹터는 그대로)
         if isinstance(fresh, dict) and "hot" in fresh:
