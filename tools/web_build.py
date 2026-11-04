@@ -1131,6 +1131,11 @@ LAST = WEB / "last_data.json"   # 마지막 전체 데이터 (부분 새로고�
 
 
 def write_html(data):
+    # 전략 보고서: 실제 보고서(latest.json)가 있으면 그것, 없으면 형식 보기용 예시(sample.json)
+    for f in (DATA / "strategy" / "latest.json", DATA / "strategy" / "sample.json"):
+        if f.exists():
+            data["strategy"] = json.loads(f.read_text(encoding="utf-8"))
+            break
     WEB.mkdir(exist_ok=True)
     LAST.write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
     tpl = (WEB / "app.html").read_text(encoding="utf-8")

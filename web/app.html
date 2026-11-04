@@ -25,7 +25,10 @@ a{color:var(--accent)}
 .adbar{display:flex;height:10px;border-radius:5px;overflow:hidden;background:var(--line);margin:4px 0}.adbar i{display:block;height:100%}
 .heat{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:4px}.heat div{border-radius:6px;padding:6px 7px;font-size:12px;line-height:1.3;color:#111;min-height:44px}.heat b{display:block;font-size:13px}
 .why{display:grid;gap:8px}.why .wrow{border:1px solid var(--line);border-radius:8px;padding:8px 10px;background:var(--panel)}.why .wh{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}.why .wp{font-size:12.5px;margin-top:4px;color:var(--text)}.why .wp a{color:var(--muted);font-size:11.5px}
-.ev td.l{white-space:normal} b.stk.own{color:var(--accent)}
+.ev td.l{white-space:normal}
+.stg{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;font-size:12px}.stg i{font-style:normal;padding:2px 9px;color:var(--muted)}.stg i.on{background:var(--accent);color:#fff;font-weight:700}
+.chain{display:flex;flex-wrap:wrap;align-items:stretch;gap:6px}.chain .arr{align-self:center;color:var(--muted);font-weight:700}.chain .node{border:2px solid var(--accent);border-radius:8px;padding:6px 10px;background:var(--panel);max-width:190px}.chain .node.hyp{border-style:dashed;border-color:var(--muted)}.chain .node small{display:block;color:var(--muted);font-size:11.5px}
+.g3{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))} b.stk.own{color:var(--accent)}
 .post .pimgs{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.post .pimgs img{max-width:min(100%,420px);max-height:360px;border-radius:8px;border:1px solid var(--line);object-fit:contain;background:var(--bg)}
 .lcard{display:flex;gap:10px;margin-top:8px;padding:8px 10px;border-left:3px solid var(--accent);background:var(--bg);border-radius:6px;color:inherit;text-decoration:none;max-width:560px}.lcard:hover{background:var(--line)}.lcard div{min-width:0;flex:1}.lcard small{color:var(--accent);font-weight:600;display:block}.lcard b{display:block;font-size:13px;margin:2px 0}.lcard span{font-size:12px;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.lcard img{width:84px;height:84px;object-fit:cover;border-radius:6px;flex:none}
 .post .pmore{font-size:12px;margin-top:6px;display:inline-block} .muted{color:var(--muted)} small{font-size:12px}
@@ -189,8 +192,8 @@ tr.me td{background:var(--accent-soft)}
 let D = /*__DATA__*/null;
 /* 새로고침으로 받은 더 최신 데이터가 이 브라우저에 있으면 그걸 쓴다 */
 try{const c=JSON.parse(localStorage.getItem("tr-data")||"null");if(c&&D&&c.built_at>D.built_at)D=c}catch(e){}
-const MENU=[["home","오늘","◎"],["market","시황","◐"],["briefs","브리핑","≡"],["portfolio","포트폴리오","₩"],["companies","기업","□"],["research","딥리서치","◆"],["channels","채널","✉"],["sectors","섹터","▤"],["watch","감시 목록","◇"],["lab","검증실","△"],["config","규칙·일정","⚙"]];
-const GROUPS_ALL=[["분석","analysis",["home","market","briefs","portfolio","companies","research","channels"]],["모니터링","monitoring",["sectors","watch","lab"]],["기타",null,["config"]]];
+const MENU=[["home","오늘","◎"],["strategy","전략 보고서","◐"],["briefs","브리핑","≡"],["portfolio","포트폴리오","₩"],["companies","기업","□"],["research","딥리서치","◆"],["channels","채널","✉"],["sectors","섹터","▤"],["watch","감시 목록","◇"],["lab","검증실","△"],["config","규칙·일정","⚙"]];
+const GROUPS_ALL=[["분석","analysis",["home","strategy","briefs","portfolio","companies","research","channels"]],["모니터링","monitoring",["sectors","watch","lab"]],["기타",null,["config"]]];
 // 모니터링 중단 중(config/features.toml)이면 모니터링 메뉴를 숨긴다
 const MON_OFF=!!(D&&D.features&&D.features.monitoring===false);
 const GROUPS=GROUPS_ALL.filter(g=>g[1]!="monitoring"||!MON_OFF);
@@ -278,7 +281,7 @@ function insightBlock(){
    <div class="panel"><h3>채널 특징주 · 24시간</h3>
     ${hot.length?`<div class="ins">${hot.map(h=>`<div class="insrow click" data-cq="${esc(h.stock)}"><div class="ihead"><b>${esc(h.stock)}</b><small class="muted">글 ${h.posts} · 채널 ${h.channels}</small>${h.up||h.down?`<span class="pill"><span class="up">상향 ${h.up}</span> / <span class="down">하향 ${h.down}</span></span>`:""}</div><div class="muted" style="font-size:12.5px">${esc(h.headline||"")}</div></div>`).join("")}</div>`:`<div class="empty">해당 없음</div>`}
     <div class="src">여러 채널·여러 글이 다룬 종목 순 (시황 나열 글 제외) · 출처: 채널(2차 자료)</div></div>
-   ${MON_OFF?`<div class="panel"><h3>🗣️ 말 vs 주가 · 눈여겨볼 업종 <a class="pill" href="#market">자세히</a></h3><div class="ins">${((D.themes||{}).rows||[]).filter(r=>r.tag).slice(0,6).map(r=>`<div class="insrow"><b>${esc(r.group)}</b> <small class="muted">언급 ${r.talk}(${r.talk_prev}) · 5일 <span class="${cls(r.r5)}">${pc(r.r5)}</span></small><br><small>${esc(r.tag)}</small></div>`).join("")||'<div class="muted">-</div>'}</div></div>`:`<div class="panel"><h3>섹터 · 주도 섹터 레이더 상위 3</h3>${(D.radar?.groups||[]).slice(0,3).map(x=>`<div class="bar" data-go="sectors" style="cursor:pointer"><span><b>${esc(x.group)}</b>${(D.radar.confirmed||[]).includes(x.group)?' <span class="pill ok">주도</span>':""}</span><div class="track"><i style="width:${x.score}%;background:var(--accent)"></i></div><span class="num">${x.score}</span></div>`).join("")||'<div class="muted">레이더 데이터 없음</div>'}
+   ${MON_OFF?`<div class="panel"><h3>🗣️ 말 vs 주가 · 눈여겨볼 업종</h3><div class="ins">${((D.themes||{}).rows||[]).filter(r=>r.tag).slice(0,6).map(r=>`<div class="insrow"><b>${esc(r.group)}</b> <small class="muted">언급 ${r.talk}(${r.talk_prev}) · 5일 <span class="${cls(r.r5)}">${pc(r.r5)}</span></small><br><small>${esc(r.tag)}</small></div>`).join("")||'<div class="muted">-</div>'}</div></div>`:`<div class="panel"><h3>섹터 · 주도 섹터 레이더 상위 3</h3>${(D.radar?.groups||[]).slice(0,3).map(x=>`<div class="bar" data-go="sectors" style="cursor:pointer"><span><b>${esc(x.group)}</b>${(D.radar.confirmed||[]).includes(x.group)?' <span class="pill ok">주도</span>':""}</span><div class="track"><i style="width:${x.score}%;background:var(--accent)"></i></div><span class="num">${x.score}</span></div>`).join("")||'<div class="muted">레이더 데이터 없음</div>'}
     <div class="src" style="margin-bottom:10px">${(D.radar?.confirmed||[]).length?"확정 주도 섹터: "+esc(D.radar.confirmed.join(", ")):"확정된 주도 섹터 없음 — 섹터 메뉴에서 보고 정해 주세요"}</div>
     <h3>섹터 ETF · 1주 강한 곳 / 약한 곳</h3>
     <div class="bars">${(I.sectors_up||[]).map(x=>`<div class="bar"><span>${esc(x.sector)}</span><div class="track"><i class="u" style="width:${Math.min(100,Math.abs(x.r1w)*8)}%"></i></div><span class="num up">${pc(x.r1w)}</span></div>`).join("")}
@@ -288,7 +291,6 @@ function insightBlock(){
 }
 /* ---------- 시황 (분석·시황 중심, 2026-11-04) ---------- */
 const eok=n=>n==null?"-":`<span class="${cls(n)}">${n>0?"+":""}${Math.round(n).toLocaleString("ko-KR")}억</span>`;
-function heatColor(v){if(v==null)return "var(--line)";const a=Math.min(1,Math.abs(v)/5);return v>=0?`rgba(229,57,53,${0.12+a*0.6})`:`rgba(30,136,229,${0.12+a*0.6})`}
 function thermoCards(compact){
   const P=D.pulse; if(!P||!P.markets)return `<div class="empty">시장 온도계 데이터가 없습니다 (다음 새로고침 때 생깁니다)</div>`;
   return `<div class="thermo">${P.markets.map(m=>{const tot=(m.up||0)+(m.down||0)+(m.flat||0)||1;
@@ -305,43 +307,46 @@ function whyRow(x){
    ${(x.reports||[]).map(r=>`<span class="pill">${r.direction=="상향"?"🔺":r.direction=="하향"?"🔽":"➖"} ${esc(r.broker||"")} ${r.after?w(r.after):""}</span>`).join("")}</div>
    ${(x.posts||[]).length?x.posts.slice(0,2).map(p=>`<div class="wp">· ${tint(p.text)} <a href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.time)} ${esc(p.channel)}</a></div>`).join(""):`<div class="wp muted">· 채널·리포트 언급 없음 (36시간) — 뉴스·공시를 직접 확인해 보세요</div>`}</div>`;
 }
-function flowTable(list,key,title){
-  return `<div class="panel"><h3>${title}</h3><div class="tw"><table><tr><th class="l">종목</th><th>오늘</th><th>5일</th><th>연속</th><th>1일 등락</th></tr>${(list||[]).slice(0,10).map(x=>`<tr class="click" data-cq="${esc(x.name)}"><td class="l"><b>${esc(x.name)}</b><br><small class="muted">${esc(x.group)}</small></td><td class="num">${eok(x[key+"1"])}</td><td class="num">${eok(x[key+"5"])}</td><td class="num">${x[key+"_streak"]>0?`<span class="up">${x[key+"_streak"]}일 매수</span>`:x[key+"_streak"]<0?`<span class="down">${-x[key+"_streak"]}일 매도</span>`:"-"}</td><td class="num ${cls(x.r1)}">${pc(x.r1)}</td></tr>`).join("")}</table></div></div>`;
-}
-function econTable(){
-  const E=D.econ; if(!E||!E.events)return `<div class="empty">경제지표 데이터 없음</div>`;
-  const fm=(v,e)=>v==null?"-":`${v}${e.unit&&e.unit!="None"?e.unit:""}${e.scale||""}`;
-  const done=E.events.filter(e=>e.done).slice(-14).reverse(), next=E.events.filter(e=>!e.done&&e.importance>=1).slice(0,10);
-  const row=e=>`<tr><td class="num">${esc(e.at.slice(5))}</td><td class="l">${e.flag} <b>${esc(e.ko)}</b>${e.ko!=e.title?` <small class="muted">${esc(e.title)}</small>`:""}${e.importance>=1?' <span class="pill">중요</span>':""}</td><td class="num"><b>${fm(e.actual,e)}</b></td><td class="num">${fm(e.forecast,e)}</td><td class="num">${fm(e.previous,e)}</td><td>${e.surprise=="above"?'<span class="up">▲ 예상 상회</span>':e.surprise=="below"?'<span class="down">▼ 예상 하회</span>':e.surprise=="inline"?"= 예상 부합":"-"}</td></tr>`;
-  return `<div class="grid g2"><div class="panel"><h3>✅ 최근 발표 결과</h3><div class="tw"><table class="ev"><tr><th>시각</th><th class="l">지표</th><th>실제</th><th>예상</th><th>이전</th><th>결과</th></tr>${done.map(row).join("")}</table></div></div>
-   <div class="panel"><h3>⏳ 다가오는 중요 지표 (7일)</h3><div class="tw"><table class="ev"><tr><th>시각</th><th class="l">지표</th><th>실제</th><th>예상</th><th>이전</th><th></th></tr>${next.map(row).join("")||'<tr><td colspan="6" class="muted">없음</td></tr>'}</table></div></div></div>
-   ${src(E.source+" · "+E.at+" 수집 · 시각은 한국시간 · '상회'가 늘 호재는 아님 (물가 상회 = 금리 부담)")}`;
-}
-function viewMarket(){
-  const P=D.pulse||{}, F=D.flows||{}, T=D.themes||{}, Y=D.why||{};
-  const ind=(P.industries||[]);
-  return `<h1>시황</h1><div class="sub">시장 전체 숫자 · 업종 · 왜 움직였나 · 수급 · 말 vs 주가 · 경제지표 — 모두 숫자 수집(Claude 사용량 0) · 평일 매시간 갱신</div>
-  <h2>🌡️ 시장 온도계</h2>${thermoCards(false)}
-  <h2 style="margin-top:18px">🗺️ 업종 지도 <small class="muted">네이버 업종 ${ind.length}개 · 오늘 등락률 (빨강 상승 · 파랑 하락)</small></h2>
-  <div class="heat">${ind.map(g=>`<div style="background:${heatColor(g.change_pct)}" title="${esc(g.name)} · 오른 ${g.up} / 내린 ${g.down} / 전체 ${g.n}"><b>${esc(g.name)}</b>${pc(g.change_pct,2)} <small>${g.up}↑${g.down}↓</small></div>`).join("")}</div>
-  <div class="grid g2" style="margin-top:12px"><div class="panel"><h3>🔺 강한 테마</h3><div class="bars">${(P.themes_up||[]).slice(0,10).map(t=>`<div class="bar"><span>${esc(t.name)}</span><div class="track"><i class="u" style="width:${Math.min(100,Math.abs(t.change_pct)*10)}%"></i></div><span class="num up">${pc(t.change_pct,2)}</span></div>`).join("")}</div></div>
-   <div class="panel"><h3>🔽 약한 테마</h3><div class="bars">${(P.themes_down||[]).slice(0,10).map(t=>`<div class="bar"><span>${esc(t.name)}</span><div class="track"><i class="d" style="width:${Math.min(100,Math.abs(t.change_pct)*10)}%"></i></div><span class="num down">${pc(t.change_pct,2)}</span></div>`).join("")}</div></div></div>
-  ${src("테마는 종목 4개 이상인 네이버 테마만 · "+(P.at||""))}
-  <h2 style="margin-top:18px">🔎 왜 올랐나 · 왜 내렸나 <small class="muted">시총 1천억↑ 상승·하락 상위 + 그 종목을 다룬 채널 글(36시간)·리포트·수급</small></h2>
-  <div class="grid g2"><div><h3 class="up">▲ 상승 상위</h3><div class="why">${(Y.up||[]).map(whyRow).join("")||'<div class="muted">-</div>'}</div></div><div><h3 class="down">▼ 하락 상위</h3><div class="why">${(Y.down||[]).map(whyRow).join("")||'<div class="muted">-</div>'}</div></div></div>
-  ${src("채널 글은 2차 자료 · 종목명을 누르면 기업 메뉴로")}
-  <h2 style="margin-top:18px">💰 수급 추적 <small class="muted">시총 상위 ${F.n||300}종목 · ${F.date?esc(F.date.slice(4,6)+"/"+F.date.slice(6)):""} 장 마감 기준 (종목별 투자자 동향은 저녁에 확정)</small></h2>
-  <div class="grid g2">${flowTable(F.foreign_buy,"f","외국인 순매수 상위")}${flowTable(F.foreign_sell,"f","외국인 순매도 상위")}${flowTable(F.inst_buy,"i","기관 순매수 상위")}${flowTable(F.inst_sell,"i","기관 순매도 상위")}</div>
-  <div class="grid g2" style="margin-top:12px"><div class="panel"><h3>🤝 외국인·기관 동반 순매수</h3><div class="ins">${(F.both_buy||[]).map(x=>`<div class="insrow click" data-cq="${esc(x.name)}"><b>${esc(x.name)}</b> <small class="muted">${esc(x.group)}</small> 외 ${eok(x.f1)} · 기 ${eok(x.i1)} <span class="${cls(x.r1)}">${pc(x.r1)}</span></div>`).join("")||'<div class="muted">-</div>'}</div></div>
-   <div class="panel"><h3>📆 연속 순매수 (3일↑)</h3><div class="ins">${(F.f_streak||[]).slice(0,8).map(x=>`<div class="insrow click" data-cq="${esc(x.name)}"><span class="pill">외국인 ${x.f_streak}일</span> <b>${esc(x.name)}</b> <small class="muted">5일 ${eok(x.f5)}</small></div>`).join("")}${(F.i_streak||[]).slice(0,8).map(x=>`<div class="insrow click" data-cq="${esc(x.name)}"><span class="pill ok">기관 ${x.i_streak}일</span> <b>${esc(x.name)}</b> <small class="muted">5일 ${eok(x.i5)}</small></div>`).join("")||""}</div></div></div>
-  <h3 style="margin-top:12px">업종별 수급·수익률 <small class="muted">외국인+기관 오늘 금액이 큰 순 (사든 팔든)</small></h3><div class="tw"><table><tr><th class="l">업종</th><th>종목</th><th>외국인 오늘</th><th>기관 오늘</th><th>외+기 5일</th><th>1일</th><th>5일</th><th>20일</th><th class="l">대표 종목</th></tr>
-   ${(F.sectors||[]).slice().sort((a,b)=>Math.abs(b.f1+b.i1)-Math.abs(a.f1+a.i1)).slice(0,25).map(g=>`<tr><td class="l"><b>${esc(g.group)}</b></td><td class="num">${g.n}</td><td class="num">${eok(g.f1)}</td><td class="num">${eok(g.i1)}</td><td class="num">${eok(g.f5+g.i5)}</td><td class="num ${cls(g.r1)}">${pc(g.r1)}</td><td class="num ${cls(g.r5)}">${pc(g.r5)}</td><td class="num ${cls(g.r20)}">${pc(g.r20)}</td><td class="l"><small>${esc((g.names||[]).join(", "))}</small></td></tr>`).join("")}</table></div>
-  ${src((F.source||"")+" · 업종 = 사용자 분류(없으면 네이버 업종) · 수익률은 시총가중")}
-  <h2 style="margin-top:18px">🗣️ 말 vs 주가 <small class="muted">최근 ${T.days||5}일 채널·리포트 언급과 실제 주가·수급</small></h2>
-  <div class="tw"><table><tr><th class="l">업종</th><th>언급 (전 5일)</th><th>리포트</th><th>5일 수익률</th><th>20일</th><th>외+기 5일</th><th class="l">판단</th><th class="l">많이 나온 종목</th></tr>
-   ${(T.rows||[]).map(r=>`<tr><td class="l"><b>${esc(r.group)}</b></td><td class="num"><b>${r.talk}</b> <small class="muted">(${r.talk_prev}) ${r.talk_chg>0?"+":""}${r.talk_chg}%</small></td><td class="num"><span class="up">🔺${r.up}</span> <span class="down">🔽${r.down}</span></td><td class="num ${cls(r.r5)}">${pc(r.r5)}</td><td class="num ${cls(r.r20)}">${pc(r.r20)}</td><td class="num">${eok(r.money5)}</td><td class="l">${esc(r.tag||"")}</td><td class="l"><small>${esc((r.stocks||[]).join(", "))}</small></td></tr>`).join("")}</table></div>
-  ${src((T.note||"")+" · 수익률·수급은 "+(F.date||"")+" 종가 기준 · 판단 표시는 규칙으로 붙인 참고용")}
-  <h2 style="margin-top:18px">📊 경제지표 결과</h2>${econTable()}`;
+/* ---------- 전략 보고서 (주도 섹터·시대 테마, 에이전트 팀 종합) ---------- */
+const STAGES=["초기","확산","과열","소멸"];
+function stageBar(st){return `<span class="stg">${STAGES.map(x=>`<i class="${x==st?"on":""}">${x}</i>`).join("")}</span>`}
+const ARW={"↑":'<span class="up">↑</span>',"↓":'<span class="down">↓</span>',"→":'<span class="muted">→</span>'};
+function viewStrategy(){
+  const R=D.strategy;
+  if(!R)return `<h1>전략 보고서</h1><div class="empty">아직 보고서가 없습니다. Claude에게 "전략 보고서 써줘"라고 요청하세요</div>`;
+  const tagT={"채널":"pill","리포트":"pill ok","원문":"pill ok","데이터":"pill"};
+  return `<h1>전략 보고서 ${R.sample?'<span class="pill warn">예시 · 형식 보기용</span>':""}</h1>
+  <div class="sub">${esc(R.title)} · ${esc(R.made_at)} 작성 · 기간 ${esc(R.period)}${R.sources?` · 채널 글 ${w(R.sources.channel_posts)} · 리포트 ${w(R.sources.reports)} · 원문 ${R.sources.originals}건 · ${esc(R.sources.data)}`:""}</div>
+  ${R.sample?`<div class="panel" style="border-color:var(--warn,#e0a100);margin-bottom:12px"><b>⚠️ 이 화면은 구성을 보여 드리려고 임의로 채운 예시입니다.</b> 숫자·판단 대부분은 실제 분석 결과가 아닙니다. 자료가 충분히 쌓이면 "전략 보고서 써줘"라고 요청해 주세요 — 에이전트 팀이 실제 보고서로 바꿔 씁니다.</div>`:""}
+  <div class="panel" style="border-left:4px solid var(--accent)"><h2 style="margin-top:0">💡 한 장 요약</h2>${(R.summary||[]).map(x=>`<div>- ${tint(x)}</div>`).join("")}
+   ${(R.changes||[]).length?`<h3>🔄 지난 보고서 대비</h3>${R.changes.map(x=>`<div>${tint(x)}</div>`).join("")}`:""}</div>
+
+  <h2 style="margin-top:18px">🌐 시대를 관통하는 테마</h2>
+  <div class="grid" style="gap:10px">${(R.themes||[]).map(t=>`<div class="panel"><div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><h3 style="margin:0">${esc(t.name)}</h3>${stageBar(t.stage)}<span class="pill" title="확신도">확신 ${"●".repeat(t.conviction||0)}${"○".repeat(5-(t.conviction||0))}</span></div>
+   <p style="margin:6px 0">${tint(t.why)}</p>
+   <div class="ins">${(t.evidence||[]).map(e=>`<div class="insrow"><span class="${tagT[e.type]||"pill"}">${esc(e.type)}</span> ${tint(e.text)} <small class="muted">${esc(e.src||"")}</small></div>`).join("")}</div>
+   ${(t.against||[]).length?`<div style="margin-top:6px"><b class="down">반대 근거</b> ${t.against.map(x=>`<div>- ${tint(x)}</div>`).join("")}</div>`:""}
+   ${t.invalid?`<div style="margin-top:4px"><small class="muted">❌ 이 테마가 깨지는 신호: ${esc(t.invalid)}</small></div>`:""}</div>`).join("")}</div>
+
+  <h2 style="margin-top:18px">🔗 사고 플로우 <small class="muted">테마가 실제 돈으로 이어지는 경로 · 실선 = 증거로 확인 · 점선 = 아직 가설</small></h2>
+  ${(R.flows||[]).map(f=>`<div class="panel" style="margin-bottom:10px"><h3 style="margin-top:0">${esc(f.theme)}</h3><div class="chain">${f.chain.map((c,i)=>`${i?'<span class="arr">→</span>':""}<div class="node ${c.status=="확인"?"ok":"hyp"}"><b>${tint(c.node)}</b>${c.note?`<small>${esc(c.note)}</small>`:""}</div>`).join("")}</div></div>`).join("")}
+
+  <h2 style="margin-top:18px">🏆 주도 섹터 순위 <small class="muted">말(채널 언급) · 이익(목표가·추정치) · 돈(수급) · 가격(상대 강도)</small></h2>
+  <div class="tw"><table><tr><th>순위</th><th class="l">섹터</th><th>말</th><th>이익</th><th>돈</th><th>가격</th><th>점수</th><th class="l">한 줄</th></tr>
+   ${(R.sectors||[]).map(x=>`<tr><td class="num"><b>${x.rank}</b></td><td class="l"><b>${esc(x.name)}</b></td><td>${ARW[x.talk]||esc(x.talk)}</td><td>${ARW[x.earnings]||esc(x.earnings)}</td><td>${ARW[x.money]||esc(x.money)}</td><td>${ARW[x.price]||esc(x.price)}</td><td class="num">${x.score}</td><td class="l" style="white-space:normal">${tint(x.comment||"")}</td></tr>`).join("")}</table></div>
+
+  <h2 style="margin-top:18px">⭐ 주도주 후보 <small class="muted">매수 추천이 아님 · 근거와 반대 근거를 함께</small></h2>
+  <div class="grid g2">${(R.leaders||[]).map(x=>`<div class="panel"><div style="display:flex;gap:8px;align-items:baseline;flex-wrap:wrap"><b class="click" data-cq="${esc(x.name)}" style="cursor:pointer;font-size:16px">${esc(x.name)}</b><span class="pill ${x.role=="대장"?"ok":""}">${esc(x.role)}</span><small class="muted">${esc(x.sector)}</small></div>
+   <div style="margin-top:4px"><span class="up">근거</span> ${tint(x.why)}</div><div><span class="down">반대</span> ${tint(x.against)}</div><div><small class="muted">👀 볼 것: ${esc(x.watch)}</small></div></div>`).join("")}</div>
+
+  <h2 style="margin-top:18px">⚖️ 반론과 위험</h2><div class="panel">${(R.risks||[]).map(x=>`<div>- ${tint(x)}</div>`).join("")}</div>
+
+  <h2 style="margin-top:18px">📋 가설 성적표 <small class="muted">지난 보고서의 가설이 맞았나</small></h2>
+  <div class="tw"><table><tr><th>세운 날</th><th class="l">가설</th><th>결과</th><th class="l">메모</th></tr>${(R.scorecard||[]).map(x=>`<tr><td class="num">${esc(x.made)}</td><td class="l" style="white-space:normal">${tint(x.hypothesis)}</td><td><span class="pill ${x.status=="맞음"?"ok":x.status=="틀림"?"warn":""}">${esc(x.status)}</span></td><td class="l" style="white-space:normal">${esc(x.note||"")}</td></tr>`).join("")}</table></div>
+
+  <h2 style="margin-top:18px">🤝 이번 보고서를 만든 팀</h2>
+  <div class="grid g3">${(R.agents||[]).map(a=>`<div class="tile"><b style="display:block;font-size:14px">${esc(a.role)}</b><small class="muted" style="display:block;margin-top:4px">${esc(a.did)}</small></div>`).join("")}</div>
+  ${src("채널·리포트 요약은 2차 자료, 원문 = 네이버 리서치 전문·드라이브 원문(1차) · 판단은 본인이 합니다")}`;
 }
 
 function viewHome(){
@@ -350,8 +355,8 @@ function viewHome(){
   ${alerts(D.risk)}
   <section class="grid" style="gap:16px">
    <div>${op?`<h2>💡 Claude 의견 <span class="pill">${esc(op.kind_name)} · ${esc(op.date)}</span></h2><div class="opinion">${tint(op.opinion.replace(/^💡[^\n]*\n?/,""))}</div>`:`<div class="empty">아직 의견이 담긴 브리핑이 없습니다</div>`}</div>
-   <div><h2>🌡️ 시장 온도계 <a class="pill" href="#market">시황 자세히</a></h2>${thermoCards(true)}</div>
-   ${D.why&&(D.why.up||[]).length?`<div><h2>🔎 왜 올랐나 · 상위 4 <a class="pill" href="#market">전체</a></h2><div class="grid g2"><div class="why">${D.why.up.filter(x=>x.n_posts).slice(0,2).concat(D.why.up.filter(x=>!x.n_posts)).slice(0,4).map(whyRow).join("")}</div><div class="why">${(D.why.down||[]).filter(x=>x.n_posts).slice(0,2).concat((D.why.down||[]).filter(x=>!x.n_posts)).slice(0,4).map(whyRow).join("")}</div></div></div>`:""}
+   <div><h2>🌡️ 시장 온도계</h2>${thermoCards(true)}</div>
+   ${D.why&&(D.why.up||[]).length?`<div><h2>🔎 왜 올랐나 · 상위 4</h2><div class="grid g2"><div class="why">${D.why.up.filter(x=>x.n_posts).slice(0,2).concat(D.why.up.filter(x=>!x.n_posts)).slice(0,4).map(whyRow).join("")}</div><div class="why">${(D.why.down||[]).filter(x=>x.n_posts).slice(0,2).concat((D.why.down||[]).filter(x=>!x.n_posts)).slice(0,4).map(whyRow).join("")}</div></div></div>`:""}
    ${insightBlock()}
    <div><h2>시장 한눈에 · 지수·해외</h2>${marketTiles()}</div>
    <div><h2>내 계좌</h2>${riskKpis(D.risk)}${holdMini(D.risk)}${src((D.risk?.source||"")+" · "+(D.risk?.at||""))}</div>
@@ -958,7 +963,7 @@ function rfNote(part){if(RFP!==part)return "";const [cmd,what]=RFTXT[part];
   return `<div class="rfnote">Claude 대화에서 <b>"${cmd}"</b>이라고 말해 주세요 · ${what}<br><small>마지막 갱신 ${esc(partAt(part))} · 자동: ${part=="analysis"?"평일 08~17시 매시 12분 (채널·리포트 정리까지) + 07:32·10:32·15:32·16:32 전체":"평일 16:07 감시 목록 → 16:32 반영"}</small></div>`}
 function doRefresh(){RF.state="idle";RF.msg=REFRESH_HELP;paintRefresh();return Promise.resolve(false)}
 /* ---------- 라우터 ---------- */
-const VIEWS={market:viewMarket,research:viewResearch,home:viewHome,briefs:viewBriefs,portfolio:viewPortfolio,watch:viewWatch,sectors:viewSectors,companies:viewCompanies,channels:viewChannels,lab:viewLab,config:viewConfig};
+const VIEWS={strategy:viewStrategy,research:viewResearch,home:viewHome,briefs:viewBriefs,portfolio:viewPortfolio,watch:viewWatch,sectors:viewSectors,companies:viewCompanies,channels:viewChannels,lab:viewLab,config:viewConfig};
 function render(){
   if(!D){$("#main").innerHTML=`<div class="empty">데이터가 없습니다. tools/web_build.py로 만들어 주세요</div>`;return}
   nav(); $("#more").classList.remove("open");
