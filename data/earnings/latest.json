@@ -1,6 +1,23 @@
 {
  "rows": [
   {
+   "name": "카카오",
+   "code": "035720",
+   "period": "2026.3Q",
+   "sales": 7029.0,
+   "sales_yoy": 10.1,
+   "op": 1178.0,
+   "op_est": 1050.0,
+   "op_surprise": 12.2,
+   "op_yoy": 17.2,
+   "net": 1004.0,
+   "net_yoy": 54.2,
+   "verdict": "서프라이즈",
+   "time": "2026-11-05 08:02",
+   "channel": "maddingStock",
+   "url": "https://t.me/maddingStock/19121"
+  },
+  {
    "name": "GS피앤엘",
    "code": "499790",
    "period": "2026.3Q",
