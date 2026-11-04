@@ -1,0 +1,155 @@
+"""딥리서치: 구글 드라이브에 올린 리포트 원문을 Claude가 읽고 쓴 심층 분석을 저장·관리한다.
+
+드라이브 읽기와 분석은 Claude가 한다(구글 드라이브 연결). 이 도구는 저장·목록·종합용 재료만 맡는다.
+원문(PDF)은 저장하지 않는다. 요약·분석·핵심 숫자와 드라이브 링크만 data/research/에 둔다.
+
+사용법:
+    python3 tools/research.py status                    # 분석한 문서 목록(파일 ID) → 새 파일 고를 때
+    python3 tools/research.py save --file 분석.json      # 문서 하나 분석 결과 저장 (형식은 .claude/skills/deep-research/SKILL.md)
+    python3 tools/research.py skip --id 파일ID --title 이름 --reason "리포트 아님"
+    python3 tools/research.py context                   # 종합 분석 재료: 전체 문서 요약 + 언급 종목의 시장 확인(RS·수익률·레이더)
+    python3 tools/research.py save-synthesis --file 종합.json
+"""
+import argparse
+import json
+from datetime import datetime
+
+from common import DATA, load_toml
+from naver_quote import KST
+
+DIR = DATA / "research"
+DOCS = DIR / "docs"
+INDEX = DIR / "index.json"
+SYN = DIR / "synthesis.json"
+
+REQUIRED = ["file_id", "title", "url", "kind", "subject", "one_line", "summary", "thesis", "stocks", "sectors",
+            "outlook", "risks", "claude"]
+KINDS = ["기업", "산업", "전략", "매크로"]
+
+
+def load_index():
+    if INDEX.exists():
+        return json.loads(INDEX.read_text(encoding="utf-8"))
+    return {"docs": {}, "skipped": {}}
+
+
+def save_index(ix):
+    DIR.mkdir(parents=True, exist_ok=True)
+    INDEX.write_text(json.dumps(ix, ensure_ascii=False, indent=1), encoding="utf-8")
+
+
+def now():
+    return datetime.now(KST).strftime("%Y-%m-%d %H:%M")
+
+
+def cmd_status():
+    ix = load_index()
+    cfg = load_toml("research.toml")
+    print(json.dumps({"folders": cfg.get("folders", []),
+                      "analyzed": {k: {"title": v["title"], "date": v.get("date"), "drive_modified": v.get("drive_modified")}
+                                   for k, v in ix["docs"].items()},
+                      "skipped": ix["skipped"], "synthesis_at": json.loads(SYN.read_text(encoding="utf-8")).get("updated_at")
+                      if SYN.exists() else None}, ensure_ascii=False, indent=1))
+
+
+def cmd_save(path):
+    d = json.loads(open(path, encoding="utf-8").read())
+    miss = [k for k in REQUIRED if k not in d]
+    if miss:
+        raise SystemExit(f"빠진 항목: {miss}")
+    if d["kind"] not in KINDS:
+        raise SystemExit(f"kind는 {KINDS} 중 하나")
+    if not str(d["url"]).startswith("https://drive.google.com/"):
+        raise SystemExit("url은 구글 드라이브 링크여야 합니다 (원문은 저장소에 두지 않음)")
+    for k in ("text", "raw", "content"):   # 원문 통째 저장 방지
+        d.pop(k, None)
+    from universe import load
+    uni = {s["name"]: s["code"] for s in load()["stocks"]}
+    for s in d.get("stocks", []):
+        s["code"] = s.get("code") or uni.get(s.get("name"))
+    d["analyzed_at"] = now()
+    DOCS.mkdir(parents=True, exist_ok=True)
+    (DOCS / f"{d['file_id']}.json").write_text(json.dumps(d, ensure_ascii=False, indent=1), encoding="utf-8")
+    ix = load_index()
+    ix["docs"][d["file_id"]] = {k: d.get(k) for k in ("title", "broker", "date", "kind", "subject", "one_line", "url", "drive_modified", "analyzed_at")}
+    ix["skipped"].pop(d["file_id"], None)
+    save_index(ix)
+    print(json.dumps({"saved": d["file_id"], "title": d["title"], "stocks": [s.get("name") for s in d["stocks"]],
+                      "no_code": [s.get("name") for s in d["stocks"] if not s.get("code")]}, ensure_ascii=False))
+
+
+def cmd_skip(fid, title, reason):
+    ix = load_index()
+    ix["skipped"][fid] = {"title": title, "reason": reason, "at": now()}
+    save_index(ix)
+    print(json.dumps({"skipped": fid}, ensure_ascii=False))
+
+
+def market_check(names_codes):
+    """언급 종목의 시장 확인: 웹 데이터(기업 메뉴 계산값)에서 RS·수익률, 섹터 레이더 순위."""
+    out = {}
+    last = DATA.parent / "web" / "last_data.json"
+    comp = {}
+    if last.exists():
+        d = json.loads(last.read_text(encoding="utf-8"))
+        comp = {c["code"]: c for c in d.get("companies", [])}
+        for code, t in ((d.get("research") or {}).get("trend") or {}).items():   # 기업 목록에 없는 종목은 딥리서치 계산값
+            comp.setdefault(code, {"trend": t})
+    snap = DATA / "radar" / "company_rs.json"
+    rs = json.loads(snap.read_text(encoding="utf-8")) if snap.exists() else {}
+    for name, code in names_codes:
+        t = (comp.get(code) or {}).get("trend") or {}
+        out[name] = {"code": code, "rs": t.get("rs", (rs.get(code) or {}).get("rs")), "r1m": t.get("r1m"),
+                     "r3m": t.get("r3m"), "off_high": t.get("off_high"), "reports_1m": (comp.get(code) or {}).get("n_reports")}
+    return out
+
+
+def cmd_context():
+    docs = [json.loads(f.read_text(encoding="utf-8")) for f in sorted(DOCS.glob("*.json"))]
+    names = {(s["name"], s.get("code")) for d in docs for s in d.get("stocks", []) if s.get("name")}
+    radar = DATA / "radar" / "latest.json"
+    groups = json.loads(radar.read_text(encoding="utf-8")).get("groups", []) if radar.exists() else []
+    print(json.dumps({
+        "docs": [{"file_id": d["file_id"], "title": d["title"], "broker": d.get("broker"), "date": d.get("date"), "kind": d["kind"],
+                  "subject": d["subject"], "one_line": d["one_line"], "thesis": d["thesis"], "stocks": d["stocks"],
+                  "sectors": d["sectors"], "outlook": d["outlook"], "catalysts": d.get("catalysts", []), "risks": d["risks"]} for d in docs],
+        "market_check": market_check(sorted(names, key=lambda x: x[0])),
+        "radar_top": [{"group": g["group"], "rank": g["rank"], "score": g["score"], "rel1m_pct": g["rel1m_pct"]} for g in groups[:15]],
+        "note": "market_check: RS 0~99(70↑ 강함)·수익률 %, 출처 네이버 일봉(비공식)·Claude 계산. 레이더 = 업종 강도 순위",
+    }, ensure_ascii=False, indent=1))
+
+
+def cmd_save_syn(path):
+    d = json.loads(open(path, encoding="utf-8").read())
+    for k in ("headline", "ideas", "leading_sectors", "leading_stocks", "outlook"):
+        if k not in d:
+            raise SystemExit(f"빠진 항목: {k}")
+    d["updated_at"] = now()
+    d["docs_n"] = len(list(DOCS.glob("*.json")))
+    SYN.write_text(json.dumps(d, ensure_ascii=False, indent=1), encoding="utf-8")
+    print(json.dumps({"synthesis": d["updated_at"], "ideas": len(d["ideas"])}, ensure_ascii=False))
+
+
+def main():
+    p = argparse.ArgumentParser(description="딥리서치 저장·관리")
+    sub = p.add_subparsers(dest="cmd", required=True)
+    sub.add_parser("status")
+    s = sub.add_parser("save"); s.add_argument("--file", required=True)
+    s = sub.add_parser("skip"); s.add_argument("--id", required=True); s.add_argument("--title", default=""); s.add_argument("--reason", default="")
+    sub.add_parser("context")
+    s = sub.add_parser("save-synthesis"); s.add_argument("--file", required=True)
+    a = p.parse_args()
+    if a.cmd == "status":
+        cmd_status()
+    elif a.cmd == "save":
+        cmd_save(a.file)
+    elif a.cmd == "skip":
+        cmd_skip(a.id, a.title, a.reason)
+    elif a.cmd == "context":
+        cmd_context()
+    else:
+        cmd_save_syn(a.file)
+
+
+if __name__ == "__main__":
+    main()

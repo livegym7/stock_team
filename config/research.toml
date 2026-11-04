@@ -1,0 +1,12 @@
+# 딥리서치: Claude가 이 구글 드라이브 폴더들의 리포트 원문(PDF 등)을 읽어 심층 분석한다.
+# 원문은 드라이브에만 두고, 저장소에는 요약·분석과 드라이브 링크만 저장한다 (CLAUDE.md 절대 규칙 3).
+# 폴더를 더 쓰고 싶으면 아래에 [[folders]] 블록을 추가하고 Claude에게 알려 주세요.
+
+[[folders]]
+name = "리포트"
+id = "1MAbLa2x-DxrIvU-RORTvtzmknMKqU_cu"
+
+[[folders]]
+name = "Chrome에서 저장됨"
+id = "1X9wjkRIco1k5UU2kvP4BGRPbldN_ThFO"
+note = "크롬으로 받은 PDF가 쌓이는 곳. 리포트가 아닌 파일은 skip 처리"

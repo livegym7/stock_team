@@ -143,8 +143,15 @@ td.wrap{white-space:normal;line-height:1.5} .gloss td{white-space:normal} .gloss
 .ngroup:first-of-type{margin-top:4px}
 .rfb{border:1px solid var(--line);background:var(--panel);color:var(--muted);border-radius:6px;font:inherit;font-size:12px;padding:1px 7px;cursor:pointer}.rfb:hover{color:var(--accent);border-color:var(--accent)}
 .more .mg{grid-column:1/-1;margin:6px 2px 0}
+.rfnote{margin:2px 8px 8px;padding:8px 10px;border:1px solid var(--accent);background:var(--accent-soft);border-radius:8px;font-size:12px;line-height:1.5;color:var(--fg)}.rfnote small{color:var(--muted)}
 .flow{display:grid;gap:6px;margin-bottom:12px}.flow .fi{display:grid;grid-template-columns:96px minmax(0,1fr);gap:8px;padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:var(--panel);cursor:pointer;text-align:left;font:inherit;color:inherit}
 .flow .fi.on{border-color:var(--accent)}.flow .fi>span:last-child{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}.flow .fi{grid-template-columns:110px minmax(0,1fr)}.flow .fi small{color:var(--muted)}
+.rchip{display:inline-flex;align-items:center;gap:4px;border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:3px 9px;font:inherit;font-size:12.5px;color:var(--fg);cursor:pointer}.rchip:hover{border-color:var(--accent)}
+.idea p{margin:6px 0 8px;font-size:13.5px}.idea .mk{font-size:12.5px;margin-bottom:4px}.idea .con{font-size:12.5px;color:var(--down)}.idea .pro{color:var(--up);font-weight:600}
+.linkb{border:0;background:none;color:var(--accent);font:inherit;font-size:11.5px;padding:0;cursor:pointer;text-decoration:underline}
+.howto{line-height:1.8}
+.split{align-items:start}.list{align-content:start}
+article.idea h3{font-size:14px;margin:16px 0 6px}article.idea .opinion{white-space:normal}
 </style>
 
 <div class="app">
@@ -174,12 +181,12 @@ function src(t){return `<div class="src">${esc(t)}</div>`}
 function nav(){
   const cur=route();
   $("#side").innerHTML=`<div class="brand">JH트레이딩룸<small>추세추종 돌파 · 보기 전용</small></div>`+
-    GROUPS.map(([g,rf,ks])=>`<div class="ngroup"><span>${g}</span>${rf?`<button class="rfb" data-rf="${rf}" title="${g} 새로고침" aria-label="${g} 새로고침">↻</button>`:""}</div>`+
+    GROUPS.map(([g,rf,ks])=>`<div class="ngroup"><span>${g}${rf?` <small class="num">${esc(partAt(rf).slice(11))}</small>`:""}</span>${rf?`<button class="rfb" data-rf="${rf}" title="${g} 새로고침" aria-label="${g} 새로고침">↻</button>`:""}</div>${rf?rfNote(rf):""}`+
       ks.map(k=>{const [,n,i]=MENU.find(m=>m[0]==k);return `<a href="#${k}" class="${cur==k?"on":""}"><span class="ico">${i}</span>${n}</a>`}).join("")).join("")+
     `<div class="built">${refreshBox()}<br>${esc(D.note)}</div>`;
   $("#tabbar").innerHTML=TABS.map(k=>{const m=MENU.find(x=>x[0]==k);return `<a href="#${k}" class="${cur==k?"on":""}"><span class="ico">${m[2]}</span>${m[1]}</a>`}).join("")+
     `<button id="moreBtn" class="${TABS.includes(cur)?"":"on"}"><span class="ico">⋯</span>더보기</button>`;
-  $("#more").innerHTML=GROUPS.map(([g,rf,ks])=>`<div class="ngroup mg"><span>${g}</span>${rf?`<button class="rfb" data-rf="${rf}" aria-label="${g} 새로고침">↻ 새로고침</button>`:""}</div>`+
+  $("#more").innerHTML=GROUPS.map(([g,rf,ks])=>`<div class="ngroup mg"><span>${g}${rf?` <small class="num">${esc(partAt(rf).slice(5))}</small>`:""}</span>${rf?`<button class="rfb" data-rf="${rf}" aria-label="${g} 새로고침">↻ 새로고침</button>`:""}</div>${rf?`<div class="mg">${rfNote(rf)}</div>`:""}`+
     ks.filter(k=>!TABS.includes(k)).map(k=>{const [,n,i]=MENU.find(m=>m[0]==k);return `<a href="#${k}">${i} ${n}</a>`}).join("")).join("");
   $("#moreBtn").onclick=()=>$("#more").classList.toggle("open");
 }
@@ -573,6 +580,66 @@ function viewCompanies(){
    ${src("사업 한 줄 업데이트 "+(sel.updated||"")+" · 출처 "+(sel.sources||[]).join(", ")+" · 시세 네이버 일봉(비공식)")}</article></div>`:`<div class="empty">찾는 기업이 없습니다</div>`}`;
 }
 
+/* ---------- 딥리서치 ---------- */
+function rsChip(name,code){const R=D.research||{},t=(R.trend||{})[code]||{};
+  return `<button class="rchip" data-cq="${esc(name)}" title="기업 메뉴에서 보기">${esc(name)}${t.rs!=null?` <span class="rsb ${t.rs>=70?"hi":t.rs>=50?"mid":"lo"}">RS ${t.rs}</span>`:""}${t.r1m!=null?` <small class="${cls(t.r1m)}">${pc(t.r1m)}</small>`:""}</button>`}
+function codeOf(name){const R=D.research||{};for(const d of R.docs||[])for(const s of d.stocks||[])if(s.name==name&&s.code)return s.code;const c=(D.companies||[]).find(c=>c.name==name);return c?c.code:null}
+function docRef(id){const d=((D.research||{}).docs||[]).find(x=>x.file_id==id);return d?`<button class="linkb" data-rd="${esc(id)}">${esc((d.broker||"")+" "+(d.date||"").slice(5))} ${esc(d.subject||d.title)}</button>`:""}
+function viewResearch(){
+  const R=D.research||{}, docs=R.docs||[], S=R.synthesis, tab=ui.rt||"syn";
+  const how=`<div class="panel howto"><b>리포트 추가하는 법</b><br>① 구글 드라이브 <b>${esc((R.folders||["리포트"]).join("”, “"))}</b> 폴더에 리포트 PDF를 올립니다<br>② Claude 대화에서 <b>"딥리서치 해줘"</b>라고 말합니다 → 새 파일을 읽고 분석·종합해 이 화면에 올립니다<br><small class="muted">원문은 드라이브에만 두고, 여기에는 요약·분석과 원문 링크만 저장합니다</small></div>`;
+  if(!docs.length)return `<h1>딥리서치</h1><div class="sub">리포트 원문을 Claude가 읽고 기업·산업을 깊게 분석하는 곳</div>${how}`;
+  const head=`<h1>딥리서치</h1><div class="sub">리포트 원문 ${docs.length}개 분석 · 종합 ${esc(S?S.updated_at:"없음")} · 출처: 증권사 리포트 원문(드라이브) + 시장 확인 네이버 일봉(비공식) · 판단은 본인이</div>
+  <div class="chips"><button class="chip ${tab=="syn"?"on":""}" data-rt="syn">🧭 종합</button><button class="chip ${tab=="docs"?"on":""}" data-rt="docs">📄 문서 ${docs.length}</button><button class="chip ${tab=="how"?"on":""}" data-rt="how">➕ 추가하는 법</button></div>`;
+  if(tab=="how")return head+how;
+  if(tab=="docs")return head+researchDocs(docs);
+  if(!S)return head+`<div class="empty">아직 종합 분석이 없습니다. "딥리서치 해줘"라고 하면 만듭니다</div>`;
+  const conf={"높음":"ok","중간":"","낮음":"warn"};
+  return head+`
+  <div class="opinion" style="margin-bottom:16px">${tint(S.headline||"")}</div>
+  <h2>💡 투자 아이디어</h2>
+  <div class="grid g2" style="margin-bottom:16px">${(S.ideas||[]).map(i=>`<div class="panel idea">
+    <div class="ihead"><b style="font-size:15px">${esc(i.title)}</b><span class="pill ${conf[i.confidence]??""}">확신 ${esc(i.confidence||"-")}</span>${i.horizon?`<span class="pill">${esc(i.horizon)}</span>`:""}</div>
+    <p>${tint(i.thesis||"")}</p>
+    <div class="chips" style="margin-bottom:6px">${(i.stocks||[]).map(n=>rsChip(n,codeOf(n))).join("")}${(i.sectors||[]).map(x=>`<span class="pill">${esc(x)}</span>`).join("")}</div>
+    ${i.market?`<div class="mk">📊 시장 확인: ${tint(i.market)}</div>`:""}
+    ${i.counter?`<div class="con">－ 반대 근거: ${esc(i.counter)}</div>`:""}
+    <div class="src">근거 문서: ${(i.evidence_docs||[]).map(docRef).join(" · ")||"-"}</div></div>`).join("")}</div>
+  <div class="grid g2" style="margin-bottom:16px">
+   <div class="panel"><h3>🏭 주도 섹터 (리포트 × 시장)</h3>${(S.leading_sectors||[]).map(x=>`<div class="insrow"><b>${esc(x.name)}</b> <small class="muted">${esc(x.market||"")}</small><div style="font-size:13px">${tint(x.why||"")}</div><div class="src">${(x.docs||[]).map(docRef).join(" · ")}</div></div>`).join("")||`<div class="empty">-</div>`}</div>
+   <div class="panel"><h3>🚀 주도주 후보</h3>${(S.leading_stocks||[]).map(x=>`<div class="insrow">${rsChip(x.name,codeOf(x.name))} <small class="muted">${esc(x.market||"")}</small><div style="font-size:13px">${tint(x.why||"")}</div></div>`).join("")||`<div class="empty">-</div>`}</div></div>
+  <div class="grid g2">
+   <div class="panel"><h3>🔭 전망</h3>${(S.outlook||[]).map(o=>`<p><b>${esc(o.horizon)}</b><br>${tint(o.text||"")}</p>`).join("")}</div>
+   <div class="panel idea"><h3>⚖️ 엇갈리는 시각</h3>${(S.conflicts||[]).map(c=>`<p><b>${esc(c.topic)}</b><br><span class="pro">A</span> ${esc(c.a)}<br><span class="con">B</span> ${esc(c.b)}</p>`).join("")||`<div class="muted">없음</div>`}
+    <h3 style="margin-top:12px">👀 다음에 확인할 것</h3>${(S.watch_next||[]).map(x=>`<div>· ${esc(x)}</div>`).join("")||`<div class="muted">-</div>`}</div></div>
+  ${src("종합은 Claude 해석입니다. 리포트 숫자는 각 문서의 출처(증권사·날짜)를 따르고, 시장 확인 숫자는 웹 데이터 "+(D.built_at||"")+" 기준")}`;
+}
+function researchDocs(docs){
+  const kf=ui.rk||"all", L=docs.filter(d=>kf=="all"||d.kind==kf), sel=L.find(d=>d.file_id==ui.rd)||L[0];
+  const kinds=["all","기업","산업","전략","매크로"];
+  return `<div class="chips">${kinds.map(k=>`<button class="chip ${kf==k?"on":""}" data-rk="${k}">${k=="all"?"전체":k} ${k=="all"?docs.length:docs.filter(d=>d.kind==k).length}</button>`).join("")}</div>
+  ${L.length?`<div class="split"><div class="list">${L.map(d=>`<button class="item ${sel&&d.file_id==sel.file_id?"on":""}" data-rd="${esc(d.file_id)}"><small class="muted">${esc(d.date||"")} · ${esc(d.broker||"")} · ${esc(d.kind)}</small><br><b>${esc(d.subject||d.title)}</b><br><small>${esc(d.one_line||"")}</small></button>`).join("")}</div>
+  <article class="panel idea">${docDetail(sel)}</article></div>`:`<div class="empty">해당 문서 없음</div>`}`;
+}
+function docDetail(d){
+  const C=d.claude||{};
+  return `<h2 style="font-size:18px">${esc(d.title)}</h2>
+  <div class="chips"><span class="pill">${esc(d.kind)}</span><span class="pill">${esc(d.broker||"")}${d.analyst?" · "+esc(d.analyst):""}</span><span class="pill">${esc(d.date||"")}</span>${(d.tags||[]).map(t=>`<span class="pill">#${esc(t)}</span>`).join("")}<a class="pill" href="${esc(d.url)}" target="_blank" rel="noopener">원문 보기 ↗</a></div>
+  <div class="opinion" style="margin-bottom:12px"><b>${tint(d.one_line||"")}</b></div>
+  <h3>요약</h3>${(d.summary||[]).map(x=>`<div>· ${tint(x)}</div>`).join("")}
+  <h3>투자 포인트</h3>${(d.thesis||[]).map(t=>`<div class="insrow"><b>${tint(t.point)}</b><div class="muted" style="font-size:12.5px">${esc(t.evidence||"")}</div></div>`).join("")}
+  ${(d.numbers||[]).length?`<h3>핵심 숫자</h3><div class="tw"><table>${d.numbers.map(n=>`<tr><td class="l">${esc(n.label)}</td><td class="num"><b>${esc(n.value)}</b></td><td class="l muted" style="white-space:normal">${esc(n.note||"")}</td></tr>`).join("")}</table></div>`:""}
+  <h3>종목</h3><div class="ins">${(d.stocks||[]).map(st=>`<div class="insrow">${st.code?rsChip(st.name,st.code):`<b>${esc(st.name)}</b>`} <span class="pill ${st.role=="Top pick"?"ok":st.role=="부정"?"warn":""}">${esc(st.role||"")}</span> <small class="muted">${esc(st.view||"")}${st.target?" · 목표가 "+w(st.target):""}</small><div style="font-size:13px">${esc(st.why||"")}</div></div>`).join("")||`<div class="muted">-</div>`}</div>
+  <h3>섹터</h3>${(d.sectors||[]).map(x=>`<div><span class="${x.view=="긍정"?"up":x.view=="부정"?"down":"muted"}">${x.view=="긍정"?"🔺":x.view=="부정"?"🔽":"➖"} ${esc(x.name)}</span> · ${esc(x.why||"")}</div>`).join("")}
+  <h3>전망</h3><div>· 단기: ${esc((d.outlook||{}).short||"-")}</div><div>· 중기: ${esc((d.outlook||{}).mid||"-")}</div>
+  ${(d.catalysts||[]).length?`<h3>확인할 일정</h3>${d.catalysts.map(c=>`<div><span class="num">${esc(c.when)}</span> · ${esc(c.what)}</div>`).join("")}`:""}
+  <h3>위험 요인</h3>${(d.risks||[]).map(x=>`<div>· ${esc(x)}</div>`).join("")}
+  <h3>💡 Claude 의견</h3><div class="opinion">${tint(C.opinion||"")}</div>
+  ${(C.counter||[]).length?`<div class="con" style="margin-top:6px">－ 반대 근거: ${C.counter.map(esc).join(" / ")}</div>`:""}
+  ${(C.check||[]).length?`<div style="margin-top:6px">👀 확인할 것: ${C.check.map(esc).join(" / ")}</div>`:""}
+  ${src("원문: "+(d.broker||"")+" "+(d.date||"")+" (구글 드라이브) · 분석 "+(d.analyzed_at||"")+" Claude · 리포트 숫자는 원문 기준, 해석은 Claude")}`;
+}
+
 /* ---------- 채널 ---------- */
 function viewChannels(){
   const t=ui.ct||"all", ch=ui.ch||"", P=(D.channels||[]).filter(p=>(t=="all"||p.type==t)&&(!ch||p.channel==ch));
@@ -702,9 +769,7 @@ function viewConfig(){
 const RF={state:"idle",msg:"",started:null};
 const GH="GitHub";
 function refreshBox(){
-  const busy=RF.state=="running";
-  return `<div class="rbox"><button id="refreshBtn" class="chip" ${busy?"disabled":""}>${busy?"⏳ 만드는 중":"↻ 새로고침 방법"}</button>
-   <div><b>데이터 ${esc(D.built_at)} 기준</b>${RF.msg?`<br><span class="${RF.state=="error"?"warnt":""}">${esc(RF.msg)}</span>`:""}</div></div>`;
+  return `<div class="rbox"><div><b>데이터 ${esc(D.built_at)} 기준</b>${RF.msg?`<br><span>${esc(RF.msg)}</span>`:""}<br><small class="muted">새로고침: 메뉴 그룹 옆 ↻</small></div></div>`;
 }
 function paintRefresh(){document.querySelectorAll(".rslot").forEach(el=>el.innerHTML=refreshBox());const s=$("#side .built");if(s)s.innerHTML=refreshBox()+"<br>"+esc(D.note)}
 function parseFile(res){
@@ -726,9 +791,14 @@ function ghMsg(e){
   if(c=="server_unavailable")return "깃허브 서버가 응답하지 않습니다. 몇 분 뒤 다시 눌러 주세요 ["+c+"]";
   return "연결 오류 ["+(c||"알 수 없음")+"] "+String((e&&e.message)||"").slice(0,100)+" — 이 문구를 Claude에게 알려 주세요";
 }
-const REFRESH_HELP="새로고침은 Claude 대화에서 \"새로고침해줘\"(채널만은 \"채널만 새로고침\")라고 말해 주세요 · 자동 갱신 평일 07:32·09:12·10:32·15:32·16:32";
+const REFRESH_HELP="Claude 대화에서 \"분석 새로고침\" / \"모니터링 새로고침\" / \"채널만 새로고침\"이라고 말해 주세요";
 // 깃허브 연결 방식(doRefreshCb)은 사용자 계정에 GitHub 커넥터가 없어 쓰지 않음 (2026-11-04). 버튼은 안내만 한다.
-function refreshPart(part){doRefresh()}
+let RFP=null;
+const RFTXT={analysis:["분석 새로고침","시세·계좌·브리핑 목록·기업·채널 (약 1~2분)"],monitoring:["모니터링 새로고침","감시 목록 다시 계산 + 섹터·검증실 (약 5~10분)"]};
+function partAt(part){const P=D.parts||{};return P[part]||D.built_at}
+function refreshPart(part){RFP=RFP===part?null:part;nav();const m=$("#more");if(m&&m.classList.contains("open"))m.classList.add("open")}
+function rfNote(part){if(RFP!==part)return "";const [cmd,what]=RFTXT[part];
+  return `<div class="rfnote">Claude 대화에서 <b>"${cmd}"</b>이라고 말해 주세요 · ${what}<br><small>마지막 갱신 ${esc(partAt(part))} · 자동: ${part=="analysis"?"평일 07:32·09:12·10:32·15:32·16:32":"평일 16:07 감시 목록 → 16:32 반영"}</small></div>`}
 function doRefresh(){RF.state="idle";RF.msg=REFRESH_HELP;paintRefresh();return Promise.resolve(false)}
 async function doRefreshCb(done){
   if(RF.state=="running"){done(false);return}
@@ -764,7 +834,7 @@ async function doRefreshCb(done){
 }
 
 /* ---------- 라우터 ---------- */
-const VIEWS={home:viewHome,briefs:viewBriefs,portfolio:viewPortfolio,watch:viewWatch,sectors:viewSectors,companies:viewCompanies,channels:viewChannels,lab:viewLab,config:viewConfig};
+const VIEWS={research:viewResearch,home:viewHome,briefs:viewBriefs,portfolio:viewPortfolio,watch:viewWatch,sectors:viewSectors,companies:viewCompanies,channels:viewChannels,lab:viewLab,config:viewConfig};
 function render(){
   if(!D){$("#main").innerHTML=`<div class="empty">데이터가 없습니다. tools/web_build.py로 만들어 주세요</div>`;return}
   nav(); $("#more").classList.remove("open");
@@ -777,6 +847,9 @@ document.addEventListener("click",e=>{
   if(e.target.closest("#refreshBtn")){doRefresh();return}
   const rfb=e.target.closest("[data-rf]"); if(rfb){refreshPart(rfb.dataset.rf);return}
   const bw=e.target.closest("[data-bw]"); if(bw){if(!bw.disabled)writeBrief(bw.dataset.bw);return}
+  const rt=e.target.closest("[data-rt]"); if(rt){ui.rt=rt.dataset.rt;save();render();return}
+  const rk=e.target.closest("[data-rk]"); if(rk){ui.rk=rk.dataset.rk;ui.rd=null;save();render();return}
+  const rd=e.target.closest("[data-rd]"); if(rd){ui.rd=rd.dataset.rd;ui.rt="docs";save();render();window.scrollTo(0,0);return}
   const cs=e.target.closest("[data-cs]"); if(cs){ui.cs=cs.dataset.cs;save();render();return}
   const t=e.target.closest("[data-bk],[data-bf],[data-wg],[data-ws],[data-wd],[data-cc],[data-ct],[data-go],[data-kind],.post");
   if(!t)return;

@@ -496,6 +496,34 @@ def build_companies(allp, uni, companies, by_stock, fetch_limit=10):
     return safe(lambda: company_trends(comp_list, allp, fetch_limit)) or [{k: v for k, v in c.items() if k != "_all_reports"} for c in comp_list]
 
 
+def research(comp_list, allp):
+    """딥리서치: Claude가 드라이브 리포트를 읽고 쓴 분석(data/research) + 언급 종목의 시장 확인(RS·수익률)."""
+    rd = DATA / "research"
+    docs = [json.loads(f.read_text(encoding="utf-8")) for f in sorted((rd / "docs").glob("*.json"))] if (rd / "docs").exists() else []
+    docs.sort(key=lambda d: (d.get("date") or "", d.get("analyzed_at") or ""), reverse=True)
+    syn = json.loads((rd / "synthesis.json").read_text(encoding="utf-8")) if (rd / "synthesis.json").exists() else None
+    folders = [f.get("name") for f in (safe(lambda: load_toml("research.toml"), {}) or {}).get("folders", [])]
+    from universe import load as load_universe
+    uni = {s["name"]: s for s in load_universe()["stocks"]}
+    codes = {}
+    for d in docs:
+        for st in d.get("stocks", []):
+            if st.get("code"):
+                codes[st["code"]] = st["name"]
+    for x in (syn or {}).get("leading_stocks", []) + [{"name": n} for i in (syn or {}).get("ideas", []) for n in i.get("stocks", [])]:
+        c = uni.get(x.get("name"), {}).get("code")
+        if c:
+            codes[c] = x["name"]
+    have = {c["code"]: c.get("trend") or {} for c in comp_list}
+    stubs = [{"name": n, "code": c, "n_reports": 0, "up": 0, "down": 0, "card": False} for c, n in codes.items() if c not in have]
+    if stubs:
+        for c in safe(lambda: company_trends(stubs, allp, fetch_limit=8), []) or []:
+            have[c["code"]] = c.get("trend") or {}
+    keep = ("rs", "rs_chg4w", "r1m", "r3m", "off_high", "price", "spark", "held", "watch")
+    return {"docs": docs, "synthesis": syn, "folders": folders,
+            "trend": {c: {k: (have.get(c) or {}).get(k) for k in keep} for c in codes}}
+
+
 def channel_feed(t, allp, hours=72):
     since = datetime.now(KST) - timedelta(hours=hours)
     rows = []
@@ -525,11 +553,19 @@ def main():
     p = argparse.ArgumentParser(description="웹 화면 데이터 만들기")
     p.add_argument("--no-live", action="store_true", help="시세 조회 생략")
     p.add_argument("--data-out", help="화면 대신 데이터 JSON만 이 경로에 쓰기 (깃허브 Actions 새로고침용)")
-    p.add_argument("--only", choices=["channels"], help="한 부분만 새로 (나머지는 지난 데이터 그대로). channels = 채널 새 글 수집 후 채널 피드·특징주만")
+    p.add_argument("--only", choices=["channels", "analysis", "monitoring"],
+                   help="한 부분만 새로 (나머지는 지난 데이터 그대로). channels = 채널 글·기업만(몇 초) / analysis = 분석 메뉴(시세·계좌·브리핑·기업·채널) / monitoring = 감시 목록 다시 계산(screener) + 섹터·검증실")
     a = p.parse_args()
     now = datetime.now(KST)
-    if a.only:
+    if a.only == "channels":
         return partial(a.only, now)
+    last = json.loads(LAST.read_text(encoding="utf-8")) if a.only and LAST.exists() else {}
+    if a.only and not last:
+        raise SystemExit("지난 전체 데이터(web/last_data.json)가 없습니다. 먼저 python3 tools/web_build.py 로 전체를 만드세요")
+    if a.only == "monitoring":
+        import subprocess
+        # 감시 목록 다시 계산(섹터 레이더 포함). 텔레그램은 보내지 않음. 몇 분 걸림
+        subprocess.run(["python3", "tools/screener.py"], cwd=ROOT, capture_output=True, text=True, timeout=1800)
     from universe import load as load_universe
     uni = {s["name"]: s for s in load_universe()["stocks"]}
     companies = {k: v for k, v in json.loads((DATA / "companies.json").read_text(encoding="utf-8")).items() if not k.startswith("_")}
@@ -550,25 +586,42 @@ def main():
         "account": load_toml("account.toml"),
         "schedule": schedule(now, brief_rows),
         "briefs": brief_rows,
-        "watch": watch(),
+        "watch": last.get("watch") if a.only == "analysis" else watch(),
         "sectors_etf": None,
         "report_flow": flow,
         "companies": comp_list,
+        "research": safe(lambda: research(comp_list, allp)),
         "channels": channel_feed(t, allp),
         "channel_stats": channel_stats(t, allp),
         "categories": t.CATEGORIES,
         "note": "보기 전용 · 주문 기능 없음 · 채널 글은 2차 자료",
     }
-    if not a.no_live:
+    if a.only == "analysis":
+        data["sectors_etf"] = last.get("sectors_etf")
+    elif not a.no_live:
         import subprocess
         out = subprocess.run(["python3", "tools/sector_etf.py"], cwd=ROOT, capture_output=True, text=True, timeout=300).stdout
         data["sectors_etf"] = safe(lambda: json.loads(out))
     data["insights"] = safe(lambda: insights(data["watch"], data["sectors_etf"], allp, by_stock, now))
-    data["lab"] = lab(data, now)
     rp = DATA / "radar" / "latest.json"
-    data["radar"] = safe(lambda: json.loads(rp.read_text(encoding="utf-8"))) if rp.exists() else None
+    if a.only == "analysis":
+        data["lab"], data["radar"] = last.get("lab"), last.get("radar")
+    else:
+        data["lab"] = lab(data, now)
+        data["radar"] = safe(lambda: json.loads(rp.read_text(encoding="utf-8"))) if rp.exists() else None
     data["refresh"] = {"owner": "livegym7", "repo": "stock_team", "workflow": "web-data.yml", "branch": "web-data", "path": "data.json"}
-    data["parts"] = {k: data["built_at"] for k in ("market", "risk", "channels", "insights")}
+    data["parts"] = {**(last.get("parts") or {}), **{k: data["built_at"] for k in ("market", "risk", "channels", "insights")}}
+    if a.only == "monitoring":   # 모니터링만: 분석 쪽은 지난 데이터 그대로
+        keep = {k: last.get(k) for k in ("market", "risk", "briefs", "companies", "research", "channels", "channel_stats", "report_flow", "schedule")}
+        hot = (last.get("insights") or {}).get("hot")
+        data.update(keep)
+        if isinstance(data.get("insights"), dict) and hot is not None:
+            data["insights"]["hot"] = hot
+        data["parts"] = {**(last.get("parts") or {}), "monitoring": data["built_at"]}
+    else:
+        data["parts"]["analysis"] = data["built_at"]
+        if not a.only:
+            data["parts"]["monitoring"] = data["built_at"]
     if a.data_out:
         Path(a.data_out).parent.mkdir(parents=True, exist_ok=True)
         Path(a.data_out).write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
