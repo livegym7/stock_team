@@ -54,6 +54,39 @@
    "url": "https://drive.google.com/file/d/1HHtpsO9lYsXCT1dMcCEaJsDM0-cj1bhf/view?usp=drivesdk",
    "drive_modified": "2026-10-23T14:33:54.629Z",
    "analyzed_at": "2026-11-04 11:32"
+  },
+  "naver_company_97570": {
+   "title": "STRESS TEST (삼성전자 커버리지 개시)",
+   "broker": "iM증권",
+   "date": "2026-11-04",
+   "kind": "기업",
+   "subject": "삼성전자 · 메모리",
+   "one_line": "메모리 다운사이클 우려가 과도하다며 Buy·목표가 37만원으로 커버리지 개시. DRAM 가격이 4Q27 고점 대비 60% 빠져야 장기계약(LTA) 해지 유인이 생긴다는 스트레스 테스트가 핵심",
+   "url": "https://stock.naver.com/research/company/97570",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-04 19:16"
+  },
+  "naver_company_97595": {
+   "title": "업황을 입증하는 서프라이즈 (심텍 3Q26 리뷰)",
+   "broker": "하나증권",
+   "date": "2026-11-04",
+   "kind": "기업",
+   "subject": "심텍 · 반도체 패키지 기판(SOCAMM)",
+   "one_line": "3분기 영업이익 1,018억원(OPM 19%) 서프라이즈, SOCAMM 기판·모듈 PCB가 이끌고 고객 다변화로 가격 협상력이 높아지는 구간이라며 목표가 21만원으로 상향",
+   "url": "https://stock.naver.com/research/company/97595",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-04 19:16"
+  },
+  "naver_invest_40698": {
+   "title": "집나간 외인과 주가는 언제 돌아옴?",
+   "broker": "하나증권",
+   "date": "2026-11-04",
+   "kind": "전략",
+   "subject": "코스피 · 외국인 수급",
+   "one_line": "코스피 고점 대비 -40%, 외국인 올해 210조원 순매도 — 과거 비슷한 조건에서는 최소 3개월 뒤 저점 후 반등(1년 후 평균 +39%, 승률 94%)했고, 외국인 복귀는 미국 하이일드 스프레드 축소가 열쇠",
+   "url": "https://stock.naver.com/research/invest/40698",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-04 19:16"
   }
  },
  "skipped": {}
