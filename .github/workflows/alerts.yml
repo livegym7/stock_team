@@ -1,0 +1,42 @@
+# 보유 종목 장중 알림 (Claude 없이 파이썬 규칙만 → 토큰 사용 없음)
+# 평일 장중 20분마다 tools/alerts.py 실행. 보낸 알림 기록은 alert-state 브랜치의 state.json 한 파일에 둔다.
+# 깃허브 예약 실행은 몰릴 때 늦어지거나 건너뛸 수 있다 (알림 메시지에 확인 시각이 찍힘). 주문 기능 없음.
+name: 보유 종목 장중 알림
+
+on:
+  schedule:
+    - cron: "*/20 0-6 * * 1-5"   # UTC 00~06시 = 한국 09~15시 (15:40 이후는 도구가 알아서 건너뜀)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: alerts
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: 지난 알림 기록 가져오기
+        run: |
+          mkdir -p "$RUNNER_TEMP/st"
+          git fetch -q origin alert-state 2>/dev/null && git show origin/alert-state:state.json > "$RUNNER_TEMP/st/state.json" || echo '{}' > "$RUNNER_TEMP/st/state.json"
+      - name: 확인하고 새 알림만 텔레그램으로
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python3 tools/alerts.py --collect --state "$RUNNER_TEMP/st/state.json"
+      - name: 알림 기록 저장 (alert-state 브랜치, 기록 없이 덮어쓰기)
+        run: |
+          cd "$RUNNER_TEMP/st"
+          git init -q
+          git add state.json
+          git -c user.name="alert bot" -c user.email="actions@users.noreply.github.com" commit -qm "alert state $(TZ=Asia/Seoul date '+%F %H:%M')"
+          git push -fq "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}" HEAD:alert-state
