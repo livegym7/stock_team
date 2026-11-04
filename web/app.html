@@ -335,12 +335,12 @@ function mergeExtra(){
 }
 function briefDocId(b){return ("w_"+b.kind+"_"+b.date+"_"+(b.time||"")).replace(/[^A-Za-z0-9_-]/g,"")}
 function saveExtra(b){
-  let ex=localExtra();ex=[b,...ex].slice(0,30);try{localStorage.setItem("tr-briefs-extra",JSON.stringify(ex))}catch(e){}
+  let ex=localExtra();ex=[b,...ex].slice(0,100);try{localStorage.setItem("tr-briefs-extra",JSON.stringify(ex))}catch(e){}
   if(BDB){BDB.collection("briefs").doc(briefDocId(b)).set({...b,saved_at:new Date().toISOString()}).catch(()=>{})}
 }
 (async()=>{   // 다른 기기에서 쓴 브리핑도 받아 오기 (없으면 이 브라우저 것만)
   try{const db=await claude.use("db");if(!db)return;BDB=db;
-    db.collection("briefs").orderBy("saved_at","desc").limit(40).onSnapshot(snap=>{
+    db.collection("briefs").orderBy("saved_at","desc").limit(300).onSnapshot(snap=>{
       DBX=snap.docs.map(d=>d.data()).filter(Boolean).map(b=>({...b}));
       if(BW.state!=="writing"&&D){mergeExtra();render()}
     },()=>{});
@@ -437,6 +437,25 @@ async function writeBrief(kind){
 }
 
 /* ---------- 포트폴리오 ---------- */
+function equityChart(){
+  const E=D.equity; if(!E||!E.points||E.points.length<2)return `<div class="panel" style="margin-top:12px"><h3>📈 계좌 수익률</h3><div class="empty">매매 기록이 이틀 이상 쌓이면 그래프가 그려집니다</div></div>`;
+  const P=E.points, W=720,H=220,L=44,R=12,T=12,B=24,n=P.length;
+  const vals=[...P.map(p=>p.ret),...P.map(p=>p.bench).filter(v=>v!=null),0], lo=Math.min(...vals)-0.5, hi=Math.max(...vals)+0.5;
+  const x=i=>(L+i/(n-1)*(W-L-R)).toFixed(1), y=v=>(T+(hi-v)/(hi-lo)*(H-T-B)).toFixed(1);
+  const path=k=>P.map((p,i)=>p[k]==null?"":(i&&P[i-1][k]!=null?"L":"M")+x(i)+" "+y(p[k])).join("");
+  const last=P[n-1], ticks=[hi-0.5,(hi+lo)/2,lo+0.5].map(v=>Math.round(v*10)/10), dl=[0,Math.floor((n-1)/2),n-1];
+  return `<div class="panel" style="margin-top:12px"><h3>📈 계좌 수익률 <small class="muted">${esc(P[0].date)}부터 · 계좌 ${w(E.capital)}원 대비</small></h3>
+  <div class="grid g4" style="margin-bottom:8px"><div class="tile"><span>계좌 수익률</span><b class="${cls(last.ret)}">${pc(last.ret,2)}</b></div><div class="tile"><span>KODEX 200 (시장)</span><b class="${cls(last.bench)}">${pc(last.bench,2)}</b></div>
+   <div class="tile"><span>시장 대비</span><b class="${cls(last.ret-last.bench)}">${pc(last.ret-(last.bench||0),2)}</b></div><div class="tile"><span>실현 · 평가 손익</span><b style="font-size:15px"><span class="${cls(last.realized)}">${w(last.realized)}</span> · <span class="${cls(last.unreal)}">${w(last.unreal)}</span></b></div></div>
+  <svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="계좌 수익률과 시장 비교">
+   ${ticks.map(v=>`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)" stroke-width=".6"/><text x="${L-4}" y="${+y(v)+3}" font-size="10" text-anchor="end" fill="var(--muted)">${v>0?"+":""}${v}%</text>`).join("")}
+   <line x1="${L}" x2="${W-R}" y1="${y(0)}" y2="${y(0)}" stroke="var(--muted)" stroke-width=".8" stroke-dasharray="3 3"/>
+   ${dl.map(i=>`<text x="${x(i)}" y="${H-6}" font-size="10" text-anchor="${i==0?"start":i==n-1?"end":"middle"}" fill="var(--muted)">${esc(P[i].date.slice(5))}</text>`).join("")}
+   <path d="${path("bench")}" fill="none" stroke="var(--muted)" stroke-width="1.4" stroke-dasharray="5 3"/>
+   <path d="${path("ret")}" fill="none" stroke="var(--accent)" stroke-width="2.2"/>
+   <circle cx="${x(n-1)}" cy="${y(last.ret)}" r="3" fill="var(--accent)"/></svg>
+  <div class="src"><span style="color:var(--accent)">━ 계좌 수익률</span> = (실현 손익 + 평가 손익) ÷ 계좌 원금 · <span class="muted">┄ KODEX 200</span> = 같은 기간 시장 · 매매 일지 기록과 네이버 일봉 종가로 계산 (오늘은 현재가) · 입출금은 반영 안 됨</div></div>`;
+}
 function journal(){
   const T=D.trades; if(!T)return "";
   const S=T.stats||{}, ty={buy:"🟥 매수",sell:"🟦 매도",stop:"🛡️ 손절가"};
@@ -463,6 +482,7 @@ function viewPortfolio(){
    <td class="num">${w(p.stop)}<br><small class="muted">${pc(p.to_stop_pct)}</small></td><td class="num">${w(p.one_r_won)}<br><small class="muted">${p.one_r_vs_account}R</small></td>
    <td class="num ${cls(p.r_multiple)}"><b>${p.r_multiple==null?"-":(p.r_multiple>0?"+":"")+p.r_multiple.toFixed(2)+"R"}</b><div class="rbar" title="−1R ~ 3R"><i style="width:${bar}%"></i></div></td>
    <td class="num">${w(p.breakeven_price_at_3r)}<br><small class="muted">${pc(p.to_3r_pct)}</small></td><td class="num">${w(p.cr_won)}</td></tr>`}).join("")}</table></div>
+  ${equityChart()}
   ${journal()}
   <h2 style="margin-top:18px">다음 액션 · 가격별 규칙</h2>
   <div class="acts">${ps.map(p=>actionCard(p)).join("")}</div>
@@ -934,7 +954,6 @@ function autoBoard(){
 function viewConfig(){
   const a=D.account||{};
   return `<h1>규칙·일정</h1><div class="sub">바꾸고 싶으면 Claude에게 말해 주세요 (이 화면은 보기 전용)</div>
-  ${autoBoard()}
   <div class="panel" style="margin-bottom:16px"><h2>📅 일정 달력</h2>${calMonth()}</div>
   <div class="panel" style="margin-bottom:16px"><h2>📡 채널 일정 글 (최근 3일)</h2>${((D.calendar||{}).channel_posts||[]).map(p=>`<div class="post"><div class="meta"><span class="num">${esc(p.time)}</span><b>${esc(p.channel)}</b><a href="${esc(p.url)}" target="_blank" rel="noopener">원문</a></div><div class="body">${esc(p.text)}</div></div>`).join("")||`<div class="empty">없음</div>`}</div>
   <div class="panel rulecard"><h2>📌 매매 규칙 한 장 <span class="pill">고정 2026-11-03 ~ 신호 30건 또는 2027-01-31</span></h2>
@@ -949,7 +968,8 @@ function viewConfig(){
   <div class="panel"><h2>계좌·리스크 규칙</h2><table><tr><td class="l">자본</td><td class="num">${w(a.capital)}원</td></tr><tr><td class="l">1R (1회 손실 한도)</td><td class="num">${a.risk_per_trade*100}% = ${w(a.capital*a.risk_per_trade)}원</td></tr><tr><td class="l">처음 손절</td><td class="num">−${a.stop_pct*100}%</td></tr><tr><td class="l">본전 손절로 올리는 시점</td><td class="num">${a.breakeven_at_r}R</td></tr><tr><td class="l">${a.breakeven_at_r}R 익절</td><td class="num">${Math.round((a.take_profit_at_3r||0)*100)}%</td></tr><tr><td class="l">3R 이후 매도</td><td class="num">${a.trail_ma||20}일선 종가 이탈</td></tr><tr><td class="l">CR 한도 (동시 손절 최대)</td><td class="num">${a.max_open_risk*100}% = ${w(a.capital*a.max_open_risk)}원</td></tr><tr><td class="l">펀더멘털</td><td class="num">점수로만 표시</td></tr></table></div>
   <div class="panel"><h2>자동 일정 (평일)</h2><div class="tl">${(D.schedule||[]).map(s=>`<a href="#${s.kind=="watchlist"?"watch":"briefs"}"><span class="num">${s.time}</span><span>${esc(s.name)}</span><span class="pill ${s.done?"ok":""}">${esc(s.state)}</span></a>`).join("")}</div><div class="src">Claude 예약 작업 · 결과는 텔레그램과 이 화면에 같이 남음</div></div>
   <div class="panel"><h2>데이터 출처</h2><small>국내 시세·일봉: 네이버 증권(비공식) · 해외: Yahoo Finance(비공식) · 리포트·뉴스: 텔레그램 채널 요약(2차 자료) · 기업 사업 한 줄: Claude가 공개 정보로 작성</small></div>
-  <div class="panel"><h2>지키는 선</h2><small>주문 기능 없음 · 매수·매도 단정 없음(근거와 반대 근거) · 숫자에 출처와 시각 · 증권사 PDF 원본 저장 안 함</small></div></div>`;
+  <div class="panel"><h2>지키는 선</h2><small>주문 기능 없음 · 매수·매도 단정 없음(근거와 반대 근거) · 숫자에 출처와 시각 · 증권사 PDF 원본 저장 안 함</small></div></div>
+  <div style="margin-top:16px">${autoBoard()}</div>`;
 }
 
 /* ---------- 새로고침 (깃허브 Actions로 최신 데이터 만들기) ---------- */

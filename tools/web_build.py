@@ -624,6 +624,49 @@ def channel_feed(t, allp, hours=72):
     return rows
 
 
+def equity(risk_now):
+    """계좌 수익률 곡선: 매매 일지(data/trades) + 네이버 일봉 종가. 날마다 (실현 + 평가 손익) ÷ 계좌 원금, KODEX 200과 비교."""
+    import screener as S
+    import trades as TR
+    log = sorted(TR.read_log(), key=lambda e: (e["date"], e.get("at", "")))
+    if not log:
+        return None
+    cap = (load_toml("account.toml") or {}).get("capital") or 1
+    start = log[0]["date"].replace("-", "")
+    bench = [r for r in S.fetch_daily("069500") if r["date"] >= start]
+    if not bench:
+        return None
+    closes = {c: {r["date"]: r["close"] for r in S.fetch_daily(c)} for c in {e["code"] for e in log}}
+    live = {p["code"]: p.get("price") for p in (risk_now or {}).get("positions", []) if p.get("price")}
+    today = datetime.now(KST).strftime("%Y%m%d")
+    pts, b0 = [], None
+    for br in bench:
+        d = br["date"]
+        qty, cost, realized = defaultdict(int), defaultdict(float), 0.0
+        for e in log:
+            if e["date"].replace("-", "") > d:
+                break
+            c = e["code"]
+            if e["type"] == "buy":
+                qty[c] += e["qty"]; cost[c] += e["qty"] * e["price"]
+            elif e["type"] == "sell" and qty[c]:
+                avg = cost[c] / qty[c]
+                realized += (e["price"] - avg) * e["qty"]
+                cost[c] -= avg * e["qty"]; qty[c] -= e["qty"]
+        unreal = 0.0
+        for c, q in qty.items():
+            if q:
+                px = live.get(c) if d == today and live.get(c) else closes[c].get(d)
+                if px is None:   # 거래 없는 날은 직전 종가
+                    prev = [v for k, v in closes[c].items() if k <= d]
+                    px = prev[-1] if prev else cost[c] / q
+                unreal += px * q - cost[c]
+        b0 = b0 or br["close"]
+        pts.append({"date": f"{d[:4]}-{d[4:6]}-{d[6:]}", "ret": round((realized + unreal) / cap * 100, 3),
+                    "bench": round((br["close"] / b0 - 1) * 100, 3), "realized": round(realized), "unreal": round(unreal)})
+    return {"capital": cap, "points": pts}
+
+
 def automation(now, data, allp):
     """자동 작업 현황: config/automation.toml 목록마다 오늘 실행됐는지 결과 파일로 확인 (토큰 0)."""
     import subprocess
@@ -819,6 +862,7 @@ def main():
         "market": market(not a.no_live),
         "risk": risk_now,
         "trades": safe(lambda: __import__("trades").summary()),
+        "equity": safe(lambda: equity(risk_now)),
         "account": load_toml("account.toml"),
         "schedule": schedule(now, brief_rows),
         "briefs": brief_rows,
@@ -852,7 +896,7 @@ def main():
     data["parts"] = {**(last.get("parts") or {}), **{k: data["built_at"] for k in ("market", "risk", "channels", "insights")}}
     data["automation"] = safe(lambda: automation(now, data, allp))
     if a.only == "monitoring":   # 모니터링만: 분석 쪽은 지난 데이터 그대로
-        keep = {k: last.get(k) for k in ("market", "risk", "trades", "briefs", "companies", "research", "earnings", "channels", "channel_stats", "report_flow", "schedule")}
+        keep = {k: last.get(k) for k in ("market", "risk", "trades", "equity", "briefs", "companies", "research", "earnings", "channels", "channel_stats", "report_flow", "schedule")}
         hot = (last.get("insights") or {}).get("hot")
         data.update(keep)
         if isinstance(data.get("insights"), dict) and hot is not None:
