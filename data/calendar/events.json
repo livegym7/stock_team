@@ -1,5 +1,5 @@
 {
- "fetched_at": "2026-11-04 13:02",
+ "fetched_at": "2026-11-05 06:58",
  "errors": [],
  "events": [
   {
@@ -122,6 +122,17 @@
    "code": "058610",
    "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261008900338",
    "id": "ir:058610:2026-10-08"
+  },
+  {
+   "date": "2026-10-08",
+   "time": "",
+   "kind": "earnings_kr",
+   "name": "케이엔제이 기업설명회(IR)",
+   "detail": "",
+   "source": "DART 공시",
+   "code": "272110",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261007900068",
+   "id": "ir:272110:2026-10-08"
   },
   {
    "date": "2026-10-08",
@@ -1885,6 +1896,17 @@
   },
   {
    "date": "2026-11-03",
+   "time": "",
+   "kind": "earnings_kr",
+   "name": "녹십자웰빙 기업설명회(IR)",
+   "detail": "",
+   "source": "DART 공시",
+   "code": "234690",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261029900600",
+   "id": "ir:234690:2026-11-03"
+  },
+  {
+   "date": "2026-11-03",
    "time": "09:00",
    "kind": "earnings_kr",
    "name": "해성디에스 기업설명회(IR)",
@@ -2129,7 +2151,8 @@
    "date": "2026-11-04",
    "time": "00:16",
    "kind": "macro",
-   "name": "미국 Congressional Elections",
+   "name": "미국 중간선거",
+   "name_en": "Congressional Elections",
    "detail": "",
    "source": "ForexFactory 경제 캘린더",
    "id": "ff:USD:Congressional Elections:20261104"
@@ -2210,6 +2233,17 @@
    "code": "353200",
    "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261015800468",
    "id": "ir:353200:2026-11-04"
+  },
+  {
+   "date": "2026-11-04",
+   "time": "09:00",
+   "kind": "earnings_kr",
+   "name": "현대자동차 기업설명회(IR)",
+   "detail": "2026년 3분기 경영실적 설명 및 질의응답",
+   "source": "DART 공시",
+   "code": "005380",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261104800225",
+   "id": "ir:005380:2026-11-04"
   },
   {
    "date": "2026-11-04",
@@ -2410,6 +2444,17 @@
   },
   {
    "date": "2026-11-05",
+   "time": "",
+   "kind": "earnings_kr",
+   "name": "휴젤 기업설명회(IR)",
+   "detail": "",
+   "source": "DART 공시",
+   "code": "145020",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261104900488",
+   "id": "ir:145020:2026-11-05"
+  },
+  {
+   "date": "2026-11-05",
    "time": "08:00",
    "kind": "earnings_kr",
    "name": "한미반도체 기업설명회(IR)",
@@ -2495,6 +2540,17 @@
    "code": "000210",
    "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261027800403",
    "id": "ir:000210:2026-11-05"
+  },
+  {
+   "date": "2026-11-05",
+   "time": "09:10",
+   "kind": "earnings_kr",
+   "name": "SK가스 기업설명회(IR)",
+   "detail": "사업현황 및 2026년 3분기 경영실적 설명 등",
+   "source": "DART 공시",
+   "code": "018670",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261104800582",
+   "id": "ir:018670:2026-11-05"
   },
   {
    "date": "2026-11-05",
@@ -2797,7 +2853,8 @@
    "date": "2026-11-06",
    "time": "22:30",
    "kind": "macro",
-   "name": "미국 Average Hourly Earnings m/m",
+   "name": "미국 시간당 임금 월간",
+   "name_en": "Average Hourly Earnings m/m",
    "detail": "예상 0.3% · 이전 0.1%",
    "source": "ForexFactory 경제 캘린더",
    "id": "ff:USD:Average Hourly Earnings m/m:20261106"
@@ -2806,7 +2863,8 @@
    "date": "2026-11-06",
    "time": "22:30",
    "kind": "macro",
-   "name": "미국 Non-Farm Employment Change",
+   "name": "미국 비농업 고용",
+   "name_en": "Non-Farm Employment Change",
    "detail": "예상 65K · 이전 29K",
    "source": "ForexFactory 경제 캘린더",
    "id": "ff:USD:Non-Farm Employment Change:20261106"
@@ -2815,7 +2873,8 @@
    "date": "2026-11-06",
    "time": "22:30",
    "kind": "policy",
-   "name": "미국 Unemployment Rate",
+   "name": "미국 실업률",
+   "name_en": "Unemployment Rate",
    "detail": "예상 4.2% · 이전 4.2%",
    "source": "ForexFactory 경제 캘린더",
    "id": "ff:USD:Unemployment Rate:20261106"
@@ -2824,7 +2883,8 @@
    "date": "2026-11-07",
    "time": "01:00",
    "kind": "policy",
-   "name": "일본 BOJ Gov Ueda Speaks",
+   "name": "일본 일본은행 총재 발언",
+   "name_en": "BOJ Gov Ueda Speaks",
    "detail": "",
    "source": "ForexFactory 경제 캘린더",
    "id": "ff:JPY:BOJ Gov Ueda Speaks:20261107"
@@ -2861,6 +2921,28 @@
    "code": "397030",
    "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261007900061",
    "id": "ir:397030:2026-11-09"
+  },
+  {
+   "date": "2026-11-09",
+   "time": "",
+   "kind": "earnings_kr",
+   "name": "카카오뱅크 기업설명회(IR)",
+   "detail": "해외 기관투자자 대상 기업설명회",
+   "source": "DART 공시",
+   "code": "323410",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261104800410",
+   "id": "ir:323410:2026-11-09"
+  },
+  {
+   "date": "2026-11-09",
+   "time": "",
+   "kind": "earnings_kr",
+   "name": "롯데렌탈 기업설명회(IR)",
+   "detail": "주요 경영현황 및 재무실적, Q&amp;A 등",
+   "source": "DART 공시",
+   "code": "089860",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261104800401",
+   "id": "ir:089860:2026-11-09"
   },
   {
    "date": "2026-11-09",
@@ -2929,6 +3011,17 @@
    "id": "ir:000150:2026-11-09"
   },
   {
+   "date": "2026-11-09",
+   "time": "16:00",
+   "kind": "earnings_kr",
+   "name": "한전KPS 기업설명회(IR)",
+   "detail": "",
+   "source": "DART 공시",
+   "code": "051600",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261104800439",
+   "id": "ir:051600:2026-11-09"
+  },
+  {
    "date": "2026-11-10",
    "time": "",
    "kind": "earnings_kr",
@@ -2985,6 +3078,17 @@
   },
   {
    "date": "2026-11-10",
+   "time": "09:00",
+   "kind": "earnings_kr",
+   "name": "롯데쇼핑 기업설명회(IR)",
+   "detail": "영업실적 설명 및 Q&amp;A 진행",
+   "source": "DART 공시",
+   "code": "023530",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261104800511",
+   "id": "ir:023530:2026-11-10"
+  },
+  {
+   "date": "2026-11-10",
    "time": "09:30",
    "kind": "earnings_kr",
    "name": "CJ대한통운 기업설명회(IR)",
@@ -3035,6 +3139,50 @@
    "why": "금리 기대를 바꾸는 물가 지표 — 기술주·환율에 영향",
    "source": "BLS 발표 일정(2차 확인: 경제 캘린더 여러 곳 일치)",
    "id": "m:2026-11-10:미국 10월 CPI(소비자물가) 발표"
+  },
+  {
+   "date": "2026-11-11",
+   "time": "",
+   "kind": "earnings_kr",
+   "name": "CJ제일제당 기업설명회(IR)",
+   "detail": "2026년 3분기 경영실적 및 질의응답",
+   "source": "DART 공시",
+   "code": "097950",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261104800482",
+   "id": "ir:097950:2026-11-11"
+  },
+  {
+   "date": "2026-11-11",
+   "time": "09:00",
+   "kind": "earnings_kr",
+   "name": "넥센타이어 기업설명회(IR)",
+   "detail": "2026년 3분기 경영 실적 및 투자자 주요 관심사항",
+   "source": "DART 공시",
+   "code": "002350",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261104800649",
+   "id": "ir:002350:2026-11-11"
+  },
+  {
+   "date": "2026-11-11",
+   "time": "09:10",
+   "kind": "earnings_kr",
+   "name": "BGF리테일 기업설명회(IR)",
+   "detail": "26년 3분기 경영실적 및 주요 관심사항 Q&amp;A 진행",
+   "source": "DART 공시",
+   "code": "282330",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261104800556",
+   "id": "ir:282330:2026-11-11"
+  },
+  {
+   "date": "2026-11-11",
+   "time": "09:10",
+   "kind": "earnings_kr",
+   "name": "BGF 기업설명회(IR)",
+   "detail": "'26년 3분기 경영실적 및 주요 관심사항 Q&amp;A 진행",
+   "source": "DART 공시",
+   "code": "027410",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261104800562",
+   "id": "ir:027410:2026-11-11"
   },
   {
    "date": "2026-11-11",
@@ -3175,6 +3323,17 @@
    "code": "000370",
    "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261020800514",
    "id": "ir:000370:2026-11-12"
+  },
+  {
+   "date": "2026-11-12",
+   "time": "09:00",
+   "kind": "earnings_kr",
+   "name": "현대백화점 기업설명회(IR)",
+   "detail": "최근 경영현황 및 전략, 주요 관심사항에 대한 Q&amp;A 진행",
+   "source": "DART 공시",
+   "code": "069960",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261104800302",
+   "id": "ir:069960:2026-11-12"
   },
   {
    "date": "2026-11-12",
