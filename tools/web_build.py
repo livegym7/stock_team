@@ -496,7 +496,7 @@ def build_companies(allp, uni, companies, by_stock, fetch_limit=10):
         rev = {"net": sum(r.get("direction") == "상향" for r in rs) - sum(r.get("direction") == "하향" for r in rs),
                "avg_chg": round(statistics.mean(chg) * 100, 1) if chg else None,
                "brokers": sorted(latest.values(), key=lambda x: x["time"], reverse=True)[:10]}
-        out[code] = {**base, "rev": rev, "code": code, "market_cap_eok": u.get("market_cap_eok"),
+        out[code] = {**base, "rev": rev, "group": grp, "code": code, "market_cap_eok": u.get("market_cap_eok"),
                      "reports": [{**r, "points": [x[:180] for x in r.get("points", [])][:3 if card else 2]} for r in rs[-(8 if card else 4):][::-1]],
                      "n_reports": len(rs), "_all_reports": rs,
                      "last_report": rs[-1]["time"] if rs else None,

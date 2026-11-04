@@ -497,5 +497,478 @@
   "sources": [
    "회사 소개·IR 자료 기반 일반 정보 (DART 확인 예정)"
   ]
+ },
+ "028050": {
+  "name": "삼성E&A",
+  "sector": "소재·산업재",
+  "detail": "건설",
+  "sub_sectors": [],
+  "one_liner": "화공 플랜트(정유·석유화학·가스)와 반도체 Fab 등 첨단산업 시설을 설계·조달·시공(EPC)하는 엔지니어링 회사",
+  "updated": "2026-11-04",
+  "sources": [
+   "Claude 정리(공개 사업 내용 기준, DART 확인 예정)"
+  ]
+ },
+ "329180": {
+  "name": "HD현대중공업",
+  "sector": "조선·해운",
+  "detail": "조선",
+  "sub_sectors": [
+   "방산 체계"
+  ],
+  "one_liner": "LNG선·컨테이너선 등 상선과 함정을 짓는 세계 최대급 조선소 (엔진 사업 포함)",
+  "updated": "2026-11-04",
+  "sources": [
+   "Claude 정리(공개 사업 내용 기준, DART 확인 예정)"
+  ]
+ },
+ "138930": {
+  "name": "BNK금융지주",
+  "sector": "금융",
+  "detail": "은행",
+  "sub_sectors": [],
+  "one_liner": "부산은행·경남은행을 거느린 부울경 지역 기반 금융지주",
+  "updated": "2026-11-04",
+  "sources": [
+   "Claude 정리(공개 사업 내용 기준, DART 확인 예정)"
+  ]
+ },
+ "010140": {
+  "name": "삼성중공업",
+  "sector": "조선·해운",
+  "detail": "조선",
+  "sub_sectors": [],
+  "one_liner": "LNG선·FLNG(해상 액화설비) 등 고부가 선박·해양설비를 만드는 조선사",
+  "updated": "2026-11-04",
+  "sources": [
+   "Claude 정리(공개 사업 내용 기준, DART 확인 예정)"
+  ]
+ },
+ "267260": {
+  "name": "HD현대일렉트릭",
+  "sector": "전력·에너지",
+  "detail": "변압기·전력기기",
+  "sub_sectors": [],
+  "one_liner": "초고압 변압기·차단기 등 전력기기를 만들어 북미 전력망·데이터센터에 공급",
+  "updated": "2026-11-04",
+  "sources": [
+   "Claude 정리(공개 사업 내용 기준, DART 확인 예정)"
+  ]
+ },
+ "012450": {
+  "name": "한화에어로스페이스",
+  "sector": "방산·우주",
+  "detail": "방산 체계",
+  "sub_sectors": [
+   "우주·위성"
+  ],
+  "one_liner": "K9 자주포·레드백 등 지상 방산과 항공기 엔진, 우주 발사체 사업을 하는 회사",
+  "updated": "2026-11-04",
+  "sources": [
+   "Claude 정리(공개 사업 내용 기준, DART 확인 예정)"
+  ]
+ },
+ "008770": {
+  "name": "호텔신라",
+  "sector": "소비재",
+  "detail": "유통",
+  "sub_sectors": [
+   "여행·레저"
+  ],
+  "one_liner": "신라면세점(면세 유통)과 신라호텔을 운영",
+  "updated": "2026-11-04",
+  "sources": [
+   "Claude 정리(공개 사업 내용 기준, DART 확인 예정)"
+  ]
+ },
+ "034020": {
+  "name": "두산에너빌리티",
+  "sector": "전력·에너지",
+  "detail": "원자력",
+  "sub_sectors": [
+   "발전설비·가스터빈"
+  ],
+  "one_liner": "원자로 주기기·가스터빈·발전 설비를 만드는 발전 기자재 회사",
+  "updated": "2026-11-04",
+  "sources": [
+   "Claude 정리(공개 사업 내용 기준, DART 확인 예정)"
+  ]
+ },
+ "004170": {
+  "name": "신세계",
+  "sector": "소비재",
+  "detail": "유통",
+  "sub_sectors": [],
+  "one_liner": "신세계백화점과 신세계면세점(DF)을 운영하는 유통 회사",
+  "updated": "2026-11-04",
+  "sources": [
+   "Claude 정리(공개 사업 내용 기준, DART 확인 예정)"
+  ]
+ },
+ "069960": {
+  "name": "현대백화점",
+  "sector": "소비재",
+  "detail": "유통",
+  "sub_sectors": [],
+  "one_liner": "현대백화점·아울렛과 면세점, 지누스(가구) 등을 가진 유통 회사",
+  "updated": "2026-11-04",
+  "sources": [
+   "Claude 정리(공개 사업 내용 기준, DART 확인 예정)"
+  ]
+ },
+ "011070": {
+  "name": "LG이노텍",
+  "sector": "전자부품·IT하드웨어",
+  "detail": "카메라모듈·광학",
+  "sub_sectors": [
+   "반도체 패키지 기판"
+  ],
+  "one_liner": "스마트폰 카메라모듈이 주력, FC-BGA 등 반도체 패키지 기판으로 확장 중",
+  "updated": "2026-11-04",
+  "sources": [
+   "Claude 정리(공개 사업 내용 기준, DART 확인 예정)"
+  ]
+ },
+ "237690": {
+  "name": "에스티팜",
+  "sector": "바이오·헬스케어",
+  "detail": "바이오시밀러·CDMO",
+  "sub_sectors": [],
+  "one_liner": "올리고뉴클레오타이드(RNA 치료제 원료) 위탁개발·생산(CDMO) 회사",
+  "updated": "2026-11-04",
+  "sources": [
+   "Claude 정리(공개 사업 내용 기준, DART 확인 예정)"
+  ]
+ },
+ "009540": {
+  "name": "HD한국조선해양",
+  "sector": "조선·해운",
+  "detail": "조선",
+  "sub_sectors": [
+   "지주회사"
+  ],
+  "one_liner": "HD현대중공업·HD현대미포·HD현대삼호를 거느린 조선 중간지주회사",
+  "updated": "2026-11-04",
+  "sources": [
+   "Claude 정리(공개 사업 내용 기준, DART 확인 예정)"
+  ]
+ },
+ "009830": {
+  "name": "한화솔루션",
+  "sector": "전력·에너지",
+  "detail": "신재생에너지",
+  "sub_sectors": [
+   "화학"
+  ],
+  "one_liner": "한화큐셀 태양광 모듈·셀과 석유화학(케미칼) 사업을 하는 회사",
+  "updated": "2026-11-04",
+  "sources": [
+   "Claude 정리(공개 사업 내용 기준, DART 확인 예정)"
+  ]
+ },
+ "035900": {
+  "name": "JYP Ent.",
+  "sector": "소비재",
+  "detail": "엔터·콘텐츠",
+  "sub_sectors": [],
+  "one_liner": "트와이스·스트레이키즈 등이 소속된 K-POP 엔터테인먼트 회사",
+  "updated": "2026-11-04",
+  "sources": [
+   "Claude 정리(공개 사업 내용 기준, DART 확인 예정)"
+  ]
+ },
+ "001430": {
+  "name": "세아베스틸지주",
+  "sector": "소재·산업재",
+  "detail": "철강·비철금속",
+  "sub_sectors": [
+   "방산 부품"
+  ],
+  "one_liner": "특수강(자동차·기계용)과 항공·방산용 특수합금을 만드는 세아그룹 특수강 지주회사",
+  "updated": "2026-11-04",
+  "sources": [
+   "Claude 정리(공개 사업 내용 기준, DART 확인 예정)"
+  ]
+ },
+ "005940": {
+  "name": "NH투자증권",
+  "sector": "금융",
+  "detail": "증권",
+  "sub_sectors": [],
+  "one_liner": "농협금융 계열의 대형 증권사 (IB·위탁매매·자산관리)",
+  "updated": "2026-11-04",
+  "sources": [
+   "Claude 정리(공개 사업 내용 기준, DART 확인 예정)"
+  ]
+ },
+ "096770": {
+  "name": "SK이노베이션",
+  "sector": "2차전지",
+  "detail": "배터리 셀",
+  "sub_sectors": [
+   "정유"
+  ],
+  "one_liner": "SK에너지(정유)·SK온(배터리)·SK E&S 등을 거느린 에너지·화학 중간지주",
+  "updated": "2026-11-04",
+  "sources": [
+   "Claude 정리(공개 사업 내용 기준, DART 확인 예정)"
+  ]
+ },
+ "010120": {
+  "name": "LS ELECTRIC",
+  "sector": "전력·에너지",
+  "detail": "변압기·전력기기",
+  "sub_sectors": [],
+  "one_liner": "배전반·차단기·변압기 등 전력기기와 자동화 기기를 만드는 회사",
+  "updated": "2026-11-04",
+  "sources": [
+   "Claude 정리(공개 사업 내용 기준, DART 확인 예정)"
+  ]
+ },
+ "028670": {
+  "name": "팬오션",
+  "sector": "조선·해운",
+  "detail": "해운",
+  "sub_sectors": [],
+  "one_liner": "건화물(벌크)선 중심의 해운사, 하림 계열",
+  "updated": "2026-11-04",
+  "sources": [
+   "Claude 정리(공개 사업 내용 기준, DART 확인 예정)"
+  ]
+ },
+ "034220": {
+  "name": "LG디스플레이",
+  "sector": "전자부품·IT하드웨어",
+  "detail": "디스플레이",
+  "sub_sectors": [],
+  "one_liner": "TV·IT·스마트폰용 OLED·LCD 패널을 만드는 디스플레이 회사",
+  "updated": "2026-11-04",
+  "sources": [
+   "Claude 정리(공개 사업 내용 기준, DART 확인 예정)"
+  ]
+ },
+ "066570": {
+  "name": "LG전자",
+  "sector": "전자부품·IT하드웨어",
+  "detail": "가전·IT기기",
+  "sub_sectors": [
+   "기계·로봇"
+  ],
+  "one_liner": "가전·TV·전장(자동차 부품)·냉난방공조(HVAC) 사업, 로봇 사업 확대 중",
+  "updated": "2026-11-04",
+  "sources": [
+   "Claude 정리(공개 사업 내용 기준, DART 확인 예정)"
+  ]
+ },
+ "128940": {
+  "name": "한미약품",
+  "sector": "바이오·헬스케어",
+  "detail": "제약",
+  "sub_sectors": [
+   "신약개발"
+  ],
+  "one_liner": "개량신약·복합제 중심 제약사, 비만·대사질환 신약 개발",
+  "updated": "2026-11-04",
+  "sources": [
+   "Claude 정리(공개 사업 내용 기준, DART 확인 예정)"
+  ]
+ },
+ "032350": {
+  "name": "롯데관광개발",
+  "sector": "소비재",
+  "detail": "여행·레저",
+  "sub_sectors": [],
+  "one_liner": "제주 드림타워 카지노·호텔과 여행업을 운영",
+  "updated": "2026-11-04",
+  "sources": [
+   "Claude 정리(공개 사업 내용 기준, DART 확인 예정)"
+  ]
+ },
+ "006400": {
+  "name": "삼성SDI",
+  "sector": "2차전지",
+  "detail": "배터리 셀",
+  "sub_sectors": [
+   "ESS·수소"
+  ],
+  "one_liner": "전기차·ESS용 배터리 셀을 만드는 삼성 계열 배터리 회사",
+  "updated": "2026-11-04",
+  "sources": [
+   "Claude 정리(공개 사업 내용 기준, DART 확인 예정)"
+  ]
+ },
+ "055550": {
+  "name": "신한지주",
+  "sector": "금융",
+  "detail": "은행",
+  "sub_sectors": [
+   "금융지주·기타금융"
+  ],
+  "one_liner": "신한은행·신한카드·신한투자증권 등을 거느린 금융지주",
+  "updated": "2026-11-04",
+  "sources": [
+   "Claude 정리(공개 사업 내용 기준, DART 확인 예정)"
+  ]
+ },
+ "139130": {
+  "name": "iM금융지주",
+  "sector": "금융",
+  "detail": "은행",
+  "sub_sectors": [],
+  "one_liner": "iM뱅크(옛 대구은행)를 중심으로 한 금융지주",
+  "updated": "2026-11-04",
+  "sources": [
+   "Claude 정리(공개 사업 내용 기준, DART 확인 예정)"
+  ]
+ },
+ "175330": {
+  "name": "JB금융지주",
+  "sector": "금융",
+  "detail": "은행",
+  "sub_sectors": [],
+  "one_liner": "전북은행·광주은행을 거느린 호남 지역 기반 금융지주",
+  "updated": "2026-11-04",
+  "sources": [
+   "Claude 정리(공개 사업 내용 기준, DART 확인 예정)"
+  ]
+ },
+ "316140": {
+  "name": "우리금융지주",
+  "sector": "금융",
+  "detail": "은행",
+  "sub_sectors": [],
+  "one_liner": "우리은행 중심 금융지주, 증권·보험으로 확장 중",
+  "updated": "2026-11-04",
+  "sources": [
+   "Claude 정리(공개 사업 내용 기준, DART 확인 예정)"
+  ]
+ },
+ "443060": {
+  "name": "HD현대마린솔루션",
+  "sector": "조선·해운",
+  "detail": "조선기자재",
+  "sub_sectors": [],
+  "one_liner": "선박 운항 중 정비·부품·친환경 개조 등 선박 애프터마켓(AM) 서비스 회사",
+  "updated": "2026-11-04",
+  "sources": [
+   "Claude 정리(공개 사업 내용 기준, DART 확인 예정)"
+  ]
+ },
+ "073240": {
+  "name": "금호타이어",
+  "sector": "자동차",
+  "detail": "타이어",
+  "sub_sectors": [],
+  "one_liner": "승용·트럭용 타이어를 만드는 회사 (더블스타 계열)",
+  "updated": "2026-11-04",
+  "sources": [
+   "Claude 정리(공개 사업 내용 기준, DART 확인 예정)"
+  ]
+ },
+ "195870": {
+  "name": "해성디에스",
+  "sector": "반도체",
+  "detail": "반도체 패키지 기판",
+  "sub_sectors": [
+   "반도체 소재·부품"
+  ],
+  "one_liner": "리드프레임과 패키지 기판(DDR용 등)을 만드는 반도체 부품 회사",
+  "updated": "2026-11-04",
+  "sources": [
+   "Claude 정리(공개 사업 내용 기준, DART 확인 예정)"
+  ]
+ },
+ "259960": {
+  "name": "크래프톤",
+  "sector": "인터넷·소프트웨어",
+  "detail": "게임",
+  "sub_sectors": [],
+  "one_liner": "배틀그라운드(PUBG) 개발사, PC·모바일 게임",
+  "updated": "2026-11-04",
+  "sources": [
+   "Claude 정리(공개 사업 내용 기준, DART 확인 예정)"
+  ]
+ },
+ "114090": {
+  "name": "GKL",
+  "sector": "소비재",
+  "detail": "여행·레저",
+  "sub_sectors": [],
+  "one_liner": "외국인 전용 카지노 세븐럭을 운영하는 공기업 성격의 회사",
+  "updated": "2026-11-04",
+  "sources": [
+   "Claude 정리(공개 사업 내용 기준, DART 확인 예정)"
+  ]
+ },
+ "001440": {
+  "name": "대한전선",
+  "sector": "전력·에너지",
+  "detail": "전선·케이블",
+  "sub_sectors": [],
+  "one_liner": "초고압 전력 케이블·해저 케이블을 만드는 전선 회사 (호반그룹)",
+  "updated": "2026-11-04",
+  "sources": [
+   "Claude 정리(공개 사업 내용 기준, DART 확인 예정)"
+  ]
+ },
+ "241560": {
+  "name": "두산밥캣",
+  "sector": "소재·산업재",
+  "detail": "기계·로봇",
+  "sub_sectors": [],
+  "one_liner": "소형 건설장비(스키드로더·미니굴착기)를 북미 중심으로 파는 회사",
+  "updated": "2026-11-04",
+  "sources": [
+   "Claude 정리(공개 사업 내용 기준, DART 확인 예정)"
+  ]
+ },
+ "272210": {
+  "name": "한화시스템",
+  "sector": "방산·우주",
+  "detail": "방산 체계",
+  "sub_sectors": [
+   "우주·위성",
+   "소프트웨어·보안"
+  ],
+  "one_liner": "레이더·전자전 등 방산 전자와 위성·ICT 사업을 하는 한화 계열사",
+  "updated": "2026-11-04",
+  "sources": [
+   "Claude 정리(공개 사업 내용 기준, DART 확인 예정)"
+  ]
+ },
+ "214450": {
+  "name": "파마리서치",
+  "sector": "바이오·헬스케어",
+  "detail": "의료기기·미용",
+  "sub_sectors": [
+   "화장품"
+  ],
+  "one_liner": "PDRN 성분 피부 재생 주사제 '리쥬란'과 화장품을 만드는 회사",
+  "updated": "2026-11-04",
+  "sources": [
+   "Claude 정리(공개 사업 내용 기준, DART 확인 예정)"
+  ]
+ },
+ "014830": {
+  "name": "유니드",
+  "sector": "소재·산업재",
+  "detail": "화학",
+  "sub_sectors": [],
+  "one_liner": "가성칼륨(염화칼륨 원료) 등 칼륨계 기초화학 제품을 만드는 회사",
+  "updated": "2026-11-04",
+  "sources": [
+   "Claude 정리(공개 사업 내용 기준, DART 확인 예정)"
+  ]
+ },
+ "034230": {
+  "name": "파라다이스",
+  "sector": "소비재",
+  "detail": "여행·레저",
+  "sub_sectors": [],
+  "one_liner": "외국인 카지노와 파라다이스시티 복합리조트를 운영",
+  "updated": "2026-11-04",
+  "sources": [
+   "Claude 정리(공개 사업 내용 기준, DART 확인 예정)"
+  ]
  }
 }

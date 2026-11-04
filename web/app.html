@@ -156,6 +156,7 @@ article.idea h3{font-size:14px;margin:16px 0 6px}article.idea .opinion{white-spa
 .chain .node{min-width:150px;flex:1;border:1px solid var(--line);border-radius:10px;padding:10px;display:flex;flex-direction:column;gap:4px;background:var(--panel)}
 .chain .node.hi{border-color:var(--up);background:color-mix(in srgb,var(--up) 7%,var(--panel))}.chain .node.lo{border-color:var(--down);background:color-mix(in srgb,var(--down) 6%,var(--panel))}
 .chain .nst{display:flex;flex-wrap:wrap;gap:4px}.rchip{white-space:nowrap}.chain .node{min-width:175px}.chain .nstat{font-size:12px}
+tr.me td{background:var(--accent-soft)}
 .earn{border:1px solid var(--line);border-radius:8px;padding:8px 10px;margin-bottom:10px;font-size:13px;background:var(--soft)}
 @media(max-width:820px){.chain{flex-direction:column}.chain .arrow{transform:rotate(90deg)}}
 </style>
@@ -312,15 +313,27 @@ function tint(t){return esc(t).replace(/▲\s?[\d.,]+%?/g,m=>`<span class="up">$
   .replace(/\(\+[\d.,]+%\)/g,m=>`<span class="up">${m}</span>`).replace(/\([−-][\d.,]+%\)/g,m=>`<span class="down">${m}</span>`);}
 const KNAME={close:"마감 리뷰",weekly:"주간 리뷰",report:"리포트 브리핑",morning:"아침 브리핑",report_brief_am:"리포트 브리핑 · 오전",report_brief_pm:"리포트 브리핑 · 오후",channels:"채널 정리"};
 function nowKst(){return new Date(Date.now()+9*3600e3).toISOString().slice(0,16).replace("T"," ")}
+/* 웹에서 즉석으로 쓴 브리핑: 이 브라우저(localStorage) + 웹 페이지 저장소(db, 기기 간 공유) 두 곳에 둔다 */
+let DBX=[], BDB=null;
+function localExtra(){let ex=[];try{ex=JSON.parse(localStorage.getItem("tr-briefs-extra")||"[]")}catch(e){}return ex}
 function mergeExtra(){
-  let ex=[];try{ex=JSON.parse(localStorage.getItem("tr-briefs-extra")||"[]")}catch(e){}
-  const have=new Set((D.briefs||[]).map(b=>b.file));
-  D.briefs=[...ex.filter(b=>!have.has(b.file)),...(D.briefs||[])].sort((a,b)=>((b.date+(b.time||"99:99"))>(a.date+(a.time||"99:99"))?1:-1));
+  const seen=new Set(), ex=[...DBX,...localExtra()].filter(b=>b&&b.file&&!seen.has(b.file)&&seen.add(b.file));
+  const have=new Set((D.briefs||[]).filter(b=>!b.web).map(b=>b.file));
+  D.briefs=[...ex.filter(b=>!have.has(b.file)),...(D.briefs||[]).filter(b=>!b.web)].sort((a,b)=>((b.date+(b.time||"99:99"))>(a.date+(a.time||"99:99"))?1:-1));
 }
+function briefDocId(b){return ("w_"+b.kind+"_"+b.date+"_"+(b.time||"")).replace(/[^A-Za-z0-9_-]/g,"")}
 function saveExtra(b){
-  let ex=[];try{ex=JSON.parse(localStorage.getItem("tr-briefs-extra")||"[]")}catch(e){}
-  ex=[b,...ex].slice(0,30);try{localStorage.setItem("tr-briefs-extra",JSON.stringify(ex))}catch(e){}
+  let ex=localExtra();ex=[b,...ex].slice(0,30);try{localStorage.setItem("tr-briefs-extra",JSON.stringify(ex))}catch(e){}
+  if(BDB){BDB.collection("briefs").doc(briefDocId(b)).set({...b,saved_at:new Date().toISOString()}).catch(()=>{})}
 }
+(async()=>{   // 다른 기기에서 쓴 브리핑도 받아 오기 (없으면 이 브라우저 것만)
+  try{const db=await claude.use("db");if(!db)return;BDB=db;
+    db.collection("briefs").orderBy("saved_at","desc").limit(40).onSnapshot(snap=>{
+      DBX=snap.docs.map(d=>d.data()).filter(Boolean).map(b=>({...b}));
+      if(BW.state!=="writing"&&D){mergeExtra();render()}
+    },()=>{});
+  }catch(e){}
+})();
 function sinceFor(kind){
   const n=nowKst(), d=n.slice(0,10), h=+n.slice(11,13);
   if(kind=="report_brief_am"){const t=new Date(Date.now()+9*3600e3);do{t.setUTCDate(t.getUTCDate()-1)}while([0,6].includes(t.getUTCDay()));return t.toISOString().slice(0,10)+" 15:00"}
@@ -564,6 +577,12 @@ function priceChart(ch,tg){if(!ch||!ch.c||ch.c.length<5)return `<div class="empt
    ${line(ch.ma50,"var(--muted)",1.1,"4 3")}${line(ch.ma20,"var(--accent)",1.2)}${line(ch.c,"var(--fg)",1.8)}
    ${T2.map(t=>`<circle cx="${x(t.i)}" cy="${y(t.after)}" r="4" fill="${t.dir=="상향"?"var(--up)":t.dir=="하향"?"var(--down)":"var(--muted)"}" fill-opacity=".85" stroke="var(--panel)" stroke-width="1"><title>${esc(t.t+" "+(t.broker||"")+" 목표가 "+w(t.after)+(t.dir?" ("+t.dir+")":""))}</title></circle>`).join("")}
   </svg><div class="src">— 종가 · <span style="color:var(--accent)">— 20일선</span> · <span class="muted">┄ 50일선</span> · 점 = 리포트 목표가 (<span class="up">● 상향</span> <span class="down">● 하향</span> <span class="muted">● 신규·유지</span>) · 출처: 네이버 일봉(비공식), 채널 리포트 요약(2차 자료)</div>`}
+function peerTable(sel){
+  const g=sel.group, P=(D.companies||[]).filter(c=>c.group&&c.group==g).sort((a,b)=>((b.trend||{}).rs??-1)-((a.trend||{}).rs??-1));
+  if(P.length<2)return "";
+  return `<h3>같은 업종 비교 · ${esc(g)} <small class="muted">기업 메뉴에 있는 ${P.length}개 · 강도순</small></h3><div class="tw"><table><tr><th class="l">종목</th><th>강도</th><th>1개월</th><th>3개월</th><th>고점 대비</th><th>시총(억)</th><th>리포트 🔺/🔽</th><th>최근 실적</th></tr>
+  ${P.slice(0,12).map(c=>{const t=c.trend||{};return `<tr class="${c.code==sel.code?"me":"click"}" ${c.code==sel.code?"":`data-cc="${c.code}"`}><td class="l"><b>${esc(c.name)}</b></td><td>${rsBadge(t)}</td><td>${retC(t.r1m)}</td><td>${retC(t.r3m)}</td><td>${retC(t.off_high)}</td><td class="num">${w(c.market_cap_eok)}</td><td class="num"><span class="up">${c.up}</span>/<span class="down">${c.down}</span></td><td>${earnLine(c.code,true)||"-"}</td></tr>`}).join("")}</table></div>
+  <div class="src">업종 = 사용자 분류표(sector_map custom) · 시세 네이버 일봉(비공식) · 리포트 31일 채널 요약</div>`}
 function viewCompanies(){
   const q=(ui.cq||"").trim(), so=ui.cs||"rs", cf=ui.cf||"all", all=D.companies||[];
   const secs=[...new Set(all.map(c=>c.sector).filter(Boolean))].sort();
@@ -590,6 +609,7 @@ function viewCompanies(){
     <div class="tile"><span>52주 고점 대비</span><b>${pc(t.off_high)}</b></div>
     <div class="tile"><span>이동평균선</span><b style="font-size:15px">${t.above20==null?"-":`20일 ${t.above20?'<span class="up">위</span>':'<span class="down">아래</span>'} · 50일 ${t.above50?'<span class="up">위</span>':'<span class="down">아래</span>'}`}</b></div></div>
    <h3>가격 흐름 · 6개월</h3>${priceChart(t.chart,sel.target_hist)}
+   ${peerTable(sel)}
    <h3>강도(RS) 추이 · 12주 <small class="muted">${t.rs_chg4w==null?"":`4주 전보다 ${t.rs_chg4w>0?"+":""}${t.rs_chg4w}`}</small></h3>${rsLine(t.rs_hist)}
    ${(sel.rev&&sel.rev.brokers||[]).length?`<h3>증권사별 최근 목표가 <small class="muted">31일 순상향 ${sel.rev.net>0?"+":""}${sel.rev.net} · 평균 변경 ${pc(sel.rev.avg_chg)}</small></h3><div class="tw"><table><tr><th class="l">증권사</th><th>날짜</th><th>이전</th><th>새 목표가</th><th>변경</th></tr>${sel.rev.brokers.map(b=>`<tr><td class="l">${b.dir=="상향"?"🔺":b.dir=="하향"?"🔽":"🆕"} ${esc(b.broker)}</td><td class="num">${esc(b.time.slice(5))}</td><td class="num">${w(b.before)}</td><td class="num"><b>${w(b.after)}</b></td><td>${b.before?retC((b.after/b.before-1)*100):"-"}</td></tr>`).join("")}</table></div>`:""}
    <h3>리포트 · 최근 1개월 <small class="muted">${sel.n_reports}건 · <span class="up">🔺${sel.up}</span> <span class="down">🔽${sel.down}</span> · 목표가 중앙값 ${w(sel.median_target)}${sel.median_target&&t.price?` (현재가 대비 ${pc((sel.median_target/t.price-1)*100)})`:""}</small></h3>
@@ -830,32 +850,12 @@ function viewConfig(){
 
 /* ---------- 새로고침 (깃허브 Actions로 최신 데이터 만들기) ---------- */
 const RF={state:"idle",msg:"",started:null};
-const GH="GitHub";
 function refreshBox(){
   return `<div class="rbox"><div><b>데이터 ${esc(D.built_at)} 기준</b>${RF.msg?`<br><span>${esc(RF.msg)}</span>`:""}<br><small class="muted">새로고침: 메뉴 그룹 옆 ↻</small></div></div>`;
 }
 function paintRefresh(){document.querySelectorAll(".rslot").forEach(el=>el.innerHTML=refreshBox());const s=$("#side .built");if(s)s.innerHTML=refreshBox()+"<br>"+esc(D.note)}
-function parseFile(res){
-  const blocks=(res&&res.content)||[];
-  for(const b of blocks){const t=(b.resource&&b.resource.text)||b.text||"";const i=t.indexOf("{");if(i>=0){try{return JSON.parse(t.slice(i))}catch(e){}}}
-  if(res&&res.payload&&typeof res.payload=="object"&&res.payload.built_at)return res.payload;
-  return null;
-}
-function ghMsg(e){
-  const c=e&&e.code;
-  if(c=="server_not_connected")return "깃허브 연결이 없습니다. claude.ai 설정 → 커넥터에서 GitHub를 추가해 주세요";
-  if(c=="needs_reauth")return "깃허브 연결이 만료됐습니다. claude.ai 설정 → 커넥터에서 GitHub를 다시 연결해 주세요";
-  if(c=="not_in_manifest"||c=="approval_required")return "이 페이지에 깃허브 사용이 허용되지 않았습니다. 다시 누르고 '허용'을 선택해 주세요";
-  if(c=="selection_required")return "깃허브 연결이 여러 개입니다. 위쪽 안내에서 하나를 골라 주세요";
-  if(c=="tool_error")return "깃허브가 요청을 거절했습니다: "+String(e.message||"").slice(0,120);
-  if(c=="not_granted"||c=="capability_disabled"||c=="capability_removed")return "이 화면에서는 깃허브 연결을 쓸 수 없습니다 (claude.ai 웹이나 앱에서 열어 주세요) ["+c+"]";
-  if(c=="blocked_by_policy")return "조직 정책이 이 깃허브 기능을 막고 있습니다 ["+c+"]";
-  if(c=="server_not_found")return "깃허브 연결을 찾을 수 없습니다. 설정 → 커넥터에서 GitHub를 다시 연결해 주세요 ["+c+"]";
-  if(c=="server_unavailable")return "깃허브 서버가 응답하지 않습니다. 몇 분 뒤 다시 눌러 주세요 ["+c+"]";
-  return "연결 오류 ["+(c||"알 수 없음")+"] "+String((e&&e.message)||"").slice(0,100)+" — 이 문구를 Claude에게 알려 주세요";
-}
 const REFRESH_HELP="Claude 대화에서 \"분석 새로고침\" / \"모니터링 새로고침\" / \"채널만 새로고침\"이라고 말해 주세요";
-// 깃허브 연결 방식(doRefreshCb)은 사용자 계정에 GitHub 커넥터가 없어 쓰지 않음 (2026-11-04). 버튼은 안내만 한다.
+// 웹에서 직접 새로고침하는 방법은 없음(깃허브 커넥터 없음, 2026-11-04). 버튼은 대화 명령을 안내만 한다.
 let RFP=null;
 const RFTXT={analysis:["분석 새로고침","시세·계좌·브리핑 목록·기업·채널 (약 1~2분)"],monitoring:["모니터링 새로고침","감시 목록 다시 계산 + 섹터·검증실 (약 5~10분)"]};
 function partAt(part){const P=D.parts||{};return P[part]||D.built_at}
@@ -863,39 +863,6 @@ function refreshPart(part){RFP=RFP===part?null:part;nav();const m=$("#more");if(
 function rfNote(part){if(RFP!==part)return "";const [cmd,what]=RFTXT[part];
   return `<div class="rfnote">Claude 대화에서 <b>"${cmd}"</b>이라고 말해 주세요 · ${what}<br><small>마지막 갱신 ${esc(partAt(part))} · 자동: ${part=="analysis"?"평일 07:32·09:12·10:32·15:32·16:32":"평일 16:07 감시 목록 → 16:32 반영"}</small></div>`}
 function doRefresh(){RF.state="idle";RF.msg=REFRESH_HELP;paintRefresh();return Promise.resolve(false)}
-async function doRefreshCb(done){
-  if(RF.state=="running"){done(false);return}
-  const mcp=await claude.use("mcp").catch(()=>null);
-  if(!mcp){RF.state="error";RF.msg="이 화면에서는 새로고침을 쓸 수 없습니다 (claude.ai에서 열어 주세요)";paintRefresh();done(false);return}
-  const cfg=D.refresh||{owner:"livegym7",repo:"stock_team",workflow:"web-data.yml",branch:"web-data",path:"data.json"};
-  RF.state="running";RF.started=Date.now();RF.msg="깃허브에 요청 보내는 중…";paintRefresh();
-  const asked=new Date(Date.now()+9*3600e3-60e3).toISOString().slice(0,16).replace("T"," ");
-  const run=()=>mcp.callTool(GH,"actions_run_trigger",{method:"run_workflow",owner:cfg.owner,repo:cfg.repo,workflow_id:cfg.workflow,ref:"main"},{cache:false});
-  try{await run()}
-  catch(e){
-    // 허용 창이 막 떠서 결정을 못 받은 경우(upstream_error + retryable)는 요청이 깃허브에 닿지 않았으므로 한 번만 다시 시도
-    if(e&&e.retryable&&e.code=="upstream_error"){RF.msg="깃허브 허용 확인 중… 잠시 뒤 한 번 더 시도";paintRefresh();
-      await new Promise(r=>setTimeout(r,Math.min(e.retryAfterMs||3000,15000)+Math.random()*1000));
-      try{await run()}catch(e2){RF.state="error";RF.msg=ghMsg(e2);paintRefresh();done(false);return}}
-    else{RF.state="error";RF.msg=ghMsg(e);paintRefresh();done(false);return}}
-  let n=0;
-  const tick=async()=>{
-    n++;const min=Math.floor((Date.now()-RF.started)/60000);
-    RF.msg=`최신 데이터 만드는 중 (${min}분 지남, 보통 3~6분)`;paintRefresh();
-    try{
-      const res=await mcp.callTool(GH,"get_file_contents",{owner:cfg.owner,repo:cfg.repo,path:cfg.path,ref:"refs/heads/"+cfg.branch},{cache:false});
-      const nd=parseFile(res);
-      if(nd&&nd.built_at&&nd.built_at>=asked){
-        D=nd;try{localStorage.setItem("tr-data",JSON.stringify(nd))}catch(e){}
-        mergeExtra();RF.state="done";RF.msg="방금 새로고침됨";render();done(true);return;
-      }
-    }catch(e){if(!e||!e.retryable&&e.code!="tool_error"){RF.state="error";RF.msg=ghMsg(e);paintRefresh();done(false);return}}
-    if(n>=26){RF.state="error";RF.msg="시간이 오래 걸립니다. 깃허브 Actions(웹 데이터 새로고침) 실행 기록을 확인해 주세요";paintRefresh();done(false);return}
-    setTimeout(tick,30000);
-  };
-  setTimeout(tick,60000);
-}
-
 /* ---------- 라우터 ---------- */
 const VIEWS={research:viewResearch,home:viewHome,briefs:viewBriefs,portfolio:viewPortfolio,watch:viewWatch,sectors:viewSectors,companies:viewCompanies,channels:viewChannels,lab:viewLab,config:viewConfig};
 function render(){

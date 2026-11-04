@@ -266,3 +266,9 @@
 - config/calendar.toml(공식 일정만·출처): 미국 CPI 11/10·12/10, 옵션만기 11/12, 금통위 11/26, FOMC 12/10 04:00. 웹 오늘(2주)·규칙·일정(전체 + 채널 일정 글)
 - 채널 성향(30일): 하루 글, 자기 글 비율, 여러 채널 소식에서 먼저 올린 비율, 따라 올릴 때 늦은 시간, 기업·실적·리포트 비율, 많이 올리는 시각
 - 예약: 딥리서치 드라이브 확인 평일 19:13 (trig_01Uey5ingxbCSxFav3HmubQ7, 최대 4개, 드라이브 연결 없으면 텔레그램으로 알리고 건너뜀), 마감 리뷰 trig_01REAdZEDV5xdUUvPCgutkXx, 주간 리뷰 trig_01ERbTPwJi4dBf3HR74R1Dzr
+
+## 2026-11-04 기업 카드·업종 비교·브리핑 기기 간 공유
+- 기업 카드 40개 추가(리포트 많은 순, 82개). 출처 "Claude 정리(공개 사업 내용 기준, DART 확인 예정)", 섹터는 sector_taxonomy 안에서
+- 기업 상세: 같은 업종(sector_map custom) 비교표 — 강도·1/3개월·고점 대비·시총·리포트·최근 실적
+- 웹 즉석 브리핑을 웹 페이지 저장소(db, collection "briefs")에도 저장 → 휴대폰·PC가 같은 누적 채널 종합을 이어 씀. localStorage는 보조. Artifact capabilities = sample + db
+- 안 쓰는 깃허브 새로고침 코드(doRefreshCb·ghMsg·parseFile) 삭제
