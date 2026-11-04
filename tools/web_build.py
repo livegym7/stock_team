@@ -133,8 +133,10 @@ def briefs(days=21):
 def schedule(now, brief_rows):
     today = now.strftime("%Y-%m-%d")
     have = {b["kind"] for b in brief_rows if b["date"] == today}
-    if (ROOT / "reports" / today / "watchlist.png").exists() or (DATA / "bus" / today / "screener.json").exists():
-        have.add("watchlist")
+    # 감시 목록은 장 마감 뒤(16시 이후) 만든 것만 '완료'로 본다 (장중 "모니터링 새로고침" 결과는 제외)
+    for f in (ROOT / "reports" / today / "watchlist.png", DATA / "bus" / today / "screener.json"):
+        if f.exists() and datetime.fromtimestamp(f.stat().st_mtime, KST).strftime("%H:%M") >= "16:00":
+            have.add("watchlist")
     out = []
     for t, name, kind in SCHEDULE:
         due = now.weekday() < 5 and now.strftime("%H:%M") >= t
