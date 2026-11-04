@@ -506,6 +506,15 @@ def build_companies(allp, uni, companies, by_stock, fetch_limit=10):
     return safe(lambda: company_trends(comp_list, allp, fetch_limit)) or [{k: v for k, v in c.items() if k != "_all_reports"} for c in comp_list]
 
 
+def earnings_map():
+    """채널 실적 공시(잠정실적) → {코드: 가장 최근 분기 1건} (tools/earnings.py)."""
+    import earnings
+    out = {}
+    for r in earnings.build():
+        out.setdefault(r["code"], r)
+    return out
+
+
 def research(comp_list, allp):
     """딥리서치: Claude가 드라이브 리포트를 읽고 쓴 분석(data/research) + 언급 종목의 시장 확인(RS·수익률)."""
     rd = DATA / "research"
@@ -669,6 +678,7 @@ def main():
         "report_flow": flow,
         "companies": comp_list,
         "research": safe(lambda: research(comp_list, allp)),
+        "earnings": safe(lambda: earnings_map()),
         "channels": channel_feed(t, allp),
         "channel_stats": channel_stats(t, allp),
         "channel_raw": channel_raw(allp),
@@ -691,7 +701,7 @@ def main():
     data["refresh"] = {"owner": "livegym7", "repo": "stock_team", "workflow": "web-data.yml", "branch": "web-data", "path": "data.json"}
     data["parts"] = {**(last.get("parts") or {}), **{k: data["built_at"] for k in ("market", "risk", "channels", "insights")}}
     if a.only == "monitoring":   # 모니터링만: 분석 쪽은 지난 데이터 그대로
-        keep = {k: last.get(k) for k in ("market", "risk", "briefs", "companies", "research", "channels", "channel_stats", "report_flow", "schedule")}
+        keep = {k: last.get(k) for k in ("market", "risk", "briefs", "companies", "research", "earnings", "channels", "channel_stats", "report_flow", "schedule")}
         hot = (last.get("insights") or {}).get("hot")
         data.update(keep)
         if isinstance(data.get("insights"), dict) and hot is not None:
@@ -743,6 +753,7 @@ def partial(part, now):
         by_stock, flow = report_rows(t, allp, companies, uni)
         data["report_flow"] = flow
         data["companies"] = build_companies(allp, uni, companies, by_stock, fetch_limit=0)
+        data["earnings"] = safe(lambda: earnings_map())
         ins = data.get("insights") or {}
         fresh = safe(lambda: insights({}, None, allp, by_stock, now))   # 특징주만 새로 (셋업·섹터는 그대로)
         if isinstance(fresh, dict) and "hot" in fresh:
