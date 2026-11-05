@@ -523,9 +523,9 @@ function acctBox(){
     <div class="lg num">${secs.map(([k,v],i)=>`<span><i style="background:${COLORS[i%6]}"></i>${esc(k)} ${pct(v).toFixed(1)}%</span>`).join("")}<span><i style="background:var(--line)"></i>현금 ${pct(cash).toFixed(1)}%</span></div></div></div>`;
 }
 function holdBox(){
-  const ps=(D.risk&&D.risk.positions)||[], tot=ps.reduce((a,p)=>a+(p.pnl_won||0),0);
+  const ps=(D.risk&&D.risk.positions)||[], tot=ps.reduce((a,p)=>a+(p.pnl_won||0),0), cost=ps.reduce((a,p)=>a+(p.avg_price||0)*(p.qty||0),0);
   const sR=v=>v==null||isNaN(v)?"-":(v>0?"+":"")+v.toFixed(2)+"R";
-  return `<div class="bx"><div class="bh"><a href="#portfolio">보유 종목 ${ps.length}</a>${ps.length?`<b class="num ptot ${cls(tot)}">평가손익 ${tot>0?"+":""}${w(tot)}원</b>`:""}</div>${ps.length?ps.map(p=>{
+  return `<div class="bx"><div class="bh"><a href="#portfolio">보유 종목 ${ps.length}</a>${ps.length?`<b class="num ptot ${cls(tot)}" title="평가손익 합계 (매수 금액 대비 %)">${tot>0?"+":""}${w(tot)}원 (${pc(cost?tot/cost*100:null,2)})</b>`:""}</div>${ps.length?ps.map(p=>{
    const near=p.to_stop_pct!=null&&p.to_stop_pct>-3, pct=p.price?(p.price/p.avg_price-1)*100:null, oneR=p.avg_price-(p.initial_stop??p.stop);
    const left=oneR>0&&p.price?(p.price-p.stop)/oneR:null, bar=Math.max(0,Math.min(100,((p.r_multiple||0)+1)/4*100));
    return `<div class="hpos" data-go="portfolio">
