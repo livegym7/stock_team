@@ -1,0 +1,52 @@
+{
+ "file_id": "1PxvGGk7NAq60tW-Aw5uYAFpUhBK3zZfG",
+ "title": "화장품: 과매도 구간 (한화투자증권, 2026-11-02)",
+ "url": "https://drive.google.com/file/d/1PxvGGk7NAq60tW-Aw5uYAFpUhBK3zZfG/view?usp=drivesdk",
+ "drive_modified": "2026-11-05T02:27:19.950Z",
+ "broker": "한화투자증권",
+ "analyst": "한유정",
+ "date": "2026-11-02",
+ "kind": "산업",
+ "subject": "화장품 · 수출",
+ "depth": "light",
+ "one_line": "10월 화장품 수출 1.59조 원(+48.1% YoY, 달러 기준 +55.7%), 1~10월 누계 103.6억 달러로 이미 연간 최대 — 해외 판매가 더 강해지는데 주가는 과매도",
+ "summary": [
+  "유럽향 +106.2%(비중 18.6%), 미국 +42.0%(20.4%), 중화권 +19.7% 반등 (p.1)",
+  "미국 아마존 스킨케어 Top 50 한국 SKU 월평균 16.6개(전년 12.5개) (p.1)"
+ ],
+ "thesis": [],
+ "numbers": [
+  {
+   "label": "10월 화장품 수출",
+   "value": "1.59조 원",
+   "note": "+48.1% YoY, p.1"
+  }
+ ],
+ "stocks": [],
+ "sectors": [
+  {
+   "name": "화장품",
+   "view": "긍정",
+   "why": "수출 고성장 대비 과매도"
+  }
+ ],
+ "outlook": {
+  "short": "",
+  "mid": ""
+ },
+ "catalysts": [],
+ "risks": [],
+ "claude": {
+  "opinion": "관심 업종 밖.",
+  "counter": [
+   "원화 강세로 원화 환산 실적은 부담"
+  ],
+  "check": []
+ },
+ "tags": [
+  "화장품",
+  "수출",
+  "요약만"
+ ],
+ "analyzed_at": "2026-11-05 17:52"
+}

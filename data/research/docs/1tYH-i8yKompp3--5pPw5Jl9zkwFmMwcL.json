@@ -1,0 +1,70 @@
+{
+ "file_id": "1tYH-i8yKompp3--5pPw5Jl9zkwFmMwcL",
+ "title": "통신 Weekly: 무선 통신 장비주 반등에 대비 (하나증권, 2026-10-23)",
+ "url": "https://drive.google.com/file/d/1tYH-i8yKompp3--5pPw5Jl9zkwFmMwcL/view?usp=drivesdk",
+ "drive_modified": "2026-11-05T07:37:32.978Z",
+ "broker": "하나증권",
+ "analyst": "김홍식",
+ "date": "2026-10-23",
+ "kind": "산업",
+ "subject": "통신서비스·장비",
+ "depth": "light",
+ "one_line": "AI 데이터센터 자금조달 우려와 달리 미국 기지국 투자는 통신사 주도라 영향이 없고, 중간선거로 통신 정책이 바뀔 가능성도 낮음 — 무선 장비주(RFHIC·KMW·HFR 등) 적극 매수, 서비스는 SKT 최선호",
+ "summary": [
+  "일부 AIDC 기업 조달 금리 10% 이상 (p.1)",
+  "OBBBA 주파수 조항·대중국 장비 규제는 정당과 무관하게 유지 전망, 27년 주파수 경매 확정 (p.1)"
+ ],
+ "thesis": [],
+ "numbers": [],
+ "stocks": [
+  {
+   "name": "SK텔레콤",
+   "role": "Top pick",
+   "view": "서비스 최선호",
+   "target": null,
+   "why": "AI 데이터센터 이익의 배당 연결",
+   "code": "017670"
+  },
+  {
+   "name": "RFHIC",
+   "role": "수혜",
+   "view": "선호",
+   "target": null,
+   "why": "미국 기지국 투자",
+   "code": "218410"
+  },
+  {
+   "name": "케이엠더블유",
+   "role": "수혜",
+   "view": "선호",
+   "target": null,
+   "why": "미국 기지국 투자",
+   "code": "032500"
+  }
+ ],
+ "sectors": [
+  {
+   "name": "통신장비",
+   "view": "긍정",
+   "why": "호재 주가 반영 미미"
+  }
+ ],
+ "outlook": {
+  "short": "",
+  "mid": ""
+ },
+ "catalysts": [],
+ "risks": [],
+ "claude": {
+  "opinion": "관심 업종 밖.",
+  "counter": [
+   "미국 기지국 투자 시점(연말 이후)이 계속 미뤄져 온 이력"
+  ],
+  "check": []
+ },
+ "tags": [
+  "통신장비",
+  "요약만"
+ ],
+ "analyzed_at": "2026-11-05 17:52"
+}

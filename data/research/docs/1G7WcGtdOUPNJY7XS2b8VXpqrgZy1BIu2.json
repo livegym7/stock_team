@@ -1,0 +1,61 @@
+{
+ "file_id": "1G7WcGtdOUPNJY7XS2b8VXpqrgZy1BIu2",
+ "title": "SGC에너지: 본업보다 중요한 AI DC 사업 진행 상황 (하나증권, 2026-10-23)",
+ "url": "https://drive.google.com/file/d/1G7WcGtdOUPNJY7XS2b8VXpqrgZy1BIu2/view?usp=drivesdk",
+ "drive_modified": "2026-10-25T05:30:40.025Z",
+ "broker": "하나증권",
+ "analyst": "유재선",
+ "date": "2026-10-23",
+ "kind": "기업",
+ "subject": "SGC에너지 · AI 데이터센터",
+ "depth": "light",
+ "one_line": "3Q26 영업이익 399억 원으로 컨센서스 하회(일회성 정비비·유리 적자)지만 AI 데이터센터 1차 사업이 10월 착공(27.6월 전력 수전, 28.1월 상업운전), 가치 2조 원 이상 기대 — 목표가 6.8만 원으로 하향, 매수 유지",
+ "summary": [
+  "1.27조 원 선매매 약정으로 최소 회수 기준 확보, 차익은 2차 240MW 사업 재원 (p.1)",
+  "SMP 9월부터 하락, 12월부터 정상화 기대 (p.1)"
+ ],
+ "thesis": [],
+ "numbers": [
+  {
+   "label": "AI DC 1차 선매매 약정",
+   "value": "1.27조 원",
+   "note": "p.1"
+  }
+ ],
+ "stocks": [
+  {
+   "name": "SGC에너지",
+   "role": "수혜",
+   "view": "BUY, 목표가 68,000원(하향, 10/22 종가 37,850원)",
+   "target": 68000,
+   "why": "AI DC 매각 차익",
+   "code": "005090"
+  }
+ ],
+ "sectors": [
+  {
+   "name": "데이터센터",
+   "view": "긍정",
+   "why": "국내 AI DC 개발"
+  }
+ ],
+ "outlook": {
+  "short": "",
+  "mid": ""
+ },
+ "catalysts": [],
+ "risks": [],
+ "claude": {
+  "opinion": "관심 업종 밖. 국내 AI 데이터센터 개발 일정 참고용.",
+  "counter": [
+   "본업(발전·유리·건설)은 부진, 기대가 데이터센터 한 건에 몰림"
+  ],
+  "check": []
+ },
+ "tags": [
+  "AI데이터센터",
+  "유틸리티",
+  "요약만"
+ ],
+ "analyzed_at": "2026-11-05 17:52"
+}

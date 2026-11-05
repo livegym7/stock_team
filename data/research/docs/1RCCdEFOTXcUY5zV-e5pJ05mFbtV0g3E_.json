@@ -1,0 +1,56 @@
+{
+ "file_id": "1RCCdEFOTXcUY5zV-e5pJ05mFbtV0g3E_",
+ "title": "씨에스윈드: 환율 약세, 매출 이연에도 양호한 마진 기대 (하나증권, 2026-10-23)",
+ "url": "https://drive.google.com/file/d/1RCCdEFOTXcUY5zV-e5pJ05mFbtV0g3E_/view?usp=drivesdk",
+ "drive_modified": "2026-10-25T05:30:40.682Z",
+ "broker": "하나증권",
+ "analyst": "유재선",
+ "date": "2026-10-23",
+ "kind": "기업",
+ "subject": "씨에스윈드 · 풍력 타워",
+ "depth": "light",
+ "one_line": "3Q26 영업이익 753억 원(+14.6%) 컨센서스 부합 전망(환율·매출 이연에도 마진 11%), 연 수주 목표 17억 달러는 소폭 미달 가능 — 매수·목표가 8만 원 유지",
+ "summary": [
+  "3Q 매출 6,756억 원(+13.2%), 하부구조물은 인센티브로 20%대 이익률 (p.1)",
+  "2028년 AMPC 일몰 이후 수익 감소가 우려, 중간선거 기대는 단기 심리 긍정이나 실질 변화는 제한적 (p.1)",
+  "북미 타워 업체 Capa 축소로 경쟁 완화, 29년부터 유럽·한국 해상풍력 물량 확대 (p.1)"
+ ],
+ "thesis": [],
+ "numbers": [],
+ "stocks": [
+  {
+   "name": "씨에스윈드",
+   "role": "수혜",
+   "view": "BUY 유지, 목표가 80,000원(10/22 종가 44,700원)",
+   "target": 80000,
+   "why": "중장기 업황 개선 명확",
+   "code": "112610"
+  }
+ ],
+ "sectors": [
+  {
+   "name": "풍력",
+   "view": "긍정",
+   "why": "중장기 업황 개선"
+  }
+ ],
+ "outlook": {
+  "short": "",
+  "mid": ""
+ },
+ "catalysts": [],
+ "risks": [],
+ "claude": {
+  "opinion": "선거 전 리뷰. 선거 후 리포트들(교보·DS)이 Top pick으로 다시 언급.",
+  "counter": [
+   "28년 AMPC 일몰 후 이익 감소, 연 수주 목표 미달 가능"
+  ],
+  "check": []
+ },
+ "tags": [
+  "풍력",
+  "AMPC",
+  "요약만"
+ ],
+ "analyzed_at": "2026-11-05 17:52"
+}

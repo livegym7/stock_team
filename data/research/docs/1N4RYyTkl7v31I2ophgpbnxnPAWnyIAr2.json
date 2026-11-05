@@ -1,0 +1,64 @@
+{
+ "file_id": "1N4RYyTkl7v31I2ophgpbnxnPAWnyIAr2",
+ "title": "유틸리티 Weekly: 유틸리티 공기업 3Q 판매실적 점검 (하나증권, 2026-10-23)",
+ "url": "https://drive.google.com/file/d/1N4RYyTkl7v31I2ophgpbnxnPAWnyIAr2/view?usp=drivesdk",
+ "drive_modified": "2026-10-25T05:30:38.618Z",
+ "broker": "하나증권",
+ "analyst": "유재선",
+ "date": "2026-10-23",
+ "kind": "산업",
+ "subject": "유틸리티 · 한국전력·가스공사",
+ "depth": "light",
+ "one_line": "가스공사·지역난방공사 3Q 판매 점검과 함께, 10/21 재생에너지 설비(41.0GW)가 석탄(40.8GW)을 처음 넘었지만 SMP가 0에 가까워지며 신규 보급이 오히려 늦어지는 딜레마 경고",
+ "summary": [
+  "WTI 104.0달러(+7.9% WoW), 원/달러 1,327.1원 (10/21, p.1)",
+  "가스공사 발전용 판매 -14.3% YoY, 지역난방공사 전기 -42.6% (p.1)",
+  "청정수소발전 입찰 500GWh 재개, 배출권 KAU26 30,250원(YTD +190.9%) (p.1)"
+ ],
+ "thesis": [],
+ "numbers": [],
+ "stocks": [
+  {
+   "name": "한국전력",
+   "role": "언급",
+   "view": "하반기 이익 상향 가능",
+   "target": null,
+   "why": "낮은 주가 변동성",
+   "code": "015760"
+  },
+  {
+   "name": "SK가스",
+   "role": "언급",
+   "view": "4Q 눈높이 개선 여지",
+   "target": null,
+   "why": "자사주 소각",
+   "code": "018670"
+  }
+ ],
+ "sectors": [
+  {
+   "name": "유틸리티",
+   "view": "중립",
+   "why": "정책(12차 전력수급기본계획) 대기"
+  }
+ ],
+ "outlook": {
+  "short": "",
+  "mid": ""
+ },
+ "catalysts": [],
+ "risks": [],
+ "claude": {
+  "opinion": "관심 업종 밖. 재생에너지 설비가 석탄을 넘었다는 숫자만 참고.",
+  "counter": [
+   "엘니뇨로 따뜻한 겨울이면 난방 성수기 효과 약화"
+  ],
+  "check": []
+ },
+ "tags": [
+  "유틸리티",
+  "SMP",
+  "요약만"
+ ],
+ "analyzed_at": "2026-11-05 17:52"
+}

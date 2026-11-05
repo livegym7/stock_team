@@ -1,0 +1,72 @@
+{
+ "file_id": "1m0ttzyspcVbOvCCzosZ-QQsx7u2eD377",
+ "title": "체코원전 시공사 재선정 이슈 (하나증권, 2026-10-30)",
+ "url": "https://drive.google.com/file/d/1m0ttzyspcVbOvCCzosZ-QQsx7u2eD377/view?usp=drivesdk",
+ "drive_modified": "2026-11-05T07:37:30.347Z",
+ "broker": "하나증권",
+ "analyst": "김승준",
+ "date": "2026-10-30",
+ "kind": "산업",
+ "subject": "원전 · 체코 두코바니",
+ "depth": "light",
+ "one_line": "한수원이 대우건설·두산에너빌리티 컨소시엄과 체코원전 시공계약 협상을 15개월 만에 종료(공사비 정산 방식·업무 범위 이견), 27년 7월 경쟁입찰로 재선정 — 기존 계약자엔 악재, 다른 원전주 하락은 과도",
+ "summary": [
+  "쟁점: 한수원은 기본설계 시점 총액 확정, 시공사는 상세설계 시점 정산 요구 (p.1)",
+  "계약금액 27조 원(UAE 바라카의 2.62배) (도표1)",
+  "새 주간사 후보 현대건설·삼성물산, 비주간사 DL이앤씨·GS건설 (p.1)"
+ ],
+ "thesis": [],
+ "numbers": [],
+ "stocks": [
+  {
+   "name": "대우건설",
+   "role": "부정",
+   "view": "기대감 하향",
+   "target": null,
+   "why": "기존 계약자",
+   "code": "047040"
+  },
+  {
+   "name": "두산에너빌리티",
+   "role": "부정",
+   "view": "기대감 하향",
+   "target": null,
+   "why": "기존 컨소시엄",
+   "code": "034020"
+  },
+  {
+   "name": "현대건설",
+   "role": "수혜",
+   "view": "재입찰 주간사 후보",
+   "target": null,
+   "why": "신규 계약이라 기존 리스크 승계 안 함",
+   "code": "000720"
+  }
+ ],
+ "sectors": [
+  {
+   "name": "원전",
+   "view": "중립",
+   "why": "대형원전 공사비 협상 난도 확인"
+  }
+ ],
+ "outlook": {
+  "short": "",
+  "mid": ""
+ },
+ "catalysts": [],
+ "risks": [],
+ "claude": {
+  "opinion": "관심 업종 밖. 원전 띔의 리스크 사례로만 기록.",
+  "counter": [
+   "대형원전 공사비 갈등이 다른 프로젝트에서도 반복되면 원전 수주 일정 전반이 늦어질 수 있음"
+  ],
+  "check": []
+ },
+ "tags": [
+  "원전",
+  "체코",
+  "요약만"
+ ],
+ "analyzed_at": "2026-11-05 17:51"
+}

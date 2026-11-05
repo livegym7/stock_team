@@ -1,0 +1,86 @@
+{
+ "file_id": "1Jhl6PrZEzYjyAMVn_j8KREXM6YilfDpN",
+ "title": "2027 산업전망 (한화투자증권, 2026-10-28)",
+ "url": "https://drive.google.com/file/d/1Jhl6PrZEzYjyAMVn_j8KREXM6YilfDpN/view?usp=drivesdk",
+ "drive_modified": "2026-11-05T07:37:31.587Z",
+ "broker": "한화투자증권",
+ "analyst": "",
+ "date": "2026-10-28",
+ "kind": "전략",
+ "subject": "13개 업종 2027년 전망",
+ "depth": "light",
+ "one_line": "13개 업종 연간전망 — 반도체는 '의심의 끝에서 다시 성장으로'(최근 조정은 AI 투자 지속성 우려, 금리 안정이 반등 촉매), 전력기기는 '한번 더 Jump Up'(수주잔고 기반 성장, 신규 동력 800VDC)",
+ "summary": [
+  "반도체: 하이퍼스케일러 AI 투자가 핵심, 27년 HBM4 출하·고부가 메모리로 실적 성장, Top Pick 삼성전자 (p.3)",
+  "전력기기: DC 수요 둔화 단정 어려움, 전력 인프라 사이클 유효, Top Pick LS ELECTRIC (p.4)",
+  "건설 최선호 삼성E&A, 방산 한화에어로스페이스, 철강 POSCO홀딩스, 은행 KB금융 등 업종별 Top Pick (p.3~4)"
+ ],
+ "thesis": [],
+ "numbers": [],
+ "stocks": [
+  {
+   "name": "삼성전자",
+   "role": "Top pick",
+   "view": "반도체 Top Pick",
+   "target": null,
+   "why": "HBM4·고부가 메모리",
+   "code": "005930"
+  },
+  {
+   "name": "LS ELECTRIC",
+   "role": "Top pick",
+   "view": "전력기기 Top Pick",
+   "target": null,
+   "why": "수주잔고, 800VDC",
+   "code": "010120"
+  },
+  {
+   "name": "삼성E&A",
+   "role": "Top pick",
+   "view": "건설 최선호",
+   "target": null,
+   "why": "수주·실적 성장",
+   "code": "028050"
+  },
+  {
+   "name": "한화에어로스페이스",
+   "role": "Top pick",
+   "view": "방산 Top Pick",
+   "target": null,
+   "why": "전력 재건 사이클",
+   "code": "012450"
+  }
+ ],
+ "sectors": [
+  {
+   "name": "메모리",
+   "view": "긍정",
+   "why": "27년 HBM4 출하 확대"
+  },
+  {
+   "name": "전력기기",
+   "view": "긍정",
+   "why": "전력 인프라 사이클 유효"
+  }
+ ],
+ "outlook": {
+  "short": "",
+  "mid": ""
+ },
+ "catalysts": [],
+ "risks": [],
+ "claude": {
+  "opinion": "연간전망 목차·요약만 읽었다. 반도체·전력 결론은 다른 리포트들과 같은 방향.",
+  "counter": [
+   "요약 쪽만 읽음 — 2차전지·화학 장은 없음(보유 종목 업종 미포함)"
+  ],
+  "check": []
+ },
+ "tags": [
+  "연간전망",
+  "반도체",
+  "전력기기",
+  "요약만"
+ ],
+ "analyzed_at": "2026-11-05 17:51"
+}

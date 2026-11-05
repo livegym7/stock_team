@@ -56,6 +56,7 @@ python3 tools/research.py status      # 폴더 ID, 이미 분석한 파일 ID, �
 ```
 - 종목명은 국내 상장명 그대로(코드는 도구가 붙임). 해외 종목은 code 없이 둔다.
 - `no_code`에 국내 종목이 나오면 이름을 고쳐 다시 save.
+- 첫 1~2쪽만 읽고 짧게 저장할 때는 `"depth": "light"`를 넣는다(웹 자료실에 '요약만' 꼬리표). 파일 이름만 바뀌어 수정 시각이 달라진 문서는 다시 읽지 말고 `python3 tools/research.py touch --id ID --modified 시각`.
 
 ## 3. 종합 (새 문서를 저장했으면 매번)
 ```bash

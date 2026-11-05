@@ -1,0 +1,57 @@
+{
+ "file_id": "1CH5maewrHQlzFmoP0hNMPJrRvcHMl9v-",
+ "title": "SK하이닉스 ADR 괴리, 계속 방치하기는 어려워 (DS투자증권, 2026-10-23)",
+ "url": "https://drive.google.com/file/d/1CH5maewrHQlzFmoP0hNMPJrRvcHMl9v-/view?usp=drivesdk",
+ "drive_modified": "2026-11-05T07:37:32.487Z",
+ "broker": "DS투자증권",
+ "analyst": "김수현",
+ "date": "2026-10-23",
+ "kind": "전략",
+ "subject": "SK하이닉스 · ADR 괴리",
+ "depth": "light",
+ "one_line": "7월 나스닥 상장 SK하이닉스 ADR이 본주보다 46.8% 비싸게 거래 — 본주 → ADR 전환 한도(2.4%, 1,779만 주)가 다 차서 차익거래가 막힌 탓, 한도 확대가 해법",
+ "summary": [
+  "괴리율 월평균 7월 25.6% → 8월 34.2% → 9월 40.0% → 현재 46.8% (p.1)",
+  "SEC 등록 ADR은 발행 주식의 약 24%인데 회사 동의 한도는 2.4% (p.1)",
+  "40조 원 자사주 매입도 괴리를 못 줄임, 전환이 자유로운 해외 사례는 괴리 0~2% (p.1)"
+ ],
+ "thesis": [],
+ "numbers": [
+  {
+   "label": "ADR 괴리율",
+   "value": "46.8%",
+   "note": "2026-10-23 기준, p.1"
+  }
+ ],
+ "stocks": [
+  {
+   "name": "SK하이닉스",
+   "role": "수혜",
+   "view": "전환 한도 확대 시 본주 재평가",
+   "target": null,
+   "why": "같은 주식이 한국에서만 40% 이상 싸게 거래",
+   "code": "000660"
+  }
+ ],
+ "sectors": [],
+ "outlook": {
+  "short": "",
+  "mid": ""
+ },
+ "catalysts": [],
+ "risks": [],
+ "claude": {
+  "opinion": "메모리 저평가 논리의 또 다른 숫자(ADR 대비 본주 할인).",
+  "counter": [
+   "한도 확대는 회사 결정 사항이라 시점이 불확실, 오히려 ADR이 본주 쪽으로 내려오며 괴리가 줄 수도 있음"
+  ],
+  "check": []
+ },
+ "tags": [
+  "SK하이닉스",
+  "ADR",
+  "코리아디스카운트",
+  "요약만"
+ ],
+ "analyzed_at": "2026-11-05 17:51"
+}

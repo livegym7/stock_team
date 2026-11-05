@@ -1,0 +1,85 @@
+{
+ "file_id": "1tsSkcweiiT38SWB0bbwWl28wUvtHFT49",
+ "title": "2차전지 Weekly: CATL 수익성 악화와 한국 배터리 산업 (하나증권, 2026-11-02)",
+ "url": "https://drive.google.com/file/d/1tsSkcweiiT38SWB0bbwWl28wUvtHFT49/view?usp=drivesdk",
+ "drive_modified": "2026-11-05T07:37:28.427Z",
+ "broker": "하나증권",
+ "analyst": "김현수",
+ "date": "2026-11-02",
+ "kind": "산업",
+ "subject": "2차전지 · CATL·ESS 수주",
+ "depth": "light",
+ "one_line": "CATL 영업이익률 하락(20% → 12%)은 중국 세제(소비세 과세 재개·수출 환급세 축소) 탓이라 한국 업체 영향은 미미하고, 셀 메이커 ESS 수주 모멘텀이 강해 셀 중심 적극 매수",
+ "summary": [
+  "CATL 영업이익률 4Q25 20% → 3Q26 12%, 배터리 소비세 9월부터 2%(27.9월 4%) 과세 재개 (p.1)",
+  "수출 환급세 13% → 9% → 6%(26.4월), 27년 폐지 → 중국의 해외 집중 유인 감소 (p.1)",
+  "삼성SDI 10월까지 ESS 신규 수주 60GWh, 연간 120GWh 이상 가이던스 (p.1)",
+  "BNEF 미국 ESS 장기 설치 전망 30% 상향, 2030년 누적 214GW (p.2)"
+ ],
+ "thesis": [],
+ "numbers": [
+  {
+   "label": "CATL 영업이익률",
+   "value": "20% → 12%",
+   "note": "4Q25→3Q26, p.1"
+  },
+  {
+   "label": "삼성SDI ESS 신규 수주",
+   "value": "60GWh(10월까지)",
+   "note": "연간 가이던스 120GWh↑, p.1"
+  },
+  {
+   "label": "미국 ESS 누적 설치 2030년",
+   "value": "214GW",
+   "note": "BNEF, 6개월 전 대비 +30%, p.2"
+  }
+ ],
+ "stocks": [
+  {
+   "name": "삼성SDI",
+   "role": "수혜",
+   "view": "셀 메이커 적극 매수",
+   "target": null,
+   "why": "ESS 수주 연 120GWh↑ 가이던스",
+   "code": "006400"
+  },
+  {
+   "name": "LG에너지솔루션",
+   "role": "수혜",
+   "view": "셀 메이커 적극 매수",
+   "target": null,
+   "why": "남은 기간 신규 수주 크게 증가 예상",
+   "code": "373220"
+  }
+ ],
+ "sectors": [
+  {
+   "name": "2차전지",
+   "view": "긍정",
+   "why": "CATL·중간선거 우려 과도, 가격 매력"
+  }
+ ],
+ "outlook": {
+  "short": "남은 2개월 ESS 수주 추가",
+  "mid": ""
+ },
+ "catalysts": [],
+ "risks": [],
+ "claude": {
+  "opinion": "⭐보유 종목 삼성SDI를 직접 다룬 근거(ESS 수주 60GWh). 수주는 강하지만 LG엔솔 사례처럼 이익 전환 시점을 따로 확인해야 함.",
+  "counter": [
+   "스텔란티스가 27년부터 유럽 차종 LFP 전환·CATL과 50GWh 합작 추진 — 유럽 EV 쪽은 중국 업체가 가져갈 수 있음(같은 리포트 p.2)"
+  ],
+  "check": [
+   "삼성SDI 연말 ESS 수주 120GWh 달성 여부"
+  ]
+ },
+ "tags": [
+  "2차전지",
+  "ESS",
+  "CATL",
+  "보유종목",
+  "요약만"
+ ],
+ "analyzed_at": "2026-11-05 17:50"
+}

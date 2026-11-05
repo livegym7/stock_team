@@ -1,0 +1,79 @@
+{
+ "file_id": "1Dwo7DKQ6rrunSRmCHoTkqU1gPyNwlnww",
+ "title": "OCI홀딩스: 미국 고객사의 폴리실리콘 초기 수요 대부분을 흡수할 수 있는 유일한 업체 (iM증권, 2026-11-05)",
+ "url": "https://drive.google.com/file/d/1Dwo7DKQ6rrunSRmCHoTkqU1gPyNwlnww/view?usp=drivesdk",
+ "drive_modified": "2026-11-05T07:37:39.717Z",
+ "broker": "iM증권",
+ "analyst": "전유진",
+ "date": "2026-11-05",
+ "kind": "기업",
+ "subject": "OCI홀딩스 · 폴리실리콘·태양광",
+ "depth": "light",
+ "one_line": "MIP 시행으로 27년부터 비중국 폴리실리콘이 강해지고, 8월 미국 고객사와 신규 공급계약(27.1Q 출하 시작)으로 TerraSus 이익이 26년 155억 → 27년 1,954억 원 — 매수·목표가 30만 원으로 커버리지 개시",
+ "summary": [
+  "목표가는 27년 EBITDA 기준 SOTP(TerraSus 4.4조, OCI Enterprise 1.8조 원 등) (p.131)",
+  "3Q 연결 영업이익 684억 원(컨센 716억 소폭 하회), TerraSus는 판매량 +45%로 흑자전환·OPM 12.8% (p.131)",
+  "4Q 250MW 발전소 매각 예정, 4Q 영업이익 887억 원·26년 2,760억 원(흑자전환) 전망 (p.131)",
+  "비중국 고순도 폴리실리콘 대량 생산 업체는 극소수 — 지상·우주 태양광 고객 초기 수요 흡수 (p.131)"
+ ],
+ "thesis": [],
+ "numbers": [
+  {
+   "label": "TerraSus 27년 이익",
+   "value": "1,954억 원",
+   "note": "26년 155억, OPM 28% 추정, p.131"
+  },
+  {
+   "label": "26E 영업이익",
+   "value": "2,760억 원",
+   "note": "흑자전환, p.131"
+  }
+ ],
+ "stocks": [
+  {
+   "name": "OCI홀딩스",
+   "role": "수혜",
+   "view": "Buy 개시, 목표가 300,000원(종가 200,000원)",
+   "target": 300000,
+   "why": "비중국 폴리실리콘 희소성, MIP",
+   "code": "010060"
+  },
+  {
+   "name": "한화솔루션",
+   "role": "언급",
+   "view": "같은 미국 태양광 공급망",
+   "target": null,
+   "why": "MIP·비중국 프리미엄 동일 논리",
+   "code": "009830"
+  }
+ ],
+ "sectors": [
+  {
+   "name": "태양광",
+   "view": "긍정",
+   "why": "MIP로 27년 비중국 소재 강세"
+  }
+ ],
+ "outlook": {
+  "short": "4Q 발전소 매각과 TerraSus 물량 지속",
+  "mid": ""
+ },
+ "catalysts": [],
+ "risks": [],
+ "claude": {
+  "opinion": "보유 종목 한화솔루션과 같은 날 같은 애널리스트가 쓴 리포트로 같은 MIP 논리. 소재(폴리실리콘)가 모듈보다 먼저 이익이 개선되는 그림.",
+  "counter": [
+   "고객사 가동 시점·생산 속도에 따라 출하가 늦어질 수 있음(리포트도 인정), 우주 태양광은 아직 초기 기대"
+  ],
+  "check": [
+   "27.1Q 미국 고객사 출하 시작 여부"
+  ]
+ },
+ "tags": [
+  "태양광",
+  "폴리실리콘",
+  "MIP",
+  "요약만"
+ ],
+ "analyzed_at": "2026-11-05 17:50"
+}

@@ -1,0 +1,62 @@
+{
+ "file_id": "1Tj_CCOO_2o0oXK7ArHoqj69rnGQfEtIv",
+ "title": "美 블루 쓰나미, 그린산업 전체에 훈풍 (유진투자증권, 2026-11-05)",
+ "url": "https://drive.google.com/file/d/1Tj_CCOO_2o0oXK7ArHoqj69rnGQfEtIv/view?usp=drivesdk",
+ "drive_modified": "2026-11-05T07:37:30.868Z",
+ "broker": "유진투자증권",
+ "analyst": "한병화",
+ "date": "2026-11-05",
+ "kind": "산업",
+ "subject": "그린산업 · 미국 중간선거",
+ "depth": "light",
+ "one_line": "민주당 상·하원 압승으로 트럼프 반(反)그린 정책은 정점을 지났고, 연내 인허가 개혁법(BAAJA)이 분수령 — 트럼프 1기 중간선거 뒤에도 Vestas·First Solar가 크게 올랐다",
+ "summary": [
+  "민주당이 조사·청문회·예산권으로 공화당 정책 압박, 관심이 2028년 대선으로 이동 (p.1)",
+  "BAAJA: 인허가 법적 시한, 소송 제한 150일, 승인 취소 금지, AIDC 전력 비용 자체 부담, 재생에너지 포함 (p.1)",
+  "척 슈머 등 민주당 지도부는 IRA 복원을 가장 중요한 정책 중 하나로 언급 — 거부권 두고 부분 복원 협상 가능 (p.1)",
+  "AIDC 님비 해소엔 클린에너지+BESS 조합 확대 필요 → 그린산업 유리 (p.1)"
+ ],
+ "thesis": [],
+ "numbers": [],
+ "stocks": [],
+ "sectors": [
+  {
+   "name": "풍력",
+   "view": "긍정",
+   "why": "국방부 등에 막힌 단지 공사 재개가 협상 핵심"
+  },
+  {
+   "name": "태양광",
+   "view": "긍정",
+   "why": "IRA 부분 복원 기대"
+  },
+  {
+   "name": "ESS",
+   "view": "긍정",
+   "why": "AIDC용 클린에너지+BESS"
+  }
+ ],
+ "outlook": {
+  "short": "BAAJA 연내 협상·투표 완료 가능",
+  "mid": ""
+ },
+ "catalysts": [],
+ "risks": [],
+ "claude": {
+  "opinion": "DS투자증권(11/4)과 같은 결론이지만 더 낙관적. 한화솔루션·삼성SDI 모두 정책 수혜 쪽.",
+  "counter": [
+   "하나증권(10/26)은 민주당이 친환경 정책을 의제로 삼지 않아 블루웨이브가 그린웨이브로 이어지지 않는다고 봄 — IRA 복원은 대통령 거부권이 벽"
+  ],
+  "check": [
+   "BAAJA 표결 일정"
+  ]
+ },
+ "tags": [
+  "중간선거",
+  "그린산업",
+  "IRA",
+  "BAAJA",
+  "요약만"
+ ],
+ "analyzed_at": "2026-11-05 17:50"
+}

@@ -1,0 +1,73 @@
+{
+ "file_id": "1onXh3WtCmsWO_XTYoysJa6dS760ndsti",
+ "title": "건설 Weekly: 실적, 체코원전, 데이터센터 업데이트 (하나증권, 2026-11-03)",
+ "url": "https://drive.google.com/file/d/1onXh3WtCmsWO_XTYoysJa6dS760ndsti/view?usp=drivesdk",
+ "drive_modified": "2026-11-05T07:37:38.311Z",
+ "broker": "하나증권",
+ "analyst": "김승준·하민호",
+ "date": "2026-11-03",
+ "kind": "산업",
+ "subject": "건설 · 체코원전·데이터센터",
+ "depth": "light",
+ "one_line": "체코원전 시공사 협상 결렬(10/29)로 원전주가 빠졌고 실적 뒤 건설주 하락은 과도 — 동해 AI 데이터센터(1단계 100MW 12월 착공) 기대로 GS건설 Top Pick, 삼성E&A 차선호",
+ "summary": [
+  "건설업 주간 수익률 코스피 대비 -14.2%p (p.1)",
+  "3Q 상회: 삼성E&A·삼성물산·HDC현대산업개발, 하회: GS건설 — 주택 마진 13~15%대 (p.1)",
+  "한수원은 27년 3월 말 입찰 공고, 7월 새 시공사 선정 계획 (p.1)"
+ ],
+ "thesis": [],
+ "numbers": [],
+ "stocks": [
+  {
+   "name": "GS건설",
+   "role": "Top pick",
+   "view": "Top Pick",
+   "target": null,
+   "why": "동해 데이터센터 2~3단계 수주 기대",
+   "code": "006360"
+  },
+  {
+   "name": "삼성E&A",
+   "role": "수혜",
+   "view": "차선호주",
+   "target": null,
+   "why": "실적 개선 뚜렷",
+   "code": "028050"
+  },
+  {
+   "name": "계룡건설",
+   "role": "수혜",
+   "view": "중소형 추천",
+   "target": null,
+   "why": "공공기관 이전·호실적",
+   "code": "013580"
+  }
+ ],
+ "sectors": [
+  {
+   "name": "건설",
+   "view": "긍정",
+   "why": "실적 대비 주가 하락 과도"
+  }
+ ],
+ "outlook": {
+  "short": "",
+  "mid": ""
+ },
+ "catalysts": [],
+ "risks": [],
+ "claude": {
+  "opinion": "관심 업종 밖. 데이터센터 건설 관련 숫자만 참고.",
+  "counter": [
+   "주택 매출이 늘지 못한다는 우려 — 분양·착공이 목표 75%를 넘은 곳은 GS건설뿐"
+  ],
+  "check": []
+ },
+ "tags": [
+  "건설",
+  "원전",
+  "데이터센터",
+  "요약만"
+ ],
+ "analyzed_at": "2026-11-05 17:51"
+}

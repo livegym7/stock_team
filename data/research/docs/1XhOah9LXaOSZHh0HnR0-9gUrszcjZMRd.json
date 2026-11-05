@@ -1,0 +1,63 @@
+{
+ "file_id": "1XhOah9LXaOSZHh0HnR0-9gUrszcjZMRd",
+ "title": "항공운송: 한진칼 지분 경쟁 재점화, 결국 답은 대한항공 (유진투자증권, 2026-11-04)",
+ "url": "https://drive.google.com/file/d/1XhOah9LXaOSZHh0HnR0-9gUrszcjZMRd/view?usp=drivesdk",
+ "drive_modified": "2026-11-05T02:22:41.251Z",
+ "broker": "유진투자증권",
+ "analyst": "양승윤",
+ "date": "2026-11-04",
+ "kind": "산업",
+ "subject": "항공 · 한진칼 경영권",
+ "depth": "light",
+ "one_line": "호반그룹 기업결합 신고·조원태 회장 추가 매입으로 한진칼 상한가(시총 11.7조로 대한항공 10.7조 추월), 지분 경쟁은 12/31 주총 기준일까지 — 경영권 이전 가능성은 제한적, 최선호주는 대한항공",
+ "summary": [
+  "조원태 측 우호지분 약 42.3%(산업은행 포함 52.8%) vs 호반 약 20.6% (p.1)",
+  "19~20년 분쟁 때 한진칼 +2.7배 뒤 한 달 만에 -27% (p.1)"
+ ],
+ "thesis": [],
+ "numbers": [],
+ "stocks": [
+  {
+   "name": "대한항공",
+   "role": "Top pick",
+   "view": "최선호주",
+   "target": null,
+   "why": "우호적 대외환경·견조한 수요",
+   "code": "003490"
+  },
+  {
+   "name": "한진칼",
+   "role": "언급",
+   "view": "변동성 확대",
+   "target": null,
+   "why": "분쟁 프리미엄",
+   "code": "180640"
+  }
+ ],
+ "sectors": [
+  {
+   "name": "항공",
+   "view": "긍정",
+   "why": "업종 Overweight"
+  }
+ ],
+ "outlook": {
+  "short": "",
+  "mid": ""
+ },
+ "catalysts": [],
+ "risks": [],
+ "claude": {
+  "opinion": "관심 업종 밖.",
+  "counter": [
+   "분쟁 프리미엄은 이벤트 뒤 급락한 전례"
+  ],
+  "check": []
+ },
+ "tags": [
+  "항공",
+  "경영권",
+  "요약만"
+ ],
+ "analyzed_at": "2026-11-05 17:52"
+}

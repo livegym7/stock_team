@@ -1,0 +1,71 @@
+{
+ "file_id": "1FkC3HiSUQ5Q-rmyj5iS8KFLAXWc1DDpM",
+ "title": "2차전지 Weekly: 중간선거에 대한 오해와 배터리 섹터의 기회 (하나증권, 2026-10-26)",
+ "url": "https://drive.google.com/file/d/1FkC3HiSUQ5Q-rmyj5iS8KFLAXWc1DDpM/view?usp=drivesdk",
+ "drive_modified": "2026-11-05T02:35:53.673Z",
+ "broker": "하나증권",
+ "analyst": "김현수",
+ "date": "2026-10-26",
+ "kind": "산업",
+ "subject": "2차전지 · 미국 중간선거·ESS",
+ "depth": "light",
+ "one_line": "민주당이 이겨도 블루웨이브가 그린웨이브(EV·재생 보조금 확대)로 이어지진 않고, 데이터센터 건설이 멈춰도 한국 ESS 타격은 미미 — 한국 ESS 수주는 기존 미국 그리드향 시장(연 70GWh)의 '탈중국' 덕이라 대형주 매수",
+ "summary": [
+  "민주당도 이번 선거에서 친환경 정책을 의제로 내세우지 않음 (p.1)",
+  "한국 셀 메이커 ESS 수주 급증은 데이터센터 온사이트 기대가 아니라 그리드향 탈중국 논리 (p.1)"
+ ],
+ "thesis": [],
+ "numbers": [
+  {
+   "label": "미국 그리드향 ESS 시장",
+   "value": "연평균 70GWh",
+   "note": "p.1"
+  }
+ ],
+ "stocks": [
+  {
+   "name": "삼성SDI",
+   "role": "수혜",
+   "view": "대형주 매수",
+   "target": null,
+   "why": "ESS 탈중국 수혜",
+   "code": "006400"
+  },
+  {
+   "name": "LG에너지솔루션",
+   "role": "수혜",
+   "view": "대형주 매수",
+   "target": null,
+   "why": "ESS 탈중국 수혜",
+   "code": "373220"
+  }
+ ],
+ "sectors": [
+  {
+   "name": "ESS",
+   "view": "긍정",
+   "why": "선거 결과와 무관한 탈중국 수요"
+  }
+ ],
+ "outlook": {
+  "short": "",
+  "mid": ""
+ },
+ "catalysts": [],
+ "risks": [],
+ "claude": {
+  "opinion": "⭐삼성SDI 관련. '선거가 어느 쪽이든 ESS는 괜찮다'는 방어 논리.",
+  "counter": [
+   "선거 후 유진·DS는 그린산업 전체 훈풍이라고 해 이 글(그린웨이브 없음)과 시각이 엇갈림"
+  ],
+  "check": []
+ },
+ "tags": [
+  "2차전지",
+  "ESS",
+  "중간선거",
+  "보유종목",
+  "요약만"
+ ],
+ "analyzed_at": "2026-11-05 17:52"
+}

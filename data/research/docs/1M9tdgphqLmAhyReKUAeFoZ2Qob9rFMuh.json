@@ -1,0 +1,69 @@
+{
+ "file_id": "1M9tdgphqLmAhyReKUAeFoZ2Qob9rFMuh",
+ "title": "MLCC Tracker #4: 범용은 숨고르기, 고용량은 레벨업 (iM증권, 2026-10-21)",
+ "url": "https://drive.google.com/file/d/1M9tdgphqLmAhyReKUAeFoZ2Qob9rFMuh/view?usp=drivesdk",
+ "drive_modified": "2026-11-05T07:37:28.865Z",
+ "broker": "iM증권",
+ "analyst": "고의영",
+ "date": "2026-10-21",
+ "kind": "산업",
+ "subject": "MLCC · 리드타임·유통가격",
+ "depth": "light",
+ "one_line": "MLCC 리드타임이 세 번째로 계단식 확장(고용량 평균 23주, 연초 대비 +7주), 삼성전기 납기는 39~49주 → 61주로 일괄 확대 — 고용량·AI 서버용은 강세, 범용 저용량은 유통가 5% 내외 하락으로 갈림",
+ "summary": [
+  "범용 0201·0603 리드타임 처음 20주 돌파 (p.1)",
+  "유통 가격: 삼성전기·Yageo 4개월 연속 인상, Murata·Taiyo Yuden·TDK 동결 (p.1)",
+  "TrendForce AI 서버 공급망 리드타임에서 MLCC 30 → 35주, 균형 대비 2.9배 (p.1)",
+  "일본 8월 Capacitor 수출 ASP +22% YoY, 대만향 집중 (p.1)"
+ ],
+ "thesis": [],
+ "numbers": [
+  {
+   "label": "삼성전기 납기",
+   "value": "61주",
+   "note": "기존 39~49주, p.1"
+  },
+  {
+   "label": "AI 서버 MLCC 리드타임",
+   "value": "35주",
+   "note": "균형 대비 2.9배, TrendForce"
+  }
+ ],
+ "stocks": [
+  {
+   "name": "삼성전기",
+   "role": "수혜",
+   "view": "업종 Overweight",
+   "target": null,
+   "why": "납기 확대·가격 인상 주도",
+   "code": "009150"
+  }
+ ],
+ "sectors": [
+  {
+   "name": "MLCC",
+   "view": "긍정",
+   "why": "고용량 레벨업, 범용은 숨고르기"
+  }
+ ],
+ "outlook": {
+  "short": "",
+  "mid": ""
+ },
+ "catalysts": [],
+ "risks": [],
+ "claude": {
+  "opinion": "이후 Murata 실적(11/2 분석 문서)에서 가격 인상 진전이 확인돼 이 글의 방향은 유지.",
+  "counter": [
+   "범용 저용량 유통 호가가 5% 내외 하락 — 가격 강세가 고사양에만 몰려 있음"
+  ],
+  "check": []
+ },
+ "tags": [
+  "MLCC",
+  "리드타임",
+  "삼성전기",
+  "요약만"
+ ],
+ "analyzed_at": "2026-11-05 17:51"
+}

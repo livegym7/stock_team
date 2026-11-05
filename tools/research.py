@@ -10,6 +10,9 @@
     python3 tools/research.py context                   # 종합 분석 재료: 전체 문서 요약 + 언급 종목의 시장 확인(RS·수익률·레이더)
     python3 tools/research.py save-synthesis --file 종합.json   # 아이디어는 성적표(ideas.json)에도 기록 (처음 나온 날 종가 = 기준가)
     python3 tools/research.py record-ideas                       # 지금 종합으로 성적표만 다시 기록
+    python3 tools/research.py touch --id 파일ID --modified 시각   # 파일 이름만 바뀐 문서: 수정 시각만 갱신(다시 읽지 않게)
+
+분석 JSON에 "depth": "light"를 넣으면 '요약만(첫 쪽)'으로 표시된다(첫 1~2쪽만 읽은 가벼운 요약).
 """
 import argparse
 import json
@@ -69,15 +72,32 @@ def cmd_save(path):
     uni = {s["name"]: s["code"] for s in load()["stocks"]}
     for s in d.get("stocks", []):
         s["code"] = s.get("code") or uni.get(s.get("name"))
+    if d.get("depth") not in (None, "full", "light"):
+        raise SystemExit('depth는 "full" 또는 "light"(요약만, 첫 쪽)')
+    d["depth"] = d.get("depth") or "full"
     d["analyzed_at"] = now()
     DOCS.mkdir(parents=True, exist_ok=True)
     (DOCS / f"{d['file_id']}.json").write_text(json.dumps(d, ensure_ascii=False, indent=1), encoding="utf-8")
     ix = load_index()
-    ix["docs"][d["file_id"]] = {k: d.get(k) for k in ("title", "broker", "date", "kind", "subject", "one_line", "url", "drive_modified", "analyzed_at")}
+    ix["docs"][d["file_id"]] = {k: d.get(k) for k in ("title", "broker", "date", "kind", "subject", "one_line", "url", "drive_modified", "analyzed_at", "depth")}
     ix["skipped"].pop(d["file_id"], None)
     save_index(ix)
     print(json.dumps({"saved": d["file_id"], "title": d["title"], "stocks": [s.get("name") for s in d["stocks"]],
                       "no_code": [s.get("name") for s in d["stocks"] if not s.get("code")]}, ensure_ascii=False))
+
+
+def cmd_touch(fid, modified):
+    ix = load_index()
+    if fid not in ix["docs"]:
+        raise SystemExit(f"분석 목록에 없는 파일: {fid}")
+    ix["docs"][fid]["drive_modified"] = modified
+    f = DOCS / f"{fid}.json"
+    if f.exists():
+        d = json.loads(f.read_text(encoding="utf-8"))
+        d["drive_modified"] = modified
+        f.write_text(json.dumps(d, ensure_ascii=False, indent=1), encoding="utf-8")
+    save_index(ix)
+    print(json.dumps({"touched": fid, "drive_modified": modified}, ensure_ascii=False))
 
 
 def cmd_skip(fid, title, reason):
@@ -182,6 +202,7 @@ def main():
     sub.add_parser("context")
     s = sub.add_parser("save-synthesis"); s.add_argument("--file", required=True)
     sub.add_parser("record-ideas")
+    s = sub.add_parser("touch"); s.add_argument("--id", required=True); s.add_argument("--modified", required=True)
     a = p.parse_args()
     if a.cmd == "status":
         cmd_status()
@@ -189,6 +210,8 @@ def main():
         cmd_save(a.file)
     elif a.cmd == "skip":
         cmd_skip(a.id, a.title, a.reason)
+    elif a.cmd == "touch":
+        cmd_touch(a.id, a.modified)
     elif a.cmd == "context":
         cmd_context()
     elif a.cmd == "record-ideas":
