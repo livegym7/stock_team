@@ -1,0 +1,67 @@
+{
+ "file_id": "1IJuET1DR4Lu8HtAD3Sy8aBy2UH2JvQXM",
+ "title": "Ibiden 실적 발표와 국내 패키지기판 시사점: CPU용 기판 추가 증설 (전기전자 Issue Comment, 2026-10-30)",
+ "drive_modified": "2026-11-05T02:28:49.631Z",
+ "broker": "(증권사 표기 앞부분에 없음)",
+ "analyst": "",
+ "date": "2026-10-30",
+ "kind": "산업",
+ "subject": "FC-BGA · Ibiden · CPU용 기판",
+ "one_line": "Ibiden FC-BGA(Electronics) 영업이익 +151% YoY, OPM 30% — AI 서버 주문이 예상 상회, 판가 유지. CPU용 기판 수요 대응 추가 증설 결정 → 국내 패키지기판에도 긍정.",
+ "summary": [
+  "Ibiden FY2Q 매출 1,393억엔(+42%), 영업이익 332억엔(+123%), 컨센 +10% 상회",
+  "Electronics(FC-BGA) 영업이익 287억엔(+151%), OPM 약 30%, AI 서버향 주문 예상 상회·판가 유지",
+  "FY2026 가이던스 영업이익 1,330억엔(+114%), 산업 전반 공급 부족으로 CPU용 기판 추가 증설 결정",
+  "※ 앞부분(요약·목차) 기준 요약 — 전문 미독"
+ ],
+ "thesis": [
+  {
+   "point": "CPU용 기판 수요가 새 성장축",
+   "evidence": "추가 증설 결정 사유(본문)"
+  }
+ ],
+ "numbers": [
+  {
+   "label": "Ibiden Electronics OPM",
+   "value": "약 30%",
+   "note": "FY2Q"
+  },
+  {
+   "label": "FY26 영업이익 가이던스",
+   "value": "1,330억엔(+114%)",
+   "note": ""
+  }
+ ],
+ "stocks": [],
+ "sectors": [
+  {
+   "name": "반도체 기판·전자부품",
+   "view": "긍정",
+   "why": "글로벌 1위 FC-BGA 업체 실적·증설"
+  }
+ ],
+ "outlook": {
+  "short": "국내 FC-BGA·패키지기판 업체에 긍정적 신호",
+  "mid": "증설 경쟁에 따른 공급 확대 가능성"
+ },
+ "catalysts": [
+  {
+   "when": "분기",
+   "what": "Ibiden·Unimicron 실적"
+  }
+ ],
+ "risks": [
+  "증설 확대로 '28년 이후 공급 과잉 가능성"
+ ],
+ "claude": {
+  "opinion": "'에이전트 AI → CPU 수요↑' 논리의 해외 숫자 근거(CPU용 기판 증설). 전략 보고서 메인 띔의 '가설' 고리(CPU 수요↑)를 '확인' 쪽으로 옮길 수 있는 자료."
+ },
+ "tags": [
+  "FC-BGA",
+  "Ibiden",
+  "CPU 기판",
+  "증설"
+ ],
+ "url": "https://drive.google.com/file/d/1IJuET1DR4Lu8HtAD3Sy8aBy2UH2JvQXM/view?usp=drivesdk",
+ "analyzed_at": "2026-11-05 13:16"
+}

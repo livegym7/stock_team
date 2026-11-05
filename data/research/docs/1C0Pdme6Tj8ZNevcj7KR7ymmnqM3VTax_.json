@@ -1,0 +1,96 @@
+{
+ "file_id": "1C0Pdme6Tj8ZNevcj7KR7ymmnqM3VTax_",
+ "title": "2027년 연간전망 반도체: 너나잘하세요 (교보증권, 2026-10-30)",
+ "drive_modified": "2026-11-05T02:25:04.846Z",
+ "broker": "교보증권",
+ "analyst": "최보영",
+ "date": "2026-10-30",
+ "kind": "산업",
+ "subject": "2027 반도체 업황 · CXMT(중국 메모리) 추격",
+ "one_line": "2027년 메모리는 '구조적 공급 제약'으로 가격 상승이 이어진다 — 중국 CXMT 추격은 중장기 위협이지만 단기 경쟁력 훼손은 제한적. 1Q27 범용 DRAM ASP +5~10%, NAND +13~18%(QoQ) 전망.",
+ "summary": [
+  "2027 반도체: 중국 추격·AI 투자 지속성 우려에도 공급 제약 + AI 수요로 메모리 가격·실적 성장 지속",
+  "CXMT 높은 이익률은 보조금·감가상각 차이 감안 시 자체 경쟁력으로 보기 어려움, EUV 접근 제약이 미세화 제한",
+  "AI 서버 출하 YoY +36% 전망 — 다만 투자 지속성은 FCF·자본조달 비용 점검 필요",
+  "HBM 생산 확대가 범용 DRAM 공급을 잠식 + 신규 팹 양산 시차 → 공급 부족 심화, 장기공급계약(LTA)이 수요 가시성↑",
+  "※ 앞부분(요약·목차) 기준 요약 — 전문 미독"
+ ],
+ "thesis": [
+  {
+   "point": "가격 상승의 핵심은 수요가 아니라 공급 제약",
+   "evidence": "HBM의 범용 DRAM 잠식, 신규 팹 양산 시차 (Summary)"
+  },
+  {
+   "point": "중국 추격은 단기 위협 아님",
+   "evidence": "EUV 제약·다중 패터닝 비용, 4F² 수율 검증 필요"
+  }
+ ],
+ "numbers": [
+  {
+   "label": "AI 서버 출하 2027",
+   "value": "YoY +36%",
+   "note": "Summary"
+  },
+  {
+   "label": "1Q27 범용 DRAM ASP",
+   "value": "QoQ +5~10%",
+   "note": "전망"
+  },
+  {
+   "label": "1Q27 NAND ASP",
+   "value": "QoQ +13~18%",
+   "note": "전망"
+  }
+ ],
+ "stocks": [
+  {
+   "name": "삼성전자",
+   "role": "커버",
+   "view": "긍정",
+   "target": null,
+   "why": "공급 제약 속 가격 상승 수혜",
+   "code": "005930"
+  },
+  {
+   "name": "SK하이닉스",
+   "role": "커버",
+   "view": "긍정",
+   "target": null,
+   "why": "HBM·범용 동반",
+   "code": "000660"
+  }
+ ],
+ "sectors": [
+  {
+   "name": "반도체(메모리·대형)",
+   "view": "긍정",
+   "why": "공급 제약 기반 가격 상승 지속"
+  }
+ ],
+ "outlook": {
+  "short": "1Q27 메모리 가격 추가 상승",
+  "mid": "CXMT 증설이 가격 협상력에 부담이 될 수 있음"
+ },
+ "catalysts": [
+  {
+   "when": "1Q27",
+   "what": "범용 DRAM·NAND 계약가 상승"
+  }
+ ],
+ "risks": [
+  "AI 투자 지속성(FCF·조달 비용)",
+  "CXMT 증설·기술 개발"
+ ],
+ "claude": {
+  "opinion": "메모리 가격 논리의 '공급 측' 근거를 잘 정리한 연간전망. 다만 주가가 업황을 못 따라가는 이유(외국인 매도·AI 자금 조달 우려)에 대한 답은 아니라서, 가격 상승 = 주가 상승으로 바로 연결 짓기는 어렵다."
+ },
+ "tags": [
+  "메모리 가격",
+  "공급 제약",
+  "CXMT",
+  "LTA",
+  "2027 전망"
+ ],
+ "url": "https://drive.google.com/file/d/1C0Pdme6Tj8ZNevcj7KR7ymmnqM3VTax_/view?usp=drivesdk",
+ "analyzed_at": "2026-11-05 13:16"
+}

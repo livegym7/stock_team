@@ -87,6 +87,83 @@
    "url": "https://stock.naver.com/research/invest/40698",
    "drive_modified": null,
    "analyzed_at": "2026-11-04 19:16"
+  },
+  "10ZqLC8fqiewi26qFdpdfDFRJUfb1iXd0": {
+   "title": "2027년 산업전망 반도체: 3배의 역설 (대신증권, 2026)",
+   "broker": "대신증권",
+   "date": "2026-10",
+   "kind": "산업",
+   "subject": "2027 반도체 · LPDDR 구매 전쟁 · HBM",
+   "one_line": "삼성전자·SK하이닉스는 12개월 선행 PER 약 3배 — 업황 '더 날카롭고 더 길게(Sharper and Longer)'. 서버 업계 참전으로 LPDDR 구매 전쟁, HBM은 27년 가격·28년 물량 성장.",
+   "url": "https://drive.google.com/file/d/10ZqLC8fqiewi26qFdpdfDFRJUfb1iXd0/view?usp=drivesdk",
+   "drive_modified": "2026-11-05T02:36:13.718Z",
+   "analyzed_at": "2026-11-05 13:16"
+  },
+  "14c_-3j6f30ikmt9cc8P_OjXe9EAwPtNH": {
+   "title": "반도체 소부장: 증설의 병목, 새롭지 않다 (SK증권, 2026-10-27)",
+   "broker": "SK증권",
+   "date": "2026-10-27",
+   "kind": "산업",
+   "subject": "반도체 소재·부품·장비 · 증설 병목",
+   "one_line": "Lam 실적·Semicon West로 다시 부각된 '증설 병목'(클린룸·EUV·파츠)은 이미 예견된 수준 — 메모리사는 당긴 증설 일정을 지킬 것, 소부장 2027 EPS 상향 여지는 여전.",
+   "url": "https://drive.google.com/file/d/14c_-3j6f30ikmt9cc8P_OjXe9EAwPtNH/view?usp=drivesdk",
+   "drive_modified": "2026-11-05T02:34:21.431Z",
+   "analyzed_at": "2026-11-05 13:16"
+  },
+  "1C0Pdme6Tj8ZNevcj7KR7ymmnqM3VTax_": {
+   "title": "2027년 연간전망 반도체: 너나잘하세요 (교보증권, 2026-10-30)",
+   "broker": "교보증권",
+   "date": "2026-10-30",
+   "kind": "산업",
+   "subject": "2027 반도체 업황 · CXMT(중국 메모리) 추격",
+   "one_line": "2027년 메모리는 '구조적 공급 제약'으로 가격 상승이 이어진다 — 중국 CXMT 추격은 중장기 위협이지만 단기 경쟁력 훼손은 제한적. 1Q27 범용 DRAM ASP +5~10%, NAND +13~18%(QoQ) 전망.",
+   "url": "https://drive.google.com/file/d/1C0Pdme6Tj8ZNevcj7KR7ymmnqM3VTax_/view?usp=drivesdk",
+   "drive_modified": "2026-11-05T02:25:04.846Z",
+   "analyzed_at": "2026-11-05 13:16"
+  },
+  "1IJuET1DR4Lu8HtAD3Sy8aBy2UH2JvQXM": {
+   "title": "Ibiden 실적 발표와 국내 패키지기판 시사점: CPU용 기판 추가 증설 (전기전자 Issue Comment, 2026-10-30)",
+   "broker": "(증권사 표기 앞부분에 없음)",
+   "date": "2026-10-30",
+   "kind": "산업",
+   "subject": "FC-BGA · Ibiden · CPU용 기판",
+   "one_line": "Ibiden FC-BGA(Electronics) 영업이익 +151% YoY, OPM 30% — AI 서버 주문이 예상 상회, 판가 유지. CPU용 기판 수요 대응 추가 증설 결정 → 국내 패키지기판에도 긍정.",
+   "url": "https://drive.google.com/file/d/1IJuET1DR4Lu8HtAD3Sy8aBy2UH2JvQXM/view?usp=drivesdk",
+   "drive_modified": "2026-11-05T02:28:49.631Z",
+   "analyzed_at": "2026-11-05 13:16"
+  },
+  "1YhpitDACHix3fT3ipjZEOEZroAaou96w": {
+   "title": "Murata 실적 발표와 삼성전기에 대한 시사점 (전기전자 Issue Comment, 2026-11-02)",
+   "broker": "(증권사 표기 앞부분에 없음)",
+   "date": "2026-11-02",
+   "kind": "산업",
+   "subject": "MLCC · Murata · 삼성전기",
+   "one_line": "Murata 연간 영업이익 가이던스 2번 연속 상향(4,300→5,200억엔), 하반기 가격 하락 0 반영·레거시 인상 시작 — 업계 1위의 가격 인상은 삼성전기에 긍정. 데이터센터 매출 +129%.",
+   "url": "https://drive.google.com/file/d/1YhpitDACHix3fT3ipjZEOEZroAaou96w/view?usp=drivesdk",
+   "drive_modified": "2026-11-05T02:28:05.439Z",
+   "analyzed_at": "2026-11-05 13:16"
+  },
+  "1lEndpyW-8UygfexkH9STVvq1Cs77lmkp": {
+   "title": "PCB Tracker #2: 전방위적 공급부족 (전기전자 Issue Comment, 2026-10-27)",
+   "broker": "(증권사 표기 앞부분에 없음)",
+   "date": "2026-10-27",
+   "kind": "산업",
+   "subject": "PCB·IC기판·CCL 수급",
+   "one_line": "한국·대만·일본 기판 지표가 고르게 개선 — 수요 증가율은 고원이지만 공급 제약은 심해져 가격 결정력이 공급사 쪽으로. Nvidia 기판 캐파 2.5배 확대도 '28년에야 들어와 '27년 부족은 더 심해질 전망.",
+   "url": "https://drive.google.com/file/d/1lEndpyW-8UygfexkH9STVvq1Cs77lmkp/view?usp=drivesdk",
+   "drive_modified": "2026-11-05T02:34:40.510Z",
+   "analyzed_at": "2026-11-05 13:16"
+  },
+  "1yWTBA6oDcP8fXpYRvyOLm1TEb0sGpPlL": {
+   "title": "반도체 및 소부장 Weekly: 지워지지 않는 물음표 (하나증권, 2026-11-02)",
+   "broker": "하나증권",
+   "date": "2026-11-02",
+   "kind": "산업",
+   "subject": "메모리 수출·주가 주간 점검",
+   "one_line": "10월 메모리 수출 +248% YoY(일평균 17.2억 달러), DRAM은 전월 대비도 +7% — 실적·가이던스는 좋은데 빅테크 Capex 부담 우려가 주가를 누른다('지워지지 않는 물음표').",
+   "url": "https://drive.google.com/file/d/1yWTBA6oDcP8fXpYRvyOLm1TEb0sGpPlL/view?usp=drivesdk",
+   "drive_modified": "2026-11-05T02:25:20.717Z",
+   "analyzed_at": "2026-11-05 13:16"
   }
  },
  "skipped": {}

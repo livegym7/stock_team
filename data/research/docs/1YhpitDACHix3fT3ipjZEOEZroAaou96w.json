@@ -1,0 +1,83 @@
+{
+ "file_id": "1YhpitDACHix3fT3ipjZEOEZroAaou96w",
+ "title": "Murata 실적 발표와 삼성전기에 대한 시사점 (전기전자 Issue Comment, 2026-11-02)",
+ "drive_modified": "2026-11-05T02:28:05.439Z",
+ "broker": "(증권사 표기 앞부분에 없음)",
+ "analyst": "",
+ "date": "2026-11-02",
+ "kind": "산업",
+ "subject": "MLCC · Murata · 삼성전기",
+ "one_line": "Murata 연간 영업이익 가이던스 2번 연속 상향(4,300→5,200억엔), 하반기 가격 하락 0 반영·레거시 인상 시작 — 업계 1위의 가격 인상은 삼성전기에 긍정. 데이터센터 매출 +129%.",
+ "summary": [
+  "Murata FY26 2Q 영업이익 1,475억엔(+42%, OPM 25.1%), 연간 가이던스 4,300 → 5,200억엔(+21%)",
+  "가격 정책 진전: 하반기 가격 하락 요인 0, 레거시 제품 인상 시작, 증설 원가 상승 제품은 하반기 인상 검토",
+  "Capacitor BB율 1.39(1Q 1.47), 가동률 95%",
+  "데이터센터 매출 가이던스 3,706 → 4,250억엔(+129%), FY27도 2배 전망, FY26~30 MLCC 1조엔 투자",
+  "※ 앞부분(요약·목차) 기준 요약 — 전문 미독"
+ ],
+ "thesis": [
+  {
+   "point": "업계 1위가 가격 인상 → 후발 업체 가격 정책에도 긍정",
+   "evidence": "하반기 가격 하락 0 반영"
+  }
+ ],
+ "numbers": [
+  {
+   "label": "Murata 영업이익 가이던스",
+   "value": "5,200억엔",
+   "note": "+21% 상향"
+  },
+  {
+   "label": "데이터센터 매출",
+   "value": "4,250억엔(+129%)",
+   "note": "FY27 2배 전망"
+  },
+  {
+   "label": "BB율",
+   "value": "1.39",
+   "note": "2Q"
+  }
+ ],
+ "stocks": [
+  {
+   "name": "삼성전기",
+   "role": "시사점",
+   "view": "긍정",
+   "target": null,
+   "why": "가격 인상 환경·AI 서버 MLCC",
+   "code": "009150"
+  }
+ ],
+ "sectors": [
+  {
+   "name": "반도체 기판·전자부품",
+   "view": "긍정",
+   "why": "MLCC 가격 인상 사이클"
+  }
+ ],
+ "outlook": {
+  "short": "MLCC 가격 인상 확산",
+  "mid": "Murata 1조엔 증설은 장기 공급 증가 요인"
+ },
+ "catalysts": [
+  {
+   "when": "하반기",
+   "what": "MLCC OEM 가격 인상"
+  }
+ ],
+ "risks": [
+  "BB율 하락(수주 증가율 둔화)",
+  "대규모 증설"
+ ],
+ "claude": {
+  "opinion": "AI 서버 전원부 MLCC가 '부품 쇼티지' 띔의 또 다른 갈래. 삼성전기 '2조 클럽' 기사(채널 11/04)와 같은 방향."
+ },
+ "tags": [
+  "MLCC",
+  "Murata",
+  "삼성전기",
+  "가격 인상"
+ ],
+ "url": "https://drive.google.com/file/d/1YhpitDACHix3fT3ipjZEOEZroAaou96w/view?usp=drivesdk",
+ "analyzed_at": "2026-11-05 13:16"
+}

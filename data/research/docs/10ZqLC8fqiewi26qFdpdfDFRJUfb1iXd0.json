@@ -1,0 +1,96 @@
+{
+ "file_id": "10ZqLC8fqiewi26qFdpdfDFRJUfb1iXd0",
+ "title": "2027년 산업전망 반도체: 3배의 역설 (대신증권, 2026)",
+ "drive_modified": "2026-11-05T02:36:13.718Z",
+ "broker": "대신증권",
+ "analyst": "류형근",
+ "date": "2026-10",
+ "kind": "산업",
+ "subject": "2027 반도체 · LPDDR 구매 전쟁 · HBM",
+ "one_line": "삼성전자·SK하이닉스는 12개월 선행 PER 약 3배 — 업황 '더 날카롭고 더 길게(Sharper and Longer)'. 서버 업계 참전으로 LPDDR 구매 전쟁, HBM은 27년 가격·28년 물량 성장.",
+ "summary": [
+  "2H26 한국 반도체 주가 부진: AI Capex 지속력 의문 + 사이클 추가 확장 의구심 + 중국 추격 우려",
+  "목표가는 괴리율 반영해 삼성전자 50만 원, SK하이닉스 300만 원으로 하향 — '과도한 저평가' 의견은 유지",
+  "범용: 서버 업계 참전으로 'LPDDR 구매 전쟁' 격화 → 세트 업체는 가격 인상 수용 불가피, 범용 DRAM 가격 전망 추가 상향",
+  "HBM: 2027년 가격 중심, 2028년 물량 중심 성장. 시장이 걱정하는 적층 단수 하향·가격 상승률 하회는 과도",
+  "2027 영업이익 전망: 삼성전자 592조, SK하이닉스 455조 원(컨센서스 대비 +8%, +7%)",
+  "※ 앞부분(요약·목차) 기준 요약 — 전문 미독"
+ ],
+ "thesis": [
+  {
+   "point": "PER 3배 = 이익이 주가에 반영 안 됨",
+   "evidence": "12m Fwd P/E 3배 내외 (Summary)"
+  },
+  {
+   "point": "LPDDR 구매 전쟁",
+   "evidence": "서버 업계가 LPDDR 수요에 참전, 세트 업체 가격 인상 수용"
+  }
+ ],
+ "numbers": [
+  {
+   "label": "12m Fwd P/E",
+   "value": "약 3배",
+   "note": "삼성전자·SK하이닉스"
+  },
+  {
+   "label": "2027 영업이익 삼성전자",
+   "value": "592조 원",
+   "note": "컨센 +8%"
+  },
+  {
+   "label": "2027 영업이익 SK하이닉스",
+   "value": "455조 원",
+   "note": "컨센 +7%"
+  }
+ ],
+ "stocks": [
+  {
+   "name": "삼성전자",
+   "role": "커버",
+   "view": "매수(목표가 하향)",
+   "target": 500000,
+   "why": "이익 대비 과도한 저평가",
+   "code": "005930"
+  },
+  {
+   "name": "SK하이닉스",
+   "role": "커버",
+   "view": "매수(목표가 하향)",
+   "target": 3000000,
+   "why": "HBM 주도 성장 재개",
+   "code": "000660"
+  }
+ ],
+ "sectors": [
+  {
+   "name": "반도체(메모리·대형)",
+   "view": "긍정",
+   "why": "Sharper and Longer 사이클"
+  }
+ ],
+ "outlook": {
+  "short": "이익 전망 상향 재개 가능",
+  "mid": "HBM 28년 물량 성장, 2.5D 패키징 Capa 확대"
+ },
+ "catalysts": [
+  {
+   "when": "수시",
+   "what": "범용 DRAM 가격 전망 상향, 이익 추정 상향"
+  }
+ ],
+ "risks": [
+  "Macro 리스크 확대",
+  "AI Capex 지속력"
+ ],
+ "claude": {
+  "opinion": "'LPDDR 구매 전쟁'은 전략 보고서 샘플의 메인 띔(LPDDR·소캠 확산)과 같은 방향의 1차 근거. 다만 목표가는 오히려 하향 — 증권사도 주가가 언제 이익을 따라갈지는 확신하지 못한다는 뜻."
+ },
+ "tags": [
+  "LPDDR",
+  "HBM",
+  "저평가",
+  "2027 전망"
+ ],
+ "url": "https://drive.google.com/file/d/10ZqLC8fqiewi26qFdpdfDFRJUfb1iXd0/view?usp=drivesdk",
+ "analyzed_at": "2026-11-05 13:16"
+}
