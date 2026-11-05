@@ -280,6 +280,12 @@ th{font-family:var(--sans)}
   .hgrid{grid-template-columns:minmax(0,1fr)}.opr{grid-template-columns:1fr;gap:0}.hhdr .t{margin-left:0;width:100%}
   .more .themeb{grid-column:1/-1}
 }
+.sigd{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:10.5px!important;letter-spacing:-.4px}.sig>div{min-width:0}
+.ptot{font-size:12.5px;font-weight:600}
+.hpos .h{align-items:center}.hpos .h>b:first-child{flex:none}.hpos .rbar.hr{flex:1;max-width:90px;margin:0 6px 0 auto}.hpos .pr{font-size:14px;font-weight:600}
+.news .nw{color:inherit;text-decoration:none;display:grid;grid-template-columns:14px 34px minmax(0,1fr);gap:6px;align-items:baseline;padding:8px 12px;border-bottom:1px solid var(--line);cursor:pointer}.news .nw:hover{background:var(--soft)}
+.news .nn{color:var(--accent);font-size:12px;font-weight:600}.news .ni{font-size:12.5px;letter-spacing:-1px;white-space:nowrap}.news .nt b{display:block;font-weight:600;font-size:13.5px;line-height:1.5}
+.news .nt small{display:block;color:var(--faint);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 </style>
 
 <div class="tape num" id="tape"></div>
@@ -517,11 +523,15 @@ function acctBox(){
     <div class="lg num">${secs.map(([k,v],i)=>`<span><i style="background:${COLORS[i%6]}"></i>${esc(k)} ${pct(v).toFixed(1)}%</span>`).join("")}<span><i style="background:var(--line)"></i>현금 ${pct(cash).toFixed(1)}%</span></div></div></div>`;
 }
 function holdBox(){
-  const ps=(D.risk&&D.risk.positions)||[];
-  return `<div class="bx"><div class="bh"><a href="#portfolio">보유 종목</a><em>손절가까지</em></div>${ps.length?ps.map(p=>{const near=p.to_stop_pct!=null&&p.to_stop_pct>-3;
-   return `<div class="hpos" data-go="portfolio"><div class="h"><b>⭐ ${esc(p.name)}${near?'<span class="near">손절 근접</span>':""}</b><span class="num">${w(p.price)}</span></div>
-   <div class="s num"><span>${p.qty}주 @${w(p.avg_price)}</span><span class="${cls(p.pnl_won)}">${p.pnl_won>0?"+":""}${w(p.pnl_won)}원 · ${p.r_multiple==null?"-":(p.r_multiple>0?"+":"")+p.r_multiple.toFixed(2)+"R"}</span></div>
-   <div class="s num"><span>손절 ${w(p.stop)}</span><span class="${near?"up":""}">${pc(p.to_stop_pct)}</span></div>${p.alert?`<div class="al">⚠️ ${esc(p.alert)}</div>`:""}</div>`}).join(""):`<div class="empty" style="margin:10px">보유 종목 없음</div>`}</div>`;
+  const ps=(D.risk&&D.risk.positions)||[], tot=ps.reduce((a,p)=>a+(p.pnl_won||0),0);
+  const sR=v=>v==null||isNaN(v)?"-":(v>0?"+":"")+v.toFixed(2)+"R";
+  return `<div class="bx"><div class="bh"><a href="#portfolio">보유 종목 ${ps.length}</a>${ps.length?`<b class="num ptot ${cls(tot)}">평가손익 ${tot>0?"+":""}${w(tot)}원</b>`:""}</div>${ps.length?ps.map(p=>{
+   const near=p.to_stop_pct!=null&&p.to_stop_pct>-3, pct=p.price?(p.price/p.avg_price-1)*100:null, oneR=p.avg_price-(p.initial_stop??p.stop);
+   const left=oneR>0&&p.price?(p.price-p.stop)/oneR:null, bar=Math.max(0,Math.min(100,((p.r_multiple||0)+1)/4*100));
+   return `<div class="hpos" data-go="portfolio">
+    <div class="h"><b>⭐ ${esc(p.name)}${near?'<span class="near">손절 근접</span>':""}</b><span class="rbar hr" title="진행 R ${sR(p.r_multiple)} (−1R ~ 3R, 세로선 = 0R)"><i style="width:${bar}%"></i></span><b class="num pr">${w(p.price)}</b></div>
+    <div class="s num"><span>${p.qty}주 @${w(p.avg_price)}</span><span class="${cls(p.pnl_won)}">${p.pnl_won>0?"+":""}${w(p.pnl_won)}원 · ${pc(pct,2)} · ${sR(p.r_multiple)}</span></div>
+    <div class="s num"><span>손절 ${w(p.stop)}</span><span><span class="${near?"up":""}">손절까지 ${pc(p.to_stop_pct)}</span> · 남은 ${left==null?"-":left.toFixed(2)+"R"}</span></div>${p.alert?`<div class="al">⚠️ ${esc(p.alert)}</div>`:""}</div>`}).join(""):`<div class="empty" style="margin:10px">보유 종목 없음</div>`}</div>`;
 }
 function todayBox(){
   const all=calEvents().filter(e=>e.days===0), top=all.slice(0,5).sort((a,b)=>(a.time||"99").localeCompare(b.time||"99"));
@@ -529,9 +539,20 @@ function todayBox(){
    ${top.length?`<div class="tsch">${top.map(e=>`<div title="${esc(e.detail||"")}"><span class="num">${esc(e.time||"종일")}</span><span class="nm">${e.mine=="held"?"⭐":e.mine=="watch"?"☆":""}${esc(e.name)}</span>${evTag(e)}</div>`).join("")}</div>`:`<div class="empty" style="margin:10px">오늘 일정 없음</div>`}
    <a class="bmore" href="#config">달력에서 전체 보기 ›</a></div>`;
 }
+function newsBox(){
+  const b=(D.briefs||[]).find(x=>x.kind=="channels"&&/\n\d\uFE0F?\u20E3/.test(x.text||""));
+  if(!b)return `<div class="bx"><div class="bh">중요한 소식</div><div class="empty" style="margin:10px">아직 채널 정리가 없습니다</div></div>`;
+  const L=b.text.split("\n"), items=[];
+  L.forEach((l,i)=>{const m=l.match(/^\d\uFE0F?\u20E3\s*(.*)$/);if(!m)return;let t=m[1].trim(),ic="";
+    const e=t.match(/^((?:\p{Extended_Pictographic}\uFE0F?\s*)+)/u);if(e){ic=e[1].replace(/\s/g,"");t=t.slice(e[0].length)}
+    const sub=(L.slice(i+1).find(x=>/^\s*-/.test(x))||"").replace(/^\s*-\s*/,"").replace(/^[🔴🔵⭐🔥]\s*/u,"");
+    items.push({ic,t,sub})});
+  return `<div class="bx"><div class="bh">중요한 소식<em>${esc(b.kind_name)} ${esc(b.time||"")} · 중요한 순 · 출처: 채널 요약</em></div>
+   <div class="news">${items.slice(0,5).map((x,i)=>`<a class="nw" href="#briefs" data-bk="channels"><span class="nn num">${i+1}</span><span class="ni">${esc(x.ic)}</span><div class="nt"><b>${tint(x.t)}</b>${x.sub?`<small>${esc(x.sub)}</small>`:""}</div></a>`).join("")}</div>
+   <a class="bmore" href="#briefs" data-bk="channels">채널 정리 전체 보기 ›</a></div>`;
+}
 function viewHome(){
   const op=latestOpinion(), R=(D.insights||{}).regime, L={green:"초록",yellow:"노랑",red:"빨강"};
-  const up=calEvents().filter(e=>e.days>=1&&e.days<=14).slice(0,6);
   return `<div class="hhdr"><h1>오늘</h1>${R?`<span class="badge ${R.light}">시장 신호 ${L[R.light]}</span>`:""}<span class="t num">데이터 ${esc(D.built_at)} 기준</span></div>
   <div class="hgrid">
    <div class="hc1">
@@ -540,10 +561,10 @@ function viewHome(){
     ${src("국내 네이버 증권, 해외 Yahoo Finance(비공식) · 미니 차트 = 회색 전일 · 색 당일 · 점선 전일 종가 · 투자자 금액은 거래소 잠정치(억 원)")}
    </div>
    <div class="hc2">
-    <div class="bx">${R?`<div class="sig ${R.light}"><span class="l"></span><div><b>신호등 ${L[R.light]}</b> · ${esc(R.text)}<small class="num">코스피 20일선 대비 ${pc(R.gap20)} · 기울기 ${pc(R.slope20)} · 1주 ${pc(R.r1w)} · 1개월 ${pc(R.r1m)} · 고점 대비 ${pc(R.off_high)} (${esc(R.date)} 종가)</small></div></div>`:""}
+    <div class="bx">${R?`<div class="sig ${R.light}"><span class="l"></span><div><b>신호등 ${L[R.light]}</b> · ${esc(R.text)}<small class="num sigd">코스피 20일선 ${pc(R.gap20)} · 기울기 ${pc(R.slope20)} · 1주 ${pc(R.r1w)} · 1개월 ${pc(R.r1m)} · 고점 ${pc(R.off_high)} · ${esc(String(R.date).slice(4,6)+"/"+String(R.date).slice(6))} 종가</small></div></div>`:""}
      <div class="bh">💡 CLAUDE 의견<em>${op?esc(op.kind_name)+" · "+esc(op.date)+(op.time?" "+esc(op.time):""):""}</em></div>
      ${op?opinionRows(op):`<div class="empty" style="margin:10px">아직 의견이 담긴 브리핑이 없습니다</div>`}</div>
-    <div class="bx upc"><div class="bh">📅 다가오는 일정 · 2주<em><a href="#config">달력 보기 ›</a></em></div>${up.length?`<div class="ins">${up.map(evRow).join("")}</div>`:`<div class="empty" style="margin:10px">2주 안에 예정된 일정 없음</div>`}</div>
+    ${newsBox()}
    </div>
    <div class="hc3">${acctBox()}${holdBox()}${todayBox()}${src((D.risk?.source||"")+" · "+(D.risk?.at||"")+" · 수익률 = (실현+평가 손익) ÷ 원금, 매매 일지 기준")}</div>
   </div>`;
