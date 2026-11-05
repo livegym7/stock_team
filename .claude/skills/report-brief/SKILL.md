@@ -85,3 +85,10 @@ python3 tools/sector_map.py check
 - `unsure`(확인 필요)가 있으면 브리핑 맨 끝에 "🏷️ 분류 확인 부탁: 종목 → 추정 분류(후보)" 한두 줄로 묻는다. 사용자가 답하면 set으로 고치고 메모를 지운다.
 - 새 분류 이름은 만들지 않는다(꼭 필요하면 사용자에게 먼저 묻는다).
 
+
+## 마지막: 트레이딩룸에도 반영 (2026-11-05 추가)
+텔레그램 전송·커밋이 끝나면 웹 브리핑 목록에도 바로 보이게 한다 (몇 초, 글을 새로 쓰지 않음):
+```bash
+python3 tools/web_build.py --only channels
+```
+그다음 Artifact 도구로 https://claude.ai/artifact/C8B5Dd1zwtyyqP3c4e3ric 를 read 후 file_path=web/index.html, 같은 url로 publish (icon 없이). 충돌이 나면 다시 read 후 publish.
