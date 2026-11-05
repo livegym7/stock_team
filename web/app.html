@@ -286,6 +286,23 @@ th{font-family:var(--sans)}
 .news .nw{color:inherit;text-decoration:none;display:grid;grid-template-columns:14px 34px minmax(0,1fr);gap:6px;align-items:baseline;padding:8px 12px;border-bottom:1px solid var(--line);cursor:pointer}.news .nw:hover{background:var(--soft)}
 .news .nn{color:var(--accent);font-size:12px;font-weight:600}.news .ni{font-size:12.5px;letter-spacing:-1px;white-space:nowrap}.news .nt b{display:block;font-weight:600;font-size:13.5px;line-height:1.5}
 .news .nt small{display:block;color:var(--faint);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.br2{white-space:normal;padding:18px 20px;line-height:1.75;font-size:14px}
+.br2 .brt{font-size:20px;font-weight:800;line-height:1.4;letter-spacing:-.3px;margin-bottom:6px}
+.br2 .brm{font-size:12.5px;color:var(--muted);line-height:1.65}
+.br2 .brh{display:block;font-size:16.5px;font-weight:700;margin:22px 0 8px;padding-top:14px;border-top:1px solid var(--line);letter-spacing:-.2px}
+.br2 .brh small{font-size:12px;font-weight:400;color:var(--faint);margin-left:4px}
+.br2 .brh.op{color:var(--accent)}
+.br2 .bri{display:grid;grid-template-columns:24px minmax(0,1fr);gap:6px;font-size:15px;font-weight:700;margin:16px 0 4px;line-height:1.55}
+.br2 .bri.long{font-size:14px}.br2 .bri .bn{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-size:12px;font-weight:700;margin-top:1px}
+.br2 .brb{display:grid;grid-template-columns:20px minmax(0,1fr);gap:4px;margin:4px 0 4px 2px}.br2 .brb .bd{color:var(--accent);font-weight:700;text-align:center}.br2 .brb .bd.e{font-size:12.5px}
+.br2 .brmood{margin:12px 0 4px;padding:7px 12px;border-radius:6px;background:var(--soft);font-size:13.5px}
+.br2 .brx{margin:3px 0 3px 30px;font-size:13.5px;line-height:1.7;color:var(--fg)}
+.br2 .brx .bl{display:inline-block;min-width:44px;margin-right:6px;font-size:11.5px;font-weight:700;color:var(--muted);background:var(--soft);border-radius:4px;padding:0 6px;text-align:center}
+.br2 .brr{margin:2px 0 6px 44px;font-size:13px;color:var(--muted)}
+.br2 .brp{margin:4px 0}.br2 .brp.w{color:var(--warn);font-weight:600}.br2 .brp.own{padding-left:10px;border-left:2px solid var(--accent)}
+.br2 .brn{margin:20px 0 8px;padding:10px 14px;background:var(--soft);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-size:13.5px}
+.br2 .brf{font-size:11.5px;color:var(--faint);margin-top:6px}
+@media(max-width:820px){.br2{padding:14px}.br2 .brt{font-size:18px}.br2 .brx{margin-left:16px}.br2 .brr{margin-left:24px}}
 </style>
 
 <div class="tape num" id="tape"></div>
@@ -579,7 +596,40 @@ function viewBriefs(){
   <div class="chips">${kinds.map(([v,n])=>`<button class="chip ${k==v?"on":""}" data-bk="${v}">${n}</button>`).join("")}</div>
   ${list.length?`<div class="bsel"><label for="bSel" class="sr">브리핑 고르기</label><select id="bSel">${list.map(b=>`<option value="${esc(b.file)}" ${b.file==sel.file?"selected":""}>${esc(b.date)}${b.time?" "+esc(b.time):""} · ${esc(b.kind_name)}</option>`).join("")}</select>
    <button class="chip" data-bnav="1" ${list.indexOf(sel)>=list.length-1?"disabled":""}>‹ 이전</button><button class="chip" data-bnav="-1" ${list.indexOf(sel)<=0?"disabled":""}>다음 ›</button></div>
-  <article class="panel brief">${(()=>{const t=String(sel.text||""),i=t.indexOf("\n");return `<div class="blead">${tint(i<0?t:t.slice(0,i))}</div><div>${tint(i<0?"":t.slice(i+1).replace(/^\n+/,""))}</div>`})()}</article>`:`<div class="empty">이 종류의 브리핑이 아직 없습니다. 다음 자동 업데이트 때 생깁니다</div>`}`;
+  <article class="panel brief br2">${briefHtml(sel.text)}</article>`:`<div class="empty">이 종류의 브리핑이 아직 없습니다. 다음 자동 업데이트 때 생깁니다</div>`}`;
+}
+
+/* 브리핑 본문 꾸미기 (2026-11-05): 줄 모양으로 제목·소제목·종목·목록·들여쓰기·읽는 법을 구분. 글 내용은 그대로 */
+const BR_ICON=[[/간밤 미국|미국장/,"🇺🇸"],[/국내 직전|국내 시장/,"🇰🇷"],[/공시|실적/,"🧾"],[/리포트|목표가/,"📑"],[/뉴스/,"📰"],[/검증/,"🔍"],[/그 밖에/,"➕"],[/일정|볼 것/,"📅"]];
+const EMO=/^(\p{Extended_Pictographic}|\p{Regional_Indicator})/u;
+function briefHtml(text){
+  const L=String(text||"").split("\n"); let out=[], i=0, inMeta=true, sec="";
+  const H=t=>tint(t);
+  const splitParen=t=>{const m=t.match(/^(.*?)\s*(\((?:출처|기간|영업이익|네이버|현지|오늘|어제|00:|0\d:|1\d:)[^)]*\)|\s—\s.*)$/);return m&&m[1].length>1?`${H(m[1])} <small>${H(m[2].replace(/^\s—\s/,"— "))}</small>`:H(t)};
+  const isItem=t=>/^([①-⑳]|\d️?⃣|\d+\.\s)/u.test(t);
+  const isSec=t=>!isItem(t)&&!/^(⭐|☆|⚠️|※|범례|⚖️|리스크:|\(|↳)/u.test(t)&&(t.replace(/\(.*?\)/g,"").length<=46)&&(EMO.test(t)||/^\d+\)\s/.test(t)||/^그 밖에/.test(t))&&!(/^[🔴🔵🔺🔽🆕➖⭐]/u.test(t)&&/[:：]|\d/.test(t));
+  for(;i<L.length;i++){
+    const raw=L[i], t=raw.trim();
+    if(i==0){out.push(`<div class="brt">${H(t)}</div>`);continue}
+    if(!t){if(inMeta&&out.length>1)inMeta=false;continue}
+    if(/^범례|^※/.test(t)){out.push(`<div class="brf">${H(t)}</div>`);continue}
+    if(/^⚖️/u.test(t)){out.push(`<div class="brn">${H(t)}</div>`);continue}
+    if(isSec(t)){inMeta=false;let x=t.replace(/[:：]$/,"");
+      if(!EMO.test(x)){const ic=(BR_ICON.find(([r])=>r.test(x))||[0,"▸"])[1];x=ic+" "+x.replace(/^\d+\)\s*/,"")}
+      sec=x;out.push(`<div class="brh${/Claude 의견/.test(x)?" op":""}">${splitParen(x)}</div>`);continue}
+    if(inMeta){out.push(`<div class="brm">${H(t)}</div>`);continue}
+    if(isItem(t)){const m=t.match(/^([①-⑳]|\d️?⃣|\d+\.)\s*(.*)$/u);
+      const body=m[2], long=body.length>60;
+      out.push(`<div class="bri${long?" long":""}"><span class="bn">${esc(m[1].replace(/️?⃣/,"").replace(".",""))}</span><span>${H(body)}</span></div>`);continue}
+    if(/^\s*↳/.test(raw)){out.push(`<div class="brr">${H(t)}</div>`);continue}
+    if(/^[-•·]\s*/.test(t)){let x=t.replace(/^[-•·]\s*/,""),e=x.match(/^((?:\p{Extended_Pictographic}|\p{Regional_Indicator})\uFE0F?)\s*/u),bd="•";if(e){bd=e[1];x=x.slice(e[0].length)}
+      out.push(`<div class="brb"><span class="bd${e?" e":""}">${bd}</span><span>${H(x)}</span></div>`);continue}
+    if(/^🌡️/u.test(t)){out.push(`<div class="brmood">${H(t)}</div>`);continue}
+    if(/^\s/.test(raw)){const m=t.match(/^(사업|오늘|근거|1개월|반대|볼 것|이유)\s*[:：]\s*(.*)$/);
+      out.push(`<div class="brx">${m?`<span class="bl">${esc(m[1])}</span>${H(m[2])}`:H(t)}</div>`);continue}
+    out.push(`<div class="brp${/^⚠️/u.test(t)?" w":""}${/^⭐/u.test(t)?" own":""}">${H(t)}</div>`);
+  }
+  return out.join("");
 }
 
 const fam=k=>{k=String(k||"");return k.startsWith("report")?"report":(k=="close"||k=="weekly")?"review":k};
