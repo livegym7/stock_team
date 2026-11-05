@@ -1,16 +1,16 @@
 <title>JH트레이딩룸</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap">
 <style>
-/* 디자인 B (2026-11-05 사용자 승인): 다크 터미널형 — 위쪽 시세 띠 + 왼쪽 아이콘 메뉴 + 3단 '오늘' 화면, 숫자는 고정폭 글꼴.
+/* 디자인 B (2026-11-05 사용자 승인): 다크 터미널형 — 위쪽 시세 띠 + 왼쪽 아이콘 메뉴 + 3단 '오늘' 화면, 글꼴 Noto Sans KR(숫자는 고정폭 숫자).
    밝은 버전 함께: 기본은 기기 설정을 따르고, 메뉴의 ☀/☾ 버튼으로 바꾸면 이 기기에 기억 */
 :root{
   --bg:#f3f5f8; --panel:#ffffff; --line:#e1e6ed; --fg:#151a21; --muted:#4a5463; --faint:#7d8796; --soft:#f6f8fb;
   --accent:#b86f00; --accent-soft:#fdf1dc; --on-accent:#fff; --up:#e0323a; --down:#1f6fe0; --warn:#b45309; --warn-soft:#fdf0dc; --ok:#15803d;
   --tape:#ffffff; --rail:#ffffff;
-  --sans:'IBM Plex Sans KR',system-ui,-apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;
-  --mono:'IBM Plex Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
+  --sans:'Noto Sans KR',system-ui,-apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+  --mono:var(--sans);  /* 숫자도 Noto Sans KR + 고정폭 숫자(tabular-nums), 사용자 요청 2026-11-05 */
   color-scheme:light;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
@@ -24,7 +24,7 @@
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:14px;line-height:1.65;letter-spacing:-.1px;word-break:keep-all;overflow-wrap:anywhere}
 a{color:var(--accent)}
-.num{font-family:var(--mono);font-variant-numeric:tabular-nums;letter-spacing:-.3px}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums;letter-spacing:-.2px}
 .key{background:linear-gradient(transparent 58%,color-mix(in srgb,var(--accent) 32%,transparent) 58%);padding:0 1px}
 .blead{font-size:15.5px;font-weight:600;margin-bottom:6px}
 .lead{font-weight:600}
@@ -499,8 +499,8 @@ function macroTable(){
 function opinionRows(op){
   const lines=op.opinion.replace(/^💡[^\n]*\n?/,"").split(/\n+/).map(x=>x.trim()).filter(Boolean);
   const rows=[];lines.forEach(l=>{if(!/^[-•·]/.test(l)&&rows.length){rows[rows.length-1].t+="\n"+l;return}rows.push({t:l.replace(/^[-•·]\s*/,"")})});
-  return rows.map((r,i)=>{let k="",t=r.t;const m=t.match(/^([^:：]{2,8})[:：]\s*/);
-    if(m){k=m[1];t=t.slice(m[0].length)}else if(/⭐/.test(t))k="내 종목";else if(i==0)k="핵심";
+  return rows.map((r,i)=>{let k="",t=r.t;const m=t.match(/^([^:：\d🔄]{2,8})[:：]\s*/);
+    if(m){k=m[1];t=t.slice(m[0].length)}else if(/^🔄/u.test(t)){k="변화";t=t.replace(/^🔄\s*/u,"")}else if(/⭐/.test(t))k="내 종목";else if(i==0)k="핵심";
     return `<div class="opr"><div class="k">${esc(k)}</div><div class="t">${tint(t)}</div></div>`}).join("");
 }
 function acctBox(){
