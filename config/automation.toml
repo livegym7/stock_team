@@ -12,11 +12,13 @@ check = "report:morning"
 
 [[tasks]]
 name = "리포트 브리핑 오전"
-when = "평일 09:53"
+when = "평일 09:53 — 중단 (2026-11-05, 오후 1회로 줄임)"
 due = "09:53"
 runner = "claude"
 tokens = "보통"
 check = "report:report_brief_am"
+
+paused = true
 
 [[tasks]]
 name = "리포트 브리핑 오후"
@@ -44,7 +46,7 @@ tokens = "적음"
 check = "bus"
 
 [[tasks]]
-name = "딥리서치 (네이버 3건 + 드라이브)"
+name = "자료실(딥리서치): 원문 하루 최대 3건 요약 (종합은 전략 보고서에서)"
 when = "평일 19:13"
 due = "19:13"
 runner = "claude"
@@ -62,7 +64,7 @@ check = "weekly"
 
 [[tasks]]
 name = "웹 트레이딩룸 갱신"
-when = "평일 07:32·10:32·15:32·16:32 (전체)"
+when = "평일 07:32·16:32 (전체)"
 due = "07:32"
 runner = "claude"
 tokens = "적음"
@@ -101,8 +103,8 @@ tokens = "0"
 check = "channels"
 
 [[tasks]]
-name = "매시간 새로고침 + 채널·리포트 정리 (웹)"
-when = "평일 08~17시 매시 12분"
+name = "2시간마다 새로고침 + 채널·리포트 정리 (웹)"
+when = "평일 08·10·12·14·16시 12분"
 due = "08:12"
 runner = "claude"
 tokens = "중간 (첫 회 많고, 이후는 새 글만)"

@@ -19,8 +19,8 @@ from common import DATA, ROOT, channels, http_get, load_toml, positions
 from naver_quote import KST
 
 WEB = ROOT / "web"
-SCHEDULE = [("06:55", "아침 브리핑", "morning"), ("09:53", "오전 리포트 브리핑", "report_brief_am"),
-            ("14:53", "오후 리포트 브리핑", "report_brief_pm"), ("15:47", "마감 리뷰", "close"), ("16:07", "감시 목록", "watchlist")]
+SCHEDULE = [("06:55", "아침 브리핑", "morning"),
+            ("14:53", "리포트 브리핑", "report_brief_pm"), ("15:47", "마감 리뷰", "close"), ("16:07", "감시 목록", "watchlist")]
 KIND = {"morning": "아침 브리핑", "report_brief_am": "리포트 브리핑 · 오전", "report_brief_pm": "리포트 브리핑 · 오후",
         "channels": "채널 정리", "report_live": "리포트 정리", "close": "마감 리뷰", "weekly": "주간 리뷰"}
 

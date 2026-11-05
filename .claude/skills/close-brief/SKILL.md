@@ -38,8 +38,19 @@ python3 tools/tg_channel.py summary --hours 10     # 오늘 채널 흐름
 ※ 판단은 본인이 합니다.
 ```
 
-## 3. 보내고 저장
+## 3. 오늘의 띔 메모 (전략 보고서 재료, 2026-11-05 추가)
+마감 리뷰를 쓰면서 읽은 재료만으로(새로 더 읽지 않음) `data/strategy/memos/YYYY-MM-DD.md`에 **1천 자 안팎** 메모를 남긴다. 전략 보고서는 31일 치 채널 글 대신 이 메모들을 읽는다.
+```
+# YYYY-MM-DD 띔 메모
+- 시장: 지수·외국인 수급·신호등 한 줄
+- 띔: 오늘 강해진/약해진 테마 2~4개 (근거 숫자·출처 한 줄씩, 2차 자료 표시)
+- 기업: 띔 안에서 눈에 띈 기업 3~6개 (실적·목표가·주가 반응 한 줄)
+- 새로 나온 것: 처음 보는 키워드·논리 (있으면)
+- 반대 신호: 띔과 어긋난 움직임
+```
+
+## 4. 보내고 저장
 ```bash
 python3 tools/telegram_send.py --file reports/YYYY-MM-DD/close.md
-git add data/telegram reports && git commit -m "마감 리뷰 MM/DD" && git push -u origin main
+git add data/telegram data/strategy/memos reports && git commit -m "마감 리뷰 MM/DD" && git push -u origin main
 ```

@@ -207,7 +207,7 @@ tr.me td{background:var(--accent-soft)}
 let D = /*__DATA__*/null;
 /* 새로고침으로 받은 더 최신 데이터가 이 브라우저에 있으면 그걸 쓴다 */
 try{const c=JSON.parse(localStorage.getItem("tr-data")||"null");if(c&&D&&c.built_at>D.built_at)D=c}catch(e){}
-const MENU=[["home","오늘","◎"],["strategy","전략 보고서","◐"],["briefs","브리핑","≡"],["portfolio","포트폴리오","₩"],["companies","기업","□"],["research","딥리서치","◆"],["channels","채널","✉"],["sectors","섹터","▤"],["watch","감시 목록","◇"],["lab","검증실","△"],["config","규칙·일정","⚙"]];
+const MENU=[["home","오늘","◎"],["strategy","전략 보고서","◐"],["briefs","브리핑","≡"],["portfolio","포트폴리오","₩"],["companies","기업","□"],["research","자료실","◆"],["channels","채널","✉"],["sectors","섹터","▤"],["watch","감시 목록","◇"],["lab","검증실","△"],["config","규칙·일정","⚙"]];
 const GROUPS_ALL=[["분석","analysis",["home","strategy","briefs","portfolio","companies","research","channels"]],["모니터링","monitoring",["sectors","watch","lab"]],["기타",null,["config"]]];
 // 모니터링 중단 중(config/features.toml)이면 모니터링 메뉴를 숨긴다
 const MON_OFF=!!(D&&D.features&&D.features.monitoring===false);
@@ -385,7 +385,7 @@ function viewBriefs(){
   const kinds=[["all","전체"],["morning","아침"],["report","리포트"],["channels","채널"],["review","리뷰"]];
   const k=kinds.some(([v])=>v==fam(ui.bk))?fam(ui.bk):"all", list=(D.briefs||[]).filter(b=>k=="all"||fam(b.kind)==k);
   const sel=list.find(b=>b.file==ui.bf)||list[0];
-  return `<h1>브리핑</h1><div class="sub">채널 정리·리포트 정리는 평일 08~17시 매시 12분에 자동으로 새로 수집해 함께 업데이트합니다 (오늘 것은 시간대별로, 지난날은 마지막 정리만) · 아침·마감·주간은 예약 시각에 텔레그램과 함께</div>
+  return `<h1>브리핑</h1><div class="sub">채널 정리·리포트 정리는 평일 08·10·12·14·16시 12분에 자동으로 새로 수집해 함께 업데이트합니다 (오늘 것은 시간대별로, 지난날은 마지막 정리만) · 아침·마감·주간은 예약 시각에 텔레그램과 함께</div>
   <div class="chips">${kinds.map(([v,n])=>`<button class="chip ${k==v?"on":""}" data-bk="${v}">${n}</button>`).join("")}</div>
   ${list.length?`<div class="bsel"><label for="bSel" class="sr">브리핑 고르기</label><select id="bSel">${list.map(b=>`<option value="${esc(b.file)}" ${b.file==sel.file?"selected":""}>${esc(b.date)}${b.time?" "+esc(b.time):""} · ${esc(b.kind_name)}</option>`).join("")}</select>
    <button class="chip" data-bnav="1" ${list.indexOf(sel)>=list.length-1?"disabled":""}>‹ 이전</button><button class="chip" data-bnav="-1" ${list.indexOf(sel)<=0?"disabled":""}>다음 ›</button></div>
@@ -669,11 +669,11 @@ function rsChip(name,code){const R=D.research||{},t=(R.trend||{})[code]||{};
 function codeOf(name){const R=D.research||{};for(const d of R.docs||[])for(const s of d.stocks||[])if(s.name==name&&s.code)return s.code;const c=(D.companies||[]).find(c=>c.name==name);return c?c.code:null}
 function docRef(id){const d=((D.research||{}).docs||[]).find(x=>x.file_id==id);return d?`<button class="linkb" data-rd="${esc(id)}">${esc((d.broker||"")+" "+(d.date||"").slice(5))} ${esc(d.subject||d.title)}</button>`:""}
 function viewResearch(){
-  const R=D.research||{}, docs=R.docs||[], S=R.synthesis, tab=ui.rt||"syn";
+  const R=D.research||{}, docs=R.docs||[], S=R.synthesis, tab=ui.rt||"docs";
   const how=`<div class="panel howto"><b>리포트 추가하는 법</b><br>① 구글 드라이브 <b>${esc((R.folders||["리포트"]).join("”, “"))}</b> 폴더에 리포트 PDF를 올립니다<br>② Claude 대화에서 <b>"딥리서치 해줘"</b>라고 말합니다 → 새 파일을 읽고 분석·종합해 이 화면에 올립니다<br><small class="muted">원문은 드라이브에만 두고, 여기에는 요약·분석과 원문 링크만 저장합니다</small></div>`;
-  if(!docs.length)return `<h1>딥리서치</h1><div class="sub">리포트 원문을 Claude가 읽고 기업·산업을 깊게 분석하는 곳</div>${how}`;
-  const head=`<h1>딥리서치</h1><div class="sub">리포트 원문 ${docs.length}개 분석 · 종합 ${esc(S?S.updated_at:"없음")} · 출처: 증권사 리포트 원문(드라이브) + 시장 확인 네이버 일봉(비공식) · 판단은 본인이</div>
-  <div class="chips"><button class="chip ${tab=="syn"?"on":""}" data-rt="syn">🧭 종합</button><button class="chip ${tab=="docs"?"on":""}" data-rt="docs">📄 문서 ${docs.length}</button><button class="chip ${tab=="nv"?"on":""}" data-rt="nv">📰 오늘의 리포트</button><button class="chip ${tab=="score"?"on":""}" data-rt="score">📈 성적표</button><button class="chip ${tab=="rev"?"on":""}" data-rt="rev">🔺 목표가 흐름</button><button class="chip ${tab=="how"?"on":""}" data-rt="how">➕ 추가하는 법</button></div>`;
+  if(!docs.length)return `<h1>자료실</h1><div class="sub">리포트 원문을 1건씩 읽고 요약·핵심 숫자·논리·반대 근거를 저장하는 재료 창고 · 종합은 전략 보고서에서</div>${how}`;
+  const head=`<h1>자료실</h1><div class="sub">리포트 원문 ${docs.length}개 분석 · 종합 ${esc(S?S.updated_at:"없음")} · 출처: 증권사 리포트 원문(드라이브) + 시장 확인 네이버 일봉(비공식) · 판단은 본인이</div>
+  <div class="chips"><button class="chip ${tab=="syn"?"on":""}" data-rt="syn">🗄️ 지난 종합 (보관)</button><button class="chip ${tab=="docs"?"on":""}" data-rt="docs">📄 문서 ${docs.length}</button><button class="chip ${tab=="nv"?"on":""}" data-rt="nv">📰 오늘의 리포트</button><button class="chip ${tab=="score"?"on":""}" data-rt="score">📈 성적표</button><button class="chip ${tab=="rev"?"on":""}" data-rt="rev">🔺 목표가 흐름</button><button class="chip ${tab=="how"?"on":""}" data-rt="how">➕ 추가하는 법</button></div>`;
   if(tab=="how")return head+how;
   if(tab=="docs")return head+researchDocs(docs);
   if(tab=="score")return head+researchScore(R);
@@ -965,7 +965,7 @@ function viewConfig(){
 /* ---------- 새로고침 (깃허브 Actions로 최신 데이터 만들기) ---------- */
 const RF={state:"idle",msg:"",started:null};
 function refreshBox(){
-  return `<div class="rbox"><div><b>데이터 ${esc(D.built_at)} 기준</b>${RF.msg?`<br><span>${esc(RF.msg)}</span>`:""}<br><small class="muted">자동 갱신: 평일 08~17시 매시 12분 · 지금 바로는 Claude에게 "새로고침해줘"</small></div></div>`;
+  return `<div class="rbox"><div><b>데이터 ${esc(D.built_at)} 기준</b>${RF.msg?`<br><span>${esc(RF.msg)}</span>`:""}<br><small class="muted">자동 갱신: 평일 08·10·12·14·16시 12분 · 지금 바로는 Claude에게 "새로고침해줘"</small></div></div>`;
 }
 function paintRefresh(){document.querySelectorAll(".rslot").forEach(el=>el.innerHTML=refreshBox());const s=$("#side .built");if(s)s.innerHTML=refreshBox()+"<br>"+esc(D.note)}
 const REFRESH_HELP="Claude 대화에서 \"분석 새로고침\" / \"모니터링 새로고침\" / \"채널만 새로고침\"이라고 말해 주세요";
@@ -975,7 +975,7 @@ const RFTXT={analysis:["분석 새로고침","시세·계좌·브리핑 목록·
 function partAt(part){const P=D.parts||{};return P[part]||D.built_at}
 function refreshPart(part){RFP=RFP===part?null:part;nav();const m=$("#more");if(m&&m.classList.contains("open"))m.classList.add("open")}
 function rfNote(part){if(RFP!==part)return "";const [cmd,what]=RFTXT[part];
-  return `<div class="rfnote">Claude 대화에서 <b>"${cmd}"</b>이라고 말해 주세요 · ${what}<br><small>마지막 갱신 ${esc(partAt(part))} · 자동: ${part=="analysis"?"평일 08~17시 매시 12분 (채널·리포트 정리까지) + 07:32·10:32·15:32·16:32 전체":"평일 16:07 감시 목록 → 16:32 반영"}</small></div>`}
+  return `<div class="rfnote">Claude 대화에서 <b>"${cmd}"</b>이라고 말해 주세요 · ${what}<br><small>마지막 갱신 ${esc(partAt(part))} · 자동: ${part=="analysis"?"평일 08·10·12·14·16시 12분 (채널·리포트 정리까지) + 07:32·16:32 전체":"평일 16:07 감시 목록 → 16:32 반영"}</small></div>`}
 function doRefresh(){RF.state="idle";RF.msg=REFRESH_HELP;paintRefresh();return Promise.resolve(false)}
 /* ---------- 라우터 ---------- */
 const VIEWS={strategy:viewStrategy,research:viewResearch,home:viewHome,briefs:viewBriefs,portfolio:viewPortfolio,watch:viewWatch,sectors:viewSectors,companies:viewCompanies,channels:viewChannels,lab:viewLab,config:viewConfig};

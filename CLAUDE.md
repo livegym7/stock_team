@@ -49,7 +49,7 @@ python3 tools/web_build.py --only channels             # "채널만 새로고침
 python3 tools/web_build.py --only analysis             # "분석 새로고침": 시세·계좌·브리핑·기업·채널 (약 1분, 모니터링은 지난 값)
 python3 tools/web_build.py --only monitoring           # "모니터링 새로고침": 감시 목록 다시 계산 + 섹터·검증실 (5~10분)
 # "새로고침해줘" = 전체(python3 tools/web_build.py). 어떤 것이든 끝나면 Artifact url로 다시 올림
-python3 tools/live_brief.py prep|save              # 매시간 채널·리포트 정리 (평일 08~17시 12분 예약, /live-brief). 웹 브리핑은 이것으로만 씀(웹 버튼 즉석 쓰기 없앰)
+python3 tools/live_brief.py prep|save              # 2시간마다 채널·리포트 정리 (평일 08·10·12·14·16시 12분 예약, /live-brief). 웹 브리핑은 이것으로만 씀(웹 버튼 즉석 쓰기 없앰)
 python3 tools/market_pulse.py pulse|flows|econ        # 시황(토큰 0): 온도계(투자자별 순매수·등락 종목 수·신고가)·업종/테마 등락·상승하락 상위 / 시총 상위 300 수급(저녁 확정) / 경제지표 실제 vs 예상(TradingView). web_build가 매번 부름 → 웹 '시황' 메뉴
 python3 tools/sector_map.py check                     # 업종 분류표(사용자 custom 53개) 빠진 종목·확인 필요 점검 / set --code --custom 로 채우기
 python3 tools/backtest.py                              # 검증실: 돌파 규칙 백테스트(3년 일봉, 약 1분·캐시) + 감시 목록 성적표 → data/backtest/
@@ -94,6 +94,8 @@ python3 tools/telegram_send.py --file reports/날짜/파일.md
 - 스킬: `/morning-brief`, `/company-card`, `/report-brief`, `/channel-brief`, `/close-brief`(평일 15:47 마감 리뷰), `/weekly-review`(금 16:47), `/deep-research`("딥리서치 해줘": 드라이브 리포트 원문 분석, 구글 드라이브 연결 필요), `/live-brief`(매시간 새로고침 + 채널·리포트 정리) (`.claude/skills/`)
 - 사용자가 "샀다/팔았다/손절가 올렸다"고 하면 `tools/trades.py`로 기록한다(직접 positions.toml을 고치지 않음). 날짜·수량·가격이 빠졌으면 묻는다. 기록 후 규칙 점검(손절폭·1R) 결과를 알려 준다
 - **모니터링(섹터·감시 목록·검증실)은 2026-11-04부터 잠시 중단** (`config/features.toml` monitoring = false, 16:07 감시 목록 예약 끔, 돌파 알림 끔). 보유 종목 장중 알림은 계속. 트레이딩룸은 분석·시황 중심
+- **역할 구분 (2026-11-05)**: 자료실(옛 딥리서치) = 리포트 원문 1건씩 요약·저장만(하루 최대 3건, 종합 안 함) / 전략 보고서 = 요청할 때만, 자료실 요약 + `data/strategy/memos/`(마감 리뷰 때 쓰는 '띔 메모') + 숫자로 작성. 31일 치 채널 글을 다시 읽지 않는다
+- 사용량 줄이기 (2026-11-05): 채널·리포트 정리 2시간 간격, 웹 전체 갱신 07:32·16:32만, 텔레그램 리포트 브리핑 14:53 하루 1번
 - 자동 작업 목록은 `config/automation.toml` (웹 규칙·일정 > 자동 작업 현황). 예약을 만들거나 끄면 여기도 고친다
 - 보유 종목은 `config/positions.toml`(initial_stop = 처음 손절가·1R 기준, stop = 지금 손절가), 계좌·리스크 규칙은 `config/account.toml`
 - **매매 규칙은 2026-11-03에 고정** (docs/rules.md 한 장 요약): 실제 신호 30건 또는 2027-01-31까지 바꾸지 않는다. 사용자가 바꾸자고 하면 고정 중임을 먼저 상기시킨다
