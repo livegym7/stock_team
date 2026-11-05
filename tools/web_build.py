@@ -1051,6 +1051,12 @@ def main():
 
     import risk
     risk_now = safe(lambda: risk.evaluate()) if not a.no_live else safe(lambda: risk.evaluate(prices={}))
+    # 보유 종목 업종(사용자 분류표) → 웹 '내 계좌' 업종 분포 (2026-11-05)
+    if risk_now and risk_now.get("positions"):
+        from sector_map import custom_map
+        cmap = safe(custom_map, {}) or {}
+        for p in risk_now["positions"]:
+            p["sector"] = cmap.get(p.get("code"), "기타")
     comp_list = build_companies(allp, uni, companies, by_stock)
 
     data = {
