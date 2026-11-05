@@ -1174,6 +1174,7 @@ def partial(part, now):
         if isinstance(fresh, dict) and "hot" in fresh:
             ins["hot"] = fresh["hot"]
         data["insights"] = ins
+        data["research"] = safe(lambda: research(data["companies"], allp))   # 자료실 새 요약도 바로 보이게
         rows = briefs()   # 매시간 채널·리포트 정리가 막 저장됐을 수 있어 목록도 새로
         data["briefs"] = rows
         data["schedule"] = schedule(now, rows)
