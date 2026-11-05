@@ -300,6 +300,11 @@ function holdMini(r){
    <td class="num ${cls(p.pnl_won)}">${w(p.pnl_won)} <small>(${pc(pct)})</small></td><td class="num ${cls(p.r_multiple)}">${p.r_multiple==null?"-":(p.r_multiple>0?"+":"")+p.r_multiple.toFixed(2)+"R"}</td>
    <td class="num">${pc(p.to_stop_pct)}</td><td class="l"><small>${esc(nx)}</small></td></tr>`}).join("")}</table></div>`;
 }
+function regimeBox(){   // 시장 신호등 (코스피 20일선·추세)
+  const R=(D.insights||{}).regime; if(!R)return "";
+  const L={green:["🟢","초록"],yellow:["🟡","노랑"],red:["🔴","빨강"]};
+  return `<div class="regime ${R.light}" style="margin-bottom:10px"><b>${L[R.light][0]} 시장 신호등 ${L[R.light][1]}</b> · ${esc(R.text)}<br><small class="muted">${esc(R.etf)} 20일선 대비 ${pc(R.gap20)} · 20일선 기울기 ${pc(R.slope20)} · 1주 ${pc(R.r1w)} · 1개월 ${pc(R.r1m)} · 고점 대비 ${pc(R.off_high)} (${esc(R.date)} 종가)</small></div>`;
+}
 function insightBlock(){
   const I=D.insights; if(!I||I.error)return "";
   const R=I.regime, L={green:["🟢","초록"],yellow:["🟡","노랑"],red:["🔴","빨강"]};
@@ -385,9 +390,7 @@ function viewHome(){
   ${alerts(D.risk)}
   <section class="grid" style="gap:16px">
    <div>${op?`<h2>💡 Claude 의견 <span class="pill">${esc(op.kind_name)} · ${esc(op.date)}</span></h2><div class="opinion">${tint(op.opinion.replace(/^💡[^\n]*\n?/,""))}</div>`:`<div class="empty">아직 의견이 담긴 브리핑이 없습니다</div>`}</div>
-   <div><h2>🌡️ 시장 온도계</h2>${thermoCards(true)}</div>
-   ${D.why&&(D.why.up||[]).length?`<div><h2>🔎 왜 올랐나 · 상위 4</h2><div class="grid g2"><div class="why">${D.why.up.filter(x=>x.n_posts).slice(0,2).concat(D.why.up.filter(x=>!x.n_posts)).slice(0,4).map(whyRow).join("")}</div><div class="why">${(D.why.down||[]).filter(x=>x.n_posts).slice(0,2).concat((D.why.down||[]).filter(x=>!x.n_posts)).slice(0,4).map(whyRow).join("")}</div></div></div>`:""}
-   ${insightBlock()}
+   <div><h2>🌡️ 시장 온도계</h2>${regimeBox()}${thermoCards(true)}</div>
    <div><h2>시장 한눈에 · 지수·해외</h2>${marketTiles()}</div>
    <div><h2>내 계좌</h2>${riskKpis(D.risk)}${holdMini(D.risk)}${src((D.risk?.source||"")+" · "+(D.risk?.at||""))}</div>
    <div><h2>📅 다가오는 일정 · 2주 <a class="pill" href="#config">달력 보기</a></h2>${calBlock(14)}</div>
@@ -429,7 +432,7 @@ function equityChart(){
   const path=k=>P.map((p,i)=>p[k]==null?"":(i&&P[i-1][k]!=null?"L":"M")+x(i)+" "+y(p[k])).join("");
   const last=P[n-1], ticks=[hi-0.5,(hi+lo)/2,lo+0.5].map(v=>Math.round(v*10)/10), dl=[0,Math.floor((n-1)/2),n-1];
   return `<div class="panel" style="margin-top:12px"><h3>📈 계좌 수익률 <small class="muted">${esc(P[0].date)}부터 · 계좌 ${w(E.capital)}원 대비</small></h3>
-  <div class="grid g4" style="margin-bottom:8px"><div class="tile"><span>계좌 수익률</span><b class="${cls(last.ret)}">${pc(last.ret,2)}</b></div><div class="tile"><span>KODEX 200 (시장)</span><b class="${cls(last.bench)}">${pc(last.bench,2)}</b></div>
+  <div class="grid g4" style="margin-bottom:8px"><div class="tile"><span>계좌 수익률</span><b class="${cls(last.ret)}">${pc(last.ret,2)}</b></div><div class="tile"><span>코스피 (시장)</span><b class="${cls(last.bench)}">${pc(last.bench,2)}</b></div>
    <div class="tile"><span>시장 대비</span><b class="${cls(last.ret-last.bench)}">${pc(last.ret-(last.bench||0),2)}</b></div><div class="tile"><span>실현 · 평가 손익</span><b style="font-size:15px"><span class="${cls(last.realized)}">${w(last.realized)}</span> · <span class="${cls(last.unreal)}">${w(last.unreal)}</span></b></div></div>
   <svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="계좌 수익률과 시장 비교">
    ${ticks.map(v=>`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)" stroke-width=".6"/><text x="${L-4}" y="${+y(v)+3}" font-size="10" text-anchor="end" fill="var(--muted)">${v>0?"+":""}${v}%</text>`).join("")}
@@ -438,7 +441,7 @@ function equityChart(){
    <path d="${path("bench")}" fill="none" stroke="var(--muted)" stroke-width="1.4" stroke-dasharray="5 3"/>
    <path d="${path("ret")}" fill="none" stroke="var(--accent)" stroke-width="2.2"/>
    <circle cx="${x(n-1)}" cy="${y(last.ret)}" r="3" fill="var(--accent)"/></svg>
-  <div class="src"><span style="color:var(--accent)">━ 계좌 수익률</span> = (실현 손익 + 평가 손익) ÷ 계좌 원금 · <span class="muted">┄ KODEX 200</span> = 같은 기간 시장 · 매매 일지 기록과 네이버 일봉 종가로 계산 (오늘은 현재가) · 입출금은 반영 안 됨</div></div>`;
+  <div class="src"><span style="color:var(--accent)">━ 계좌 수익률</span> = (실현 손익 + 평가 손익) ÷ 계좌 원금 · <span class="muted">┄ 코스피</span> = 같은 기간 코스피 지수 · 매매 일지 기록과 네이버 일봉 종가로 계산 (오늘은 현재가) · 입출금은 반영 안 됨</div></div>`;
 }
 function journal(){
   const T=D.trades; if(!T)return "";
@@ -756,7 +759,7 @@ function naverPicks(R){
 }
 function researchScore(R){
   const I=R.ideas||[], P=R.picks||[], B=R.brokers||[];
-  return `<div class="sub" style="margin-top:-6px">기준가 = 아이디어·리포트가 나온 날 <b>전 거래일 종가</b>. 지금·1주·1개월·3개월 뒤 수익률을 KODEX 200(시장)과 비교합니다. 표본이 적을 때는 우연이 크니 숫자를 단정하지 마세요 · 출처: 네이버 일봉(비공식), 계산 Claude</div>
+  return `<div class="sub" style="margin-top:-6px">기준가 = 아이디어·리포트가 나온 날 <b>전 거래일 종가</b>. 지금·1주·1개월·3개월 뒤 수익률을 코스피(시장)와 비교합니다. 표본이 적을 때는 우연이 크니 숫자를 단정하지 마세요 · 출처: 네이버 일봉(비공식), 계산 Claude</div>
   <h2>💡 투자 아이디어 성적</h2>
   ${I.length?`<div class="tw"><table><tr><th class="l">아이디어</th><th>등록일</th><th>확신</th><th>평균</th><th>시장</th><th>초과</th><th class="l">종목별 (지금 · 1주 · 1개월)</th></tr>
   ${I.map(i=>`<tr><td class="l" style="white-space:normal;min-width:180px"><b>${esc(i.title)}</b>${i.active?"":` <span class="pill">종합에서 빠짐</span>`}</td><td class="num">${esc(i.first_seen.slice(5))}</td><td>${esc(i.confidence||"-")}${i.confidence_now&&i.confidence_now!=i.confidence?` → ${esc(i.confidence_now)}`:""}</td>

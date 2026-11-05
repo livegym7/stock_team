@@ -212,8 +212,12 @@ def insights(W, etf, allp, by_stock, now):
     import screener
     S = screener
     out = {"at": now.strftime("%Y-%m-%d %H:%M")}
-    # 1) 시장 신호등 (KODEX 200: 20일선 위/아래, 이평 정배열)
-    b = (etf or {}).get("benchmark") or {}
+    # 1) 시장 신호등 (코스피 지수: 20일선 위/아래, 이평 정배열 — 2026-11-05 KODEX 200 → 코스피로 변경, 사용자 요청)
+    try:
+        import sector_etf
+        b = {"etf": "코스피", **sector_etf.stats("KOSPI", "코스피")}
+    except Exception:
+        b = (etf or {}).get("benchmark") or {}
     if b:
         light = "green" if b.get("above20") and b.get("aligned") else "yellow" if b.get("above20") or (b.get("slope20") or 0) > 0 else "red"
         out["regime"] = {"light": light, "etf": b.get("etf"), "gap20": b.get("gap20"), "slope20": b.get("slope20"),
@@ -565,7 +569,7 @@ def research(comp_list, allp):
         fut = [r for r in rows if r["date"] >= d]
         return fut[n - 1]["close"] if len(fut) >= n else None
 
-    bench = closes("069500")   # KODEX 200 (시장 기준)
+    bench = closes("KOSPI")   # 코스피 지수 (시장 기준, 2026-11-05)
     bench_now = bench[-1]["close"] if bench else None
 
     def perf(code, base, day):
@@ -618,7 +622,7 @@ def research(comp_list, allp):
         p = NR.DIR / "candidates_latest.json"
         cand = json.loads(p.read_text(encoding="utf-8")) if p.exists() else None
     return {"docs": docs, "synthesis": syn, "folders": folders, "ideas": ideas, "picks": picks, "brokers": brokers, "naver": cand,
-            "bench": {"name": "KODEX 200", "now": bench_now},
+            "bench": {"name": "코스피", "now": bench_now},
             "trend": {c: {k: (have.get(c) or {}).get(k) for k in keep} for c in codes}}
 
 
@@ -810,7 +814,7 @@ def consensus(allp, uni, days=30, window=90):
 
 
 def equity(risk_now):
-    """계좌 수익률 곡선: 매매 일지(data/trades) + 네이버 일봉 종가. 날마다 (실현 + 평가 손익) ÷ 계좌 원금, KODEX 200과 비교."""
+    """계좌 수익률 곡선: 매매 일지(data/trades) + 네이버 일봉 종가. 날마다 (실현 + 평가 손익) ÷ 계좌 원금, 코스피 지수와 비교."""
     import screener as S
     import trades as TR
     log = sorted(TR.read_log(), key=lambda e: (e["date"], e.get("at", "")))
@@ -818,7 +822,7 @@ def equity(risk_now):
         return None
     cap = (load_toml("account.toml") or {}).get("capital") or 1
     start = log[0]["date"].replace("-", "")
-    bench = [r for r in S.fetch_daily("069500") if r["date"] >= start]
+    bench = [r for r in S.fetch_daily("KOSPI") if r["date"] >= start]   # 시장 비교 = 코스피 지수 (2026-11-05)
     if not bench:
         return None
     closes = {c: {r["date"]: r["close"] for r in S.fetch_daily(c)} for c in {e["code"] for e in log}}
