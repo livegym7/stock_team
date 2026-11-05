@@ -4,36 +4,12 @@
 # 보유 종목은 관심종목처럼 시세·공시·뉴스·리포트 브리핑에 자동으로 포함됩니다.
 
 [[positions]]
-name = "삼성전자"
-code = "005930"
-qty = 13
-avg_price = 221000
-initial_stop = 203320   # 처음 손절가 = 1R 기준
-stop = 203320
-
-[[positions]]
-name = "티에프이"
-code = "425420"
-qty = 39
-avg_price = 76300
-initial_stop = 70196   # 처음 손절가 = 1R 기준
-stop = 70196
-
-[[positions]]
 name = "한화솔루션"
 code = "009830"
 qty = 105
 avg_price = 28400
 initial_stop = 26128   # 처음 손절가 = 1R 기준
 stop = 26128
-
-[[positions]]
-name = "심텍"
-code = "222800"
-qty = 24
-avg_price = 124500
-initial_stop = 114540   # 처음 손절가 = 1R 기준
-stop = 114540
 
 [[positions]]
 name = "삼성SDI"
