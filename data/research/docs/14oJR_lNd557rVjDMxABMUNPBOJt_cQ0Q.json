@@ -1,0 +1,67 @@
+{
+ "file_id": "14oJR_lNd557rVjDMxABMUNPBOJt_cQ0Q",
+ "title": "AI INFRASTRUCTURE / POWER: 한국판 Stargate — 전력·부지·자본이 만드는 AI 인프라의 새 경쟁구조 (산업분석실 Special Report, 2026-10-26)",
+ "drive_modified": "2026-11-05T02:37:05.833Z",
+ "broker": "(증권사 표기 앞부분에 없음)",
+ "analyst": "이찬영·박재환·정의훈·류태환·황성현",
+ "date": "2026-10-26",
+ "kind": "산업",
+ "subject": "AI 데이터센터 · 전력 · 개발·운영 플랫폼",
+ "one_line": "AI 인프라 경쟁력은 GPU 확보에서 '전력·부지 선점 + 수요 연결 개발 역량'으로 이동 — 미국 Stargate처럼 국내에도 SK Hyper·NAVER AI Factory·GS AI인프라 등 개발·운영 플랫폼 등장, SKT를 '한국의 SoftBank'로 주목.",
+ "summary": [
+  "지금까지 시장 관심은 GPU·전력기기·데이터센터 건설 수혜 → 이 자료는 'AI 인프라를 개발·운영하는 새 사업 주체'에 주목",
+  "전력망 접속 지연·공급능력 부족이 데이터센터 개발을 제약 → 전력과 부지를 먼저 확보하고 고객 수요와 연결하는 능력이 경쟁력",
+  "미국 Stargate: OpenAI 연산 수요 + SoftBank 등 자본조달·인프라 개발 구조",
+  "국내: SK Hyper, NAVER AI Factory, GS AI인프라 — 외부 투자·프로젝트 금융으로 시설투자, 지분투자·개발·운영으로 수익",
+  "※ 앞부분(요약·목차) 기준 요약 — 전문 미독"
+ ],
+ "thesis": [
+  {
+   "point": "수혜가 '건설'에서 '개발·운영 플랫폼'으로",
+   "evidence": "Summary"
+  }
+ ],
+ "numbers": [],
+ "stocks": [
+  {
+   "name": "SK텔레콤",
+   "role": "주목",
+   "view": "긍정",
+   "target": null,
+   "why": "'한국의 SoftBank' 역할",
+   "code": "017670"
+  }
+ ],
+ "sectors": [
+  {
+   "name": "통신·인터넷·유틸리티",
+   "view": "긍정",
+   "why": "AI 인프라 개발·운영 사업 모델"
+  }
+ ],
+ "outlook": {
+  "short": "국내 AI DC 개발 플랫폼 구체화",
+  "mid": "전력·부지 선점 경쟁"
+ },
+ "catalysts": [
+  {
+   "when": "수시",
+   "what": "국내 AI 데이터센터 프로젝트 금융·지분투자 발표"
+  }
+ ],
+ "risks": [
+  "전력망 접속 지연",
+  "AI 투자 지속성"
+ ],
+ "claude": {
+  "opinion": "반도체 밖에서 AI 투자 흐름을 받는 새 갈래(통신·유틸리티). 아직 채널 언급은 적다 — 전략 보고서의 '관찰' 후보."
+ },
+ "tags": [
+  "AI 데이터센터",
+  "전력",
+  "Stargate",
+  "SKT"
+ ],
+ "url": "https://drive.google.com/file/d/14oJR_lNd557rVjDMxABMUNPBOJt_cQ0Q/view?usp=drivesdk",
+ "analyzed_at": "2026-11-05 13:19"
+}

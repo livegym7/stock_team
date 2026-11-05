@@ -1,0 +1,99 @@
+{
+ "file_id": "19NMpnTxWenO07nG8HMIHoY8z31WlSvYy",
+ "title": "2027년 연간전망 자동차/2차전지: 기회는 유럽, 성장은 ESS (대신증권, 2026-10-20)",
+ "drive_modified": "2026-10-25T05:38:43.013Z",
+ "broker": "대신증권",
+ "analyst": "김귀연",
+ "date": "2026-10-20",
+ "kind": "산업",
+ "subject": "자동차 · 2차전지 · ESS",
+ "one_line": "자동차는 환율·원가로 실적 모멘텀 제한, 2차전지는 ESS 수주가 손익으로 이어지는 턴어라운드 — 미국 BESS 설치 81GWh(+29%), 데이터센터 연계 1.9→12.1GWh. Top Picks 기아·한온시스템·삼성SDI.",
+ "summary": [
+  "자동차: 환율·원가 부담으로 모멘텀 제한, 배당의 기아·유럽 EV 물량의 한온시스템 주목, 현대차·모비스는 미국 로봇 공급망·지배구조 변수",
+  "2차전지: 2027년 ESS 수주 → 손익 개선, 셀 업체 우위 지속(소재는 역래깅·자금·밸류 부담)",
+  "유럽: 탄소배출규제 정산·중국산 HEV/PHEV 수입 쿼터·보급형 신차로 레거시 OEM 점유율 반등",
+  "ESS: 2027 미국 BESS 설치 81GWh(YoY +29%), 데이터센터 연계 수요 1.9 → 12.1GWh, 듀레이션 3.0 → 3.2시간",
+  "※ 앞부분(요약·목차) 기준 요약 — 전문 미독"
+ ],
+ "thesis": [
+  {
+   "point": "성장은 ESS, 그중 데이터센터 연계가 급증",
+   "evidence": "DC 연계 1.9→12.1GWh"
+  }
+ ],
+ "numbers": [
+  {
+   "label": "2027 미국 BESS 설치",
+   "value": "81GWh(+29%)",
+   "note": ""
+  },
+  {
+   "label": "데이터센터 연계 BESS",
+   "value": "1.9 → 12.1GWh",
+   "note": "'26→'27"
+  }
+ ],
+ "stocks": [
+  {
+   "name": "삼성SDI",
+   "role": "Top Pick",
+   "view": "매수",
+   "target": null,
+   "why": "ESS 생산능력·수주잔고",
+   "code": "006400"
+  },
+  {
+   "name": "기아",
+   "role": "Top Pick",
+   "view": "매수",
+   "target": null,
+   "why": "배당 매력",
+   "code": "000270"
+  },
+  {
+   "name": "한온시스템",
+   "role": "Top Pick",
+   "view": "매수",
+   "target": null,
+   "why": "유럽 EV 물량",
+   "code": "018880"
+  }
+ ],
+ "sectors": [
+  {
+   "name": "2차전지",
+   "view": "긍정(셀)",
+   "why": "ESS 턴어라운드"
+  },
+  {
+   "name": "자동차",
+   "view": "중립",
+   "why": "환율·원가 부담"
+  }
+ ],
+ "outlook": {
+  "short": "ESS 수주의 손익 반영",
+  "mid": "유럽 비중국 밸류체인 기회"
+ },
+ "catalysts": [
+  {
+   "when": "2027",
+   "what": "유럽 IAA 법안 확정, 미국 BESS 설치"
+  }
+ ],
+ "risks": [
+  "미국 BEV 회복 제한",
+  "소재 역래깅"
+ ],
+ "claude": {
+  "opinion": "위 2차전지 리포트와 같은 결론(셀·ESS·삼성SDI). 두 증권사가 같은 방향이라 서브 띔의 확신도를 한 단계 올릴 근거."
+ },
+ "tags": [
+  "ESS",
+  "데이터센터",
+  "삼성SDI",
+  "자동차"
+ ],
+ "url": "https://drive.google.com/file/d/19NMpnTxWenO07nG8HMIHoY8z31WlSvYy/view?usp=drivesdk",
+ "analyzed_at": "2026-11-05 13:19"
+}

@@ -1,0 +1,103 @@
+{
+ "file_id": "15pzqyDZ69xSo22GHU28tpoKf8Jcy8x5D",
+ "title": "2차전지 섹터 Overweight: 셀 비중 확대, 소재 선별적 투자 (2027 전망)",
+ "drive_modified": "2026-11-05T02:21:17.244Z",
+ "broker": "(증권사 표기 앞부분에 없음)",
+ "analyst": "",
+ "date": "2026-11",
+ "kind": "산업",
+ "subject": "2차전지 · 북미 BESS · 셀",
+ "one_line": "미 중간선거 후 45X·48E 세액공제 조기 삭감 리스크 제거 + 관세·보조금으로 북미 현지 셀이 중국산보다 40%↑ 원가 우위('북미 요새') — 2H27 북미 BESS 셀 구조적 쇼티지, 셀 비중 확대.",
+ "summary": [
+  "2027년은 정책 불확실성 해소 + 북미 BESS 공급 병목 + 유럽 BEV 회복 + High-Ni 재평가가 맞물린 '구조적 턴어라운드 원년'",
+  "중간선거로 의회 견제 구도 → 45X('29년까지 전액)·48E('33년까지) 세액공제 조기 삭감 리스크 제거, 2027년부터 비중국 소재 원가 비율(MACR) 상향 등 규제 본격 발효",
+  "관세·보조금 반영 시 북미 현지 셀 $37~47/kWh vs 중국산 직수입 $82/kWh → 한국 기업이 2029년까지 시장 독식",
+  "AI 데이터센터 전력비 직접 분담 규제 + 가스터빈 인도 지연(2031년) → BTM BESS·BBU 도입 필수화, 2027 북미 BESS 셀 수요 106GWh(비중국 적격 85GWh) vs 비중국 실질 공급 66~89GWh",
+  "LGES(수주잔고 160GWh)·삼성SDI(연말 120GWh+ 전망) 북미 라인 2028년까지 완판, 탄산리튬 안정(9.5~12만 위안)으로 ESS 마진 확대",
+  "※ 앞부분(요약·목차) 기준 요약 — 전문 미독"
+ ],
+ "thesis": [
+  {
+   "point": "북미 BESS 셀 2H27 쇼티지",
+   "evidence": "수요 106GWh vs 비중국 공급 66~89GWh"
+  },
+  {
+   "point": "데이터센터가 BESS·BBU를 필수로 만듦",
+   "evidence": "전력비 분담 규제, 가스터빈 인도 지연(2031)"
+  }
+ ],
+ "numbers": [
+  {
+   "label": "2027 북미 BESS 셀 수요",
+   "value": "106GWh",
+   "note": "비중국 적격 85GWh"
+  },
+  {
+   "label": "비중국 실질 공급",
+   "value": "66~89GWh",
+   "note": "중간값 78GWh"
+  },
+  {
+   "label": "북미 셀 원가",
+   "value": "$37~47 vs 중국산 $82/kWh",
+   "note": "관세·보조금 반영"
+  },
+  {
+   "label": "수주잔고",
+   "value": "LGES 160GWh · SDI 120GWh+",
+   "note": ""
+  }
+ ],
+ "stocks": [
+  {
+   "name": "LG에너지솔루션",
+   "role": "셀",
+   "view": "비중 확대",
+   "target": null,
+   "why": "북미 라인 2028년까지 완판",
+   "code": "373220"
+  },
+  {
+   "name": "삼성SDI",
+   "role": "셀",
+   "view": "비중 확대",
+   "target": null,
+   "why": "BESS·BBU, 수주잔고 120GWh+",
+   "code": "006400"
+  }
+ ],
+ "sectors": [
+  {
+   "name": "2차전지",
+   "view": "긍정(셀) · 선별(소재)",
+   "why": "북미 BESS 쇼티지"
+  }
+ ],
+ "outlook": {
+  "short": "정책 리스크 해소, ESS 마진 스프레드 확대",
+  "mid": "2H27 북미 BESS 셀 쇼티지"
+ },
+ "catalysts": [
+  {
+   "when": "2027",
+   "what": "MACR 상향·보안 규제 발효, 북미 BESS 수주"
+  }
+ ],
+ "risks": [
+  "정책 재변경",
+  "유럽 BEV 회복 지연",
+  "소재 역래깅"
+ ],
+ "claude": {
+  "opinion": "전략 보고서 서브 띔(데이터센터 전원: BBU+ESS)의 핵심 1차 근거. 다만 셀 '전체' 낙관이라, 채널의 목표가 하향(LG엔솔 6건)과 엇갈린다 — 삼성SDI처럼 컨센서스가 실제로 오르는 곳과 구분해 볼 것."
+ },
+ "tags": [
+  "BESS",
+  "BBU",
+  "북미",
+  "IRA",
+  "셀"
+ ],
+ "url": "https://drive.google.com/file/d/15pzqyDZ69xSo22GHU28tpoKf8Jcy8x5D/view?usp=drivesdk",
+ "analyzed_at": "2026-11-05 13:19"
+}
