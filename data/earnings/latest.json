@@ -1,6 +1,26 @@
 {
  "rows": [
   {
+   "name": "덕산네오룩스",
+   "code": "213420",
+   "period": null,
+   "sales": 1068.0,
+   "sales_est": 1150.0,
+   "sales_surprise": -7.1,
+   "sales_yoy": 8.6,
+   "op": 240.0,
+   "op_est": 257.0,
+   "op_surprise": -6.6,
+   "op_yoy": 36.9,
+   "net": 121.0,
+   "net_est": 240.0,
+   "net_surprise": -49.6,
+   "verdict": "부합",
+   "time": "2026-11-05 17:03",
+   "channel": "maddingStock",
+   "url": "https://t.me/maddingStock/19162"
+  },
+  {
    "name": "티엘비",
    "code": "356860",
    "period": "2026.3Q",
