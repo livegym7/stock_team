@@ -509,6 +509,30 @@
    "drive_modified": "2026-10-25T05:32:12.898Z",
    "analyzed_at": "2026-11-05 17:52",
    "depth": "light"
+  },
+  "naver_industry_46833": {
+   "title": "한화솔루션, OCI홀딩스 NDR로 본 Section 232 (유진투자증권, 2026-11-05)",
+   "broker": "유진투자증권",
+   "date": "2026-11-05",
+   "kind": "산업",
+   "subject": "태양광 · Section 232 MIP(최저수입가격)",
+   "one_line": "MIP는 가격의 '바닥'이지 자동 인상이 아니다 — 정책 효과는 신규·갱신 계약을 거쳐 2027년(한화솔루션은 2027년 중반)에야 실적에 반영되고, 4Q26~1Q27은 기대 대비 실적 괴리가 주가 변동 요인",
+   "url": "https://stock.naver.com/research/industry/46833",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-05 19:16",
+   "depth": "full"
+  },
+  "naver_industry_46834": {
+   "title": "2027, 왜 다시 2차전지인가 (유안타증권 2027 연간전망, 2026-11-05)",
+   "broker": "유안타증권",
+   "date": "2026-11-05",
+   "kind": "산업",
+   "subject": "2차전지 · 2027 연간전망 (셀 비중 확대)",
+   "one_line": "중간선거로 45X·48E 조기 삭감 리스크가 사라지고 북미 BESS 셀이 2H27 구조적 쇼티지 → '소재보다 셀'(LG에너지솔루션·삼성SDI) 비중 확대, 소재는 나노신소재·한중엔시에스 선별",
+   "url": "https://stock.naver.com/research/industry/46834",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-05 19:16",
+   "depth": "light"
   }
  },
  "skipped": {
