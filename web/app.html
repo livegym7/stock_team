@@ -1,14 +1,14 @@
 <title>JH트레이딩룸</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap">
 <style>
 /* 레이아웃: PC는 왼쪽 메뉴 + 본문, 휴대폰은 아래쪽 탭 5개 + 더보기. 시세판(트레이딩 단말) 느낌의 촘촘한 숫자 + 차분한 바탕 */
 :root{
-  --bg:#f4f6f8; --panel:#ffffff; --line:#dde3ea; --fg:#18202b; --muted:#5f6b7a; --soft:#eef2f6;
+  --bg:#f4f6f8; --panel:#ffffff; --line:#dde3ea; --fg:#1b2330; --muted:#4f5a68; --soft:#eef2f6;
   --accent:#0f766e; --accent-soft:#d6efec; --up:#d4342c; --down:#1f5fd1; --warn:#b45309; --warn-soft:#fdf0dc; --ok:#15803d;
-  --sans:'IBM Plex Sans KR',system-ui,-apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;
-  --mono:'IBM Plex Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
+  --sans:'Noto Sans KR',system-ui,-apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+  --mono:var(--sans);  /* 숫자도 본문 글꼴 + 고정폭 숫자(tabular-nums) — 가독성 개선 2026-11-05 */
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --bg:#0f141a; --panel:#161d25; --line:#26313d; --fg:#e4e9ef; --muted:#93a1b2; --soft:#1c2530;
@@ -17,9 +17,13 @@
   --bg:#0f141a; --panel:#161d25; --line:#26313d; --fg:#e4e9ef; --muted:#93a1b2; --soft:#1c2530;
   --accent:#2dd4bf; --accent-soft:#123a37; --up:#ff6b61; --down:#6aa2ff; --warn:#f0a43a; --warn-soft:#3a2a12; --ok:#4ade80; color-scheme:dark}
 *{box-sizing:border-box}
-body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:14px;line-height:1.55}
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:14px;line-height:1.65;letter-spacing:-.1px;word-break:keep-all;overflow-wrap:anywhere}
 a{color:var(--accent)}
-.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.num{font-family:var(--sans);font-variant-numeric:tabular-nums}
+.key{background:linear-gradient(transparent 58%,#fde68a 58%);padding:0 1px}
+:root[data-theme="dark"] .key{background:linear-gradient(transparent 58%,#8a6d1a 58%)}
+.blead{font-size:15.5px;font-weight:600;margin-bottom:6px}
+.lead{font-weight:600}
 .up{color:var(--up)} .down{color:var(--down)} b.stk{font-weight:700}
 .thermo{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}.tm h3{margin:0 0 6px;display:flex;gap:8px;align-items:baseline}.tm .flow3{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:8px 0}.tm .flow3 div{background:var(--bg);border-radius:6px;padding:6px 8px}.tm .flow3 small{display:block;color:var(--muted);font-size:11.5px}.tm .flow3 b{font-size:15px}
 .adbar{display:flex;height:10px;border-radius:5px;overflow:hidden;background:var(--line);margin:4px 0}.adbar i{display:block;height:100%}
@@ -39,6 +43,17 @@ a{color:var(--accent)}
 .spk5{display:inline-flex;align-items:flex-end;gap:2px;height:22px;vertical-align:middle}.spk5 i{display:block;width:8px;background:var(--accent);border-radius:2px 2px 0 0;opacity:.8}
 .cmap{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:8px}.cmc{border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:13.5px;line-height:1.55}.cmh{display:flex;gap:6px;align-items:baseline;flex-wrap:wrap;margin-bottom:3px}.cmh b{font-size:15px}
 .invalid{margin-top:10px;padding:8px 10px;border-radius:8px;background:var(--bg);font-size:13px}
+.rtool{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}.rtool input{flex:1;min-width:200px;padding:8px 12px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--fg);font:inherit}
+.rsplit{grid-template-columns:minmax(0,1fr) minmax(0,1.3fr)!important}.rlist{background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden;align-self:start}
+.rgrp{display:flex;justify-content:space-between;width:100%;padding:8px 12px;background:var(--soft);border:0;border-top:1px solid var(--line);font:inherit;font-weight:700;font-size:13px;color:var(--fg);cursor:pointer;text-align:left}.rgrp:first-child{border-top:0}.rgrp small{font-weight:400;color:var(--muted)}
+.rrow{display:grid;grid-template-columns:44px minmax(0,1fr);gap:8px;width:100%;padding:8px 12px;border:0;border-top:1px solid var(--line);background:none;font:inherit;color:inherit;text-align:left;cursor:pointer}.rrow:hover{background:var(--soft)}
+.rrow.on{background:var(--accent-soft);box-shadow:inset 3px 0 0 var(--accent)}.rrow .rd{font-size:12px;color:var(--muted);padding-top:2px}
+.rmain b{display:block;font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.rmain small{display:block;font-size:12.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rk{display:inline-block;font-size:11px;font-weight:500;padding:0 6px;border-radius:4px;margin-right:5px;background:var(--soft);color:var(--muted);vertical-align:1px}.rk-산업{background:var(--accent-soft);color:var(--accent)}.rk-기업{background:#e8edff;color:#3b5bdb}.rk-전략{background:var(--warn-soft);color:var(--warn)}
+.rmore{width:100%;padding:7px 12px;border:0;border-top:1px solid var(--line);background:none;color:var(--accent);font:inherit;font-size:12.5px;text-align:left;cursor:pointer}
+.rmain b small{display:inline;font-size:12px}
+.rinline{display:none}
+@media (max-width:820px){.rsplit{grid-template-columns:1fr!important}.rside{display:none}.rtool input{min-width:100%}.rinline{display:block;padding:12px;border-top:1px solid var(--line);background:var(--panel)}}
 .scmt{display:none;color:var(--muted);font-weight:400;font-size:12px;margin-top:2px;white-space:normal}
 @media (max-width:820px){
   .chain{flex-direction:column;align-items:stretch;gap:2px}.chain .node{max-width:none}.chain .arr{transform:rotate(90deg);align-self:center;line-height:1}
@@ -65,7 +80,7 @@ h2{font-size:15px;margin:0 0 10px;letter-spacing:-.01em}
 .g4{grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr))}
 .panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;min-width:0}
 .src{font-size:11px;color:var(--muted);margin-top:8px}
-.opinion{border-left:3px solid var(--accent);background:var(--panel);border-radius:0 10px 10px 0;padding:14px 16px;white-space:pre-wrap;font-size:14.5px;line-height:1.65}
+.opinion{border-left:3px solid var(--accent);background:var(--panel);border-radius:0 10px 10px 0;padding:14px 16px;white-space:pre-wrap;font-size:14.5px;line-height:1.8;max-width:46em}
 .kpi span{display:block;font-size:11px;color:var(--muted);letter-spacing:.03em}
 .kpi b{display:block;font-family:var(--mono);font-size:22px;font-weight:600;margin:2px 0}
 .gauge{height:6px;background:var(--soft);border-radius:3px;overflow:hidden;margin-top:6px}
@@ -114,12 +129,12 @@ tr.click{cursor:pointer} tr.click:hover td{background:var(--soft)}
 .step.done{opacity:.55}
 .step .lv{font-family:var(--mono);font-weight:600}
 .acts{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr))}
-.brief{white-space:pre-wrap;font-size:14px;line-height:1.7;min-width:0;overflow-wrap:anywhere}
+.brief{white-space:pre-wrap;font-size:14px;line-height:1.85;min-width:0;overflow-wrap:anywhere}.brief>div{max-width:46em}
 .split{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:14px}
 .feed{display:grid;gap:8px}
 .post{border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:10px 12px;min-width:0}
 .post .meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:11.5px;color:var(--muted);margin-bottom:4px}
-.post .body{white-space:pre-wrap;overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:6;-webkit-box-orient:vertical;overflow:hidden}
+.post .body{line-height:1.75;max-width:46em;white-space:pre-wrap;overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:6;-webkit-box-orient:vertical;overflow:hidden}
 .post.open .body{display:block}
 input,select{width:100%;min-width:0;font:inherit;color:var(--fg);background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:7px 10px}
 label{font-size:12px;color:var(--muted);display:grid;gap:4px}
@@ -174,7 +189,7 @@ td.wrap{white-space:normal;line-height:1.5} .gloss td{white-space:normal} .gloss
 .linkb{border:0;background:none;color:var(--accent);font:inherit;font-size:11.5px;padding:0;cursor:pointer;text-decoration:underline}
 .howto{line-height:1.8}
 .split{align-items:start}.list{align-content:start}
-article.idea h3{font-size:14px;margin:16px 0 6px}article.idea .opinion{white-space:normal}
+article.idea h3{font-size:14px;margin:18px 0 6px}article.idea>div,article.idea .insrow{line-height:1.75;max-width:46em}article.idea .opinion{white-space:normal}
 .chain{display:flex;align-items:stretch;gap:6px;overflow-x:auto;padding-bottom:4px}.chain .arrow{align-self:center;color:var(--muted);font-size:18px}
 .chain .node{min-width:150px;flex:1;border:1px solid var(--line);border-radius:10px;padding:10px;display:flex;flex-direction:column;gap:4px;background:var(--panel)}
 .chain .node.hi{border-color:var(--up);background:color-mix(in srgb,var(--up) 7%,var(--panel))}.chain .node.lo{border-color:var(--down);background:color-mix(in srgb,var(--down) 6%,var(--panel))}
@@ -389,7 +404,7 @@ function viewBriefs(){
   <div class="chips">${kinds.map(([v,n])=>`<button class="chip ${k==v?"on":""}" data-bk="${v}">${n}</button>`).join("")}</div>
   ${list.length?`<div class="bsel"><label for="bSel" class="sr">브리핑 고르기</label><select id="bSel">${list.map(b=>`<option value="${esc(b.file)}" ${b.file==sel.file?"selected":""}>${esc(b.date)}${b.time?" "+esc(b.time):""} · ${esc(b.kind_name)}</option>`).join("")}</select>
    <button class="chip" data-bnav="1" ${list.indexOf(sel)>=list.length-1?"disabled":""}>‹ 이전</button><button class="chip" data-bnav="-1" ${list.indexOf(sel)<=0?"disabled":""}>다음 ›</button></div>
-  <article class="panel brief">${tint(sel.text)}</article>`:`<div class="empty">이 종류의 브리핑이 아직 없습니다. 다음 자동 업데이트 때 생깁니다</div>`}`;
+  <article class="panel brief">${(()=>{const t=String(sel.text||""),i=t.indexOf("\n");return `<div class="blead">${tint(i<0?t:t.slice(0,i))}</div><div>${tint(i<0?"":t.slice(i+1).replace(/^\n+/,""))}</div>`})()}</article>`:`<div class="empty">이 종류의 브리핑이 아직 없습니다. 다음 자동 업데이트 때 생깁니다</div>`}`;
 }
 
 const fam=k=>{k=String(k||"");return k.startsWith("report")?"report":(k=="close"||k=="weekly")?"review":k};
@@ -764,21 +779,33 @@ function revFlow(){
   <div class="panel"><h3>🔽 목표가 하향이 몰리는 종목</h3><div class="tw"><table><tr><th class="l">종목</th><th>상향/하향</th><th>평균 변경</th><th>강도</th><th>1개월</th></tr>${down.map(row).join("")||`<tr><td class="l muted">없음</td></tr>`}</table></div></div></div>
   ${src("종목을 누르면 기업 메뉴에서 증권사별 최근 목표가를 볼 수 있습니다 · 리포트 2건 이상 종목만")}`;
 }
+const RGROUPS=[["반도체 기판·부품",/기판|PCB|MLCC|전자부품|FC-BGA|BGA|패키지|소켓|테스트/],["반도체·메모리",/반도체|메모리|HBM|DRAM|D램|낸드|NAND|파운드리|소부장|장비/],["2차전지·ESS",/2차전지|이차전지|ESS|BESS|배터리|BBU|양극재/],["전력·원전·AI 인프라",/원전|전력|유틸리티|데이터센터|AI 인프라|변압기|Stargate/],["시장·전략",/전략|코스피|코스닥|수급|매크로|금리|환율|시장/]];
+function rgroup(d){const t=[d.subject,d.title,(d.sectors||[]).map(x=>x.name).join(" "),(d.tags||[]).join(" ")].join(" ");for(const [g,re] of RGROUPS)if(re.test(t))return g;return d.kind=="기업"?"기타 기업":"기타"}
 function researchDocs(docs){
-  const kf=ui.rk||"all", L=docs.filter(d=>kf=="all"||d.kind==kf), sel=L.find(d=>d.file_id==ui.rd)||L[0];
-  const kinds=["all","기업","산업","전략","매크로"];
-  return `<div class="chips">${kinds.map(k=>`<button class="chip ${kf==k?"on":""}" data-rk="${k}">${k=="all"?"전체":k} ${k=="all"?docs.length:docs.filter(d=>d.kind==k).length}</button>`).join("")}</div>
-  ${L.length?`<div class="split"><div class="list">${L.map(d=>`<button class="item ${sel&&d.file_id==sel.file_id?"on":""}" data-rd="${esc(d.file_id)}"><small class="muted">${esc(d.date||"")} · ${esc(d.broker||"")} · ${esc(d.kind)}</small><br><b>${esc(d.subject||d.title)}</b><br><small>${esc(d.one_line||"")}</small></button>`).join("")}</div>
-  <article class="panel idea">${docDetail(sel)}</article></div>`:`<div class="empty">해당 문서 없음</div>`}`;
+  const kf=ui.rk||"all", per=ui.rp||"all", q=(ui.rq||"").trim().toLowerCase(), col=ui.rgc||{}, more=ui.rgm||{};
+  const today=nowKst().slice(0,10), lim={week:7,month:31}[per], since=lim?new Date(Date.now()+9*3600e3-lim*864e5).toISOString().slice(0,10):"";
+  const L=docs.filter(d=>(kf=="all"||d.kind==kf)&&(!since||(d.date||"")>=since)&&(!q||[d.title,d.subject,d.one_line,d.broker,(d.stocks||[]).map(x=>x.name).join(" "),(d.tags||[]).join(" ")].join(" ").toLowerCase().includes(q)))
+    .sort((a,b)=>(b.date||"")>(a.date||"")?1:-1);
+  const sel=L.find(d=>d.file_id==ui.rd)||L[0];
+  const kinds=["all","기업","산업","전략","매크로"], G={};
+  L.forEach(d=>{(G[rgroup(d)]=G[rgroup(d)]||[]).push(d)});
+  const order=[...RGROUPS.map(g=>g[0]),"기타 기업","기타"].filter(g=>G[g]);
+  const row=d=>`<button class="rrow ${sel&&d.file_id==sel.file_id?"on":""}" data-rd="${esc(d.file_id)}"><span class="rd num">${esc((d.date||"").slice(5).replace("-","/"))}</span><span class="rmain"><b><span class="rk rk-${esc(d.kind)}">${esc(d.kind)}</span>${esc(d.subject||d.title)} <small class="muted">· ${esc(d.broker||"")}</small></b><small>${esc(d.one_line||"")}</small></span></button>${sel&&d.file_id==sel.file_id?`<div class="rinline">${docDetail(d)}</div>`:""}`;
+  return `<div class="rtool"><label for="rq" class="sr">자료 찾기</label><input id="rq" value="${esc(ui.rq||"")}" placeholder="🔍 제목·종목·증권사로 찾기 (예: LPDDR, 심텍, 대신)">
+   ${[["week","이번 주"],["month","이번 달"],["all","전체"]].map(([k,n])=>`<button class="chip ${per==k?"on":""}" data-rp="${k}">${n}</button>`).join("")}</div>
+  <div class="chips">${kinds.map(k=>`<button class="chip ${kf==k?"on":""}" data-rk="${k}">${k=="all"?"전체":k} ${k=="all"?docs.length:docs.filter(d=>d.kind==k).length}</button>`).join("")}</div>
+  ${L.length?`<div class="split rsplit"><div class="rlist">${order.map(g=>{const A=G[g],closed=!!col[g],show=more[g]?A:A.slice(0,5);
+     return `<button class="rgrp" data-rg="${esc(g)}"><span>${closed?"▸":"▾"} ${esc(g)} · ${A.length}</span><small>최근 ${esc((A[0].date||"").slice(5).replace("-","/"))}</small></button>${closed?"":show.map(row).join("")+(A.length>5&&!more[g]?`<button class="rmore" data-rgm="${esc(g)}">+ ${A.length-5}개 더 보기</button>`:"")}`}).join("")}</div>
+   <article class="panel idea rside">${sel?docDetail(sel):""}</article></div>`:`<div class="empty">조건에 맞는 문서가 없습니다</div>`}`;
 }
 function docDetail(d){
   const C=d.claude||{};
   return `<h2 style="font-size:18px">${esc(d.title)}</h2>
-  <div class="chips"><span class="pill">${esc(d.kind)}</span><span class="pill">${esc(d.broker||"")}${d.analyst?" · "+esc(d.analyst):""}</span><span class="pill">${esc(d.date||"")}</span>${(d.tags||[]).map(t=>`<span class="pill">#${esc(t)}</span>`).join("")}<a class="pill" href="${esc(d.url)}" target="_blank" rel="noopener">원문 보기 ↗</a></div>
-  <div class="opinion" style="margin-bottom:12px"><b>${tint(d.one_line||"")}</b></div>
+  <div class="chips"><span class="pill">${esc(d.kind)}</span><span class="pill">${esc(d.broker||"")}${d.analyst?" · "+esc(d.analyst):""}</span><span class="pill">${esc(d.date||"")}</span><a class="pill" href="${esc(d.url)}" target="_blank" rel="noopener">원문 보기 ↗</a></div>${(d.tags||[]).length?`<div class="muted" style="font-size:12.5px;margin:-4px 0 8px">${d.tags.map(t=>"#"+esc(t)).join(" ")}</div>`:""}
+  <div class="opinion lead" style="margin-bottom:12px">${tint(d.one_line||"")}</div>
   <h3>요약</h3>${(d.summary||[]).map(x=>`<div>· ${tint(x)}</div>`).join("")}
   <h3>투자 포인트</h3>${(d.thesis||[]).map(t=>`<div class="insrow"><b>${tint(t.point)}</b><div class="muted" style="font-size:12.5px">${esc(t.evidence||"")}</div></div>`).join("")}
-  ${(d.numbers||[]).length?`<h3>핵심 숫자</h3><div class="tw"><table>${d.numbers.map(n=>`<tr><td class="l">${esc(n.label)}</td><td class="num"><b>${esc(n.value)}</b></td><td class="l muted" style="white-space:normal">${esc(n.note||"")}</td></tr>`).join("")}</table></div>`:""}
+  ${(d.numbers||[]).length?`<h3>핵심 숫자</h3><div class="tw"><table>${d.numbers.map((n,i)=>`<tr><td class="l">${esc(n.label)}</td><td class="num"><b class="${i==0?"key":""}">${esc(n.value)}</b></td><td class="l muted" style="white-space:normal">${esc(n.note||"")}</td></tr>`).join("")}</table></div>`:""}
   <h3>종목</h3><div class="ins">${(d.stocks||[]).map(st=>`<div class="insrow">${st.code?rsChip(st.name,st.code):`<b>${esc(st.name)}</b>`} <span class="pill ${st.role=="Top pick"?"ok":st.role=="부정"?"warn":""}">${esc(st.role||"")}</span> <small class="muted">${esc(st.view||"")}${st.target?" · 목표가 "+w(st.target):""}</small> ${st.code?earnLine(st.code,true):""}<div style="font-size:13px">${esc(st.why||"")}</div></div>`).join("")||`<div class="muted">-</div>`}</div>
   <h3>섹터</h3>${(d.sectors||[]).map(x=>`<div><span class="${x.view=="긍정"?"up":x.view=="부정"?"down":"muted"}">${x.view=="긍정"?"🔺":x.view=="부정"?"🔽":"➖"} ${esc(x.name)}</span> · ${esc(x.why||"")}</div>`).join("")}
   <h3>전망</h3><div>· 단기: ${esc((d.outlook||{}).short||"-")}</div><div>· 중기: ${esc((d.outlook||{}).mid||"-")}</div>
@@ -995,7 +1022,10 @@ document.addEventListener("click",e=>{
     if(cm.dataset.calk){const o=new Set(ui.calOff||[]);o.has(cm.dataset.calk)?o.delete(cm.dataset.calk):o.add(cm.dataset.calk);ui.calOff=[...o]}save();render();return}
   const rt=e.target.closest("[data-rt]"); if(rt){ui.rt=rt.dataset.rt;save();render();return}
   const rk=e.target.closest("[data-rk]"); if(rk){ui.rk=rk.dataset.rk;ui.rd=null;save();render();return}
-  const rd=e.target.closest("[data-rd]"); if(rd){ui.rd=rd.dataset.rd;ui.rt="docs";save();render();window.scrollTo(0,0);return}
+  const rp=e.target.closest("[data-rp]"); if(rp){ui.rp=rp.dataset.rp;save();render();return}
+  const rg=e.target.closest("[data-rg]"); if(rg){ui.rgc=ui.rgc||{};ui.rgc[rg.dataset.rg]=!ui.rgc[rg.dataset.rg];save();render();return}
+  const rgm=e.target.closest("[data-rgm]"); if(rgm){ui.rgm=ui.rgm||{};ui.rgm[rgm.dataset.rgm]=1;save();render();return}
+  const rd=e.target.closest("[data-rd]"); if(rd){const inList=!!rd.closest(".rlist");ui.rd=rd.dataset.rd;ui.rt="docs";save();render();if(!inList)window.scrollTo(0,0);else{const el=document.querySelector(".rrow.on");if(el&&window.innerWidth<=820)el.scrollIntoView({block:"start"})}return}
   const cs=e.target.closest("[data-cs]"); if(cs){ui.cs=cs.dataset.cs;save();render();return}
   const t=e.target.closest("[data-bk],[data-bf],[data-wg],[data-ws],[data-wd],[data-cc],[data-ct],[data-go],[data-kind],.post");
   if(!t)return;
@@ -1013,6 +1043,7 @@ document.addEventListener("click",e=>{
 });
 document.addEventListener("input",e=>{
   if(["cEntry","cStop","cPct"].includes(e.target.id))calc();
+  if(e.target.id=="rq"){ui.rq=e.target.value;save();const pos=e.target.selectionStart;render();const el=$("#rq");el.focus();el.setSelectionRange(pos,pos);return}
   if(e.target.id=="cq"){ui.cq=e.target.value;save();const pos=e.target.selectionStart;render();const el=$("#cq");el.focus();el.setSelectionRange(pos,pos)}
 });
 document.addEventListener("change",e=>{if(e.target.id=="chSel"){ui.ch=e.target.value;save();render()}if(e.target.id=="bSel"){ui.bf=e.target.value;save();render()}if(e.target.id=="cfSel"){ui.cf=e.target.value;save();render()}});
