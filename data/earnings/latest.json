@@ -1,6 +1,18 @@
 {
  "rows": [
   {
+   "name": "PS일렉트로닉스",
+   "code": "332570",
+   "period": "2026.3Q",
+   "sales": 997.0,
+   "op": 131.0,
+   "net": 9.0,
+   "verdict": null,
+   "time": "2026-11-09 10:04",
+   "channel": "nje2e",
+   "url": "https://t.me/nje2e/45179"
+  },
+  {
    "name": "덕산네오룩스",
    "code": "213420",
    "period": null,
