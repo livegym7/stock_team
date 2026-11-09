@@ -1,6 +1,42 @@
 {
  "rows": [
   {
+   "name": "GC메디아이",
+   "code": "032620",
+   "period": "2026.3Q",
+   "sales": 527.0,
+   "sales_yoy": 4.0,
+   "op": 59.0,
+   "op_yoy": 95.8,
+   "net": 66.0,
+   "net_yoy": 176.7,
+   "verdict": null,
+   "time": "2026-11-09 10:47",
+   "channel": "maddingStock",
+   "url": "https://t.me/maddingStock/19221"
+  },
+  {
+   "name": "비엠티",
+   "code": "086670",
+   "period": "2026.3Q",
+   "sales": 502.0,
+   "sales_est": 500.0,
+   "sales_surprise": 0.4,
+   "sales_yoy": 34.0,
+   "op": 89.0,
+   "op_est": 60.0,
+   "op_surprise": 48.3,
+   "op_yoy": 53.6,
+   "net": 45.0,
+   "net_est": 50.0,
+   "net_surprise": -10.0,
+   "net_yoy": -64.1,
+   "verdict": "서프라이즈",
+   "time": "2026-11-09 10:36",
+   "channel": "nje2e",
+   "url": "https://t.me/nje2e/45186"
+  },
+  {
    "name": "PS일렉트로닉스",
    "code": "332570",
    "period": "2026.3Q",
