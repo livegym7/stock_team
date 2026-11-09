@@ -1,5 +1,5 @@
 {
- "fetched_at": "2026-11-09 06:56",
+ "fetched_at": "2026-11-10 06:56",
  "errors": [],
  "events": [
   {
@@ -3045,6 +3045,39 @@
   },
   {
    "date": "2026-11-09",
+   "time": "",
+   "kind": "earnings_kr",
+   "name": "펌텍코리아 기업설명회(IR)",
+   "detail": "",
+   "source": "DART 공시",
+   "code": "251970",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261109900626",
+   "id": "ir:251970:2026-11-09"
+  },
+  {
+   "date": "2026-11-09",
+   "time": "",
+   "kind": "earnings_kr",
+   "name": "코스메카코리아 기업설명회(IR)",
+   "detail": "",
+   "source": "DART 공시",
+   "code": "241710",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261109900454",
+   "id": "ir:241710:2026-11-09"
+  },
+  {
+   "date": "2026-11-09",
+   "time": "",
+   "kind": "earnings_kr",
+   "name": "와이지엔터테인먼트 기업설명회(IR)",
+   "detail": "",
+   "source": "DART 공시",
+   "code": "122870",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261109900271",
+   "id": "ir:122870:2026-11-09"
+  },
+  {
+   "date": "2026-11-09",
    "time": "08:00",
    "kind": "earnings_kr",
    "name": "현대글로비스 기업설명회(IR)",
@@ -3188,6 +3221,28 @@
   },
   {
    "date": "2026-11-10",
+   "time": "",
+   "kind": "earnings_kr",
+   "name": "삼성E&A 기업설명회(IR)",
+   "detail": "주요 경영현황 설명 및 Q&amp;A",
+   "source": "DART 공시",
+   "code": "028050",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261109800502",
+   "id": "ir:028050:2026-11-10"
+  },
+  {
+   "date": "2026-11-10",
+   "time": "",
+   "kind": "earnings_kr",
+   "name": "서울바이오시스 기업설명회(IR)",
+   "detail": "",
+   "source": "DART 공시",
+   "code": "092190",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261109900280",
+   "id": "ir:092190:2026-11-10"
+  },
+  {
+   "date": "2026-11-10",
    "time": "09:00",
    "kind": "earnings_kr",
    "name": "KG모빌리티플랫폼 기업설명회(IR)",
@@ -3240,6 +3295,50 @@
    "code": "454910",
    "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261105800603",
    "id": "ir:454910:2026-11-10"
+  },
+  {
+   "date": "2026-11-10",
+   "time": "09:00",
+   "kind": "earnings_kr",
+   "name": "산일전기 기업설명회(IR)",
+   "detail": "2026년 3분기 주요 경영실적 및 질의응답",
+   "source": "DART 공시",
+   "code": "062040",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261109800751",
+   "id": "ir:062040:2026-11-10"
+  },
+  {
+   "date": "2026-11-10",
+   "time": "09:00",
+   "kind": "earnings_kr",
+   "name": "코웨이 기업설명회(IR)",
+   "detail": "2026년 3분기 실적 리뷰 2025년 기업가치제고계획 이행 현황 주요 경영현황 Q&amp;A 등",
+   "source": "DART 공시",
+   "code": "021240",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261109800587",
+   "id": "ir:021240:2026-11-10"
+  },
+  {
+   "date": "2026-11-10",
+   "time": "09:00",
+   "kind": "earnings_kr",
+   "name": "SK케미칼 기업설명회(IR)",
+   "detail": "2026년 3분기 실적, 주요 경영현황 및 사업전략",
+   "source": "DART 공시",
+   "code": "285130",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261109800489",
+   "id": "ir:285130:2026-11-10"
+  },
+  {
+   "date": "2026-11-10",
+   "time": "09:10",
+   "kind": "earnings_kr",
+   "name": "한국콜마 기업설명회(IR)",
+   "detail": "2026년 3분기 회사 실적 및 주요 경영현황 설명, Q&amp;A",
+   "source": "DART 공시",
+   "code": "161890",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261109800116",
+   "id": "ir:161890:2026-11-10"
   },
   {
    "date": "2026-11-10",
@@ -3360,6 +3459,28 @@
   },
   {
    "date": "2026-11-11",
+   "time": "",
+   "kind": "earnings_kr",
+   "name": "서울반도체 기업설명회(IR)",
+   "detail": "",
+   "source": "DART 공시",
+   "code": "046890",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261109900296",
+   "id": "ir:046890:2026-11-11"
+  },
+  {
+   "date": "2026-11-11",
+   "time": "",
+   "kind": "earnings_kr",
+   "name": "iM금융지주 기업설명회(IR)",
+   "detail": "2026년도 3분기 경영실적 등 주요 관심사항 설명",
+   "source": "DART 공시",
+   "code": "139130",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261109800146",
+   "id": "ir:139130:2026-11-11"
+  },
+  {
+   "date": "2026-11-11",
    "time": "09:00",
    "kind": "earnings_kr",
    "name": "넥센타이어 기업설명회(IR)",
@@ -3379,6 +3500,28 @@
    "code": "383220",
    "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261105800947",
    "id": "ir:383220:2026-11-11"
+  },
+  {
+   "date": "2026-11-11",
+   "time": "09:00",
+   "kind": "earnings_kr",
+   "name": "LG이노텍 기업설명회(IR)",
+   "detail": "26년 3분기 경영실적 및 사업 현황 설명, Q&amp;A",
+   "source": "DART 공시",
+   "code": "011070",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261109800785",
+   "id": "ir:011070:2026-11-11"
+  },
+  {
+   "date": "2026-11-11",
+   "time": "09:00",
+   "kind": "earnings_kr",
+   "name": "롯데칠성음료 기업설명회(IR)",
+   "detail": "당사 경영실적 및 사업 전략 공유 / Q&amp;A",
+   "source": "DART 공시",
+   "code": "005300",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261109800601",
+   "id": "ir:005300:2026-11-11"
   },
   {
    "date": "2026-11-11",
@@ -3434,6 +3577,17 @@
    "code": "439260",
    "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261029800326",
    "id": "ir:439260:2026-11-11"
+  },
+  {
+   "date": "2026-11-11",
+   "time": "15:30",
+   "kind": "earnings_kr",
+   "name": "현대건설 기업설명회(IR)",
+   "detail": "경영현황 및 계획, Q&amp;A",
+   "source": "DART 공시",
+   "code": "000720",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261109800406",
+   "id": "ir:000720:2026-11-11"
   },
   {
    "date": "2026-11-11",
@@ -3610,6 +3764,17 @@
   },
   {
    "date": "2026-11-12",
+   "time": "09:00",
+   "kind": "earnings_kr",
+   "name": "DB하이텍 기업설명회(IR)",
+   "detail": "2026년 3분기 경영실적 및 향후 사업전망",
+   "source": "DART 공시",
+   "code": "000990",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261109800640",
+   "id": "ir:000990:2026-11-12"
+  },
+  {
+   "date": "2026-11-12",
    "time": "10:00",
    "kind": "earnings_kr",
    "name": "삼성화재해상보험 기업설명회(IR)",
@@ -3665,6 +3830,17 @@
   },
   {
    "date": "2026-11-12",
+   "time": "14:00",
+   "kind": "earnings_kr",
+   "name": "금호건설 기업설명회(IR)",
+   "detail": "2026년도 3분기 경영실적 발표 및 Q&amp;A",
+   "source": "DART 공시",
+   "code": "002990",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261109800597",
+   "id": "ir:002990:2026-11-12"
+  },
+  {
+   "date": "2026-11-12",
    "time": "15:30",
    "kind": "earnings_kr",
    "name": "현대글로비스 기업설명회(IR)",
@@ -3717,6 +3893,17 @@
    "code": "016360",
    "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261105800479",
    "id": "ir:016360:2026-11-12"
+  },
+  {
+   "date": "2026-11-12",
+   "time": "17:00",
+   "kind": "earnings_kr",
+   "name": "한국전력공사 기업설명회(IR)",
+   "detail": "2026년 3분기 결산실적 주요계정별 증감내역 및 사유",
+   "source": "DART 공시",
+   "code": "015760",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261109800307",
+   "id": "ir:015760:2026-11-12"
   },
   {
    "date": "2026-11-13",
@@ -3872,6 +4059,28 @@
   },
   {
    "date": "2026-11-16",
+   "time": "",
+   "kind": "earnings_kr",
+   "name": "기아 기업설명회(IR)",
+   "detail": "2026년 3분기 경영실적 및 주요 경영현황 설명",
+   "source": "DART 공시",
+   "code": "000270",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261109800476",
+   "id": "ir:000270:2026-11-16"
+  },
+  {
+   "date": "2026-11-16",
+   "time": "",
+   "kind": "earnings_kr",
+   "name": "티씨케이 기업설명회(IR)",
+   "detail": "",
+   "source": "DART 공시",
+   "code": "064760",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261109900415",
+   "id": "ir:064760:2026-11-16"
+  },
+  {
+   "date": "2026-11-16",
    "time": "09:00",
    "kind": "earnings_kr",
    "name": "삼성에스디에스 기업설명회(IR)",
@@ -3880,6 +4089,17 @@
    "code": "018260",
    "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261027800450",
    "id": "ir:018260:2026-11-16"
+  },
+  {
+   "date": "2026-11-16",
+   "time": "09:00",
+   "kind": "earnings_kr",
+   "name": "현대건설 기업설명회(IR)",
+   "detail": "경영현황 및 계획, Q&amp;A",
+   "source": "DART 공시",
+   "code": "000720",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261109800410",
+   "id": "ir:000720:2026-11-16"
   },
   {
    "date": "2026-11-16",
@@ -3925,6 +4145,17 @@
    "id": "ir:018260:2026-11-18"
   },
   {
+   "date": "2026-11-18",
+   "time": "09:30",
+   "kind": "earnings_kr",
+   "name": "현대건설 기업설명회(IR)",
+   "detail": "경영현황 및 계획, Q&amp;A",
+   "source": "DART 공시",
+   "code": "000720",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261109800419",
+   "id": "ir:000720:2026-11-18"
+  },
+  {
    "date": "2026-11-19",
    "time": "",
    "kind": "earnings_kr",
@@ -3934,6 +4165,28 @@
    "code": "215600",
    "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261106900258",
    "id": "ir:215600:2026-11-19"
+  },
+  {
+   "date": "2026-11-19",
+   "time": "09:00",
+   "kind": "earnings_kr",
+   "name": "미래에셋생명 기업설명회(IR)",
+   "detail": "2026년 3분기 경영실적에 대한 설명 및 질의응답",
+   "source": "DART 공시",
+   "code": "085620",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261109800652",
+   "id": "ir:085620:2026-11-19"
+  },
+  {
+   "date": "2026-11-20",
+   "time": "15:05",
+   "kind": "earnings_kr",
+   "name": "현대건설 기업설명회(IR)",
+   "detail": "경영현황 및 계획, Q&amp;A",
+   "source": "DART 공시",
+   "code": "000720",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261109800423",
+   "id": "ir:000720:2026-11-20"
   },
   {
    "date": "2026-11-23",
@@ -3978,6 +4231,17 @@
    "code": "095340",
    "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261106900158",
    "id": "ir:095340:2026-11-24"
+  },
+  {
+   "date": "2026-11-24",
+   "time": "09:00",
+   "kind": "earnings_kr",
+   "name": "현대건설 기업설명회(IR)",
+   "detail": "경영현황 및 계획, Q&amp;A",
+   "source": "DART 공시",
+   "code": "000720",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261109800430",
+   "id": "ir:000720:2026-11-24"
   },
   {
    "date": "2026-11-26",
