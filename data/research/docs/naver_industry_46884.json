@@ -1,0 +1,74 @@
+{
+ "file_id": "naver_industry_46884",
+ "url": "https://stock.naver.com/research/industry/46884",
+ "depth": "light",
+ "title": "조선은 중간선거와 무관한 초당적 섹터가 아니다",
+ "broker": "SK증권",
+ "date": "2026-11-09",
+ "analyst": "",
+ "kind": "산업",
+ "subject": "조선 · HD현대중공업",
+ "one_line": "중간선거 영향은 LNG선·군함·데이터센터 엔진 등 항목별로 시점과 방향이 달라, 항목별로 나눠 봐야 한다. 최선호는 HD현대중공업.",
+ "summary": [
+  "신조선가지수 187.20pt(하락), 중고선가지수 232.60pt(+2.73pt)",
+  "HD현대중공업 VLAC 4척 척당 $117.5m 수주(납기 2030년 5월, 총 10척 중 첫 단계)",
+  "LNG선: 2029년 이후 미국 LNG 승인 중단 시 발주 공백 우려 / 군함: 해외 건조 제한 vs 미국 내 건조 유효"
+ ],
+ "numbers": [
+  {
+   "label": "신조선가지수",
+   "value": "187.20pt",
+   "note": "하락, p.1"
+  },
+  {
+   "label": "VLAC 수주 단가",
+   "value": "$117.5m/척",
+   "note": "4척, p.1"
+  }
+ ],
+ "stocks": [
+  {
+   "name": "HD현대중공업",
+   "role": "Top pick",
+   "view": "최선호주 유지",
+   "target": null,
+   "why": "미국 내 건조·4행정 엔진 역량",
+   "code": "329180"
+  }
+ ],
+ "sectors": [
+  {
+   "name": "조선",
+   "view": "긍정(항목별 차별)",
+   "why": "LNG 발주 후반 우려, 엔진·FDC 수요는 유지"
+  }
+ ],
+ "tags": [
+  "조선",
+  "LNG",
+  "데이터센터"
+ ],
+ "risks": [
+  "미국 LNG 승인 정책 변화",
+  "군함 해외 건조 규제"
+ ],
+ "importance": 4,
+ "thesis": [],
+ "catalysts": [],
+ "outlook": {
+  "short": "항목별 뉴스 확인",
+  "mid": "FDC·4행정 엔진 수요 지속 여부"
+ },
+ "claude": {
+  "opinion": "조선을 한 덩어리로 보지 말고 항목별 영향을 나눠 볼 것. 최선호는 HD현대중공업.",
+  "counter": [
+   "2029년 이후 미국 LNG 승인 중단 시 LNG선 발주 공백",
+   "데이터센터 규제에 따른 엔진 수요 속도 조절"
+  ],
+  "check": [
+   "11/12 해군 해외 설계 평가·FY27 NDAA 해외 건조 예외 반영 여부",
+   "차기 대선 전 미국 LNG FID 속도"
+  ]
+ },
+ "analyzed_at": "2026-11-09 14:07"
+}

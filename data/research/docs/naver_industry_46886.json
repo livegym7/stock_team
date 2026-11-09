@@ -1,0 +1,87 @@
+{
+ "file_id": "naver_industry_46886",
+ "url": "https://stock.naver.com/research/industry/46886",
+ "depth": "light",
+ "title": "미국 중간선거 블루웨이브, 오히려 기회가 될 수 있다",
+ "broker": "iM증권",
+ "date": "2026-11-09",
+ "analyst": "정원석",
+ "kind": "산업",
+ "subject": "이차전지 · 북미 ESS",
+ "one_line": "데이터센터 규제가 강해져도 북미 ESS 수요는 유지되고, 국내 셀 업체 점유율 확대가 기대된다(이차전지 Overweight 상향).",
+ "summary": [
+  "북미 ESS 배터리 2026년 출하 약 175GWh 추정(전년 대비 +56%, 3Q 누적 +71%, SNE리서치 인용)",
+  "데이터센터 수요가 20~30% 낮아도 유틸리티 수요 성장률이 2%p 높으면 전체 수요는 비슷하다는 민감도 분석",
+  "이차전지 업종 Overweight 상향, 최선호 삼성SDI · 차선호 LG에너지솔루션(2028년 P/E 18.8배 · 27.6배)"
+ ],
+ "numbers": [
+  {
+   "label": "북미 ESS 배터리 출하(2026F)",
+   "value": "약 175GWh",
+   "note": "전년 대비 +56% 추정, p.2"
+  },
+  {
+   "label": "북미 ESS 출하(3Q26)",
+   "value": "약 46GWh",
+   "note": "+54% YoY, p.2"
+  },
+  {
+   "label": "2030 북미 ESS 출하",
+   "value": "약 245GWh",
+   "note": "+11% YoY 전망, p.2"
+  }
+ ],
+ "stocks": [
+  {
+   "name": "삼성SDI",
+   "role": "Top pick",
+   "view": "최선호(이차전지 Overweight)",
+   "target": null,
+   "why": "2028F P/E 18.8배",
+   "code": "006400"
+  },
+  {
+   "name": "LG에너지솔루션",
+   "role": "언급",
+   "view": "차선호",
+   "target": null,
+   "why": "2028F P/E 27.6배",
+   "code": "373220"
+  }
+ ],
+ "sectors": [
+  {
+   "name": "2차전지",
+   "view": "긍정",
+   "why": "Neutral→Overweight 상향, ESS 중심"
+  }
+ ],
+ "tags": [
+  "2차전지",
+  "ESS",
+  "북미"
+ ],
+ "risks": [
+  "2026년 증가율에 이연 물량 포함 가능성",
+  "정책 변화에 따른 수요 변동"
+ ],
+ "importance": 4,
+ "thesis": [],
+ "catalysts": [],
+ "outlook": {
+  "short": "단기 변동성 큼(규제 뉴스 민감)",
+  "mid": "북미 ESS 성장 유지 가능성(리포트 기준)"
+ },
+ "claude": {
+  "opinion": "북미 ESS 공급망 재편 수혜가 크다는 관점. 2차전지가 중간선거 뉴스로 급락한 것을 과잉 반응으로 본다.",
+  "counter": [
+   "2026년 높은 증가율에는 세이프하버 이연 물량이 일부 섞였을 수 있음",
+   "데이터센터 투자 지연이 길어지면 ESS 수요 기대도 낮아질 수 있음"
+  ],
+  "check": [
+   "데이터센터 착공 지연이 2027년 ESS 수주에 반영되는지",
+   "삼성SDI 북미 ESS 수주 공시"
+  ]
+ },
+ "analyzed_at": "2026-11-09 14:07"
+}

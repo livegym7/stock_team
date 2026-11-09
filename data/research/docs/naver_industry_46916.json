@@ -1,0 +1,81 @@
+{
+ "file_id": "naver_industry_46916",
+ "url": "https://stock.naver.com/research/industry/46916",
+ "depth": "light",
+ "title": "출하와 수주 기대치 상회, 마진 눈높이는 하향 조정 필요",
+ "broker": "하나증권",
+ "date": "2026-11-09",
+ "analyst": "김현수",
+ "kind": "산업",
+ "subject": "2차전지 · ESS",
+ "one_line": "3분기 배터리 출하와 수주는 기대치에 맞거나 넘었지만 ESS 마진은 눈높이를 낮출 필요가 있다. 대형주 비중 확대를 권고.",
+ "summary": [
+  "3Q ESS 출하 QoQ: LG에너지솔루션 +65%, 삼성SDI +45% / EV: LGES +5%, 삼성SDI −5%(보상금 제외)",
+  "신규 수주: LG에너지솔루션 연간 가이던스 90GWh 유지, 삼성SDI 120GWh 신규 가이던스",
+  "AMPC 제외 ESS 마진은 한 자리 초반까지 낮아졌지만 컨센서스 눈높이는 여전히 높다는 평가"
+ ],
+ "numbers": [
+  {
+   "label": "3Q ESS 출하 QoQ(LGES)",
+   "value": "+65%",
+   "note": "삼성SDI +45%, p.1"
+  },
+  {
+   "label": "삼성SDI 신규 수주 가이던스",
+   "value": "120GWh",
+   "note": "LGES 90GWh 유지, p.1"
+  }
+ ],
+ "stocks": [
+  {
+   "name": "LG에너지솔루션",
+   "role": "관심",
+   "view": "대형주 비중 확대 권고(섹터)",
+   "target": null,
+   "why": "ESS 출하 증가",
+   "code": "373220"
+  },
+  {
+   "name": "삼성SDI",
+   "role": "관심",
+   "view": "대형주 비중 확대 권고(섹터)",
+   "target": null,
+   "why": "신규 수주 강함",
+   "code": "006400"
+  }
+ ],
+ "sectors": [
+  {
+   "name": "2차전지",
+   "view": "긍정(대형주 중심)",
+   "why": "ESS 성장 지속, 마진 눈높이 조정"
+  }
+ ],
+ "tags": [
+  "2차전지",
+  "ESS"
+ ],
+ "risks": [
+  "ESS 마진 하향",
+  "EV 출하 부진",
+  "AMPC 정책 변화"
+ ],
+ "importance": 4,
+ "thesis": [],
+ "catalysts": [],
+ "outlook": {
+  "short": "변동성 큼(중간선거 뉴스)",
+  "mid": "ESS 중심 성장 지속(리포트)"
+ },
+ "claude": {
+  "opinion": "출하·수주는 좋지만 마진 컨센서스는 높아 조정될 수 있다는 관점. 주가 급등락 때 대형주 중심 비중 확대를 권고.",
+  "counter": [
+   "AMPC 제외 기준 ESS 흑자 전환이 쉽지 않아 마진 추정치 하향 가능"
+  ],
+  "check": [
+   "4Q ESS 출하(LGES +35%, SDI +70% QoQ 전망)",
+   "미국 고객사 협상 결과"
+  ]
+ },
+ "analyzed_at": "2026-11-09 14:07"
+}
