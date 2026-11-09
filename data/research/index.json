@@ -773,6 +773,42 @@
    "drive_modified": null,
    "analyzed_at": "2026-11-09 14:07",
    "depth": "light"
+  },
+  "1-edjtPY2ogh_5EHpGncwjfaf1asDlZws": {
+   "title": "미국 중간선거 결과에 따른 주요 에너지 산업 영향 (유진투자증권, 2026-11-06)",
+   "broker": "유진투자증권",
+   "date": "2026-11-06",
+   "kind": "산업",
+   "subject": "에너지 · 배터리·태양광·유틸리티·정유화학",
+   "one_line": "민주당 양원 장악으로 친환경 정책 '추가 후퇴'가 멈춘다 — 배터리·태양광·전력가스 유틸리티 긍정, 정유·화학 중립~부정.",
+   "url": "https://drive.google.com/file/d/1-edjtPY2ogh_5EHpGncwjfaf1asDlZws/view?usp=drivesdk",
+   "drive_modified": "2026-11-06T02:49:03.434Z",
+   "analyzed_at": "2026-11-09 19:16",
+   "depth": "light"
+  },
+  "1A8sRscaErPkfNTuTtvV88FaxxwBhxsii": {
+   "title": "재편의 시작, 기회의 항로 — 2027 운송 산업전망 (유안타증권, 2026-11-06)",
+   "broker": "유안타증권",
+   "date": "2026-11-06",
+   "kind": "산업",
+   "subject": "운송 · 항공·해운(탱커·벌크·컨테이너·PCTC)",
+   "one_line": "운송 Overweight — 항공은 인바운드·환승·통합 시너지로 선호(Top pick 대한항공), 해운은 탱커·벌크만 선별(차선호 팬오션), 컨테이너는 2027 공급과잉.",
+   "url": "https://drive.google.com/file/d/1A8sRscaErPkfNTuTtvV88FaxxwBhxsii/view?usp=drivesdk",
+   "drive_modified": "2026-11-06T02:49:45.634Z",
+   "analyzed_at": "2026-11-09 19:16",
+   "depth": "full"
+  },
+  "naver_invest_40740": {
+   "title": "[2027년 국내주식 전략] 초과이익의 유효 기간 (신한투자증권, 2026-11-06)",
+   "broker": "신한투자증권",
+   "date": "2026-11-06",
+   "kind": "전략",
+   "subject": "2027 국내주식 · KOSPI 밴드·반도체 가치·업종 순서",
+   "one_line": "반도체 주가는 '이익 감소'가 아니라 '고이익이 이어질 기간'을 2년치로만 인정 중 — 2027년 KOSPI 밴드 5,000~8,000, 기본 7,000, 1분기 분할 매수·2분기 추세 회복 경로.",
+   "url": "https://stock.naver.com/research/invest/40740",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-09 19:17",
+   "depth": "full"
   }
  },
  "skipped": {
