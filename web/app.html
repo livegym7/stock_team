@@ -1,4 +1,5 @@
-<title>JH트레이딩룸</title>
+<title>Balance Lab</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%201024%201024%22%20width=%221024%22%20height=%221024%22%3E%20%3Cdefs%3E%20%3ClinearGradient%20id=%22b%22%20x1=%220%22%20y1=%220%22%20x2=%220%22%20y2=%221%22%3E%20%3Cstop%20offset=%220%22%20stop-color=%22%237a8cff%22/%3E%20%3Cstop%20offset=%221%22%20stop-color=%22%234338ca%22/%3E%20%3C/linearGradient%3E%20%3ClinearGradient%20id=%22g%22%20x1=%220%22%20y1=%220%22%20x2=%220%22%20y2=%221%22%3E%20%3Cstop%20offset=%220%22%20stop-color=%22%23ffffff%22%20stop-opacity=%22.22%22/%3E%20%3Cstop%20offset=%22.55%22%20stop-color=%22%23ffffff%22%20stop-opacity=%220%22/%3E%20%3C/linearGradient%3E%20%3C/defs%3E%20%3Crect%20width=%221024%22%20height=%221024%22%20rx=%22232%22%20fill=%22url(%23b)%22/%3E%20%3Crect%20width=%221024%22%20height=%221024%22%20rx=%22232%22%20fill=%22url(%23g)%22/%3E%20%3Cg%20fill=%22%23fff%22%3E%20%3Cg%20transform=%22rotate(-9%20512%20520)%22%3E%20%3Crect%20x=%22196%22%20y=%22504%22%20width=%22632%22%20height=%2234%22%20rx=%2217%22/%3E%20%3Ccircle%20cx=%22286%22%20cy=%22408%22%20r=%2296%22/%3E%20%3Ccircle%20cx=%22738%22%20cy=%22440%22%20r=%2264%22/%3E%20%3C/g%3E%20%3Cpath%20d=%22M512%20548%20L428%20706%20H596%20Z%22%20stroke=%22%23fff%22%20stroke-width=%2244%22%20stroke-linejoin=%22round%22/%3E%20%3Crect%20x=%22364%22%20y=%22724%22%20width=%22296%22%20height=%2234%22%20rx=%2217%22/%3E%20%3C/g%3E%20%3C/svg%3E%20">
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap">
@@ -379,7 +380,8 @@ th{background:transparent;color:var(--muted);font-weight:500;font-size:12px;bord
 td{border-bottom:1px solid var(--border);padding:10px 12px}
 tr.click:hover td,tbody tr:hover td{background:color-mix(in srgb,var(--muted-bg) 60%,transparent)}
 .qt th{padding:4px 12px 6px}.qt td{padding:6px 12px}.qt tr:hover td{background:transparent}.qt tr.ix td{border-bottom:0}
-.qt th:nth-child(2){width:88px}.qt th:nth-child(3){width:66px}.qt th:nth-child(4){width:64px}
+.qt th:nth-child(2){width:84px}.qt th:nth-child(3){width:64px}.qt th:nth-child(4){width:76px}
+.qt th,.qt td{padding-left:8px;padding-right:8px}.qt th:first-child,.qt td:first-child{padding-left:16px}.qt td:last-child,.qt th:last-child{padding-left:0;padding-right:14px}
 tr.me td{background:var(--muted-bg)}
 /* 목록 선택 */
 .rrow.on,.step.now{background:var(--muted-bg);box-shadow:none}.rrow:hover{background:color-mix(in srgb,var(--muted-bg) 60%,transparent)}
@@ -388,7 +390,7 @@ tr.me td{background:var(--muted-bg)}
 .cd.today{border-color:var(--primary);box-shadow:none}.cd.on{background:var(--muted-bg)}
 .rsb.hi{background:color-mix(in srgb,var(--up) 10%,transparent)}.rsb.lo{background:color-mix(in srgb,var(--down) 10%,transparent)}
 /* 막대 */
-.gauge,.sbar,.rbar,.kp3 .g,.secbar,.stk,.bar .track{background:var(--muted-bg)}
+.gauge,.sbar,.rbar,.kp3 .g,.secbar,.bar .track{background:var(--muted-bg)}
 .gauge i,.sbar i,.kp3 .g i{background:var(--primary)}
 .kp3{border-top:1px solid var(--border);border-bottom:1px solid var(--border)}.kp3>div{border-left-color:var(--border)}
 .kp3 small{color:var(--muted)}
@@ -429,9 +431,38 @@ tr.me td{background:var(--muted-bg)}
   .tabbar .on{color:var(--foreground);font-weight:600}
   .more.open{background:var(--card);border-top-color:var(--border)}.more a{border-color:var(--border);border-radius:10px;background:var(--card)}
 }
+
+/* ===== 이름 Balance Lab · 위쪽 바 · 신호등 머리줄 · 글 가독성 (2026-11-09) ===== */
+.topbar{position:sticky;top:0;z-index:15;display:flex;align-items:center;height:44px;background:color-mix(in srgb,var(--background) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--border)}
+.brandbar{flex:none;width:68px;display:flex;align-items:center;justify-content:center;gap:9px;color:var(--foreground);text-decoration:none;height:100%}
+.brandbar .bl-ico{width:28px;height:28px;flex:none;filter:drop-shadow(0 1px 2px rgb(67 56 202 / .35))}
+.brandbar b{display:none;font-size:14px;font-weight:700;letter-spacing:-.3px;white-space:nowrap}
+.topbar .tape{position:static;flex:1;min-width:0;height:100%;padding:0 16px;border:0;background:transparent;backdrop-filter:none}
+@media(min-width:821px){.brandbar{width:auto;padding:0 20px 0 20px;justify-content:flex-start;min-width:68px}.brandbar b{display:inline}.topbar .tape{border-left:1px solid var(--border)}}
+@media(max-width:820px){.topbar{position:static;height:40px}.brandbar{width:auto;padding:0 8px 0 14px}.brandbar b{display:inline;font-size:13px}.tape{padding:0 12px}}
+nav.side{top:44px}
+/* 신호등: 머리줄 */
+.hhdr{flex-wrap:nowrap;gap:10px}.hhdr h1{flex:none}.hhdr .badge{flex:none}
+.hhdr .sgtxt{flex:1 1 auto;min-width:0;font-size:13.5px;color:var(--foreground);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hhdr .sgnum{flex:none;font-size:11.5px;color:var(--muted);white-space:nowrap}
+.hhdr .t{flex:none;margin-left:6px;white-space:nowrap}
+@media(max-width:1380px){.hhdr .sgnum{display:none}}
+@media(max-width:1180px){.hhdr .t{display:none}}
+@media(max-width:820px){.hhdr{flex-wrap:wrap;gap:6px 10px}.hhdr .sgtxt{flex:1 1 100%;order:3;white-space:normal;font-size:13px;line-height:1.5}.hhdr .t{display:block;order:4;margin-left:0;width:100%}}
+/* 글 가독성: 한 문장 한 줄, 넉넉한 줄간격 */
+.sl{display:block}.sl+.sl{margin-top:5px}
+.opr .t{font-size:14.5px;line-height:1.75;color:var(--foreground)}
+.opr{padding:14px 16px}
+.br2{font-size:14.5px;line-height:1.8}
+.br2 .brb{margin:8px 0 8px 2px}.br2 .brp{margin:8px 0}.br2 .brx{margin:5px 0 5px 30px;line-height:1.75}
+.br2 .bri{margin:20px 0 6px}
+.br2 .brh{margin:28px 0 12px;padding-top:18px}
+.br2 .brx .bl{margin-bottom:2px}
+@media(max-width:820px){.opr{padding:12px 14px}.opr .t{font-size:14.5px}}
 </style>
 
-<div class="tape num" id="tape"></div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="bl-icon" viewBox="0 0 1024 1024"><defs> <linearGradient id="blbg" x1="0" y1="0" x2="0" y2="1"> <stop offset="0" stop-color="#7a8cff"/> <stop offset="1" stop-color="#4338ca"/> </linearGradient> <linearGradient id="blgl" x1="0" y1="0" x2="0" y2="1"> <stop offset="0" stop-color="#ffffff" stop-opacity=".22"/> <stop offset=".55" stop-color="#ffffff" stop-opacity="0"/> </linearGradient> </defs> <rect width="1024" height="1024" rx="232" fill="url(#blbg)"/> <rect width="1024" height="1024" rx="232" fill="url(#blgl)"/> <g fill="#fff"> <g transform="rotate(-9 512 520)"> <rect x="196" y="504" width="632" height="34" rx="17"/> <circle cx="286" cy="408" r="96"/> <circle cx="738" cy="440" r="64"/> </g> <path d="M512 548 L428 706 H596 Z" stroke="#fff" stroke-width="44" stroke-linejoin="round"/> <rect x="364" y="724" width="296" height="34" rx="17"/> </g> </symbol></svg>
+<header class="topbar"><a class="brandbar" href="#home" title="Balance Lab · 추세추종 돌파 · 보기 전용"><svg class="bl-ico" viewBox="0 0 1024 1024" aria-hidden="true"><use href="#bl-icon"/></svg><b>Balance Lab</b></a><div class="tape num" id="tape"></div></header>
 <div class="app">
   <nav class="side" id="side"></nav>
   <main id="main"></main>
@@ -468,7 +499,7 @@ function src(t){return `<div class="src">${esc(t)}</div>`}
 const RAIL={strategy:"전략",portfolio:"포트폴리오",watch:"감시",config:"규칙·일정"};
 function nav(){
   const cur=route();
-  $("#side").innerHTML=`<div class="logo" title="JH트레이딩룸 · 추세추종 돌파 · 보기 전용">JH</div>`+
+  $("#side").innerHTML=
     GROUPS.map(([g,rf,ks],gi)=>(gi?`<div class="rsep" title="${esc(g)}"></div>`:"")+
       ks.map(k=>{const [,n,i]=MENU.find(m=>m[0]==k);return `<a href="#${k}" class="${cur==k?"on":""}" title="${esc(n)}"><span class="ico">${i}</span>${esc(RAIL[k]||n)}</a>`}).join("")).join("")+
     `<div class="rbot"><button class="rbtn" data-theme-t="1" title="밝게/어둡게 바꾸기" aria-label="밝게/어둡게 바꾸기">${isDark()?"☀":"☾"}</button><button class="rbtn" data-rfpop="1" title="새로고침 안내" aria-label="새로고침 안내">↻</button><div class="rtime num">${esc((D.built_at||"").slice(5))}<br>기준</div></div>`;
@@ -629,7 +660,7 @@ function thermoTable(){
   const mk=(P&&P.markets)||(m.kr||[]).map(r=>({market:r.code,name:r.index,price:r.price,change_pct:r.change_pct}));
   if(!mk.length)return `<div class="empty">시장 온도계 데이터가 없습니다</div>`;
   return `<table class="qt"><tr><th class="l">지수</th><th>현재</th><th>등락</th><th></th></tr>${mk.map(x=>{const tot=(x.up||0)+(x.down||0)+(x.flat||0);
-   return `<tr class="ix"><td class="l">${esc(x.name)}</td><td class="num">${fp(x.price)}</td><td class="num ${cls(x.change_pct)}">${pc(x.change_pct,2)}</td><td>${spark(sp[KSYM[x.market]],60,22)}</td></tr>
+   return `<tr class="ix"><td class="l">${esc(x.name)}</td><td class="num">${fp(x.price)}</td><td class="num ${cls(x.change_pct)}">${pc(x.change_pct,2)}</td><td>${spark(sp[KSYM[x.market]],56,22)}</td></tr>
    ${x.foreign_eok!=null?`<tr class="fx"><td colspan="4"><div class="mini num"><span>외국인 <b>${eok(x.foreign_eok)}</b></span><span>기관 <b>${eok(x.institution_eok)}</b></span><span>개인 <b>${eok(x.individual_eok)}</b></span></div>
    ${tot?`<div class="ad" title="오른 종목 / 보합 / 내린 종목"><i style="width:${x.up/tot*100}%;background:var(--up)"></i><i style="width:${x.flat/tot*100}%;background:var(--faint);opacity:.5"></i><i style="flex:1;background:var(--down)"></i></div>
    <div class="adl num"><span class="up">▲${x.up}${x.upper?` (상한 ${x.upper})`:""}</span><span class="down">▼${x.down}${x.lower?` (하한 ${x.lower})`:""}</span></div>`:""}</td></tr>`:""}`}).join("")}</table>`;
@@ -637,14 +668,20 @@ function thermoTable(){
 function macroTable(){
   const sp=(D.market||{}).spark||{}, rows=MACRO.map(([s,n])=>[n,usRow(s),s]).filter(r=>r[1]);
   if(!rows.length)return `<div class="empty">해외 시세를 불러오지 못했습니다</div>`;
-  return `<table class="qt"><tr><th class="l">종목</th><th>현재</th><th>등락</th><th></th></tr>${rows.map(([n,r,s])=>`<tr title="${esc(r.name)} · ${esc((r.traded_at_kst||"").replace("T"," "))} (한국시간)"><td class="l">${esc(n)}</td><td class="num">${fp(r.price)}</td><td class="num ${cls(r.change_pct)}">${pc(r.change_pct,2)}</td><td>${spark(sp[s],60,22)}</td></tr>`).join("")}</table>`;
+  return `<table class="qt"><tr><th class="l">종목</th><th>현재</th><th>등락</th><th></th></tr>${rows.map(([n,r,s])=>`<tr title="${esc(r.name)} · ${esc((r.traded_at_kst||"").replace("T"," "))} (한국시간)"><td class="l">${esc(n)}</td><td class="num">${fp(r.price)}</td><td class="num ${cls(r.change_pct)}">${pc(r.change_pct,2)}</td><td>${spark(sp[s],56,22)}</td></tr>`).join("")}</table>`;
+}
+/* 문장마다 줄바꿈 (2026-11-09): '다.' '요.' ')." '숫자.' 뒤 공백에서 끊어 한 문장을 한 줄로. 소수점(5,357.36)·번호 목록은 건드리지 않음 */
+function sentLines(t){
+  const parts=String(t||"").split(/(?<=[다요음함됨임죠]\.|[다요음함됨임죠]\)\.|\d\.)\s+(?=\S)/u).map(x=>x.trim()).filter(Boolean);
+  return parts.map(x=>`<span class="sl">${tint(x)}</span>`).join("");
 }
 function opinionRows(op){
   const lines=op.opinion.replace(/^💡[^\n]*\n?/,"").split(/\n+/).map(x=>x.trim()).filter(Boolean);
   const rows=[];lines.forEach(l=>{if(!/^[-•·]/.test(l)&&rows.length){rows[rows.length-1].t+="\n"+l;return}rows.push({t:l.replace(/^[-•·]\s*/,"")})});
   return rows.map((r,i)=>{let k="",t=r.t;const m=t.match(/^([^:：\d🔄]{2,8})[:：]\s*/);
     if(m){k=m[1];t=t.slice(m[0].length)}else if(/^🔄/u.test(t)){k="변화";t=t.replace(/^🔄\s*/u,"")}else if(/⭐/.test(t))k="내 종목";else if(i==0)k="핵심";
-    return `<div class="opr"><div class="k">${esc(k)}</div><div class="t">${tint(t)}</div></div>`}).join("");
+    if(!k)k=i==0?"핵심":"추가";
+    return `<div class="opr"><div class="k">${esc(k)}</div><div class="t">${sentLines(t)}</div></div>`}).join("");
 }
 function acctBox(){
   const r=D.risk; if(!r||r.error)return `<div class="bx"><div class="bh">내 계좌</div><div class="empty" style="margin:10px">리스크 계산 실패</div></div>`;
@@ -696,7 +733,7 @@ function newsBox(){
 }
 function viewHome(){
   const op=latestOpinion(), R=(D.insights||{}).regime, L={green:"초록",yellow:"노랑",red:"빨강"};
-  return `<div class="hhdr"><h1>오늘</h1>${R?`<span class="badge ${R.light}">시장 신호 ${L[R.light]}</span>`:""}<span class="t num">데이터 ${esc(D.built_at)} 기준</span></div>
+  return `<div class="hhdr"><h1>오늘</h1>${R?`<span class="badge ${R.light}">시장 신호 ${L[R.light]}</span><span class="sgtxt">${esc(R.text)}</span><span class="sgnum num" title="코스피 20일선 대비 ${pc(R.gap20)} · 20일선 기울기 ${pc(R.slope20)} · 1주 ${pc(R.r1w)} · 1개월 ${pc(R.r1m)} · 고점 대비 ${pc(R.off_high)} (${esc(R.date)} 종가)">20일선 ${pc(R.gap20)} · 1주 ${pc(R.r1w)} · 고점 ${pc(R.off_high)}</span>`:""}<span class="t num">데이터 ${esc(D.built_at)} 기준</span></div>
   <div class="hgrid">
    <div class="hc1">
     <div class="bx"><div class="bh">시장 온도계<em>${esc(D.pulse?(D.pulse.markets?.[0]?.status=="CLOSE"?"마감":"장중")+" "+(D.pulse.at||"").slice(11):"")} · 네이버</em></div>${thermoTable()}</div>
@@ -704,7 +741,7 @@ function viewHome(){
     ${src("국내 네이버 증권, 해외 Yahoo Finance(비공식) · 미니 차트 = 회색 전일 · 색 당일 · 점선 전일 종가 · 투자자 금액은 거래소 잠정치(억 원)")}
    </div>
    <div class="hc2">
-    <div class="bx">${R?`<div class="sig ${R.light}"><span class="l"></span><div><b>신호등 ${L[R.light]}</b> · ${esc(R.text)}<small class="num sigd">코스피 20일선 ${pc(R.gap20)} · 기울기 ${pc(R.slope20)} · 1주 ${pc(R.r1w)} · 1개월 ${pc(R.r1m)} · 고점 ${pc(R.off_high)} · ${esc(String(R.date).slice(4,6)+"/"+String(R.date).slice(6))} 종가</small></div></div>`:""}
+    <div class="bx">
      <div class="bh">💡 CLAUDE 의견<em>${op?esc(op.kind_name)+" · "+esc(op.date)+(op.time?" "+esc(op.time):""):""}</em></div>
      ${op?opinionRows(op):`<div class="empty" style="margin:10px">아직 의견이 담긴 브리핑이 없습니다</div>`}</div>
     ${newsBox()}
@@ -749,11 +786,11 @@ function briefHtml(text){
       out.push(`<div class="bri${long?" long":""}"><span class="bn">${esc(m[1].replace(/️?⃣/,"").replace(".",""))}</span><span>${H(body)}</span></div>`);continue}
     if(/^\s*↳/.test(raw)){out.push(`<div class="brr">${H(t)}</div>`);continue}
     if(/^[-•·]\s*/.test(t)){let x=t.replace(/^[-•·]\s*/,""),e=x.match(/^((?:\p{Extended_Pictographic}|\p{Regional_Indicator})\uFE0F?)\s*/u),bd="•";if(e){bd=e[1];x=x.slice(e[0].length)}
-      out.push(`<div class="brb"><span class="bd${e?" e":""}">${bd}</span><span>${H(x)}</span></div>`);continue}
+      out.push(`<div class="brb"><span class="bd${e?" e":""}">${bd}</span><span>${sentLines(x)}</span></div>`);continue}
     if(/^🌡️/u.test(t)){out.push(`<div class="brmood">${H(t)}</div>`);continue}
     if(/^\s/.test(raw)){const m=t.match(/^(사업|오늘|근거|1개월|반대|볼 것|이유)\s*[:：]\s*(.*)$/);
-      out.push(`<div class="brx">${m?`<span class="bl">${esc(m[1])}</span>${H(m[2])}`:H(t)}</div>`);continue}
-    out.push(`<div class="brp${/^⚠️/u.test(t)?" w":""}${/^⭐/u.test(t)?" own":""}">${H(t)}</div>`);
+      out.push(`<div class="brx">${m?`<span class="bl">${esc(m[1])}</span>${sentLines(m[2])}`:sentLines(t)}</div>`);continue}
+    out.push(`<div class="brp${/^⚠️/u.test(t)?" w":""}${/^⭐/u.test(t)?" own":""}">${sentLines(t)}</div>`);
   }
   return out.join("");
 }
