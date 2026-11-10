@@ -1,0 +1,135 @@
+
+<title>Balance Lab 디자인 시안</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap">
+<style>
+/* 레이아웃: 같은 내용(오늘·흐름·관찰 풀)을 A안·B안 두 가지 피부로. 구조는 메뉴 5개 재설계와 같음 */
+:root{--bg:#ffffff;--fg:#191f28;--mute:#6b7684;--line:#e5e8eb;--soft:#f2f4f6;--acc:#3182f6;--up:#f04452;--down:#3182f6;--chip:#f2f4f6;--radius:14px;--fd:"Noto Sans KR",system-ui,-apple-system,sans-serif;--fs:15px;--panel:transparent;--shadow:none;--pad:20px}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#17171c;--fg:#e9ebf0;--mute:#9aa1ac;--line:#2a2b33;--soft:#1f2026;--chip:#26272e;--acc:#4f8df7;--up:#ff6b6b;--down:#5aa2ff;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#17171c;--fg:#e9ebf0;--mute:#9aa1ac;--line:#2a2b33;--soft:#1f2026;--chip:#26272e;--acc:#4f8df7;--up:#ff6b6b;--down:#5aa2ff;color-scheme:dark}
+/* B안: 데스크 터미널 (밀도·격자·고정폭 숫자·앰버 강조) */
+[data-dir="b"]{--bg:#0f1115;--fg:#e6e8ec;--mute:#8b93a1;--line:#262a33;--soft:#161920;--chip:#1c2028;--acc:#e0a526;--up:#ff5d5d;--down:#4ea1ff;--radius:6px;--fs:13.5px;--panel:#13161c;--shadow:none;--pad:12px;color-scheme:dark}
+[data-dir="b"].light{--bg:#f6f7f9;--fg:#15181e;--mute:#5f6b7a;--line:#d9dee6;--soft:#eef1f5;--chip:#e7ebf1;--acc:#b8820f;--panel:#ffffff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:400 var(--fs)/1.6 var(--fd);letter-spacing:-.2px;font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased}
+#root{background:var(--bg);color:var(--fg);min-height:100%}
+.top{min-width:0;overflow:hidden}
+.wrap{max-width:1240px;margin:0 auto;max-width:min(1240px,100%);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 96px}
+h1,h2,h3{margin:0;text-wrap:balance;letter-spacing:-.4px}
+.up{color:var(--up)}.down{color:var(--down)}.mute{color:var(--mute)}
+.sl{display:block}.sl+.sl{margin-top:3px}
+/* 시안 전환 바 */
+.pick{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--bg);border-bottom:1px solid var(--line);display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:10px 0;margin-bottom:12px}
+.pick b{font-size:13px}.pick button{font:600 13px var(--fd);padding:7px 14px;border-radius:999px;border:1px solid var(--line);background:var(--soft);color:var(--fg);cursor:pointer}
+.pick button.on{background:var(--fg);color:var(--bg);border-color:var(--fg)}.pick small{color:var(--mute);font-size:12px}
+/* 상단 바 + 메뉴 */
+.top{display:flex;align-items:center;gap:14px;padding:10px 0;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:8px;font-weight:800;font-size:16px}.brand i{width:26px;height:26px;border-radius:7px;background:linear-gradient(#52525b,#18181b);display:inline-grid;place-items:center;color:#fff;font-style:normal;font-size:14px;font-weight:800}
+.tape{display:flex;gap:18px;overflow:auto;white-space:nowrap;font-size:12.5px;color:var(--mute);flex:1;min-width:0;scrollbar-width:none}.tape b{color:var(--fg);font-weight:600;margin:0 4px}
+.nav{display:flex;gap:4px;margin:10px 0 18px;overflow:auto;scrollbar-width:none}
+.nav a{padding:8px 14px;border-radius:999px;font-size:14px;font-weight:600;color:var(--mute);text-decoration:none;white-space:nowrap}.nav a.on{background:var(--fg);color:var(--bg)}
+[data-dir="b"] .nav a{border-radius:4px;font-size:13px;padding:6px 12px;text-transform:none}[data-dir="b"] .nav a.on{background:var(--acc);color:#111}
+/* 머리줄 */
+.hd{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:6px}.hd h1{font-size:26px;font-weight:800}
+.sig{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;padding:4px 10px;border-radius:999px;background:var(--chip)}.sig i{width:9px;height:9px;border-radius:50%;background:var(--up);display:inline-block}
+.sig.yellow i{background:#e0a526}.sig.green i{background:#22a06b}
+.hdsub{color:var(--mute);font-size:13.5px;margin-bottom:18px}.hdsub b{color:var(--fg);font-weight:600}
+/* 섹션 */
+.grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:28px 36px;align-items:start}
+@media(max-width:900px){.grid{grid-template-columns:minmax(0,1fr);gap:22px}}
+.col{display:grid;gap:26px;min-width:0}
+.sec{background:var(--panel);border-radius:var(--radius);box-shadow:var(--shadow)}
+[data-dir="b"] .sec{border:1px solid var(--line);padding:var(--pad)}[data-dir="b"] .col{gap:12px}[data-dir="b"] .grid{gap:12px}
+.sh{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:10px}.sh h2{font-size:17px;font-weight:700}.sh small{color:var(--mute);font-size:12px;white-space:nowrap}
+[data-dir="b"] .sh h2{font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:var(--mute);font-weight:700}
+/* 의견 */
+.op{display:grid;gap:0}.op>div{display:grid;grid-template-columns:64px minmax(0,1fr);gap:12px;padding:12px 0;border-top:1px solid var(--line)}.op>div:first-child{border-top:0;padding-top:4px}
+.op small{color:var(--mute);font-size:12.5px;font-weight:600;padding-top:2px}.op p{margin:0;font-size:15.5px;line-height:1.75}
+[data-dir="b"] .op p{font-size:13.5px;line-height:1.65}[data-dir="b"] .op>div{padding:8px 0}
+.op .key p{font-size:17px;font-weight:600}[data-dir="b"] .op .key p{font-size:14px}
+/* 소식 */
+.news{display:grid}.news>a{display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;padding:11px 0;border-top:1px solid var(--line);color:inherit;text-decoration:none}.news>a:first-child{border-top:0;padding-top:2px}
+.news .n{font-size:13px;color:var(--mute);font-weight:700;padding-top:2px}.news b{font-size:15px;font-weight:600;display:block}.news span.s{display:block;color:var(--mute);font-size:13px;margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+[data-dir="b"] .news b{font-size:13.5px}[data-dir="b"] .news>a{padding:7px 0}
+.ic{font-size:12px;margin-right:4px}
+/* 일정 */
+.cal>div{display:grid;grid-template-columns:56px minmax(0,1fr) auto;gap:10px;align-items:center;padding:9px 0;border-top:1px solid var(--line);font-size:14px}.cal>div:first-child{border-top:0;padding-top:2px}
+.cal .t{color:var(--mute);font-size:13px}.tag{font-size:11.5px;color:var(--mute);background:var(--chip);padding:2px 8px;border-radius:999px;white-space:nowrap}[data-dir="b"] .tag{border-radius:3px}
+/* 큰 숫자 (A안 토스식) */
+.big{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.big>div{padding:14px 16px;border-radius:var(--radius);background:var(--soft)}.big small{display:block;color:var(--mute);font-size:12.5px}.big b{font-size:24px;font-weight:800;letter-spacing:-.6px}.big em{font-style:normal;font-size:13px;margin-left:6px;font-weight:600}
+[data-dir="b"] .big{grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}[data-dir="b"] .big>div{padding:8px 10px;border:1px solid var(--line);background:transparent}[data-dir="b"] .big b{font-size:17px;display:block}[data-dir="b"] .big em{margin-left:0}
+.kv{display:grid;grid-template-columns:1fr auto auto;gap:4px 14px;font-size:13.5px;margin-top:12px}.kv span:nth-child(3n+1){color:var(--mute)}.kv span:nth-child(3n+2),.kv span:nth-child(3n+3){text-align:right}
+details summary{cursor:pointer;list-style:none;color:var(--mute);font-size:13px;padding:10px 0;border-top:1px solid var(--line)}details summary::-webkit-details-marker{display:none}details summary::after{content:" 펼치기 ▾"}details[open] summary::after{content:" 접기 ▴"}
+/* 계좌 한 줄 */
+.acct{padding:14px 16px;border-radius:var(--radius);background:var(--soft);font-size:14px;line-height:1.7}.acct b{font-weight:700}.acct a{color:var(--acc);text-decoration:none;font-weight:600}
+[data-dir="b"] .acct{background:transparent;border:1px solid var(--line);font-size:13px}
+/* 타임라인 (흐름) */
+.tl{display:grid;gap:8px}.tl>div{display:grid;grid-template-columns:48px auto minmax(0,1fr);gap:12px;align-items:start;padding:12px 14px;border:1px solid var(--line);border-radius:var(--radius);background:var(--panel)}
+.tl .t{color:var(--mute);font-size:13px;padding-top:2px}.tl .k{font-size:11.5px;font-weight:700;color:var(--acc);background:var(--chip);padding:2px 8px;border-radius:999px;white-space:nowrap;margin-top:2px}.tl p{margin:0;font-size:14px;line-height:1.6}
+[data-dir="b"] .tl>div{padding:8px 10px}[data-dir="b"] .tl .k{border-radius:3px;color:var(--acc)}
+/* 표 (관찰 풀) */
+.tw{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:13.5px}th,td{padding:9px 8px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}th{color:var(--mute);font-weight:600;font-size:12px}th.l,td.l{text-align:left}td b{font-weight:600}
+[data-dir="b"] th,[data-dir="b"] td{padding:6px 8px;font-size:12.5px}[data-dir="b"] tr:hover td{background:var(--soft)}
+.rsb{display:inline-block;min-width:34px;text-align:center;font-weight:700;font-size:12px;padding:1px 6px;border-radius:999px;background:var(--chip)}.rsb.hi{background:var(--up);color:#fff}
+/* 아래 탭 (휴대폰) */
+.tabbar{position:fixed;left:0;right:0;bottom:0;display:none;grid-template-columns:repeat(5,1fr);background:var(--bg);border-top:1px solid var(--line);padding:6px max(8px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px));z-index:9}
+.tabbar a{text-align:center;font-size:11px;color:var(--mute);text-decoration:none;font-weight:600}.tabbar a i{display:block;font-style:normal;font-size:17px;line-height:1.2}.tabbar a.on{color:var(--fg)}
+@media(max-width:900px){.tabbar{display:grid}.nav{display:none}}
+.note{font-size:12px;color:var(--mute);margin-top:10px}
+.sep{height:1px;background:var(--line);margin:34px 0 26px}[data-dir="b"] .sep{margin:16px 0}
+.cap{font-size:13px;color:var(--mute);margin:0 0 10px}
+</style>
+<div id="root" data-dir="a">
+<div class="wrap">
+ <div class="pick"><b>디자인 시안 고르기</b>
+  <button id="ba" class="on">A안 · 깔끔한 목록형 (토스증권 참고)</button><button id="bb">B안 · 데스크 터미널형 (트레이딩뷰 참고)</button><button id="bt">☀/☾ 밝게·어둡게</button>
+  <small>같은 내용(오늘 · 흐름 · 전략›관찰 풀)을 두 가지 모양으로. 숫자는 2026-11-10 08:17 실제 데이터. 메뉴 구조는 둘 다 재설계안(5개)과 같습니다.</small></div>
+
+ <div class="top"><div class="brand"><i>B</i>Balance Lab</div><div class="tape"><span>코스피 <b>5,018.85</b><span class="">0.00%</span></span><span>코스닥 <b>638.97</b><span class="">0.00%</span></span><span>나스닥 종합 <b>25,253.14</b><span class="up">+2.74%</span></span><span>S&amp;P 500 <b>7,549.94</b><span class="up">+2.35%</span></span><span>필라델피아 반도체 <b>10,033.93</b><span class="up">+6.85%</span></span><span>원/달러 환율 <b>1,341.80</b><span class="down">-1.07%</span></span><span>미 10년물 국채 금리(%) <b>4.86</b><span class="up">+0.10%</span></span></div></div>
+ <nav class="nav"><a class="on" href="#home">오늘</a><a href="#flow">흐름</a><a href="#strategy">전략</a><a href="#trade">내 매매</a><a href="#more">더보기</a></nav>
+
+ <div class="hd"><h1>오늘</h1><span class="sig red"><i></i>시장 신호 빨강</span><span class="mute" style="font-size:13px">데이터 2026-11-10 08:17</span></div>
+ <div class="hdsub"><b>지수가 20일선 아래 · 하락 추세 → 돌파 실패가 잦은 구간, 신규 진입은 작게</b> · 코스피 20일선 대비 -11.1% · 1주 -14.3% · 고점 대비 -46.5% (11/09 종가) · 🔴 권장 노출(표시만): 신규 0 · 관찰만</div>
+
+ <div class="grid">
+  <div class="col">
+   <section class="sec"><div class="sh"><h2>💡 Claude 의견</h2><small>리포트 정리 · 2026-11-10 08:13</small></div>
+    <div class="op"><div class="key"><small>핵심</small><p><span class="sl"><span class="down">하향</span> 32 대 <span class="up">상향</span> 10. 어제 장 마감 뒤 실적 발표 종목에 <span class="down">하향</span>이 몰렸습니다.</span><span class="sl">한전KPS 6곳, 한전기술 4곳, 원익IPS 3곳, 두산 4곳입니다.</span></p></div><div class=""><small>내 종목</small><p><span class="sl">보유 종목이 없어 참고용입니다.</span><span class="sl"><span class="up">상향</span>은 펌텍코리아 6곳(K뷰티 수출·증설)과 항공(대한항공·제주항공)입니다.</span></p></div><div class=""><small>반대 근거</small><p><span class="sl">원익IPS는 영업이익이 예상을 13% 넘었는데도 목표가가 깎였습니다.</span><span class="sl">이유는 실적이 아니라 &#x27;해외 장비주 배수 하락&#x27;입니다.</span><span class="sl">판단은 본인이 합니다.</span></p></div></div></section>
+   <section class="sec"><div class="sh"><h2>중요한 소식</h2><small>채널 정리 08:13 · 중요한 순 · 출처: 채널 요약</small></div>
+    <div class="news"><a href="#flow"><span class="n">1</span><div><b><span class="ic">🔥🔴</span>미-이란 종전 기대 → 유가 급락</b><span class="s">트럼프 &quot;전쟁은 빠르게 끝나가고 있다. 추가 군사행동 필요 없어 보인다.&quot; (07:26)</span></div></a><a href="#flow"><span class="n">2</span><div><b><span class="ic">🔴</span>미국 AI주 되돌림</b><span class="s">모건스탠리 &quot;중간선거 뒤 AI주 급락은 과도, 업종 Attractive.&quot; 중간값 종목이 52주 고점 대비 -53%. (06:27)</span></div></a><a href="#flow"><span class="n">3</span><div><b><span class="ic">🔵</span>엔비디아 CEO 리스크</b><span class="s">엔비디아 -4.27% 나홀로 급락. (07:30)</span></div></a><a href="#flow"><span class="n">4</span><div><b><span class="ic">⚪</span>오늘 국내 장 전망</b><span class="s">장전브리핑: &quot;미 기술주 반등·환율·유가 하락에 코스피 상승 출발 전망.&quot; 원/달러 1,340원대. (07:31)</span></div></a></div></section>
+   <section class="sec"><div class="sh"><h2>오늘 · 내일 일정</h2><small>중요한 순 6건</small></div>
+    <div class="cal"><div><span class="t">22:30</span><span>미국 근원 CPI(소비자물가) 월간</span><span class="tag">매크로</span></div><div><span class="t">22:30</span><span>미국 CPI(소비자물가) 월간</span><span class="tag">매크로</span></div><div><span class="t">22:30</span><span>미국 10월 CPI(소비자물가) 발표</span><span class="tag">매크로</span></div><div><span class="t">09:00</span><span>두산 기업설명회(IR)</span><span class="tag">국내 실적·IR</span></div><div><span class="t">09:00</span><span>코웨이 기업설명회(IR)</span><span class="tag">국내 실적·IR</span></div><div><span class="t">09:00</span><span>산일전기 기업설명회(IR)</span><span class="tag">국내 실적·IR</span></div></div></section>
+  </div>
+  <div class="col">
+   <section class="sec"><div class="sh"><h2>시장 숫자</h2><small>네이버 · Yahoo(비공식) · 전일 마감</small></div>
+    <div class="big"><div><small>코스피</small><b>5,018.85</b><em class="">0.00%</em></div><div><small>코스닥</small><b>638.97</b><em class="">0.00%</em></div><div><small>나스닥 종합</small><b>25,253.14</b><em class="up">+2.74%</em></div><div><small>S&amp;P 500</small><b>7,549.94</b><em class="up">+2.35%</em></div></div>
+    <details><summary>투자자 수급 · 오른/내린 종목 · 해외 더 보기</summary>
+     <div class="kv"><span>KOSPI 외국인 / 기관 / 개인</span><span class="down">-5,256억</span><span>7,535억 / -6,886억</span><span>KOSPI 오른·내린 / 신고가·신저가</span><span><span class="up">347</span>·<span class="down">530</span></span><span>81 · 167</span><span>KOSDAQ 외국인 / 기관 / 개인</span><span class="down">-580억</span><span>1,119억 / -606억</span><span>KOSDAQ 오른·내린 / 신고가·신저가</span><span><span class="up">845</span>·<span class="down">839</span></span><span>5 · 184</span>
+     <span>필라델피아 반도체</span><span>10,033.93</span><span class="up">+6.85%</span><span>원/달러 환율</span><span>1,341.80</span><span class="down">-1.07%</span><span>미 10년물 국채 금리(%)</span><span>4.86</span><span class="up">+0.10%</span></div></details></section>
+   <section class="sec"><div class="sh"><h2>내 계좌</h2><small>보유 없음 · 11-10 08:14</small></div>
+    <div class="acct">보유 종목이 없습니다. 원금 <b>1,500만 원</b> · 새 위험 여유 <b>90만 원</b> (약 3.0R).<br>최근 매매 5건 · 합계 <span class="down">-6.47R</span> · 연속 손절 5건 → <a href="#trade">내 매매에서 복기 ›</a></div></section>
+  </div>
+ </div>
+
+ <div class="sep"></div>
+ <div class="hd"><h1 style="font-size:22px">흐름 <span class="mute" style="font-size:14px;font-weight:500">› 정리 타임라인</span></h1></div>
+ <p class="cap">하루 안에서 시간순으로. 카드 머리에는 💡 첫 문장만 보이고, 누르면 본문이 펼쳐집니다.</p>
+ <div class="tl"><div><span class="t">08:13</span><span class="k">리포트 정리</span><p><span class="down">하향</span> 32 대 <span class="up">상향</span> 10. 어제 장 마감 뒤 실적 발표 종목에 <span class="down">하향</span>이 몰렸습니다. 한전KPS 6곳, 한전기술 4곳, 원익IPS 3곳, 두산 4곳입니다.</p></div><div><span class="t">08:13</span><span class="k">채널 정리</span><p>간밤 미국이 급반등했습니다. 나스닥 +2.74%, 필라델피아 반도체 +6.85%. 미-이란 종전 기대로 유가가 -4.9% 내린 것이 컸습니다. (Yahoo, 현지 11/09 종가)</p></div><div><span class="t">07:03</span><span class="k">아침 브리핑</span><p>간밤 미국이 크게 반등했습니다. 나스닥 +2.74%, 필라델피아 반도체 +6.85%입니다. 미-이란 종전 협상 기대에 유가가 -4.9% 급락한 영향이 컸습니다. (Yahoo, 현지 11/09 종가)</p></div></div>
+
+ <div class="sep"></div>
+ <div class="hd"><h1 style="font-size:22px">전략 <span class="mute" style="font-size:14px;font-weight:500">› 관찰 풀</span></h1></div>
+ <p class="cap">전략 보고서가 고른 종목. 감시 목록은 이 풀 + RS 70↑만 봅니다. 행동은 관찰/준비/회피, 매수·매도 권유가 아닙니다.</p>
+ <div class="tw"><table><tr><th class="l">띔</th><th class="l">종목</th><th class="l">역할</th><th>RS</th><th>1개월</th><th>고점 대비</th><th>20일선</th></tr>
+ <tr><td class="l mute">T1</td><td class="l"><b>SGC에너지</b></td><td class="l mute">선도 후보 (전력 확보형 개발)</td><td><span class="rsb ">35</span></td><td class="down">-25.8%</td><td>-52.3%</td><td><span class=down>아래</span></td></tr><tr><td class="l mute">T1</td><td class="l"><b>NAVER</b></td><td class="l mute">선도 후보 (운영·풀스택)</td><td><span class="rsb ">33</span></td><td class="up">+0.8%</td><td>-39.2%</td><td><span class=up>위</span></td></tr><tr><td class="l mute">T1</td><td class="l"><b>삼성에스디에스</b></td><td class="l mute">선도 후보 (운영·풀스택)</td><td><span class="rsb hi">81</span></td><td class="up">+11.2%</td><td>-43.9%</td><td><span class=up>위</span></td></tr><tr><td class="l mute">T1</td><td class="l"><b>GS건설</b></td><td class="l mute">후속 (시공)</td><td><span class="rsb ">75</span></td><td class="down">-5.5%</td><td>-33.0%</td><td><span class=up>위</span></td></tr><tr><td class="l mute">T2</td><td class="l"><b>삼성SDI</b></td><td class="l mute">선도</td><td><span class="rsb ">54</span></td><td class="down">-27.9%</td><td>-43.4%</td><td><span class=down>아래</span></td></tr><tr><td class="l mute">T2</td><td class="l"><b>LG에너지솔루션</b></td><td class="l mute">후속</td><td><span class="rsb ">28</span></td><td class="down">-21.1%</td><td>-36.1%</td><td><span class=down>아래</span></td></tr><tr><td class="l mute">T2</td><td class="l"><b>나노신소재</b></td><td class="l mute">확산 후보 (소재·부품 선별)</td><td><span class="rsb ">77</span></td><td class="down">-5.4%</td><td>-37.3%</td><td><span class=down>아래</span></td></tr><tr><td class="l mute">T2</td><td class="l"><b>한중엔시에스</b></td><td class="l mute">확산 후보 (소재·부품 선별)</td><td><span class="rsb ">54</span></td><td class="down">-19.3%</td><td>-47.7%</td><td><span class=down>아래</span></td></tr></table></div>
+ <p class="note">출처: 네이버 일봉(비공식) · RS = 시총 2천억↑ 종목 중 백분위 · 2026-11-10 08:17 기준 · 이 페이지는 디자인 시안이며 실제 트레이딩룸이 아닙니다</p>
+</div>
+<nav class="tabbar"><a class="on" href="#home"><i>◎</i>오늘</a><a href="#flow"><i>≡</i>흐름</a><a href="#strategy"><i>◐</i>전략</a><a href="#trade"><i>₩</i>내 매매</a><a href="#more"><i>⋯</i>더보기</a></nav>
+</div>
+<script>
+const root=document.getElementById("root"),ba=document.getElementById("ba"),bb=document.getElementById("bb"),bt=document.getElementById("bt");
+function setDir(d){root.dataset.dir=d;ba.classList.toggle("on",d=="a");bb.classList.toggle("on",d=="b");try{localStorage.setItem("bl-dir",d)}catch(e){}}
+ba.onclick=()=>setDir("a");bb.onclick=()=>setDir("b");
+bt.onclick=()=>{const h=document.documentElement;const dark=h.dataset.theme?h.dataset.theme=="dark":matchMedia("(prefers-color-scheme: dark)").matches;h.dataset.theme=dark?"light":"dark";root.classList.toggle("light",!dark&&root.dataset.dir=="b");try{localStorage.setItem("bl-th",h.dataset.theme)}catch(e){}};
+try{const d=localStorage.getItem("bl-dir");if(d)setDir(d);const t=localStorage.getItem("bl-th");if(t)document.documentElement.dataset.theme=t}catch(e){}
+document.querySelectorAll("a[href^='#']").forEach(a=>a.addEventListener("click",e=>e.preventDefault()));
+</script>
