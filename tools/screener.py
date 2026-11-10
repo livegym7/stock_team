@@ -355,6 +355,16 @@ def run(codes_info, workers=4):
     return results
 
 
+def watch_pool_codes():
+    """관찰 풀(config/watch_pool.toml, 전략 보고서가 고른 종목) 코드 집합."""
+    import tomllib
+    f = ROOT / "config" / "watch_pool.toml"
+    if not f.exists():
+        return set()
+    t = tomllib.loads(f.read_text(encoding="utf-8"))
+    return {s["code"] for th in t.get("themes", []) for s in th.get("stocks", []) if s.get("code")}
+
+
 def tiers(results):
     """✅ 신호(규칙 충족) / 👀 후보(1~2개 부족, 무엇이 부족한지 표시 — 사람이 판단) / 대기 / None."""
     for r in results:
@@ -501,7 +511,7 @@ def message(results, as_of):
         tag = "임박 " if r["close"] >= lv["alert"] else ""
         setup = ",".join(r["setups"]) or "없음(오늘 " + "/".join(r["today"]) + ")"
         lines.append(f"- {tag}{r['stock']} 현재 {r['close']:,.0f} → 알림 {lv['alert']:,} / 기준 {lv['breakout']:,} (+{lv['distance_pct']}%) "
-                     f"· 셋업 {setup} · RS {r['rs']} · {r['sector']}")
+                     f"· 셋업 {setup} · RS {r['rs']} · {r['sector']}" + (" · 🎯관찰 풀" if r.get("pool") else " · 발굴" if r.get("pool") is False else ""))
     if not watch:
         near = sorted((r for r in results if r["gate_score"] >= 6), key=lambda r: -(r["rs"] or 0))[:10]
         lines.append("- 없음 (관문을 모두 통과한 셋업 종목이 없음)")
@@ -533,6 +543,7 @@ def main():
     p.add_argument("--stock", help="한 종목만 (종목코드)")
     p.add_argument("--send", action="store_true", help="텔레그램으로 감시 목록 보내기")
     p.add_argument("--workers", type=int, default=4)
+    p.add_argument("--pool", action="store_true", help="관찰 풀 한정: config/watch_pool.toml 종목은 모두 표시, 풀 밖은 RS 70↑ 신호만('발굴') (2026-11-10)")
     a = p.parse_args()
 
     uni = load_universe()["stocks"]
@@ -551,8 +562,18 @@ def main():
     out_dir = ROOT / "data" / "bus" / datetime.now(KST).strftime("%Y-%m-%d")
     out_dir.mkdir(parents=True, exist_ok=True)
     tiers(results)
+    pool_codes = set()
+    if a.pool:
+        pool_codes = watch_pool_codes()
+        for r in results:
+            r["pool"] = r["code"] in pool_codes
+            if not r["pool"]:
+                if r["tier"] in ("후보", "대기") and (r.get("rs") or 0) < RULES["min_rs"]:
+                    r["tier"] = None          # 풀 밖 + RS 미달은 감시하지 않음
+                elif r["tier"] == "신호":
+                    r["tier_note"] = "발굴"    # 풀 밖 신호는 등급을 낮춰 참고로
     payload = {"source": "네이버 일봉 (비공식)", "as_of": as_of, "made_at": datetime.now(KST).isoformat(timespec="seconds"),
-               "rules": RULES, "count": len(results),
+               "rules": RULES, "count": len(results), "scope": "pool" if a.pool else "all", "pool_size": len(pool_codes),
                "signals": [r for r in results if r["tier"] == "신호"],
                "candidates": sorted((r for r in results if r["tier"] == "후보"),
                                     key=lambda r: (len(r["missing"]), -(r["rs"] or 0)))[:40],

@@ -152,6 +152,75 @@ def summary():
             "log": log[-50:][::-1]}
 
 
+def _kospi_regime_by_date():
+    """날짜 → 코스피 20일선 위/아래 (그날 신호등 대용). 네이버 일봉(비공식)."""
+    try:
+        import sector_etf
+        rows = sector_etf.daily("KOSPI", "코스피", 400)["rows"]
+    except Exception:
+        return {}
+    out, closes = {}, []
+    for r in rows:
+        closes.append(r["close"])
+        if len(closes) >= 20:
+            ma = sum(closes[-20:]) / 20
+            out[f"{r['date'][:4]}-{r['date'][4:6]}-{r['date'][6:]}"] = "green" if r["close"] > ma else "red"
+    return out
+
+
+def review():
+    """매매 복기 (토큰 0): 연속 손절 묶음, 같은 날 몰아 매수, 규칙 준수율, 신호등(진입일 코스피 20일선)별 R, 배울 점 자동 문장.
+    숫자는 data/trades/trades.jsonl 기준. 판단은 사용자가 한다."""
+    s = summary()
+    closed = sorted(s["closed"], key=lambda x: (x["close"], x["open"]))
+    regime = _kospi_regime_by_date()
+    for t in closed:
+        t["regime_at_entry"] = regime.get(t["open"])
+        t["hold_days"] = (datetime.fromisoformat(t["close"]) - datetime.fromisoformat(t["open"])).days
+    rs = [t["r"] for t in closed if t["r"] is not None]
+    # 연속 손실 (마감일 순)
+    streaks, cur = [], []
+    for t in closed:
+        if t["r"] is not None and t["r"] < 0:
+            cur.append(t)
+        else:
+            if len(cur) >= 2:
+                streaks.append(cur)
+            cur = []
+    if len(cur) >= 2:
+        streaks.append(cur)
+    cur_streak = len(cur)
+    clusters = defaultdict(list)   # 같은 날 매수
+    for t in closed:
+        clusters[t["open"]].append(t)
+    same_day = [{"date": d, "names": [t["name"] for t in ts], "sum_r": round(sum(t["r"] or 0 for t in ts), 2)} for d, ts in clusters.items() if len(ts) >= 2]
+    by_regime = {}
+    for k in ("green", "red", None):
+        xs = [t["r"] for t in closed if t.get("regime_at_entry") == k and t["r"] is not None]
+        if xs:
+            by_regime[k or "unknown"] = {"n": len(xs), "avg_r": round(sum(xs) / len(xs), 2), "win": sum(1 for r in xs if r > 0)}
+    worse = [t for t in closed if t["r"] is not None and t["r"] < -1.1]   # 손절가보다 더 잃음(갭·지연)
+    lessons = []
+    if streaks:
+        L = max(streaks, key=len)
+        lessons.append(f"연속 손절 {len(L)}건 ({L[0]['close']}~{L[-1]['close']}, 합계 {round(sum(t['r'] for t in L), 2)}R). 연속 손실 뒤에는 포지션 수를 줄이는지 점검.")
+    for c in same_day:
+        lessons.append(f"{c['date']} 같은 날 {len(c['names'])}종목 매수({', '.join(c['names'])}) → 합계 {c['sum_r']}R. 같은 날 몰아 사면 시장 하락 하루에 CR이 한 번에 현실이 됨.")
+    if worse:
+        lessons.append(f"손절가보다 더 잃은 거래 {len(worse)}건 ({', '.join(t['name'] + ' ' + str(t['r']) + 'R' for t in worse)}). 갭하락·늦은 체결 — 실적·이벤트 전 보유 여부와 장 시작 직후 대응을 점검.")
+    if by_regime.get("red") and by_regime["red"]["n"] >= 2:
+        lessons.append(f"코스피 20일선 아래(🔴)에서 진입한 {by_regime['red']['n']}건 평균 {by_regime['red']['avg_r']}R. 국면이 나쁠 때 결과가 나쁜지 계속 세어 본다(규칙 재검토 2027-01 재료).")
+    exp = round(sum(rs) / len(rs), 2) if rs else None
+    return {"at": datetime.now(KST).strftime("%Y-%m-%d %H:%M"), "n": len(closed), "win_rate": round(sum(1 for r in rs if r > 0) / len(rs) * 100) if rs else None,
+            "expectancy_r": exp, "sum_r": round(sum(rs), 2) if rs else 0, "pnl_won": sum(t["pnl_won"] for t in closed),
+            "max_loss_streak": max((len(x) for x in streaks), default=cur_streak), "current_loss_streak": cur_streak,
+            "rule_ok_pct": round(sum(1 for t in closed if t["rule_ok"]) / len(closed) * 100) if closed else None,
+            "worse_than_stop": len(worse), "same_day_clusters": same_day, "by_regime": by_regime,
+            "avg_hold_days": round(sum(t["hold_days"] for t in closed) / len(closed), 1) if closed else None,
+            "trades": closed[::-1][:20], "lessons": lessons,
+            "source": "data/trades/trades.jsonl · 신호등 = 진입일 코스피 종가 vs 20일선(네이버 일봉, 비공식) · 숫자만, 판단은 사용자"}
+
+
 def main():
     p = argparse.ArgumentParser(description="매매 기록 (주문 기능 아님)")
     sub = p.add_subparsers(dest="cmd", required=True)
@@ -167,6 +236,7 @@ def main():
     s = sub.add_parser("stop"); s.add_argument("--name", required=True); s.add_argument("--code"); s.add_argument("--stop", type=float, required=True)
     s.add_argument("--date", default=today); s.add_argument("--note")
     sub.add_parser("list")
+    sub.add_parser("review", help="매매 복기 요약 (연속 손절·같은 날 매수·규칙 준수·신호등별 R)")
     sub.add_parser("seed", help="지금 보유 종목을 일지의 시작 기록으로 (한 번만)")
     a = p.parse_args()
     for k in ("price", "stop"):   # 120000.0 → 120000
@@ -179,6 +249,8 @@ def main():
         print(json.dumps(sell(a), ensure_ascii=False, indent=1))
     elif a.cmd == "stop":
         print(json.dumps(move_stop(a), ensure_ascii=False, indent=1))
+    elif a.cmd == "review":
+        print(json.dumps(review(), ensure_ascii=False, indent=1)); return
     elif a.cmd == "seed":
         if read_log():
             raise SystemExit("이미 기록이 있습니다")

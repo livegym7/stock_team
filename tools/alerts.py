@@ -74,7 +74,8 @@ def breakout_watch(now, sent, limit=40):
         piv, alert_px = lv["breakout"], lv.get("alert") or lv["breakout"] * 0.98
         vr = (r["vol"] / frac / x["vol50"]) if r.get("vol") and x.get("vol50") else None
         vtxt = f" · 예상 거래량 {vr:.1f}배" if vr else ""
-        note = f"{tier} {x['stock']} {px:,.0f}원 ({r.get('chg') or 0:+.2f}%) · 기준가 {piv:,}"
+        grade = "🔥" if x.get("pool") else ("참고" if x.get("pool") is False else "")   # 관찰 풀 안 🔥 / 밖 참고 (2026-11-10)
+        note = f"{grade}{tier} {x['stock']} {px:,.0f}원 ({r.get('chg') or 0:+.2f}%) · 기준가 {piv:,}"
         miss = f" · 부족: {', '.join(x.get('missing') or [])}" if x.get("missing") else ""
         if px > piv:
             ok = vr is not None and vr >= 1.5

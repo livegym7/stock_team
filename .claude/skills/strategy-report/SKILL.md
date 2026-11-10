@@ -1,0 +1,59 @@
+---
+name: strategy-report
+description: 주간 전략 보고서 (토요일 09:00 예약, Opus 전략 데스크). 프랍 데스크 전략가처럼 띔(테마) 가설을 말·이익·가격·돈 4검증으로 채점하고, 업종 스코어카드·관찰 풀·시나리오·가설 성적표까지 담은 전문 애널리스트 양식(v3) 보고서를 data/strategy/latest.json에 쓰고 웹 '전략 > 보고서'에 올린다. 사용자가 /strategy-report, "전략 보고서 써줘"라고 하거나 토요일 예약이 부를 때 쓴다.
+---
+
+# /strategy-report — 주간 전략 보고서 (전문 애널리스트 양식)
+
+역할: 이 세션 하나가 **전략가 → 반론가 → 편집자** 순서로 역할을 바꿔 가며 쓴다. 재료(숫자)는 모두 도구가 만든다(토큰 0). 31일 치 채널 글 원문은 다시 읽지 않는다.
+형식: `docs/strategy-report-format.md` (v3). 글쓰기: `docs/brief-style.md` '읽기 쉬운 글쓰기'. 절대 규칙(CLAUDE.md): 주문 없음 · 매수·매도 단정 없음(행동은 관찰/준비/회피) · 숫자마다 출처·시각 · PDF 원본 저장 안 함 · 매매 규칙 2027-01-31까지 고정.
+
+## 0. 준비 (저장소 루트)
+```bash
+git pull origin main
+python3 tools/strategy_prep.py prep            # 재료 요약(약 3만 자) + data/strategy/prep/날짜.json. 첫 실행은 일봉 캐시 받느라 2~4분
+python3 tools/strategy_prep.py score           # 지난 호 띔·관찰 종목의 그 뒤 성적 (가설 채점 숫자). latest.json 없으면 건너뜀
+python3 tools/naver_research.py candidates --top 15   # 이번 주 읽을 만한 원문 후보 (제목·점수만)
+```
+재료 요약이 3만 자를 넘으면 전체 JSON(`data/strategy/prep/날짜.json`)은 열지 말고, 필요한 종목·업종만 `python3 -c`로 뽑아 본다.
+
+## 1. 전략가 — 띔 세우기 (메인 1 · 서브 1~2 · 관찰 0~1)
+1. **국면 먼저**: 신호등·20일선·폭(오른/내린)·신고가/신저가·외국인 5일·해외 지표로 `regime`를 쓴다. "지금 추세추종을 해도 되는 장인가"에 숫자로 답하고, 국면이 바뀌는 조건(`what_flips`)을 숫자로 적는다.
+2. **띔 후보 추리기**: 재료의 ② 말(업종별 주별 글 수) · ③ 이익(7일 섹터 상향/하향, 실적 서프라이즈) · ④⑤ 가격·돈(업종 5/20일 수익률, 수급) · 자료실 14일 요약 · 띔 메모에서 **세 축 이상이 같은 방향**인 업종을 고른다. 지난 호 띔은 유지·단계 변경·폐기 중 하나로 반드시 판정한다.
+3. **띔마다** 형식의 모든 칸을 채운다: 논지 → 논리 ①~⑤(각 2~4문장, 숫자·출처) → 사고 흐름(확인/가설) → 4검증(점수표 기준 0~2점, `trend`에 주별 숫자) → 밸류에이션(있는 숫자만) → 촉매 일정(달력에서) → 기업 지도 4~8개(역할·노출·포인트·stats·밸류·반대·볼 것·행동) → 무효 신호(숫자 조건) → 실적 반영 시점.
+4. **원문 확인 최대 3건**: 띔의 핵심 숫자가 요약에만 있으면 `python3 tools/naver_research.py pdf --cat <company|industry|invest> --nid <nid>`로 원문 글자를 받아 쪽수와 함께 확인하고 `references`에 "1차 · 원문 확인 (p.n)"으로 적는다. 드라이브 문서는 자료실 요약(`data/research/docs/*.json`)의 numbers·checked 칸을 쓴다.
+5. **업종 스코어카드** 10~15개: 재료의 업종 목록 전부를 4축 점수표로 채점해 합계 순으로. 띔에 든 업종과 점수가 어긋나면 띔을 고친다(점수가 띔보다 먼저다).
+6. **관찰 풀** 20~40종목: 기업 지도 종목을 펼치고, 스코어카드 상위 업종에서 RS 80↑·시총 2천억↑ 종목을 더한다. `setup`은 "셋업 없음 / 베이스 형성 중(n일) / 돌파 대기(기준가 x) / 이탈" 중 하나. 종목마다 `watch_for`(숫자 조건)와 행동(관찰/준비/회피).
+7. **시나리오 3개**(강세·기본·약세): 확률은 대략, 트리거는 숫자, 각 시나리오에서 관찰 풀을 어떻게 다루는지.
+
+## 2. 반론가 — 띔마다 반론 3~5개, 무효 신호 점검
+- 가장 강한 반대 시나리오를 먼저. "말만 많고 돈이 안 들어오는가", "이미 가격에 반영됐는가(고점 대비·컨센 괴리)", "실적 반영이 2027년 이후인가", "다수 채널이 같은 2차 자료를 베낀 것은 아닌가"를 반드시 묻는다.
+- 반론을 반영해 확신도(1~5)를 **내리는 쪽으로만** 조정한다. 올리려면 원문 확인 근거가 있어야 한다.
+- 가설 성적표: `score` 결과로 지난 호 띔·체크포인트를 맞음/틀림/진행으로 채점하고 숫자를 적는다. 첫 호면 비움.
+
+## 3. 편집자 — 1쪽 요약과 저장
+1. `summary`: headline 한 문장 → bullets 5~7줄(줄마다 숫자 1~2개·출처) → stance(신호등·권장 노출은 **표시만**·모드) → top_sectors(스코어카드 상위 3~5, 행동) → changes(지난 호 대비).
+2. `risks`(이 보고서의 한계: 원문 확인 건수, 시세 시각, light 요약 비중), `method`, `references`, `agents`, `sources` 채움.
+3. 초안을 `data/strategy/draft.json`에 쓰고 저장:
+```bash
+python3 tools/strategy_prep.py save --file data/strategy/draft.json   # 형식 검사 → history 보관 → latest.json → config/watch_pool.toml 갱신
+python3 tools/strategy_prep.py pool                                   # 관찰 풀 종목 수 확인
+```
+4. 읽기용 마크다운도 남긴다: `reports/YYYY-MM-DD/strategy.md` (summary → regime → 띔 → 스코어카드 표 → 관찰 풀 표 → 시나리오 → 성적표 → 체크리스트 → 한계·출처). 표는 마크다운 표.
+5. 웹·텔레그램·커밋:
+```bash
+python3 tools/web_build.py --only analysis
+# Artifact: https://claude.ai/artifact/C8B5Dd1zwtyyqP3c4e3ric 를 read 한 뒤 web/index.html을 같은 url로 publish (icon 없이)
+python3 tools/telegram_send.py --file reports/YYYY-MM-DD/strategy_tg.md   # 형식 문서의 '텔레그램 요약'(30줄 안팎)만 따로 써서 보냄
+git add data/strategy config/watch_pool.toml reports && git commit -m "전략 보고서 제n호 MM/DD" && git push -u origin main
+```
+
+## 분량·토큰
+- JSON 2.5만~4만 자, 마크다운 비슷. 원문 pdf는 3건까지(건당 발췌 검색으로 필요한 쪽만).
+- 어림 사용량 25만~40만 토큰(Opus, 주 1회). 재료 JSON 전체를 Read로 열지 않는 것이 가장 큰 절약이다.
+
+## 자주 하는 실수
+- 리포트 요약(2차)의 숫자를 원문 확인처럼 쓰기 → 출처 꼬리표를 정확히.
+- 띔을 먼저 정하고 점수를 맞추기 → 스코어카드가 먼저.
+- "매수 추천", "비중 확대" 같은 말 → 관찰/준비/회피.
+- 규칙(−8%·3R·CR 6%)을 바꾸자고 쓰기 → 고정 기간. 바꿀 근거가 보이면 `risks`에 "2027-01 재검토 때 볼 것"으로만.
