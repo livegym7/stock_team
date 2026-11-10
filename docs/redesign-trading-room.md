@@ -157,7 +157,7 @@
 |---|---|---|
 | 1 전략가 | 재료 도구 `strategy_prep.py`(prep·score·pool·save, 토큰 0, 첫 실행 일봉 캐시 2~3분) · 스킬 `/strategy-report`(전략가→반론가→편집자) · 형식 v3 `docs/strategy-report-format.md` · 관찰 풀 `config/watch_pool.toml`(11/09 보고서에서 22종목) · 토 09:07 Opus 예약 | tools/strategy_prep.py, .claude/skills/strategy-report, config/watch_pool.toml |
 | 2 복기 | `trades.py review`: 연속 손절·같은 날 몰아 매수·손절가보다 더 잃음·진입일 신호등별 R·배울 점 자동 문장 → 웹 '내 매매', 마감·주간 리뷰 재료 | tools/trades.py |
-| 3 웹 뼈대 | 메뉴 11 → 5(오늘·흐름·전략·내 매매·더보기). 오늘 한 열(PC 2단) · 흐름 타임라인(날짜별 카드, 💡 첫 줄, 펼침) + 리포트 흐름 막대 + 채널 원문 · 전략 탭(보고서 v3 칸 렌더·관찰 풀 표·자료실·기업·감시 목록) · 내 매매(복기 상자·규칙 한 장) · 더보기. 옛 id는 별칭. **디자인은 그대로**(시안 승인 뒤 교체) | web/app.html, tools/web_build.py |
+| 3 웹 뼈대·디자인 | 메뉴 11 → 5(오늘·흐름·전략·내 매매·더보기). 오늘 한 열(PC 2단) · 흐름 타임라인(날짜별 카드, 💡 첫 줄, 펼침) + 리포트 흐름 막대 + 채널 원문 · 전략 탭(보고서 v3 칸 렌더·관찰 풀 표·자료실·기업·감시 목록) · 내 매매(복기 상자·규칙 한 장) · 더보기. 옛 id는 별칭. **디자인 A안(토스증권식 목록형) 적용** — 사용자 승인 2026-11-10 12:20, 조건: 시장·매크로 숫자에 전일~오늘 미니 차트 유지(큰 숫자 타일 + 미니 차트). PC는 왼쪽 아이콘 레일 대신 위쪽 알약 메뉴. 시안 비교 페이지 docs/design-sample-2026-11-10.html | web/app.html, tools/web_build.py |
 | 4 감시 목록 | `screener.py --pool`(풀 전부 + 풀 밖은 RS 70↑ 신호만 '발굴'), `alerts.py` 풀 안 🔥/밖 참고, `features.toml` monitoring=true scope=pool, 16:07 Haiku 예약 | tools/screener.py, tools/alerts.py, config/features.toml |
 | 5 | 사진 분리(페이지 무게)·EPS 추정치 도구는 **아직** | — |
 
@@ -183,4 +183,4 @@
 ### 확인해 주실 것 (실행 전)
 1. 이 브랜치를 main에 합쳐야 예약 작업(토 전략 보고서, 16:07 감시 목록)이 새 코드를 씁니다. 합치기 전엔 "건너뜀" 알림만 옵니다.
 2. 웹 Artifact 재발행은 하지 않았습니다. 합친 뒤 "새로고침해줘" 또는 07:32 자동 갱신 때 새 메뉴가 올라갑니다.
-3. 디자인 시안은 별도 Artifact로 올려 승인받은 뒤 적용합니다.
+3. 디자인은 A안으로 확정·적용했습니다(2026-11-10).

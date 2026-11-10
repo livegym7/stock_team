@@ -398,4 +398,5 @@
 - RS 도구: skyte/relative-strength(IBD 40/20/20/20)·rs_indicator(단기)·pykrx(KRX 로그인 필요) 검토 → 지금 RS(책 정의, 토큰 0) 유지. 자세한 건 docs/redesign-trading-room.md 8절
 - 남은 것: 디자인 시안(별도 Artifact, 승인 뒤 적용) · main 합치기 · 사진 분리 · EPS 추정치 도구
 - 디자인 시안: `docs/design-sample-2026-11-10.html` → 별도 Artifact https://claude.ai/artifact/3bpv3oH7EHHRLNnwiKE1Ty (A안 토스증권식 목록형 / B안 트레이딩뷰식 데스크형, 실제 데이터, 전환 버튼). 승인 뒤 app.html에 입힘. 기존 트레이딩룸 Artifact는 손대지 않음
+- (12:20) 사용자 승인: **디자인 A안 확정**(조건: 시장·매크로에 전일~오늘 미니 차트 유지). app.html에 A안 피부 적용 — 파란 강조(#3182f6)·오름 빨강/내림 파랑, 둥근 14px, 그림자 없음, 오늘 화면은 카드 테두리 대신 구분선, 시장 숫자는 큰 숫자 타일 + 미니 차트(휴대폰은 한 칸 가로형), PC 메뉴는 위쪽 알약(왼쪽 레일 숨김). main에 합침 + 웹 재발행
 
