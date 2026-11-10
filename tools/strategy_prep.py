@@ -295,6 +295,88 @@ def calendar_ahead(pool, days=14):
     return out[:40]
 
 
+# ---------- 채널 흐름 (2차 자료): 정리 헤드라인 · 여러 채널 소식 · 리포트 요약 근거 · 말 vs 주가 ----------
+DIGEST_KINDS = (("채널 정리", "channels_[0-9]*.md"), ("리포트 정리", "report_live_[0-9]*.md"))   # 리포트 브리핑(14:53)은 리포트 정리와 겹쳐 제외
+HEAD_MARKS = ("💡", "🔥", "🔺", "🔽", "🆕", "⚖️", "🌡️", "🧭", "📌", "💼", "🔄")
+
+
+def digests(days=5, max_chars=900):
+    """채널 정리·리포트 정리(Sonnet이 2시간마다 쓴 글)의 머리 부분만: 날마다 마지막 1개씩. 💡 의견·번호 주제·섹터 줄 + 각 다음 2줄. 2차 자료."""
+    out = []
+    for d in range(days, -1, -1):
+        day = (datetime.now(KST) - timedelta(days=d)).strftime("%Y-%m-%d")
+        for kind, pat in DIGEST_KINDS:
+            fs = sorted(glob.glob(str(ROOT / "reports" / day / pat)))
+            if not fs:
+                continue
+            keep, grab = [], 0
+            for l in Path(fs[-1]).read_text(encoding="utf-8").split("\n"):
+                t = l.strip()
+                if not t:
+                    continue
+                if t.startswith("#") or re.match(r"^\d\uFE0F?\u20E3", t) or t.startswith(HEAD_MARKS):
+                    keep.append(t[:140]); grab = 1; continue
+                if grab > 0:
+                    keep.append(t[:140]); grab -= 1
+            out.append({"date": day, "kind": kind, "file": str(Path(fs[-1]).relative_to(ROOT)), "text": "\n".join(keep)[:max_chars]})
+    return out
+
+
+def hot_topics(allp, days=7, min_channels=3):
+    """여러 채널(3곳↑)이 같이 다룬 소식 — 중복 표시(dup_of)로 센다. 원글의 첫 줄만."""
+    since = (datetime.now(KST) - timedelta(days=days)).isoformat()
+    orig = {f"{x['channel']}/{x['id']}": x for x in allp if not x.get("dup_of") and x["time"] >= since}
+    chans = defaultdict(set)
+    for x in allp:
+        if x.get("dup_of") and x["time"] >= since:
+            chans[x["dup_of"]].add(x["channel"])
+    rows = []
+    for k, cs in chans.items():
+        o = orig.get(k)
+        if not o:
+            continue
+        n = len(cs | {o["channel"]})
+        if n >= min_channels:
+            head = next((l.strip() for l in o["text"].split("\n") if l.strip()), "")[:120]
+            rows.append({"time": o["time"][:16], "channels": n, "type": o["type"], "stocks": [st["name"] for st in o.get("stocks", [])][:3], "head": head})
+    return sorted(rows, key=lambda r: (-r["channels"], r["time"]))[:25]
+
+
+def report_points(allp, pool, flow31, days=31, per=2, sectors=6, max_names=20):
+    """채널 리포트 요약(2차)의 근거 글머리: 관찰 풀 종목 + 리포트가 많은 섹터 상위의 대표 종목 2개씩(최대 20종목). 종목당 최근 2건."""
+    from report_digest import report_row
+    since = (datetime.now(KST) - timedelta(days=days)).isoformat()
+    by = defaultdict(list)
+    for x in sorted(allp, key=lambda x: x["time"], reverse=True):
+        if x["type"] == "report" and x.get("stock") and not x.get("dup_of") and x["time"] >= since and not x["text"].startswith("[✨ 리서치]"):
+            by[x["stock"]].append(x)
+    names = [s["name"] for s in pool]
+    for f in flow31[:sectors]:
+        names += (f.get("stocks") or [])[:2]
+    out, seen = [], set()
+    for n in names:
+        if n in seen or n not in by or len(out) >= max_names:
+            continue
+        seen.add(n)
+        items = []
+        for x in by[n][:per]:
+            r = report_row(x)
+            items.append({"t": r["time"][:10], "broker": r.get("broker"), "dir": r.get("direction"), "before": r.get("before"), "after": r.get("after"),
+                          "title": (r.get("title") or "")[:60], "points": [p[:110] for p in r["points"][:2]]})
+        out.append({"name": n, "n_31d": len(by[n]), "up": sum(1 for x in by[n] if x.get("direction") == "상향"), "down": sum(1 for x in by[n] if x.get("direction") == "하향"), "reports": items})
+    return out
+
+
+def channel_themes(allp, uni):
+    """업종별 '말 vs 주가' 태그 (web_build.theme_talk 재사용): 🔥주도 후보 / ⚠️말만 / 🤫조용히 오름 / 🧊식는 중."""
+    import web_build as WB
+    import market_pulse
+    fl = safe(lambda: market_pulse.flows(), {}) or {}
+    t = WB.theme_talk(allp, fl if isinstance(fl, dict) and "sectors" in fl else None, uni)
+    rows = t.get("rows") if isinstance(t, dict) else t
+    return [{k: r.get(k) for k in ("group", "talk", "talk_prev", "talk_chg", "up", "down", "stocks", "r5", "r20", "money5", "tag")} for r in (rows or [])[:20]]
+
+
 def previous_report():
     L = load_latest()
     if not L:
@@ -333,6 +415,10 @@ def prep(weeks=4):
         "talk": safe(lambda: talk(allp, group_of, pool, weeks)),
         "earnings": safe(lambda: earnings_axis(allp, uni, companies, pool, by_stock_rep, flow31)),
         "price_money": safe(lambda: price_money(allp, uni, companies, pool, by_stock_rep)),
+        "digests": safe(lambda: digests(5), []),
+        "hot_topics": safe(lambda: hot_topics(allp, 7), []),
+        "report_points": safe(lambda: report_points(allp, pool, flow31), []),
+        "channel_themes": safe(lambda: channel_themes(allp, uni), []),
         "research": safe(lambda: research_recent(14), []),
         "memos": safe(lambda: memos(7), []),
         "opinions": safe(lambda: opinions(7), []),
@@ -373,6 +459,24 @@ def md_summary(o):
         L.append(f"- {p['name']} {p.get('price')} ({p.get('date')}) RS {p.get('rs')} (4주 {p.get('rs_chg4w')}) · 1주 {p.get('r1w')}% 1개월 {p.get('r1m')}% 고점 대비 {p.get('off_high')}% · 20일선 {'위' if p.get('above20') else '아래'} · 외국인5일 {p.get('f5_eok')}억 기관5일 {p.get('i5_eok')}억")
     L.append("업종 5일 수익률·수급 상위: " + " · ".join(f"{s['group']} {s.get('r5')}% (외 {s.get('f5')} 기 {s.get('i5')})" for s in pm.get("sectors", [])[:10]))
     L.append("업종 5일 하위: " + " · ".join(f"{s['group']} {s.get('r5')}%" for s in pm.get("sectors", [])[-6:]))
+    L.append("## 채널 흐름 (2차 자료) — 업종별 말 vs 주가")
+    for r in o.get("channel_themes") or []:
+        L.append(f"- {r.get('group')}: 글 {r.get('talk')}(전 {r.get('talk_prev')}, {r.get('talk_chg')}%) 🔺{r.get('up')}🔽{r.get('down')} · 5일 {r.get('r5')}% 20일 {r.get('r20')}% · 수급5일 {r.get('money5')}억 → {r.get('tag')} · {', '.join((r.get('stocks') or [])[:3])}")
+    L.append("## 🔥 여러 채널이 같이 다룬 소식 (7일, 3곳↑)")
+    for h in o.get("hot_topics") or []:
+        L.append(f"- [{h['time'][5:]} · {h['channels']}곳 · {h['type']}] {h['head']} {('(' + ', '.join(h['stocks']) + ')') if h['stocks'] else ''}")
+    L.append("## 채널 정리·리포트 정리 헤드라인 (5일, 날마다 마지막 1개, 머리 부분만)")
+    for d in o.get("digests") or []:
+        L.append(f"### [{d['date']} {d['kind']}] ({d['file']})")
+        L.append(d["text"])
+    L.append("## 채널 리포트 요약 근거 (2차 · 관찰 풀 + 리포트 많은 섹터 대표 종목, 종목당 최근 2건)")
+    for rp in o.get("report_points") or []:
+        L.append(f"- {rp['name']}: 31일 {rp['n_31d']}건 🔺{rp['up']} 🔽{rp['down']}")
+        for r in rp["reports"]:
+            tp = f"{r['before']:,}→{r['after']:,}" if r.get("before") and r.get("after") else (f"{r['after']:,}" if r.get("after") else "")
+            L.append(f"  · {r['t'][5:]} {r.get('broker') or ''} {r.get('dir') or ''} {tp} {('— ' + r['title']) if r.get('title') else ''}")
+            for pt in r["points"]:
+                L.append(f"    - {pt}")
     L.append(f"## 자료실 최근 14일 {len(o.get('research') or [])}건")
     for d in (o.get("research") or [])[:30]:
         L.append(f"- [{d.get('date')} {d.get('broker')} {d.get('kind')}] {d.get('title')} — {d.get('one_line')}")

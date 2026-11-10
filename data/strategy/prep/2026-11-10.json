@@ -1,19 +1,19 @@
 {
- "made_at": "2026-11-10 11:55",
+ "made_at": "2026-11-10 17:41",
  "weeks": 4,
  "regime": {
-  "date": "20261109",
-  "close": 5018.85,
-  "r1w": -14.3,
-  "r1m": -24.3,
-  "r3m": -23.9,
-  "r6m": -32.0,
-  "r12m": 22.2,
+  "date": "20261110",
+  "close": 5239.13,
+  "r1w": -7.3,
+  "r1m": -17.9,
+  "r3m": -16.8,
+  "r6m": -30.1,
+  "r12m": 24.1,
   "above20": false,
-  "gap20": -11.1,
-  "slope20": -5.8,
+  "gap20": -6.5,
+  "slope20": -5.4,
   "aligned": false,
-  "off_high": -46.5,
+  "off_high": -44.2,
   "light": "red",
   "source": "네이버 코스피 일봉(비공식) · 20일선 · 정배열"
  },
@@ -21,44 +21,44 @@
   "markets": [
    {
     "market": "KOSPI",
-    "price": 5239.63,
-    "change_pct": 4.4,
-    "status": "OPEN",
-    "at": "2026-11-10 11:54",
+    "price": 5239.13,
+    "change_pct": 4.39,
+    "status": "CLOSE",
+    "at": "2026-11-10 16:15",
     "deal_date": "20261110",
-    "individual_eok": -7072.0,
-    "foreign_eok": 1794.0,
-    "institution_eok": 2868.0,
-    "program_eok": 2822.0,
-    "up": 675,
-    "down": 202,
-    "high52": 80,
-    "low52": 33,
-    "trading_value_eok": 87330
+    "individual_eok": -13859.0,
+    "foreign_eok": 4202.0,
+    "institution_eok": 4781.0,
+    "program_eok": 5243.0,
+    "up": 723,
+    "down": 175,
+    "high52": 85,
+    "low52": 42,
+    "trading_value_eok": 161788
    },
    {
     "market": "KOSDAQ",
-    "price": 663.86,
-    "change_pct": 3.9,
-    "status": "OPEN",
-    "at": "2026-11-10 11:54",
+    "price": 667.61,
+    "change_pct": 4.48,
+    "status": "CLOSE",
+    "at": "2026-11-10 16:15",
     "deal_date": "20261110",
-    "individual_eok": -21.0,
-    "foreign_eok": -1029.0,
-    "institution_eok": 1192.0,
-    "program_eok": -714.0,
-    "up": 1366,
-    "down": 337,
-    "high52": 4,
-    "low52": 29,
-    "trading_value_eok": 27862
+    "individual_eok": -573.0,
+    "foreign_eok": -1465.0,
+    "institution_eok": 2151.0,
+    "program_eok": -906.0,
+    "up": 1405,
+    "down": 288,
+    "high52": 5,
+    "low52": 50,
+    "trading_value_eok": 44161
    }
   ],
   "industries_up": [
    {
     "no": 305,
     "name": "항공사",
-    "change_pct": 13.71,
+    "change_pct": 12.63,
     "n": 9,
     "up": 8,
     "down": 0
@@ -66,7 +66,7 @@
    {
     "no": 306,
     "name": "전기장비",
-    "change_pct": 9.19,
+    "change_pct": 10.12,
     "n": 35,
     "up": 31,
     "down": 1
@@ -74,105 +74,105 @@
    {
     "no": 294,
     "name": "통신장비",
-    "change_pct": 7.17,
+    "change_pct": 7.84,
     "n": 55,
-    "up": 43,
+    "up": 45,
     "down": 5
-   },
-   {
-    "no": 299,
-    "name": "기계",
-    "change_pct": 6.02,
-    "n": 106,
-    "up": 92,
-    "down": 9
    },
    {
     "no": 279,
     "name": "건설",
-    "change_pct": 5.99,
+    "change_pct": 7.27,
     "n": 76,
-    "up": 59,
+    "up": 58,
+    "down": 8
+   },
+   {
+    "no": 299,
+    "name": "기계",
+    "change_pct": 7.11,
+    "n": 106,
+    "up": 90,
     "down": 9
+   },
+   {
+    "no": 272,
+    "name": "화학",
+    "change_pct": 6.6,
+    "n": 122,
+    "up": 95,
+    "down": 22
    },
    {
     "no": 267,
     "name": "IT서비스",
-    "change_pct": 5.93,
+    "change_pct": 6.2,
     "n": 119,
-    "up": 94,
-    "down": 18
-   },
-   {
-    "no": 278,
-    "name": "반도체와반도체장비",
-    "change_pct": 5.81,
-    "n": 174,
-    "up": 163,
-    "down": 6
+    "up": 98,
+    "down": 16
    },
    {
     "no": 283,
     "name": "전기제품",
-    "change_pct": 5.81,
+    "change_pct": 6.04,
     "n": 68,
-    "up": 57,
-    "down": 5
+    "up": 58,
+    "down": 4
    }
   ],
   "industries_down": [
    {
     "no": 315,
     "name": "손해보험",
-    "change_pct": -1.02,
+    "change_pct": -0.7,
     "n": 12,
-    "up": 4,
-    "down": 7
+    "up": 7,
+    "down": 5
    },
    {
     "no": 337,
     "name": "카드",
-    "change_pct": -1.08,
+    "change_pct": -0.72,
     "n": 1,
     "up": 0,
     "down": 1
    },
    {
+    "no": 263,
+    "name": "게임엔터테인먼트",
+    "change_pct": -1.29,
+    "n": 34,
+    "up": 18,
+    "down": 10
+   },
+   {
     "no": 285,
     "name": "방송과엔터테인먼트",
-    "change_pct": -1.51,
+    "change_pct": -1.37,
     "n": 58,
-    "up": 27,
-    "down": 22
-   },
-   {
-    "no": 280,
-    "name": "부동산",
-    "change_pct": -1.59,
-    "n": 30,
-    "up": 6,
-    "down": 18
-   },
-   {
-    "no": 309,
-    "name": "음료",
-    "change_pct": -3.24,
-    "n": 16,
-    "up": 4,
-    "down": 10
+    "up": 33,
+    "down": 15
    },
    {
     "no": 336,
     "name": "다각화된통신서비스",
-    "change_pct": -3.75,
+    "change_pct": -1.65,
     "n": 3,
     "up": 2,
     "down": 1
    },
    {
+    "no": 309,
+    "name": "음료",
+    "change_pct": -3.32,
+    "n": 16,
+    "up": 7,
+    "down": 8
+   },
+   {
     "no": 275,
     "name": "담배",
-    "change_pct": -4.11,
+    "change_pct": -3.34,
     "n": 1,
     "up": 0,
     "down": 1
@@ -180,7 +180,7 @@
    {
     "no": 331,
     "name": "복합유틸리티",
-    "change_pct": -6.53,
+    "change_pct": -5.14,
     "n": 1,
     "up": 0,
     "down": 1
@@ -190,7 +190,7 @@
    {
     "no": 166,
     "name": "항공/저가 항공사(LCC)",
-    "change_pct": 11.13,
+    "change_pct": 12.85,
     "n": 9,
     "up": 9,
     "down": 0
@@ -198,57 +198,57 @@
    {
     "no": 559,
     "name": "고체산화물 연료전지(SOFC)",
-    "change_pct": 7.78,
-    "n": 14,
-    "up": 13,
-    "down": 0
-   },
-   {
-    "no": 178,
-    "name": "전선",
-    "change_pct": 7.32,
-    "n": 8,
-    "up": 8,
-    "down": 0
-   },
-   {
-    "no": 608,
-    "name": "반도체 기판(FC-BGA/PCB/MLB 등)",
-    "change_pct": 6.94,
+    "change_pct": 9.69,
     "n": 14,
     "up": 14,
     "down": 0
    },
    {
-    "no": 599,
-    "name": "소캠(SOCAMM)",
-    "change_pct": 6.77,
-    "n": 11,
-    "up": 11,
+    "no": 178,
+    "name": "전선",
+    "change_pct": 8.44,
+    "n": 8,
+    "up": 8,
     "down": 0
    },
    {
-    "no": 390,
-    "name": "마이크로 LED",
-    "change_pct": 6.76,
-    "n": 10,
-    "up": 10,
-    "down": 0
-   },
-   {
-    "no": 154,
-    "name": "건설 대표주",
-    "change_pct": 6.75,
-    "n": 6,
-    "up": 6,
+    "no": 579,
+    "name": "2차전지(나트륨이온)",
+    "change_pct": 7.75,
+    "n": 9,
+    "up": 9,
     "down": 0
    },
    {
     "no": 586,
     "name": "광통신(광케이블/광섬유 등)",
-    "change_pct": 6.49,
+    "change_pct": 7.68,
     "n": 15,
     "up": 15,
+    "down": 0
+   },
+   {
+    "no": 154,
+    "name": "건설 대표주",
+    "change_pct": 7.43,
+    "n": 6,
+    "up": 6,
+    "down": 0
+   },
+   {
+    "no": 390,
+    "name": "마이크로 LED",
+    "change_pct": 7.26,
+    "n": 10,
+    "up": 9,
+    "down": 1
+   },
+   {
+    "no": 608,
+    "name": "반도체 기판(FC-BGA/PCB/MLB 등)",
+    "change_pct": 6.97,
+    "n": 14,
+    "up": 14,
     "down": 0
    }
   ],
@@ -279,8 +279,8 @@
   {
    "name": "나스닥100 선물",
    "symbol": "NQ=F",
-   "price": 28005.75,
-   "change_pct": 3.4,
+   "price": 27973.75,
+   "change_pct": -0.15,
    "at": null
   },
   {
@@ -293,8 +293,8 @@
   {
    "name": "원/달러 환율",
    "symbol": "KRW=X",
-   "price": 1345.9,
-   "change_pct": -1.23,
+   "price": 1336.22,
+   "change_pct": -1.94,
    "at": null
   },
   {
@@ -307,15 +307,15 @@
   {
    "name": "VIX 변동성 지수",
    "symbol": "^VIX",
-   "price": 19.92,
-   "change_pct": -22.31,
+   "price": 19.8,
+   "change_pct": -0.6,
    "at": null
   },
   {
    "name": "WTI 원유",
    "symbol": "CL=F",
-   "price": 86.08,
-   "change_pct": -5.23,
+   "price": 84.95,
+   "change_pct": -2.19,
    "at": null
   }
  ],
@@ -477,13 +477,13 @@
    "title": "Inflation Rate YoY",
    "ko": "물가상승률(전년비)",
    "importance": 1,
-   "actual": null,
+   "actual": 0.7,
    "forecast": 0.8,
    "previous": 0.9,
    "unit": "%",
    "scale": "",
-   "surprise": null,
-   "done": false
+   "surprise": "below",
+   "done": true
   },
   {
    "at": "2026-11-10 01:00",
@@ -492,13 +492,13 @@
    "title": "United States-NY Fed Consumer Expectation-NY Fed Inflation Expectation 1yr *",
    "ko": "United States-NY Fed Consumer Expectation-NY Fed Inflation Expectation 1yr *",
    "importance": 0,
-   "actual": null,
+   "actual": 3.9,
    "forecast": null,
    "previous": 3.9,
    "unit": "%",
    "scale": "",
    "surprise": null,
-   "done": false
+   "done": true
   },
   {
    "at": "2026-11-10 12:00",
@@ -507,13 +507,13 @@
    "title": "Exports YoY",
    "ko": "수출(전년비)",
    "importance": 1,
-   "actual": null,
+   "actual": 35.2,
    "forecast": 33.5,
    "previous": 36.3,
    "unit": "%",
    "scale": "",
-   "surprise": null,
-   "done": false
+   "surprise": "above",
+   "done": true
   },
   {
    "at": "2026-11-10 12:00",
@@ -522,13 +522,13 @@
    "title": "Imports YoY",
    "ko": "수입(전년비)",
    "importance": 1,
-   "actual": null,
+   "actual": 41.6,
    "forecast": 32,
    "previous": 31,
    "unit": "%",
    "scale": "",
-   "surprise": null,
-   "done": false
+   "surprise": "above",
+   "done": true
   },
   {
    "at": "2026-11-10 12:00",
@@ -537,13 +537,13 @@
    "title": "Balance of Trade",
    "ko": "무역수지",
    "importance": 1,
-   "actual": null,
+   "actual": 105.28,
    "forecast": 125.8,
    "previous": 133.53,
    "unit": "$",
    "scale": "B",
-   "surprise": null,
-   "done": false
+   "surprise": "below",
+   "done": true
   },
   {
    "at": "2026-11-10 22:30",
@@ -628,7 +628,7 @@
    "ko": "CPI(소비자물가)",
    "importance": 0,
    "actual": null,
-   "forecast": 337.023,
+   "forecast": 337.042,
    "previous": 336.94,
    "unit": "",
    "scale": "",
@@ -778,7 +778,7 @@
    "ko": "산업생산",
    "importance": 1,
    "actual": null,
-   "forecast": 5.2,
+   "forecast": 5.3,
    "previous": 5.5,
    "unit": "%",
    "scale": "",
@@ -823,7 +823,7 @@
    "ko": "소매판매",
    "importance": 0,
    "actual": null,
-   "forecast": null,
+   "forecast": 0.4,
    "previous": 0.9,
    "unit": "%",
    "scale": "",
@@ -838,7 +838,7 @@
    "ko": "소매판매(전월비)",
    "importance": 1,
    "actual": null,
-   "forecast": null,
+   "forecast": 0,
    "previous": 0.8,
    "unit": "%",
    "scale": "",
@@ -853,7 +853,7 @@
    "ko": "산업생산",
    "importance": 0,
    "actual": null,
-   "forecast": null,
+   "forecast": 0.1,
    "previous": 0.7,
    "unit": "%",
    "scale": "",
@@ -890,12 +890,12 @@
      146,
      261,
      529,
-     120
+     239
     ],
-    "chg_pct": -77,
+    "chg_pct": -55,
     "updown": {
-     "하향": 623,
-     "상향": 119
+     "상향": 131,
+     "하향": 658
     }
    },
    {
@@ -904,9 +904,9 @@
      44,
      115,
      61,
-     6
+     22
     ],
-    "chg_pct": -90,
+    "chg_pct": -64,
     "updown": {
      "하향": 12,
      "상향": 6
@@ -918,12 +918,12 @@
      41,
      62,
      59,
-     17
+     46
     ],
-    "chg_pct": -71,
+    "chg_pct": -22,
     "updown": {
-     "하향": 51,
-     "상향": 15
+     "하향": 54,
+     "상향": 18
     }
    },
    {
@@ -932,11 +932,11 @@
      13,
      56,
      72,
-     11
+     31
     ],
-    "chg_pct": -85,
+    "chg_pct": -57,
     "updown": {
-     "하향": 67,
+     "하향": 73,
      "상향": 8
     }
    },
@@ -946,12 +946,12 @@
      15,
      28,
      88,
-     8
+     17
     ],
-    "chg_pct": -91,
+    "chg_pct": -81,
     "updown": {
      "상향": 17,
-     "하향": 39
+     "하향": 40
     }
    },
    {
@@ -960,12 +960,12 @@
      40,
      29,
      51,
-     6
+     24
     ],
-    "chg_pct": -88,
+    "chg_pct": -53,
     "updown": {
-     "상향": 27,
-     "하향": 56
+     "상향": 28,
+     "하향": 60
     }
    },
    {
@@ -974,26 +974,12 @@
      39,
      53,
      19,
-     5
+     13
     ],
-    "chg_pct": -74,
+    "chg_pct": -32,
     "updown": {
      "상향": 5,
      "하향": 22
-    }
-   },
-   {
-    "name": "조선",
-    "weeks": [
-     13,
-     71,
-     27,
-     4
-    ],
-    "chg_pct": -85,
-    "updown": {
-     "하향": 87,
-     "상향": 1
     }
    },
    {
@@ -1002,12 +988,26 @@
      22,
      20,
      52,
-     10
+     26
     ],
-    "chg_pct": -81,
+    "chg_pct": -50,
     "updown": {
      "하향": 25,
-     "상향": 2
+     "상향": 5
+    }
+   },
+   {
+    "name": "조선",
+    "weeks": [
+     13,
+     71,
+     27,
+     7
+    ],
+    "chg_pct": -74,
+    "updown": {
+     "하향": 87,
+     "상향": 1
     }
    },
    {
@@ -1016,9 +1016,9 @@
      33,
      26,
      37,
-     3
+     10
     ],
-    "chg_pct": -92,
+    "chg_pct": -73,
     "updown": {
      "하향": 50,
      "상향": 2
@@ -1030,9 +1030,9 @@
      17,
      15,
      51,
-     13
+     16
     ],
-    "chg_pct": -75,
+    "chg_pct": -69,
     "updown": {
      "하향": 58,
      "상향": 9
@@ -1044,12 +1044,12 @@
      18,
      23,
      38,
-     10
+     17
     ],
-    "chg_pct": -74,
+    "chg_pct": -55,
     "updown": {
      "상향": 12,
-     "하향": 12
+     "하향": 14
     }
    },
    {
@@ -1058,26 +1058,39 @@
      21,
      19,
      34,
-     14
+     16
     ],
-    "chg_pct": -59,
+    "chg_pct": -53,
     "updown": {
-     "하향": 67,
+     "하향": 68,
      "상향": 2
     }
    },
    {
-    "name": "은행",
+    "name": "K-엔터",
     "weeks": [
-     10,
-     40,
-     22,
-     12
+     8,
+     12,
+     47,
+     22
     ],
-    "chg_pct": -45,
+    "chg_pct": -53,
     "updown": {
-     "상향": 3,
-     "하향": 48
+     "하향": 31
+    }
+   },
+   {
+    "name": "운송/물류",
+    "weeks": [
+     9,
+     9,
+     46,
+     24
+    ],
+    "chg_pct": -48,
+    "updown": {
+     "상향": 22,
+     "하향": 11
     }
    },
    {
@@ -1086,11 +1099,11 @@
      7,
      9,
      38,
-     26
+     34
     ],
-    "chg_pct": -32,
+    "chg_pct": -11,
     "updown": {
-     "하향": 42,
+     "하향": 44,
      "상향": 7
     }
    },
@@ -1100,12 +1113,26 @@
      18,
      15,
      37,
-     9
+     17
     ],
-    "chg_pct": -76,
+    "chg_pct": -54,
     "updown": {
-     "하향": 39,
+     "하향": 40,
      "상향": 3
+    }
+   },
+   {
+    "name": "은행",
+    "weeks": [
+     10,
+     40,
+     22,
+     14
+    ],
+    "chg_pct": -36,
+    "updown": {
+     "상향": 3,
+     "하향": 48
     }
    },
    {
@@ -1114,53 +1141,12 @@
      18,
      8,
      27,
-     20
+     29
     ],
-    "chg_pct": -26,
+    "chg_pct": 7,
     "updown": {
      "하향": 22,
      "상향": 1
-    }
-   },
-   {
-    "name": "운송/물류",
-    "weeks": [
-     9,
-     9,
-     46,
-     7
-    ],
-    "chg_pct": -85,
-    "updown": {
-     "상향": 20,
-     "하향": 11
-    }
-   },
-   {
-    "name": "K-엔터",
-    "weeks": [
-     8,
-     12,
-     47,
-     4
-    ],
-    "chg_pct": -91,
-    "updown": {
-     "하향": 28
-    }
-   },
-   {
-    "name": "신재생에너지",
-    "weeks": [
-     9,
-     19,
-     20,
-     13
-    ],
-    "chg_pct": -35,
-    "updown": {
-     "하향": 21,
-     "상향": 3
     }
    },
    {
@@ -1169,12 +1155,39 @@
      19,
      9,
      12,
+     30
+    ],
+    "chg_pct": 150,
+    "updown": {
+     "하향": 50,
+     "상향": 3
+    }
+   },
+   {
+    "name": "신재생에너지",
+    "weeks": [
+     9,
+     19,
+     20,
      15
     ],
-    "chg_pct": 25,
+    "chg_pct": -25,
     "updown": {
-     "하향": 42,
+     "하향": 21,
      "상향": 3
+    }
+   },
+   {
+    "name": "원전",
+    "weeks": [
+     3,
+     21,
+     13,
+     22
+    ],
+    "chg_pct": 69,
+    "updown": {
+     "하향": 35
     }
    },
    {
@@ -1183,40 +1196,12 @@
      13,
      10,
      29,
-     2
+     7
     ],
-    "chg_pct": -93,
+    "chg_pct": -76,
     "updown": {
      "상향": 1,
      "하향": 26
-    }
-   },
-   {
-    "name": "통신서비스",
-    "weeks": [
-     2,
-     4,
-     45,
-     3
-    ],
-    "chg_pct": -93,
-    "updown": {
-     "하향": 2,
-     "상향": 2
-    }
-   },
-   {
-    "name": "미디어/엔터",
-    "weeks": [
-     1,
-     5,
-     34,
-     10
-    ],
-    "chg_pct": -71,
-    "updown": {
-     "하향": 11,
-     "상향": 7
     }
    },
    {
@@ -1225,12 +1210,26 @@
      19,
      13,
      10,
-     4
+     17
     ],
-    "chg_pct": -60,
+    "chg_pct": 70,
     "updown": {
      "상향": 8,
-     "하향": 5
+     "하향": 8
+    }
+   },
+   {
+    "name": "음식료",
+    "weeks": [
+     5,
+     0,
+     24,
+     29
+    ],
+    "chg_pct": 21,
+    "updown": {
+     "상향": 3,
+     "하향": 7
     }
    }
   ],
@@ -1241,9 +1240,9 @@
      31,
      80,
      39,
-     5
+     17
     ],
-    "chg_pct": -87
+    "chg_pct": -56
    },
    {
     "name": "삼성전자",
@@ -1251,9 +1250,19 @@
      31,
      66,
      51,
-     6
+     18
     ],
-    "chg_pct": -88
+    "chg_pct": -65
+   },
+   {
+    "name": "삼성전기",
+    "weeks": [
+     28,
+     33,
+     6,
+     4
+    ],
+    "chg_pct": -33
    },
    {
     "name": "삼성SDI",
@@ -1261,9 +1270,19 @@
      5,
      14,
      16,
-     3
+     6
     ],
-    "chg_pct": -81
+    "chg_pct": -62
+   },
+   {
+    "name": "삼성E&A",
+    "weeks": [
+     25,
+     4,
+     7,
+     4
+    ],
+    "chg_pct": -43
    },
    {
     "name": "LG에너지솔루션",
@@ -1271,9 +1290,19 @@
      2,
      1,
      32,
-     2
+     4
     ],
-    "chg_pct": -94
+    "chg_pct": -88
+   },
+   {
+    "name": "GS건설",
+    "weeks": [
+     2,
+     1,
+     11,
+     11
+    ],
+    "chg_pct": 0
    },
    {
     "name": "LS ELECTRIC",
@@ -1281,9 +1310,49 @@
      11,
      1,
      4,
-     1
+     3
     ],
-    "chg_pct": -75
+    "chg_pct": -25
+   },
+   {
+    "name": "NAVER",
+    "weeks": [
+     2,
+     2,
+     8,
+     5
+    ],
+    "chg_pct": -38
+   },
+   {
+    "name": "대덕전자",
+    "weeks": [
+     7,
+     5,
+     3,
+     2
+    ],
+    "chg_pct": -33
+   },
+   {
+    "name": "삼성에스디에스",
+    "weeks": [
+     1,
+     5,
+     4,
+     6
+    ],
+    "chg_pct": 50
+   },
+   {
+    "name": "비나텍",
+    "weeks": [
+     7,
+     0,
+     2,
+     2
+    ],
+    "chg_pct": 0
    },
    {
     "name": "SGC에너지",
@@ -1294,12 +1363,114 @@
      2
     ],
     "chg_pct": 100
+   },
+   {
+    "name": "디아이",
+    "weeks": [
+     1,
+     2,
+     4,
+     0
+    ],
+    "chg_pct": -100
+   },
+   {
+    "name": "나노신소재",
+    "weeks": [
+     0,
+     0,
+     5,
+     0
+    ],
+    "chg_pct": -100
+   },
+   {
+    "name": "상신이디피",
+    "weeks": [
+     1,
+     0,
+     2,
+     2
+    ],
+    "chg_pct": 0
+   },
+   {
+    "name": "티에프이",
+    "weeks": [
+     1,
+     3,
+     1,
+     0
+    ],
+    "chg_pct": -100
+   },
+   {
+    "name": "엑시콘",
+    "weeks": [
+     1,
+     1,
+     0,
+     0
+    ],
+    "chg_pct": null
+   },
+   {
+    "name": "한중엔시에스",
+    "weeks": [
+     0,
+     0,
+     1,
+     0
+    ],
+    "chg_pct": -100
+   },
+   {
+    "name": "라온텍",
+    "weeks": [
+     0,
+     0,
+     0,
+     1
+    ],
+    "chg_pct": null
    }
   ],
   "source": "텔레그램 채널 글(2차 자료), 중복 제외, 종목이 붙은 글만"
  },
  "earnings": {
   "flow_31d": [
+   {
+    "sector": "건설",
+    "big": null,
+    "up": 28,
+    "down": 48,
+    "new": 10,
+    "avg_change_pct": -8.0,
+    "stocks": [
+     "삼성E&A",
+     "현대건설",
+     "대우건설",
+     "GS건설",
+     "DL이앤씨",
+     "자이에스앤디"
+    ]
+   },
+   {
+    "sector": "화장품",
+    "big": null,
+    "up": 20,
+    "down": 47,
+    "new": 18,
+    "avg_change_pct": -4.9,
+    "stocks": [
+     "한국콜마",
+     "에이피알",
+     "LG생활건강",
+     "펌텍코리아",
+     "코스메카코리아",
+     "코스맥스"
+    ]
+   },
    {
     "sector": "조선",
     "big": null,
@@ -1317,51 +1488,49 @@
     ]
    },
    {
-    "sector": "건설",
-    "big": null,
-    "up": 27,
-    "down": 45,
-    "new": 4,
-    "avg_change_pct": -7.1,
+    "sector": "유통",
+    "big": "소비재",
+    "up": 3,
+    "down": 56,
+    "new": 21,
+    "avg_change_pct": -17.3,
     "stocks": [
-     "삼성E&A",
-     "현대건설",
-     "대우건설",
-     "DL이앤씨",
-     "GS건설",
-     "자이에스앤디"
-    ]
-   },
-   {
-    "sector": "화장품",
-    "big": null,
-    "up": 10,
-    "down": 46,
-    "new": 17,
-    "avg_change_pct": -8.0,
-    "stocks": [
-     "한국콜마",
-     "에이피알",
-     "LG생활건강",
-     "코스메카코리아",
-     "코스맥스",
-     "달바글로벌"
+     "현대백화점",
+     "GS리테일",
+     "롯데쇼핑",
+     "호텔신라",
+     "신세계"
     ]
    },
    {
     "sector": "화학",
     "big": null,
     "up": 5,
-    "down": 55,
-    "new": 11,
+    "down": 63,
+    "new": 12,
     "avg_change_pct": -15.2,
     "stocks": [
+     "롯데케미칼",
      "LG화학",
      "금호석유화학",
-     "롯데케미칼",
      "OCI홀딩스",
      "롯데정밀화학",
      "유니드"
+    ]
+   },
+   {
+    "sector": "방산 체계",
+    "big": "방산·우주",
+    "up": 2,
+    "down": 66,
+    "new": 8,
+    "avg_change_pct": -25.3,
+    "stocks": [
+     "한국항공우주",
+     "LIG디펜스앤에어로스페이스",
+     "한화에어로스페이스",
+     "현대로템",
+     "한화시스템"
     ]
    },
    {
@@ -1381,67 +1550,12 @@
     ]
    },
    {
-    "sector": "유통",
-    "big": "소비재",
-    "up": 3,
-    "down": 41,
-    "new": 18,
-    "avg_change_pct": -17.0,
-    "stocks": [
-     "현대백화점",
-     "GS리테일",
-     "호텔신라",
-     "신세계"
-    ]
-   },
-   {
-    "sector": "완성차",
-    "big": "자동차",
-    "up": 1,
-    "down": 55,
-    "new": 2,
-    "avg_change_pct": -15.7,
-    "stocks": [
-     "현대차",
-     "기아"
-    ]
-   },
-   {
-    "sector": "엔터·콘텐츠",
-    "big": "소비재",
-    "up": 0,
-    "down": 27,
-    "new": 31,
-    "avg_change_pct": -15.8,
-    "stocks": [
-     "하이브",
-     "에스엠",
-     "JYP Ent.",
-     "이노션",
-     "디어유"
-    ]
-   },
-   {
-    "sector": "방산 체계",
-    "big": "방산·우주",
-    "up": 2,
-    "down": 48,
-    "new": 6,
-    "avg_change_pct": -22.4,
-    "stocks": [
-     "한국항공우주",
-     "한화에어로스페이스",
-     "현대로템",
-     "한화시스템"
-    ]
-   },
-   {
     "sector": "제약",
     "big": null,
-    "up": 7,
-    "down": 31,
-    "new": 17,
-    "avg_change_pct": -9.2,
+    "up": 9,
+    "down": 33,
+    "new": 21,
+    "avg_change_pct": -9.0,
     "stocks": [
      "한미약품",
      "SK바이오팜",
@@ -1452,28 +1566,55 @@
     ]
    },
    {
+    "sector": "완성차",
+    "big": "자동차",
+    "up": 1,
+    "down": 59,
+    "new": 2,
+    "avg_change_pct": -15.8,
+    "stocks": [
+     "현대차",
+     "기아"
+    ]
+   },
+   {
+    "sector": "엔터·콘텐츠",
+    "big": "소비재",
+    "up": 0,
+    "down": 27,
+    "new": 35,
+    "avg_change_pct": -15.8,
+    "stocks": [
+     "하이브",
+     "에스엠",
+     "JYP Ent.",
+     "이노션",
+     "디어유"
+    ]
+   },
+   {
     "sector": "반도체와반도체장비",
     "big": null,
     "up": 19,
-    "down": 16,
-    "new": 18,
-    "avg_change_pct": 0.0,
+    "down": 19,
+    "new": 23,
+    "avg_change_pct": -2.5,
     "stocks": [
      "솔브레인",
-     "피에스케이홀딩스",
+     "원익IPS",
      "티엘비",
-     "피에스케이",
-     "기가비스",
-     "티씨케이"
+     "피에스케이홀딩스",
+     "샘씨엔에스",
+     "피에스케이"
     ]
    },
    {
     "sector": "자동차 부품",
     "big": "자동차",
     "up": 0,
-    "down": 47,
+    "down": 51,
     "new": 2,
-    "avg_change_pct": -16.0,
+    "avg_change_pct": -16.1,
     "stocks": [
      "현대모비스",
      "HL만도",
@@ -1486,13 +1627,29 @@
     "big": "전력·에너지",
     "up": 1,
     "down": 43,
-    "new": 5,
+    "new": 9,
     "avg_change_pct": -18.4,
     "stocks": [
      "HD현대일렉트릭",
      "LS ELECTRIC",
      "효성중공업",
      "산일전기"
+    ]
+   },
+   {
+    "sector": "자동차부품",
+    "big": null,
+    "up": 4,
+    "down": 20,
+    "new": 24,
+    "avg_change_pct": -7.7,
+    "stocks": [
+     "한국타이어앤테크놀로지",
+     "한온시스템",
+     "넥센타이어",
+     "에스엘",
+     "네오티스",
+     "SNT홀딩스"
     ]
    },
    {
@@ -1512,47 +1669,18 @@
     ]
    },
    {
-    "sector": "자동차부품",
-    "big": null,
-    "up": 4,
-    "down": 20,
-    "new": 20,
-    "avg_change_pct": -7.7,
-    "stocks": [
-     "한국타이어앤테크놀로지",
-     "한온시스템",
-     "넥센타이어",
-     "네오티스",
-     "SNT홀딩스",
-     "에스엘"
-    ]
-   },
-   {
     "sector": "철강·비철금속",
     "big": "소재·산업재",
     "up": 2,
     "down": 31,
-    "new": 6,
+    "new": 8,
     "avg_change_pct": -11.1,
     "stocks": [
      "풍산",
      "세아베스틸지주",
      "POSCO홀딩스",
-     "포스코인터내셔널",
-     "현대제철"
-    ]
-   },
-   {
-    "sector": "백화점과일반상점",
-    "big": null,
-    "up": 6,
-    "down": 24,
-    "new": 8,
-    "avg_change_pct": -8.4,
-    "stocks": [
-     "BGF리테일",
-     "롯데쇼핑",
-     "이마트"
+     "현대제철",
+     "포스코인터내셔널"
     ]
    },
    {
@@ -1571,12 +1699,28 @@
     "sector": "의료기기·미용",
     "big": "바이오·헬스케어",
     "up": 1,
-    "down": 25,
+    "down": 26,
     "new": 10,
-    "avg_change_pct": -17.5,
+    "avg_change_pct": -17.3,
     "stocks": [
      "파마리서치",
      "휴젤"
+    ]
+   },
+   {
+    "sector": "방송과엔터테인먼트",
+    "big": null,
+    "up": 7,
+    "down": 12,
+    "new": 16,
+    "avg_change_pct": -2.9,
+    "stocks": [
+     "와이지엔터테인먼트",
+     "CJ ENM",
+     "스튜디오드래곤",
+     "LG헬로비전",
+     "CJ CGV",
+     "더핑크퐁컴퍼니"
     ]
    },
    {
@@ -1595,16 +1739,28 @@
   ],
   "flow_7d": [
    {
-    "sector": "엔터·콘텐츠",
-    "up": 0,
-    "down": 11,
-    "new": 31
+    "sector": "화장품",
+    "up": 9,
+    "down": 23,
+    "new": 18
    },
    {
-    "sector": "화장품",
-    "up": 2,
-    "down": 22,
-    "new": 17
+    "sector": "엔터·콘텐츠",
+    "up": 0,
+    "down": 10,
+    "new": 35
+   },
+   {
+    "sector": "화학",
+    "up": 1,
+    "down": 29,
+    "new": 12
+   },
+   {
+    "sector": "유통",
+    "up": 3,
+    "down": 16,
+    "new": 21
    },
    {
     "sector": "통신",
@@ -1613,33 +1769,39 @@
     "new": 35
    },
    {
-    "sector": "화학",
-    "up": 1,
-    "down": 21,
-    "new": 11
-   },
-   {
     "sector": "자동차부품",
     "up": 1,
     "down": 10,
-    "new": 20
+    "new": 24
    },
    {
-    "sector": "유통",
-    "up": 3,
-    "down": 7,
-    "new": 18
+    "sector": "방산 체계",
+    "up": 1,
+    "down": 25,
+    "new": 8
    },
    {
     "sector": "제약",
-    "up": 2,
-    "down": 6,
-    "new": 17
+    "up": 4,
+    "down": 8,
+    "new": 21
+   },
+   {
+    "sector": "방송과엔터테인먼트",
+    "up": 7,
+    "down": 9,
+    "new": 16
+   },
+   {
+    "sector": "반도체와반도체장비",
+    "up": 1,
+    "down": 8,
+    "new": 22
    },
    {
     "sector": "의료기기·미용",
     "up": 1,
-    "down": 13,
+    "down": 14,
     "new": 10
    },
    {
@@ -1649,46 +1811,34 @@
     "new": 20
    },
    {
-    "sector": "백화점과일반상점",
-    "up": 6,
-    "down": 10,
-    "new": 8
-   },
-   {
-    "sector": "반도체와반도체장비",
-    "up": 1,
-    "down": 5,
-    "new": 17
-   },
-   {
     "sector": "식품",
-    "up": 1,
-    "down": 2,
-    "new": 18
-   },
-   {
-    "sector": "방송과엔터테인먼트",
-    "up": 7,
-    "down": 6,
-    "new": 7
-   },
-   {
-    "sector": "배터리 셀",
     "up": 0,
-    "down": 5,
-    "new": 13
+    "down": 2,
+    "new": 20
    },
    {
-    "sector": "방산 체계",
-    "up": 1,
-    "down": 11,
-    "new": 6
+    "sector": "건설",
+    "up": 4,
+    "down": 6,
+    "new": 10
    },
    {
     "sector": "전기제품",
     "up": 0,
-    "down": 14,
+    "down": 15,
     "new": 4
+   },
+   {
+    "sector": "철강·비철금속",
+    "up": 0,
+    "down": 9,
+    "new": 8
+   },
+   {
+    "sector": "배터리 셀",
+    "up": 0,
+    "down": 4,
+    "new": 13
    },
    {
     "sector": "전자장비와기기",
@@ -1697,27 +1847,21 @@
     "new": 10
    },
    {
-    "sector": "우주항공과국방",
+    "sector": "변압기·전력기기",
     "up": 0,
-    "down": 13,
-    "new": 4
+    "down": 6,
+    "new": 9
    },
    {
-    "sector": "철강·비철금속",
-    "up": 0,
-    "down": 10,
-    "new": 6
-   },
-   {
-    "sector": "플랫폼",
-    "up": 0,
-    "down": 9,
-    "new": 6
+    "sector": "게임",
+    "up": 4,
+    "down": 2,
+    "new": 9
    }
   ],
   "totals_31d": {
-   "up": 138,
-   "down": 852
+   "up": 153,
+   "down": 901
   },
   "pool": [
    {
@@ -1757,35 +1901,228 @@
     "earnings": null
    },
    {
-    "name": "NAVER·삼성에스디에스",
-    "reports_31d": 0,
+    "name": "NAVER",
+    "reports_31d": 5,
+    "up": 1,
+    "down": 2,
+    "last": [
+     {
+      "t": "2026-10-14",
+      "broker": "삼성증권",
+      "dir": "하향",
+      "before": 280000,
+      "after": 250000
+     },
+     {
+      "t": "2026-10-19",
+      "broker": "신한투자증권",
+      "dir": "상향",
+      "before": 270000,
+      "after": 310000
+     },
+     {
+      "t": "2026-10-26",
+      "broker": "대신증권",
+      "dir": "하향",
+      "before": 290000,
+      "after": 280000
+     }
+    ],
+    "consensus": {
+     "now": 303333,
+     "n": 6,
+     "chg_pct": 12.3,
+     "since": "2026-10-11"
+    },
+    "earnings": null
+   },
+   {
+    "name": "삼성에스디에스",
+    "reports_31d": 7,
+    "up": 3,
+    "down": 2,
+    "last": [
+     {
+      "t": "2026-10-26",
+      "broker": "대신증권",
+      "dir": "하향",
+      "before": 370000,
+      "after": 320000
+     },
+     {
+      "t": "2026-10-29",
+      "broker": "삼성증권",
+      "dir": "상향",
+      "before": 230000,
+      "after": 250000
+     },
+     {
+      "t": "2026-10-30",
+      "broker": "LS증권",
+      "dir": "하향",
+      "before": 307000,
+      "after": 298000
+     }
+    ],
+    "consensus": {
+     "now": 285600,
+     "n": 5,
+     "chg_pct": 0.2,
+     "since": "2026-10-29"
+    },
+    "earnings": null
+   },
+   {
+    "name": "GS건설",
+    "reports_31d": 12,
+    "up": 3,
+    "down": 5,
+    "last": [
+     {
+      "t": "2026-10-15",
+      "broker": "현대차증권",
+      "dir": "상향",
+      "before": 31000,
+      "after": 40000
+     },
+     {
+      "t": "2026-10-21",
+      "broker": "신한투자증권",
+      "dir": "하향",
+      "before": 47000,
+      "after": 43000
+     },
+     {
+      "t": "2026-11-02",
+      "broker": "LS증권",
+      "dir": "하향",
+      "before": 50000,
+      "after": 38000
+     }
+    ],
+    "consensus": {
+     "now": 41222,
+     "n": 9,
+     "chg_pct": -3.0,
+     "since": "2026-10-15"
+    },
+    "earnings": null
+   },
+   {
+    "name": "삼성E&A",
+    "reports_31d": 22,
+    "up": 21,
+    "down": 0,
+    "last": [
+     {
+      "t": "2026-10-22",
+      "broker": "하나증권",
+      "dir": "상향",
+      "before": 67000,
+      "after": 73000
+     },
+     {
+      "t": "2026-10-22",
+      "broker": "IBK투자증권",
+      "dir": "상향",
+      "before": 68000,
+      "after": 72000
+     },
+     {
+      "t": "2026-10-22",
+      "broker": "KB증권",
+      "dir": "상향",
+      "before": 73000,
+      "after": 81000
+     }
+    ],
+    "consensus": {
+     "now": 79444,
+     "n": 18,
+     "chg_pct": 15.7,
+     "since": "2026-10-11"
+    },
+    "earnings": {
+     "period": "2026.3Q",
+     "op": 5006.0,
+     "op_est": 2492.0,
+     "op_surprise": 100.9,
+     "op_yoy": 183.6,
+     "verdict": "서프라이즈",
+     "time": "2026-10-22 11:34"
+    }
+   },
+   {
+    "name": "비나텍",
+    "reports_31d": 1,
     "up": 0,
     "down": 0,
-    "last": [],
+    "last": [
+     {
+      "t": "2026-11-09",
+      "broker": "하나증권",
+      "dir": null,
+      "before": null,
+      "after": null
+     }
+    ],
     "consensus": null,
     "earnings": null
    },
    {
-    "name": "GS건설·삼성E&A",
-    "reports_31d": 0,
+    "name": "혜인",
+    "reports_31d": 1,
     "up": 0,
     "down": 0,
-    "last": [],
+    "last": [
+     {
+      "t": "2026-11-09",
+      "broker": "하나증권",
+      "dir": null,
+      "before": null,
+      "after": null
+     }
+    ],
     "consensus": null,
     "earnings": null
    },
    {
-    "name": "비나텍·혜인·상신이디피·라온텍",
-    "reports_31d": 0,
+    "name": "상신이디피",
+    "reports_31d": 1,
     "up": 0,
     "down": 0,
-    "last": [],
+    "last": [
+     {
+      "t": "2026-11-09",
+      "broker": "하나증권",
+      "dir": "신규",
+      "before": null,
+      "after": null
+     }
+    ],
+    "consensus": null,
+    "earnings": null
+   },
+   {
+    "name": "라온텍",
+    "reports_31d": 1,
+    "up": 0,
+    "down": 0,
+    "last": [
+     {
+      "t": "2026-11-09",
+      "broker": "하나증권",
+      "dir": null,
+      "before": null,
+      "after": null
+     }
+    ],
     "consensus": null,
     "earnings": null
    },
    {
     "name": "LS ELECTRIC",
-    "reports_31d": 12,
+    "reports_31d": 13,
     "up": 0,
     "down": 11,
     "last": [
@@ -1826,15 +2163,6 @@
      "verdict": "서프라이즈",
      "time": "2026-10-21 11:11"
     }
-   },
-   {
-    "name": "미국 AI 전력 인프라",
-    "reports_31d": 0,
-    "up": 0,
-    "down": 0,
-    "last": [],
-    "consensus": null,
-    "earnings": null
    },
    {
     "name": "삼성SDI",
@@ -1917,26 +2245,62 @@
     "earnings": null
    },
    {
-    "name": "나노신소재·한중엔시에스",
-    "reports_31d": 0,
-    "up": 0,
+    "name": "나노신소재",
+    "reports_31d": 2,
+    "up": 1,
     "down": 0,
-    "last": [],
-    "consensus": null,
-    "earnings": null
+    "last": [
+     {
+      "t": "2026-11-05",
+      "broker": "iM증권",
+      "dir": "상향",
+      "before": 80000,
+      "after": 115000
+     },
+     {
+      "t": "2026-11-05",
+      "broker": "유안타증권",
+      "dir": "유지",
+      "before": null,
+      "after": 105000
+     }
+    ],
+    "consensus": {
+     "now": 110000,
+     "n": 2,
+     "chg_pct": 0.0,
+     "since": "2026-11-05"
+    },
+    "earnings": {
+     "period": "2026.3Q",
+     "op": 66.0,
+     "op_est": 47.0,
+     "op_surprise": 40.4,
+     "op_yoy": 632.6,
+     "verdict": "서프라이즈",
+     "time": "2026-11-03 14:44"
+    }
    },
    {
-    "name": "CATL",
-    "reports_31d": 0,
+    "name": "한중엔시에스",
+    "reports_31d": 1,
     "up": 0,
     "down": 0,
-    "last": [],
+    "last": [
+     {
+      "t": "2026-11-05",
+      "broker": "유안타증권",
+      "dir": "유지",
+      "before": null,
+      "after": 97000
+     }
+    ],
     "consensus": null,
     "earnings": null
    },
    {
     "name": "삼성전자",
-    "reports_31d": 5,
+    "reports_31d": 6,
     "up": 1,
     "down": 2,
     "last": [
@@ -1963,9 +2327,9 @@
      }
     ],
     "consensus": {
-     "now": 513333,
-     "n": 3,
-     "chg_pct": -13.7,
+     "now": 517500,
+     "n": 4,
+     "chg_pct": -13.0,
      "since": "2026-10-29"
     },
     "earnings": {
@@ -1980,7 +2344,7 @@
    },
    {
     "name": "SK하이닉스",
-    "reports_31d": 8,
+    "reports_31d": 9,
     "up": 4,
     "down": 3,
     "last": [
@@ -2007,9 +2371,9 @@
      }
     ],
     "consensus": {
-     "now": 3035714,
-     "n": 7,
-     "chg_pct": -2.1,
+     "now": 2986250,
+     "n": 8,
+     "chg_pct": -3.7,
      "since": "2026-10-26"
     },
     "earnings": {
@@ -2023,7 +2387,139 @@
     }
    },
    {
-    "name": "심텍·삼성전기·대덕전자",
+    "name": "심텍",
+    "reports_31d": 10,
+    "up": 3,
+    "down": 1,
+    "last": [
+     {
+      "t": "2026-10-13",
+      "broker": "메리츠증권",
+      "dir": "상향",
+      "before": 170000,
+      "after": 200000
+     },
+     {
+      "t": "2026-10-20",
+      "broker": "신한투자증권",
+      "dir": "상향",
+      "before": 180000,
+      "after": 200000
+     },
+     {
+      "t": "2026-11-04",
+      "broker": "하나증권",
+      "dir": "상향",
+      "before": 170000,
+      "after": 210000
+     }
+    ],
+    "consensus": {
+     "now": 192857,
+     "n": 7,
+     "chg_pct": -13.3,
+     "since": "2026-10-13"
+    },
+    "earnings": {
+     "period": "2026.3Q",
+     "op": 1018.0,
+     "op_est": 851.0,
+     "op_surprise": 19.6,
+     "op_yoy": 721.6,
+     "verdict": "서프라이즈",
+     "time": "2026-11-03 16:00"
+    }
+   },
+   {
+    "name": "삼성전기",
+    "reports_31d": 6,
+    "up": 4,
+    "down": 1,
+    "last": [
+     {
+      "t": "2026-10-29",
+      "broker": "하나증권",
+      "dir": "하향",
+      "before": 3000000,
+      "after": 2000000
+     },
+     {
+      "t": "2026-10-29",
+      "broker": "신한투자증권",
+      "dir": "상향",
+      "before": 2200000,
+      "after": 2700000
+     },
+     {
+      "t": "2026-10-29",
+      "broker": "삼성증권",
+      "dir": "상향",
+      "before": 1400000,
+      "after": 2000000
+     }
+    ],
+    "consensus": {
+     "now": 2242857,
+     "n": 7,
+     "chg_pct": -6.5,
+     "since": "2026-10-11"
+    },
+    "earnings": {
+     "period": "2026.3Q",
+     "op": 6910.0,
+     "op_est": 6453.0,
+     "op_surprise": 7.1,
+     "op_yoy": 165.5,
+     "verdict": "부합",
+     "time": "2026-10-28 13:31"
+    }
+   },
+   {
+    "name": "대덕전자",
+    "reports_31d": 3,
+    "up": 0,
+    "down": 2,
+    "last": [
+     {
+      "t": "2026-11-01",
+      "broker": "하나증권",
+      "dir": "하향",
+      "before": 250000,
+      "after": 180000
+     },
+     {
+      "t": "2026-11-02",
+      "broker": "신한투자증권",
+      "dir": "하향",
+      "before": 200000,
+      "after": 170000
+     },
+     {
+      "t": "2026-11-09",
+      "broker": "메리츠증권",
+      "dir": null,
+      "before": null,
+      "after": null
+     }
+    ],
+    "consensus": {
+     "now": 187500,
+     "n": 4,
+     "chg_pct": -6.2,
+     "since": "2026-10-11"
+    },
+    "earnings": {
+     "period": "2026.3Q",
+     "op": 879.0,
+     "op_est": 776.0,
+     "op_surprise": 13.3,
+     "op_yoy": 259.4,
+     "verdict": "서프라이즈",
+     "time": "2026-10-30 15:31"
+    }
+   },
+   {
+    "name": "엑시콘",
     "reports_31d": 0,
     "up": 0,
     "down": 0,
@@ -2032,13 +2528,65 @@
     "earnings": null
    },
    {
-    "name": "엑시콘·티에프이·디아이",
-    "reports_31d": 0,
+    "name": "티에프이",
+    "reports_31d": 1,
     "up": 0,
     "down": 0,
-    "last": [],
+    "last": [
+     {
+      "t": "2026-11-02",
+      "broker": "현대차증권",
+      "dir": "신규",
+      "before": null,
+      "after": 130000
+     }
+    ],
     "consensus": null,
     "earnings": null
+   },
+   {
+    "name": "디아이",
+    "reports_31d": 3,
+    "up": 3,
+    "down": 0,
+    "last": [
+     {
+      "t": "2026-10-12",
+      "broker": "대신증권",
+      "dir": "상향",
+      "before": 39000,
+      "after": 60000
+     },
+     {
+      "t": "2026-10-29",
+      "broker": "신한투자증권",
+      "dir": "상향",
+      "before": 38000,
+      "after": 56000
+     },
+     {
+      "t": "2026-11-03",
+      "broker": "현대차증권",
+      "dir": "상향",
+      "before": 57000,
+      "after": 60000
+     }
+    ],
+    "consensus": {
+     "now": 58667,
+     "n": 3,
+     "chg_pct": 0.3,
+     "since": "2026-10-12"
+    },
+    "earnings": {
+     "period": "2026.3Q",
+     "op": 593.0,
+     "op_est": 444.0,
+     "op_surprise": 33.6,
+     "op_yoy": 493.1,
+     "verdict": "서프라이즈",
+     "time": "2026-11-02 09:45"
+    }
    }
   ],
   "source": "채널 리포트 요약(2차) 31일 · 컨센서스 = 증권사별 최근 목표가 평균 · 실적 = 채널 잠정실적 공시"
@@ -2048,15 +2596,159 @@
    {
     "name": "SGC에너지",
     "code": "005090",
-    "price": 36100.0,
+    "price": 36900.0,
     "date": "20261110",
-    "rs": 48,
-    "rs_chg4w": -22,
-    "r1w": 18.4,
-    "r1m": -16.9,
-    "r3m": -33.1,
-    "off_high": -48.9,
+    "rs": 53,
+    "rs_chg4w": -17,
+    "r1w": 21.0,
+    "r1m": -15.1,
+    "r3m": -31.7,
+    "off_high": -47.8,
     "above20": true,
+    "above50": false,
+    "f5_eok": null,
+    "i5_eok": null,
+    "f_streak": null,
+    "i_streak": null
+   },
+   {
+    "name": "NAVER",
+    "code": "035420",
+    "price": 192900.0,
+    "date": "20261110",
+    "rs": 56,
+    "rs_chg4w": 30,
+    "r1w": 12.7,
+    "r1m": 7.3,
+    "r3m": -8.1,
+    "off_high": -36.5,
+    "above20": true,
+    "above50": true,
+    "f5_eok": 1127,
+    "i5_eok": 1269,
+    "f_streak": 4,
+    "i_streak": 3
+   },
+   {
+    "name": "삼성에스디에스",
+    "code": "018260",
+    "price": 233000.0,
+    "date": "20261110",
+    "rs": 89,
+    "rs_chg4w": 19,
+    "r1w": 14.5,
+    "r1m": 20.7,
+    "r3m": 5.2,
+    "off_high": -40.0,
+    "above20": true,
+    "above50": true,
+    "f5_eok": -256,
+    "i5_eok": 722,
+    "f_streak": -2,
+    "i_streak": 13
+   },
+   {
+    "name": "GS건설",
+    "code": "006360",
+    "price": 31750.0,
+    "date": "20261110",
+    "rs": 85,
+    "rs_chg4w": 16,
+    "r1w": 13.4,
+    "r1m": 5.8,
+    "r3m": 0.3,
+    "off_high": -29.2,
+    "above20": true,
+    "above50": false,
+    "f5_eok": -174,
+    "i5_eok": 324,
+    "f_streak": -2,
+    "i_streak": 3
+   },
+   {
+    "name": "삼성E&A",
+    "code": "028050",
+    "price": 64500.0,
+    "date": "20261110",
+    "rs": 95,
+    "rs_chg4w": 25,
+    "r1w": 3.2,
+    "r1m": 40.7,
+    "r3m": 34.1,
+    "off_high": -4.7,
+    "above20": true,
+    "above50": true,
+    "f5_eok": -900,
+    "i5_eok": 716,
+    "f_streak": -5,
+    "i_streak": 5
+   },
+   {
+    "name": "비나텍",
+    "code": "126340",
+    "price": 93100.0,
+    "date": "20261110",
+    "rs": 90,
+    "rs_chg4w": 19,
+    "r1w": 4.5,
+    "r1m": 16.1,
+    "r3m": 39.6,
+    "off_high": -54.5,
+    "above20": false,
+    "above50": true,
+    "f5_eok": null,
+    "i5_eok": null,
+    "f_streak": null,
+    "i_streak": null
+   },
+   {
+    "name": "혜인",
+    "code": "003010",
+    "price": 9510.0,
+    "date": "20261110",
+    "rs": 96,
+    "rs_chg4w": 7,
+    "r1w": 27.5,
+    "r1m": 26.5,
+    "r3m": 60.9,
+    "off_high": -28.4,
+    "above20": true,
+    "above50": true,
+    "f5_eok": null,
+    "i5_eok": null,
+    "f_streak": null,
+    "i_streak": null
+   },
+   {
+    "name": "상신이디피",
+    "code": "091580",
+    "price": 22750.0,
+    "date": "20261110",
+    "rs": 92,
+    "rs_chg4w": 0,
+    "r1w": -2.8,
+    "r1m": -7.1,
+    "r3m": 43.6,
+    "off_high": -27.9,
+    "above20": false,
+    "above50": false,
+    "f5_eok": null,
+    "i5_eok": null,
+    "f_streak": null,
+    "i_streak": null
+   },
+   {
+    "name": "라온텍",
+    "code": "418420",
+    "price": 2955.0,
+    "date": "20261110",
+    "rs": 20,
+    "rs_chg4w": 6,
+    "r1w": -1.5,
+    "r1m": -19.9,
+    "r3m": -17.6,
+    "off_high": -76.4,
+    "above20": false,
     "above50": false,
     "f5_eok": null,
     "i5_eok": null,
@@ -2066,147 +2758,249 @@
    {
     "name": "LS ELECTRIC",
     "code": "010120",
-    "price": 121400.0,
+    "price": 120900.0,
     "date": "20261110",
     "rs": 18,
     "rs_chg4w": -68,
-    "r1w": -20.8,
-    "r1m": -33.3,
-    "r3m": -39.6,
-    "off_high": -63.8,
+    "r1w": -21.1,
+    "r1m": -33.5,
+    "r3m": -39.9,
+    "off_high": -63.9,
     "above20": false,
     "above50": false,
-    "f5_eok": -47,
-    "i5_eok": -382,
-    "f_streak": 1,
-    "i_streak": -2
+    "f5_eok": -189,
+    "i5_eok": -535,
+    "f_streak": -1,
+    "i_streak": 1
    },
    {
     "name": "삼성SDI",
     "code": "006400",
-    "price": 443000.0,
+    "price": 454000.0,
     "date": "20261110",
-    "rs": 68,
-    "rs_chg4w": -23,
-    "r1w": -11.0,
-    "r1m": -21.0,
-    "r3m": -3.5,
-    "off_high": -38.7,
+    "rs": 72,
+    "rs_chg4w": -19,
+    "r1w": -8.7,
+    "r1m": -19.1,
+    "r3m": -1.1,
+    "off_high": -37.2,
     "above20": false,
     "above50": false,
-    "f5_eok": -1120,
-    "i5_eok": -438,
-    "f_streak": -1,
-    "i_streak": -2
+    "f5_eok": -1155,
+    "i5_eok": -1027,
+    "f_streak": -2,
+    "i_streak": -3
    },
    {
     "name": "LG에너지솔루션",
     "code": "373220",
     "price": 330500.0,
     "date": "20261110",
-    "rs": 39,
-    "rs_chg4w": -35,
+    "rs": 40,
+    "rs_chg4w": -34,
     "r1w": -3.6,
     "r1m": -16.6,
     "r3m": -8.2,
     "off_high": -33.6,
     "above20": false,
     "above50": false,
-    "f5_eok": -674,
-    "i5_eok": 391,
-    "f_streak": 2,
-    "i_streak": -1
+    "f5_eok": -443,
+    "i5_eok": 148,
+    "f_streak": 3,
+    "i_streak": -2
+   },
+   {
+    "name": "나노신소재",
+    "code": "121600",
+    "price": 64400.0,
+    "date": "20261110",
+    "rs": 86,
+    "rs_chg4w": 6,
+    "r1w": -0.9,
+    "r1m": 6.6,
+    "r3m": 35.2,
+    "off_high": -32.4,
+    "above20": true,
+    "above50": true,
+    "f5_eok": null,
+    "i5_eok": null,
+    "f_streak": null,
+    "i_streak": null
+   },
+   {
+    "name": "한중엔시에스",
+    "code": "107640",
+    "price": 41300.0,
+    "date": "20261110",
+    "rs": 71,
+    "rs_chg4w": -8,
+    "r1w": -10.4,
+    "r1m": -8.0,
+    "r3m": 20.9,
+    "off_high": -43.4,
+    "above20": false,
+    "above50": false,
+    "f5_eok": null,
+    "i5_eok": null,
+    "f_streak": null,
+    "i_streak": null
    },
    {
     "name": "삼성전자",
     "code": "005930",
-    "price": 197300.0,
+    "price": 198800.0,
     "date": "20261110",
-    "rs": 77,
+    "rs": 78,
     "rs_chg4w": -4,
-    "r1w": -11.1,
-    "r1m": -21.4,
-    "r3m": -14.6,
-    "off_high": -47.3,
+    "r1w": -10.5,
+    "r1m": -20.8,
+    "r3m": -13.9,
+    "off_high": -46.9,
     "above20": false,
     "above50": false,
-    "f5_eok": -22311,
-    "i5_eok": 2726,
-    "f_streak": -4,
-    "i_streak": -1
+    "f5_eok": -24356,
+    "i5_eok": 3863,
+    "f_streak": -5,
+    "i_streak": 1
    },
    {
     "name": "SK하이닉스",
     "code": "000660",
-    "price": 1197000.0,
+    "price": 1213000.0,
     "date": "20261110",
-    "rs": 80,
-    "rs_chg4w": -11,
-    "r1w": -15.3,
-    "r1m": -25.4,
-    "r3m": -15.8,
-    "off_high": -59.9,
+    "rs": 81,
+    "rs_chg4w": -10,
+    "r1w": -14.2,
+    "r1m": -24.4,
+    "r3m": -14.7,
+    "off_high": -59.4,
     "above20": false,
     "above50": false,
-    "f5_eok": -54941,
-    "i5_eok": 14407,
-    "f_streak": -6,
-    "i_streak": 3
+    "f5_eok": -52557,
+    "i5_eok": 11629,
+    "f_streak": 1,
+    "i_streak": -1
+   },
+   {
+    "name": "심텍",
+    "code": "222800",
+    "price": 107300.0,
+    "date": "20261110",
+    "rs": 87,
+    "rs_chg4w": -9,
+    "r1w": -9.1,
+    "r1m": -31.1,
+    "r3m": -2.5,
+    "off_high": -41.2,
+    "above20": false,
+    "above50": false,
+    "f5_eok": -911,
+    "i5_eok": 255,
+    "f_streak": -5,
+    "i_streak": 1
+   },
+   {
+    "name": "삼성전기",
+    "code": "009150",
+    "price": 883000.0,
+    "date": "20261110",
+    "rs": 93,
+    "rs_chg4w": -5,
+    "r1w": -21.6,
+    "r1m": -40.9,
+    "r3m": -30.9,
+    "off_high": -63.5,
+    "above20": false,
+    "above50": false,
+    "f5_eok": -7266,
+    "i5_eok": -2085,
+    "f_streak": -7,
+    "i_streak": -1
+   },
+   {
+    "name": "대덕전자",
+    "code": "353200",
+    "price": 80100.0,
+    "date": "20261110",
+    "rs": 74,
+    "rs_chg4w": -22,
+    "r1w": -23.1,
+    "r1m": -44.8,
+    "r3m": -22.8,
+    "off_high": -59.5,
+    "above20": false,
+    "above50": false,
+    "f5_eok": 1032,
+    "i5_eok": -2371,
+    "f_streak": -1,
+    "i_streak": 1
+   },
+   {
+    "name": "엑시콘",
+    "code": "092870",
+    "price": 52000.0,
+    "date": "20261110",
+    "rs": 99,
+    "rs_chg4w": 1,
+    "r1w": -4.4,
+    "r1m": -9.7,
+    "r3m": 238.8,
+    "off_high": -23.5,
+    "above20": false,
+    "above50": true,
+    "f5_eok": null,
+    "i5_eok": null,
+    "f_streak": null,
+    "i_streak": null
+   },
+   {
+    "name": "티에프이",
+    "code": "425420",
+    "price": 73400.0,
+    "date": "20261110",
+    "rs": 98,
+    "rs_chg4w": 10,
+    "r1w": -7.2,
+    "r1m": 18.2,
+    "r3m": 141.4,
+    "off_high": -20.0,
+    "above20": true,
+    "above50": true,
+    "f5_eok": null,
+    "i5_eok": null,
+    "f_streak": null,
+    "i_streak": null
+   },
+   {
+    "name": "디아이",
+    "code": "003160",
+    "price": 26100.0,
+    "date": "20261110",
+    "rs": 76,
+    "rs_chg4w": -19,
+    "r1w": -28.9,
+    "r1m": -38.8,
+    "r3m": 12.0,
+    "off_high": -43.1,
+    "above20": false,
+    "above50": false,
+    "f5_eok": null,
+    "i5_eok": null,
+    "f_streak": null,
+    "i_streak": null
    }
   ],
   "sectors": [
    {
-    "group": "신재생에너지",
-    "n": 3,
-    "r1": -3.21,
-    "r5": 20.96,
-    "r20": -20.96,
-    "f1": -471,
-    "f5": -2197,
-    "i1": 508,
-    "i5": 1671,
-    "f20": null,
-    "i20": null,
-    "cap_eok": null
-   },
-   {
-    "group": "운송/물류",
-    "n": 8,
-    "r1": -1.26,
-    "r5": 10.58,
-    "r20": 9.68,
-    "f1": 42,
-    "f5": 38,
-    "i1": 913,
-    "i5": 2612,
-    "f20": null,
-    "i20": null,
-    "cap_eok": null
-   },
-   {
     "group": "게임",
     "n": 5,
-    "r1": -0.04,
-    "r5": 10.58,
-    "r20": 6.8,
-    "f1": -35,
-    "f5": 117,
-    "i1": 134,
-    "i5": 311,
-    "f20": null,
-    "i20": null,
-    "cap_eok": null
-   },
-   {
-    "group": "IT/소프트웨어",
-    "n": 4,
-    "r1": 1.49,
-    "r5": 10.51,
-    "r20": 1.27,
-    "f1": 123,
-    "f5": 1327,
-    "i1": 1010,
-    "i5": 1583,
+    "r1": -0.38,
+    "r5": 10.91,
+    "r20": 8.23,
+    "f1": -80,
+    "f5": -1,
+    "i1": 90,
+    "i5": 463,
     "f20": null,
     "i20": null,
     "cap_eok": null
@@ -2214,27 +3008,69 @@
    {
     "group": "통신서비스",
     "n": 3,
-    "r1": 0.89,
-    "r5": 9.5,
-    "r20": -0.49,
-    "f1": -453,
-    "f5": -686,
-    "i1": 785,
-    "i5": 1710,
+    "r1": -0.08,
+    "r5": 7.26,
+    "r20": 3.37,
+    "f1": -137,
+    "f5": -796,
+    "i1": 296,
+    "i5": 1889,
     "f20": null,
     "i20": null,
     "cap_eok": null
    },
    {
-    "group": "유통",
-    "n": 6,
-    "r1": -2.41,
-    "r5": 8.76,
-    "r20": 0.02,
-    "f1": -136,
-    "f5": -422,
-    "i1": 184,
-    "i5": 809,
+    "group": "운송/물류",
+    "n": 8,
+    "r1": -0.22,
+    "r5": 6.58,
+    "r20": 12.45,
+    "f1": -205,
+    "f5": -210,
+    "i1": 243,
+    "i5": 2115,
+    "f20": null,
+    "i20": null,
+    "cap_eok": null
+   },
+   {
+    "group": "IT/소프트웨어",
+    "n": 4,
+    "r1": -1.08,
+    "r5": 6.57,
+    "r20": 2.41,
+    "f1": -72,
+    "f5": 1154,
+    "i1": 368,
+    "i5": 1774,
+    "f20": null,
+    "i20": null,
+    "cap_eok": null
+   },
+   {
+    "group": "의류/패션",
+    "n": 4,
+    "r1": -0.01,
+    "r5": 4.99,
+    "r20": -1.26,
+    "f1": -33,
+    "f5": -69,
+    "i1": 39,
+    "i5": 126,
+    "f20": null,
+    "i20": null,
+    "cap_eok": null
+   },
+   {
+    "group": "바이오",
+    "n": 23,
+    "r1": -0.57,
+    "r5": 4.89,
+    "r20": 12.58,
+    "f1": 78,
+    "f5": -2383,
+    "i1": 587,
+    "i5": 8957,
     "f20": null,
     "i20": null,
     "cap_eok": null
@@ -2243,12 +3079,26 @@
     "group": "미디어/엔터",
     "n": 1,
     "r1": 0.05,
-    "r5": 6.75,
-    "r20": 4.14,
-    "f1": -8,
-    "f5": -55,
-    "i1": 16,
-    "i5": 74,
+    "r5": 4.31,
+    "r20": 1.82,
+    "f1": -20,
+    "f5": -66,
+    "i1": 19,
+    "i5": 83,
+    "f20": null,
+    "i20": null,
+    "cap_eok": null
+   },
+   {
+    "group": "신재생에너지",
+    "n": 3,
+    "r1": -5.64,
+    "r5": 3.48,
+    "r20": -22.33,
+    "f1": -89,
+    "f5": -2242,
+    "i1": 162,
+    "i5": 1577,
     "f20": null,
     "i20": null,
     "cap_eok": null
@@ -2256,69 +3106,27 @@
    {
     "group": "건설기계",
     "n": 3,
-    "r1": -1.25,
-    "r5": 6.65,
-    "r20": -9.97,
-    "f1": -93,
-    "f5": -350,
-    "i1": 74,
-    "i5": 374,
-    "f20": null,
-    "i20": null,
-    "cap_eok": null
-   },
-   {
-    "group": "바이오",
-    "n": 22,
-    "r1": -2.25,
-    "r5": 6.01,
-    "r20": 9.91,
-    "f1": -1469,
-    "f5": -2538,
-    "i1": 2489,
-    "i5": 8605,
-    "f20": null,
-    "i20": null,
-    "cap_eok": null
-   },
-   {
-    "group": "의류/패션",
-    "n": 4,
-    "r1": 0.65,
-    "r5": 5.89,
-    "r20": 0.47,
-    "f1": -32,
-    "f5": -34,
-    "i1": 39,
-    "i5": 90,
+    "r1": -0.36,
+    "r5": 2.13,
+    "r20": -8.22,
+    "f1": -106,
+    "f5": -476,
+    "i1": 94,
+    "i5": 437,
     "f20": null,
     "i20": null,
     "cap_eok": null
    },
    {
     "group": "음식료",
-    "n": 7,
-    "r1": -2.29,
-    "r5": 5.11,
-    "r20": 3.87,
-    "f1": -229,
-    "f5": -505,
-    "i1": 233,
-    "i5": 891,
-    "f20": null,
-    "i20": null,
-    "cap_eok": null
-   },
-   {
-    "group": "철강/비철금속",
-    "n": 4,
-    "r1": -3.0,
-    "r5": 3.99,
-    "r20": -9.82,
-    "f1": -38,
-    "f5": -490,
-    "i1": 160,
-    "i5": 707,
+    "n": 9,
+    "r1": -1.2,
+    "r5": 1.83,
+    "r20": 2.0,
+    "f1": -276,
+    "f5": -865,
+    "i1": 185,
+    "i5": 1034,
     "f20": null,
     "i20": null,
     "cap_eok": null
@@ -2326,55 +3134,13 @@
    {
     "group": "호텔/레저",
     "n": 1,
-    "r1": -2.13,
-    "r5": 3.72,
-    "r20": 0.07,
-    "f1": 14,
-    "f5": 61,
-    "i1": 10,
-    "i5": 45,
-    "f20": null,
-    "i20": null,
-    "cap_eok": null
-   },
-   {
-    "group": "자동차",
-    "n": 4,
-    "r1": -4.28,
-    "r5": 3.46,
-    "r20": -8.56,
-    "f1": -106,
-    "f5": -178,
-    "i1": 37,
-    "i5": 219,
-    "f20": null,
-    "i20": null,
-    "cap_eok": null
-   },
-   {
-    "group": "생활용품",
-    "n": 1,
-    "r1": -4.77,
-    "r5": 2.32,
-    "r20": 5.58,
-    "f1": -40,
-    "f5": -146,
-    "i1": 45,
-    "i5": 172,
-    "f20": null,
-    "i20": null,
-    "cap_eok": null
-   },
-   {
-    "group": "로봇",
-    "n": 16,
-    "r1": -1.81,
-    "r5": 1.14,
-    "r20": -11.72,
-    "f1": -689,
-    "f5": -1796,
-    "i1": 1862,
-    "i5": 3674,
+    "r1": -0.84,
+    "r5": 0.64,
+    "r20": -1.88,
+    "f1": -13,
+    "f5": 39,
+    "i1": 7,
+    "i5": 46,
     "f20": null,
     "i20": null,
     "cap_eok": null
@@ -2382,27 +3148,13 @@
    {
     "group": "운송인프라",
     "n": 1,
-    "r1": -0.31,
-    "r5": 0.63,
-    "r20": -1.02,
-    "f1": 14,
-    "f5": 36,
-    "i1": 25,
-    "i5": 65,
-    "f20": null,
-    "i20": null,
-    "cap_eok": null
-   },
-   {
-    "group": "화장품",
-    "n": 8,
-    "r1": -4.04,
-    "r5": 0.33,
-    "r20": -16.08,
-    "f1": -262,
-    "f5": -453,
-    "i1": 269,
-    "i5": 914,
+    "r1": 0.41,
+    "r5": 0.52,
+    "r20": -0.21,
+    "f1": 13,
+    "f5": 32,
+    "i1": 22,
+    "i5": 82,
     "f20": null,
     "i20": null,
     "cap_eok": null
@@ -2410,13 +3162,13 @@
    {
     "group": "기타금융",
     "n": 1,
-    "r1": 0.12,
-    "r5": 0.0,
-    "r20": 1.93,
-    "f1": -14,
-    "f5": 9,
-    "i1": 15,
-    "i5": 16,
+    "r1": -0.59,
+    "r5": 0.48,
+    "r20": 0.6,
+    "f1": -11,
+    "f5": 0,
+    "i1": 11,
+    "i5": 31,
     "f20": null,
     "i20": null,
     "cap_eok": null
@@ -2424,69 +3176,41 @@
    {
     "group": "은행",
     "n": 11,
-    "r1": -2.46,
-    "r5": -0.33,
-    "r20": -5.33,
-    "f1": -1311,
-    "f5": -3182,
-    "i1": 1285,
-    "i5": 3782,
+    "r1": -0.43,
+    "r5": 0.2,
+    "r20": -5.54,
+    "f1": -775,
+    "f5": -3393,
+    "i1": 763,
+    "i5": 4219,
     "f20": null,
     "i20": null,
     "cap_eok": null
    },
    {
-    "group": "건설",
+    "group": "유통",
     "n": 7,
-    "r1": -4.66,
-    "r5": -0.45,
-    "r20": -5.65,
-    "f1": -272,
-    "f5": -483,
-    "i1": 319,
-    "i5": 881,
+    "r1": -3.16,
+    "r5": -1.19,
+    "r20": -3.54,
+    "f1": -61,
+    "f5": -384,
+    "i1": 25,
+    "i5": 609,
     "f20": null,
     "i20": null,
     "cap_eok": null
    },
    {
-    "group": "조선",
-    "n": 7,
-    "r1": -3.47,
-    "r5": -1.31,
-    "r20": -26.47,
-    "f1": -50,
-    "f5": -1097,
-    "i1": 122,
-    "i5": 1644,
-    "f20": null,
-    "i20": null,
-    "cap_eok": null
-   },
-   {
-    "group": "상사",
-    "n": 2,
-    "r1": -4.46,
-    "r5": -1.43,
-    "r20": -15.53,
-    "f1": -23,
-    "f5": 62,
-    "i1": -14,
-    "i5": -72,
-    "f20": null,
-    "i20": null,
-    "cap_eok": null
-   },
-   {
-    "group": "디스플레이",
-    "n": 1,
-    "r1": -4.56,
-    "r5": -1.93,
-    "r20": -12.75,
-    "f1": -62,
-    "f5": -56,
-    "i1": 21,
-    "i5": 47,
+    "group": "자동차",
+    "n": 5,
+    "r1": -3.48,
+    "r5": -1.9,
+    "r20": -10.12,
+    "f1": -123,
+    "f5": -321,
+    "i1": 53,
+    "i5": 301,
     "f20": null,
     "i20": null,
     "cap_eok": null
@@ -2494,27 +3218,27 @@
    {
     "group": "기타자본재",
     "n": 2,
-    "r1": -1.92,
-    "r5": -2.62,
-    "r20": 2.05,
-    "f1": -30,
-    "f5": -183,
-    "i1": 78,
-    "i5": 280,
+    "r1": 0.21,
+    "r5": -2.07,
+    "r20": 3.58,
+    "f1": -13,
+    "f5": -146,
+    "i1": 21,
+    "i5": 228,
     "f20": null,
     "i20": null,
     "cap_eok": null
    },
    {
-    "group": "스테이블코인",
-    "n": 1,
-    "r1": -1.97,
-    "r5": -2.85,
-    "r20": -15.09,
-    "f1": 14,
-    "f5": 14,
-    "i1": -11,
-    "i5": -7,
+    "group": "철강/비철금속",
+    "n": 4,
+    "r1": -2.52,
+    "r5": -2.48,
+    "r20": -9.58,
+    "f1": -48,
+    "f5": -561,
+    "i1": 47,
+    "i5": 564,
     "f20": null,
     "i20": null,
     "cap_eok": null
@@ -2522,139 +3246,41 @@
    {
     "group": "유틸리티",
     "n": 2,
-    "r1": -0.4,
-    "r5": -4.52,
-    "r20": -4.52,
+    "r1": 2.07,
+    "r5": -3.96,
+    "r20": -2.67,
     "f1": -5,
     "f5": 45,
-    "i1": 26,
-    "i5": 46,
+    "i1": 30,
+    "i5": 59,
+    "f20": null,
+    "i20": null,
+    "cap_eok": null
+   },
+   {
+    "group": "생활용품",
+    "n": 1,
+    "r1": -4.15,
+    "r5": -4.06,
+    "r20": -0.88,
+    "f1": -32,
+    "f5": -182,
+    "i1": 12,
+    "i5": 186,
     "f20": null,
     "i20": null,
     "cap_eok": null
    },
    {
     "group": "K-엔터",
-    "n": 2,
-    "r1": -1.49,
-    "r5": -4.57,
-    "r20": -8.91,
-    "f1": -35,
-    "f5": -61,
-    "i1": 82,
-    "i5": 62,
-    "f20": null,
-    "i20": null,
-    "cap_eok": null
-   },
-   {
-    "group": "화학",
-    "n": 2,
-    "r1": -12.26,
-    "r5": -5.93,
-    "r20": -19.54,
-    "f1": -63,
-    "f5": -88,
-    "i1": -22,
-    "i5": 26,
-    "f20": null,
-    "i20": null,
-    "cap_eok": null
-   },
-   {
-    "group": "2차전지",
-    "n": 12,
-    "r1": -4.89,
-    "r5": -6.14,
-    "r20": -19.86,
-    "f1": -582,
-    "f5": -2549,
-    "i1": -396,
-    "i5": -125,
-    "f20": null,
-    "i20": null,
-    "cap_eok": null
-   },
-   {
-    "group": "우주/방산",
-    "n": 5,
-    "r1": -5.02,
-    "r5": -6.57,
-    "r20": -29.92,
-    "f1": 105,
-    "f5": 11,
-    "i1": 90,
-    "i5": 916,
-    "f20": null,
-    "i20": null,
-    "cap_eok": null
-   },
-   {
-    "group": "원전",
-    "n": 4,
-    "r1": -5.92,
-    "r5": -7.67,
-    "r20": -25.52,
-    "f1": -176,
-    "f5": -494,
-    "i1": 221,
-    "i5": 797,
-    "f20": null,
-    "i20": null,
-    "cap_eok": null
-   },
-   {
-    "group": "유리기판",
-    "n": 1,
-    "r1": -6.33,
-    "r5": -7.79,
-    "r20": -39.44,
-    "f1": -26,
-    "f5": -72,
-    "i1": -2,
-    "i5": 21,
-    "f20": null,
-    "i20": null,
-    "cap_eok": null
-   },
-   {
-    "group": "기타",
-    "n": 60,
-    "r1": -4.34,
-    "r5": -8.3,
-    "r20": -16.08,
-    "f1": 1157,
-    "f5": -483,
-    "i1": -8137,
-    "i5": -22284,
-    "f20": null,
-    "i20": null,
-    "cap_eok": null
-   },
-   {
-    "group": "보험",
-    "n": 8,
-    "r1": -5.28,
-    "r5": -9.27,
-    "r20": -8.84,
-    "f1": -315,
-    "f5": -730,
-    "i1": 249,
-    "i5": 780,
-    "f20": null,
-    "i20": null,
-    "cap_eok": null
-   },
-   {
-    "group": "증권",
-    "n": 6,
-    "r1": -6.67,
-    "r5": -9.9,
-    "r20": -19.13,
-    "f1": -467,
-    "f5": -817,
-    "i1": -86,
-    "i5": 213,
+    "n": 3,
+    "r1": -1.77,
+    "r5": -4.35,
+    "r20": -4.14,
+    "f1": -34,
+    "f5": 98,
+    "i1": 55,
+    "i5": 162,
     "f20": null,
     "i20": null,
     "cap_eok": null
@@ -2662,27 +3288,139 @@
    {
     "group": "부동산",
     "n": 1,
-    "r1": -1.97,
-    "r5": -10.15,
-    "r20": -10.32,
+    "r1": -2.01,
+    "r5": -5.6,
+    "r20": -11.45,
     "f1": 1,
-    "f5": -1,
-    "i1": -2,
+    "f5": 3,
+    "i1": -3,
     "i5": -10,
     "f20": null,
     "i20": null,
     "cap_eok": null
    },
    {
-    "group": "지주사",
-    "n": 12,
-    "r1": -5.51,
-    "r5": -10.71,
-    "r20": -21.89,
-    "f1": -569,
-    "f5": -2146,
-    "i1": 322,
-    "i5": 1234,
+    "group": "디스플레이",
+    "n": 1,
+    "r1": -0.98,
+    "r5": -5.62,
+    "r20": -9.15,
+    "f1": -23,
+    "f5": -88,
+    "i1": 26,
+    "i5": 70,
+    "f20": null,
+    "i20": null,
+    "cap_eok": null
+   },
+   {
+    "group": "로봇",
+    "n": 16,
+    "r1": -3.68,
+    "r5": -5.72,
+    "r20": -11.54,
+    "f1": -480,
+    "f5": -2296,
+    "i1": 1059,
+    "i5": 4077,
+    "f20": null,
+    "i20": null,
+    "cap_eok": null
+   },
+   {
+    "group": "화장품",
+    "n": 8,
+    "r1": -3.74,
+    "r5": -6.49,
+    "r20": -16.02,
+    "f1": 188,
+    "f5": -243,
+    "i1": -126,
+    "i5": 646,
+    "f20": null,
+    "i20": null,
+    "cap_eok": null
+   },
+   {
+    "group": "스테이블코인",
+    "n": 1,
+    "r1": -2.01,
+    "r5": -6.76,
+    "r20": -15.69,
+    "f1": -5,
+    "f5": 12,
+    "i1": 6,
+    "i5": -3,
+    "f20": null,
+    "i20": null,
+    "cap_eok": null
+   },
+   {
+    "group": "보험",
+    "n": 8,
+    "r1": 0.77,
+    "r5": -8.42,
+    "r20": -7.49,
+    "f1": -82,
+    "f5": -692,
+    "i1": 119,
+    "i5": 818,
+    "f20": null,
+    "i20": null,
+    "cap_eok": null
+   },
+   {
+    "group": "기타",
+    "n": 55,
+    "r1": -0.31,
+    "r5": -8.66,
+    "r20": -13.91,
+    "f1": 232,
+    "f5": 323,
+    "i1": -1843,
+    "i5": -23629,
+    "f20": null,
+    "i20": null,
+    "cap_eok": null
+   },
+   {
+    "group": "상사",
+    "n": 2,
+    "r1": -2.37,
+    "r5": -8.91,
+    "r20": -14.95,
+    "f1": 6,
+    "f5": 37,
+    "i1": 0,
+    "i5": -92,
+    "f20": null,
+    "i20": null,
+    "cap_eok": null
+   },
+   {
+    "group": "화학",
+    "n": 2,
+    "r1": -1.39,
+    "r5": -9.05,
+    "r20": -19.36,
+    "f1": -21,
+    "f5": -113,
+    "i1": 0,
+    "i5": 33,
+    "f20": null,
+    "i20": null,
+    "cap_eok": null
+   },
+   {
+    "group": "건설",
+    "n": 8,
+    "r1": -2.65,
+    "r5": -9.1,
+    "r20": -3.09,
+    "f1": -203,
+    "f5": -1080,
+    "i1": 251,
+    "i5": 1021,
     "f20": null,
     "i20": null,
     "cap_eok": null
@@ -2690,41 +3428,97 @@
    {
     "group": "헬스케어",
     "n": 4,
-    "r1": -1.1,
-    "r5": -11.73,
-    "r20": -26.93,
-    "f1": -178,
-    "f5": -57,
-    "i1": 287,
-    "i5": 471,
+    "r1": -2.51,
+    "r5": -10.95,
+    "r20": -26.3,
+    "f1": -91,
+    "f5": -191,
+    "i1": 113,
+    "i5": 575,
     "f20": null,
     "i20": null,
     "cap_eok": null
    },
    {
-    "group": "반도체(메모리·대형)",
-    "n": 3,
-    "r1": -5.22,
-    "r5": -13.66,
-    "r20": -28.15,
-    "f1": -20738,
-    "f5": -77524,
-    "i1": 8446,
-    "i5": 17327,
+    "group": "조선",
+    "n": 7,
+    "r1": -3.93,
+    "r5": -12.03,
+    "r20": -25.13,
+    "f1": -58,
+    "f5": -875,
+    "i1": 48,
+    "i5": 810,
     "f20": null,
     "i20": null,
     "cap_eok": null
    },
    {
-    "group": "전력기기",
-    "n": 10,
-    "r1": -7.83,
-    "r5": -13.85,
-    "r20": -38.51,
-    "f1": 140,
-    "f5": -1095,
-    "i1": -554,
-    "i5": -357,
+    "group": "원전",
+    "n": 4,
+    "r1": -4.03,
+    "r5": -13.6,
+    "r20": -22.35,
+    "f1": -12,
+    "f5": -521,
+    "i1": 99,
+    "i5": 625,
+    "f20": null,
+    "i20": null,
+    "cap_eok": null
+   },
+   {
+    "group": "증권",
+    "n": 7,
+    "r1": -4.62,
+    "r5": -14.36,
+    "r20": -19.83,
+    "f1": -149,
+    "f5": -742,
+    "i1": 102,
+    "i5": 214,
+    "f20": null,
+    "i20": null,
+    "cap_eok": null
+   },
+   {
+    "group": "우주/방산",
+    "n": 5,
+    "r1": -3.44,
+    "r5": -14.69,
+    "r20": -28.12,
+    "f1": -16,
+    "f5": 28,
+    "i1": -202,
+    "i5": 220,
+    "f20": null,
+    "i20": null,
+    "cap_eok": null
+   },
+   {
+    "group": "2차전지",
+    "n": 12,
+    "r1": -7.58,
+    "r5": -15.03,
+    "r20": -23.1,
+    "f1": -929,
+    "f5": -2511,
+    "i1": -902,
+    "i5": -1377,
+    "f20": null,
+    "i20": null,
+    "cap_eok": null
+   },
+   {
+    "group": "유리기판",
+    "n": 1,
+    "r1": -3.23,
+    "r5": -15.78,
+    "r20": -34.58,
+    "f1": 3,
+    "f5": -88,
+    "i1": 3,
+    "i5": 22,
     "f20": null,
     "i20": null,
     "cap_eok": null
@@ -2732,111 +3526,55 @@
    {
     "group": "에너지",
     "n": 1,
-    "r1": -2.12,
-    "r5": -14.01,
-    "r20": -37.16,
-    "f1": 10,
-    "f5": -91,
-    "i1": 33,
-    "i5": -111,
+    "r1": -0.28,
+    "r5": -17.91,
+    "r20": -33.73,
+    "f1": -32,
+    "f5": -67,
+    "i1": 37,
+    "i5": -91,
     "f20": null,
     "i20": null,
     "cap_eok": null
    },
    {
-    "group": "반도체 장비",
+    "group": "지주사",
     "n": 12,
-    "r1": -5.02,
-    "r5": -17.26,
-    "r20": -41.49,
-    "f1": 348,
-    "f5": 611,
-    "i1": -139,
-    "i5": -1056,
+    "r1": -4.32,
+    "r5": -18.66,
+    "r20": -20.78,
+    "f1": -683,
+    "f5": -2775,
+    "i1": 560,
+    "i5": 1073,
     "f20": null,
     "i20": null,
     "cap_eok": null
    },
    {
     "group": "반도체 소재·부품",
-    "n": 4,
-    "r1": -7.1,
-    "r5": -17.47,
-    "r20": -40.34,
-    "f1": 42,
-    "f5": 55,
-    "i1": -48,
-    "i5": -252,
+    "n": 3,
+    "r1": 0.17,
+    "r5": -19.13,
+    "r20": -39.52,
+    "f1": -68,
+    "f5": 50,
+    "i1": 83,
+    "i5": -112,
     "f20": null,
     "i20": null,
     "cap_eok": null
    },
    {
-    "group": "전자부품/장비",
-    "n": 2,
-    "r1": -7.71,
-    "r5": -17.71,
-    "r20": -40.47,
-    "f1": -42,
-    "f5": 54,
-    "i1": 22,
-    "i5": -238,
-    "f20": null,
-    "i20": null,
-    "cap_eok": null
-   },
-   {
-    "group": "반도체 테스트·후공정",
-    "n": 5,
-    "r1": -7.95,
-    "r5": -19.34,
-    "r20": -44.35,
-    "f1": 115,
-    "f5": 543,
-    "i1": -124,
-    "i5": -632,
-    "f20": null,
-    "i20": null,
-    "cap_eok": null
-   },
-   {
-    "group": "반도체 설계·유통",
-    "n": 2,
-    "r1": -5.76,
-    "r5": -19.76,
-    "r20": -48.46,
-    "f1": 109,
-    "f5": 140,
-    "i1": -39,
-    "i5": -162,
-    "f20": null,
-    "i20": null,
-    "cap_eok": null
-   },
-   {
-    "group": "광통신",
-    "n": 2,
-    "r1": -5.4,
-    "r5": -22.42,
-    "r20": -38.21,
-    "f1": 47,
-    "f5": 119,
-    "i1": -7,
-    "i5": -83,
-    "f20": null,
-    "i20": null,
-    "cap_eok": null
-   },
-   {
-    "group": "반도체 기판·전자부품",
-    "n": 6,
-    "r1": -5.98,
-    "r5": -22.7,
-    "r20": -43.94,
-    "f1": -455,
-    "f5": -7650,
-    "i1": -279,
-    "i5": -4254,
+    "group": "반도체(메모리·대형)",
+    "n": 3,
+    "r1": -4.15,
+    "r5": -21.26,
+    "r20": -27.69,
+    "f1": -832,
+    "f5": -77259,
+    "i1": 2580,
+    "i5": 15782,
     "f20": null,
     "i20": null,
     "cap_eok": null
@@ -2844,21 +3582,2292 @@
    {
     "group": "통신장비",
     "n": 1,
-    "r1": -3.49,
-    "r5": -22.91,
-    "r20": -20.62,
-    "f1": 18,
-    "f5": 89,
-    "i1": -17,
-    "i5": -35,
+    "r1": 4.39,
+    "r5": -21.71,
+    "r20": -11.69,
+    "f1": 30,
+    "f5": 120,
+    "i1": -8,
+    "i5": -121,
+    "f20": null,
+    "i20": null,
+    "cap_eok": null
+   },
+   {
+    "group": "반도체 장비",
+    "n": 11,
+    "r1": -2.62,
+    "r5": -22.23,
+    "r20": -39.5,
+    "f1": -73,
+    "f5": 191,
+    "i1": 371,
+    "i5": -592,
+    "f20": null,
+    "i20": null,
+    "cap_eok": null
+   },
+   {
+    "group": "전자부품/장비",
+    "n": 2,
+    "r1": -2.64,
+    "r5": -23.66,
+    "r20": -40.13,
+    "f1": 10,
+    "f5": 97,
+    "i1": -12,
+    "i5": -276,
+    "f20": null,
+    "i20": null,
+    "cap_eok": null
+   },
+   {
+    "group": "반도체 테스트·후공정",
+    "n": 4,
+    "r1": -2.69,
+    "r5": -23.92,
+    "r20": -41.48,
+    "f1": -69,
+    "f5": 220,
+    "i1": 58,
+    "i5": -317,
+    "f20": null,
+    "i20": null,
+    "cap_eok": null
+   },
+   {
+    "group": "광통신",
+    "n": 3,
+    "r1": 1.27,
+    "r5": -24.39,
+    "r20": -32.02,
+    "f1": -33,
+    "f5": 55,
+    "i1": 135,
+    "i5": 75,
+    "f20": null,
+    "i20": null,
+    "cap_eok": null
+   },
+   {
+    "group": "반도체 설계·유통",
+    "n": 2,
+    "r1": -4.34,
+    "r5": -25.25,
+    "r20": -45.97,
+    "f1": 52,
+    "f5": 160,
+    "i1": -2,
+    "i5": -131,
+    "f20": null,
+    "i20": null,
+    "cap_eok": null
+   },
+   {
+    "group": "전력기기",
+    "n": 9,
+    "r1": -6.39,
+    "r5": -25.57,
+    "r20": -37.14,
+    "f1": 151,
+    "f5": -1256,
+    "i1": -201,
+    "i5": -1308,
+    "f20": null,
+    "i20": null,
+    "cap_eok": null
+   },
+   {
+    "group": "반도체 기판·전자부품",
+    "n": 6,
+    "r1": -7.22,
+    "r5": -30.7,
+    "r20": -44.96,
+    "f1": -369,
+    "f5": -7227,
+    "i1": 443,
+    "i5": -4373,
     "f20": null,
     "i20": null,
     "cap_eok": null
    }
   ],
-  "source": "가격 네이버 일봉(비공식) · RS = 시총 2천억↑ 종목 중 백분위(12/6/3개월 가중) · 수급 시총 상위 300 외국인·기관 추정 금액(억) 2026-11-09 12:15"
+  "source": "가격 네이버 일봉(비공식) · RS = 시총 2천억↑ 종목 중 백분위(12/6/3개월 가중) · 수급 시총 상위 300 외국인·기관 추정 금액(억) 2026-11-10 16:56"
  },
+ "digests": [
+  {
+   "date": "2026-11-05",
+   "kind": "채널 정리",
+   "file": "reports/2026-11-05/channels_1613.md",
+   "text": "💡 Claude 의견\n- 마감: 코스피 5,383.80(-5.28%), 코스닥 678.41(-5.11%) (네이버 종가). 외국인 코스피 -3조 4,023억 원(네이버 16:16, 채널은 -3.9조 원으로 집계), 개인 +2조 2,801억 원. 14:36 코스닥에도 매도 \n1️⃣ 🔥 미국 중간선거 이후 — 업종 희비\n- 🔴 다우 +3.03%, S&P +1.58%, 나스닥 +1.44%, VIX 16.61(-20%) · 반도체 -3.13% (미국 11/04 종가) (07:29)\n2️⃣ 🔥🔵 국내 장 급락 — 반도체·전자장비 급락, 내수·엔터 강세\n- 🔥🔵 종가 코스피 5,383.80(-5.28%), 코스닥 678.41(-5.11%) · 외국인 코스피 -3조 4,023억 원(16:16) · 코스닥 신저가 185종목 (16:17)\n3️⃣ 🔵 AI 데이터센터 규제 우려 vs 반론\n- 🔵 버티브 -13%, 코어위브 -10%, 샌디스크 -8%, 마이크론 -7%, 스털링인프라 -22% (06:37)\n4️⃣ 🔴 태양광·신재생 강세\n- 태양광 ETF(TAN 등) 프리마켓 +4~6%, 퍼스트솔라 +4.63%, 엔페이즈 +3.71% (22:36, 07:53)\n5️⃣ 메모리·반도체 소식\n- ⚪ \"22년식 공급 과잉이 오려면 27년 서버 출하 -7% 역성장 필요 → 비현실적\" (22:09)\n6️⃣ 자동차·산업 소식\n- 🔴 현대차·기아 10월 미국 판매 역대 최대(10월 기준), 기아 하이브리드 +114% (유진·메리츠) (08:30, 08:39)\n7️⃣ 유가·이란·국내 지표\n- JPM \"글로벌 원유시장 다시 공급 과잉, 10월 하루 140만 배럴\" (12:20)\n💼 내 종목 (오늘 누적)\n- 정리(10:45, 매매 기록): 삼성전자 13주 203,000원(-1.02R, -234,000원) · 티에프이 39주 "
+  },
+  {
+   "date": "2026-11-05",
+   "kind": "리포트 정리",
+   "file": "reports/2026-11-05/report_live_1613.md",
+   "text": "💡 Claude 의견\n- 오후 늦게 목표가 변경 3건: 🔺 롯데에너지머티리얼즈 50,000원(비중국 전지박 부족·판가 상승), 🔽 카카오 미래에셋 44,000원, 🔽 대우건설 BNK 27,000→16,000원. 하루 합계 하향 57 대 상향 11입니다\n🔺 상향·🆕 신규 섹터\n- 🔺 게임 · 4건 · 카카오게임즈(미래에셋 16,000 · 현대차 13,000→15,000 +15.4% · 유진 7,600→12,000 +57.9% · 신영 →14,000 (10:15)) — 단 SK는 🔽13,000\n🔽 하향 섹터\n- 🔽 미용·제약 · 9건 · 휴젤 7건(다올 →280,000 (12:14) · 대신 340,000→280,000 · 키움 250,000→230,000 · 유진 370,000→270,000 · IBK 380,000→260,000 · 신한 300,000\n📌 주요 종목\n①🔺 나노신소재 · 태양광·전자 소재\n🔺 iM 80,000→115,000 (+43.8%) (07:24)\niM 산업 리포트 \"우주로 향할 시간\": 지상 전력 제약 → 우주 데이터센터·미국 태양광 제조 투자, 비중국산 태양광 소재 수혜 (OCI홀딩스·한화솔루션·대주전자재료와 함께 언급)\n🔺 신한 38,000→43,000 (+13.2%) (09:15)\n서버 매출 495억 원(+194.4%)으로 매출 비중 46%, 신사업 189억 원(+141.4%), GPM 60% 초반 유지 \"사상 최대 실적\"\n🔺 미래에셋 →16,000 / 🔺 현대차 13,000→15,000 (+15.4%) / 🔺 유진 7,600→12,000 (+57.9%) / ➖ IBK 16,000 유지 / 신한 \"2027년, 진짜다\"(오딘Q·도깨비의세계 글로벌) (09:15)\n🔺 신영 →14,000 \"신작 일정 구체화\" / 🔽 SK →13,000 '보유' \"신작 온기와 밸류"
+  },
+  {
+   "date": "2026-11-06",
+   "kind": "채널 정리",
+   "file": "reports/2026-11-06/channels_1412.md",
+   "text": "💡 Claude 의견\n- 반등이 오래가지 못했습니다. 코스피 5,104.72(-5.18%), 코스닥 653.73(-3.64%) (오늘 장중 14:13, 네이버). 12시 -3.92%에서 다시 밀렸고, 외국인 코스피 순매도가 -1조 8,471억 원으로 12시(-1조 1,42\n0️⃣ 🔥🔵 국내 장 폭락 → 낙폭 축소 → 재하락\n- 코스피 5,104.72(-5.18%), 코스닥 653.73(-3.64%) (오늘 장중 14:13). 10:13 4,968.55(-7.71%) → 12:13 5,172.98(-3.92%) → 다시 밀림 (14:15)\n1️⃣ 🔴 정부 시장 안정 조치 (12:15)\n- 🔴 정부, 주식 신용융자 담보비율 의무 3개월 한시 면제 — 반대매매(빚낸 주식 강제 매도) 연쇄를 막는 조치 (11:45)\n2️⃣ 🔥🔵 미국 AI 인프라 투매 — 반도체 '최악의 날'\n- 필라델피아 반도체 -12.25%, 나스닥 -5.52%, S&P -4.36%, VIX 28.18 (미국 11/05 종가) — \"선거 후폭풍, 펀드 청산에 시총 3조 달러 증발\"(06:03)\n3️⃣ 🔥🔵 데이터센터 규제 — 엇갈리는 신호 (12:15)\n- 🔵 텍사스 주지사 당선인 이노호사 \"주민 보호 장치 전까지 데이터센터 추진 중단\"(CNN), \"미국 계획 DC 용량의 41%가 중단 지지 주지사 지역\" (09:04~11:55)\n4️⃣ 🔵 '투자 축소' 신호들\n- 🔵 레오폴드 아셴브레너 펀드 파산설(마이크론 등 청산) / 스페이스X 부도위험 보험료 사상 최고 / 앤트로픽 IPO 일정 의문 (08:15~09:28)\n5️⃣ ⚪ 반론·기회론\n- 🔥 반도체 \"과도한 우려\" 리포트 잇따름: 하나 \"단기 조정을 비중확대 기회로\", 삼성 \"다운턴 이미 반영\", 메리츠 \"미주 채널체크상 수요 변화 징후 없음\", 한화 \"삼성전자 17~"
+  },
+  {
+   "date": "2026-11-06",
+   "kind": "리포트 정리",
+   "file": "reports/2026-11-06/report_live_1412.md",
+   "text": "💡 Claude 의견\n- 하향 76 대 상향 21. 오후엔 목표가를 바꾸지 않은 '유지' 리포트가 대부분이었습니다(유지 79건). 3분기 실적 숫자를 확인하는 단계로 넘어간 모습입니다\n🔺 상향·🆕 신규 섹터\n- 🔺 플랜트 · 2건 · 평균 +19% · 삼성E&A(메리츠 76,000→83,000 · 74,000→95,000) (10:15)\n🔽 하향 섹터\n- 🔽 조선 · 4건 · 평균 -15% · HD한국조선해양(600,000→500,000), HD현대중공업(900,000→800,000), 삼성중공업(40,000→35,000), 한화오션(메리츠 140,000→120,000) (10:15) — 메리츠는 \n📌 주요 종목\n①🔽 한국금융지주 · 금융>증권\n🔽 8곳 하향, 평균 약 -20% (가장 큰 폭: 410,000→274,000, iM 284,000→198,000)\n3Q 영업이익 3,004억 원(컨센 6,954억 원 대비 -56.8%), 환율 하락에 따른 외화손실·유가증권 평가손실\n🔽 엘앤에프 대신 310,000→150,000 (-52%) 등 4곳 / 에코프로비엠 DS 250,000→160,000 (-36%) 등 6곳\n일회성 적자·업황 회복 지연, 다만 신영은 \"2027년 수주 물량 본격 공급\"으로 170,000 유지 (12:15)\n🔽 8곳 하향(다올 →40,000 추가 (14:15), 유진 58,000→42,000 -28% 등). 3Q 연결 영업이익 2,403억 원(예상 -3%), 별도 1,178억 원(예상 +12.2%)\n⑥🔺 CJ ENM · 소비재>엔터·콘텐츠\n🔺 5곳 상향(대신 50,000→60,000 +20% 등). 3Q 영업이익 221억 원(예상 12억 원), TV광고 턴어라운드\n⑦🔺 BGF리테일 · 소비재>유통\n🔺 5곳 상향(한화 190,000→210,000 +10.5% 등) / "
+  },
+  {
+   "date": "2026-11-09",
+   "kind": "채널 정리",
+   "file": "reports/2026-11-09/channels_1624.md",
+   "text": "💡 Claude 의견\n- 핵심: 반등 시도가 무산됐습니다. 코스피 -0.81%, 코스닥 -0.82%로 마감했습니다. 대만 +5%·일본 +3%와 반대입니다. (네이버 종가)\n0️⃣ 🔵 국내 장 — 오전 소외 → 점심 반등 → 오후 약세 → 마감 -0.81% (16:23)\n- 코스피 5,018.85(-0.81%), 코스닥 638.97(-0.82%). (네이버 종가) (16:23)\n0️⃣-2 🔵 바이오 — 미국 IRA 약가협상 최종규칙 (10:18)\n- 미 CMS, 2029년 적용 약가부터 협상 프로그램 영구화, SC(피하주사) 제형도 협상 대상 포함 (10:12, 받은글)\n1️⃣ 🔥🔵 엔비디아 CEO 리스크\n- 엔비디아 이사회, 젠슨 황 CEO가 외국 정보기관 공작 표적이 됐는지 외부 법률자문과 독립 조사 착수 (06:41~08:01, 🔥3개 채널)\n2️⃣ ⚪ 오늘 국내 장 전망\n- 🔴 \"미 기술주 반등에 반도체 심리 개선, 코스피 반등 출발 전망\" (장전브리핑, 07:31)\n3️⃣ ⚪ 데이터센터 — 미국 밖·국내 기회론\n- 엔비디아 이슈 정리: 오늘 밤 미국장 엔비디아 흐름이 핵심, 한국엔 '공급망 재편 반사이익'과 '단기 악재'가 공존. (15:20)\n4️⃣ 국내·기타\n- 🔴 GS건설 용인 기흥역세권 주상복합 9,271억 원 수주. 인텍플러스 중화권 반도체 검사장비 401억 원 계약. (16:00, 16:15)\n💼 내 종목 (오늘 누적): 보유 없음 · 직접 소식 없음\n⚖️ 읽는 법: 기관만 사서 오른 반등은 오래가기 어렵습니다. 오늘이 그 예입니다. 외국인 순매도가 줄어드는 날을 먼저 기다립니다.\n※ 판단은 본인이 합니다."
+  },
+  {
+   "date": "2026-11-09",
+   "kind": "리포트 정리",
+   "file": "reports/2026-11-09/report_live_1624.md",
+   "text": "💡 Claude 의견\n- 핵심: 하향 78 대 상향 11. 3분기 쇼크 종목 하향이 계속됩니다. LIG디펜스앤에어로스페이스 12곳, 한국콜마 9곳.\n🔺 상향·🆕 신규 섹터\n- 🔺 IT서비스 · 1건 · +20.8% · 삼성에스디에스(240,000→290,000) (10:18)\n🔽 하향 섹터\n- 🔽 방산 · 14건 · 평균 약 -35% · 한국항공우주(BNK 170,000→150,000, 4분기 양산 납품 기대는 유지) (14:15), LIG디펜스앤에어로스페이스(1,000,000→670,000 · 1,100,000→540,000 · 미래에\n📌 주요 종목\n①🔽 LIG디펜스앤에어로스페이스 · 방산>유도무기\n🔽 12건 하향, 최대 855,000→430,000 (-50%) — 유안타만 1,050,000 유지\n3Q 영업이익 676억 원(컨센 1,034억 원 대비 -34.6%). 증권사들은 \"2026~2028 성장은 유효, 환율·경쟁(한화) 탓\"\n🔽 9건 하향(180,000→150,000 -16.7% 등), 한화·DB·신한 유지\n3Q 영업이익 819억 원(컨센 -10.6%), \"수요를 생산 능력이 못 따라감\"\n🔽 6건 하향(530,000→340,000 -35.8% 등) / 🔺 1건(430,000→480,000) — 의견이 가장 크게 엇갈림. 오늘 생물공학 업종 -8.89%(10:17)\n④🔽 롯데쇼핑·금호석유화학·롯데케미칼 · 유통·화학\n🔽 롯데쇼핑 6건(최대 190,000→140,000), 금호석유화학 3건·롯데케미칼 3건 — 화학 2사는 3분기 적자(금호 -208억 원, 롯데케미칼 -2,814억 원)\n⑤🔺 한미약품 · 바이오>신약\n🔺 660,000→720,000 (+9.1%) · MSD와 개발 중인 MASH 신약 2b상 결과가 기대 이상, 추가 기술이전\n⑥➖ 엔터 4사 · 소비재>엔터·콘텐츠\n💼"
+  },
+  {
+   "date": "2026-11-10",
+   "kind": "채널 정리",
+   "file": "reports/2026-11-10/channels_1712.md",
+   "text": "💡 Claude 의견\n- 핵심: 코스피가 5,239.13(+4.39%), 코스닥이 667.61(+4.48%)로 마감했습니다. (네이버 종가) 외국인 +4,177억·기관 +4,768억이 받쳤고, 개인은 -1조 3,821억 순매도입니다. 채널은 \"10/28 이후 최대 상승률\"\n0️⃣ 🆕🔥 마감: 반도체·전력기기·항공·건설이 이끈 급반등\n- 코스피 5,239.13(+4.39%), 코스닥 667.61(+4.48%). 오른 종목 723 대 내린 175. 52주 신고가 85, 신저가 42. (네이버, 17:15)\n1️⃣ 🔥🔴 국내 장 급등, 외국인·기관이 받쳤다 (12:20 기준 → 마감은 위 0️⃣)\n- 코스피 5226.86(+4.14%), 코스닥 662.18(+3.63%). (오늘 장중 12:16)\n2️⃣ 🔥🔴 미-이란 종전 기대 → 유가 급락\n- 트럼프 \"전쟁은 빠르게 끝나가고 있다. 추가 군사행동 필요 없어 보인다.\" (07:26)\n3️⃣ 🔴 미국 AI주 되돌림\n- 모건스탠리 \"중간선거 뒤 AI주 급락은 과도, 업종 Attractive.\" 중간값 종목이 52주 고점 대비 -53%. (06:27)\n4️⃣ 🆕🔵 SK하이닉스·삼성전자 D램 이익률 하향 (모건스탠리)\n- 숀 킴이 29~35년 D램 영업이익률 가정을 하이닉스 60→32%, 삼성전자 60→39%로 낮췄습니다. (10:41)\n5️⃣ 🆕🔥 앤스로픽 IPO — 보도가 엇갈립니다 (12:55 추가: 아모데이·다이먼 IPO 라이브 스트리밍 계획 보도, 블룸버그)\n- 로이터 보도: 최대 693억 달러 조달 목표. (10:48)\n6️⃣ ⚪ 오늘 국내 장 전망 → 결과\n- 장전: \"미 기술주 반등·환율·유가 하락에 코스피 상승 출발 전망.\" 원/달러 1,340원대. (07:31) → 실제로 환율 1,346원(-1.23%). (12:16)\n7️⃣ "
+  },
+  {
+   "date": "2026-11-10",
+   "kind": "리포트 정리",
+   "file": "reports/2026-11-10/report_live_1712.md",
+   "text": "💡 Claude 의견\n- 핵심: 하향 55 대 상향 16. 오늘 오후의 새 축은 건설입니다. 한화투자증권이 대우건설·현대건설·DL이앤씨·삼성물산 목표가를 한꺼번에 내렸는데, 같은 증권사의 업종 의견은 '긍정'을 유지했습니다.\n🔺 상향·🆕 신규 섹터\n- 🔺 화장품 용기 · 6건 · 펌텍코리아 78,000→110,000(+41%) 외 5건\n🔺 건설 · 1건 · GS건설 미래에셋 →46,000(상향, 14:10)\n🔺 바이오 · 3건 · 한미약품 710,000→730,000(메리츠), 셀트리온 300,000→310,000(메리츠), 한올바이오파마 다올 →68,000 (08:39)\n- 🔺 음식료 · 1건 · 롯데칠성 110,000→130,000 — 3분기 영업이익은 컨센서스 -29.7%였습니다\n🔽 하향 섹터\n- 🔽 건설·유통 · 6건 · 대우건설 22,000→15,000, 현대건설 170,000→130,000, DL이앤씨 110,000→75,000, 삼성물산 520,000→420,000(모두 한화, 14:24~14:28), 신세계 780,000→410,0\n🔽 자동차·부품 · 9건 · 현대차 600,000→500,000(상상인)·→490,000(한화), 기아 195,000→150,000(상상인)·210,000→180,000(한화), 현대모비스 700,000→680,000(한화)·600,000→500,00\n- 🔽 원자력·전력 공기업 · 11건 · 한전KPS 6곳(68,000→55,000 외), 한전기술 5곳(220,000→140,000 외, 미래에셋 →145,000)\n📌 주요 종목\n①🔽 현대차·기아·현대모비스 · 자동차\n🔽 현대차 600,000→500,000(상상인), 600,000→490,000(한화).\n🔽 기아 195,000→150,000(상상인), 210,000→180,000(한화). 현대모"
+  }
+ ],
+ "hot_topics": [
+  {
+   "time": "2026-11-05T11:04",
+   "channels": 4,
+   "type": "policy",
+   "stocks": [],
+   "head": "JPM sales에서 올린글.."
+  },
+  {
+   "time": "2026-11-06T10:54",
+   "channels": 3,
+   "type": "policy",
+   "stocks": [],
+   "head": "탈라리코에 이어 주지사로 당선된 히노호사도 모든 AI DC의 텍사스 설치를 허용할 예정이라고 했고"
+  },
+  {
+   "time": "2026-11-06T19:57",
+   "channels": 3,
+   "type": "market",
+   "stocks": [],
+   "head": "속보: 단기 매매 성향의 시스템 펀드가 2조 3,000억 달러 규모의 기술주 폭락을 부추겼다."
+  },
+  {
+   "time": "2026-11-09T16:03",
+   "channels": 3,
+   "type": "other",
+   "stocks": [],
+   "head": "대만 : 국가안정기금 투입"
+  }
+ ],
+ "report_points": [
+  {
+   "name": "SGC에너지",
+   "n_31d": 3,
+   "up": 0,
+   "down": 2,
+   "reports": [
+    {
+     "t": "2026-11-09",
+     "broker": "하나증권",
+     "dir": "유지",
+     "before": null,
+     "after": 68000,
+     "title": "전력 조달 문제가 없다는 것은 가장 빠르다는 것",
+     "points": [
+      "본업 실적 안정세 전환 및 AI 데이터센터(DC) 입지 조건 개선",
+      "1차 AI DC 사업의 순조로운 진행과 2차 사업 확장 기대감으로 기업 가치 상승 전망"
+     ]
+    },
+    {
+     "t": "2026-10-23",
+     "broker": "DS투자증권",
+     "dir": "하향",
+     "before": 83000,
+     "after": 67000,
+     "title": "AIDC, 잘하고 있습니다",
+     "points": [
+      "최근 SGC에너지를 포함한 업종 전반에 걸친 멀티플 하락 반영",
+      "3분기 실적이 당사 추정치와 컨센서스를 하회했으며 유리 사업 부진이 주된 이유로 작용함"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "NAVER",
+   "n_31d": 5,
+   "up": 1,
+   "down": 2,
+   "reports": [
+    {
+     "t": "2026-11-09",
+     "broker": "하나증권",
+     "dir": "유지",
+     "before": null,
+     "after": 400000,
+     "title": "블루웨이브, 이건 기회다",
+     "points": [
+      "NVIDIA의 1.3조 원 지분 투자로 AI 데이터센터 사업 성장 동력 확보",
+      "미국 규제 강화에 따른 반사 수혜와 공격적인 증설 계획으로 인터넷 업종 최선호주 유지"
+     ]
+    },
+    {
+     "t": "2026-11-04",
+     "broker": "메리츠증권",
+     "dir": "유지",
+     "before": null,
+     "after": 330000,
+     "title": "나아가야 할 것, 멈추어야 할 것",
+     "points": [
+      "C2C 사업에 대한 지속적인 투자가 투자자 불신을 키우며 주가에 부담으로 작용",
+      "엔비디아와 협력하는 AI 팩토리(네오클라우드) 사업을 통해 B2B 중심으로 전환하며 성장 동력 확보 추진"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "삼성에스디에스",
+   "n_31d": 7,
+   "up": 3,
+   "down": 2,
+   "reports": [
+    {
+     "t": "2026-11-10",
+     "broker": "대신증권",
+     "dir": "유지",
+     "before": null,
+     "after": 320000,
+     "title": "물 들어오는 AI 전환, 노 젓는 속도를 지켜봐",
+     "points": [
+      "목표주가 32만원 및 투자의견 '매수' 유지, 본업 가치와 2029년 이후 AIDC 투자 회수 가치 반영",
+      "2027년 IT서비스 부문 성장과 2028년 이후 데이터센터 가동 효과가 핵심 투자 포인트"
+     ]
+    },
+    {
+     "t": "2026-11-09",
+     "broker": "하나증권",
+     "dir": "상향",
+     "before": 240000,
+     "after": 290000,
+     "title": "다음 이정표는 AI DC 계획 확대",
+     "points": [
+      "2027년 이후 국내 AX 전환 가속화 반영",
+      "추가 AI DC 확보 가능성 반영"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "GS건설",
+   "n_31d": 12,
+   "up": 3,
+   "down": 5,
+   "reports": [
+    {
+     "t": "2026-11-10",
+     "broker": "신한투자증권",
+     "dir": "유지",
+     "before": null,
+     "after": 43000,
+     "title": "AI DC 없이도 성장성 확보",
+     "points": [
+      "투자의견 '매수'와 목표주가 43,000원을 유지하며, 단기 변동성에도 불구하고 주가의 우상향 추세는 유효하다고 판단",
+      "AI 데이터센터(AIDC) 사업 없이도 주택 부문만으로 실적 개선이 가능하며, 1Q27 AIDC 진행 속도가 향후 주가 회복의 핵심 변수가 될 전망"
+     ]
+    },
+    {
+     "t": "2026-11-10",
+     "broker": "한화투자증권",
+     "dir": "유지",
+     "before": null,
+     "after": 45000,
+     "title": "실적 턴어라운드 기대",
+     "points": [
+      "투자의견 'Buy'와 목표주가 45,000원 유지, 2027년 실적 정상화에 대한 기대감 증대",
+      "주택분양 물량 증가와 자회사 성장으로 내년 매출 회복이 예상되나, 동해 AIDC 사업의 불투명성은 해소될 필요"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "삼성E&A",
+   "n_31d": 22,
+   "up": 21,
+   "down": 0,
+   "reports": [
+    {
+     "t": "2026-11-10",
+     "broker": "신한투자증권",
+     "dir": "유지",
+     "before": null,
+     "after": 79000,
+     "title": "확실한 선택",
+     "points": [
+      "2027년 상반기 건설업종 최선호주로 추천, 관계사 수주 기반 실적 성장과 주주환원 정책 확대 기대",
+      "2027년 연결 매출액 13.7조원, 영업이익 1.4조원의 안정적 성장 전망, 뉴에너지 부문 성과가 관전 포인트"
+     ]
+    },
+    {
+     "t": "2026-11-06",
+     "broker": "현대차증권",
+     "dir": "상향",
+     "before": 74000,
+     "after": 95000,
+     "title": "누구보다 확실한 모멘텀과 실적 성장",
+     "points": [
+      "2027F 연결 매출액 14조 4,798억원(+34.7% yoy), 영업이익 1조 7,443억원(+23.7% yoy) 전망",
+      "화공 5.1조원(+16.4% yoy), 첨단산업 6.7조원(+84.0% yoy) 성장 전망"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "비나텍",
+   "n_31d": 1,
+   "up": 0,
+   "down": 0,
+   "reports": [
+    {
+     "t": "2026-11-09",
+     "broker": "하나증권",
+     "dir": null,
+     "before": null,
+     "after": null,
+     "title": "흥옌 가동 개시, 3,485억원 수주가 매출로 전환된다",
+     "points": [
+      "베트남 흥옌 신공장 가동과 함께 3,485억 원 규모의 데이터센터향 수주가 본격적인 매출로 전환될 전망",
+      "수주 기반의 성장이 본격화되며 2027년 매출액 2,831억 원, 영업이익 365억 원으로 큰 폭의 성장이 기대됨"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "혜인",
+   "n_31d": 1,
+   "up": 0,
+   "down": 0,
+   "reports": [
+    {
+     "t": "2026-11-09",
+     "broker": "하나증권",
+     "dir": null,
+     "before": null,
+     "after": null,
+     "title": "3.9MW급 이상 비상발전기 시장 내 성장 잠재력",
+     "points": [
+      "혜인은 캐터필라(CAT) 등 글로벌 건설기계 브랜드의 국내 딜러사로, 데이터센터 비상발전기 사업을 통해 새로운 성장 동력을 확보",
+      "3.9MW급 이상 비상발전기 시장에서 높은 점유율을 바탕으로 향후 2년간의 사업 가시성이 높으며, 주가 상승 여력 보유"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "상신이디피",
+   "n_31d": 1,
+   "up": 0,
+   "down": 0,
+   "reports": [
+    {
+     "t": "2026-11-09",
+     "broker": "하나증권",
+     "dir": "신규",
+     "before": null,
+     "after": null,
+     "title": "오래 기다려온 중대형 CAN 턴어라운드",
+     "points": [
+      "2차전지 CAN 전문 제조업체로, ESS용 중대형 CAN을 중심으로 한 실적 턴어라운드 기대",
+      "미국 인디애나 거점을 통한 북미 ESS 시장 성장 대응 및 신규 고객사 확보 가능성 주목"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "라온텍",
+   "n_31d": 1,
+   "up": 0,
+   "down": 0,
+   "reports": [
+    {
+     "t": "2026-11-09",
+     "broker": "하나증권",
+     "dir": null,
+     "before": null,
+     "after": null,
+     "title": "AR보다 먼저 온 광통신, LCoS의 두 번째 전방이 열렸다",
+     "points": [
+      "AR 글래스와 광통신을 함께 겨냥하는 LCoS 팹리스 기업",
+      "하반기부터 광통신 매출이 본격 반영되며 실적 개선 및 손익분기점 달성 시점 단축 기대"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "LS ELECTRIC",
+   "n_31d": 13,
+   "up": 0,
+   "down": 11,
+   "reports": [
+    {
+     "t": "2026-11-10",
+     "broker": "DS투자증권",
+     "dir": "신규",
+     "before": null,
+     "after": null,
+     "title": "독보적인 멀티플을 정당화 해야 ‘할’",
+     "points": [
+      "목표주가 142,000원, 투자의견 '매수'로 신규 커버리지 개시",
+      "배전반 중심의 견조한 성장과 초고압 변압기 등 중장기 성장 동력 확보로 멀티플 프리미엄 정당화 기대"
+     ]
+    },
+    {
+     "t": "2026-11-09",
+     "broker": "하나증권",
+     "dir": "하향",
+     "before": 270000,
+     "after": 220000,
+     "title": "한국 AI DC의 길은 LS일렉트릭으로 통한다",
+     "points": [
+      "글로벌 데이터센터 투자 수요 감소 징후가 없고 인허가 이슈로 일부 프로젝트 지연 가능성은 있으나 대응 가능한 물량이 지속적으로 확인되는 모습임",
+      "미국 빅테크 기존 고객뿐만 아니라 신규 고객까지 수주 대상이 확대되고 있으며 2027년~2028년 장기공급 계약(LTA)도 확인됨"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "삼성SDI",
+   "n_31d": 7,
+   "up": 5,
+   "down": 0,
+   "reports": [
+    {
+     "t": "2026-11-05",
+     "broker": "유안타증권",
+     "dir": "유지",
+     "before": null,
+     "after": 913000,
+     "title": "BBU, BESS 중심 호실적 지속 기대",
+     "points": [
+      "BBU, BESS 중심으로 호실적 지속이 기대되며, 투자의견 BUY와 목표주가 913,000원 유지",
+      "북미 ESS 수주 및 증설 모멘텀이 본격화되고 있으며, 4분기 매출액 4조 9,614억원, 영업이익 2,666억원 전망"
+     ]
+    },
+    {
+     "t": "2026-11-04",
+     "broker": "신한투자증권",
+     "dir": "유지",
+     "before": null,
+     "after": 800000,
+     "title": "주인공이 바뀐다, ESS",
+     "points": [
+      "2027년 ESS 사업이 이익 성장을 주도하며, EV 부진을 만회하고 소형전지는 흑자 전환 기대",
+      "투자의견 '매수'와 목표주가 800,000원을 유지하며, ESS 수주 기반의 이익 가시성을 긍정적으로 평가"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "LG에너지솔루션",
+   "n_31d": 18,
+   "up": 2,
+   "down": 5,
+   "reports": [
+    {
+     "t": "2026-11-05",
+     "broker": "유안타증권",
+     "dir": "유지",
+     "before": null,
+     "after": 574000,
+     "title": "북미 BESS·46시리즈 모멘텀 본격화",
+     "points": [
+      "3분기 실적은 ESS 출하 급증과 보상금 반영으로 영업이익이 큰 폭으로 개선됨",
+      "4분기 이후 ESS 중심의 외형 성장이 지속되고, 2027년에는 북미 BESS와 애리조나 46시리즈 모멘텀이 본격화될 전망"
+     ]
+    },
+    {
+     "t": "2026-11-04",
+     "broker": "상상인증권",
+     "dir": "유지",
+     "before": null,
+     "after": 645000,
+     "title": "3Q26 Review: 예상을 상회한 외형 성장",
+     "points": [
+      "투자의견 BUY, 목표주가 645,000원 유지, 과도한 주가 하락으로 밸류에이션 매력 점증",
+      "3분기 매출액과 영업이익은 각각 9조 6,434억원, 7,560억원으로 시장 예상을 상회, ESS와 원통형전지 판매 호조에 기인"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "나노신소재",
+   "n_31d": 2,
+   "up": 1,
+   "down": 0,
+   "reports": [
+    {
+     "t": "2026-11-05",
+     "broker": "유안타증권",
+     "dir": "유지",
+     "before": null,
+     "after": 105000,
+     "title": "2027년 전 사업부 구조적 레벨업",
+     "points": [
+      "3Q26 실적 컨센서스 상회 및 4Q26 호조 지속으로 2026년 하반기 실적 기대감 고조",
+      "2027년 전 사업부의 구조적 성장 전망을 근거로 투자의견 'BUY' 및 목표주가 105,000원 제시"
+     ]
+    },
+    {
+     "t": "2026-11-05",
+     "broker": "iM증권",
+     "dir": "상향",
+     "before": 80000,
+     "after": 115000,
+     "title": "TCO와 실버 페이스트까지, 커지는 태양광 기회 ",
+     "points": [
+      "CNT 도전재 고객사 다변화와 적용처 확대를 바탕으로 성장세 지속 전망",
+      "2027년부터 국내 배터리 셀 3사향 수요 증가와 해외 고객사향 공급 확대 동시 발생 예상"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "한중엔시에스",
+   "n_31d": 1,
+   "up": 0,
+   "down": 0,
+   "reports": [
+    {
+     "t": "2026-11-05",
+     "broker": "유안타증권",
+     "dir": "유지",
+     "before": null,
+     "after": 97000,
+     "title": "2027년 수주 모멘텀 + 외형성장 기대",
+     "points": [
+      "2027년 미국 공장 본격 가동과 고객 다변화에 따른 수주 모멘텀 및 외형 성장 기대",
+      "투자의견 'BUY' 및 목표주가 97,000원 유지"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "삼성전자",
+   "n_31d": 6,
+   "up": 1,
+   "down": 2,
+   "reports": [
+    {
+     "t": "2026-11-10",
+     "broker": "DS투자증권",
+     "dir": "유지",
+     "before": null,
+     "after": 530000,
+     "title": "고점 이후에도 2029년 460조원 전망",
+     "points": [
+      "투자의견 '매수'와 목표주가 53만원 유지",
+      "2027년 632조원의 높은 영업이익과 이후에도 견조한 이익 규모를 유지할 것으로 전망, 장기 투자 매력 부각"
+     ]
+    },
+    {
+     "t": "2026-11-09",
+     "broker": "KB증권",
+     "dir": null,
+     "before": null,
+     "after": null,
+     "title": "역사적 급락, 반등의 전환점",
+     "points": [
+      "삼성전자 주가는 역사적 수준으로 급락했으나, 이는 과도한 우려가 선반영된 것으로 반등의 전환점으로 판단",
+      "2026년과 2027년 영업이익은 각각 381조 원, 640조 원으로 상향 조정되는 등 견조한 실적이 예상되어 주가와 실적 간 괴리가 최대 수준"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "SK하이닉스",
+   "n_31d": 9,
+   "up": 4,
+   "down": 3,
+   "reports": [
+    {
+     "t": "2026-11-10",
+     "broker": "DS투자증권",
+     "dir": "유지",
+     "before": null,
+     "after": 2640000,
+     "title": "고점 이후에도 2029년 290조원 전망",
+     "points": [
+      "투자의견 '매수'와 목표주가 264만원 유지, 2027년 영업이익 443.8조원 전망",
+      "2029년에도 피크 이익의 65% 수준인 290.3조원 영업이익을 유지할 것으로 예상되어 중기 투자 매력 부각"
+     ]
+    },
+    {
+     "t": "2026-11-04",
+     "broker": "iM증권",
+     "dir": "신규",
+     "before": null,
+     "after": null,
+     "title": "HBM 하나로 시가총액 설명",
+     "points": [
+      "iM증권, SK하이닉스에 대해 투자의견 '매수(Buy)'와 목표주가 230만원으로 신규 커버리지 개시",
+      "HBM 사업 가치가 '27년 현재 시가총액 수준에 육박할 것으로 전망되며, 적극적인 주주환원 정책이 주가 상승의 핵심 동력으로 작용할 전망"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "심텍",
+   "n_31d": 10,
+   "up": 3,
+   "down": 1,
+   "reports": [
+    {
+     "t": "2026-11-09",
+     "broker": "메리츠증권",
+     "dir": null,
+     "before": null,
+     "after": null,
+     "title": "심텍",
+     "points": [
+      "주요 메모리 3사와 장기공급계약(LTA) 체결 협의 중으로 중장기 수요 가시성 및 수익성 개선 기대",
+      "SoCAMM의 고공행진과 시스템 IC 부문의 성장을 통해 새로운 기판 사이클의 주인공으로 부상 전망"
+     ]
+    },
+    {
+     "t": "2026-11-04",
+     "broker": "키움증권",
+     "dir": "유지",
+     "before": null,
+     "after": 190000,
+     "title": "강한 실적, 강한 가이던스, 차별화된 성장 포인트",
+     "points": [
+      "3Q26 실적은 SOCAMM2, 시스템IC 등 고부가가치 제품 매출 본격화로 컨센서스를 상회",
+      "투자의견 'BUY'와 목표주가 190,000원을 유지하며, 견고한 펀더멘탈과 실적 상향 포인트를 보유한 점을 강조"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "삼성전기",
+   "n_31d": 6,
+   "up": 4,
+   "down": 1,
+   "reports": [
+    {
+     "t": "2026-11-10",
+     "broker": "메리츠증권",
+     "dir": "유지",
+     "before": null,
+     "after": 2300000,
+     "title": "여전히 병목의 중심",
+     "points": [
+      "AI용 MLCC 수요 급증과 공급 부족으로 판가 인상 사이클이 기대되며, 2027년 컴포넌트 사업부 영업이익률 30% 육박 전망",
+      "NVIDIA의 핵심 공급사로 부상하며 AI GPU용 ABF 기판 시장에 성공적으로 진입, 중장기 성장 가시성 확보"
+     ]
+    },
+    {
+     "t": "2026-10-29",
+     "broker": "IBK투자증권",
+     "dir": "상향",
+     "before": 1750000,
+     "after": 1900000,
+     "title": "부진한 주가를 날려버릴 실적과 전망",
+     "points": [
+      "26년 3분기 영업이익 26년 2분기 대비 56.9% 증가한 6,910억원 기록",
+      "26년 3분기 수익성 개선은 제품믹스 개선, 단가 인상과 가동률 상승 영향"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "대덕전자",
+   "n_31d": 3,
+   "up": 0,
+   "down": 2,
+   "reports": [
+    {
+     "t": "2026-11-09",
+     "broker": "메리츠증권",
+     "dir": null,
+     "before": null,
+     "after": null,
+     "title": "주가와 반대로 높아진 자신감",
+     "points": [
+      "NDR 후기: 대규모 증설에 대한 강한 수요와 높아진 가격 협상력 확인",
+      "과도한 주가 조정은 ABF Large Body 시장 진입 등 성장성을 고려할 때 적극적인 비중 확대 기회"
+     ]
+    },
+    {
+     "t": "2026-11-02",
+     "broker": "신한투자증권",
+     "dir": "하향",
+     "before": 200000,
+     "after": 170000,
+     "title": "환율을 이겨낸 서프라이즈 ",
+     "points": [
+      "EPS 상향(4%)에도 글로벌 동종업체 멀티플 하락(15%)으로 목표주가 15% 하향",
+      "2027년 예상 EPS(주당순이익) 6,941원에 목표 P/E(주가수익비율) 24.9배 적용"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "티에프이",
+   "n_31d": 1,
+   "up": 0,
+   "down": 0,
+   "reports": [
+    {
+     "t": "2026-11-02",
+     "broker": "현대차증권",
+     "dir": "신규",
+     "before": null,
+     "after": 130000,
+     "title": "",
+     "points": [
+      "AI Super Cycle로 인한 Memory 호황으로 메모리 패키징 Test 수요는 기하급수적으로 증가하고 있고, 동사의 Socket, CoK, Board 수요 역시 빠르게 확대되고 있음. 이에 ",
+      "3분기 연결 기준 매출액은 539억원(YoY +97.9%), 영업이익은 138억원(YoY +185.8%, OPM 25.6%)으로 컨센서스를 상회하는 실적을 예상. 실적 호조의 주요 근거는 SoCAM"
+     ]
+    }
+   ]
+  }
+ ],
+ "channel_themes": [
+  {
+   "group": "바이오",
+   "talk": 68,
+   "talk_prev": 37,
+   "talk_chg": 84,
+   "up": 5,
+   "down": 11,
+   "stocks": [
+    "SK바이오팜",
+    "한미약품",
+    "HK이노엔",
+    "셀트리온"
+   ],
+   "r5": 4.89,
+   "r20": 12.58,
+   "money5": 6574,
+   "tag": "🔥 말·주가·수급 모두 ↑ (주도 후보)"
+  },
+  {
+   "group": "IT/소프트웨어",
+   "talk": 47,
+   "talk_prev": 31,
+   "talk_chg": 52,
+   "up": 3,
+   "down": 8,
+   "stocks": [
+    "카카오",
+    "NHN",
+    "NAVER",
+    "플리토"
+   ],
+   "r5": 6.57,
+   "r20": 2.41,
+   "money5": 2928,
+   "tag": "🔥 말·주가·수급 모두 ↑ (주도 후보)"
+  },
+  {
+   "group": "지주사",
+   "talk": 39,
+   "talk_prev": 16,
+   "talk_chg": 144,
+   "up": 4,
+   "down": 6,
+   "stocks": [
+    "KT&G",
+    "삼성물산",
+    "SK",
+    "SK네트웍스"
+   ],
+   "r5": -18.66,
+   "r20": -20.78,
+   "money5": -1702,
+   "tag": "⚠️ 말은 많은데 주가 ↓"
+  },
+  {
+   "group": "음식료",
+   "talk": 39,
+   "talk_prev": 14,
+   "talk_chg": 179,
+   "up": 1,
+   "down": 3,
+   "stocks": [
+    "삼양식품",
+    "롯데칠성",
+    "CJ제일제당",
+    "하이트진로"
+   ],
+   "r5": 1.83,
+   "r20": 2.0,
+   "money5": 169,
+   "tag": "📈 말과 주가 함께 ↑"
+  },
+  {
+   "group": "운송/물류",
+   "talk": 37,
+   "talk_prev": 33,
+   "talk_chg": 12,
+   "up": 5,
+   "down": 0,
+   "stocks": [
+    "대한항공",
+    "제주항공",
+    "아시아나항공",
+    "팬오션"
+   ],
+   "r5": 6.58,
+   "r20": 12.45,
+   "money5": 1905,
+   "tag": "🤫 조용히 오름 (말 적음)"
+  },
+  {
+   "group": "헬스케어",
+   "talk": 37,
+   "talk_prev": 19,
+   "talk_chg": 95,
+   "up": 1,
+   "down": 10,
+   "stocks": [
+    "파마리서치",
+    "인바디",
+    "씨어스",
+    "엘앤씨바이오"
+   ],
+   "r5": -10.95,
+   "r20": -26.3,
+   "money5": 384,
+   "tag": "⚠️ 말은 많은데 주가 ↓"
+  },
+  {
+   "group": "화학",
+   "talk": 35,
+   "talk_prev": 7,
+   "talk_chg": 400,
+   "up": 0,
+   "down": 22,
+   "stocks": [
+    "롯데케미칼",
+    "금호석유화학",
+    "원익머트리얼즈",
+    "PI첨단소재"
+   ],
+   "r5": -9.05,
+   "r20": -19.36,
+   "money5": -80,
+   "tag": "⚠️ 말은 많은데 주가 ↓"
+  },
+  {
+   "group": "자동차",
+   "talk": 35,
+   "talk_prev": 19,
+   "talk_chg": 84,
+   "up": 1,
+   "down": 6,
+   "stocks": [
+    "한온시스템",
+    "한국타이어앤테크놀로지",
+    "현대위아",
+    "넥센타이어"
+   ],
+   "r5": -1.9,
+   "r20": -10.12,
+   "money5": -20,
+   "tag": "⚠️ 말은 많은데 주가 ↓"
+  },
+  {
+   "group": "미디어/엔터",
+   "talk": 29,
+   "talk_prev": 19,
+   "talk_chg": 53,
+   "up": 7,
+   "down": 5,
+   "stocks": [
+    "CJ ENM",
+    "스튜디오드래곤",
+    "CJ CGV",
+    "제일기획"
+   ],
+   "r5": 4.31,
+   "r20": 1.82,
+   "money5": 17,
+   "tag": "🔥 말·주가·수급 모두 ↑ (주도 후보)"
+  },
+  {
+   "group": "원전",
+   "talk": 28,
+   "talk_prev": 7,
+   "talk_chg": 300,
+   "up": 0,
+   "down": 15,
+   "stocks": [
+    "한국전력",
+    "한전KPS",
+    "한전기술",
+    "두산에너빌리티"
+   ],
+   "r5": -13.6,
+   "r20": -22.35,
+   "money5": 104,
+   "tag": "⚠️ 말은 많은데 주가 ↓"
+  },
+  {
+   "group": "게임",
+   "talk": 25,
+   "talk_prev": 18,
+   "talk_chg": 39,
+   "up": 1,
+   "down": 10,
+   "stocks": [
+    "넷마블",
+    "크래프톤",
+    "카카오게임즈",
+    "컴투스"
+   ],
+   "r5": 10.91,
+   "r20": 8.23,
+   "money5": 462,
+   "tag": "🔥 말·주가·수급 모두 ↑ (주도 후보)"
+  },
+  {
+   "group": "조선",
+   "talk": 25,
+   "talk_prev": 9,
+   "talk_chg": 178,
+   "up": 0,
+   "down": 6,
+   "stocks": [
+    "HD현대중공업",
+    "한화오션",
+    "삼성중공업",
+    "HD현대"
+   ],
+   "r5": -12.03,
+   "r20": -25.13,
+   "money5": -65,
+   "tag": "⚠️ 말은 많은데 주가 ↓"
+  },
+  {
+   "group": "신재생에너지",
+   "talk": 21,
+   "talk_prev": 14,
+   "talk_chg": 50,
+   "up": 1,
+   "down": 1,
+   "stocks": [
+    "씨에스윈드",
+    "OCI홀딩스",
+    "한화솔루션",
+    "OCI"
+   ],
+   "r5": 3.48,
+   "r20": -22.33,
+   "money5": -665,
+   "tag": "📈 말과 주가 함께 ↑"
+  },
+  {
+   "group": "반도체 기판·전자부품",
+   "talk": 20,
+   "talk_prev": 14,
+   "talk_chg": 43,
+   "up": 0,
+   "down": 2,
+   "stocks": [
+    "티엘비",
+    "삼성전기",
+    "심텍홀딩스",
+    "대덕전자"
+   ],
+   "r5": -30.7,
+   "r20": -44.96,
+   "money5": -11600,
+   "tag": "⚠️ 말은 많은데 주가 ↓"
+  },
+  {
+   "group": "반도체 장비",
+   "talk": 20,
+   "talk_prev": 7,
+   "talk_chg": 186,
+   "up": 0,
+   "down": 4,
+   "stocks": [
+    "원익IPS",
+    "인텍플러스",
+    "오로스테크놀로지",
+    "케이씨텍"
+   ],
+   "r5": -22.23,
+   "r20": -39.5,
+   "money5": -401,
+   "tag": "⚠️ 말은 많은데 주가 ↓"
+  },
+  {
+   "group": "호텔/레저",
+   "talk": 12,
+   "talk_prev": 9,
+   "talk_chg": 33,
+   "up": 0,
+   "down": 2,
+   "stocks": [
+    "강원랜드",
+    "파라다이스",
+    "GKL",
+    "GS피앤엘"
+   ],
+   "r5": 0.64,
+   "r20": -1.88,
+   "money5": 85,
+   "tag": "📈 말과 주가 함께 ↑"
+  },
+  {
+   "group": "통신서비스",
+   "talk": 8,
+   "talk_prev": 42,
+   "talk_chg": -81,
+   "up": 0,
+   "down": 0,
+   "stocks": [
+    "SK텔레콤",
+    "KT",
+    "LG유플러스"
+   ],
+   "r5": 7.26,
+   "r20": 3.37,
+   "money5": 1093,
+   "tag": "🤫 조용히 오름 (말 적음)"
+  },
+  {
+   "group": "보험",
+   "talk": 7,
+   "talk_prev": 1,
+   "talk_chg": 600,
+   "up": 0,
+   "down": 0,
+   "stocks": [
+    "삼성생명",
+    "DB손해보험",
+    "삼성화재",
+    "롯데손해보험"
+   ],
+   "r5": -8.42,
+   "r20": -7.49,
+   "money5": 126,
+   "tag": "⚠️ 말은 많은데 주가 ↓"
+  },
+  {
+   "group": "광통신",
+   "talk": 6,
+   "talk_prev": 2,
+   "talk_chg": 200,
+   "up": 0,
+   "down": 0,
+   "stocks": [
+    "RFHIC",
+    "오이솔루션",
+    "성호전자",
+    "대한광통신"
+   ],
+   "r5": -24.39,
+   "r20": -32.02,
+   "money5": 130,
+   "tag": "⚠️ 말은 많은데 주가 ↓"
+  },
+  {
+   "group": "생활용품",
+   "talk": 6,
+   "talk_prev": 0,
+   "talk_chg": 600,
+   "up": 2,
+   "down": 2,
+   "stocks": [
+    "코웨이"
+   ],
+   "r5": -4.06,
+   "r20": -0.88,
+   "money5": 4,
+   "tag": "⚠️ 말은 많은데 주가 ↓"
+  }
+ ],
  "research": [
+  {
+   "id": "naver_company_97919",
+   "date": "2026-11-09",
+   "broker": "한화투자증권",
+   "kind": "기업",
+   "title": "LIG디펜스앤에어로스페이스 3Q26 Review: 기대치 하회, 장기 전망 유지",
+   "one_line": "3분기 실적은 기대치를 밑돌았지만 방산 수출 확대와 수주 전망은 유효. 단기 반등의 조건은 수주와 방위사업청 제재 결과.",
+   "url": "https://stock.naver.com/research/company/97919",
+   "stocks": [
+    {
+     "name": "LIG디펜스",
+     "role": "대상",
+     "view": "매수(유지), 목표 670,000원",
+     "target": 670000,
+     "why": "방공체계 수출 확대 전망 유효",
+     "code": null
+    }
+   ],
+   "sectors": [
+    "방산"
+   ],
+   "thesis": [],
+   "risks": [
+    "제재 현실화",
+    "해외 수주 지연"
+   ],
+   "numbers": [
+    {
+     "label": "3Q 영업이익",
+     "value": "676억 원",
+     "note": "−24.5% YoY, p.1"
+    },
+    {
+     "label": "목표주가(유지)",
+     "value": "670,000원",
+     "note": "11/6 현재가 326,000원, 상승여력 105.5%, p.1"
+    }
+   ],
+   "depth": "light"
+  },
+  {
+   "id": "naver_industry_46884",
+   "date": "2026-11-09",
+   "broker": "SK증권",
+   "kind": "산업",
+   "title": "조선은 중간선거와 무관한 초당적 섹터가 아니다",
+   "one_line": "중간선거 영향은 LNG선·군함·데이터센터 엔진 등 항목별로 시점과 방향이 달라, 항목별로 나눠 봐야 한다. 최선호는 HD현대중공업.",
+   "url": "https://stock.naver.com/research/industry/46884",
+   "stocks": [
+    {
+     "name": "HD현대중공업",
+     "role": "Top pick",
+     "view": "최선호주 유지",
+     "target": null,
+     "why": "미국 내 건조·4행정 엔진 역량",
+     "code": "329180"
+    }
+   ],
+   "sectors": [
+    "조선"
+   ],
+   "thesis": [],
+   "risks": [
+    "미국 LNG 승인 정책 변화",
+    "군함 해외 건조 규제"
+   ],
+   "numbers": [
+    {
+     "label": "신조선가지수",
+     "value": "187.20pt",
+     "note": "하락, p.1"
+    },
+    {
+     "label": "VLAC 수주 단가",
+     "value": "$117.5m/척",
+     "note": "4척, p.1"
+    }
+   ],
+   "depth": "light"
+  },
+  {
+   "id": "naver_industry_46886",
+   "date": "2026-11-09",
+   "broker": "iM증권",
+   "kind": "산업",
+   "title": "미국 중간선거 블루웨이브, 오히려 기회가 될 수 있다",
+   "one_line": "데이터센터 규제가 강해져도 북미 ESS 수요는 유지되고, 국내 셀 업체 점유율 확대가 기대된다(이차전지 Overweight 상향).",
+   "url": "https://stock.naver.com/research/industry/46886",
+   "stocks": [
+    {
+     "name": "삼성SDI",
+     "role": "Top pick",
+     "view": "최선호(이차전지 Overweight)",
+     "target": null,
+     "why": "2028F P/E 18.8배",
+     "code": "006400"
+    },
+    {
+     "name": "LG에너지솔루션",
+     "role": "언급",
+     "view": "차선호",
+     "target": null,
+     "why": "2028F P/E 27.6배",
+     "code": "373220"
+    }
+   ],
+   "sectors": [
+    "2차전지"
+   ],
+   "thesis": [],
+   "risks": [
+    "2026년 증가율에 이연 물량 포함 가능성",
+    "정책 변화에 따른 수요 변동"
+   ],
+   "numbers": [
+    {
+     "label": "북미 ESS 배터리 출하(2026F)",
+     "value": "약 175GWh",
+     "note": "전년 대비 +56% 추정, p.2"
+    },
+    {
+     "label": "북미 ESS 출하(3Q26)",
+     "value": "약 46GWh",
+     "note": "+54% YoY, p.2"
+    },
+    {
+     "label": "2030 북미 ESS 출하",
+     "value": "약 245GWh",
+     "note": "+11% YoY 전망, p.2"
+    }
+   ],
+   "depth": "light"
+  },
+  {
+   "id": "naver_industry_46889",
+   "date": "2026-11-09",
+   "broker": "키움증권",
+   "kind": "산업",
+   "title": "키움 음식료 Weekly (11/9) — 먹거리값 줄인상",
+   "one_line": "10월 가공식품·외식 물가가 각 2.9% 올라 전체 물가를 웃돌고, 연말까지 먹거리 가격 상승이 이어질 전망. 가격 전가력이 관건.",
+   "url": "https://stock.naver.com/research/industry/46889",
+   "stocks": [
+    {
+     "name": "삼양식품",
+     "role": "관심",
+     "view": "미국 라면 1위 정조준(리포트 소개)",
+     "target": null,
+     "why": "수출 성장",
+     "code": "003230"
+    },
+    {
+     "name": "CJ제일제당",
+     "role": "언급",
+     "view": "미국 세븐일레븐 비비고 피자·만두 출시",
+     "target": null,
+     "why": "미국 현지 생산",
+     "code": "097950"
+    }
+   ],
+   "sectors": [
+    "음식료"
+   ],
+   "thesis": [],
+   "risks": [
+    "소비 둔화",
+    "원재료 부담"
+   ],
+   "numbers": [
+    {
+     "label": "10월 가공식품 물가",
+     "value": "+2.9%",
+     "note": "전체 +2.8%, p.1"
+    },
+    {
+     "label": "삼양아메리카 연매출(2025)",
+     "value": "5,952억 원",
+     "note": "2022년 630억 원, p.1"
+    }
+   ],
+   "depth": "light"
+  },
+  {
+   "id": "naver_industry_46893",
+   "date": "2026-11-09",
+   "broker": "iM증권",
+   "kind": "산업",
+   "title": "LCC 구하러 온 유가 하락과 강력한 일본 여행 수요",
+   "one_line": "유가 하락으로 LCC 이익 추정치가 올라갈 여지가 있고, 일본 노선 수요가 강해 제주항공·진에어에 주목.",
+   "url": "https://stock.naver.com/research/industry/46893",
+   "stocks": [
+    {
+     "name": "제주항공",
+     "role": "관심",
+     "view": "LCC 중 주목",
+     "target": null,
+     "why": "일본 노선 비중 57.1%",
+     "code": "089590"
+    },
+    {
+     "name": "진에어",
+     "role": "관심",
+     "view": "일본 노선 비중 62.6%",
+     "target": null,
+     "why": "일본 노선 노출",
+     "code": "272450"
+    },
+    {
+     "name": "대한항공",
+     "role": "언급",
+     "view": "4Q26 별도 영업이익 4,021억 원 추정",
+     "target": null,
+     "why": "유가 민감",
+     "code": "003490"
+    }
+   ],
+   "sectors": [
+    "항공운송"
+   ],
+   "thesis": [],
+   "risks": [
+    "유가 반등",
+    "일본 노선 운임 하락"
+   ],
+   "numbers": [
+    {
+     "label": "WTI(11/6, 주간)",
+     "value": "90.8달러",
+     "note": "주간 −12.8%, p.1"
+    },
+    {
+     "label": "국적사 일본 노선 여객(1~10월)",
+     "value": "2,455만 명",
+     "note": "+20.5% YoY, p.2"
+    }
+   ],
+   "depth": "light"
+  },
+  {
+   "id": "naver_industry_46899",
+   "date": "2026-11-09",
+   "broker": "유진투자증권",
+   "kind": "산업",
+   "title": "Next Energy(Power & Battery Weekly) - 미국의 데이터센터 님비, 한국에는 기회",
+   "one_line": "미국 규제가 강해지면 데이터센터 입지 경쟁이 해외로 옮겨가며, 전력·부지를 먼저 확보한 국내 사업자에게 기회가 생길 수 있다.",
+   "url": "https://stock.naver.com/research/industry/46899",
+   "stocks": [
+    {
+     "name": "두산에너빌리티",
+     "role": "언급",
+     "view": "주간 −18.4%, X-energy SMR 부품 공급",
+     "target": null,
+     "why": "원자력",
+     "code": "034020"
+    },
+    {
+     "name": "삼성SDI",
+     "role": "언급",
+     "view": "주간 −13.8%",
+     "target": null,
+     "why": "배터리 업종 약세",
+     "code": "006400"
+    }
+   ],
+   "sectors": [
+    "전력·데이터센터 입지"
+   ],
+   "thesis": [],
+   "risks": [
+    "한국 전력망 제약",
+    "해외 수요 분산이 실제로 일어나는지 불확실"
+   ],
+   "numbers": [
+    {
+     "label": "조호르 운영 용량",
+     "value": "1.1GW(2026)",
+     "note": "2023년 94MW, p.1"
+    },
+    {
+     "label": "AIDC 1단계 목표",
+     "value": "8.4GW(2029)",
+     "note": "정부 3대 프로젝트, p.1"
+    }
+   ],
+   "depth": "light"
+  },
+  {
+   "id": "naver_industry_46903",
+   "date": "2026-11-09",
+   "broker": "신한투자증권",
+   "kind": "산업",
+   "title": "블루웨이브, 전력 인프라 투자의 새 조건 (신한 유틸리티/신재생 Weekly)",
+   "one_line": "중간선거 이후 데이터센터 규제 우려로 GE Vernova·Bloom 등 전력 인프라주가 하락했다(요약 기준, 원문 미확인).",
+   "url": "https://stock.naver.com/research/industry/46903",
+   "stocks": [
+    {
+     "name": "GE Vernova",
+     "role": "언급(미국)",
+     "view": "데이터센터 규제 우려로 하락",
+     "target": null,
+     "why": "요약 기준",
+     "code": null
+    }
+   ],
+   "sectors": [
+    "전력 인프라"
+   ],
+   "thesis": [],
+   "risks": [
+    "원문 미확인"
+   ],
+   "numbers": [],
+   "depth": "light"
+  },
+  {
+   "id": "naver_industry_46909",
+   "date": "2026-11-09",
+   "broker": "한화투자증권",
+   "kind": "산업",
+   "title": "[ESG] 데이터센터 규제는 선 반영, 설비 회복은 대형 수주로 확인",
+   "one_line": "데이터센터 관련주의 낙폭은 회복의 근거가 아니며, 메모리는 이익·주주환원, 설비는 대형 수주로 나눠 확인해야 한다.",
+   "url": "https://stock.naver.com/research/industry/46909",
+   "stocks": [
+    {
+     "name": "삼성전자",
+     "role": "언급",
+     "view": "11/5 하루 −7.6%",
+     "target": null,
+     "why": "메모리 낙폭 완충",
+     "code": "005930"
+    },
+    {
+     "name": "SK하이닉스",
+     "role": "언급",
+     "view": "11/5 하루 −9.5%",
+     "target": null,
+     "why": "AI주와 동반 하락",
+     "code": "000660"
+    }
+   ],
+   "sectors": [
+    "데이터센터 설비",
+    "메모리"
+   ],
+   "thesis": [],
+   "risks": [
+    "연방·주 규제가 예상보다 빨리 시행될 가능성",
+    "메모리 이익 변수"
+   ],
+   "numbers": [
+    {
+     "label": "설비 11곳 10/19→11/5(중앙값)",
+     "value": "−21.1%",
+     "note": "코스피 −6.7%, p.3 표1"
+    },
+    {
+     "label": "메모리 2곳 평균",
+     "value": "−4.3%",
+     "note": "시총 가중 −7.6%, p.3"
+    },
+    {
+     "label": "대형 수주 17건 평균",
+     "value": "+3.4%",
+     "note": "상위 2건 제외 −0.1%, p.7"
+    }
+   ],
+   "depth": "light"
+  },
+  {
+   "id": "naver_industry_46912",
+   "date": "2026-11-09",
+   "broker": "하나증권",
+   "kind": "산업",
+   "title": "데크크2 (한국데센 정상영업합니다) — 데이터센터 산업",
+   "one_line": "국내 AI 데이터센터는 자금조달·인허가·시공 단계로 들어섰고, 미국 규제가 강해지면 미국 외 구축이 늘어 국내가 수혜를 볼 것.",
+   "url": "https://stock.naver.com/research/industry/46912",
+   "stocks": [
+    {
+     "name": "NAVER",
+     "role": "Top pick",
+     "view": "BUY, 목표 400,000원(11/6 190,200원)",
+     "target": 400000,
+     "why": "풀스택 레퍼런스",
+     "code": "035420"
+    },
+    {
+     "name": "삼성에스디에스",
+     "role": "Top pick",
+     "view": "BUY, 목표 290,000원(상향, 11/6 218,000원)",
+     "target": 290000,
+     "why": "안정적 현금흐름",
+     "code": "018260"
+    },
+    {
+     "name": "LS ELECTRIC",
+     "role": "Top pick",
+     "view": "BUY, 목표 220,000원(하향, 11/6 116,500원)",
+     "target": 220000,
+     "why": "북미·국내 물량",
+     "code": "010120"
+    },
+    {
+     "name": "SGC에너지",
+     "role": "관심",
+     "view": "BUY, 목표 68,000원",
+     "target": 68000,
+     "why": "2차 사업 100MW 수전 계약 진행",
+     "code": "005090"
+    }
+   ],
+   "sectors": [
+    "AI 데이터센터",
+    "전력 계통"
+   ],
+   "thesis": [],
+   "risks": [
+    "미국 규제가 국내 수요까지 지연시킬 가능성",
+    "전력 계통 병목 장기화"
+   ],
+   "numbers": [
+    {
+     "label": "국내 AI DC 수주 가시권",
+     "value": "약 1GW",
+     "note": "올해, 파이프라인 3GW, p.4·p.39"
+    },
+    {
+     "label": "MW당 매각 단가",
+     "value": "200억 원 초과",
+     "note": "안양·군산, p.39"
+    },
+    {
+     "label": "국내 AI DC 추가 수요(Base)",
+     "value": "+3.0~4.2GW",
+     "note": "2030년까지, p.4"
+    }
+   ],
+   "depth": "light"
+  },
+  {
+   "id": "naver_industry_46913",
+   "date": "2026-11-09",
+   "broker": "DS투자증권",
+   "kind": "산업",
+   "title": "방산 3Q 실적 마무리, 짚고 넘어가야 할 것들",
+   "one_line": "방산 3분기 실적은 환율 영향이 컸고, 수주 파이프라인은 재확인됐다. 저평가 구간으로 보며 수주가 구체화되는 기업부터 분할 매수를 추천.",
+   "url": "https://stock.naver.com/research/industry/46913",
+   "stocks": [
+    {
+     "name": "LIG디펜스",
+     "role": "언급",
+     "view": "LIG D&A 기준 환율·마진 부담, 수주 가이던스 28조 원",
+     "target": null,
+     "why": "하회 분기",
+     "code": null
+    },
+    {
+     "name": "한국항공우주",
+     "role": "수혜",
+     "view": "환율 하락 수혜, FA-50 GPM 20% 이상 추정",
+     "target": null,
+     "why": "완제기 수출",
+     "code": "047810"
+    },
+    {
+     "name": "한화에어로스페이스",
+     "role": "언급",
+     "view": "3Q 하회(인도량·환율)",
+     "target": null,
+     "why": "중동·폴란드 파이프라인",
+     "code": "012450"
+    },
+    {
+     "name": "한화시스템",
+     "role": "언급",
+     "view": "3Q 상회, 수주 확대 가이던스",
+     "target": null,
+     "why": "UAE 방공망",
+     "code": "272210"
+    }
+   ],
+   "sectors": [
+    "방산"
+   ],
+   "thesis": [],
+   "risks": [
+    "수주 지연·취소",
+    "환율 변동"
+   ],
+   "numbers": [
+    {
+     "label": "LIG D&A 4Q말 수주잔고 가이던스",
+     "value": "28조 원",
+     "note": "p.1"
+    },
+    {
+     "label": "3Q 평균 환율",
+     "value": "1,418원",
+     "note": "11/6 1,364원, p.1"
+    },
+    {
+     "label": "KAI 3Q 누적 수주 목표 달성률",
+     "value": "21%",
+     "note": "목표 10.4조 원, p.1"
+    }
+   ],
+   "depth": "light"
+  },
+  {
+   "id": "naver_industry_46914",
+   "date": "2026-11-09",
+   "broker": "하나증권",
+   "kind": "산업",
+   "title": "극심한 KOSPI 조정 양상 속에서 은행주 큰폭 선방",
+   "one_line": "코스피가 크게 흔들린 주간에도 은행주는 상대적으로 버텼다. 밸류가 낮아 방어 역할이 기대되지만 제재·소송 변수는 남아 있다.",
+   "url": "https://stock.naver.com/research/industry/46914",
+   "stocks": [
+    {
+     "name": "KB금융",
+     "role": "언급",
+     "view": "1주 −2.9%",
+     "target": null,
+     "why": "대표 은행",
+     "code": "105560"
+    }
+   ],
+   "sectors": [
+    "은행"
+   ],
+   "thesis": [],
+   "risks": [
+    "금융 규제 강화",
+    "해킹 사고 후속 제재"
+   ],
+   "numbers": [
+    {
+     "label": "은행 PBR(2026F)",
+     "value": "0.64배",
+     "note": "11/6 종가, p.1"
+    },
+    {
+     "label": "5대 은행 기업예금",
+     "value": "1,000조 원 돌파",
+     "note": "사상 최초, p.1"
+    }
+   ],
+   "depth": "light"
+  },
+  {
+   "id": "naver_industry_46916",
+   "date": "2026-11-09",
+   "broker": "하나증권",
+   "kind": "산업",
+   "title": "출하와 수주 기대치 상회, 마진 눈높이는 하향 조정 필요",
+   "one_line": "3분기 배터리 출하와 수주는 기대치에 맞거나 넘었지만 ESS 마진은 눈높이를 낮출 필요가 있다. 대형주 비중 확대를 권고.",
+   "url": "https://stock.naver.com/research/industry/46916",
+   "stocks": [
+    {
+     "name": "LG에너지솔루션",
+     "role": "관심",
+     "view": "대형주 비중 확대 권고(섹터)",
+     "target": null,
+     "why": "ESS 출하 증가",
+     "code": "373220"
+    },
+    {
+     "name": "삼성SDI",
+     "role": "관심",
+     "view": "대형주 비중 확대 권고(섹터)",
+     "target": null,
+     "why": "신규 수주 강함",
+     "code": "006400"
+    }
+   ],
+   "sectors": [
+    "2차전지"
+   ],
+   "thesis": [],
+   "risks": [
+    "ESS 마진 하향",
+    "EV 출하 부진"
+   ],
+   "numbers": [
+    {
+     "label": "3Q ESS 출하 QoQ(LGES)",
+     "value": "+65%",
+     "note": "삼성SDI +45%, p.1"
+    },
+    {
+     "label": "삼성SDI 신규 수주 가이던스",
+     "value": "120GWh",
+     "note": "LGES 90GWh 유지, p.1"
+    }
+   ],
+   "depth": "light"
+  },
+  {
+   "id": "naver_industry_46918",
+   "date": "2026-11-09",
+   "broker": "하나증권",
+   "kind": "산업",
+   "title": "태양광, 세액공제 조기종료 회복 기대",
+   "one_line": "블루웨이브로 태양광 세액공제 조기 종료가 되돌려질 가능성이 높아졌다. 다만 거부권 때문에 법안 통과에는 시간이 걸릴 수 있다.",
+   "url": "https://stock.naver.com/research/industry/46918",
+   "stocks": [
+    {
+     "name": "한화솔루션",
+     "role": "Top pick",
+     "view": "Top Picks 목록",
+     "target": null,
+     "why": "태양광 정책 수혜",
+     "code": "009830"
+    },
+    {
+     "name": "OCI홀딩스",
+     "role": "Top pick",
+     "view": "Top Picks 목록",
+     "target": null,
+     "why": "에너지·화학",
+     "code": "010060"
+    },
+    {
+     "name": "금호석유화학",
+     "role": "Top pick",
+     "view": "Top Picks 목록",
+     "target": null,
+     "why": "석유화학 회복",
+     "code": "011780"
+    }
+   ],
+   "sectors": [
+    "태양광",
+    "석유화학"
+   ],
+   "thesis": [],
+   "risks": [
+    "거부권",
+    "유가 추가 하락"
+   ],
+   "numbers": [
+    {
+     "label": "WTI(11/6, 주간)",
+     "value": "90.8달러",
+     "note": "−13%, p.1"
+    },
+    {
+     "label": "정제마진",
+     "value": "36.9달러",
+     "note": "주간 +4.0달러, p.1"
+    }
+   ],
+   "depth": "light"
+  },
+  {
+   "id": "naver_invest_40748",
+   "date": "2026-11-09",
+   "broker": "키움증권",
+   "kind": "전략",
+   "title": "역대급 속도의 급락장 속 대응방안",
+   "one_line": "코스피는 6월 고점 대비 약 44.5% 하락해 과거 위기보다 빠른 속도로 떨어졌다. 추가 악재가 없다면 하락 여지는 제한적이라는 전망.",
+   "url": "https://stock.naver.com/research/invest/40748",
+   "stocks": [],
+   "sectors": [
+    "시장 전반"
+   ],
+   "thesis": [],
+   "risks": [
+    "신규 AI·매크로 악재",
+    "데이터센터 규제 여진"
+   ],
+   "numbers": [
+    {
+     "label": "코스피 고점 대비",
+     "value": "−44.5%",
+     "note": "6/22 고점 기준, p.1"
+    },
+    {
+     "label": "지난주 코스피",
+     "value": "−11.71%",
+     "note": "코스닥 −11.06%, p.1"
+    },
+    {
+     "label": "하락 속도(기간 대비)",
+     "value": "외환위기 5.6배·금융위기 2.2배",
+     "note": "키움 계산, p.1"
+    }
+   ],
+   "depth": "light"
+  },
+  {
+   "id": "naver_invest_40751",
+   "date": "2026-11-09",
+   "broker": "키움증권",
+   "kind": "전략",
+   "title": "[2026 미국 중간선거] Post BlueWave — 블루웨이브 이후 투자 전략",
+   "one_line": "민주당 양원 장악으로 재정 확대는 제약되지만 관세·연준 경로는 유지된다. 데이터센터는 신규 공급이 막혀 기존 설비 보유 기업의 희소가치가 올라갈 수 있다.",
+   "url": "https://stock.naver.com/research/invest/40751",
+   "stocks": [],
+   "sectors": [
+    "데이터센터 설비(미국)",
+    "소비재·방어주"
+   ],
+   "thesis": [],
+   "risks": [
+    "연준 긴축 재개",
+    "데이터센터 공급 축소"
+   ],
+   "numbers": [
+    {
+     "label": "코스피 선거 후 2거래일",
+     "value": "약 −11%",
+     "note": "장중 5,000pt 이탈, p.33"
+    },
+    {
+     "label": "코스피 선행 PBR",
+     "value": "0.95배",
+     "note": "리포트 추정, p.33"
+    }
+   ],
+   "depth": "light"
+  },
+  {
+   "id": "naver_invest_40758",
+   "date": "2026-11-09",
+   "broker": "유안타증권",
+   "kind": "전략",
+   "title": "긴급 대응전략: 투매보단 보유, 관망보단 매수",
+   "one_line": "코스피 5,000pt 전후에서 투매보다 보유, 관망보다 매수가 유리하다는 생존 전략. 밸류에이션 메리트를 근거로 한다.",
+   "url": "https://stock.naver.com/research/invest/40758",
+   "stocks": [
+    {
+     "name": "삼성전자",
+     "role": "언급",
+     "view": "24M 선행 PER 2.7배",
+     "target": null,
+     "why": "밸류 메리트",
+     "code": "005930"
+    },
+    {
+     "name": "SK하이닉스",
+     "role": "언급",
+     "view": "24M 선행 PER 2.5배",
+     "target": null,
+     "why": "밸류 메리트",
+     "code": "000660"
+    }
+   ],
+   "sectors": [
+    "시장 전반"
+   ],
+   "thesis": [],
+   "risks": [
+    "실적 추정치 하향 확대",
+    "반등 신호 실패"
+   ],
+   "numbers": [
+    {
+     "label": "코스피 MDD(최근 2년 고점)",
+     "value": "−44.5%",
+     "note": "p.1"
+    },
+    {
+     "label": "삼성전자 24M 선행 PER",
+     "value": "2.7배",
+     "note": "실적 쇼크 가정 포함, p.1"
+    },
+    {
+     "label": "VIX",
+     "value": "28.5pt",
+     "note": "13주 저점 대비 +100.6%, p.1"
+    },
+    {
+     "label": "코스피 12M 선행 P/B",
+     "value": "1.0배 (0.95배)",
+     "note": "I/B/E/S (Quantiwise), 11/6, p.3"
+    }
+   ],
+   "depth": "light"
+  },
+  {
+   "id": "naver_company_97739",
+   "date": "2026-11-06",
+   "broker": "미래에셋증권",
+   "kind": "기업",
+   "title": "LG화학 화학 단기 실적 우려 vs. 양극재 회복",
+   "one_line": "화학은 단기 적자가 이어지지만 양극재 출하 회복과 주주환원으로 매수 의견을 유지. 목표주가는 44만 → 37만 원으로 하향.",
+   "url": "https://stock.naver.com/research/company/97739",
+   "stocks": [
+    {
+     "name": "LG화학",
+     "role": "대상",
+     "view": "매수 유지, 목표 37만 원",
+     "target": 370000,
+     "why": "양극재 회복·주주환원",
+     "code": "051910"
+    }
+   ],
+   "sectors": [
+    "화학",
+    "양극재"
+   ],
+   "thesis": [],
+   "risks": [
+    "화학 적자 장기화",
+    "양극재 출하 지연"
+   ],
+   "numbers": [
+    {
+     "label": "목표주가(하향)",
+     "value": "370,000원",
+     "note": "44만→37만 원, 11/5 현재가 246,000원, p.1"
+    },
+    {
+     "label": "4Q 화학 영업적자(추정)",
+     "value": "2,788억 원",
+     "note": "여수 NCC 정기보수 포함, p.2"
+    }
+   ],
+   "depth": "light"
+  },
+  {
+   "id": "naver_industry_46857",
+   "date": "2026-11-06",
+   "broker": "iM증권",
+   "kind": "산업",
+   "title": "기름뿜뿜 Weekly: 태양광엔 여러모로 긍정적인 블루웨이브",
+   "one_line": "유가 하락은 정유사에 단기 부정적(역래깅·재고평가손실)이지만 중장기로는 긍정적. 블루웨이브는 태양광 정책에 우호적일 것으로 봄.",
+   "url": "https://stock.naver.com/research/industry/46857",
+   "stocks": [],
+   "sectors": [
+    "정유",
+    "태양광"
+   ],
+   "thesis": [],
+   "risks": [
+    "정책 변화 지연",
+    "정유사 재고 손실"
+   ],
+   "numbers": [
+    {
+     "label": "WTI",
+     "value": "$92.8",
+     "note": "−9.1%, p.1"
+    },
+    {
+     "label": "Spot 정제마진",
+     "value": "$36.6",
+     "note": "+4.3$, p.1"
+    }
+   ],
+   "depth": "light"
+  },
+  {
+   "id": "naver_industry_46906",
+   "date": "2026-11-06",
+   "broker": "한화투자증권",
+   "kind": "산업",
+   "title": "반도체 Valuation Call from Hawaii: 바닥을 판단하는 단 하나의 기준",
+   "one_line": "반도체 저점은 실적보다 밸류에이션(PBR)으로 판단하는 것이 일관적이며, 삼성전자는 17~18만 원대부터 분할 매수를 권고.",
+   "url": "https://stock.naver.com/research/industry/46906",
+   "stocks": [
+    {
+     "name": "삼성전자",
+     "role": "관심",
+     "view": "17~18만 원대부터 분할 매수 권고",
+     "target": null,
+     "why": "과거 저점 밸류 구간",
+     "code": "005930"
+    }
+   ],
+   "sectors": [
+    "반도체"
+   ],
+   "thesis": [],
+   "risks": [
+    "16.3만 원까지 추가 하락 가능성",
+    "HBM 경쟁력 의심이 장기화될 수 있음"
+   ],
+   "numbers": [
+    {
+     "label": "삼성전자 과거 저점 PBR 평균",
+     "value": "0.94배",
+     "note": "12MF 기준, p.1"
+    },
+    {
+     "label": "12MF BPS(한화 추정)",
+     "value": "173,079원",
+     "note": "컨센서스 171,196원, p.1"
+    },
+    {
+     "label": "분할 매수 시작 가격",
+     "value": "17~18만 원대",
+     "note": "PBR 1.03배 구간, p.1"
+    },
+    {
+     "label": "평균 저점 PBR 적용가",
+     "value": "16.3만 원",
+     "note": "0.94배, p.1"
+    }
+   ],
+   "depth": "light"
+  },
+  {
+   "id": "naver_invest_40762",
+   "date": "2026-11-06",
+   "broker": "한화투자증권",
+   "kind": "전략",
+   "title": "주황전략: 정치발 조정은 비중 확대 기회",
+   "one_line": "정치발 조정은 비중 확대 기회라는 전략. 민주당 테마(2차전지·ESS·전력기기)는 이익 성장으로 고르고, 공화당 테마 반등은 차익 실현 기회로 본다.",
+   "url": "https://stock.naver.com/research/invest/40762",
+   "stocks": [
+    {
+     "name": "SK하이닉스",
+     "role": "관심",
+     "view": "반도체 내 중심 대응 권고",
+     "target": null,
+     "why": "주주환원 발표",
+     "code": "000660"
+    }
+   ],
+   "sectors": [
+    "2차전지·ESS",
+    "전력기기",
+    "공화당 테마"
+   ],
+   "thesis": [],
+   "risks": [
+    "데이터센터 규제 확대",
+    "이익 추정 하향"
+   ],
+   "numbers": [
+    {
+     "label": "코스피 12MF ROE(현재 주가 반영)",
+     "value": "10.3%",
+     "note": "컨센서스 26.8%, p.1"
+    },
+    {
+     "label": "과거 중간선거 후 60영업일",
+     "value": "4번 모두 상승",
+     "note": "리포트 집계, p.1"
+    }
+   ],
+   "depth": "light"
+  },
+  {
+   "id": "1-edjtPY2ogh_5EHpGncwjfaf1asDlZws",
+   "date": "2026-11-06",
+   "broker": "유진투자증권",
+   "kind": "산업",
+   "title": "미국 중간선거 결과에 따른 주요 에너지 산업 영향 (유진투자증권, 2026-11-06)",
+   "one_line": "민주당 양원 장악으로 친환경 정책 '추가 후퇴'가 멈춘다 — 배터리·태양광·전력가스 유틸리티 긍정, 정유·화학 중립~부정.",
+   "url": "https://drive.google.com/file/d/1-edjtPY2ogh_5EHpGncwjfaf1asDlZws/view?usp=drivesdk",
+   "stocks": [
+    {
+     "name": "한화솔루션",
+     "role": "수혜",
+     "view": "업종 Overweight",
+     "why": "미국 현지 생산 경쟁력 + 수요 확대",
+     "code": "009830"
+    },
+    {
+     "name": "OCI홀딩스",
+     "role": "수혜",
+     "view": "업종 Overweight",
+     "why": "미국 현지 생산·폴리실리콘",
+     "code": "010060"
+    },
+    {
+     "name": "한국전력",
+     "role": "수혜",
+     "view": "긍정",
+     "why": "유가·LNG 안정 시 연료비 감소",
+     "code": "015760"
+    },
+    {
+     "name": "한국가스공사",
+     "role": "수혜",
+     "view": "긍정",
+     "why": "LNG 도입가 하락, 미수금 회수",
+     "code": "036460"
+    }
+   ],
+   "sectors": [
+    "신재생에너지",
+    "배터리 셀",
+    "유틸리티",
+    "정유"
+   ],
+   "thesis": [
+    "정책 추가 후퇴 리스크 완화가 핵심",
+    "유가 하락 시 국내 유틸리티 최대 수혜"
+   ],
+   "risks": [
+    "대통령 거부권으로 제도 변경 제한",
+    "알래스카 LNG·대형 원전 투자 협약 정치적 불확실성"
+   ],
+   "numbers": [
+    {
+     "label": "민주당 상원 증가",
+     "value": "최소 +7석",
+     "note": "p.1"
+    },
+    {
+     "label": "민주당 하원 증가",
+     "value": "+20석 이상",
+     "note": "p.1"
+    }
+   ],
+   "depth": "light"
+  },
+  {
+   "id": "1A8sRscaErPkfNTuTtvV88FaxxwBhxsii",
+   "date": "2026-11-06",
+   "broker": "유안타증권",
+   "kind": "산업",
+   "title": "재편의 시작, 기회의 항로 — 2027 운송 산업전망 (유안타증권, 2026-11-06)",
+   "one_line": "운송 Overweight — 항공은 인바운드·환승·통합 시너지로 선호(Top pick 대한항공), 해운은 탱커·벌크만 선별(차선호 팬오션), 컨테이너는 2027 공급과잉.",
+   "url": "https://drive.google.com/file/d/1A8sRscaErPkfNTuTtvV88FaxxwBhxsii/view?usp=drivesdk",
+   "stocks": [
+    {
+     "name": "대한항공",
+     "role": "Top pick",
+     "view": "BUY",
+     "target": 40000,
+     "why": "통합 시너지 2027년 본격화, 우호적 환율·유가",
+     "code": "003490"
+    },
+    {
+     "name": "팬오션",
+     "role": "수혜",
+     "view": "BUY, 차선호주",
+     "why": "벌크 견조 + VLCC·MR 탱커 이익 확대, 주주환원 기대",
+     "code": "028670"
+    },
+    {
+     "name": "진에어",
+     "role": "수혜",
+     "view": "BUY 커버리지 재개",
+     "target": 7500,
+     "why": "3사 통합으로 국내 최대 LCC",
+     "code": "272450"
+    },
+    {
+     "name": "제주항공",
+     "role": "수혜",
+     "view": "BUY 커버리지 개시",
+     "target": 8500,
+     "why": "3Q 영업이익 549억 원 흑전, 일본·중화권 탄력 운영",
+     "code": "089590"
+    },
+    {
+     "name": "현대글로비스",
+     "role": "수혜",
+     "view": "BUY",
+     "target": 320000,
+     "why": "PCTC 10,800CEU 대형선 투입, 중국 완성차 수출",
+     "code": "086280"
+    },
+    {
+     "name": "HMM",
+     "role": "언급",
+     "view": "HOLD",
+     "target": 24000,
+     "why": "단기 호실적, 2027 컨테이너 공급과잉으로 감익",
+     "code": "011200"
+    }
+   ],
+   "sectors": [
+    "운송·물류",
+    "해운"
+   ],
+   "thesis": [
+    "항공 구조적 수익성 개선",
+    "해운은 선종 차별화",
+    "PCTC 견조"
+   ],
+   "risks": [
+    "유가 재상승·유류할증료 부담(11월 27단계)",
+    "미국 데이터센터 정책 불확실성 → 반도체 항공화물"
+   ],
+   "numbers": [
+    {
+     "label": "1~9월 국제선 여객",
+     "value": "7,709만 명",
+     "note": "YoY +10%"
+    },
+    {
+     "label": "인천 환승객",
+     "value": "약 670만 명",
+     "note": "YoY +22%, 유럽 +55%"
+    },
+    {
+     "label": "아시아나 정비비",
+     "value": "7,420억 원",
+     "note": "10% 절감 시 영업이익 +740억 원"
+    },
+    {
+     "label": "2027 VLCC 수요/공급",
+     "value": "+9.4% / +6.6%",
+     "note": "Clarksons"
+    }
+   ],
+   "depth": "full"
+  },
+  {
+   "id": "naver_invest_40740",
+   "date": "2026-11-06",
+   "broker": "신한투자증권",
+   "kind": "전략",
+   "title": "[2027년 국내주식 전략] 초과이익의 유효 기간 (신한투자증권, 2026-11-06)",
+   "one_line": "반도체 주가는 '이익 감소'가 아니라 '고이익이 이어질 기간'을 2년치로만 인정 중 — 2027년 KOSPI 밴드 5,000~8,000, 기본 7,000, 1분기 분할 매수·2분기 추세 회복 경로.",
+   "url": "https://stock.naver.com/research/invest/40740",
+   "stocks": [
+    {
+     "name": "삼성전자",
+     "role": "Top pick",
+     "view": "상반기 비중 확대(분할)",
+     "why": "장부가 축적·인정 기간 연장",
+     "code": "005930"
+    },
+    {
+     "name": "SK하이닉스",
+     "role": "Top pick",
+     "view": "상반기 비중 확대(분할)",
+     "why": "같은 논리",
+     "code": "000660"
+    }
+   ],
+   "sectors": [
+    "메모리",
+    "은행",
+    "화장품",
+    "조선"
+   ],
+   "thesis": [
+    "반도체 할인은 이익 크기가 아니라 기간",
+    "장부가 축적만으로도 가치 상승",
+    "비반도체는 역할별 접근"
+   ],
+   "risks": [
+    "고객(네오클라우드) 자금 조달 차질이 주문·가격으로 번지는 경우",
+    "FY28 이익이 컨센의 51%까지 떨어지는 하방(4,960p)"
+   ],
+   "numbers": [
+    {
+     "label": "2027말 KOSPI 기본 평가값",
+     "value": "7,000p (6,956)",
+     "note": "밴드 5,000~8,000, 하방 4,960·상방 8,046"
+    },
+    {
+     "label": "반도체 두 회사 가치",
+     "value": "2,222조 원",
+     "note": "10월 말, 6월 4,194조 원"
+    },
+    {
+     "label": "초과이익 인정 기간",
+     "value": "1.9년",
+     "note": "6/19 9.6년"
+    },
+    {
+     "label": "FY27·28 지배순이익 컨센",
+     "value": "785·874조 원",
+     "note": "두 회사 합산"
+    }
+   ],
+   "depth": "full"
+  },
   {
    "id": "1y4P54NLaZHgMPsuYRcsU7hUWo6DBD_sz",
    "date": "2026-11-05",
@@ -5201,6 +8210,14 @@
   {
    "date": "2026-11-06",
    "text": "# 2026-11-06 띔 메모 (마감 리뷰 예약이 세션 중단으로 실행되지 않아 11/08 주간 리뷰 때 작성)\n- 시장: 코스피 5,059.69(−6.02%)·코스닥 644.27(−5.03%) (네이버 마감). 09:03 1단계 서킷브레이커(장중 저점 4,911.28), 11:30경 5,189까지 회복 후 오후 재하락. 외국인 코스피 −2조 7,692억 원, 기관 +1조 7,042억 원, 개인 +6,010억 원 (채널 요약 15:51). 신호등 '하락 추세'.\n- 띔(약해짐): 반도체 −8.07%(삼성전자 −6.35% 188,700원, SK하이닉스 −10.44% 1,132,000원), 기계 −8.27%, 전기장비 −8.7%(14:14) — 미 데이터센터 규제·MS 지출 조정·헤지펀드 청산.\n- 띔(강해짐): 인터넷 +2.55%·통신 +2.11%·항공 +3~6%·도로철도운송 +5.8% — 방어·내수 순환매. KT&G 2027~2030 주주환원 5조 원.\n- 정책: 신용융자 담보비율 의무 3개월 면제, F4 \"추가 안정 조치\". 대만도 공매도 제한 검토.\n- 쇼크: 금호석유화학(영업이익 −208억 vs 컨센 829억), 롯데케미칼(−2,814억), LIG디펜스앤에어로스페이스(676억, −34.6%), 한화엔진(409억, −27.4%), 씨젠 (maddingStock 20:00).\n- 주말 반대 신호: 나스닥 금 +1.09%·SOX +4.21% 반등(Yahoo 11/07 07:15), 히노호사 \"DC 건설 지지, 신규 허가만 보호법 전까지 보류\"(Tae Kim), 앤트로픽 10월 ARR 800억 달러(WSJ), GPU 임대료 상승(Silicon Data), 미 10월 고용 +16.5만(예상 +6.5만). 모두 채널 요약.\n- 계좌: 10:07 한화솔루션·삼성SDI 갭하락 손절(−780,000원). 이번 주 5종목 손절 합계 −1,495,800원(약 −5R). 보유 0.\n"
+  },
+  {
+   "date": "2026-11-09",
+   "text": "# 2026-11-09 띔 메모\n- 시장: 코스피 5,018.85(-0.81%)·코스닥 638.97(-0.82%) (네이버 15:51). 외국인 코스피 -6,894억 원, 기관 +7,171억 원. 장중 +1.4%까지 올랐다가 반납. 대만 +5%·일본 +3%와 대조. 신호등 '하락 추세'.\n- 띔(강해짐): 'DC 아시아 이전' — 통신장비 +5.18%·소프트웨어 +2.81%·광통신 테마 +5.39%. 메리츠·삼성·유진·NH·신영·SK 등 \"미국 규제 → 한국 DC 기회\" 자료 다수(채널 요약). 비나텍·혜인·SGC에너지 DC 수주 보도.\n- 띔(강해짐): 반도체 장비 실적 — 원익IPS 영업이익 667억(예상 +13.4%), 원익머트리얼즈 +6.3%. UBS \"2027년 AI 메모리 지출 DRAM 비중 74%\". 반도체가 거래대금 53%.\n- 띔(약해짐): 바이오 — 미 CMS IRA 최종규칙에 SC 제형 포함. 생물공학 -5.96%. 알테오젠 입장문 뒤 장중 일시 회복.\n- 띔(약해짐): 3분기 실적 쇼크 업종 — 방산(LIG디펜스 10곳 평균 -41.5%), 화학(15건), 화장품 ODM(13건), 백화점(9건). 원인은 환율 하락·증설 비용·재고 수요 소멸.\n- 기업: LIG디펜스앤에어로스페이스 -9.5%(3Q 영업익 676억 vs 1,041억) / 코스메카코리아 -15%(국내 +55% 성장·상향 2건에도) / 금호석유화학 +3.7%(적자 쇼크·하향 5건에도) / 씨에스윈드(타워 매출 +28.6%, 민주당 풍력 우호) / 박셀바이오 상한가(CAR-T 완전관해 100%).\n- 새로 나온 것: 엔비디아 CEO 외국 정보기관 공작 의혹 이사회 조사. 트럼프 옹호. \"대만은 정부 대응 효과, 한국은 아직 카드 고민\"이라는 비교.\n- 반대 신호: 실적 서프라이즈(코스메카) 종목이 급락하고 쇼크(금호석유화학) 종목이 오름 — 실적보다 수급·낙폭이 주가를 좌우. 외국인은 지난주에 이어 순매도.\n"
+  },
+  {
+   "date": "2026-11-10",
+   "text": "# 2026-11-10 띔 메모\n- 시장: 코스피 5,239.13(+4.39%), 코스닥 667.61(+4.48%). 외국인 +4,177억·기관 +4,768억, 개인 -1조 3,821억. 신호등은 '20일선 아래·하락 추세' 유지. (네이버, 17:15)\n- 띔: 항공 +12.3%(유가 하락, 10월 국제선 여객 역대 10월 최고, 채널 일치) / 전력기기·전기장비 +10.1%(AI 데이터센터 전력 수요) / 건설 +7.2%(AI DC·원전 수주 기대, 신한·미래에셋·한화 업종 리포트) / 반도체(TSMC 10월 +59.7%, 대만 수출 +58.9%). 모두 2차 자료.\n- 기업: NHN(3Q 영업익 588억, 목표가 3곳 상향) / 한올바이오파마(+25.88%, 파트너 IMVT-1402 2상 성공) / 케이씨텍(SK하이닉스 장비 211억) / 두산(CCL 3Q 전자 BG 영업익 2,353억, 목표가 일괄 하향 혼재) / 한미약품(MSD 지방간염 2b 유효성).\n- 새로 나온 것: 방어주 쏠림 지표(MSCI 필수소비재 10월 +10.6%, 1998년 이후 최대), 앤스로픽 IPO(11/19~20 목표, 수치 정정), 호남반도체 팹 배치 이달 내.\n- 반대 신호: 모건스탠리 D램 이익률 하향(하이닉스 60→32%), 코스닥 외국인 -1,463억, 건설 목표가 하향이 급등일에 집중, 대장주 상단 저항 해석.\n"
   }
  ],
  "opinions": [
@@ -5236,11 +8253,37 @@
   },
   {
    "date": "2026-11-09",
+   "kind": "close",
+   "opinion": "💡 Claude 의견\n- 핵심: 반등 시도가 또 무산됐습니다. 코스피는 장중 5,000~5,100 사이를 오가다 -0.81%로 마감했습니다. 대만은 +5%, 일본은 +3%로 올랐습니다. (출처: 채널 요약)\n- 내 종목: 보유 0, CR 0%. 손익 변화는 없습니다. 오닐 규칙상 '랠리 시도 1일째'도 아직 나오지 않았습니다.\n- 반대 근거: 기관이 +7,171억 원을 사며 낙폭을 막았습니다. 원익IPS 등 반도체 장비 실적은 예상보다 좋았습니다. 외국인은 -6,894억 원으로 지난주에 이어 매도 중입니다. (네이버 15:51)\n- 🔄 14:15 대비: -0.3%에서 -0.81%로 조금 더 밀려 끝났습니다. 장 마감 뒤 원익IPS·원익머트리얼즈·네오팜 실적이 예상을 넘었습니다."
+  },
+  {
+   "date": "2026-11-09",
    "kind": "morning",
    "opinion": "💡 Claude 의견\n- 오늘 가장 큰 변수는 \"금요일 밤 미국 반등이 국내 외국인 매도를 멈추게 하느냐\"입니다. 나스닥 +1.09%·필라델피아 반도체 +4.21%, 한국 ETF(EWY) +4.07% (Yahoo, 현지 11/06 종가)로 출발 여건은 금요일보다 낫습니다\n- 🔵 새 악재: 엔비디아 이사회가 젠슨 황 CEO의 혼외관계 인정과 \"외국 정보기관 공작 대상\" 보도에 대해 독립 조사를 시작했다고 발표했습니다(06:41~06:44, 엔비디아 성명 인용, 채널 요약). 미국 선물 시장이 열리면(08시경) 반도체 투자 심리에 부담일 수 있습니다\n- 🔴 오늘부터 신용융자 담보비율 의무 3개월 면제(증권사들 140%→130% 조정, 증권사마다 다름 — 본인 증권사 공지 확인 필요)로 반대매매 압력은 줄어듭니다 (채널 요약)\n- 계좌는 보유 0, CR 0%라 오늘 변동의 직접 영향은 없습니다. 신호등은 '20일선 아래·하락 추세' — 반등이 나와도 규칙상 돌파 신호 확인이 먼저입니다. 판단은 본인이 합니다\n"
+  },
+  {
+   "date": "2026-11-10",
+   "kind": "close",
+   "opinion": "💡 Claude 의견\n핵심: 간밤 미국 반도체 반등과 유가 급락이 이어져 코스피가 10/28 이후 최대폭(+4.39%)으로 올랐습니다. 외국인 +4,177억·기관 +4,768억이 받쳤고 개인은 -1조 3,821억을 팔았습니다.\n내 종목: 보유 0, CR 0%. 신호등은 아직 '20일선 아래·하락 추세'라 신규 진입은 작게 가는 구간입니다.\n반대 근거: 갭으로 오른 장이고 코스닥은 외국인이 -1,463억 순매도였습니다. 오늘 밤 미국 CPI(22:30)와 이란 협상 뉴스가 남았습니다.\n판단은 본인이 합니다."
+  },
+  {
+   "date": "2026-11-10",
+   "kind": "morning",
+   "opinion": "💡 Claude 의견\n- 핵심: 간밤 미국이 크게 반등했습니다. 나스닥 +2.74%, 필라델피아 반도체 +6.85%입니다. 미-이란 종전 협상 기대에 유가가 -4.9% 급락한 영향이 컸습니다. (Yahoo, 현지 11/09 종가)\n- 내 종목: 보유 0, CR 0%. 오늘 코스피가 오르며 끝나면 오닐 규칙상 '랠리 시도 1일째'가 됩니다. 신호등은 아직 '하락 추세'라 돌파 신호는 그다음 확인입니다.\n- 반대 근거: 엔비디아는 젠슨 황 이슈로 -4.27% 역주행했습니다. 오늘 밤 미국 행정부가 의회에 이 건을 브리핑합니다. 어제도 외국인 매도로 장중 반등이 무너졌습니다.\n- 🔄 11/09 07:00 대비: 그때 우려였던 엔비디아 리스크는 '엔비디아만 하락, 반도체 전체는 급등'으로 나뉘었습니다. 새 변수는 이란 종전 합의 보도와 유가 급락입니다."
   }
  ],
  "calendar": [
+  {
+   "date": "2026-11-10",
+   "time": "",
+   "kind": "earnings_kr",
+   "name": "삼성E&A 기업설명회(IR)",
+   "detail": "주요 경영현황 설명 및 Q&amp;A",
+   "source": "DART 공시",
+   "code": "028050",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261109800502",
+   "id": "ir:028050:2026-11-10"
+  },
   {
    "date": "2026-11-10",
    "time": "22:30",
@@ -5272,11 +8315,14 @@
   },
   {
    "date": "2026-11-12",
-   "name": "국내 옵션 만기일 (11월 둘째 목요일)",
-   "kind": "market",
-   "why": "장 막판 수급 변동 가능",
-   "source": "거래소 규칙(매월 둘째 목요일)",
-   "id": "m:2026-11-12:국내 옵션 만기일 (11월 둘째 목요일)"
+   "time": "09:00",
+   "kind": "earnings_kr",
+   "name": "NAVER 기업설명회(IR)",
+   "detail": "2026년 3분기 경영실적 발표 및 Q&amp;A",
+   "source": "DART 공시",
+   "code": "035420",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261020800455",
+   "id": "ir:035420:2026-11-12"
   },
   {
    "date": "2026-11-13",
@@ -5299,6 +8345,17 @@
    "id": "ff:USD:PPI m/m:20261113"
   },
   {
+   "date": "2026-11-16",
+   "time": "09:00",
+   "kind": "earnings_kr",
+   "name": "삼성에스디에스 기업설명회(IR)",
+   "detail": "경영실적 및 사업전략 설명",
+   "source": "DART 공시",
+   "code": "018260",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261027800450",
+   "id": "ir:018260:2026-11-16"
+  },
+  {
    "date": "2026-11-18",
    "time": "",
    "kind": "earnings_us",
@@ -5307,6 +8364,17 @@
    "source": "Nasdaq 실적 캘린더",
    "symbol": "NVDA",
    "id": "us:NVDA:2026-11-17"
+  },
+  {
+   "date": "2026-11-18",
+   "time": "09:00",
+   "kind": "earnings_kr",
+   "name": "삼성에스디에스 기업설명회(IR)",
+   "detail": "경영실적 및 사업전략 설명",
+   "source": "DART 공시",
+   "code": "018260",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261027800455",
+   "id": "ir:018260:2026-11-18"
   }
  ],
  "previous": {
@@ -5404,113 +8472,177 @@
    "name": "SGC에너지",
    "code": "005090",
    "role": "선도 후보 (전력 확보형 개발)",
+   "group": "에너지",
    "theme": "T1",
-   "theme_name": "미국 데이터센터 규제 → '미국 밖' 구축 이동: 한국 데이터센터·전력 조달",
-   "group": "에너지"
+   "theme_name": "미국 데이터센터 규제 → '미국 밖' 구축 이동: 한국 데이터센터·전력 조달"
   },
   {
-   "name": "NAVER·삼성에스디에스",
-   "code": null,
+   "name": "NAVER",
+   "code": "035420",
    "role": "선도 후보 (운영·풀스택)",
+   "group": "IT/소프트웨어",
    "theme": "T1",
-   "theme_name": "미국 데이터센터 규제 → '미국 밖' 구축 이동: 한국 데이터센터·전력 조달",
-   "group": null
+   "theme_name": "미국 데이터센터 규제 → '미국 밖' 구축 이동: 한국 데이터센터·전력 조달"
   },
   {
-   "name": "GS건설·삼성E&A",
-   "code": null,
+   "name": "삼성에스디에스",
+   "code": "018260",
+   "role": "선도 후보 (운영·풀스택)",
+   "group": "로봇",
+   "theme": "T1",
+   "theme_name": "미국 데이터센터 규제 → '미국 밖' 구축 이동: 한국 데이터센터·전력 조달"
+  },
+  {
+   "name": "GS건설",
+   "code": "006360",
    "role": "후속 (시공)",
+   "group": "건설",
    "theme": "T1",
-   "theme_name": "미국 데이터센터 규제 → '미국 밖' 구축 이동: 한국 데이터센터·전력 조달",
-   "group": null
+   "theme_name": "미국 데이터센터 규제 → '미국 밖' 구축 이동: 한국 데이터센터·전력 조달"
   },
   {
-   "name": "비나텍·혜인·상신이디피·라온텍",
-   "code": null,
-   "role": "확산 후보 (전원·비상전력·부품)",
+   "name": "삼성E&A",
+   "code": "028050",
+   "role": "후속 (시공)",
+   "group": "건설",
    "theme": "T1",
-   "theme_name": "미국 데이터센터 규제 → '미국 밖' 구축 이동: 한국 데이터센터·전력 조달",
-   "group": null
+   "theme_name": "미국 데이터센터 규제 → '미국 밖' 구축 이동: 한국 데이터센터·전력 조달"
+  },
+  {
+   "name": "비나텍",
+   "code": "126340",
+   "role": "확산 후보 (전원·비상전력·부품)",
+   "group": "전력기기",
+   "theme": "T1",
+   "theme_name": "미국 데이터센터 규제 → '미국 밖' 구축 이동: 한국 데이터센터·전력 조달"
+  },
+  {
+   "name": "혜인",
+   "code": "003010",
+   "role": "확산 후보 (전원·비상전력·부품)",
+   "group": "기계",
+   "theme": "T1",
+   "theme_name": "미국 데이터센터 규제 → '미국 밖' 구축 이동: 한국 데이터센터·전력 조달"
+  },
+  {
+   "name": "상신이디피",
+   "code": "091580",
+   "role": "확산 후보 (전원·비상전력·부품)",
+   "group": "2차전지",
+   "theme": "T1",
+   "theme_name": "미국 데이터센터 규제 → '미국 밖' 구축 이동: 한국 데이터센터·전력 조달"
+  },
+  {
+   "name": "라온텍",
+   "code": "418420",
+   "role": "확산 후보 (전원·비상전력·부품)",
+   "group": "반도체 설계·유통",
+   "theme": "T1",
+   "theme_name": "미국 데이터센터 규제 → '미국 밖' 구축 이동: 한국 데이터센터·전력 조달"
   },
   {
    "name": "LS ELECTRIC",
    "code": "010120",
    "role": "관찰 (전력기기)",
+   "group": "전력기기",
    "theme": "T1",
-   "theme_name": "미국 데이터센터 규제 → '미국 밖' 구축 이동: 한국 데이터센터·전력 조달",
-   "group": "전력기기"
-  },
-  {
-   "name": "미국 AI 전력 인프라",
-   "code": null,
-   "role": "비켜난 쪽",
-   "theme": "T1",
-   "theme_name": "미국 데이터센터 규제 → '미국 밖' 구축 이동: 한국 데이터센터·전력 조달",
-   "group": null
+   "theme_name": "미국 데이터센터 규제 → '미국 밖' 구축 이동: 한국 데이터센터·전력 조달"
   },
   {
    "name": "삼성SDI",
    "code": "006400",
    "role": "선도",
+   "group": "2차전지",
    "theme": "T2",
-   "theme_name": "북미 ESS 셀 — 데이터센터가 덜 사도 전력망(유틸리티)이 받친다",
-   "group": "2차전지"
+   "theme_name": "북미 ESS 셀 — 데이터센터가 덜 사도 전력망(유틸리티)이 받친다"
   },
   {
    "name": "LG에너지솔루션",
    "code": "373220",
    "role": "후속",
+   "group": "2차전지",
    "theme": "T2",
-   "theme_name": "북미 ESS 셀 — 데이터센터가 덜 사도 전력망(유틸리티)이 받친다",
-   "group": "2차전지"
+   "theme_name": "북미 ESS 셀 — 데이터센터가 덜 사도 전력망(유틸리티)이 받친다"
   },
   {
-   "name": "나노신소재·한중엔시에스",
-   "code": null,
+   "name": "나노신소재",
+   "code": "121600",
    "role": "확산 후보 (소재·부품 선별)",
+   "group": "2차전지",
    "theme": "T2",
-   "theme_name": "북미 ESS 셀 — 데이터센터가 덜 사도 전력망(유틸리티)이 받친다",
-   "group": null
+   "theme_name": "북미 ESS 셀 — 데이터센터가 덜 사도 전력망(유틸리티)이 받친다"
   },
   {
-   "name": "CATL",
-   "code": null,
-   "role": "경쟁 (반대 방향)",
+   "name": "한중엔시에스",
+   "code": "107640",
+   "role": "확산 후보 (소재·부품 선별)",
+   "group": "전력기기",
    "theme": "T2",
-   "theme_name": "북미 ESS 셀 — 데이터센터가 덜 사도 전력망(유틸리티)이 받친다",
-   "group": null
+   "theme_name": "북미 ESS 셀 — 데이터센터가 덜 사도 전력망(유틸리티)이 받친다"
   },
   {
    "name": "삼성전자",
    "code": "005930",
    "role": "띔의 원천",
+   "group": "반도체(메모리·대형)",
    "theme": "T3",
-   "theme_name": "메모리 밸류에이션 바닥론 — 이익은 오르는데 외국인이 판다",
-   "group": "반도체(메모리·대형)"
+   "theme_name": "메모리 밸류에이션 바닥론 — 이익은 오르는데 외국인이 판다"
   },
   {
    "name": "SK하이닉스",
    "code": "000660",
    "role": "띔의 원천",
+   "group": "반도체(메모리·대형)",
    "theme": "T3",
-   "theme_name": "메모리 밸류에이션 바닥론 — 이익은 오르는데 외국인이 판다",
-   "group": "반도체(메모리·대형)"
+   "theme_name": "메모리 밸류에이션 바닥론 — 이익은 오르는데 외국인이 판다"
   },
   {
-   "name": "심텍·삼성전기·대덕전자",
-   "code": null,
+   "name": "심텍",
+   "code": "222800",
    "role": "후속 (기판 — 이익이 이미 나오는 곳)",
+   "group": "반도체 기판·전자부품",
    "theme": "T3",
-   "theme_name": "메모리 밸류에이션 바닥론 — 이익은 오르는데 외국인이 판다",
-   "group": null
+   "theme_name": "메모리 밸류에이션 바닥론 — 이익은 오르는데 외국인이 판다"
   },
   {
-   "name": "엑시콘·티에프이·디아이",
-   "code": null,
-   "role": "지난 샘플의 메인 띔 (테스트)",
+   "name": "삼성전기",
+   "code": "009150",
+   "role": "후속 (기판 — 이익이 이미 나오는 곳)",
+   "group": "반도체 기판·전자부품",
    "theme": "T3",
-   "theme_name": "메모리 밸류에이션 바닥론 — 이익은 오르는데 외국인이 판다",
-   "group": null
+   "theme_name": "메모리 밸류에이션 바닥론 — 이익은 오르는데 외국인이 판다"
+  },
+  {
+   "name": "대덕전자",
+   "code": "353200",
+   "role": "후속 (기판 — 이익이 이미 나오는 곳)",
+   "group": "반도체 기판·전자부품",
+   "theme": "T3",
+   "theme_name": "메모리 밸류에이션 바닥론 — 이익은 오르는데 외국인이 판다"
+  },
+  {
+   "name": "엑시콘",
+   "code": "092870",
+   "role": "지난 샘플의 메인 띔 (테스트)",
+   "group": "반도체 테스트·후공정",
+   "theme": "T3",
+   "theme_name": "메모리 밸류에이션 바닥론 — 이익은 오르는데 외국인이 판다"
+  },
+  {
+   "name": "티에프이",
+   "code": "425420",
+   "role": "지난 샘플의 메인 띔 (테스트)",
+   "group": "반도체 테스트·후공정",
+   "theme": "T3",
+   "theme_name": "메모리 밸류에이션 바닥론 — 이익은 오르는데 외국인이 판다"
+  },
+  {
+   "name": "디아이",
+   "code": "003160",
+   "role": "지난 샘플의 메인 띔 (테스트)",
+   "group": "반도체 테스트·후공정",
+   "theme": "T3",
+   "theme_name": "메모리 밸류에이션 바닥론 — 이익은 오르는데 외국인이 판다"
   }
  ],
  "trades": {
@@ -5601,7 +8733,140 @@
     "rule_ok": true
    }
   ],
-  "review": null
+  "review": {
+   "at": "2026-11-10 17:41",
+   "n": 5,
+   "win_rate": 0,
+   "expectancy_r": -1.29,
+   "sum_r": -6.47,
+   "pnl_won": -1495800,
+   "max_loss_streak": 5,
+   "current_loss_streak": 5,
+   "rule_ok_pct": 60,
+   "worse_than_stop": 2,
+   "same_day_clusters": [
+    {
+     "date": "2026-11-02",
+     "names": [
+      "삼성전자",
+      "티에프이"
+     ],
+     "sum_r": -2.04
+    },
+    {
+     "date": "2026-11-04",
+     "names": [
+      "심텍",
+      "한화솔루션",
+      "삼성SDI"
+     ],
+     "sum_r": -4.43
+    }
+   ],
+   "by_regime": {
+    "red": {
+     "n": 5,
+     "avg_r": -1.29,
+     "win": 0
+    }
+   },
+   "avg_hold_days": 2.2,
+   "trades": [
+    {
+     "name": "삼성SDI",
+     "code": "006400",
+     "open": "2026-11-04",
+     "close": "2026-11-06",
+     "qty": 5,
+     "avg": 546000,
+     "pnl_won": -412500,
+     "r": -1.89,
+     "setup": null,
+     "exits": [
+      "5주 463,500 (장초반 갭하락, 손절가 아래 손절)"
+     ],
+     "rule_ok": false,
+     "regime_at_entry": "red",
+     "hold_days": 2
+    },
+    {
+     "name": "한화솔루션",
+     "code": "009830",
+     "open": "2026-11-04",
+     "close": "2026-11-06",
+     "qty": 105,
+     "avg": 28400,
+     "pnl_won": -367500,
+     "r": -1.54,
+     "setup": null,
+     "exits": [
+      "105주 24,900 (장초반 갭하락, 손절가 아래 손절)"
+     ],
+     "rule_ok": false,
+     "regime_at_entry": "red",
+     "hold_days": 2
+    },
+    {
+     "name": "심텍",
+     "code": "222800",
+     "open": "2026-11-04",
+     "close": "2026-11-05",
+     "qty": 24,
+     "avg": 124500,
+     "pnl_won": -240000,
+     "r": -1.0,
+     "setup": null,
+     "exits": [
+      "24주 114,500 (손절)"
+     ],
+     "rule_ok": true,
+     "regime_at_entry": "red",
+     "hold_days": 1
+    },
+    {
+     "name": "티에프이",
+     "code": "425420",
+     "open": "2026-11-02",
+     "close": "2026-11-05",
+     "qty": 39,
+     "avg": 76300,
+     "pnl_won": -241800,
+     "r": -1.02,
+     "setup": null,
+     "exits": [
+      "39주 70,100 (손절)"
+     ],
+     "rule_ok": true,
+     "regime_at_entry": "red",
+     "hold_days": 3
+    },
+    {
+     "name": "삼성전자",
+     "code": "005930",
+     "open": "2026-11-02",
+     "close": "2026-11-05",
+     "qty": 13,
+     "avg": 221000,
+     "pnl_won": -234000,
+     "r": -1.02,
+     "setup": null,
+     "exits": [
+      "13주 203,000 (손절)"
+     ],
+     "rule_ok": true,
+     "regime_at_entry": "red",
+     "hold_days": 3
+    }
+   ],
+   "lessons": [
+    "연속 손절 5건 (2026-11-05~2026-11-06, 합계 -6.47R). 연속 손실 뒤에는 포지션 수를 줄이는지 점검.",
+    "2026-11-02 같은 날 2종목 매수(삼성전자, 티에프이) → 합계 -2.04R. 같은 날 몰아 사면 시장 하락 하루에 CR이 한 번에 현실이 됨.",
+    "2026-11-04 같은 날 3종목 매수(심텍, 한화솔루션, 삼성SDI) → 합계 -4.43R. 같은 날 몰아 사면 시장 하락 하루에 CR이 한 번에 현실이 됨.",
+    "손절가보다 더 잃은 거래 2건 (한화솔루션 -1.54R, 삼성SDI -1.89R). 갭하락·늦은 체결 — 실적·이벤트 전 보유 여부와 장 시작 직후 대응을 점검.",
+    "코스피 20일선 아래(🔴)에서 진입한 5건 평균 -1.29R. 국면이 나쁠 때 결과가 나쁜지 계속 세어 본다(규칙 재검토 2027-01 재료)."
+   ],
+   "source": "data/trades/trades.jsonl · 신호등 = 진입일 코스피 종가 vs 20일선(네이버 일봉, 비공식) · 숫자만, 판단은 사용자"
+  }
  },
  "note": "모든 숫자는 위 source 기준. 채널 글은 2차 자료. 주문 기능 없음. 매매 규칙은 2027-01-31까지 고정(docs/rules.md)."
 }
