@@ -397,4 +397,5 @@
 - 예약 재배치(사용자 요청 토큰 절약): 새 전용 대화 Sonnet 데스크 session_0122SASEgvzcy9RLXRVs53fs(아침 trig_01U1ogJKQEQoBKRwdQVjyh2u · 2시간 정리 trig_01Au9GSE4wbPjqB1rwAQUMfS · 리포트 trig_012rW7eVcCoVaxErXBGGjKzb · 마감 trig_01RYP5iZ2EDf2wv2K12B8pAb · 자료실 2건 trig_01YVxhRJZsnXJJZiVMK1ZDSg), Opus 전략 데스크 session_0122SASDV279Yx9jPF6BddAT(주간 trig_01RX1nTKbLhVFGZuik6e6fc2 · 전략 보고서). 두 대화 모두 푸시·환경 변수·Artifact·드라이브 도구 확인됨. 옛 공용 대화 예약 6개 끔. 새 대화 생성(create_session) 방식만 저장소 접근이 됨(새 대화를 매번 만드는 방식은 add_repo가 없어 실패, 11/06 시험 기록 확인)
 - RS 도구: skyte/relative-strength(IBD 40/20/20/20)·rs_indicator(단기)·pykrx(KRX 로그인 필요) 검토 → 지금 RS(책 정의, 토큰 0) 유지. 자세한 건 docs/redesign-trading-room.md 8절
 - 남은 것: 디자인 시안(별도 Artifact, 승인 뒤 적용) · main 합치기 · 사진 분리 · EPS 추정치 도구
+- 디자인 시안: `docs/design-sample-2026-11-10.html` → 별도 Artifact https://claude.ai/artifact/3bpv3oH7EHHRLNnwiKE1Ty (A안 토스증권식 목록형 / B안 트레이딩뷰식 데스크형, 실제 데이터, 전환 버튼). 승인 뒤 app.html에 입힘. 기존 트레이딩룸 Artifact는 손대지 않음
 
