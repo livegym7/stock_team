@@ -1,3 +1,5 @@
 # 기능 켜고 끄기 (Claude가 고침)
-# monitoring: 섹터·감시 목록·검증실 메뉴와 감시 목록 계산·돌파 알림. 2026-11-04 사용자 요청으로 잠시 중단 (보유 종목 알림은 계속)
-monitoring = false
+# monitoring: 섹터·감시 목록·검증실 메뉴와 감시 목록 계산·돌파 알림. 2026-11-04 잠시 중단 → 2026-11-10 '관찰 풀 한정'으로 다시 켬
+#   scope = "pool": 감시 목록은 전략 보고서가 고른 관찰 풀(config/watch_pool.toml) + RS 70↑ 종목만. 풀 밖 신호는 '발굴'(참고) 등급
+monitoring = true
+scope = "pool"

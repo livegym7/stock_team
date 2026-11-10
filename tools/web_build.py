@@ -914,8 +914,14 @@ def automation(now, data, allp):
         elif chk == "channels":
             ts = [x["time"] for x in allp]
             last, detail = (max(ts)[:16].replace("T", " ") if ts else None), "가장 최근 수집된 글 시각"
+        elif chk == "strategy":
+            f = DATA / "strategy" / "latest.json"
+            st = json.loads(f.read_text(encoding="utf-8")) if f.exists() else {}
+            last, detail = st.get("made_at"), (st.get("issue") or "")
         run_today = bool(last and last[:10] == today)
-        is_day = (wd == 4) if t.get("days") == "fri" else wd < 5
+        is_day = (wd == 4) if t.get("days") == "fri" else (wd == 5) if t.get("days") == "sat" else wd < 5
+        if t.get("days") in ("fri", "sat") and last and not run_today:   # 주 1회 작업은 이번 주에 했으면 ok
+            run_today = (now - datetime.fromisoformat(last[:10]).replace(tzinfo=KST)).days < 7
         late = is_day and hm > _plus(t.get("due", "23:59"), 40) and not run_today
         state = "off" if t.get("paused") else "ok" if run_today else ("late" if late else ("wait" if is_day else "off"))
         out.append({**t, "last": last, "detail": detail, "state": state})
@@ -1064,6 +1070,8 @@ def main():
         "market": market(not a.no_live),
         "risk": risk_now,
         "trades": safe(lambda: __import__("trades").summary()),
+        "trade_review": safe(lambda: __import__("trades").review()),   # 매매 복기 (2026-11-10)
+        "watch_pool": load_toml("watch_pool.toml"),                    # 관찰 풀 (전략 보고서가 고른 종목)
         "equity": safe(lambda: equity(risk_now)),
         "account": load_toml("account.toml"),
         "schedule": schedule(now, brief_rows),
@@ -1188,6 +1196,8 @@ def partial(part, now):
         rows = briefs()   # 매시간 채널·리포트 정리가 막 저장됐을 수 있어 목록도 새로
         data["briefs"] = rows
         data["schedule"] = schedule(now, rows)
+        data["trade_review"] = safe(lambda: __import__("trades").review())
+        data["watch_pool"] = load_toml("watch_pool.toml")
         data.setdefault("parts", {})["channels"] = stamp
         info = {"new_posts": new}
     data["built_at"] = max(data.get("built_at", ""), stamp)

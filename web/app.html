@@ -449,6 +449,17 @@ nav.side{top:44px}
 @media(max-width:1380px){.hhdr .sgnum{display:none}}
 @media(max-width:1180px){.hhdr .t{display:none}}
 @media(max-width:820px){.hhdr{flex-wrap:wrap;gap:6px 10px}.hhdr .sgtxt{flex:1 1 100%;order:3;white-space:normal;font-size:13px;line-height:1.5}.hhdr .t{display:block;order:4;margin-left:0;width:100%}}
+/* 다시 설계 2026-11-10: 오늘 2단(PC)·1열(휴대폰), 흐름 타임라인, 접힌 시장 숫자 */
+.hg2{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:12px;align-items:start}.hg2>div{min-width:0;display:grid;gap:12px;align-content:start}
+@media(max-width:980px){.hg2{grid-template-columns:minmax(0,1fr)}}
+.expo{margin:-4px 0 10px 2px}
+details.fold summary{cursor:pointer;list-style:none}details.fold summary::-webkit-details-marker{display:none}details.fold .fbody{padding:0 0 6px}
+.chips.tabs{margin-bottom:14px}.chips.tabs .chip{padding:7px 14px;font-size:13.5px}
+.tday{margin:14px 0 6px}.tdh{font-size:13px;color:var(--muted);font-weight:600;margin:0 0 6px 2px;position:sticky;top:44px;background:var(--bg);padding:4px 0;z-index:1}
+.tcard{margin-bottom:6px}.tch{display:flex;gap:10px;align-items:center;width:100%;text-align:left;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 12px;color:var(--foreground);font:inherit;cursor:pointer}
+.tch:hover{border-color:var(--accent)}.tcard.open .tch{border-bottom-left-radius:0;border-bottom-right-radius:0;border-color:var(--accent)}
+.tch .tfirst{flex:1;min-width:0;font-size:13.5px;line-height:1.5;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.v3sum .thesis{font-size:16px}
 /* 글 가독성: 한 문장 한 줄, 넉넉한 줄간격 */
 .sl{display:block}.sl+.sl{margin-top:5px}
 .opr .t{font-size:14.5px;line-height:1.75;color:var(--foreground)}
@@ -475,12 +486,14 @@ nav.side{top:44px}
 let D = /*__DATA__*/null;
 /* 새로고침으로 받은 더 최신 데이터가 이 브라우저에 있으면 그걸 쓴다 */
 try{const c=JSON.parse(localStorage.getItem("tr-data")||"null");if(c&&D&&c.built_at>D.built_at)D=c}catch(e){}
-const MENU=[["home","오늘","◎"],["strategy","전략 보고서","◐"],["briefs","브리핑","≡"],["portfolio","포트폴리오","₩"],["companies","기업","□"],["research","자료실","◆"],["channels","채널","✉"],["sectors","섹터","▤"],["watch","감시 목록","◇"],["lab","검증실","△"],["config","규칙·일정","⚙"]];
-const GROUPS_ALL=[["분석","analysis",["home","strategy","briefs","portfolio","companies","research","channels"]],["모니터링","monitoring",["sectors","watch","lab"]],["기타",null,["config"]]];
-// 모니터링 중단 중(config/features.toml)이면 모니터링 메뉴를 숨긴다
+/* 메뉴 5개 (2026-11-10 다시 설계): 질문 하나에 메뉴 하나 — 오늘(지금 장은?) · 흐름(무슨 얘기·리포트?) · 전략(어디서 싸우나?) · 내 매매(내 돈·규칙·복기) · 더보기(일정·설정) */
+const MENU=[["home","오늘","◎"],["flow","흐름","≡"],["strategy","전략","◐"],["trade","내 매매","₩"],["more","더보기","⚙"]];
+// 옛 메뉴 id → 새 메뉴 + 탭 (기존 링크·data-go 호환)
+const ALIAS={briefs:["flow","digest"],channels:["flow","channels"],portfolio:["trade",null],companies:["strategy","companies"],research:["strategy","research"],watch:["strategy","watch"],sectors:["strategy","watch"],lab:["strategy","watch"],config:["more",null]};
+const GROUPS_ALL=[["메뉴","analysis",["home","flow","strategy","trade","more"]]];
 const MON_OFF=!!(D&&D.features&&D.features.monitoring===false);
-const GROUPS=GROUPS_ALL.filter(g=>g[1]!="monitoring"||!MON_OFF);
-const TABS=["home","briefs","research","portfolio"];
+const GROUPS=GROUPS_ALL;
+const TABS=["home","flow","strategy","trade"];
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const w=n=>n==null||isNaN(n)?"-":Math.round(n).toLocaleString("ko-KR");
@@ -496,7 +509,7 @@ function toggleTheme(){ui.theme=isDark()?"light":"dark";save();applyTheme();nav(
 applyTheme();
 function src(t){return `<div class="src">${esc(t)}</div>`}
 
-const RAIL={strategy:"전략",portfolio:"포트폴리오",watch:"감시",config:"규칙·일정"};
+const RAIL={};
 function nav(){
   const cur=route();
   $("#side").innerHTML=
@@ -508,10 +521,14 @@ function nav(){
   $("#more").innerHTML=GROUPS.map(([g,rf,ks])=>`<div class="ngroup mg"><span>${g}${rf?` <small class="num">${esc(partAt(rf).slice(5))}</small>`:""}</span>${rf?`<button class="rfb" data-rf="${rf}" aria-label="${g} 새로고침">↻ 새로고침</button>`:""}</div>${rf?`<div class="mg">${rfNote(rf)}</div>`:""}`+
     ks.filter(k=>!TABS.includes(k)).map(k=>{const [,n,i]=MENU.find(m=>m[0]==k);return `<a href="#${k}">${i} ${n}</a>`}).join("")).join("")+
     `<button class="chip themeb" data-theme-t="1">${isDark()?"☀ 밝은 화면으로":"☾ 어두운 화면으로"}</button>`;
-  $("#moreBtn").onclick=()=>$("#more").classList.toggle("open");
+  $("#more").innerHTML="";
+  $("#moreBtn").onclick=()=>{location.hash="more"};
   $("#rfpop").innerHTML=`<h4>새로고침 안내</h4>${refreshBox()}`+GROUPS.filter(g=>g[1]).map(([g,rf])=>{const [cmd,what]=RFTXT[rf];return `<div class="rfnote"><b>${esc(g)}</b> · ${esc(partAt(rf))} 갱신<br>Claude 대화에서 <b>"${cmd}"</b>이라고 말해 주세요 · ${what}</div>`}).join("")+`<small class="muted">${esc(D.note||"")}</small>`;
 }
-function route(){const h=location.hash.slice(1);return MENU.some(m=>m[0]==h)&&!(MON_OFF&&["sectors","watch","lab"].includes(h))?h:"home"}
+function route(){let h=location.hash.slice(1);
+  if(ALIAS[h]){const [pg,tab]=ALIAS[h];if(tab){if(pg=="flow")ui.ft=tab;if(pg=="strategy")ui.st=tab;save()}h=pg}
+  return MENU.some(m=>m[0]==h)?h:"home"}
+const stripH1=h=>h.replace(/<h1[^>]*>[\s\S]*?<\/h1>/,"").replace(/^(\s*<div class="sub"[^>]*>[\s\S]*?<\/div>)/,"");
 
 /* ---------- 오늘 ---------- */
 function latestOpinion(){return (D.briefs||[]).find(b=>b.opinion)}
@@ -633,10 +650,12 @@ function viewStrategy(){
    <div class="sub" style="margin:0">${esc(R.made_at)} 작성 · 기간 ${esc(R.period)}${R.sources?` · 채널 글 ${w(R.sources.channel_posts)} · 리포트 ${w(R.sources.reports)} · 원문 ${R.sources.originals}건`:""}</div></div>
   ${R.sample?`<div class="panel" style="border-color:#e0a100;margin:10px 0"><b>⚠️ 샘플 초안입니다.</b> 지금까지 모은 실제 채널·리포트·시세 데이터로 썼지만, 에이전트 팀의 원문 확인·반론 검증을 거치지 않았습니다. 2차 자료(채널 요약·블로그)에 기댄 숫자가 많습니다 — 판단은 본인이 합니다.</div>`:""}
   <div class="panel conc"><b>💡 결론</b><p>${tint(R.conclusion||"")}</p></div>
+  ${v3Summary(R)}
   ${G.title?`<section class="panel rpt"><h2>🧭 ${esc(G.title)}</h2>${(G.numbers||[]).length?`<div class="grid g4" style="margin:8px 0">${G.numbers.map(n=>`<div class="tile"><span>${esc(n.label)}</span><b>${esc(n.value)}</b><small class="muted">${esc(n.note||"")}</small></div>`).join("")}</div>`:""}<div class="logic">${(G.body||[]).map(x=>`<p>${tint(x)}</p>`).join("")}</div></section>`:""}
   ${(R.themes||[]).map(theme).join("")}
   ${(R.watch||[]).length?`<section class="panel rpt"><h2>👀 관찰 · 주의 섹터</h2><div class="ins">${R.watch.map(x=>`<div class="insrow"><b>${esc(x.name)}</b> <span class="pill">${esc(x.status)}</span><div style="font-size:13px">${tint(x.why)}</div></div>`).join("")}</div></section>`:""}
   ${PF?`<section class="panel rpt"><h2>💼 ${esc(PF.title)}</h2><div class="tw"><table><tr><th class="l">종목</th><th>띔 정렬</th><th class="l">메모</th></tr>${(PF.rows||[]).map(r=>`<tr><td class="l"><b>${esc(r.name)}</b></td><td><span class="pill ${r.fit=="높음"?"ok":r.fit=="낮음"?"warn":""}">${esc(r.fit)}</span></td><td class="l" style="white-space:normal">${tint(r.note)}</td></tr>`).join("")}</table></div>${PF.note?`<div class="src">${esc(PF.note)}</div>`:""}</section>`:""}
+  ${v3Tables(R)}
   ${(R.checkpoints||[]).length?`<section class="panel rpt"><h2>📌 앞으로 확인할 것</h2>${R.checkpoints.map(x=>`<div>☐ ${tint(x)}</div>`).join("")}</section>`:""}
   ${(R.risks||[]).length?`<section class="panel rpt"><h2>⚠️ 이 보고서의 한계·위험</h2>${R.risks.map(x=>`<div>- ${tint(x)}</div>`).join("")}</section>`:""}
   <section class="panel rpt"><h2>📋 가설 성적표</h2>${(R.scorecard||[]).length?`<div class="tw"><table><tr><th>세운 날</th><th class="l">가설</th><th>결과</th><th class="l">메모</th></tr>${R.scorecard.map(x=>`<tr><td class="num">${esc(x.made)}</td><td class="l" style="white-space:normal">${tint(x.hypothesis)}</td><td><span class="pill ${x.status=="맞음"?"ok":x.status=="틀림"?"warn":""}">${esc(x.status)}</span></td><td class="l" style="white-space:normal">${esc(x.note||"")}</td></tr>`).join("")}</table></div>`:`<div class="muted">첫 보고서라 채점할 가설이 없습니다. 다음 보고서부터 이번 띔·무효 신호를 채점합니다.</div>`}</section>
@@ -1392,25 +1411,223 @@ function refreshPart(part){RFP=RFP===part?null:part;nav();const m=$("#more");if(
 function rfNote(part){if(RFP!==part)return "";const [cmd,what]=RFTXT[part];
   return `<div class="rfnote">Claude 대화에서 <b>"${cmd}"</b>이라고 말해 주세요 · ${what}<br><small>마지막 갱신 ${esc(partAt(part))} · 자동: ${part=="analysis"?"평일 08·10·12·14·16시 12분 (채널·리포트 정리까지) + 07:32·16:32 전체":"평일 16:07 감시 목록 → 16:32 반영"}</small></div>`}
 function doRefresh(){RF.state="idle";RF.msg=REFRESH_HELP;paintRefresh();return Promise.resolve(false)}
+
+/* ===================== 다시 설계 (2026-11-10): 메뉴 5개 ===================== */
+const ACT={"관찰":"","준비":"ok","회피":"warn"};
+function v3Summary(R){
+  const S=R.summary; if(!S)return "";
+  const st=S.stance||{};
+  return `<section class="panel rpt v3sum"><h2>📄 1쪽 요약 <small class="muted">${esc(R.issue||"")}</small></h2>
+   ${S.headline?`<p class="thesis"><b>${tint(S.headline)}</b></p>`:""}
+   ${(S.bullets||[]).length?`<div class="logic">${S.bullets.map(x=>`<div>• ${tint(x)}</div>`).join("")}</div>`:""}
+   <div class="chips" style="margin:8px 0">${st.regime?`<span class="pill">${esc(st.regime)}</span>`:""}${st.exposure?`<span class="pill" title="표시만 · 규칙 고정">${esc(st.exposure)}</span>`:""}${st.mode?`<span class="pill ok">모드 ${esc(st.mode)}</span>`:""}</div>
+   ${(S.top_sectors||[]).length?`<div class="tw"><table><tr><th class="l">상위 업종</th><th>점수</th><th>단계</th><th>행동</th></tr>${S.top_sectors.map(x=>`<tr><td class="l"><b>${esc(x.name)}</b></td><td class="num">${esc(x.score)}</td><td>${esc(x.stage||"")}</td><td><span class="pill ${ACT[x.action]??""}">${esc(x.action||"")}</span></td></tr>`).join("")}</table></div>`:""}
+   ${(S.changes||[]).length?`<h3>🔄 지난 호 대비</h3>${S.changes.map(x=>`<div>- ${tint(x)}</div>`).join("")}`:""}
+   <div class="src">행동 = 관찰 / 준비(셋업 대기) / 회피 — 매수·매도 권유가 아닙니다 · 권장 노출은 표시만(규칙 고정 ~2027-01-31)</div></section>`;
+}
+function v3Tables(R){
+  let h="";
+  if((R.sector_scorecard||[]).length){
+    h+=`<section class="panel rpt"><h2>🏭 업종 스코어카드 <small class="muted">말·이익·가격·돈 각 0~2점</small></h2><div class="tw"><table><tr><th class="l">업종</th><th>말</th><th>이익</th><th>가격</th><th>돈</th><th>합계</th><th>단계</th><th>행동</th><th class="l">근거</th></tr>
+    ${R.sector_scorecard.map(x=>`<tr><td class="l"><b>${esc(x.group)}</b></td><td class="num">${esc(x.talk)}</td><td class="num">${esc(x.profit)}</td><td class="num">${esc(x.price)}</td><td class="num">${esc(x.money)}</td><td class="num"><b>${esc(x.total)}</b></td><td>${esc(x.stage||"")}</td><td><span class="pill ${ACT[x.action]??""}">${esc(x.action||"")}</span></td><td class="l" style="white-space:normal;min-width:220px"><small>${tint(x.note||"")}</small></td></tr>`).join("")}</table></div></section>`;}
+  if((R.pool||[]).length){
+    h+=`<section class="panel rpt"><h2>🎯 관찰 풀 <small class="muted">${R.pool.length}종목 · 감시 목록은 이 풀 + RS 70↑만 봅니다</small></h2><div class="tw"><table><tr><th class="l">종목</th><th>띔</th><th class="l">역할</th><th>RS</th><th>1개월</th><th>고점 대비</th><th>컨센 괴리</th><th class="l">셋업</th><th class="l">볼 것</th><th>행동</th></tr>
+    ${R.pool.map(x=>`<tr><td class="l"><b class="click" data-cq="${esc(x.name)}" style="cursor:pointer">${esc(x.name)}</b></td><td>${esc(x.theme||"")}</td><td class="l"><small>${esc(x.role||"")}</small></td><td class="num">${esc(x.rs??"-")}</td><td class="num ${cls(x.r1m)}">${pc(x.r1m)}</td><td class="num">${pc(x.off_high)}</td><td class="num">${x.consensus_gap_pct==null?"-":pc(x.consensus_gap_pct)}</td><td class="l"><small>${esc(x.setup||"")}</small></td><td class="l" style="white-space:normal;min-width:200px"><small>${tint(x.watch_for||"")}</small></td><td><span class="pill ${ACT[x.action]??""}">${esc(x.action||"")}</span></td></tr>`).join("")}</table></div></section>`;}
+  if((R.scenarios||[]).length){
+    h+=`<section class="panel rpt"><h2>🧩 시나리오</h2><div class="grid g3">${R.scenarios.map(x=>`<div class="tile" style="text-align:left"><b style="display:block;font-size:14px">${esc(x.name)} <small class="muted">${esc(x.prob||"")}</small></b><div style="font-size:13px;margin-top:4px"><b>트리거</b> ${tint(x.trigger||"")}</div><div style="font-size:13px;margin-top:4px"><b>그러면</b> ${tint(x.implication||"")}</div></div>`).join("")}</div></section>`;}
+  if((R.catalysts||R.calendar||[]).length){const C=R.catalysts||R.calendar;
+    h+=`<section class="panel rpt"><h2>📅 촉매 일정</h2><div class="ins">${C.map(x=>`<div class="insrow"><span class="num">${esc(x.date)}</span> <b>${esc(x.event)}</b> <small class="muted">${esc(x.relevance||x.why||"")}</small></div>`).join("")}</div></section>`;}
+  return h;
+}
+
+/* ---------- ① 오늘: 한 열 (신호등 → 의견 → 소식 → 일정 → 접힌 시장 숫자 → 계좌 한 줄) ---------- */
+function regimeHead(){
+  const R=(D.insights||{}).regime, L={green:"초록",yellow:"노랑",red:"빨강"};
+  return `<div class="hhdr"><h1>오늘</h1>${R?`<span class="badge ${R.light}">시장 신호 ${L[R.light]}</span><span class="sgtxt">${esc(R.text)}</span><span class="sgnum num" title="코스피 20일선 대비 ${pc(R.gap20)} · 1주 ${pc(R.r1w)} · 1개월 ${pc(R.r1m)} · 고점 대비 ${pc(R.off_high)} (${esc(R.date)} 종가)">20일선 ${pc(R.gap20)} · 1주 ${pc(R.r1w)} · 고점 대비 ${pc(R.off_high)}</span>`:""}<span class="t muted num">데이터 ${esc(D.built_at)}</span></div>`;
+}
+function exposureLine(){   // 신호등별 권장 노출 — 표시만 (규칙 고정, 2026-11-10 제안)
+  const R=(D.insights||{}).regime; if(!R)return "";
+  const m={green:"🟢 권장 노출(표시만): 신규 가능 · CR 한도 3R 전부",yellow:"🟡 권장 노출(표시만): 신규 1건 · CR 2R까지",red:"🔴 권장 노출(표시만): 신규 0 · 관찰만"};
+  return `<div class="expo muted"><small>${esc(m[R.light]||"")} · 규칙은 2027-01-31까지 고정, 이 줄은 참고용</small></div>`;
+}
+function acctLine(){
+  const r=D.risk||{}, ps=r.positions||[], rv=D.trade_review;
+  if(ps.length)return acctBox()+holdBox();
+  return `<div class="bx"><div class="bh"><a href="#trade">내 계좌</a><em>보유 없음 · ${esc((r.at||"").slice(5,16))}</em></div>
+   <div style="padding:0 14px 12px;font-size:13.5px;line-height:1.7">보유 종목이 없습니다. 원금 ${man(r.capital)}원 · 새 위험 여유 ${man(r.room_for_new_risk_won)}원 (약 ${r.one_r_account_won?(r.room_for_new_risk_won/r.one_r_account_won).toFixed(1):"-"}R).
+   ${rv&&rv.n?`<br>최근 매매 ${rv.n}건 · 합계 ${rv.sum_r>0?"+":""}${rv.sum_r}R · 연속 손절 ${rv.current_loss_streak}건 → <a href="#trade">내 매매에서 복기 ›</a>`:""}</div></div>`;
+}
+function upcomingBox(){
+  const all=calEvents().filter(e=>e.days>=0&&e.days<=1), top=all.slice(0,6).sort((a,b)=>(a.days-b.days)||(a.time||"99").localeCompare(b.time||"99"));
+  return `<div class="bx"><div class="bh">오늘 · 내일 일정<em>중요한 순 ${top.length} / ${all.length}건</em></div>
+   ${top.length?`<div class="tsch">${top.map(e=>`<div title="${esc(e.detail||"")}"><span class="num">${e.days?"내일 ":""}${esc(e.time||"종일")}</span><span class="nm">${e.mine=="held"?"⭐":e.mine=="watch"?"☆":""}${esc(e.name)}</span>${evTag(e)}</div>`).join("")}</div>`:`<div class="empty" style="margin:10px">일정 없음</div>`}
+   <a class="bmore" href="#more">달력에서 전체 보기 ›</a></div>`;
+}
+function marketFold(){
+  const open=ui.mkOpen?"open":"";
+  return `<details class="bx fold" ${open} data-fold="mkOpen"><summary class="bh">시장 숫자 <em>${esc(D.pulse?(D.pulse.markets?.[0]?.status=="CLOSE"?"마감":"장중")+" "+(D.pulse.at||"").slice(11):"")} · 네이버 · Yahoo(비공식) · 펼치기</em></summary>
+   <div class="fbody">${thermoTable()}<div class="bh" style="padding-top:12px">해외 · 매크로</div>${macroTable()}${src("미니 차트 = 회색 전일 · 색 당일 · 점선 전일 종가 · 투자자 금액은 거래소 잠정치(억 원)")}</div></details>`;
+}
+function viewHome2(){
+  const op=latestOpinion();
+  return `${regimeHead()}${exposureLine()}
+  <div class="hg2">
+   <div class="hl">
+    <div class="bx"><div class="bh">💡 CLAUDE 의견<em>${op?esc(op.kind_name)+" · "+esc(op.date)+(op.time?" "+esc(op.time):""):""}</em></div>
+     ${op?opinionRows(op):`<div class="empty" style="margin:10px">아직 의견이 담긴 브리핑이 없습니다</div>`}</div>
+    ${newsBox()}
+    ${upcomingBox()}
+   </div>
+   <div class="hr2">
+    ${marketFold()}
+    ${acctLine()}
+    ${src((D.risk?.source||"")+" · "+(D.risk?.at||"")+" · 수익률 = (실현+평가 손익) ÷ 원금, 매매 일지 기준")}
+   </div>
+  </div>`;
+}
+
+/* ---------- ② 흐름: 정리(타임라인) · 리포트 · 채널 원문 ---------- */
+function flowTimeline(){
+  const kinds=[["all","전체"],["morning","아침"],["channels","채널"],["report","리포트"],["review","리뷰"]];
+  const k=kinds.some(([v])=>v==fam(ui.bk))?fam(ui.bk):"all", list=(D.briefs||[]).filter(b=>k=="all"||fam(b.kind)==k);
+  const byDay={}; list.forEach(b=>(byDay[b.date]=byDay[b.date]||[]).push(b));
+  const days=Object.keys(byDay).sort().reverse().slice(0,10);
+  const first=b=>{const t=(b.text||"").split("\n").map(x=>x.trim()).filter(x=>x&&!/^#/.test(x));
+    let i=t.findIndex(x=>/^💡/.test(x)); let line=i>=0?t[i].replace(/^💡\s*(Claude\s*의견|CLAUDE\s*의견|의견)?\s*:?\s*/i,""):"";
+    for(let j=i+1;(!line||/^(핵심|의견)\s*:?$/.test(line))&&j<t.length&&j<i+4;j++)line=t[j];
+    if(!line)line=t[1]||t[0]||"";
+    return line.replace(/^[-•]\s*/,"").replace(/^\*\*?(핵심|핵심:)\*?\*?\s*:?\s*/,"").replace(/^(핵심|핵심:)\s*/,"").slice(0,140)};
+  const open=ui.bf;
+  return `<div class="chips">${kinds.map(([v,n])=>`<button class="chip ${k==v?"on":""}" data-bk="${v}">${n}</button>`).join("")}</div>
+  ${days.length?days.map(d=>`<div class="tday"><div class="tdh num">${esc(d)} <small class="muted">${["일","월","화","수","목","금","토"][new Date(d+"T00:00:00+09:00").getDay()]}</small></div>
+   ${byDay[d].sort((a,b)=>(b.time||"").localeCompare(a.time||"")).map(b=>`<div class="tcard ${open==b.file?"open":""}">
+     <button class="tch" data-bf="${esc(b.file)}"><span class="num">${esc(b.time||"")}</span><span class="pill">${esc(b.kind_name)}</span><span class="tfirst">${tint(first(b))}</span><span class="muted">${open==b.file?"▲":"▼"}</span></button>
+     ${open==b.file?`<article class="panel brief br2" style="margin:0 0 10px">${briefHtml(b.text)}</article>`:""}</div>`).join("")}</div>`).join(""):`<div class="empty">이 종류의 브리핑이 아직 없습니다</div>`}`;
+}
+function reportFlowTab(){
+  const F=D.report_flow||[];
+  const tot=F.reduce((a,s)=>({up:a.up+(s.up||0),down:a.down+(s.down||0),nw:a.nw+(s.new||0)}),{up:0,down:0,nw:0});
+  const mx=Math.max(1,...F.map(s=>(s.up||0)+(s.down||0)+(s.new||0)));
+  return `<div class="panel" style="margin-bottom:12px"><h3>31일 리포트 흐름 <small class="muted">채널 리포트 요약(2차) · ${esc((D.parts&&D.parts.channels)||D.built_at)}</small></h3>
+   <div class="chips"><span class="pill up">🔺상향 ${tot.up}</span><span class="pill down">🔽하향 ${tot.down}</span><span class="pill">🆕신규 ${tot.nw}</span></div>
+   <div class="bars">${F.slice(0,20).map(s=>{const n=(s.up||0)+(s.down||0)+(s.new||0);return `<div class="bar"><span title="${esc((s.stocks||[]).join(", "))}">${esc(s.sector)}</span><div class="track"><i class="n" style="width:${(s.up||0)/mx*100}%;background:var(--up)"></i><i class="n" style="width:${(s.new||0)/mx*100}%;background:var(--muted)"></i><i class="n" style="width:${(s.down||0)/mx*100}%;background:var(--down)"></i></div><span class="num">🔺${s.up||0} 🔽${s.down||0}${s.avg_change_pct!=null?` · ${pc(s.avg_change_pct)}`:""}</span></div>`}).join("")}</div>
+   <div class="src">막대 = 상향(빨강) · 신규(회색) · 하향(파랑) 건수 · 평균 변경 = 목표가 변경 폭 평균</div></div>
+  ${revFlow()}`;
+}
+function viewFlow(){
+  const t=ui.ft||"digest";
+  const tabs=[["digest","정리"],["reports","리포트"],["channels","채널 원문"]];
+  return `<h1>흐름</h1><div class="sub">무슨 이야기가 돌고, 리포트는 어디를 올리고 내리나 · 정리는 평일 08·10·12·14·16시 12분 자동 · 채널 글은 2차 자료</div>
+  <div class="chips tabs">${tabs.map(([v,n])=>`<button class="chip ${t==v?"on":""}" data-ft="${v}">${n}</button>`).join("")}</div>
+  ${t=="digest"?flowTimeline():t=="reports"?reportFlowTab():stripH1(viewChannels())}`;
+}
+
+/* ---------- ③ 전략: 보고서 · 관찰 풀 · 자료실 · 기업 (· 감시 목록) ---------- */
+function poolTab(){
+  const P=D.watch_pool, comp=Object.fromEntries((D.companies||[]).map(c=>[c.code,c])), W=D.watch||{};
+  if(!P||!(P.themes||[]).length)return `<div class="empty">관찰 풀이 아직 없습니다. 토요일 전략 보고서가 만들거나, Claude에게 "전략 보고서 써줘"라고 하세요</div>`;
+  const wmap={}; ["signals","candidates","watch","running","near_miss"].forEach(k=>(W[k]||[]).forEach(x=>{wmap[x.code]=wmap[x.code]||{...x,tier:x.tier||k}}));
+  return `<div class="sub" style="margin-top:-6px">전략 보고서 ${esc(P.source||"")}가 고른 종목 · ${esc(P.updated||"")} 갱신 · 감시 목록(평일 16:07)은 이 풀 + RS 70↑만 봅니다 · 직접 고치려면 config/watch_pool.toml</div>
+  ${P.themes.map(th=>`<div class="panel" style="margin-bottom:12px"><h3>${esc(th.id)} ${esc(th.name)} <span class="pill">${esc(th.stage||"")}</span></h3>
+   <div class="tw"><table><tr><th class="l">종목</th><th class="l">역할</th><th>RS</th><th>1주</th><th>1개월</th><th>고점 대비</th><th>20일선</th><th class="l">감시 목록</th><th>리포트 31일</th></tr>
+   ${(th.stocks||[]).map(s=>{const c=comp[s.code]||{},t=c.trend||{},wx=wmap[s.code];return `<tr class="click" data-cq="${esc(s.name)}"><td class="l"><b>${esc(s.name)}</b><br><small class="muted">${esc(s.group||"")}</small></td><td class="l"><small>${esc(s.role||"")}</small></td><td class="num">${t.rs??"-"}</td><td class="num ${cls(t.r1w)}">${pc(t.r1w)}</td><td class="num ${cls(t.r1m)}">${pc(t.r1m)}</td><td class="num">${pc(t.off_high)}</td><td>${t.above20==null?"-":t.above20?'<span class="up">위</span>':'<span class="down">아래</span>'}</td><td class="l"><small>${wx?esc(wx.tier)+(wx.setups&&wx.setups.length?" · 셋업 "+esc(wx.setups.join(",")):"")+(wx.levels&&wx.levels.pivot?` · 기준가 ${w(wx.levels.pivot)} (${pc(wx.levels.distance_pct)})`:""):'<span class="muted">-</span>'}</small></td><td class="num">${c.n_reports?`<span class="up">🔺${c.up}</span> <span class="down">🔽${c.down}</span>`:'<span class="muted">-</span>'}</td></tr>`}).join("")}</table></div></div>`).join("")}
+  ${src("RS·수익률 = 네이버 일봉(비공식), 기업 메뉴와 같은 값 · 감시 목록 칸은 가장 최근 screener 결과 · 종목을 누르면 기업 상세")}`;
+}
+function viewStrategy2(){
+  const tabs=[["report","보고서"],["pool","관찰 풀"],["research","자료실"],["companies","기업"]];
+  if(!MON_OFF)tabs.push(["watch","감시 목록"]);
+  let t=ui.st||"report"; if(!tabs.some(([v])=>v==t))t="report";
+  const body=t=="report"?stripH1(viewStrategy()):t=="pool"?poolTab():t=="research"?stripH1(viewResearch()):t=="companies"?stripH1(viewCompanies()):stripH1(viewWatch());
+  return `<h1>전략</h1><div class="sub">어디서 추세추종을 할 것인가 — 주 1회(토 09:07) 전략 보고서 → 관찰 풀 → 감시 목록 · 자료실은 리포트 원문 요약 창고 · 행동은 관찰/준비/회피(매수·매도 권유 아님)</div>
+  <div class="chips tabs">${tabs.map(([v,n])=>`<button class="chip ${t==v?"on":""}" data-st="${v}">${n}</button>`).join("")}</div>${body}`;
+}
+
+/* ---------- ④ 내 매매: 계좌 · 보유 · 복기 · 계산기 · 규칙 ---------- */
+function reviewBox(){
+  const R=D.trade_review; if(!R||R.error)return "";
+  const reg={green:"🟢 20일선 위",red:"🔴 20일선 아래",unknown:"?"};
+  return `<div class="panel" style="margin-top:12px"><h2>📒 매매 복기 <small class="muted">${esc(R.at||"")} · 숫자만, 판단은 본인</small></h2>
+   <div class="grid g4" style="margin-bottom:10px"><div class="tile"><span>끝난 거래 · 승률</span><b>${R.n}건 · ${R.win_rate==null?"-":R.win_rate+"%"}</b></div>
+    <div class="tile"><span>거래당 평균 R (기대값)</span><b class="${cls(R.expectancy_r)}">${R.expectancy_r==null?"-":(R.expectancy_r>0?"+":"")+R.expectancy_r+"R"}</b><small class="muted"> 합계 ${R.sum_r>0?"+":""}${R.sum_r}R</small></div>
+    <div class="tile"><span>연속 손절 (최대 · 지금)</span><b class="${R.current_loss_streak>=3?"down":""}">${R.max_loss_streak} · ${R.current_loss_streak}</b></div>
+    <div class="tile"><span>규칙 지킴 · 손절가보다 더 잃음</span><b>${R.rule_ok_pct==null?"-":R.rule_ok_pct+"%"} · ${R.worse_than_stop}건</b></div></div>
+   ${(R.lessons||[]).length?`<h3>배울 점 (자동 정리)</h3>${R.lessons.map(x=>`<div class="insrow">- ${tint(x)}</div>`).join("")}`:""}
+   ${Object.keys(R.by_regime||{}).length?`<h3 style="margin-top:10px">신호등별 성적 <small class="muted">진입일 코스피 20일선 기준</small></h3><div class="chips">${Object.entries(R.by_regime).map(([k,v])=>`<span class="pill">${reg[k]||k} · ${v.n}건 · 평균 ${v.avg_r>0?"+":""}${v.avg_r}R · 승 ${v.win}</span>`).join("")}</div>`:""}
+   ${(R.same_day_clusters||[]).length?`<h3 style="margin-top:10px">같은 날 몰아 매수</h3>${R.same_day_clusters.map(c=>`<div class="insrow"><span class="num">${esc(c.date)}</span> ${esc(c.names.join(", "))} → <b class="${cls(c.sum_r)}">${c.sum_r>0?"+":""}${c.sum_r}R</b></div>`).join("")}`:""}
+   <div class="src">${esc(R.source||"")} · 연속 손절 3건 뒤 하루 쉬기·신호등별 노출은 2027-01 규칙 재검토 재료(지금은 표시만)</div></div>`;
+}
+function rulesCard(){
+  return `<div class="panel rulecard" style="margin-top:12px"><h2>📌 매매 규칙 한 장 <span class="pill">고정 2026-11-03 ~ 신호 30건 또는 2027-01-31</span></h2>
+   <div class="grid g2">
+    <div><h3>🎯 사는 신호 (둘 중 하나)</h3><ol><li><b>돌파</b>: 쉬던 구간 고점을 <b>종가로</b> 넘음 + 거래량 <b>1.5배</b> + <b>업종이 같이 오름</b></li><li><b>포켓피봇</b>: 조정 중 큰 거래량 양봉 (10일선 근처)</li></ol>
+     <h3>✅ 종목 조건</h3><p>시장보다 강하고(<b>RS 70↑</b>) 거래가 충분한(<b>시총 2천억 · 거래대금 100억↑</b>) 상승 추세 종목. 돌파는 추세 조건 1개 정도 부족해도 OK. 대상은 <b>관찰 풀(전략 보고서) + RS 70↑</b></p></div>
+    <div><h3>🛡️ 사고 나서</h3><ol><li>손절 <b>−8%</b> (1R = 30만 원)</li><li><b>3R(+24%)</b>에서 절반 익절 + 손절가 <b>본전</b></li><li>그 뒤 <b>20일선 종가 이탈</b> 시 나머지 정리</li><li>동시에 걸 수 있는 손실 최대 <b>3R(90만 원)</b></li></ol>
+     <h3>👀 후보</h3><p>조건 1~2개 부족한 종목은 무엇이 부족한지와 함께 후보로. 고를지는 본인 판단</p></div>
+   </div>
+   <div class="src">근거: 백테스트 999건 · 승률 33% · 거래당 +0.44R. 세부 판정(셋업 A~F 등)은 Claude가 대신 함 · 원문 docs/rules.md</div></div>`;
+}
+function viewTrade(){
+  const r=D.risk||{}, ps=r.positions||[], comp=Object.fromEntries((D.companies||[]).map(c=>[c.code,c])), acc=D.account||{};
+  return `<h1>내 매매</h1><div class="sub">${esc(r.at||"")} · ${esc(r.source||"")} · 기록만 하는 화면, 주문은 증권사 앱에서 직접</div>
+  ${alerts(r)}${riskKpis(r)}
+  ${ps.length?`<h2 style="margin-top:18px">보유 종목</h2>
+  <div class="tw"><table><tr><th class="l">종목</th><th>수량</th><th>평균가</th><th>현재가</th><th>평가손익</th><th>평가금액·비중</th><th>손절가·거리</th><th>1R</th><th>진행 R</th><th>3R 가격</th><th>CR</th></tr>
+  ${ps.map(p=>{const pct=p.price?(p.price/p.avg_price-1)*100:null, bar=Math.max(0,Math.min(100,((p.r_multiple||0)+1)/4*100));
+   return `<tr><td class="l"><b>${esc(p.name)}</b><br><small class="muted">${esc(comp[p.code]?.detail||p.code)}</small></td><td class="num">${p.qty}</td><td class="num">${w(p.avg_price)}</td><td class="num"><b>${w(p.price)}</b></td>
+   <td class="num ${cls(p.pnl_won)}">${w(p.pnl_won)}<br><small>${pc(pct)}</small></td><td class="num">${w(p.value_won)}<br><small class="muted">${(p.value_won/r.capital*100).toFixed(1)}%</small></td>
+   <td class="num">${w(p.stop)}<br><small class="muted">${pc(p.to_stop_pct)}</small></td><td class="num">${w(p.one_r_won)}<br><small class="muted">${p.one_r_vs_account}R</small></td>
+   <td class="num ${cls(p.r_multiple)}"><b>${p.r_multiple==null?"-":(p.r_multiple>0?"+":"")+p.r_multiple.toFixed(2)+"R"}</b><div class="rbar" title="−1R ~ 3R"><i style="width:${bar}%"></i></div></td>
+   <td class="num">${w(p.breakeven_price_at_3r)}<br><small class="muted">${pc(p.to_3r_pct)}</small></td><td class="num">${w(p.cr_won)}</td></tr>`}).join("")}</table></div>
+  <h2 style="margin-top:18px">다음 액션 · 가격별 규칙</h2><div class="acts">${ps.map(p=>actionCard(p)).join("")}</div>`
+  :`<div class="panel" style="margin-top:12px"><b>보유 종목 없음.</b> 새 위험 여유 ${man(r.room_for_new_risk_won)}원 · 관찰 풀은 <a href="#strategy" data-st="pool">전략 › 관찰 풀</a>에서</div>`}
+  ${reviewBox()}
+  ${equityChart()}
+  ${journal()}
+  <div class="grid g2" style="margin-top:16px">
+   <div class="panel"><h2>살 수 있는 수량 계산</h2>
+    <div class="calc"><label for="cEntry">매수 예정가<input id="cEntry" inputmode="numeric" value="${ui.cEntry||50000}"></label><label for="cStop">손절가<input id="cStop" inputmode="numeric" value="${ui.cStop||46000}"></label><label for="cPct">손절 %로 넣기<input id="cPct" inputmode="decimal" value="${ui.cPct||8}"></label></div>
+    <div class="res" id="cRes"></div>
+    <div class="src">1R ${w(r.one_r_account_won)}원과 CR 여유 ${w(r.room_for_new_risk_won)}원 중 작은 쪽으로 계산 · 주문 기능 없음</div></div>
+   <div class="panel"><h2>계좌·리스크 규칙</h2><table><tr><td class="l">자본</td><td class="num">${w(acc.capital)}원</td></tr><tr><td class="l">1R (1회 손실 한도)</td><td class="num">${(acc.risk_per_trade||0)*100}% = ${w((acc.capital||0)*(acc.risk_per_trade||0))}원</td></tr><tr><td class="l">처음 손절</td><td class="num">−${(acc.stop_pct||0)*100}%</td></tr><tr><td class="l">본전 손절로 올리는 때</td><td class="num">${acc.breakeven_at_r}R</td></tr><tr><td class="l">총 위험(CR) 한도</td><td class="num">${r.CR_limit_pct??"-"}%</td></tr></table></div>
+  </div>
+  ${rulesCard()}`;
+}
+
+/* ---------- ⑤ 더보기: 달력 · 자동 작업 · 출처 · 채널 목록 · 화면 모드 ---------- */
+function viewMore(){
+  return `<h1>더보기</h1><div class="sub">일정·자동 작업·데이터 출처·채널 목록 · 바꾸고 싶으면 Claude에게 말해 주세요 (보기 전용)</div>
+  <div class="chips" style="margin-bottom:12px"><button class="chip themeb" data-theme-t="1">${isDark()?"☀ 밝은 화면으로":"☾ 어두운 화면으로"}</button><span class="pill">데이터 ${esc(D.built_at)} · 자동 갱신 평일 08·10·12·14·16시 12분 (정리) · 07:32·16:32 (전체)</span></div>
+  <div class="panel" style="margin-bottom:16px"><h2>📅 일정 달력</h2>${calMonth()}</div>
+  <div class="panel" style="margin-bottom:16px"><h2>📡 채널 일정 글 (최근 3일)</h2>${((D.calendar||{}).channel_posts||[]).map(p=>`<div class="post"><div class="meta"><span class="num">${esc(p.time)}</span><b>${esc(p.channel)}</b><a href="${esc(p.url)}" target="_blank" rel="noopener">원문</a></div><div>${tint(p.text||"")}</div></div>`).join("")||`<div class="muted">없음</div>`}</div>
+  ${autoBoard()}
+  <div class="grid g2" style="margin-top:12px">
+   <div class="panel"><h2>데이터 출처</h2><small>국내 시세·일봉: 네이버 증권(비공식) · 해외: Yahoo Finance(비공식) · 리포트·뉴스: 텔레그램 채널 요약(2차 자료) · 리포트 원문: 네이버 리서치·드라이브(1차) · 기업 사업 한 줄: Claude가 공개 정보로 작성</small></div>
+   <div class="panel"><h2>지키는 선</h2><small>주문 기능 없음 · 매수·매도 단정 없음(근거와 반대 근거, 행동은 관찰/준비/회피) · 숫자에 출처와 시각 · 증권사 PDF 원본 저장 안 함 · 매매 규칙 2027-01-31까지 고정</small></div></div>
+  <div class="panel" style="margin-top:12px"><h2>채널 성향 (30일)</h2><div class="tw"><table><tr><th class="l">채널</th><th class="l">역할</th><th>하루 글</th><th>자기 글</th><th>먼저 올림</th></tr>
+  ${(D.channel_stats||[]).map(c=>`<tr><td class="l"><a href="https://t.me/${esc(c.id)}" target="_blank" rel="noopener">${esc(c.id)}</a></td><td class="l" style="white-space:normal;min-width:200px">${esc(c.description||"")}</td><td class="num">${esc(c.per_day)}</td><td class="num">${c.original_pct??"-"}%</td><td class="num">${c.first_pct??"-"}%</td></tr>`).join("")}</table></div></div>`;
+}
+
 /* ---------- 라우터 ---------- */
-const VIEWS={strategy:viewStrategy,research:viewResearch,home:viewHome,briefs:viewBriefs,portfolio:viewPortfolio,watch:viewWatch,sectors:viewSectors,companies:viewCompanies,channels:viewChannels,lab:viewLab,config:viewConfig};
+const VIEWS={home:viewHome2,flow:viewFlow,strategy:viewStrategy2,trade:viewTrade,more:viewMore};
 function render(){
   if(!D){$("#main").innerHTML=`<div class="empty">데이터가 없습니다. tools/web_build.py로 만들어 주세요</div>`;return}
   nav(); $("#more").classList.remove("open"); $("#tape").innerHTML=tapeHtml();
   const r=route(); $("#main").innerHTML=`<div class="view">${VIEWS[r]()}</div>`;
-  if(r=="portfolio")calc();
+  if(r=="trade")calc();
 }
 document.addEventListener("click",e=>{
   if(e.target.closest("[data-theme-t]")){toggleTheme();return}
   if(e.target.closest("[data-rfpop]")){$("#rfpop").classList.toggle("open");return}
   if(!e.target.closest("#rfpop"))$("#rfpop").classList.remove("open");
-  const q=e.target.closest("[data-cq]"); if(q){ui.cq=q.dataset.cq;save();location.hash="companies";return}
+  const q=e.target.closest("[data-cq]"); if(q){ui.cq=q.dataset.cq;ui.st="companies";save();if(location.hash=="#strategy")render();else location.hash="strategy";return}
   const lt=e.target.closest("[data-lt]"); if(lt){ui.lt=lt.dataset.lt;save();render();return}
   if(e.target.closest("#refreshBtn")){doRefresh();return}
   const rfb=e.target.closest("[data-rf]"); if(rfb){refreshPart(rfb.dataset.rf);return}
   const cm=e.target.closest("[data-calm],[data-cald],[data-calk],[data-calrel]");
   if(cm){if(cm.dataset.calrel)ui.calRel=!ui.calRel;if(cm.dataset.calm)ui.calm=cm.dataset.calm;if(cm.dataset.cald)ui.cald=cm.dataset.cald;
     if(cm.dataset.calk){const o=new Set(ui.calOff||[]);o.has(cm.dataset.calk)?o.delete(cm.dataset.calk):o.add(cm.dataset.calk);ui.calOff=[...o]}save();render();return}
+  const ft=e.target.closest("[data-ft]"); if(ft){ui.ft=ft.dataset.ft;save();render();return}
+  const stb=e.target.closest("[data-st]"); if(stb){ui.st=stb.dataset.st;save();if(stb.tagName=="A"){return}render();return}
   const rt=e.target.closest("[data-rt]"); if(rt){ui.rt=rt.dataset.rt;save();render();return}
   const rk=e.target.closest("[data-rk]"); if(rk){ui.rk=rk.dataset.rk;ui.rd=null;save();render();return}
   const rp=e.target.closest("[data-rp]"); if(rp){ui.rp=rp.dataset.rp;save();render();return}
@@ -1421,7 +1638,7 @@ document.addEventListener("click",e=>{
   const t=e.target.closest("[data-bk],[data-bf],[data-wg],[data-ws],[data-wd],[data-cc],[data-ct],[data-go],[data-kind],.post");
   if(!t)return;
   if(t.dataset.bk!=null){ui.bk=t.dataset.bk;ui.bf=null}
-  else if(t.dataset.bf!=null)ui.bf=t.dataset.bf;
+  else if(t.dataset.bf!=null)ui.bf=(ui.bf==t.dataset.bf&&t.classList.contains("tch"))?null:t.dataset.bf;
   else if(t.dataset.wg!=null){ui.wg=t.dataset.wg;ui.ws=""}
   else if(t.dataset.ws!=null)ui.ws=t.dataset.ws;
   else if(t.dataset.wd!=null)ui.wd=ui.wd==t.dataset.wd?null:t.dataset.wd;
@@ -1437,9 +1654,10 @@ document.addEventListener("input",e=>{
   if(e.target.id=="rq"){ui.rq=e.target.value;save();const pos=e.target.selectionStart;render();const el=$("#rq");el.focus();el.setSelectionRange(pos,pos);return}
   if(e.target.id=="cq"){ui.cq=e.target.value;save();const pos=e.target.selectionStart;render();const el=$("#cq");el.focus();el.setSelectionRange(pos,pos)}
 });
+document.addEventListener("toggle",e=>{const d=e.target;if(d&&d.dataset&&d.dataset.fold){ui[d.dataset.fold]=d.open;save()}},true);
 document.addEventListener("change",e=>{if(e.target.id=="chSel"){ui.ch=e.target.value;save();render()}if(e.target.id=="bSel"){ui.bf=e.target.value;save();render()}if(e.target.id=="cfSel"){ui.cf=e.target.value;save();render()}});
 document.addEventListener("click",e=>{const b=e.target.closest("[data-bnav]");if(!b||b.disabled)return;const o=$("#bSel");if(!o)return;const i=o.selectedIndex-parseInt(b.dataset.bnav);if(i>=0&&i<o.options.length){ui.bf=o.options[i].value;save();render()}});
-window.addEventListener("hashchange",()=>{if(route()!="companies"&&ui.cq){ui.cq="";save()}render();window.scrollTo(0,0)});   // 기업 검색어는 다른 메뉴로 가면 지움
-if(route()!="companies")ui.cq="";
+window.addEventListener("hashchange",()=>{if(!(route()=="strategy"&&ui.st=="companies")&&ui.cq){ui.cq="";save()}render();window.scrollTo(0,0)});   // 기업 검색어는 기업 탭을 떠나면 지움
+if(!(route()=="strategy"&&ui.st=="companies"))ui.cq="";
 render();
 </script>

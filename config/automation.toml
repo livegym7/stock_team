@@ -1,77 +1,94 @@
-# 자동 작업 목록 (웹 '규칙·일정 > 자동 작업 현황'에 표시). Claude가 관리.
+# 자동 작업 목록 (웹 '더보기 > 자동 작업 현황'에 표시). Claude가 관리.
 # runner: claude = Claude 예약 작업(토큰 사용) / actions = 깃허브 자동 실행(토큰 0) / build = 웹 데이터 만들 때 함께(토큰 0)
-# check: 실행됐는지 확인하는 방법 (report:파일이름 / bus / naver_pick / alerts / calendar / naver / channels / weekly)
+# model: 예약이 묶인 전용 대화의 모델 (2026-11-10 역할별 배분 — 글쓰기·판단은 Sonnet, 주 1회 종합은 Opus, 스크립트 실행은 Haiku)
+#   Sonnet 데스크 session_0122SASEgvzcy9RLXRVs53fs / Opus 전략 데스크 session_0122SASDV279Yx9jPF6BddAT / Haiku 전용 session_0122SASCA8mmXsLqgWRMNFm9
+# check: 실행됐는지 확인하는 방법 (report:파일이름 / bus / naver_pick / alerts / calendar / naver / channels / weekly / live / web / strategy)
 
 [[tasks]]
-name = "아침 브리핑"
+name = "아침 브리핑 (아침 회의)"
 when = "평일 06:55"
 due = "06:55"
 runner = "claude"
+model = "Sonnet"
 tokens = "보통"
 check = "report:morning"
 
 [[tasks]]
-name = "리포트 브리핑 오전"
-when = "평일 09:53 — 중단 (2026-11-05, 오후 1회로 줄임)"
-due = "09:53"
+name = "채널·리포트 정리 (플로우 데스크, 웹)"
+when = "평일 08·10·12·14·16시 12분"
+due = "08:12"
 runner = "claude"
-tokens = "보통"
-check = "report:report_brief_am"
-
-paused = true
+model = "Sonnet"
+tokens = "중간 (첫 회 많고, 이후는 새 글만)"
+check = "live"
 
 [[tasks]]
 name = "리포트 브리핑 오후"
 when = "평일 14:53"
 due = "14:53"
 runner = "claude"
+model = "Sonnet"
 tokens = "보통"
 check = "report:report_brief_pm"
 
 [[tasks]]
-name = "마감 리뷰"
+name = "마감 리뷰 + 띔 메모 + 매매 복기"
 when = "평일 15:47"
 due = "15:47"
 runner = "claude"
+model = "Sonnet"
 tokens = "보통"
 check = "report:close"
 
 [[tasks]]
-name = "감시 목록"
-when = "평일 16:07 — 중단 중 (2026-11-04, 모니터링 잠시 중단)"
-paused = true
+name = "감시 목록 (관찰 풀 + RS 70↑ 한정)"
+when = "평일 16:07 — 2026-11-10 관찰 풀 한정으로 다시 켬 (main 합치기 전까지는 건너뜀 알림만)"
 due = "16:07"
 runner = "claude"
-tokens = "적음"
+model = "Haiku"
+tokens = "적음 (스크립트만)"
 check = "bus"
-
-[[tasks]]
-name = "자료실(딥리서치): 원문 하루 최대 3건 요약 (종합은 전략 보고서에서)"
-when = "평일 19:13"
-due = "19:13"
-runner = "claude"
-tokens = "많음"
-check = "naver_pick"
-
-[[tasks]]
-name = "주간 리뷰"
-when = "금 16:47"
-due = "16:47"
-days = "fri"
-runner = "claude"
-tokens = "보통"
-check = "weekly"
 
 [[tasks]]
 name = "웹 트레이딩룸 갱신"
 when = "평일 07:32·16:32 (전체)"
 due = "07:32"
 runner = "claude"
+model = "Haiku"
 tokens = "적음"
 check = "web"
 
 [[tasks]]
-name = "보유 종목 장중 알림 (감시 목록 돌파 알림은 중단 중)"
+name = "자료실: 리포트 원문 요약 (하루 최대 2건, 종합 안 함)"
+when = "평일 19:13"
+due = "19:13"
+runner = "claude"
+model = "Sonnet"
+tokens = "보통 (3건 → 2건으로 줄임)"
+check = "naver_pick"
+
+[[tasks]]
+name = "주간 리뷰 (복기·띔 중간 성적)"
+when = "금 16:47"
+due = "16:47"
+days = "fri"
+runner = "claude"
+model = "Opus"
+tokens = "보통"
+check = "weekly"
+
+[[tasks]]
+name = "전략 보고서 (전문 애널리스트 양식 v3)"
+when = "토 09:07"
+due = "09:07"
+days = "sat"
+runner = "claude"
+model = "Opus"
+tokens = "많음 (주 1회 25만~40만)"
+check = "strategy"
+
+[[tasks]]
+name = "보유 종목 장중 알림 + 관찰 풀 돌파 알림(🔥) · 풀 밖은 참고"
 when = "평일 장중 20분마다"
 due = "09:20"
 runner = "actions"
@@ -103,9 +120,10 @@ tokens = "0"
 check = "channels"
 
 [[tasks]]
-name = "2시간마다 새로고침 + 채널·리포트 정리 (웹)"
-when = "평일 08·10·12·14·16시 12분"
-due = "08:12"
+name = "리포트 브리핑 오전 — 중단 (2026-11-05, 오후 1회로 줄임)"
+when = "평일 09:53 — 중단"
+due = "09:53"
 runner = "claude"
-tokens = "중간 (첫 회 많고, 이후는 새 글만)"
-check = "live"
+tokens = "보통"
+check = "report:report_brief_am"
+paused = true

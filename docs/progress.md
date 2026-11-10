@@ -387,3 +387,14 @@
 - 사용자에게 물을 것: ① 채널 원문 피드 유지 여부 ② 기업을 전략 탭으로 넣을지 독립 메뉴로 둘지. 구현·Artifact 재발행은 확인 뒤
 - (같은 날 2차) 사용자가 목적을 설명(채널 흐름 놓치지 않기 + 리포트로 큰 그림 + 정기 전략 보고서 → 프랍 데스크식 추세추종). 문서를 **전략 4층(국면·테마·종목·포지션) → 필요한 정보(있는 것·빈칸) → 에이전트 좌석표 10개 → 데스크 리듬 → 화면 5메뉴** 순으로 다시 씀. 새로 만들 것은 전략가 스킬(/strategy-report, 주 1회)·관찰 풀(config/watch_pool.toml)·복기 요약(trades.py review)·EPS 추정치 도구. 규칙 변경 소지(권장 노출·연속 손절 쉬기)는 🔒 표시하고 2027-01 재검토로 미룸. 결정 사항: 발간 요일, 감시 목록 재가동 범위(관찰 풀 한정), 권장 표시 여부
 
+## 2026-11-10 (오후) 트레이딩룸 재설계 1~4단계 구현 + 예약 작업 모델별 재배치 (브랜치 redesign-trading-room, main 합치기 전)
+- 전략가: `tools/strategy_prep.py` prep(4검증 숫자: 말=업종·풀 종목 주별 글 수, 이익=7/31일 리포트 상향·하향·컨센·실적, 가격·돈=RS·수익률·외국인·기관 5일, + 국면·해외·경제지표·자료실 14일·띔 메모·최근 의견·일정·지난 보고서·매매) / score(지난 띔 성적) / pool(관찰 풀 TOML) / save(형식 검사·history·풀 갱신). 첫 실행은 시총 2천억↑ 일봉 캐시 786종목 155초. 요약 약 3만 자
+- `/strategy-report` 스킬 + `docs/strategy-report-format.md` v3(1쪽 요약·국면·띔 4검증 점수표·밸류·촉매·기업 지도·반론·무효 / 업종 스코어카드 / 관찰 풀 표 / 시나리오 3 / 가설 성적표 / 한계·방법론·출처). 토 09:07 Opus 전용 대화 예약 trig_01THKFAcEHrA15fuSivwqYUj
+- 11/09 전략 보고서 latest.json이 저장소에 없던 것(세션 컨테이너에만 있었음)을 웹 페이지 데이터에서 복구해 커밋. 관찰 풀 22종목(복합 이름 '·' 분리)
+- 복기: `trades.py review` — 5건 연속 손절(−6.47R, 기대값 −1.29R), 11/02·11/04 같은 날 몰아 매수 2묶음, 손절가보다 더 잃은 2건, 진입일 모두 🔴
+- 웹: 메뉴 11→5 (오늘·흐름·전략·내 매매·더보기), 옛 id 별칭, 오늘 한 열(PC 2단, 시장 숫자 접힘·기억), 흐름 타임라인, 전략 탭 5(보고서 v3 칸 렌더·관찰 풀·자료실·기업·감시 목록), 내 매매(복기 상자·규칙 한 장), 더보기. Playwright PC·휴대폰 전 메뉴 오류 0. 디자인은 유지(시안 승인 뒤)
+- 감시 목록 재가동(관찰 풀 한정): `screener.py --pool`(775종목 41초, 풀 밖은 RS 70↑ 신호만 '발굴'), alerts 🔥/참고, features monitoring=true scope=pool, 16:07 Haiku 예약 trig_013dH2GHiqU4s5X4HKFDRWAc
+- 예약 재배치(사용자 요청 토큰 절약): 새 전용 대화 Sonnet 데스크 session_0122SASEgvzcy9RLXRVs53fs(아침 trig_01U1ogJKQEQoBKRwdQVjyh2u · 2시간 정리 trig_01Au9GSE4wbPjqB1rwAQUMfS · 리포트 trig_012rW7eVcCoVaxErXBGGjKzb · 마감 trig_01RYP5iZ2EDf2wv2K12B8pAb · 자료실 2건 trig_01YVxhRJZsnXJJZiVMK1ZDSg), Opus 전략 데스크 session_0122SASDV279Yx9jPF6BddAT(주간 trig_01RX1nTKbLhVFGZuik6e6fc2 · 전략 보고서). 두 대화 모두 푸시·환경 변수·Artifact·드라이브 도구 확인됨. 옛 공용 대화 예약 6개 끔. 새 대화 생성(create_session) 방식만 저장소 접근이 됨(새 대화를 매번 만드는 방식은 add_repo가 없어 실패, 11/06 시험 기록 확인)
+- RS 도구: skyte/relative-strength(IBD 40/20/20/20)·rs_indicator(단기)·pykrx(KRX 로그인 필요) 검토 → 지금 RS(책 정의, 토큰 0) 유지. 자세한 건 docs/redesign-trading-room.md 8절
+- 남은 것: 디자인 시안(별도 Artifact, 승인 뒤 적용) · main 합치기 · 사진 분리 · EPS 추정치 도구
+
