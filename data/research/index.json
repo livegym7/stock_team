@@ -809,6 +809,30 @@
    "drive_modified": null,
    "analyzed_at": "2026-11-09 19:17",
    "depth": "full"
+  },
+  "1jlFkL78xJCYplCJ2ojPE-xq_iR-IEHmP": {
+   "title": "데이터센터 관련 과도한 우려 (하나증권, 2026-11-06)",
+   "broker": "하나증권",
+   "date": "2026-11-06",
+   "kind": "산업",
+   "subject": "반도체 · 삼성전자·SK하이닉스",
+   "one_line": "중간선거 민주당 승리로 데이터센터 규제 우려가 커졌지만 근본 규제 가능성은 낮고, 메모리 주가는 PBR 1.2배대 전 저점에 있어 단기 급락을 비중확대 기회로 본다.",
+   "url": "https://drive.google.com/file/d/1jlFkL78xJCYplCJ2ojPE-xq_iR-IEHmP/view?usp=drivesdk",
+   "drive_modified": "2026-11-06T02:50:09.576Z",
+   "analyzed_at": "2026-11-10 22:08",
+   "depth": "full"
+  },
+  "19Su-La2_f6w4mgfWXAK_kVcaxA6GWuBy": {
+   "title": "미국 중간선거 배터리 수혜 논리 정교히 해야 (하나증권, 2026-11-06)",
+   "broker": "하나증권",
+   "date": "2026-11-06",
+   "kind": "산업",
+   "subject": "2차전지 · LG에너지솔루션·삼성SDI",
+   "one_line": "한국 배터리의 ESS 수혜는 데이터센터가 아니라 미국 기존 Grid 시장의 '탈중국' 수요에서 나오므로 선거와 무관하고, 전기차 회복 기대는 가격에 넣지 말아야 한다.",
+   "url": "https://drive.google.com/file/d/19Su-La2_f6w4mgfWXAK_kVcaxA6GWuBy/view?usp=drivesdk",
+   "drive_modified": "2026-11-06T02:50:26.505Z",
+   "analyzed_at": "2026-11-10 22:08",
+   "depth": "full"
   }
  },
  "skipped": {
