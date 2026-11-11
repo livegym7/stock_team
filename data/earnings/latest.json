@@ -1,18 +1,6 @@
 {
  "rows": [
   {
-   "name": "일진전기",
-   "code": "103590",
-   "period": "2026.3Q",
-   "sales": 6376.0,
-   "op": 700.0,
-   "net": 514.0,
-   "verdict": null,
-   "time": "2026-11-11 14:16",
-   "channel": "maddingStock",
-   "url": "https://t.me/maddingStock/19323"
-  },
-  {
    "name": "도우인시스",
    "code": "484120",
    "period": "2026.3Q",
@@ -20,9 +8,21 @@
    "op": 134.0,
    "net": 18.0,
    "verdict": null,
-   "time": "2026-11-11 13:19",
-   "channel": "maddingStock",
-   "url": "https://t.me/maddingStock/19320"
+   "time": "2026-11-11 14:54",
+   "channel": "nje2e",
+   "url": "https://t.me/nje2e/45300"
+  },
+  {
+   "name": "일진전기",
+   "code": "103590",
+   "period": "2026.3Q",
+   "sales": 6376.0,
+   "op": 700.0,
+   "net": 514.0,
+   "verdict": null,
+   "time": "2026-11-11 14:54",
+   "channel": "nje2e",
+   "url": "https://t.me/nje2e/45301"
   },
   {
    "name": "예스티",
