@@ -869,6 +869,42 @@
    "drive_modified": null,
    "analyzed_at": "2026-11-11 13:01",
    "depth": "excerpt"
+  },
+  "naver_invest_40796": {
+   "title": "[주황전략] 병목 심화가 아닌 해소 경로의 가시성 확보 (한화투자증권, 2026-11-11)",
+   "broker": "한화투자증권",
+   "date": "2026-11-11",
+   "kind": "전략",
+   "subject": "시장·전략 · 중간선거 뒤 AI 데이터센터 규제",
+   "one_line": "텍사스의 데이터센터 규제는 새 규제가 아니라 선거 전부터 있던 동결의 연장이고, 조건이 풀리는 경로가 보여 병목 '심화'가 아닌 '해소 경로의 가시성 확보'로 읽는다.",
+   "url": "https://stock.naver.com/research/invest/40796",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-11 19:21",
+   "depth": "full"
+  },
+  "naver_invest_40781": {
+   "title": "미국 중간선거 이후 매크로, 시장 및 섹터별 영향 (대신증권, 2026-11-10)",
+   "broker": "대신증권",
+   "date": "2026-11-10",
+   "kind": "전략",
+   "subject": "시장·전략 · 중간선거 이후 매크로와 섹터 영향",
+   "one_line": "데이터센터 규제는 '총량 감소'가 아니라 '속도 조절'이며, 코스피 선행 PER 3.54배(2001년 이후 처음 4배 하회)는 오해가 풀리면 11월 저점 통과 후 정상화될 것으로 본다.",
+   "url": "https://stock.naver.com/research/invest/40781",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-11 19:21",
+   "depth": "full"
+  },
+  "naver_invest_40785": {
+   "title": "[중국 테마 전략] 대만 증시 반등, 추세 전환일까 (하나증권, 2026-11-10)",
+   "broker": "하나증권",
+   "date": "2026-11-10",
+   "kind": "전략",
+   "subject": "시장·전략 · 대만 증시 급락과 반등 (반대 의견)",
+   "one_line": "대만 증시 급락은 실적 악화가 아니라 외국인 수급 이탈과 AI 지속성 의구심이 주도했고, 정책 개입으로 반등했지만 외국인 순매도가 이어져 추세 전환으로 보기는 이르다.",
+   "url": "https://stock.naver.com/research/invest/40785",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-11 19:21",
+   "depth": "full"
   }
  },
  "skipped": {
