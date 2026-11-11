@@ -38,7 +38,8 @@ a{color:var(--accent)}
 .stg{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;font-size:12px}.stg i{font-style:normal;padding:2px 9px;color:var(--muted)}.stg i.on{background:var(--accent);color:#fff;font-weight:700}
 .chain{display:flex;flex-wrap:wrap;align-items:stretch;gap:6px}.chain .arr{align-self:center;color:var(--muted);font-weight:700}.chain .node{border:2px solid var(--accent);border-radius:8px;padding:6px 10px;background:var(--panel);max-width:190px}.chain .node.hyp{border-style:dashed;border-color:var(--muted)}.chain .node small{display:block;color:var(--muted);font-size:11.5px}
 .g3{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
-.rpt-wrap{max-width:980px}.rcover h1{font-size:24px;line-height:1.3}
+.rpt-wrap{max-width:none}
+th.sortable{cursor:pointer;user-select:none}th.sortable:hover{color:var(--fg)}th.sortable.on{color:var(--fg);font-weight:700}th .sar{margin-left:3px;font-size:10px;opacity:.55}th.sortable.on .sar{opacity:1}.rcover h1{font-size:24px;line-height:1.3}
 .conc{border-left:4px solid var(--accent);font-size:15px}.conc p{margin:6px 0 0;line-height:1.7}
 .rpt{margin-top:14px}.rpt h2{font-size:18px;margin:0 0 6px}.rpt h3{font-size:14px;margin:16px 0 6px}
 .rhead{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.rhead h2{margin:0}.rmeta{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0}
@@ -1018,14 +1019,17 @@ function viewWatch(){
   const W=D.watch; if(!W)return `<h1>감시 목록</h1><div class="empty">아직 감시 목록이 없습니다 (평일 16:07 생성)</div>`;
   const grp=ui.wg||"signals", rows=(W[grp]||[]);
   const secs=[...new Set(rows.map(x=>x.sector))], sf=ui.ws||"";
-  const list=rows.filter(x=>!sf||x.sector==sf);
+  const WS=ui.wsort||{}, WK={stock:x=>x.stock,close:x=>x.close,rs:x=>x.rs,off:x=>x.off_high_pct,stage:x=>x.stage,setup:x=>(x.setups||[]).join(","),bo:x=>x.levels?.breakout,alert:x=>x.levels?.alert,stop:x=>x.levels?.stop_1r,dist:x=>x.levels?.distance_pct,base:x=>x.base?x.base.days:x.run_pct};
+  let list=rows.filter(x=>!sf||x.sector==sf);
+  if(WS.k&&WK[WS.k]){const f=WK[WS.k],d=WS.d=="asc"?1:-1;list=list.map((x,i)=>[x,i]).sort((a,b)=>{const va=f(a[0]),vb=f(b[0]),na=va==null||va==="",nb=vb==null||vb==="";if(na||nb)return na-nb||a[1]-b[1];return (typeof va=="string"?va.localeCompare(vb,"ko"):va-vb)*d||a[1]-b[1]}).map(a=>a[0])}
+  const th=(k,n,l)=>`<th class="sortable${l?" l":""}${WS.k==k?" on":""}" data-wsort="${k}" title="눌러서 정렬: 높은 순 → 낮은 순 → 기본 순서">${n}<span class="sar">${WS.k==k?(WS.d=="asc"?"▲":"▼"):"↕"}</span></th>`;
   const names={signals:"✅ 신호",candidates:"👀 후보 (내가 판단)",watch:"대기 (셋업·조건 충족)",running:"1stage 진행 중"};
   return `<h1>감시 목록</h1><div class="sub">${esc(W.source)} · ${esc(W.as_of)} 종가 기준 · 훑은 종목 ${w(W.count)}개 · 시총 ${w(W.rules?.min_mcap_eok)}억↑ · 거래대금 ${W.rules?.min_value_eok}억↑</div>
   <div class="chips">${Object.entries(names).map(([k,n])=>`<button class="chip ${grp==k?"on":""}" data-wg="${k}">${n} ${(W[k]||[]).length}</button>`).join("")}</div>
   ${grp=="candidates"?`<div class="src" style="margin:-4px 0 10px">규칙을 1~2개 못 채웠지만 오늘 움직임(돌파·55일 신고가·포켓피봇·급등)이 있거나 기준가 10% 안인 종목. 부족한 조건을 보고 직접 판단하세요</div>`:""}
   ${grp=="signals"&&!rows.length?`<div class="empty">오늘 규칙 신호(✅)는 없습니다. 👀 후보를 확인해 보세요</div>`:""}
   ${secs.length>1?`<div class="chips"><button class="chip ${!sf?"on":""}" data-ws="">전체 섹터</button>${secs.map(s=>`<button class="chip ${sf==s?"on":""}" data-ws="${esc(s)}">${esc(s)}</button>`).join("")}</div>`:""}
-  ${list.length?`<div class="tw"><table><tr><th class="l">종목</th><th>종가</th><th>RS</th><th>고점대비</th><th>단계</th><th>셋업</th><th>기준가</th><th>알림가</th><th>손절가</th><th>기준가까지</th><th>조정</th><th class="l">오늘</th></tr>
+  ${list.length?`<div class="tw"><table><tr>${th("stock","종목",1)}${th("close","종가")}${th("rs","RS")}${th("off","고점대비")}${th("stage","단계")}${th("setup","셋업")}${th("bo","기준가")}${th("alert","알림가")}${th("stop","손절가")}${th("dist","기준가까지")}${th("base","조정")}<th class="l">오늘</th></tr>
   ${list.map(x=>`<tr class="click" data-wd="${x.code}"><td class="l" style="white-space:normal;min-width:150px"><b>${esc(x.stock)}</b><br><small class="muted">${esc(x.group||x.sector)}</small>${grp=="candidates"&&(x.missing||[]).length?`<br><small class="warnt">부족: ${esc(x.missing.join(" · "))}</small>`:""}</td><td class="num">${w(x.close)}</td><td class="num">${x.rs}</td><td class="num">${pc(x.off_high_pct)}</td>
    <td><span class="pill">${esc(x.stage)}</span></td><td>${(x.setups||[]).join(", ")||"-"}</td><td class="num">${w(x.levels?.breakout)}</td><td class="num">${w(x.levels?.alert)}</td><td class="num">${w(x.levels?.stop_1r)}</td>
    <td class="num">${pc(x.levels?.distance_pct)}</td><td class="num">${x.base?`${x.base.days}일 · 반납 ${x.base.giveback_pct}%`:x.run_pct?`상승 ${x.run_pct}%`:"-"}</td><td class="l">${(x.today||[]).join(", ")||""}</td></tr>
@@ -1744,6 +1748,8 @@ document.addEventListener("click",e=>{
   const rg=e.target.closest("[data-rg]"); if(rg){ui.rgc=ui.rgc||{};ui.rgc[rg.dataset.rg]=!ui.rgc[rg.dataset.rg];save();render();return}
   const rgm=e.target.closest("[data-rgm]"); if(rgm){ui.rgm=ui.rgm||{};ui.rgm[rgm.dataset.rgm]=1;save();render();return}
   const rd=e.target.closest("[data-rd]"); if(rd){const inList=!!rd.closest(".rlist");ui.rd=rd.dataset.rd;ui.rt="docs";save();render();if(!inList)window.scrollTo(0,0);else{const el=document.querySelector(".rrow.on");if(el&&window.innerWidth<=820)el.scrollIntoView({block:"start"})}return}
+  const wso=e.target.closest("[data-wsort]"); if(wso){const k=wso.dataset.wsort,c=ui.wsort||{},first=k=="stock"||k=="stage"||k=="setup"?"asc":"desc",second=first=="asc"?"desc":"asc";   // 정렬 순환: 첫 방향 → 반대 방향 → 기본 순서 (2026-11-11)
+    ui.wsort=c.k!=k?{k,d:first}:c.d==first?{k,d:second}:{};save();render();return}
   const cs=e.target.closest("[data-cs]"); if(cs){ui.cs=cs.dataset.cs;save();render();return}
   const t=e.target.closest("[data-bk],[data-bf],[data-wg],[data-ws],[data-wd],[data-cc],[data-ct],[data-go],[data-kind],.post");
   if(!t)return;
