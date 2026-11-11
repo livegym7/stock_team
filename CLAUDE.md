@@ -50,6 +50,7 @@ python3 tools/web_build.py --only analysis             # "분석 새로고침": 
 python3 tools/web_build.py --only monitoring           # "모니터링 새로고침": 감시 목록 다시 계산 + 섹터·검증실 (5~10분)
 # "새로고침해줘" = 전체(python3 tools/web_build.py). 어떤 것이든 끝나면 Artifact url로 다시 올림
 python3 tools/live_brief.py prep|save              # 2시간마다 채널·리포트 정리 (평일 08·10·12·14·16시 12분 예약, /live-brief). 웹 브리핑은 이것으로만 씀(웹 버튼 즉석 쓰기 없앰)
+python3 tools/insight.py prep|save|show                # Claude 인사이트(웹 '오늘' 맨 위): 채널 3일 치 종합 해석 재료(토큰 0) → /live-brief 08·12·16시 회차가 저장 (2026-11-11)
 python3 tools/market_pulse.py pulse|flows|econ        # 시황(토큰 0): 온도계(투자자별 순매수·등락 종목 수·신고가)·업종/테마 등락·상승하락 상위 / 시총 상위 300 수급(저녁 확정) / 경제지표 실제 vs 예상(TradingView). web_build가 매번 부름 → 웹 '시황' 메뉴
 python3 tools/sector_map.py check                     # 업종 분류표(사용자 custom 53개) 빠진 종목·확인 필요 점검 / set --code --custom 로 채우기
 python3 tools/backtest.py                              # 검증실: 돌파 규칙 백테스트(3년 일봉, 약 1분·캐시) + 감시 목록 성적표 → data/backtest/

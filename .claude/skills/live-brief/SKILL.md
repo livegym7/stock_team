@@ -20,6 +20,12 @@ description: 2시간마다(평일 08·10·12·14·16시 12분) 웹 트레이딩�
 5. 스크래치 파일에 쓴 뒤 저장:
    - `python3 tools/live_brief.py save --kind channels --file <A 파일>`
    - `python3 tools/live_brief.py save --kind report --file <B 파일>`
+5-1. **Claude 인사이트 (08·12·16시 회차만, 2026-11-11 사용자 요청)** — 웹 '오늘' 맨 위 칸. 리포트 상향·하향 나열이 아니라 채널 며칠 치를 종합한 Claude의 해석을 쓴다.
+   - `python3 tools/insight.py prep > data/cache/insight_prep.md` 후 Read (약 1.5만 자: 국면·마감/장중 숫자·업종/테마·말 vs 주가·🔥여러 채널·정리 헤드라인 3일·카드 새 주장·띔 메모·지난 인사이트)
+   - JSON 칸: `made_at`, `basis`(무엇을 몇 건 종합했나), `headline`(한두 문장 결론), `story`(며칠째 이어지는 큰 흐름 2~3), `shifts`(지난 인사이트·어제 대비 바뀐 것 2~3), `gaps`(말과 주가·리포트와 가격이 엇갈리는 곳과 Claude의 해석 2~4), `meaning`(돌파 전략·관찰 풀·계좌에 주는 뜻 2~3), `against`(반대 근거 1~3), `watch`(볼 것 3~5, 날짜·숫자 조건)
+   - 좋은 인사이트 = 숫자 두 개를 연결해 '그래서 무엇을 뜻하나'를 말하는 것(예: "글은 +142%인데 주가는 +2.4% → 방어 쏠림"). 뉴스 요약·목표가 나열은 정리 글에 이미 있으니 반복하지 않는다. 지난 인사이트의 '볼 것'이 맞았는지 `shifts`에 한 줄 적는다.
+   - 숫자마다 출처·시각, 채널은 (채널 요약). 매수·매도 단정 금지(저장 때 검사). 문장은 짧게(brief-style).
+   - `python3 tools/insight.py save --file <스크래치>.json`
 6. `python3 tools/web_build.py --only channels` — 방금 저장한 정리를 웹 데이터에 넣는다 (몇 초)
 7. Artifact 갱신: action "read"로 https://claude.ai/artifact/C8B5Dd1zwtyyqP3c4e3ric 를 읽고, file_path=/home/user/stock_team/web/index.html, url=같은 주소로 publish (icon 넘기지 않음). 충돌이 나면 다시 read 후 publish.
 8. 커밋·푸시: `git add reports data && git commit -m "매시간 채널·리포트 정리 HH:MM"` → `git pull --rebase origin main` (데이터 파일 충돌은 `git checkout --ours` 후 계속) → `git push -u origin main`. web/index.html은 커밋하지 않는다.

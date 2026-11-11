@@ -1,6 +1,25 @@
 {
  "rows": [
   {
+   "name": "위메이드",
+   "code": "112040",
+   "period": "2026.3Q",
+   "sales": 1460.0,
+   "sales_est": 1540.0,
+   "sales_surprise": -5.2,
+   "sales_yoy": -10.8,
+   "op": 264.0,
+   "op_est": 230.0,
+   "op_surprise": 14.8,
+   "op_yoy": 0.3,
+   "net": 52.0,
+   "net_yoy": -90.9,
+   "verdict": "서프라이즈",
+   "time": "2026-11-11 16:06",
+   "channel": "maddingStock",
+   "url": "https://t.me/maddingStock/19333"
+  },
+  {
    "name": "도우인시스",
    "code": "484120",
    "period": "2026.3Q",

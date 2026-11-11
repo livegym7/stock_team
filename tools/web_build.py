@@ -1165,6 +1165,10 @@ LAST = WEB / "last_data.json"   # 마지막 전체 데이터 (부분 새로고�
 
 
 def write_html(data):
+    # Claude 인사이트 (2026-11-11): 채널 며칠 치를 종합한 해석 — tools/insight.py save 가 씀. 어떤 갱신이든 최신 파일을 실음
+    fi = DATA / "insight" / "latest.json"
+    if fi.exists():
+        data["insight"] = safe(lambda: json.loads(fi.read_text(encoding="utf-8")))
     # 전략 보고서: 실제 보고서(latest.json)가 있으면 그것, 없으면 형식 보기용 예시(sample.json)
     for f in (DATA / "strategy" / "latest.json", DATA / "strategy" / "sample.json"):
         if f.exists():
