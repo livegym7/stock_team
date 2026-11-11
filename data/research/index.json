@@ -833,6 +833,42 @@
    "drive_modified": "2026-11-06T02:50:26.505Z",
    "analyzed_at": "2026-11-10 22:08",
    "depth": "full"
+  },
+  "naver_industry_46947": {
+   "title": "2027년 연간전망 (산업편): 수요의 재설계 (유안타증권, 2026-11-06)",
+   "broker": "유안타증권",
+   "date": "2026-11-06",
+   "kind": "산업",
+   "subject": "반도체·메모리 2027 연간전망",
+   "one_line": "2027년은 피크아웃이 아니라 AI 수익화 우려가 하나씩 걷히며 업종이 균형 있게 우상향하는 해 — 이번 둔화는 재고 조정이 아닌 '아키텍처 조정'이라 메모리 비중 확대 유지",
+   "url": "https://stock.naver.com/research/industry/46947",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-11 13:01",
+   "depth": "excerpt"
+  },
+  "naver_invest_40778": {
+   "title": "글로벌 테크 - 조정 이후를 결정할 변수 (유진투자증권, 2026-11-10)",
+   "broker": "유진투자증권",
+   "date": "2026-11-10",
+   "kind": "전략",
+   "subject": "미국 데이터센터 규제·네오클라우드·AI 밸류체인",
+   "one_line": "SOX 지난주 −12%는 세 우려가 겹친 결과 — 데이터센터 전면 금지 가능성은 낮고 규제 강화의 ROI 하락은 GPU 렌탈가 상승과 '미국 밖 거점 확대'로 상당 부분 상쇄",
+   "url": "https://stock.naver.com/research/invest/40778",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-11 13:01",
+   "depth": "excerpt"
+  },
+  "naver_industry_46922": {
+   "title": "의회가 바뀌어도 철강 관세는 남는다 (유진투자증권, 2026-11-10)",
+   "broker": "유진투자증권",
+   "date": "2026-11-10",
+   "kind": "산업",
+   "subject": "철강 — 미국 50% 관세 유지와 강관 수출",
+   "one_line": "민주당 의회에서도 232조 철강 관세 50%는 유지될 전망 — 미국 현지 철강 가격 강세가 이어져 송유관·유정용 강관(OCTG) 수출사 세아제강·현지 거점 세아제강지주가 상대 수혜",
+   "url": "https://stock.naver.com/research/industry/46922",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-11 13:01",
+   "depth": "excerpt"
   }
  },
  "skipped": {

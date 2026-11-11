@@ -72,8 +72,8 @@ def cmd_save(path):
     uni = {s["name"]: s["code"] for s in load()["stocks"]}
     for s in d.get("stocks", []):
         s["code"] = s.get("code") or uni.get(s.get("name"))
-    if d.get("depth") not in (None, "full", "light"):
-        raise SystemExit('depth는 "full" 또는 "light"(요약만, 첫 쪽)')
+    if d.get("depth") not in (None, "full", "light", "excerpt"):
+        raise SystemExit('depth는 "full" / "light"(요약만, 첫 쪽) / "excerpt"(질문 주도 발췌 읽기, 2026-11-11)')
     d["depth"] = d.get("depth") or "full"
     d["analyzed_at"] = now()
     DOCS.mkdir(parents=True, exist_ok=True)

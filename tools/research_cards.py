@@ -345,11 +345,12 @@ def pick_deep(top=3, days=2):
     val = {"상": 30, "중": 10, "하": -20}
     def sc(c):
         return rank(c) + val.get(c.get("depth_value"), 0) + (10 if c["status"] == "card" else 0)
-    main = sorted((c for c in pool if not c.get("contrarian")), key=lambda c: -sc(c))
-    # 반대 의견 1건 고정: contrarian 또는 (띔 밖 섹터 중 신규성 높은 것)
-    cont = sorted((c for c in pool if c.get("contrarian")), key=lambda c: -sc(c))
-    if not cont:
-        cont = sorted((c for c in pool if not c.get("theme_hit")), key=lambda c: -(c.get("novelty") or 0))
+    # 반대 의견 판정: 카드가 있으면 카드 입장(stance) 우선, 없으면 초안의 추정 입장 — 띔 관련 + 약세
+    is_contra = lambda c: bool(c.get("theme_hit")) and (c.get("stance") or c.get("stance_hint")) == "약세" and c.get("depth_value") != "하"
+    cont = sorted((c for c in pool if is_contra(c)), key=lambda c: -sc(c))
+    if not cont:   # 반대 의견이 없으면 띔 밖(비주류) 업종 중 깊이 가치 '하'가 아닌 것
+        cont = sorted((c for c in pool if not c.get("theme_hit") and c.get("depth_value") != "하"), key=lambda c: -sc(c))
+    main = sorted((c for c in pool if c not in cont[:1]), key=lambda c: -sc(c))
     chosen = main[:max(1, top - 1)] + cont[:1]
     return [{"cat": c["cat"], "nid": c["nid"], "title": c["title"], "broker": c["broker"], "date": c["date"], "sector": c["sector"], "why": ("반대 의견·비주류 고정" if c in cont[:1] else "") + f" 점수 {sc(c)} 신규성 {c['novelty']} 입장 {c.get('stance') or c['stance_hint']} 깊이 {c.get('depth_value') or '-'}", "url": c["url"]} for c in chosen]
 
@@ -387,7 +388,9 @@ def questions():
 
 
 def kw(text):
-    w = [x for x in re.findall(r"[가-힣A-Za-z]{2,}|\d{2,}", text) if x not in ("여부", "확인", "필요", "이후", "대비", "기준", "수준", "관련", "또는", "있는", "없는", "하는")]
+    stop = {"여부", "확인", "필요", "이후", "대비", "기준", "수준", "관련", "또는", "있는", "없는", "하는", "이번", "오늘", "내년", "가장", "공통의", "지점", "되는지", "맞는지", "하면", "까지", "보도와", "발표", "숫자", "시점", "전제", "띔의", "띔은", "본다", "보류한다"}
+    w = [re.sub(r"(의|이|가|을|를|은|는|에서|으로|로)$", "", x) for x in re.findall(r"[가-힣A-Za-z]{2,}", text)]
+    w = [x for x in w if len(x) >= 2 and x not in stop]
     return "|".join(dict.fromkeys(w[:8]))
 
 
