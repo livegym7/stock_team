@@ -25,6 +25,8 @@ HEAD = """<!doctype html>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#18181b">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.png" type="image/png" sizes="1024x1024">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="apple-touch-icon" href="/icon-512.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -56,6 +58,8 @@ def build(placeholder=False):
     (SITE / "index.html").write_text(HEAD + body + TAIL, encoding="utf-8")
     shutil.copy(WEB / "brand" / "balance-lab-icon-1024.png", SITE / "icon-512.png")
     shutil.copy(WEB / "brand" / "balance-lab-icon.svg", SITE / "icon.svg")
+    shutil.copy(WEB / "brand" / "balance-lab-icon-1024.png", SITE / "favicon.png")
+    shutil.copy(WEB / "brand" / "balance-lab-icon-1024.png", SITE / "favicon.ico")   # 브라우저가 기본으로 찾는 주소 (PNG 내용, 대부분 브라우저가 읽음)
     (SITE / "manifest.webmanifest").write_text(json.dumps({
         "name": "Balance Lab", "short_name": "Balance Lab", "start_url": "/", "display": "standalone",
         "background_color": "#fafafa", "theme_color": "#18181b",
