@@ -58,6 +58,10 @@ jobs:
         run: |
           python3 tools/tg_channel.py collect || true
           H=$(TZ=Asia/Seoul date +%H)
+          # 기업 메뉴 RS·가격 흐름·수익률은 시총 2천억↑ 전 종목 일봉 캐시가 있어야 계산된다 (없으면 비어 보임, 2026-11-11 수정)
+          # 처음(캐시 없음)엔 전부 받고, 16시 회차엔 장마감 봉으로 전부 새로 받는다 (2~4분)
+          if [ "$H" = "16" ]; then N=1000000000; else N=300; fi
+          python3 -c "import sys; sys.path.insert(0,'tools'); import strategy_prep as S; print('daily cache', S.ensure_daily_cache(min_n=$N))" || true
           if [ ! -f web/last_data.json ] || [ "$H" = "07" ]; then
             python3 tools/web_build.py
           else
