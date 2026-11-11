@@ -431,3 +431,12 @@
 - 반대 의견 자동 후보(46900)가 실제로는 강세 → `pick_deep`가 카드의 입장(stance)을 먼저 보게 고침. 반대 의견 카드가 없으면 띔 밖 업종(비주류)으로 대신함.
 - `research.py save`가 depth "excerpt"(질문 주도 발췌 읽기)를 받게 함, 웹에 '질문 읽기' 꼬리표.
 - 배운 것: `fire_trigger`(수동 실행)는 저장소 없는 새 대화를 만들어 실패함 — 쓰지 않는다. 다른 대화로 `send_message`도 거절됨. 수동 실행은 지금 대화에서 직접 한다.
+
+## 2026-11-11 (오후) 전략 보고서 제3호 — v4 양식 첫 정식 호 (사용자 요청)
+- 재료: `strategy_prep prep·score`, `naver_research candidates`, 장 마감(15:30) 시세. 원문 확인 3건: 교보 NHN(p.1), 하나 운송(p.1·p.3), DS BAAJA(p.1·p.2)
+- 결론: 반등 2일째, 준비 = NAVER·삼성에스디에스·삼성E&A·대한항공 / 관찰 = NHN(장중 반전)·진에어·제주항공(하나 목표가 초과)·메모리 / 회피 = 전력기기(기각 피치)
+- 만드는 법: `python3 docs/strategy-v4/issue_2026-11-11.py` 하나가 `data/strategy/draft.json`·`reports/2026-11-11/strategy.html·.md·_tg.md`를 함께 만든다. 다음 호는 이 파일을 복사해 숫자·문장만 바꾼다 (스타일은 `docs/strategy-v4/style.html`)
+- 저장: `strategy_prep save` → latest.json, history/2026-11-09.json, 관찰 풀 15종목(config/watch_pool.toml, 띔 기업 지도만. 표의 나머지 7종목은 보고서에만)
+- 업종 지식 노트 첫 4장: `data/research/notes/` (IT-소프트웨어·운송-물류·반도체-메모리·전력기기)
+- 전략 보고서 Artifact(매주 같은 주소로 갱신): https://claude.ai/artifact/7MjetxpGd9tuniuTok1ZmS · 트레이딩룸도 다시 올림 · 텔레그램 요약 전송
+- 참고: 새 세션에는 `web/last_data.json`이 없어 `--only analysis`가 안 돌아 전체 빌드로 대신함
