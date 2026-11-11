@@ -10,3 +10,4 @@ __pycache__/
 .venv/
 web/index.html
 web/last_data.json
+site/

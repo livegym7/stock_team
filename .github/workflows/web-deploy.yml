@@ -1,0 +1,82 @@
+# Balance Lab 웹 자동 배포 (Cloudflare Pages, 2026-11-11). Claude 토큰 0.
+# 데이터를 만들어 site/ 폴더로 감싼 뒤 Cloudflare에 올린다. 저장소에는 아무것도 커밋하지 않는다.
+# 로그인 잠금 확인 전(config/web.toml access_ready = false)에는 데이터 없는 안내 페이지만 올린다.
+# 필요한 저장소 비밀값: CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID (값은 사용자가 깃허브 설정에 직접 넣음)
+name: 웹 배포 (Cloudflare)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "data/insight/**"
+      - "data/strategy/latest.json"
+      - "config/positions.toml"
+      - "web/app.html"
+      - "reports/**"
+  schedule:
+    - cron: "40 22 * * 0-4"     # 한국 평일 07:40 (전체 계산)
+    - cron: "10 0-6 * * 1-5"    # 한국 평일 09:10~15:10 매시
+    - cron: "40 7 * * 1-5"      # 한국 평일 16:40 (마감 확정)
+    - cron: "40 10 * * 1-5"     # 한국 평일 19:40 (리포트 카드·자료실 뒤)
+    - cron: "30 1 * * 6"        # 한국 토 10:30 (전략 보고서 뒤)
+
+permissions:
+  contents: read
+
+concurrency:
+  group: web-deploy
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: 지난 데이터·캐시 불러오기 (부분 새로고침용)
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            web/last_data.json
+            data/cache
+          key: web-${{ github.run_id }}
+          restore-keys: web-
+      - name: 잠금 확인 여부
+        id: gate
+        run: |
+          if grep -Eq '^access_ready *= *true' config/web.toml; then echo "ready=1" >> "$GITHUB_OUTPUT"; else echo "ready=0" >> "$GITHUB_OUTPUT"; fi
+      - name: 데이터 만들기
+        if: steps.gate.outputs.ready == '1'
+        run: |
+          python3 tools/tg_channel.py collect || true
+          H=$(TZ=Asia/Seoul date +%H)
+          if [ ! -f web/last_data.json ] || [ "$H" = "07" ]; then
+            python3 tools/web_build.py
+          else
+            python3 tools/web_build.py --only analysis
+          fi
+      - name: 데이터 캐시 저장
+        if: steps.gate.outputs.ready == '1'
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            web/last_data.json
+            data/cache
+          key: web-${{ github.run_id }}
+      - name: 배포 폴더 만들기
+        run: |
+          if [ "${{ steps.gate.outputs.ready }}" = "1" ]; then python3 tools/web_site.py; else python3 tools/web_site.py --placeholder; fi
+      - name: Cloudflare Pages에 올리기
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          npx --yes wrangler@3.90.0 pages project create balance-lab --production-branch main 2>/dev/null || true
+          npx --yes wrangler@3.90.0 pages deploy site --project-name balance-lab --branch main --commit-dirty=true

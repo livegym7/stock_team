@@ -1,0 +1,6 @@
+# Balance Lab 일반 웹 배포 (Cloudflare Pages) 설정 — Claude가 관리
+# access_ready: 로그인 잠금(Cloudflare Access)이 걸린 것을 Claude가 확인한 뒤에만 true로 바꾼다.
+#   false인 동안 깃허브 자동 배포는 데이터 없는 '잠금 확인 중' 페이지만 올린다 (보유 종목·계좌 노출 방지).
+project = "balance-lab"
+url = "https://balance-lab.pages.dev"
+access_ready = false
