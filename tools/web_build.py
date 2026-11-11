@@ -534,7 +534,7 @@ def research(comp_list, allp):
     """딥리서치: Claude가 드라이브 리포트를 읽고 쓴 분석(data/research) + 언급 종목의 시장 확인(RS·수익률)."""
     rd = DATA / "research"
     docs = [json.loads(f.read_text(encoding="utf-8")) for f in sorted((rd / "docs").glob("*.json"))] if (rd / "docs").exists() else []
-    docs.sort(key=lambda d: (d.get("date") or "", d.get("analyzed_at") or ""), reverse=True)
+    docs.sort(key=lambda d: (d.get("analyzed_at") or d.get("date") or ""), reverse=True)   # 읽은 날 순 (2026-11-11)
     syn = json.loads((rd / "synthesis.json").read_text(encoding="utf-8")) if (rd / "synthesis.json").exists() else None
     folders = [f.get("name") for f in (safe(lambda: load_toml("research.toml"), {}) or {}).get("folders", [])]
     from universe import load as load_universe
