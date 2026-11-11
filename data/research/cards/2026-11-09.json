@@ -21,7 +21,11 @@
   "neg": 1,
   "pos": 9,
   "contrarian": false,
-  "theme_hit": [],
+  "theme_hit": [
+   "이익",
+   "중심",
+   "하락"
+  ],
   "stocks": [
    "한미약품",
    "SK바이오사이언스",
@@ -468,7 +472,7 @@
    "연구개발의 성과를 낮은"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46857": {
@@ -494,11 +498,12 @@
   "pos": 5,
   "contrarian": true,
   "theme_hit": [
+   "AI",
    "건설",
-   "규제",
-   "데이터센터",
-   "에너지",
-   "전력"
+   "상향",
+   "운영",
+   "유가",
+   "이익"
   ],
   "stocks": [
    "OCI홀딩스"
@@ -940,7 +945,7 @@
    "유럽 TTF 30"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46858": {
@@ -966,8 +971,7 @@
   "pos": 6,
   "contrarian": false,
   "theme_hit": [
-   "밸류에이션",
-   "이익은"
+   "이익"
   ],
   "stocks": [],
   "numbers": [],
@@ -1100,7 +1104,7 @@
    "훼손할 정도로 확대될"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46859": {
@@ -1126,7 +1130,8 @@
   "pos": 6,
   "contrarian": false,
   "theme_hit": [
-   "이익은"
+   "이익",
+   "중심"
   ],
   "stocks": [],
   "numbers": [],
@@ -1262,7 +1267,7 @@
    "효율화를 통해 기존"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46860": {
@@ -1287,7 +1292,10 @@
   "neg": 2,
   "pos": 4,
   "contrarian": false,
-  "theme_hit": [],
+  "theme_hit": [
+   "이익",
+   "중심"
+  ],
   "stocks": [],
   "numbers": [],
   "tables": [],
@@ -1430,7 +1438,7 @@
    "효율화와 비용 구조"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46861": {
@@ -1456,7 +1464,7 @@
   "pos": 2,
   "contrarian": false,
   "theme_hit": [
-   "이익은"
+   "이익"
   ],
   "stocks": [],
   "numbers": [],
@@ -1589,7 +1597,7 @@
    "훨씬 높다 거꾸로"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46862": {
@@ -1614,7 +1622,9 @@
   "neg": 1,
   "pos": 6,
   "contrarian": false,
-  "theme_hit": [],
+  "theme_hit": [
+   "하락"
+  ],
   "stocks": [],
   "numbers": [],
   "tables": [],
@@ -1749,7 +1759,7 @@
    "힌트가 있다 엔터는"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46863": {
@@ -1775,7 +1785,8 @@
   "pos": 2,
   "contrarian": false,
   "theme_hit": [
-   "이익은"
+   "상향",
+   "이익"
   ],
   "stocks": [],
   "numbers": [],
@@ -1903,7 +1914,7 @@
    "효과였다 근거는 주식시장"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46864": {
@@ -1929,7 +1940,8 @@
   "pos": 1,
   "contrarian": true,
   "theme_hit": [
-   "데이터센터"
+   "이익",
+   "추정"
   ],
   "stocks": [],
   "numbers": [],
@@ -2049,7 +2061,7 @@
    "회계적인 착시효과에 2026년말까지"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46865": {
@@ -2075,7 +2087,12 @@
   "pos": 2,
   "contrarian": false,
   "theme_hit": [
-   "NAVER"
+   "AI",
+   "NAVER",
+   "NHN",
+   "소프트웨어",
+   "운영",
+   "이익"
   ],
   "stocks": [],
   "numbers": [],
@@ -2210,7 +2227,7 @@
    "효율화로 영업이익률은 27년"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46866": {
@@ -2236,7 +2253,8 @@
   "pos": 3,
   "contrarian": false,
   "theme_hit": [
-   "이익은"
+   "AI",
+   "이익"
   ],
   "stocks": [],
   "numbers": [],
@@ -2374,7 +2392,7 @@
    "후속작 수요로 연결해"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46867": {
@@ -2400,7 +2418,10 @@
   "pos": 3,
   "contrarian": false,
   "theme_hit": [
-   "규제"
+   "AI",
+   "소프트웨어",
+   "유가",
+   "중심"
   ],
   "stocks": [],
   "numbers": [],
@@ -2548,7 +2569,7 @@
    "훼손하는 반면 대규모"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46868": {
@@ -2574,7 +2595,9 @@
   "pos": 1,
   "contrarian": false,
   "theme_hit": [
-   "삼성전자"
+   "삼성전자",
+   "인프라",
+   "추정"
   ],
   "stocks": [],
   "numbers": [],
@@ -2705,7 +2728,7 @@
    "회복 기대감만으로도 폭의"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46869": {
@@ -2731,11 +2754,9 @@
   "pos": 2,
   "contrarian": false,
   "theme_hit": [
-   "ESS",
-   "데이터센터",
-   "에너지",
-   "전력",
-   "전력망"
+   "AI",
+   "인프라",
+   "중심"
   ],
   "stocks": [],
   "numbers": [],
@@ -2878,7 +2899,7 @@
    "회복의 속도가 아니라"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46870": {
@@ -2902,8 +2923,12 @@
   "stance_hint": "약세",
   "neg": 3,
   "pos": 1,
-  "contrarian": false,
-  "theme_hit": [],
+  "contrarian": true,
+  "theme_hit": [
+   "이익",
+   "하락",
+   "항공"
+  ],
   "stocks": [],
   "numbers": [],
   "tables": [],
@@ -3035,7 +3060,7 @@
    "호황기인 2022년 11달러"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46871": {
@@ -3060,7 +3085,10 @@
   "neg": 0,
   "pos": 0,
   "contrarian": false,
-  "theme_hit": [],
+  "theme_hit": [
+   "유가",
+   "하락"
+  ],
   "stocks": [],
   "numbers": [],
   "tables": [],
@@ -3205,7 +3233,7 @@
    "회복이 예상된다 국내는"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46872": {
@@ -3231,12 +3259,8 @@
   "pos": 3,
   "contrarian": false,
   "theme_hit": [
-   "2차전지",
-   "ESS",
-   "LG에너지솔루션",
-   "데이터센터",
-   "북미",
-   "삼성SDI"
+   "이익",
+   "중심"
   ],
   "stocks": [],
   "numbers": [],
@@ -3366,7 +3390,7 @@
    "확인될 전망이다 2사"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46873": {
@@ -3393,9 +3417,7 @@
   "contrarian": false,
   "theme_hit": [
    "기계",
-   "에너지",
-   "전력",
-   "전력망"
+   "추정"
   ],
   "stocks": [],
   "numbers": [],
@@ -3530,7 +3552,7 @@
    "효과는 하반기부터 본격화될"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46874": {
@@ -3557,9 +3579,8 @@
   "contrarian": false,
   "theme_hit": [
    "건설",
-   "이익은",
-   "전력",
-   "전력기기"
+   "이익",
+   "추정"
   ],
   "stocks": [],
   "numbers": [],
@@ -3696,7 +3717,7 @@
    "회복에 달렸고 전력기기는"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46875": {
@@ -3722,7 +3743,11 @@
   "pos": 2,
   "contrarian": false,
   "theme_hit": [
-   "건설"
+   "AI",
+   "건설",
+   "시공",
+   "이익",
+   "인프라"
   ],
   "stocks": [],
   "numbers": [],
@@ -3864,7 +3889,7 @@
    "확인을 통해 시장의"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46876": {
@@ -3889,7 +3914,13 @@
   "neg": 0,
   "pos": 1,
   "contrarian": false,
-  "theme_hit": [],
+  "theme_hit": [
+   "유가",
+   "이익",
+   "추정",
+   "하락",
+   "항공"
+  ],
   "stocks": [],
   "numbers": [],
   "tables": [],
@@ -4034,7 +4065,7 @@
    "회복될 것으로 보인다"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46877": {
@@ -4062,7 +4093,9 @@
   "theme_hit": [
    "SK하이닉스",
    "메모리",
-   "삼성전자"
+   "삼성전자",
+   "중심",
+   "추정"
   ],
   "stocks": [],
   "numbers": [],
@@ -4195,7 +4228,7 @@
    "효과로 Blended ASP"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46878": {
@@ -4221,7 +4254,11 @@
   "pos": 3,
   "contrarian": false,
   "theme_hit": [
-   "메모리"
+   "AI",
+   "메모리",
+   "소프트웨어",
+   "추정",
+   "하락"
   ],
   "stocks": [],
   "numbers": [],
@@ -4354,7 +4391,7 @@
    "힘입어 27F 폴더블"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46879": {
@@ -4380,8 +4417,9 @@
   "pos": 9,
   "contrarian": false,
   "theme_hit": [
-   "밸류에이션",
-   "삼성전기"
+   "AI",
+   "중심",
+   "추정"
   ],
   "stocks": [],
   "numbers": [],
@@ -4524,7 +4562,7 @@
    "희소가치 부족할수록 높아지는"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46880": {
@@ -4549,7 +4587,9 @@
   "neg": 1,
   "pos": 2,
   "contrarian": false,
-  "theme_hit": [],
+  "theme_hit": [
+   "하락"
+  ],
   "stocks": [],
   "numbers": [],
   "tables": [],
@@ -4689,7 +4729,7 @@
    "확인되면 타그리소 시장"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46881": {
@@ -4715,7 +4755,8 @@
   "pos": 2,
   "contrarian": false,
   "theme_hit": [
-   "이익은"
+   "AI",
+   "이익"
   ],
   "stocks": [],
   "numbers": [],
@@ -4852,7 +4893,7 @@
    "효과는 작지 않다"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46882": {
@@ -4878,9 +4919,10 @@
   "pos": 2,
   "contrarian": false,
   "theme_hit": [
+   "AI",
    "로봇",
-   "전력",
-   "전력기기"
+   "운영",
+   "인프라"
   ],
   "stocks": [],
   "numbers": [],
@@ -5018,7 +5060,7 @@
    "회수 가능성으로 옮겨가고"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46883": {
@@ -5043,7 +5085,9 @@
   "neg": 0,
   "pos": 0,
   "contrarian": false,
-  "theme_hit": [],
+  "theme_hit": [
+   "하락"
+  ],
   "stocks": [],
   "numbers": [],
   "tables": [],
@@ -5166,7 +5210,7 @@
    "환원수익률 p당 연간"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46884": {
@@ -5193,11 +5237,9 @@
   "contrarian": true,
   "theme_hit": [
    "건설",
-   "규제",
-   "데이터센터",
-   "밸류에이션",
-   "북미",
-   "사도"
+   "운영",
+   "중심",
+   "추정"
   ],
   "stocks": [
    "HD현대중공업",
@@ -5637,7 +5679,7 @@
    "실사를 감안하면 한국"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46885": {
@@ -5663,7 +5705,11 @@
   "pos": 4,
   "contrarian": false,
   "theme_hit": [
-   "북미"
+   "AI",
+   "상향",
+   "이익",
+   "중심",
+   "하락"
   ],
   "stocks": [
    "고려아연"
@@ -6105,7 +6151,7 @@
    "억엔의 business profit"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46886": {
@@ -6131,12 +6177,11 @@
   "pos": 36,
   "contrarian": false,
   "theme_hit": [
-   "CATL",
-   "ESS",
-   "LG에너지솔루션",
-   "규제",
-   "데이터센터",
-   "밸류에이션"
+   "AI",
+   "상향",
+   "운영",
+   "인프라",
+   "추정"
   ],
   "stocks": [
    "삼성SDI",
@@ -6585,7 +6630,7 @@
    "예상된다 이를 반영한"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46887": {
@@ -6612,9 +6657,8 @@
   "contrarian": false,
   "theme_hit": [
    "건설",
-   "밸류에이션",
-   "유틸리티",
-   "전력"
+   "시공",
+   "이익"
   ],
   "stocks": [
    "두산에너빌리티",
@@ -7059,7 +7103,7 @@
    "압력 용기 공장"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46888": {
@@ -7085,7 +7129,10 @@
   "pos": 8,
   "contrarian": false,
   "theme_hit": [
-   "규제"
+   "상향",
+   "운영",
+   "이익",
+   "추정"
   ],
   "stocks": [
    "에이프릴바이오",
@@ -7514,7 +7561,7 @@
    "열어둬 디앤 제약"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46889": {
@@ -7539,7 +7586,10 @@
   "neg": 1,
   "pos": 2,
   "contrarian": false,
-  "theme_hit": [],
+  "theme_hit": [
+   "운영",
+   "중심"
+  ],
   "stocks": [
    "CJ제일제당",
    "오뚜기",
@@ -7966,7 +8016,7 @@
    "제기 2017년 한국"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46890": {
@@ -7992,11 +8042,11 @@
   "pos": 11,
   "contrarian": false,
   "theme_hit": [
+   "AI",
    "건설",
-   "데이터센터",
-   "밸류에이션",
-   "전력",
-   "전력망"
+   "인프라",
+   "중심",
+   "하락"
   ],
   "stocks": [
    "KT",
@@ -8435,7 +8485,7 @@
    "이후 비관론은 점차"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46891": {
@@ -8461,9 +8511,12 @@
   "pos": 0,
   "contrarian": false,
   "theme_hit": [
+   "AI",
    "NAVER",
+   "NHN",
    "로봇",
-   "삼성에스디에스"
+   "삼성에스디에스",
+   "운영"
   ],
   "stocks": [
    "NAVER",
@@ -8880,7 +8933,7 @@
    "흑전 3943 54000"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46892": {
@@ -8906,8 +8959,10 @@
   "pos": 19,
   "contrarian": false,
   "theme_hit": [
-   "북미",
-   "이익은"
+   "상향",
+   "이익",
+   "추정",
+   "하락"
   ],
   "stocks": [
    "하이브",
@@ -9333,7 +9388,7 @@
    "시현 와이지엔터테인먼트가 11"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46893": {
@@ -9359,7 +9414,12 @@
   "pos": 7,
   "contrarian": false,
   "theme_hit": [
-   "건설"
+   "건설",
+   "대한항공",
+   "상향",
+   "유가",
+   "이익",
+   "제주항공"
   ],
   "stocks": [
    "제주항공",
@@ -9790,7 +9850,7 @@
    "별도 100억원 감소하는"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46894": {
@@ -9818,9 +9878,10 @@
   "theme_hit": [
    "GS건설",
    "건설",
-   "규제",
-   "북미",
-   "삼성E&A"
+   "삼성E&A",
+   "시공",
+   "유가",
+   "이익"
   ],
   "stocks": [
    "현대건설",
@@ -10253,7 +10314,7 @@
    "자료 Quantiwise 유진투자증권"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46895": {
@@ -10279,12 +10340,12 @@
   "pos": 13,
   "contrarian": false,
   "theme_hit": [
+   "AI",
    "GS건설",
    "건설",
-   "데이터센터",
    "삼성E&A",
-   "에너지",
-   "전력"
+   "유가",
+   "인프라"
   ],
   "stocks": [
    "GS건설",
@@ -10703,7 +10764,7 @@
    "제약에 따른 해외"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46896": {
@@ -10729,10 +10790,12 @@
   "pos": 6,
   "contrarian": false,
   "theme_hit": [
-   "ESS",
+   "AI",
    "기계",
+   "대한항공",
    "로봇",
-   "에너지"
+   "유가",
+   "이익"
   ],
   "stocks": [
    "로보티즈",
@@ -11164,7 +11227,7 @@
    "언론보도 유진투자증권 자료"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46897": {
@@ -11190,7 +11253,12 @@
   "pos": 4,
   "contrarian": false,
   "theme_hit": [
-   "북미"
+   "AI",
+   "대한항공",
+   "유가",
+   "제주항공",
+   "중심",
+   "진에어"
   ],
   "stocks": [
    "대한항공",
@@ -11625,7 +11693,7 @@
    "유럽 시위 우려에도"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46898": {
@@ -11651,7 +11719,8 @@
   "pos": 4,
   "contrarian": false,
   "theme_hit": [
-   "이익은"
+   "이익",
+   "중심"
   ],
   "stocks": [],
   "numbers": [],
@@ -11800,7 +11869,7 @@
    "효율화를 통해 기존"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46899": {
@@ -11826,12 +11895,10 @@
   "pos": 4,
   "contrarian": false,
   "theme_hit": [
-   "2차전지",
-   "CATL",
-   "ESS",
-   "LG에너지솔루션",
+   "AI",
    "건설",
-   "규제"
+   "운영",
+   "인프라"
   ],
   "stocks": [
    "SK이노베이션",
@@ -12263,7 +12330,7 @@
    "요구다 전력망 투자비의"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46900": {
@@ -12289,11 +12356,12 @@
   "pos": 3,
   "contrarian": true,
   "theme_hit": [
+   "AI",
    "SK하이닉스",
    "건설",
-   "데이터센터",
    "메모리",
-   "삼성전자"
+   "삼성전자",
+   "이익"
   ],
   "stocks": [
    "삼성전자",
@@ -12718,7 +12786,7 @@
    "우려가 상존하나 속도의"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46901": {
@@ -12744,10 +12812,12 @@
   "pos": 3,
   "contrarian": false,
   "theme_hit": [
+   "AI",
    "건설",
-   "규제",
-   "데이터센터",
-   "에너지"
+   "상향",
+   "시공",
+   "전망은",
+   "중심"
   ],
   "stocks": [],
   "numbers": [],
@@ -12898,7 +12968,7 @@
    "확인되며 회복 가능"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46902": {
@@ -12923,7 +12993,9 @@
   "neg": 1,
   "pos": 2,
   "contrarian": false,
-  "theme_hit": [],
+  "theme_hit": [
+   "이익"
+  ],
   "stocks": [],
   "numbers": [],
   "tables": [],
@@ -13070,7 +13142,7 @@
    "흥행과 기술특별관 비중"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46903": {
@@ -13096,12 +13168,8 @@
   "pos": 3,
   "contrarian": false,
   "theme_hit": [
-   "규제",
-   "데이터센터",
-   "밸류에이션",
-   "유틸리티",
-   "전력",
-   "전력망"
+   "인프라",
+   "하락"
   ],
   "stocks": [],
   "numbers": [],
@@ -13254,7 +13322,7 @@
    "후속 수주 의존도를"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46904": {
@@ -13279,7 +13347,10 @@
   "neg": 0,
   "pos": 1,
   "contrarian": false,
-  "theme_hit": [],
+  "theme_hit": [
+   "추정",
+   "항공"
+  ],
   "stocks": [],
   "numbers": [],
   "tables": [],
@@ -13432,7 +13503,7 @@
    "회장은 32 5만주"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46905": {
@@ -13458,7 +13529,7 @@
   "pos": 7,
   "contrarian": true,
   "theme_hit": [
-   "규제"
+   "유가"
   ],
   "stocks": [],
   "numbers": [
@@ -13894,7 +13965,7 @@
    "연루 혐의에 있다고"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46906": {
@@ -13920,11 +13991,12 @@
   "pos": 36,
   "contrarian": false,
   "theme_hit": [
-   "데이터센터",
+   "AI",
    "메모리",
-   "밸류에이션",
    "삼성전자",
-   "이익은"
+   "이익",
+   "추정",
+   "하락"
   ],
   "stocks": [
    "삼성전자"
@@ -14355,7 +14427,7 @@
    "어려움 따라서 특정"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46907": {
@@ -14381,7 +14453,9 @@
   "pos": 8,
   "contrarian": false,
   "theme_hit": [
-   "규제"
+   "운영",
+   "인프라",
+   "중심"
   ],
   "stocks": [],
   "numbers": [
@@ -14813,7 +14887,7 @@
    "으나 해당 상품이"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46908": {
@@ -14839,7 +14913,12 @@
   "pos": 21,
   "contrarian": false,
   "theme_hit": [
-   "규제"
+   "AI",
+   "상향",
+   "수급은",
+   "운영",
+   "인프라",
+   "중심"
   ],
   "stocks": [],
   "numbers": [
@@ -15276,7 +15355,7 @@
    "시장이 반영한 금리"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46909": {
@@ -15302,12 +15381,12 @@
   "pos": 0,
   "contrarian": true,
   "theme_hit": [
+   "AI",
    "SK하이닉스",
    "건설",
-   "규제",
-   "데이터센터",
    "메모리",
-   "삼성전자"
+   "삼성전자",
+   "시공"
   ],
   "stocks": [
    "SK",
@@ -15744,7 +15823,7 @@
    "알파벳 올랐다 타격"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46910": {
@@ -15770,7 +15849,12 @@
   "pos": 19,
   "contrarian": false,
   "theme_hit": [
-   "이익은"
+   "상향",
+   "이익",
+   "중심",
+   "추정",
+   "카카오",
+   "하락"
   ],
   "stocks": [
    "CJ프레시웨이",
@@ -16217,7 +16301,7 @@
    "온라인 채널 677억원"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46911": {
@@ -16242,7 +16326,11 @@
   "neg": 1,
   "pos": 22,
   "contrarian": false,
-  "theme_hit": [],
+  "theme_hit": [
+   "AI",
+   "중심",
+   "추정"
+  ],
   "stocks": [
    "엔키AX",
    "키다리스튜디오",
@@ -16688,7 +16776,7 @@
    "연구원 구도 재편이"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46912": {
@@ -16714,12 +16802,12 @@
   "pos": 23,
   "contrarian": false,
   "theme_hit": [
+   "AI",
    "GS건설",
-   "LS ELECTRIC",
    "NAVER",
-   "SGC에너지",
    "건설",
-   "규제"
+   "기계",
+   "삼성에스디에스"
   ],
   "stocks": [
    "미래산업",
@@ -17168,7 +17256,7 @@
    "상신이디피 091580 Not"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46913": {
@@ -17192,8 +17280,14 @@
   "stance_hint": "약세",
   "neg": 19,
   "pos": 10,
-  "contrarian": false,
-  "theme_hit": [],
+  "contrarian": true,
+  "theme_hit": [
+   "AI",
+   "이익",
+   "추정",
+   "하락",
+   "항공"
+  ],
   "stocks": [
    "한화시스템",
    "현대로템",
@@ -17624,7 +17718,7 @@
    "완제기 수출 수주에"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46914": {
@@ -17650,8 +17744,12 @@
   "pos": 5,
   "contrarian": false,
   "theme_hit": [
-   "규제",
-   "데이터센터"
+   "AI",
+   "유가",
+   "이익",
+   "중심",
+   "카카오",
+   "하락"
   ],
   "stocks": [
    "기업은행",
@@ -18086,7 +18184,7 @@
    "제기될 있지만 제재"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46915": {
@@ -18111,7 +18209,11 @@
   "neg": 1,
   "pos": 5,
   "contrarian": false,
-  "theme_hit": [],
+  "theme_hit": [
+   "AI",
+   "인프라",
+   "하락"
+  ],
   "stocks": [
    "쓰리빌리언",
    "토모큐브",
@@ -18554,7 +18656,7 @@
    "완성될 경우 거대한"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46916": {
@@ -18580,12 +18682,12 @@
   "pos": 13,
   "contrarian": false,
   "theme_hit": [
-   "2차전지",
-   "CATL",
-   "ESS",
-   "LG에너지솔루션",
    "로봇",
-   "북미"
+   "상향",
+   "이익",
+   "중심",
+   "추정",
+   "하락"
   ],
   "stocks": [
    "삼성SDI",
@@ -19034,7 +19136,7 @@
    "우려했으나 LGES는 연간"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46917": {
@@ -19061,8 +19163,10 @@
   "contrarian": false,
   "theme_hit": [
    "건설",
-   "데이터센터",
-   "에너지"
+   "상향",
+   "이익",
+   "중심",
+   "하락"
   ],
   "stocks": [
    "POSCO홀딩스",
@@ -19507,7 +19611,7 @@
    "이후 수요는 성수기"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46918": {
@@ -19533,11 +19637,8 @@
   "pos": 4,
   "contrarian": true,
   "theme_hit": [
-   "ESS",
-   "규제",
-   "데이터센터",
-   "에너지",
-   "전력"
+   "AI",
+   "하락"
   ],
   "stocks": [
    "OCI홀딩스",
@@ -19985,7 +20086,7 @@
    "이상 감소하는 시점"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46919": {
@@ -20011,12 +20112,12 @@
   "pos": 4,
   "contrarian": false,
   "theme_hit": [
+   "AI",
    "SK하이닉스",
    "건설",
-   "규제",
-   "데이터센터",
-   "밸류에이션",
-   "삼성전자"
+   "삼성전자",
+   "이익",
+   "인프라"
   ],
   "stocks": [
    "삼성전자",
@@ -20446,7 +20547,7 @@
    "있다 무렵 다가오는"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46920": {
@@ -20472,12 +20573,12 @@
   "pos": 8,
   "contrarian": true,
   "theme_hit": [
+   "AI",
    "SK하이닉스",
-   "규제",
-   "데이터센터",
    "메모리",
-   "밸류에이션",
-   "삼성전자"
+   "삼성전자",
+   "상향",
+   "이익"
   ],
   "stocks": [
    "삼성전자",
@@ -20926,7 +21027,7 @@
    "예상한다 코스닥 지수는"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "industry:46921": {
@@ -20952,9 +21053,7 @@
   "pos": 5,
   "contrarian": false,
   "theme_hit": [
-   "북미",
-   "에너지",
-   "전력"
+   "카카오"
   ],
   "stocks": [
    "SK",
@@ -21383,7 +21482,7 @@
    "완료해 FAA 심사로"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "invest:40735": {
@@ -21409,9 +21508,11 @@
   "pos": 14,
   "contrarian": false,
   "theme_hit": [
-   "에너지",
-   "유틸리티",
-   "전력"
+   "AI",
+   "상향",
+   "소프트웨어",
+   "이익",
+   "전망은"
   ],
   "stocks": [],
   "numbers": [
@@ -21830,7 +21931,7 @@
    "업종과 스타일은 절대우위가"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "invest:40736": {
@@ -21856,10 +21957,11 @@
   "pos": 29,
   "contrarian": false,
   "theme_hit": [
+   "AI",
    "건설",
-   "데이터센터",
-   "밸류에이션",
-   "에너지"
+   "인프라",
+   "중심",
+   "하락"
   ],
   "stocks": [
    "ESR켄달스퀘어리츠",
@@ -22281,7 +22383,7 @@
    "에너지 가격과 금리"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "invest:40737": {
@@ -22307,12 +22409,12 @@
   "pos": 30,
   "contrarian": false,
   "theme_hit": [
-   "규제",
+   "AI",
    "기계",
-   "밸류에이션",
-   "유틸리티",
-   "이익은",
-   "전력"
+   "상향",
+   "소프트웨어",
+   "이익",
+   "중심"
   ],
   "stocks": [
    "TIGER 화장품",
@@ -22747,7 +22849,7 @@
    "우축 60 49"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "invest:40738": {
@@ -22773,9 +22875,11 @@
   "pos": 7,
   "contrarian": false,
   "theme_hit": [
-   "규제",
-   "에너지",
-   "전력"
+   "AI",
+   "운영",
+   "이익",
+   "인프라",
+   "중심"
   ],
   "stocks": [
    "에프앤가이드"
@@ -23196,7 +23300,7 @@
    "응답자 52 생활비를"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "invest:40739": {
@@ -23222,8 +23326,11 @@
   "pos": 28,
   "contrarian": false,
   "theme_hit": [
-   "에너지",
-   "이익은"
+   "AI",
+   "상향",
+   "이익",
+   "중심",
+   "하락"
   ],
   "stocks": [],
   "numbers": [
@@ -23654,7 +23761,7 @@
    "신흥국 전략 실버"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "invest:40740": {
@@ -23680,11 +23787,12 @@
   "pos": 9,
   "contrarian": true,
   "theme_hit": [
-   "ESS",
    "SK하이닉스",
    "메모리",
    "삼성전자",
-   "이익은"
+   "상향",
+   "수급은",
+   "이익"
   ],
   "stocks": [
    "에프앤가이드",
@@ -24129,7 +24237,7 @@
    "유효 기간 역산"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "invest:40741": {
@@ -24155,11 +24263,12 @@
   "pos": 13,
   "contrarian": false,
   "theme_hit": [
+   "AI",
    "메모리",
-   "밸류에이션",
-   "에너지",
-   "전력",
-   "전력기기"
+   "유가",
+   "이익",
+   "인프라",
+   "재배치"
   ],
   "stocks": [],
   "numbers": [
@@ -24586,7 +24695,7 @@
    "부합하는 변화 전개"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "invest:40742": {
@@ -24612,7 +24721,12 @@
   "pos": 15,
   "contrarian": true,
   "theme_hit": [
-   "규제"
+   "아래",
+   "유가",
+   "인프라",
+   "중심",
+   "추정",
+   "하락"
   ],
   "stocks": [],
   "numbers": [
@@ -25034,7 +25148,7 @@
    "실현을 추가로 확인할"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "invest:40743": {
@@ -25060,12 +25174,12 @@
   "pos": 18,
   "contrarian": false,
   "theme_hit": [
+   "AI",
    "건설",
-   "규제",
-   "데이터센터",
-   "북미",
-   "에너지",
-   "전력"
+   "상향",
+   "소프트웨어",
+   "유가",
+   "이익"
   ],
   "stocks": [],
   "numbers": [
@@ -25498,7 +25612,7 @@
    "역시 25 수준"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "invest:40744": {
@@ -25523,7 +25637,11 @@
   "neg": 9,
   "pos": 26,
   "contrarian": false,
-  "theme_hit": [],
+  "theme_hit": [
+   "AI",
+   "중심",
+   "추정"
+  ],
   "stocks": [],
   "numbers": [
    "I 김세희 6195 / say@ 01 스테이블코인 시장 현황 2조 달러의 기대, 둔화된 공급 02 스테이블코인 성",
@@ -25952,7 +26070,7 @@
    "스테이블코인을 통한 달러"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "invest:40745": {
@@ -25978,8 +26096,10 @@
   "pos": 7,
   "contrarian": false,
   "theme_hit": [
-   "규제",
-   "데이터센터"
+   "AI",
+   "유가",
+   "중심",
+   "하락"
   ],
   "stocks": [],
   "numbers": [
@@ -26391,7 +26511,7 @@
    "상승폭은 제한 자료"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "invest:40746": {
@@ -26417,11 +26537,12 @@
   "pos": 4,
   "contrarian": true,
   "theme_hit": [
+   "AI",
    "SK하이닉스",
-   "규제",
-   "데이터센터",
-   "밸류에이션",
-   "삼성전자"
+   "삼성전자",
+   "소프트웨어",
+   "유가",
+   "중심"
   ],
   "stocks": [
    "삼성전자",
@@ -26849,7 +26970,7 @@
    "달러 362 50"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "invest:40747": {
@@ -26875,12 +26996,12 @@
   "pos": 1,
   "contrarian": true,
   "theme_hit": [
+   "AI",
    "SK하이닉스",
    "건설",
    "기계",
-   "데이터센터",
-   "삼성전기",
-   "삼성전자"
+   "삼성전자",
+   "소프트웨어"
   ],
   "stocks": [
    "SK하이닉스",
@@ -27301,7 +27422,7 @@
    "요충지 텍사스 조지아"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "invest:40748": {
@@ -27327,12 +27448,12 @@
   "pos": 5,
   "contrarian": true,
   "theme_hit": [
+   "AI",
    "NAVER",
    "SK하이닉스",
    "건설",
-   "규제",
    "기계",
-   "데이터센터"
+   "메모리"
   ],
   "stocks": [
    "NAVER",
@@ -27765,7 +27886,7 @@
    "외국인이 대규모로 순매도하면서"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "invest:40749": {
@@ -27791,7 +27912,12 @@
   "pos": 6,
   "contrarian": false,
   "theme_hit": [
-   "이익은"
+   "AI",
+   "상향",
+   "유가",
+   "이익",
+   "전망은",
+   "추정"
   ],
   "stocks": [],
   "numbers": [
@@ -28204,7 +28330,7 @@
    "우려가 단초였다면 불은"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "invest:40750": {
@@ -28230,11 +28356,12 @@
   "pos": 8,
   "contrarian": false,
   "theme_hit": [
+   "AI",
    "건설",
-   "규제",
-   "데이터센터",
    "메모리",
-   "전력"
+   "소프트웨어",
+   "유가",
+   "이익"
   ],
   "stocks": [
    "삼성전자",
@@ -28677,7 +28804,7 @@
    "예정 용량 16GW"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "invest:40751": {
@@ -28703,9 +28830,11 @@
   "pos": 13,
   "contrarian": false,
   "theme_hit": [
-   "규제",
-   "데이터센터",
-   "사도"
+   "AI",
+   "유가",
+   "이익",
+   "중심",
+   "하락"
   ],
   "stocks": [],
   "numbers": [
@@ -29145,7 +29274,7 @@
    "예상 다만 의석"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "invest:40752": {
@@ -29172,11 +29301,9 @@
   "contrarian": true,
   "theme_hit": [
    "건설",
-   "데이터센터",
-   "데이터센터가",
-   "북미",
-   "에너지",
-   "유틸리티"
+   "운영",
+   "인프라",
+   "추정"
   ],
   "stocks": [],
   "numbers": [
@@ -29599,7 +29726,7 @@
    "예정 유틸리티 가스터빈"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "invest:40753": {
@@ -29625,9 +29752,11 @@
   "pos": 3,
   "contrarian": true,
   "theme_hit": [
-   "규제",
-   "데이터센터",
-   "에너지"
+   "AI",
+   "유가",
+   "인프라",
+   "중심",
+   "하락"
   ],
   "stocks": [],
   "numbers": [
@@ -30055,7 +30184,7 @@
    "데이터센터 규제 강화"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "invest:40754": {
@@ -30081,12 +30210,12 @@
   "pos": 20,
   "contrarian": true,
   "theme_hit": [
+   "AI",
    "SK하이닉스",
    "건설",
-   "규제",
    "기계",
-   "데이터센터",
-   "메모리"
+   "메모리",
+   "삼성전자"
   ],
   "stocks": [
    "삼성전자",
@@ -30529,7 +30658,7 @@
    "부담 완화 헤지펀드"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "invest:40755": {
@@ -30555,12 +30684,12 @@
   "pos": 7,
   "contrarian": true,
   "theme_hit": [
-   "2차전지",
-   "LS ELECTRIC",
+   "AI",
    "SK하이닉스",
    "건설",
-   "규제",
-   "기계"
+   "기계",
+   "삼성전자",
+   "이익"
   ],
   "stocks": [
    "삼성전자",
@@ -30992,7 +31121,7 @@
    "증시 마감 지수"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "invest:40756": {
@@ -31018,10 +31147,11 @@
   "pos": 5,
   "contrarian": true,
   "theme_hit": [
+   "AI",
    "건설",
-   "규제",
-   "데이터센터",
-   "에너지"
+   "인프라",
+   "중심",
+   "하락"
   ],
   "stocks": [],
   "numbers": [
@@ -31439,7 +31569,7 @@
    "우려 제한 10"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "invest:40757": {
@@ -31465,10 +31595,9 @@
   "pos": 0,
   "contrarian": true,
   "theme_hit": [
+   "AI",
    "건설",
-   "규제",
-   "데이터센터",
-   "전력"
+   "인프라"
   ],
   "stocks": [],
   "numbers": [
@@ -31889,7 +32018,7 @@
    "아니라 지역사회 수용성"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "invest:40758": {
@@ -31915,12 +32044,12 @@
   "pos": 14,
   "contrarian": true,
   "theme_hit": [
-   "ESS",
+   "AI",
    "SK하이닉스",
    "건설",
-   "규제",
-   "데이터센터",
-   "메모리"
+   "메모리",
+   "삼성전자",
+   "상향"
   ],
   "stocks": [
    "삼성전자",
@@ -32358,7 +32487,7 @@
    "신뢰가 악화된 국면"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "invest:40759": {
@@ -32384,9 +32513,9 @@
   "pos": 12,
   "contrarian": false,
   "theme_hit": [
-   "규제",
-   "데이터센터",
-   "삼성전자"
+   "삼성전자",
+   "추정",
+   "하락"
   ],
   "stocks": [
    "삼성전자"
@@ -32810,7 +32939,7 @@
    "신흥국 305 6억"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "invest:40760": {
@@ -32836,10 +32965,12 @@
   "pos": 2,
   "contrarian": true,
   "theme_hit": [
+   "AI",
    "건설",
-   "규제",
-   "데이터센터",
-   "외국인이"
+   "이익",
+   "인프라",
+   "중심",
+   "하락"
   ],
   "stocks": [],
   "numbers": [
@@ -33262,7 +33393,7 @@
    "외국인의 투매를 방어하기에는"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "invest:40761": {
@@ -33288,12 +33419,10 @@
   "pos": 2,
   "contrarian": true,
   "theme_hit": [
-   "2차전지",
-   "ESS",
+   "AI",
    "건설",
-   "규제",
-   "데이터센터",
-   "전력"
+   "중심",
+   "하락"
   ],
   "stocks": [],
   "numbers": [],
@@ -33639,7 +33768,7 @@
    "훼손보다는 단기 포지션"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "invest:40762": {
@@ -33665,12 +33794,12 @@
   "pos": 19,
   "contrarian": false,
   "theme_hit": [
-   "2차전지",
-   "ESS",
+   "AI",
    "SK하이닉스",
    "건설",
-   "규제",
-   "기계"
+   "기계",
+   "상향",
+   "이익"
   ],
   "stocks": [
    "SK하이닉스",
@@ -34088,7 +34217,7 @@
    "유력했고 실현된 2014년"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "invest:40763": {
@@ -34114,9 +34243,11 @@
   "pos": 36,
   "contrarian": false,
   "theme_hit": [
+   "AI",
    "메모리",
-   "이익은",
-   "전력"
+   "이익",
+   "인프라",
+   "하락"
   ],
   "stocks": [],
   "numbers": [
@@ -34556,7 +34687,7 @@
    "증가 산업 자동차용"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "invest:40764": {
@@ -34582,7 +34713,9 @@
   "pos": 67,
   "contrarian": false,
   "theme_hit": [
-   "밸류에이션"
+   "AI",
+   "소프트웨어",
+   "전망은"
   ],
   "stocks": [],
   "numbers": [
@@ -35022,7 +35155,7 @@
    "조기 재계약을 체결하면서"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "invest:40765": {
@@ -35048,11 +35181,10 @@
   "pos": 1,
   "contrarian": false,
   "theme_hit": [
+   "AI",
    "메모리",
-   "사도",
-   "삼성전기",
    "심텍",
-   "전력"
+   "중심"
   ],
   "stocks": [
    "삼성전기",
@@ -35475,7 +35607,7 @@
    "패키지 기판 사업을"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "invest:40766": {
@@ -35501,8 +35633,11 @@
   "pos": 1,
   "contrarian": false,
   "theme_hit": [
+   "AI",
    "기계",
-   "로봇"
+   "로봇",
+   "소프트웨어",
+   "중심"
   ],
   "stocks": [
    "현대차"
@@ -35921,7 +36056,7 @@
    "종목의 최대 비중을"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "invest:40767": {
@@ -35947,8 +36082,12 @@
   "pos": 7,
   "contrarian": false,
   "theme_hit": [
-   "전력",
-   "전력기기"
+   "AI",
+   "상향",
+   "소프트웨어",
+   "이익",
+   "중심",
+   "추정"
   ],
   "stocks": [
    "TIGER 200",
@@ -36366,7 +36505,7 @@
    "유지하지 않고 시장"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "invest:40768": {
@@ -36391,7 +36530,11 @@
   "neg": 1,
   "pos": 4,
   "contrarian": false,
-  "theme_hit": [],
+  "theme_hit": [
+   "AI",
+   "소프트웨어",
+   "하락"
+  ],
   "stocks": [
    "KODEX 미국나스닥100"
   ],
@@ -36809,7 +36952,7 @@
    "투자할 때보다 포트폴리오의"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "invest:40769": {
@@ -36836,7 +36979,11 @@
   "contrarian": true,
   "theme_hit": [
    "삼성전자",
-   "이익은"
+   "상향",
+   "이익",
+   "중심",
+   "추정",
+   "하락"
   ],
   "stocks": [
    "삼성전자",
@@ -37264,7 +37411,7 @@
    "이익 하락을 12개월"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  },
  "invest:40770": {
@@ -37290,12 +37437,12 @@
   "pos": 31,
   "contrarian": false,
   "theme_hit": [
+   "AI",
    "건설",
-   "데이터센터",
-   "데이터센터가",
    "메모리",
-   "북미",
-   "삼성전자"
+   "삼성전자",
+   "상향",
+   "소프트웨어"
   ],
   "stocks": [
    "SK",
@@ -37738,7 +37885,7 @@
    "수준으로 급감한 자료"
   ],
   "status": "draft",
-  "built_at": "2026-11-11 15:00",
+  "built_at": "2026-11-11 18:40",
   "error": null
  }
 }
