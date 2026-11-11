@@ -1,6 +1,42 @@
 {
  "rows": [
   {
+   "name": "예스티",
+   "code": "122640",
+   "period": "2026.3Q",
+   "sales": 438.0,
+   "op": 110.0,
+   "net": 83.0,
+   "verdict": null,
+   "time": "2026-11-11 09:10",
+   "channel": "maddingStock",
+   "url": "https://t.me/maddingStock/19306"
+  },
+  {
+   "name": "티에프이",
+   "code": "425420",
+   "period": "2026.3Q",
+   "sales": 542.0,
+   "op": 150.0,
+   "net": 102.0,
+   "verdict": null,
+   "time": "2026-11-11 09:04",
+   "channel": "maddingStock",
+   "url": "https://t.me/maddingStock/19303"
+  },
+  {
+   "name": "에프엔에스테크",
+   "code": "083500",
+   "period": "2026.3Q",
+   "sales": 212.0,
+   "op": 62.0,
+   "net": 57.0,
+   "verdict": null,
+   "time": "2026-11-11 09:04",
+   "channel": "maddingStock",
+   "url": "https://t.me/maddingStock/19304"
+  },
+  {
    "name": "파라다이스",
    "code": "034230",
    "period": "2026.3Q",
