@@ -108,6 +108,14 @@ def save(path):
     for k in LISTS:
         if not isinstance(d[k], list):
             raise SystemExit(f"{k}는 문장 목록이어야 함")
+    if len(d["headline"]) > 32:
+        raise SystemExit(f"headline은 한 줄(32자 이내)로: 지금 {len(d['headline'])}자")
+    n = sum(len(d[k]) for k in LISTS)
+    if n > 12:
+        raise SystemExit(f"항목이 너무 많음({n}개) — 칸마다 1~2개, 전체 12개 이내")
+    long = [x[:20] for k in LISTS for x in d[k] if len(x) > 110]
+    if long:
+        raise SystemExit(f"항목은 두 문장·110자 이내로: {long}")
     bad = [w for w in ("매수 추천", "매도 추천", "사세요", "파세요", "비중 확대 추천") if w in json.dumps(d, ensure_ascii=False)]
     if bad:
         raise SystemExit(f"매수·매도 단정 표현: {bad} — 관찰/준비/회피로 바꿀 것")

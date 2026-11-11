@@ -452,6 +452,7 @@ nav.side{top:44px}
 /* 다시 설계 2026-11-10: 오늘 2단(PC)·1열(휴대폰), 흐름 타임라인, 접힌 시장 숫자 */
 .insight .ihl{font-size:18px;font-weight:700;line-height:1.55;letter-spacing:-.3px;padding:2px 0 10px}
 .insight .opr .t{font-size:14.5px!important;font-weight:400!important}.insight .ili+.ili{margin-top:6px;padding-top:6px;border-top:1px dashed var(--line)}
+.insight .isrc{font-size:11.5px;color:var(--muted);padding:8px 0 2px}.insight .ihl{font-size:19px!important}
 .insight .ins-against .k{color:var(--down)}.insight .ins-watch .k{color:var(--fg)}
 .hg2{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:12px;align-items:start}.hg2>div{min-width:0;display:grid;gap:12px;align-content:start}
 @media(max-width:980px){.hg2{grid-template-columns:minmax(0,1fr)}}
@@ -1571,6 +1572,7 @@ function insightBox(op){
   const rows=S.filter(([k])=>(I[k]||[]).length).map(([k,n])=>`<div class="opr ins-${k}"><div class="k">${n}</div><div class="t">${I[k].map(x=>`<div class="ili">${sentLines(x)}</div>`).join("")}</div></div>`).join("");
   return `<div class="bx insight"><div class="bh">💡 CLAUDE 인사이트<em>${esc(I.made_at)} · ${esc(I.basis||"채널 종합")}</em></div>
    <div class="ihl">${tint(I.headline)}</div>${rows}
+   ${I.sources?`<div class="isrc">출처: ${esc(I.sources)}</div>`:""}
    ${op?`<a class="bmore" href="#briefs">최근 브리핑 의견: ${esc(op.kind_name)} ${esc(op.time||"")} ›</a>`:""}</div>`;
 }
 function viewHome2(){
