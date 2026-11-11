@@ -55,6 +55,7 @@ python3 tools/sector_map.py check                     # 업종 분류표(사용�
 python3 tools/backtest.py                              # 검증실: 돌파 규칙 백테스트(3년 일봉, 약 1분·캐시) + 감시 목록 성적표 → data/backtest/
 python3 tools/research.py status                       # 딥리서치: 분석한 드라이브 문서 / save·skip·context·save-synthesis (.claude/skills/deep-research)
 python3 tools/naver_research.py collect                # 네이버 리서치(국내종목·산업분석·투자전략) 목록·목표가·의견·요약 (1차 자료) / candidates(규칙 점수 후보, 토큰 0) / pdf --cat --nid(전문 글자, 원문 저장 안 함) / pick
+python3 tools/research_cards.py build|queue|save|pick-deep|questions|excerpt|mark-deep|weekly   # 네이버 산업·전략 리포트 깔때기(docs/naver-research-plan.md): Tier0 카드 초안(토큰 0, 본문은 data/cache만) → Tier1 Haiku 카드 18:40(/research-cards) → Tier2 Sonnet 깊이 3건·반대 1건·질문 주도 19:13 → Tier3 weekly 집계(전략 보고서 재료)·업종 지식 노트 data/research/notes/
 python3 tools/calendar_fetch.py                        # 일정 수집(하루 1번): 경제지표 ForexFactory · 국내 IR DART · 미국 실적 Nasdaq + config/calendar.toml → data/calendar/
 python3 tools/earnings.py                              # 채널 잠정실적 공시 → 실제 vs 예상(서프라이즈·쇼크), data/earnings/
 python3 tools/trades.py buy|sell|stop --name 종목 --qty --price   # 매매 기록(주문 아님) → positions.toml 자동 갱신·일지·R. "OO 샀어/팔았어/손절가 올렸어" 말하면 실행
@@ -99,7 +100,7 @@ python3 tools/telegram_send.py --file reports/날짜/파일.md
 - **트레이딩룸 메뉴 5개 (2026-11-10 다시 설계, `docs/redesign-trading-room.md`)**: 오늘(국면·💡 의견·소식·일정·접힌 시장 숫자·계좌 한 줄) · 흐름(정리 타임라인·리포트 흐름·채널 원문) · 전략(보고서·관찰 풀·자료실·기업·감시 목록) · 내 매매(계좌·보유·복기·계산기·규칙) · 더보기(달력·자동 작업·출처·채널 목록). 옛 메뉴 id(#briefs #portfolio #companies #research #channels #watch #config)는 별칭으로 계속 동작
 - 사용자가 "샀다/팔았다/손절가 올렸다"고 하면 `tools/trades.py`로 기록한다(직접 positions.toml을 고치지 않음). 날짜·수량·가격이 빠졌으면 묻는다. 기록 후 규칙 점검(손절폭·1R) 결과를 알려 준다
 - **모니터링은 2026-11-10부터 '관찰 풀 한정'으로 재가동** (`config/features.toml` monitoring = true, scope = "pool"): 감시 목록은 전략 보고서가 고른 관찰 풀(`config/watch_pool.toml`, 사용자가 직접 고쳐도 됨) + RS 70↑ 종목만. 풀 안 돌파 알림 🔥 / 풀 밖은 참고. 16:07 예약은 Haiku 대화. (11-04~11-09는 전면 중단이었음)
-- **역할 구분 (2026-11-05, 11-10 갱신)**: 자료실 = 리포트 원문 1건씩 요약·저장만(하루 최대 2건, 종합 안 함) / 전략 보고서 = **주 1회 토 09:07 자동 발간**(+ 요청 시), 재료는 `strategy_prep.py prep`(숫자) + 자료실 요약 + `data/strategy/memos/`(띔 메모) + 주간 리뷰. 31일 치 채널 글을 다시 읽지 않는다. 행동은 관찰/준비/회피로만 쓴다. 신호등별 '권장 노출'과 '연속 손절 3건 뒤 쉬기'는 **표시만**(규칙 고정, 2027-01 재검토 재료)
+- **역할 구분 (2026-11-05, 11-11 갱신)**: 자료실 = 네이버 산업·전략 리포트 전부 카드(초안→Haiku 카드 15건/일) + 깊이 읽기 3건/일(1건은 반대 의견 고정, 띔 질문에 발췌로 답하기, 종합 안 함) / 전략 보고서 = **주 1회 토 09:07 자동 발간**(+ 요청 시), 재료는 `strategy_prep.py prep`(숫자) + 자료실 요약 + `data/strategy/memos/`(띔 메모) + 주간 리뷰. 31일 치 채널 글을 다시 읽지 않는다. 행동은 관찰/준비/회피로만 쓴다. 신호등별 '권장 노출'과 '연속 손절 3건 뒤 쉬기'는 **표시만**(규칙 고정, 2027-01 재검토 재료)
 - 시장 기준은 **코스피 지수** (신호등·수익률 비교, 2026-11-05 KODEX 200에서 변경)
 - 사용량 줄이기 (2026-11-05): 채널·리포트 정리 2시간 간격, 웹 전체 갱신 07:32·16:32만, 텔레그램 리포트 브리핑 14:53 하루 1번. (2026-11-10) 글쓰기 예약은 Sonnet, 주 1회 종합만 Opus, 스크립트는 Haiku · 자료실 2건
 - 자동 작업 목록은 `config/automation.toml` (웹 규칙·일정 > 자동 작업 현황). 예약을 만들거나 끄면 여기도 고친다

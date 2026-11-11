@@ -417,3 +417,11 @@
 - `docs/trading-room-review-2026-11-11.md`: 사용자 목적 4가지(속보·빠른 트렌드 / 큰 흐름 / 프랍 팀 역할 / 회사원 한 페이지)에 대어 진단(60·70·65·55점). 핵심: B·C는 뼈대가 섰고 A·D는 소비 방식이 아직 실시간 트레이더용. 대안: 체크포인트 3번(07:00·12:30·18:30)+'못 본 사이 변화', 주제 모멘텀 표·관련성 즉시 알림(토큰 0), 결정 로그·띔별 R 귀속, 평일 자동 스코어카드·띔 보드, 장중 20분 가격 스냅샷 웹 반영, 사진 분리, 자료실 반대 리포트 1건. 결정 사항 3개 사용자에게
 - (11/11) `docs/naver-research-plan.md`: 네이버 산업·전략 리포트 깔때기 4단 설계(Tier0 토큰 0 전부 수집·카드 초안·시리즈 diff·신규성 / Tier1 Haiku 카드 15건 / Tier2 Sonnet 질문 주도 깊이 3건+반대 1건 / Tier3 Opus 업종 집계·지식 노트). 실측: 산업 15~25건/일(월 46~66), 본문 6천~1.3만 자, 지금 읽는 양은 전체의 5%. pdftotext 2단 섞임 확인. 코드 변경 없음, 결정 사항 3개
 
+## 2026-11-11 네이버 산업·전략 리포트 깔때기 구현 (사용자 확정: 산업·전략만 / 깊이 3건 중 반대 1건 / 시리즈는 차이만)
+- `tools/research_cards.py`: Tier0 build(본문 data/cache/naver_text 캐시·커밋 안 함, 고지문 제거, 업종 분류(네이버 '기타'는 키워드), 종목·숫자·표, 시리즈 직전 호 대비 새 내용 비율, 30일 신규성, 반대 의견 신호) → data/research/cards/날짜.json / Tier1 queue(핵심 구간 3,500자, 섹터당 4건, 데일리·모닝 감점)·save / Tier2 pick-deep(2+반대 1)·questions(전략 보고서 띔 → 질문)·excerpt(키워드 주변 발췌)·mark-deep / Tier3 weekly(업종별 카드 수·입장·반복 주장·새 주장)
+- 첫 실행: 3일치 166건 카드 초안(본문 124건). 큐 15건 약 5.8만 자
+- 스킬 `/research-cards`(Haiku), deep-research 0번 절차를 Tier2로 교체, strategy-report에 카드 집계 + 업종 지식 노트(data/research/notes/) 단계 추가, strategy_prep에 card_digest
+- 예약: 리포트 카드 평일 18:40 Haiku trig_01F4qx3sY6TzX49zg7Ymc8rt / 자료실 3건 19:13 Sonnet trig_01AM1isJndYUigkeEM8tEevv (옛 trig_01YVxh… 끔 — 다른 대화 예약은 지시문 수정 불가라 새로 만듦)
+- 웹: 전략 › 자료실 '리포트 카드' 탭(필터 전체·카드만·깊이·반대·새 주장, 업종 칩, 업종별 집계 표). 다음 웹 갱신 때 반영
+- 중간에 Fable 한도로 Opus로 전환해 마무리
+

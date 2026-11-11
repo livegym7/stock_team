@@ -420,6 +420,7 @@ def prep(weeks=4):
         "report_points": safe(lambda: report_points(allp, pool, flow31), []),
         "channel_themes": safe(lambda: channel_themes(allp, uni), []),
         "research": safe(lambda: research_recent(14), []),
+        "card_digest": safe(lambda: __import__("research_cards").weekly(7), {}),   # 네이버 산업·전략 카드 업종별 집계 (Tier 3)
         "memos": safe(lambda: memos(7), []),
         "opinions": safe(lambda: opinions(7), []),
         "calendar": safe(lambda: calendar_ahead(pool, 14), []),
@@ -477,6 +478,10 @@ def md_summary(o):
             L.append(f"  · {r['t'][5:]} {r.get('broker') or ''} {r.get('dir') or ''} {tp} {('— ' + r['title']) if r.get('title') else ''}")
             for pt in r["points"]:
                 L.append(f"    - {pt}")
+    cd = o.get("card_digest") or {}
+    if cd.get("sectors"):
+        import research_cards
+        L.append(research_cards.weekly_md(cd).replace("## ", "## 네이버 산업·전략 리포트 카드 (7일) — ", 1))
     L.append(f"## 자료실 최근 14일 {len(o.get('research') or [])}건")
     for d in (o.get("research") or [])[:30]:
         L.append(f"- [{d.get('date')} {d.get('broker')} {d.get('kind')}] {d.get('title')} — {d.get('one_line')}")

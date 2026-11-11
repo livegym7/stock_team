@@ -59,12 +59,21 @@ tokens = "적음"
 check = "web"
 
 [[tasks]]
-name = "자료실: 리포트 원문 요약 (하루 최대 2건, 종합 안 함)"
+name = "리포트 카드 (네이버 산업·전략 10~15건, 핵심 구간만)"
+when = "평일 18:40"
+due = "18:40"
+runner = "claude"
+model = "Haiku"
+tokens = "적음 (약 7만, Haiku)"
+check = "cards"
+
+[[tasks]]
+name = "자료실: 카드로 고른 3건 깊이 읽기 (1건은 반대 의견, 질문 주도)"
 when = "평일 19:13"
 due = "19:13"
 runner = "claude"
 model = "Sonnet"
-tokens = "보통 (3건 → 2건으로 줄임)"
+tokens = "보통 (발췌 읽기라 3건이어도 전문 2건보다 적음)"
 check = "naver_pick"
 
 [[tasks]]

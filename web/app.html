@@ -499,6 +499,11 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.6px}h2{font-size:17px;font-we
 .fsum{cursor:pointer;list-style:none;color:var(--muted);font-size:13px;padding:12px 0 4px;font-weight:600}.fsum::-webkit-details-marker{display:none}
 .hg2 .qt th:first-child,.hg2 .qt td:first-child{padding-left:0}
 .hg2 .acct2{background:var(--soft);border-radius:14px;padding:12px 14px;font-size:14px;line-height:1.7}
+/* 리포트 카드 */
+.rcards{display:grid;gap:8px;grid-template-columns:repeat(auto-fill,minmax(min(100%,420px),1fr))}
+.rcard{border:1px solid var(--line);border-radius:14px;padding:12px 14px;background:var(--panel);min-width:0;font-size:13.5px;line-height:1.6}.rcard.draft{background:var(--soft);border-color:transparent}
+.rcard .rch{display:flex;flex-wrap:wrap;gap:4px 6px;align-items:center;margin-bottom:4px}.rcard a{color:inherit;text-decoration:none}.rcard a b{font-size:14.5px;line-height:1.45;display:block}
+.rcard .rct{margin-top:4px}.rcard .rcn{display:flex;flex-wrap:wrap;gap:4px 10px;font-size:12.5px;color:var(--muted);margin-top:4px}.rcard .rcx{font-size:12.5px;margin-top:3px}
 /* 글 가독성: 한 문장 한 줄, 넉넉한 줄간격 */
 .sl{display:block}.sl+.sl{margin-top:5px}
 .opr .t{font-size:14.5px;line-height:1.75;color:var(--foreground)}
@@ -1134,10 +1139,11 @@ function docRef(id){const d=((D.research||{}).docs||[]).find(x=>x.file_id==id);r
 function viewResearch(){
   const R=D.research||{}, docs=R.docs||[], S=R.synthesis, tab=ui.rt||"docs";
   const how=`<div class="panel howto"><b>리포트 추가하는 법</b><br>① 구글 드라이브 <b>${esc((R.folders||["리포트"]).join("”, “"))}</b> 폴더에 리포트 PDF를 올립니다<br>② Claude 대화에서 <b>"딥리서치 해줘"</b>라고 말합니다 → 새 파일을 읽고 분석·종합해 이 화면에 올립니다<br><small class="muted">원문은 드라이브에만 두고, 여기에는 요약·분석과 원문 링크만 저장합니다</small></div>`;
-  if(!docs.length)return `<h1>자료실</h1><div class="sub">리포트 원문을 1건씩 읽고 요약·핵심 숫자·논리·반대 근거를 저장하는 재료 창고 · 종합은 전략 보고서에서</div>${how}`;
+  if(!docs.length&&!(R.cards||[]).length)return `<h1>자료실</h1><div class="sub">리포트 원문을 1건씩 읽고 요약·핵심 숫자·논리·반대 근거를 저장하는 재료 창고 · 종합은 전략 보고서에서</div>${how}`;
   const head=`<h1>자료실</h1><div class="sub">리포트 원문 ${docs.length}개 분석 · 종합 ${esc(S?S.updated_at:"없음")} · 출처: 증권사 리포트 원문(드라이브) + 시장 확인 네이버 일봉(비공식) · 판단은 본인이</div>
-  <div class="chips"><button class="chip ${tab=="syn"?"on":""}" data-rt="syn">🗄️ 지난 종합 (보관)</button><button class="chip ${tab=="docs"?"on":""}" data-rt="docs">📄 문서 ${docs.length}</button><button class="chip ${tab=="nv"?"on":""}" data-rt="nv">📰 오늘의 리포트</button><button class="chip ${tab=="score"?"on":""}" data-rt="score">📈 성적표</button><button class="chip ${tab=="rev"?"on":""}" data-rt="rev">🔺 목표가 흐름</button><button class="chip ${tab=="how"?"on":""}" data-rt="how">➕ 추가하는 법</button></div>`;
+  <div class="chips"><button class="chip ${tab=="syn"?"on":""}" data-rt="syn">🗄️ 지난 종합 (보관)</button><button class="chip ${tab=="docs"?"on":""}" data-rt="docs">📄 문서 ${docs.length}</button><button class="chip ${tab=="cards"?"on":""}" data-rt="cards">🗂️ 리포트 카드 ${(R.cards||[]).length}</button><button class="chip ${tab=="nv"?"on":""}" data-rt="nv">📰 오늘의 리포트</button><button class="chip ${tab=="score"?"on":""}" data-rt="score">📈 성적표</button><button class="chip ${tab=="rev"?"on":""}" data-rt="rev">🔺 목표가 흐름</button><button class="chip ${tab=="how"?"on":""}" data-rt="how">➕ 추가하는 법</button></div>`;
   if(tab=="how")return head+how;
+  if(tab=="cards")return head+researchCards(R);
   if(tab=="docs")return head+researchDocs(docs);
   if(tab=="score")return head+researchScore(R);
   if(tab=="nv")return head+naverPicks(R);
@@ -1229,6 +1235,28 @@ function revFlow(){
 }
 const RGROUPS=[["반도체 기판·부품",/기판|PCB|MLCC|전자부품|FC-BGA|BGA|패키지|소켓|테스트/],["반도체·메모리",/반도체|메모리|HBM|DRAM|D램|낸드|NAND|파운드리|소부장|장비/],["2차전지·ESS",/2차전지|이차전지|ESS|BESS|배터리|BBU|양극재/],["전력·원전·AI 인프라",/원전|전력|유틸리티|데이터센터|AI 인프라|변압기|Stargate/],["시장·전략",/전략|코스피|코스닥|수급|매크로|금리|환율|시장/]];
 function rgroup(d){const t=[d.subject,d.title,(d.sectors||[]).map(x=>x.name).join(" "),(d.tags||[]).join(" ")].join(" ");for(const [g,re] of RGROUPS)if(re.test(t))return g;return d.kind=="기업"?"기타 기업":"기타"}
+/* 네이버 산업·전략 리포트 카드 (2026-11-11): Tier0 초안(자동) · Tier1 카드(Haiku) · Tier2 깊이(Sonnet). 업종별 묶음 */
+const STANCE={"강세":"up","약세":"down","중립":""};
+function researchCards(R){
+  const all=R.cards||[], W=R.card_weekly, f=ui.rcf||"all", sec=ui.rcs||"";
+  const secs=[...new Set(all.map(c=>c.sector))].sort((a,b)=>all.filter(c=>c.sector==b).length-all.filter(c=>c.sector==a).length);
+  const list=all.filter(c=>(f=="all"||(f=="card"&&c.status!="draft")||(f=="deep"&&c.status=="deep")||(f=="contra"&&c.contrarian)||(f=="new"&&(c.novelty||0)>=0.9&&c.status!="draft"))&&(!sec||c.sector==sec));
+  const byDay={}; list.forEach(c=>(byDay[c.date]=byDay[c.date]||[]).push(c));
+  const days=Object.keys(byDay).sort().reverse();
+  const row=c=>{const st=c.stance||c.stance_hint, draft=c.status=="draft";
+    return `<div class="rcard ${draft?"draft":""}"><div class="rch"><span class="pill ${STANCE[st]||""}">${esc(st||"-")}</span><span class="pill">${esc(c.sector)}</span>${c.status=="deep"?'<span class="pill ok">깊이 읽음</span>':draft?'<span class="pill" title="Haiku 카드 전, 규칙만으로 만든 초안">자동 초안</span>':""}${c.contrarian?'<span class="pill warn">반대 의견</span>':""}${c.depth_value?`<span class="pill">가치 ${esc(c.depth_value)}</span>`:""}<small class="muted">${esc(c.broker)} · ${esc(c.cat=="invest"?"전략":"산업")}${c.industry?" · "+esc(c.industry):""} · 신규성 ${c.novelty??"-"}</small></div>
+     <a href="${esc(c.url)}" target="_blank" rel="noopener"><b>${esc(c.title)}</b></a>
+     ${c.thesis?`<div class="rct">${tint(c.thesis)}</div>`:`<div class="rct muted">${esc((c.summary||"").slice(0,180))}</div>`}
+     ${(c.numbers3||[]).length?`<div class="rcn num">${c.numbers3.map(x=>`<span>${esc(x)}</span>`).join("")}</div>`:""}
+     ${c.new_claim?`<div class="rcx">새 주장: ${tint(c.new_claim)}</div>`:""}
+     ${(c.risks||[]).length?`<div class="rcx muted">위험: ${esc(c.risks.join(" · "))}</div>`:""}
+     ${(c.stocks_key||c.stocks||[]).length?`<div class="chips" style="margin:4px 0 0">${(c.stocks_key||c.stocks).slice(0,5).map(n=>`<span class="pill click" data-cq="${esc(n)}" style="cursor:pointer">${esc(n)}</span>`).join("")}</div>`:""}</div>`};
+  return `<div class="sub" style="margin-top:-6px">네이버 산업분석·투자전략 리포트 전부(최근 7일). 자동 초안은 규칙으로만 만든 것이고, 카드는 18:40 Haiku가 핵심 구간을 읽고 쓴 것, 깊이 읽음은 19:13 Sonnet이 질문에 답한 것 · 리포트 투자의견은 인용일 뿐 매수·매도 권유가 아님 · 설계 docs/naver-research-plan.md</div>
+  <div class="chips">${[["all","전체"],["card","카드만"],["deep","깊이 읽음"],["contra","반대 의견"],["new","새 주장"]].map(([v,n])=>`<button class="chip ${f==v?"on":""}" data-rcf="${v}">${n}</button>`).join("")}</div>
+  <div class="chips">${[["","업종 전체"],...secs.map(x=>[x,x])].map(([v,n])=>`<button class="chip ${sec==v?"on":""}" data-rcs="${v}">${n}${v?` <small>${all.filter(c=>c.sector==v).length}</small>`:""}</button>`).join("")}</div>
+  ${W?`<details class="panel" style="margin-bottom:12px"><summary style="cursor:pointer"><b>업종별 집계 (${W.days}일, ${W.n}건)</b> <small class="muted">카드 수·입장 분포·반복 주장·새 주장 — 토요일 전략 보고서 재료</small></summary><div class="tw" style="margin-top:8px"><table><tr><th class="l">업종</th><th>건</th><th>카드</th><th>입장 강/중/약</th><th>반대</th><th class="l">반복 주장</th><th class="l">새 주장</th></tr>${W.sectors.map(r=>`<tr><td class="l"><b>${esc(r.sector)}</b></td><td class="num">${r.n}</td><td class="num">${r.n_cards}</td><td class="num"><span class="up">${r.stance["강세"]||0}</span>/${r.stance["중립"]||0}/<span class="down">${r.stance["약세"]||0}</span></td><td class="num">${r.contrarian}</td><td class="l" style="white-space:normal;min-width:220px"><small>${(r.repeated||[]).map(x=>`×${x.n} ${esc(x.claim)}`).join("<br>")||"-"}</small></td><td class="l" style="white-space:normal;min-width:220px"><small>${(r.new_claims||[]).slice(0,2).map(esc).join("<br>")||"-"}</small></td></tr>`).join("")}</table></div></details>`:""}
+  ${days.length?days.map(d=>`<div class="tday"><div class="tdh num">${esc(d)} <small class="muted">${byDay[d].length}건</small></div><div class="rcards">${byDay[d].map(row).join("")}</div></div>`).join(""):`<div class="empty">조건에 맞는 카드가 없습니다</div>`}`;
+}
 function researchDocs(docs){
   const kf=ui.rk||"all", per=ui.rp||"all", q=(ui.rq||"").trim().toLowerCase(), col=ui.rgc||{}, more=ui.rgm||{};
   const today=nowKst().slice(0,10), lim={week:7,month:31}[per], since=lim?new Date(Date.now()+9*3600e3-lim*864e5).toISOString().slice(0,10):"";
@@ -1678,6 +1706,8 @@ document.addEventListener("click",e=>{
     if(cm.dataset.calk){const o=new Set(ui.calOff||[]);o.has(cm.dataset.calk)?o.delete(cm.dataset.calk):o.add(cm.dataset.calk);ui.calOff=[...o]}save();render();return}
   const ft=e.target.closest("[data-ft]"); if(ft){ui.ft=ft.dataset.ft;save();render();return}
   const stb=e.target.closest("[data-st]"); if(stb){ui.st=stb.dataset.st;save();if(stb.tagName=="A"){return}render();return}
+  const rcf=e.target.closest("[data-rcf]"); if(rcf){ui.rcf=rcf.dataset.rcf;save();render();return}
+  const rcs=e.target.closest("[data-rcs]"); if(rcs){ui.rcs=rcs.dataset.rcs;save();render();return}
   const rt=e.target.closest("[data-rt]"); if(rt){ui.rt=rt.dataset.rt;save();render();return}
   const rk=e.target.closest("[data-rk]"); if(rk){ui.rk=rk.dataset.rk;ui.rd=null;save();render();return}
   const rp=e.target.closest("[data-rp]"); if(rp){ui.rp=rp.dataset.rp;save();render();return}

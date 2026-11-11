@@ -621,7 +621,16 @@ def research(comp_list, allp):
     if not cand or isinstance(cand, dict) and cand.get("error"):
         p = NR.DIR / "candidates_latest.json"
         cand = json.loads(p.read_text(encoding="utf-8")) if p.exists() else None
-    return {"docs": docs, "synthesis": syn, "folders": folders, "ideas": ideas, "picks": picks, "brokers": brokers, "naver": cand,
+    # 네이버 산업·전략 리포트 카드 (research_cards.py, 최근 7일) — 전체 목록을 웹에 (2026-11-11)
+    cards = []
+    for f in sorted((rd / "cards").glob("2*.json"))[-7:] if (rd / "cards").exists() else []:
+        for c in json.loads(f.read_text(encoding="utf-8")).values():
+            cards.append({k: c.get(k) for k in ("nid", "cat", "date", "broker", "title", "industry", "sector", "url", "summary", "status", "stance", "stance_hint", "thesis", "numbers3", "reasons", "risks",
+                                                 "new_claim", "depth_value", "stocks_key", "stocks", "novelty", "new_ratio", "contrarian", "series_key", "body", "deep_file")})
+    cards.sort(key=lambda c: (c["date"], c.get("novelty") or 0), reverse=True)
+    wk = rd / "cards" / "weekly_latest.json"
+    card_weekly = json.loads(wk.read_text(encoding="utf-8")) if wk.exists() else None
+    return {"docs": docs, "synthesis": syn, "folders": folders, "ideas": ideas, "picks": picks, "brokers": brokers, "naver": cand, "cards": cards, "card_weekly": card_weekly,
             "bench": {"name": "코스피", "now": bench_now},
             "trend": {c: {k: (have.get(c) or {}).get(k) for k in keep} for c in codes}}
 
@@ -914,6 +923,13 @@ def automation(now, data, allp):
         elif chk == "channels":
             ts = [x["time"] for x in allp]
             last, detail = (max(ts)[:16].replace("T", " ") if ts else None), "가장 최근 수집된 글 시각"
+        elif chk == "cards":
+            fs = sorted(glob.glob(str(DATA / "research" / "cards" / "2*.json")))
+            if fs:
+                cs = json.loads(Path(fs[-1]).read_text(encoding="utf-8"))
+                filled = [c for c in cs.values() if c.get("filled_at")]
+                last = max((c["filled_at"] for c in filled), default=None)
+                detail = f"{Path(fs[-1]).stem} 초안 {len(cs)} · 카드 {len(filled)}"
         elif chk == "strategy":
             f = DATA / "strategy" / "latest.json"
             st = json.loads(f.read_text(encoding="utf-8")) if f.exists() else {}
