@@ -1,0 +1,324 @@
+{
+ "made_at": "2026-11-11 11:50",
+ "days": 3,
+ "n": 166,
+ "sectors": [
+  {
+   "sector": "시장·전략",
+   "n": 45,
+   "n_cards": 0,
+   "n_deep": 0,
+   "stance": {
+    "약세": 19,
+    "강세": 19,
+    "중립": 7
+   },
+   "brokers": 9,
+   "novelty_avg": 0.99,
+   "contrarian": 19,
+   "repeated": [],
+   "new_claims": [],
+   "numbers": [],
+   "titles": [
+    "11-09 유안타증권 디지털 자산 Daily",
+    "11-09 신한투자증권 [2027년 선진국 전략] 이카로스의 날개",
+    "11-09 신한투자증권 [2027년 글로벌리츠 시장 전망] 리츠, 금리보다 성장",
+    "11-09 신한투자증권 [2027년 퀀트/ETF 전망] 이익의 다음 파동",
+    "11-09 신한투자증권 [2027년 주식시장 이슈 분석] 2026 중간선거: 미국 성장모델의 시"
+   ]
+  },
+  {
+   "sector": "인터넷·소프트웨어",
+   "n": 27,
+   "n_cards": 0,
+   "n_deep": 0,
+   "stance": {
+    "강세": 14,
+    "중립": 6,
+    "약세": 7
+   },
+   "brokers": 11,
+   "novelty_avg": 0.97,
+   "contrarian": 7,
+   "repeated": [],
+   "new_claims": [],
+   "numbers": [],
+   "titles": [
+    "11-09 신한투자증권 27년 홀수 해가 특별한 이유",
+    "11-09 신한투자증권 두 개의 꿈: AI DC, AI 슈퍼앱",
+    "11-09 신한투자증권 AI는 버프, 엣지는 IP",
+    "11-09 신한투자증권 AI 2막, 독주에서 확산으로",
+    "11-09 IBK투자증권 [IBKS Daily] 인터넷/게임"
+   ]
+  },
+  {
+   "sector": "소재·산업재",
+   "n": 26,
+   "n_cards": 0,
+   "n_deep": 0,
+   "stance": {
+    "약세": 4,
+    "중립": 13,
+    "강세": 9
+   },
+   "brokers": 8,
+   "novelty_avg": 0.97,
+   "contrarian": 3,
+   "repeated": [],
+   "new_claims": [],
+   "numbers": [],
+   "titles": [
+    "11-09 iM증권 기름뿜뿜 Weekly: 태양광엔 여러모로 긍정적인 블루웨이브(feat. ",
+    "11-09 신한투자증권 데이터센터 가치가 숨어있는 방어주",
+    "11-09 신한투자증권 머스크가 기지국 투자할까?",
+    "11-09 신한투자증권 더 이상 같은 금속 사이클은 없다",
+    "11-09 신한투자증권 정상화는 더디고, 바닥은 높다"
+   ]
+  },
+  {
+   "sector": "소비재",
+   "n": 14,
+   "n_cards": 0,
+   "n_deep": 0,
+   "stance": {
+    "강세": 8,
+    "중립": 5,
+    "약세": 1
+   },
+   "brokers": 6,
+   "novelty_avg": 1.0,
+   "contrarian": 0,
+   "repeated": [],
+   "new_claims": [],
+   "numbers": [],
+   "titles": [
+    "11-09 신한투자증권 소비의 온기는 어디로 향하는가",
+    "11-09 신한투자증권 Neon and Beyond",
+    "11-09 신한투자증권 후반전 시작",
+    "11-09 신한투자증권 방어력이 중요한 시기",
+    "11-09 신한투자증권 공급에서 수요로"
+   ]
+  },
+  {
+   "sector": "반도체",
+   "n": 13,
+   "n_cards": 0,
+   "n_deep": 0,
+   "stance": {
+    "중립": 5,
+    "강세": 4,
+    "약세": 4
+   },
+   "brokers": 7,
+   "novelty_avg": 0.92,
+   "contrarian": 4,
+   "repeated": [],
+   "new_claims": [],
+   "numbers": [],
+   "titles": [
+    "11-09 신한투자증권 노이즈 캔슬링",
+    "11-09 한화투자증권 반도체 Valuation Call from Hawaii: 바닥을 판단하는",
+    "11-09 하나증권 악재가 적극적으로 선반영된 주가",
+    "11-09 신한투자증권 [2027년 국내주식 전략] 초과이익의 유효 기간",
+    "11-09 유진투자증권 Equity Strategy - AI 너머에도 세상은 있다"
+   ]
+  },
+  {
+   "sector": "금융",
+   "n": 10,
+   "n_cards": 0,
+   "n_deep": 0,
+   "stance": {
+    "중립": 5,
+    "강세": 4,
+    "약세": 1
+   },
+   "brokers": 5,
+   "novelty_avg": 0.98,
+   "contrarian": 1,
+   "repeated": [],
+   "new_claims": [],
+   "numbers": [],
+   "titles": [
+    "11-09 신한투자증권 금리는 거들 뿐, 핵심은 시장과 주주환원",
+    "11-09 한화투자증권 [디지털자산] 디지털자산 Weekly 2026.11.06",
+    "11-09 한화투자증권 [디지털자산] [2027 디지털자산 전망] 본게임 시작",
+    "11-09 하나증권 극심한 KOSPI 조정 양상 속에서 은행주 큰폭 선방",
+    "11-10 신한투자증권 두터운 자본이 겨울을 견딘다"
+   ]
+  },
+  {
+   "sector": "전력·에너지",
+   "n": 8,
+   "n_cards": 0,
+   "n_deep": 0,
+   "stance": {
+    "중립": 2,
+    "강세": 4,
+    "약세": 2
+   },
+   "brokers": 6,
+   "novelty_avg": 1.0,
+   "contrarian": 1,
+   "repeated": [],
+   "new_claims": [],
+   "numbers": [],
+   "titles": [
+    "11-09 키움증권 실행의 단계로",
+    "11-09 유진투자증권 Next Energy(Power & Battery Weekly) - 미국",
+    "11-09 하나증권 태양광, 세액공제 조기종료 회복 기대",
+    "11-09 교보증권 Re-NEWable Weekly [11월 2주차]",
+    "11-10 DS투자증권 전력 공급의 조건"
+   ]
+  },
+  {
+   "sector": "바이오·헬스케어",
+   "n": 5,
+   "n_cards": 0,
+   "n_deep": 0,
+   "stance": {
+    "강세": 4,
+    "중립": 1
+   },
+   "brokers": 4,
+   "novelty_avg": 1.0,
+   "contrarian": 0,
+   "repeated": [],
+   "new_claims": [],
+   "numbers": [],
+   "titles": [
+    "11-09 SK증권 SK증권 Research Signature #4. 반등의 조건",
+    "11-09 신한투자증권 플랫폼에 신약 더해 새 성장동력",
+    "11-09 신한투자증권 플랫폼에 신약 더해 새 성장동력",
+    "11-09 키움증권 Kiwoom Healthcare 종합정리 (11/9",
+    "11-09 DS투자증권 AIx바이오-자본의 집약, 밸류체인을 이해하자"
+   ]
+  },
+  {
+   "sector": "전자부품·IT하드웨어",
+   "n": 5,
+   "n_cards": 0,
+   "n_deep": 0,
+   "stance": {
+    "중립": 2,
+    "강세": 2,
+    "약세": 1
+   },
+   "brokers": 2,
+   "novelty_avg": 0.6,
+   "contrarian": 1,
+   "repeated": [],
+   "new_claims": [],
+   "numbers": [],
+   "titles": [
+    "11-09 신한투자증권 Upgrade! *폼팩터, 메모리 CapEx",
+    "11-09 신한투자증권 희소가치 *부족할수록 높아지는 가치",
+    "11-11 교보증권 2026년 11월 둘째 주 전기전자 Weekly",
+    "11-11 신한투자증권 희소가치(부족할수록 높아지는 가치)",
+    "11-11 신한투자증권 Upgrade!(폼팩터, 메모리 CapEx)"
+   ]
+  },
+  {
+   "sector": "자동차",
+   "n": 3,
+   "n_cards": 0,
+   "n_deep": 0,
+   "stance": {
+    "강세": 3
+   },
+   "brokers": 3,
+   "novelty_avg": 1.0,
+   "contrarian": 0,
+   "repeated": [],
+   "new_claims": [],
+   "numbers": [],
+   "titles": [
+    "11-09 신한투자증권 난 마진이 고장난 AI 트럭",
+    "11-10 한화투자증권 Hold the Line: 전선을 사수하라",
+    "11-11 대신증권 정책과 비용 파도타기"
+   ]
+  },
+  {
+   "sector": "2차전지",
+   "n": 3,
+   "n_cards": 0,
+   "n_deep": 0,
+   "stance": {
+    "강세": 3
+   },
+   "brokers": 3,
+   "novelty_avg": 1.0,
+   "contrarian": 0,
+   "repeated": [],
+   "new_claims": [],
+   "numbers": [],
+   "titles": [
+    "11-09 신한투자증권 성장의 중심은 ESS로",
+    "11-09 iM증권 미국 중간선거 블루웨이브, 오히려 기회가 될 수 있다",
+    "11-09 하나증권 출하와 수주 기대치 상회, 마진 눈높이는 하향 조정 필요"
+   ]
+  },
+  {
+   "sector": "조선·해운",
+   "n": 3,
+   "n_cards": 0,
+   "n_deep": 0,
+   "stance": {
+    "중립": 1,
+    "약세": 1,
+    "강세": 1
+   },
+   "brokers": 3,
+   "novelty_avg": 1.0,
+   "contrarian": 1,
+   "repeated": [],
+   "new_claims": [],
+   "numbers": [],
+   "titles": [
+    "11-09 신한투자증권 병목은 남고 가격은 리셋 (핵심 Ver.)",
+    "11-09 SK증권 조선은 중간선거와 무관한 초당적 섹터가 아니다",
+    "11-11 DS투자증권 피팅 : 2027년 흥행 보증수표"
+   ]
+  },
+  {
+   "sector": "기타",
+   "n": 2,
+   "n_cards": 0,
+   "n_deep": 0,
+   "stance": {
+    "강세": 1,
+    "중립": 1
+   },
+   "brokers": 2,
+   "novelty_avg": 1.0,
+   "contrarian": 0,
+   "repeated": [],
+   "new_claims": [],
+   "numbers": [],
+   "titles": [
+    "11-09 신한투자증권 2027년 산업 전망",
+    "11-10 유진투자증권 Weekly Theme Rotation(26.11.10)"
+   ]
+  },
+  {
+   "sector": "방산·우주",
+   "n": 2,
+   "n_cards": 0,
+   "n_deep": 0,
+   "stance": {
+    "약세": 1,
+    "강세": 1
+   },
+   "brokers": 2,
+   "novelty_avg": 1.0,
+   "contrarian": 0,
+   "repeated": [],
+   "new_claims": [],
+   "numbers": [],
+   "titles": [
+    "11-09 DS투자증권 방산 3Q 실적 마무리, 짚고 넘어가야 할 것들",
+    "11-11 교보증권 [2027년 연간전망] Go for Orbit"
+   ]
+  }
+ ]
+}
