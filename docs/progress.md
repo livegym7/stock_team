@@ -440,3 +440,10 @@
 - 업종 지식 노트 첫 4장: `data/research/notes/` (IT-소프트웨어·운송-물류·반도체-메모리·전력기기)
 - 전략 보고서 Artifact(매주 같은 주소로 갱신): https://claude.ai/artifact/7MjetxpGd9tuniuTok1ZmS · 트레이딩룸도 다시 올림 · 텔레그램 요약 전송
 - 참고: 새 세션에는 `web/last_data.json`이 없어 `--only analysis`가 안 돌아 전체 빌드로 대신함
+
+### 2026-11-11 저녁 — 일반 웹 배포 (Cloudflare Pages + Access)
+- 주소 https://balance-lab.pages.dev (Cloudflare Access 이메일 일회용 PIN 로그인, 정책 '나만'). 본 주소·`*.balance-lab.pages.dev` 모두 잠금 확인(302 → cloudflareaccess).
+- `.github/workflows/web-deploy.yml`: 평일 07:40(전체)·09:10~15:10 매시·16:40·19:40, 토 10:30 + 인사이트·전략 보고서·보유 종목·app.html 바뀌면 바로 배포. Claude 토큰 0. 저장소엔 커밋 안 함(캐시만).
+- `tools/web_site.py`: web/index.html을 일반 웹 페이지로 감싸 site/(아이콘·manifest·캐시 끔·검색 차단). `config/web.toml` access_ready가 false면 안내 페이지만 올림.
+- 깃허브 비밀값 CLOUDFLARE_API_TOKEN·CLOUDFLARE_ACCOUNT_ID는 사용자가 직접 넣음. API 토큰은 1년 만료 → 2027-11 갱신 필요.
+- Artifact(C8B5Dd1zwtyyqP3c4e3ric)는 당분간 함께 유지.

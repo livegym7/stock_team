@@ -3,4 +3,4 @@
 #   false인 동안 깃허브 자동 배포는 데이터 없는 '잠금 확인 중' 페이지만 올린다 (보유 종목·계좌 노출 방지).
 project = "balance-lab"
 url = "https://balance-lab.pages.dev"
-access_ready = false
+access_ready = true   # 2026-11-11 Claude 확인: 본 주소·미리보기 주소 모두 Cloudflare Access 로그인으로 302
