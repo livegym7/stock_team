@@ -475,7 +475,7 @@
    "약세로 돌아섰다 27"
   ],
   "status": "draft",
-  "built_at": "2026-11-12 18:45",
+  "built_at": "2026-11-12 19:14",
   "error": null
  },
  "industry:46960": {
@@ -916,7 +916,7 @@
    "흑전 3943 54000"
   ],
   "status": "draft",
-  "built_at": "2026-11-12 18:45",
+  "built_at": "2026-11-12 19:14",
   "error": null
  },
  "industry:46961": {
@@ -1899,7 +1899,7 @@
   "body": true,
   "series_key": "유진투자증권|기타|안녕하세요 데일리에요",
   "prev_nid": "46940",
-  "new_ratio": 0.93,
+  "new_ratio": 1.0,
   "novelty": 1.0,
   "stance_hint": "강세",
   "neg": 1,
@@ -2292,7 +2292,7 @@
    "휴머노이드 액추에이터 6종을"
   ],
   "status": "draft",
-  "built_at": "2026-11-12 18:45",
+  "built_at": "2026-11-12 19:14",
   "error": null
  },
  "industry:46964": {
@@ -2959,7 +2959,7 @@
    "흥미로운 행선지다 면세점"
   ],
   "status": "draft",
-  "built_at": "2026-11-12 18:45",
+  "built_at": "2026-11-12 19:14",
   "error": null
  },
  "industry:46966": {
@@ -3415,7 +3415,7 @@
    "완화 임대가격 상승",
    "완화되기 시작했다 시장"
   ],
-  "status": "card",
+  "status": "deep",
   "built_at": "2026-11-12 18:45",
   "error": null,
   "thesis": "코어위브 실적에서 AI 인프라 우려가 완화되는 신호(자금조달 비용 하락·임대가격 상승), 메모리 오더컷은 아직 없어 밸류는 기회",
@@ -3445,7 +3445,9 @@
   ],
   "horizon": "2027년 메모리 실적·LTA 구조 변화 시점",
   "filled_by": "haiku",
-  "filled_at": "2026-11-12 18:48"
+  "filled_at": "2026-11-12 18:48",
+  "deep_file": "naver_industry_46966",
+  "deep_at": "2026-11-12 19:17"
  },
  "industry:46967": {
   "nid": "46967",
@@ -4415,7 +4417,7 @@
    "영향 현재 가동",
    "영향도 전망이다 미주"
   ],
-  "status": "card",
+  "status": "deep",
   "built_at": "2026-11-12 18:45",
   "error": null,
   "thesis": "미 중간선거 후 데이터센터 규제로 공급 속도는 조절되나 착공 물량은 유지, 계획 물량의 49%가 민주당 전환 5개 주에 집중",
@@ -4443,7 +4445,9 @@
   "stocks_key": [],
   "horizon": "2027년 상반기 주별 결정",
   "filled_by": "haiku",
-  "filled_at": "2026-11-12 18:48"
+  "filled_at": "2026-11-12 18:48",
+  "deep_file": "naver_industry_46968",
+  "deep_at": "2026-11-12 19:17"
  },
  "industry:46969": {
   "nid": "46969",
@@ -6898,7 +6902,7 @@
    "연구위원 Today Signal"
   ],
   "status": "draft",
-  "built_at": "2026-11-12 18:45",
+  "built_at": "2026-11-12 19:14",
   "error": null
  },
  "industry:46974": {
@@ -8326,7 +8330,7 @@
    "에프앤가이드 하나증권 도표"
   ],
   "status": "draft",
-  "built_at": "2026-11-12 18:45",
+  "built_at": "2026-11-12 19:14",
   "error": null
  },
  "industry:46977": {
@@ -9782,7 +9786,7 @@
    "융거래에도 활용할 있도록"
   ],
   "status": "draft",
-  "built_at": "2026-11-12 18:45",
+  "built_at": "2026-11-12 19:14",
   "error": null
  },
  "industry:46980": {
@@ -10259,7 +10263,7 @@
    "시행이 임박한 만큼"
   ],
   "status": "draft",
-  "built_at": "2026-11-12 18:45",
+  "built_at": "2026-11-12 19:14",
   "error": null
  },
  "invest:40798": {
@@ -10729,7 +10733,7 @@
    "상승이 얼마나 가능할지가"
   ],
   "status": "draft",
-  "built_at": "2026-11-12 18:45",
+  "built_at": "2026-11-12 19:14",
   "error": null
  },
  "invest:40799": {
@@ -11653,7 +11657,7 @@
    "연간 실적 전망은"
   ],
   "status": "draft",
-  "built_at": "2026-11-12 18:45",
+  "built_at": "2026-11-12 19:14",
   "error": null
  },
  "invest:40801": {
@@ -12112,7 +12116,7 @@
    "대한 신뢰 회복"
   ],
   "status": "draft",
-  "built_at": "2026-11-12 18:45",
+  "built_at": "2026-11-12 19:14",
   "error": null
  },
  "invest:40802": {
@@ -12580,7 +12584,7 @@
    "유입된 점은 AI"
   ],
   "status": "draft",
-  "built_at": "2026-11-12 18:45",
+  "built_at": "2026-11-12 19:14",
   "error": null
  },
  "invest:40803": {
@@ -13039,7 +13043,7 @@
    "연준이사의 50bp 인상"
   ],
   "status": "draft",
-  "built_at": "2026-11-12 18:45",
+  "built_at": "2026-11-12 19:14",
   "error": null
  },
  "invest:40804": {
@@ -13503,7 +13507,7 @@
    "지속 Key Point"
   ],
   "status": "draft",
-  "built_at": "2026-11-12 18:45",
+  "built_at": "2026-11-12 19:14",
   "error": null
  },
  "invest:40805": {
@@ -13983,7 +13987,7 @@
    "실적 개선 산업은"
   ],
   "status": "draft",
-  "built_at": "2026-11-12 18:45",
+  "built_at": "2026-11-12 19:14",
   "error": null
  },
  "invest:40806": {
@@ -14458,7 +14462,7 @@
    "영업이익률이다 과거 매도"
   ],
   "status": "draft",
-  "built_at": "2026-11-12 18:45",
+  "built_at": "2026-11-12 19:14",
   "error": null
  },
  "invest:40807": {
@@ -14920,7 +14924,7 @@
    "주간 FY1 FY1"
   ],
   "status": "draft",
-  "built_at": "2026-11-12 18:45",
+  "built_at": "2026-11-12 19:14",
   "error": null
  },
  "invest:40808": {
@@ -15389,7 +15393,7 @@
    "대만 75 Part"
   ],
   "status": "draft",
-  "built_at": "2026-11-12 18:45",
+  "built_at": "2026-11-12 19:14",
   "error": null
  }
 }

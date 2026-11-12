@@ -905,6 +905,42 @@
    "drive_modified": null,
    "analyzed_at": "2026-11-11 19:21",
    "depth": "full"
+  },
+  "naver_industry_46966": {
+   "title": "[SK증권 반도체] 되돌림 — 코어위브에서 확인된 우려의 완화와 J-Curve 기대 (한동희, 2026-11-12)",
+   "broker": "SK증권",
+   "date": "2026-11-12",
+   "kind": "산업",
+   "subject": "반도체 · 메모리 (AI 인프라 우려 완화)",
+   "one_line": "코어위브 실적에서 임대가격 상승·조달비용 하락이 확인돼 AI 인프라 붕괴 우려가 되돌려졌고, 오더컷이 나오지 않는 한 메모리 다운턴이 아니라 밸류 최저 구간의 기회라고 본다.",
+   "url": "https://stock.naver.com/research/industry/46966",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-12 19:17",
+   "depth": "full"
+  },
+  "naver_industry_46968": {
+   "title": "[대신증권 Global REITs] 블루웨이브와 AIDC 규제: 공급은 지속, 속도는 조절 (김다은, 2026-11-12)",
+   "broker": "대신증권",
+   "date": "2026-11-12",
+   "kind": "산업",
+   "subject": "데이터센터 · 미국 규제와 아시아 수혜 범위",
+   "one_line": "미국 데이터센터 계획의 49%가 민주당으로 바뀐 5개 주에 몰려 있지만 규제는 선거 이전부터 이어진 흐름이라 공급은 이어지고 속도만 조절되며, 아시아 수혜는 동남아 일부 시장에 선별적이라고 본다.",
+   "url": "https://stock.naver.com/research/industry/46968",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-12 19:17",
+   "depth": "full"
+  },
+  "naver_invest_40790": {
+   "title": "[IBK투자증권] IBKS Daily Morning Brief (2026-11-11)",
+   "broker": "IBK투자증권",
+   "date": "2026-11-11",
+   "kind": "전략",
+   "subject": "시장·전략 · 11/10 마감 시황 (반대 의견·비주류 고정 칸)",
+   "one_line": "11/10 코스피가 +4.4%로 마감한 날의 일일 시황 정리이며, 지수 기간 수익률(1주 -7.3%, 연초 +24.3%)과 업종·특징주 숫자를 담은 자료성 글이다.",
+   "url": "https://stock.naver.com/research/invest/40790",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-12 19:17",
+   "depth": "full"
   }
  },
  "skipped": {
