@@ -107,6 +107,23 @@ def send_photo(path, caption=""):
     print("그림 전송 완료")
 
 
+def allowed(kind, name="", text=""):
+    """Balance Lab 2.0 (2026-11-12): 텔레그램은 체크포인트 3회·즉시 알림·주간 요약·실패 알림만. config/features.toml [telegram]."""
+    try:
+        from common import load_toml
+        t = (load_toml("features.toml") or {}).get("telegram") or {}
+    except Exception:
+        return True
+    if t.get("mode") != "v2":
+        return True
+    if kind in ("test", "alert"):
+        return True
+    if kind == "file":
+        return any(Path(name).name.startswith(x) for x in t.get("allow_files", []))
+    # 짧은 글(실패·오류 알림)은 통과, 그 밖의 브리핑 글은 웹에만
+    return len(text) <= 300 and any(w in text for w in ("실패", "오류", "건너뜀", "확인 필요"))
+
+
 def main():
     p = argparse.ArgumentParser(description="텔레그램 메시지 보내기")
     p.add_argument("text", nargs="?", help="보낼 내용")
@@ -117,6 +134,8 @@ def main():
     a = p.parse_args()
 
     if a.photo:
+        if not allowed("photo", a.photo):
+            print(f"보내지 않음 (Balance Lab 2.0: 텔레그램은 체크포인트·즉시 알림만, 이 그림은 웹에서 보기): {a.photo}"); return
         send_photo(a.photo, a.caption)
         return
     if a.test:
@@ -128,6 +147,10 @@ def main():
         text = a.text
     else:
         p.error("보낼 내용, --file, --test 중 하나가 필요합니다.")
+    kind = "test" if a.test else "file" if a.file else "text"
+    if not allowed(kind, a.file or "", text):
+        print(f"보내지 않음 (Balance Lab 2.0: 텔레그램은 체크포인트 3회·즉시 알림·주간 요약·실패 알림만, 이 글은 웹 '시장 › 타임라인'에서 보기): {a.file or text[:40]}")
+        return
     send(text)
 
 

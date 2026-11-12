@@ -218,7 +218,13 @@ def main():
     if a.dry:   # 연습 실행은 보낸 알림이 아니므로 알림 센터 기록에 남기지 않음
         state["log"] = log_before
     sent = False
-    if msgs and not a.dry:
+    cap = ((__import__("common").load_toml("features.toml") or {}).get("telegram") or {}).get("alert_daily_cap")
+    today = now.strftime("%Y-%m-%d")
+    over_cap = bool(cap) and (state.get("tg_count") or {}).get(today, 0) >= cap
+    if msgs and not a.dry and over_cap:
+        print(json.dumps({"capped": f"오늘 텔레그램 알림 {cap}회 상한 — 웹 알림 센터에만 기록"}, ensure_ascii=False))
+    if msgs and not a.dry and not over_cap:
+        state["tg_count"] = {today: (state.get("tg_count") or {}).get(today, 0) + 1}
         from telegram_send import send
         text = f"🔔 보유 종목 알림 · {now.strftime('%m/%d %H:%M')}\n" + "\n".join(msgs) + \
                f"\n\n리스크: E {ev['E_pct']}% · CR {ev['CR_pct']}% (한도 {ev['CR_limit_pct']}%)\n출처: 네이버 현재가(비공식)·채널 요약(2차 자료) · 판단은 본인이 합니다"

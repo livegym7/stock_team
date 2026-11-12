@@ -23,7 +23,7 @@ SCHEDULE = [("06:55", "아침 브리핑", "morning"),
             ("14:53", "리포트 브리핑", "report_brief_pm"), ("15:47", "마감 리뷰", "close"), ("16:07", "감시 목록", "watchlist")]
 KIND = {"morning": "아침 브리핑", "report_brief_am": "리포트 브리핑 · 오전", "report_brief_pm": "리포트 브리핑 · 오후",
         "channels": "채널 정리", "report_live": "리포트 정리", "close": "마감 리뷰", "weekly": "주간 리뷰",
-        "strategy": "전략 보고서", "deep_research": "딥리서치"}
+        "strategy": "전략 보고서", "deep_research": "딥리서치", "checkpoint": "체크포인트"}
 
 
 def safe(fn, default=None):
@@ -916,6 +916,10 @@ def automation(now, data, allp):
             else:
                 fs = sorted(glob.glob(str(ROOT / "reports" / "*" / f"{name}.md")))
                 last = (Path(fs[-1]).parent.name + " " + (times.get(str(Path(fs[-1]).relative_to(ROOT))) or "")) if fs else None
+        elif chk == "checkpoint":
+            fc = DATA / "checkpoint" / "latest.json"
+            cp = json.loads(fc.read_text(encoding="utf-8")) if fc.exists() else {}
+            last, detail = cp.get("made_at"), f"슬롯 {cp.get('slot', '-')} · {cp.get('title', '')[:30]}"
         elif chk == "weekly":
             fs = sorted(glob.glob(str(ROOT / "reports" / "*" / "weekly.md")))
             last = Path(fs[-1]).parent.name if fs else None
@@ -1198,6 +1202,9 @@ def write_html(data):
         data["alerts"] = {"last_check": (st.get("last_check") or "")[:16].replace("T", " "), "log": st.get("log") or {}}
     except Exception:
         pass
+    fc = DATA / "checkpoint" / "latest.json"   # 체크포인트 (Balance Lab 2.0, 하루 3회)
+    if fc.exists():
+        data["checkpoint"] = safe(lambda: json.loads(fc.read_text(encoding="utf-8")))
     fi = DATA / "insight" / "latest.json"
     if fi.exists():
         data["insight"] = safe(lambda: json.loads(fi.read_text(encoding="utf-8")))

@@ -602,8 +602,10 @@ def main():
     ok = html_to_png(rep_dir / "watchlist.html", png, 900, height)
     print(f"[표 그림: {png.relative_to(ROOT) if ok else '만들지 못함 (크롬 없음) → 글로 보냄'}]", file=sys.stderr)
     if a.send:
-        from telegram_send import send, send_photo
-        if ok:
+        from telegram_send import send, send_photo, allowed
+        if not allowed("photo", str(png)):
+            print("[텔레그램 보내지 않음: Balance Lab 2.0 — 감시 목록은 웹과 18:30 체크포인트로]", file=sys.stderr)
+        elif ok:
             send_photo(png, caption(results, as_of))
         else:
             send(msg)

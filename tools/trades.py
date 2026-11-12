@@ -77,6 +77,22 @@ def buy(a):
     write_positions(pos)
     ev = {"type": "buy", "date": a.date, "name": a.name, "code": code, "qty": a.qty, "price": a.price, "stop": stop,
           "setup": a.setup, "note": a.note, "at": datetime.now(KST).isoformat(timespec="seconds")}
+    # 결정 로그 (Balance Lab 2.0 TR-01, 2026-11-12): 어느 띔 · 가설 한 줄 · 깨지는 조건. 비면 '근거 없음' 꼬리표(강제 아님)
+    ev["decision"] = {"theme": a.theme, "thesis": a.thesis, "invalid": a.invalid}
+    tags = []
+    if not (a.theme and a.thesis and a.invalid):
+        tags.append("근거 없음")
+    try:   # 규칙 밖 꼬리표: 빨간 신호등 진입 · 같은 날 3종목 이상
+        import json as _j
+        reg = (_j.loads((ROOT / "web" / "last_data.json").read_text(encoding="utf-8")).get("insights") or {}).get("regime") or {}
+        if reg.get("light") == "red":
+            tags.append("🔴 국면 진입")
+    except Exception:
+        pass
+    same_day = {x.get("code") for x in read_log() if x.get("type") == "buy" and x.get("date") == a.date}
+    if len(same_day | {code}) >= 3:
+        tags.append("같은 날 3종목↑")
+    ev["tags"] = tags
     # 규칙 점검: 손절폭·위험 금액
     one_r = (a.price - stop) * a.qty
     ev["risk_won"] = round(one_r)
@@ -231,6 +247,8 @@ def main():
         s.add_argument("--date", default=today)
         if c == "buy":
             s.add_argument("--stop", type=float); s.add_argument("--setup"); s.add_argument("--note")
+            s.add_argument("--theme", help="어느 띔 (예: T2 유가 하락 → 항공)"); s.add_argument("--thesis", help="가설 한 줄")
+            s.add_argument("--invalid", help="깨지는 조건 (예: WTI 주간 +8%%)")
         else:
             s.add_argument("--reason")
     s = sub.add_parser("stop"); s.add_argument("--name", required=True); s.add_argument("--code"); s.add_argument("--stop", type=float, required=True)
