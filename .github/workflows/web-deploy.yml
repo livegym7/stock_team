@@ -35,6 +35,8 @@ jobs:
     timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # 브리핑 카드 시각 = 보고서가 처음 커밋된 시각(git log). 얕게 받으면 모든 보고서가 배포 시각으로 찍힘 (2026-11-12 수정)
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
