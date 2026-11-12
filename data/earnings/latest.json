@@ -1,6 +1,18 @@
 {
  "rows": [
   {
+   "name": "HMM",
+   "code": "011200",
+   "period": "2026.3Q",
+   "sales": 40000.0,
+   "op": 10000.0,
+   "net": 10000.0,
+   "verdict": null,
+   "time": "2026-11-12 15:00",
+   "channel": "maddingStock",
+   "url": "https://t.me/maddingStock/19378"
+  },
+  {
    "name": "케이엔제이",
    "code": "272110",
    "period": "2026.3Q",
