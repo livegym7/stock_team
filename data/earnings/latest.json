@@ -1,6 +1,23 @@
 {
  "rows": [
   {
+   "name": "삼성생명",
+   "code": "032830",
+   "period": "2026.3Q",
+   "op": 9377.0,
+   "op_est": 8030.0,
+   "op_surprise": 16.8,
+   "op_yoy": 14.9,
+   "net": 8239.0,
+   "net_est": 6858.0,
+   "net_surprise": 20.1,
+   "net_yoy": 8.3,
+   "verdict": "서프라이즈",
+   "time": "2026-11-12 11:25",
+   "channel": "maddingStock",
+   "url": "https://t.me/maddingStock/19362"
+  },
+  {
    "name": "파이버프로",
    "code": "368770",
    "period": "2026.3Q",
