@@ -17,7 +17,7 @@ on:
       - "reports/**"
   schedule:
     - cron: "40 22 * * 0-4"     # 한국 평일 07:40 (전체 계산)
-    - cron: "10 0-6 * * 1-5"    # 한국 평일 09:10~15:10 매시
+    - cron: "40 3 * * 1-5"      # 한국 평일 12:40 (장중 가격은 알림 작업이 20분마다 live.json으로 따로 올림, 2026-11-12)
     - cron: "40 7 * * 1-5"      # 한국 평일 16:40 (마감 확정)
     - cron: "40 10 * * 1-5"     # 한국 평일 19:40 (리포트 카드·자료실 뒤)
     - cron: "30 1 * * 6"        # 한국 토 10:30 (전략 보고서 뒤)
@@ -80,6 +80,17 @@ jobs:
       - name: 배포 폴더 만들기
         run: |
           if [ "${{ steps.gate.outputs.ready }}" = "1" ]; then python3 tools/web_site.py; else python3 tools/web_site.py --placeholder; fi
+      - name: 장중 가격 스냅샷도 함께 (텔레그램은 보내지 않음)
+        if: steps.gate.outputs.ready == '1'
+        run: |
+          git fetch -q origin alert-state 2>/dev/null && git show origin/alert-state:state.json > "$RUNNER_TEMP/st_dry.json" || echo '{}' > "$RUNNER_TEMP/st_dry.json"
+          python3 tools/alerts.py --dry --force --state "$RUNNER_TEMP/st_dry.json" --live site/live.json > /dev/null || true
+      - name: 배포 폴더 저장 (알림 작업이 장중 가격만 바꿔 다시 올릴 때 씀)
+        if: steps.gate.outputs.ready == '1'
+        uses: actions/cache/save@v4
+        with:
+          path: site
+          key: site-${{ github.run_id }}
       - name: Cloudflare Pages에 올리기
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

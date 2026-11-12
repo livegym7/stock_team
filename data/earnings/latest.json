@@ -1,6 +1,30 @@
 {
  "rows": [
   {
+   "name": "한화시스템",
+   "code": "272210",
+   "period": "2026.3Q",
+   "sales": 8316.0,
+   "op": 992.0,
+   "net": 38.0,
+   "verdict": null,
+   "time": "2026-11-12 17:56",
+   "channel": "nje2e",
+   "url": "https://t.me/nje2e/45383"
+  },
+  {
+   "name": "나노신소재",
+   "code": "121600",
+   "period": "2026.3Q",
+   "sales": 424.0,
+   "op": 66.0,
+   "net": 19.0,
+   "verdict": null,
+   "time": "2026-11-12 17:56",
+   "channel": "nje2e",
+   "url": "https://t.me/nje2e/45385"
+  },
+  {
    "name": "엘티씨",
    "code": "170920",
    "period": "2026.3Q",
@@ -871,27 +895,6 @@
    "time": "2026-11-03 15:39",
    "channel": "maddingStock",
    "url": "https://t.me/maddingStock/19060"
-  },
-  {
-   "name": "나노신소재",
-   "code": "121600",
-   "period": "2026.3Q",
-   "sales": 424.0,
-   "sales_est": 379.0,
-   "sales_surprise": 11.9,
-   "sales_yoy": 35.7,
-   "op": 66.0,
-   "op_est": 47.0,
-   "op_surprise": 40.4,
-   "op_yoy": 632.6,
-   "net": 19.0,
-   "net_est": 1.0,
-   "net_surprise": 1800.0,
-   "net_yoy": 19.9,
-   "verdict": "서프라이즈",
-   "time": "2026-11-03 14:44",
-   "channel": "maddingStock",
-   "url": "https://t.me/maddingStock/19055"
   },
   {
    "name": "알테오젠",

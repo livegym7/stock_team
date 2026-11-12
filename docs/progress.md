@@ -447,3 +447,12 @@
 - `tools/web_site.py`: web/index.html을 일반 웹 페이지로 감싸 site/(아이콘·manifest·캐시 끔·검색 차단). `config/web.toml` access_ready가 false면 안내 페이지만 올림.
 - 깃허브 비밀값 CLOUDFLARE_API_TOKEN·CLOUDFLARE_ACCOUNT_ID는 사용자가 직접 넣음. API 토큰은 1년 만료 → 2027-11 갱신 필요.
 - Artifact(C8B5Dd1zwtyyqP3c4e3ric)는 당분간 함께 유지.
+
+
+### 2026-11-12 — Balance Lab 2.0 기획 확정 · 1단계(한 줄기 데이터) 구현
+- 기획서 `docs/balance-lab-2-plan.html` (Artifact https://claude.ai/artifact/XrrFutAeLzBSLLGdiHk51f). 사용자 확정: 체크포인트 07:00·12:30·18:30 / 텔레그램은 체크포인트 3회 + 즉시 알림(하루 상한 5)으로 축소 / Artifact는 11/19 전후 종료 / '종목' 메뉴 신설 / 매수 때 세 질문.
+- X-03 장중 가격 스냅샷: `alerts.py --live`가 지수·수급·보유 손익·관찰 풀 가격·오늘 알림을 live.json으로. alerts.yml(20분)이 캐시된 웹 폴더(site/)에 live.json만 바꿔 Cloudflare에 다시 올림. 웹 배포도 live.json을 함께 만듦. 화면은 열 때 live.json을 읽어 덮어씀(Artifact에선 건너뜀).
+- 웹 전체 배포는 평일 07:40·12:40·16:40·19:40 + 글 저장 때로 줄임(장중 가격은 20분 스냅샷이 맡음).
+- X-02 기준 시각 배지: 메뉴 줄(데이터·가격), 인사이트·지수·계좌·보유 머리. 평일 08~20시에 2시간 넘으면 노란색.
+- N-01 알림 센터: alerts.py가 보낸 메시지를 state.log에 3일 보관 → 웹 '더보기' 맨 위 + '오늘' 오른쪽 '오늘 알림 n건'. 연습 실행(--dry)은 기록 안 함.
+- 다음: 2단계(상황판·체크포인트 3회·종목 메뉴·결정 로그), 11/19 Artifact 종료.

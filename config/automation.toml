@@ -97,7 +97,15 @@ tokens = "많음 (주 1회 25만~40만)"
 check = "strategy"
 
 [[tasks]]
-name = "보유 종목 장중 알림 + 관찰 풀 돌파 알림(🔥) · 풀 밖은 참고"
+name = "웹 배포 (Cloudflare, balance-lab.pages.dev)"
+when = "평일 07:40·12:40·16:40·19:40 · 토 10:30 · 글 저장 때 바로"
+due = "07:40"
+runner = "actions"
+tokens = "0"
+check = "web"
+
+[[tasks]]
+name = "보유 종목 장중 알림 + 관찰 풀 돌파 알림(🔥) + 웹 장중 가격(live.json)"
 when = "평일 장중 20분마다"
 due = "09:20"
 runner = "actions"

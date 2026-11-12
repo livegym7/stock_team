@@ -479,6 +479,10 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.6px}h2{font-size:17px;font-we
 /* 기업 검색 (2026-11-12): 메뉴 옆 검색칸 + 자동완성 목록 + 요약 카드 */
 .navrow{display:flex;align-items:center;gap:8px;max-width:1440px}.navrow .pillnav{flex:1;min-width:0}
 .tver{font-size:11px;white-space:nowrap}
+.age{display:inline-block;font-size:11px;font-weight:600;padding:0 6px;border-radius:5px;background:var(--soft);color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap;vertical-align:1px}.age.old{background:var(--warn-soft);color:var(--warn)}
+.alrow{display:grid;grid-template-columns:46px minmax(0,1fr);gap:8px;padding:6px 0;border-top:1px dashed var(--line);font-size:13px;line-height:1.6}.alrow:first-of-type{border-top:0}
+.albox{display:block;text-decoration:none;color:inherit}.albox .alrow{padding:4px 16px 10px}
+#alerts details{margin:6px 0}#alerts summary{cursor:pointer}
 .gsearch{position:relative;flex:0 0 280px;margin:10px max(16px,env(safe-area-inset-right,0px)) 0 0}
 .gsearch input{width:100%;padding:8px 12px;border-radius:999px;font-size:13.5px}
 .gqlist{position:absolute;left:0;right:0;top:calc(100% + 4px);z-index:40;background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:0 10px 30px -8px rgb(0 0 0 / .25);max-height:60vh;overflow-y:auto;padding:4px}
@@ -599,7 +603,7 @@ function nav(){
     GROUPS.map(([g,rf,ks],gi)=>(gi?`<div class="rsep" title="${esc(g)}"></div>`:"")+
       ks.map(k=>{const [,n,i]=MENU.find(m=>m[0]==k);return `<a href="#${k}" class="${cur==k?"on":""}" title="${esc(n)}"><span class="ico">${i}</span>${esc(RAIL[k]||n)}</a>`}).join("")).join("")+
     `<div class="rbot"><button class="rbtn" data-theme-t="1" title="밝게/어둡게 바꾸기" aria-label="밝게/어둡게 바꾸기">${isDark()?"☀":"☾"}</button><button class="rbtn" data-rfpop="1" title="새로고침 안내" aria-label="새로고침 안내">↻</button><div class="rtime num">${esc((D.built_at||"").slice(5))}<br>기준</div></div>`;
-  $("#pillnav").innerHTML=MENU.map(([k,n])=>`<a href="#${k}" class="${cur==k?"on":""}">${esc(n)}</a>`).join("")+`<span class="sp"></span><span class="num muted" style="font-size:12px">데이터 ${esc((D.built_at||"").slice(5))}</span><button class="rbtn" data-theme-t="1" title="밝게/어둡게 바꾸기" aria-label="밝게/어둡게 바꾸기">${isDark()?"☀":"☾"}</button>`;
+  $("#pillnav").innerHTML=MENU.map(([k,n])=>`<a href="#${k}" class="${cur==k?"on":""}">${esc(n)}</a>`).join("")+`<span class="sp"></span><span class="num muted" style="font-size:12px">데이터 ${ageTag(D.built_at,"화면 데이터")}${D.live?` · 가격 ${ageTag(D.live.at,"장중 가격(20분 스냅샷)")}`:""}</span><button class="rbtn" data-theme-t="1" title="밝게/어둡게 바꾸기" aria-label="밝게/어둡게 바꾸기">${isDark()?"☀":"☾"}</button>`;
   $("#tabbar").innerHTML=TABS.map(k=>{const m=MENU.find(x=>x[0]==k);return `<a href="#${k}" class="${cur==k?"on":""}"><span class="ico">${m[2]}</span>${m[1]}</a>`}).join("")+
     `<button id="moreBtn" class="${TABS.includes(cur)?"":"on"}"><span class="ico">⋯</span>더보기</button>`;
   $("#more").innerHTML=GROUPS.map(([g,rf,ks])=>`<div class="ngroup mg"><span>${g}${rf?` <small class="num">${esc(partAt(rf).slice(5))}</small>`:""}</span>${rf?`<button class="rfb" data-rf="${rf}" aria-label="${g} 새로고침">↻ 새로고침</button>`:""}</div>${rf?`<div class="mg">${rfNote(rf)}</div>`:""}`+
@@ -798,7 +802,7 @@ function acctBox(){
   (r.positions||[]).forEach(p=>{const k=p.sector||"기타";by[k]=(by[k]||0)+(p.value_won||0)});
   const secs=Object.entries(by).sort((a,b)=>b[1]-a[1]), cash=Math.max(0,r.capital-r.invested_won), pct=v=>v/r.capital*100;
   const gap=last&&last.bench!=null?last.ret-last.bench:null;
-  return `<div class="bx"><div class="bh"><a href="#portfolio">내 계좌</a><em>원금 ${man(r.capital)} · ${esc((r.at||"").slice(11))}</em></div>
+  return `<div class="bx"><div class="bh"><a href="#portfolio">내 계좌</a><em>원금 ${man(r.capital)} · ${ageTag(r.at,"계좌 계산")}</em></div>
    ${last?`<div class="ret"><div><small>계좌 수익률 · ${esc(P[0].date.slice(5).replace("-","/"))}부터</small><b class="num ${cls(last.ret)}">${pc(last.ret,2)}</b><span class="vs num">코스피 ${pc(last.bench,2)}${gap!=null?` · <span class="${cls(gap)}">시장 대비 ${gap>0?"+":""}${gap.toFixed(2)}%p</span>`:""}</span></div>${eq}</div>`:""}
    <div class="kp3 num"><div><small>총 위험 CR</small><b>${r.CR_pct}%</b><span class="g ${use>80?"hot":""}"><i style="width:${Math.min(100,use)}%"></i></span><em>한도 ${r.CR_limit_pct}%</em></div>
     <div><small>투자 비중</small><b>${r.E_pct}%</b><span class="g"><i style="width:${Math.min(100,r.E_pct)}%"></i></span><em>${man(r.invested_won)} 원</em></div>
@@ -809,7 +813,7 @@ function acctBox(){
 function holdBox(){
   const ps=(D.risk&&D.risk.positions)||[], tot=ps.reduce((a,p)=>a+(p.pnl_won||0),0), cost=ps.reduce((a,p)=>a+(p.avg_price||0)*(p.qty||0),0);
   const sR=v=>v==null||isNaN(v)?"-":(v>0?"+":"")+v.toFixed(2)+"R";
-  return `<div class="bx"><div class="bh"><a href="#portfolio">보유 종목 ${ps.length}</a>${ps.length?`<b class="num ptot ${cls(tot)}" title="평가손익 합계 (매수 금액 대비 %)">${tot>0?"+":""}${w(tot)}원 (${pc(cost?tot/cost*100:null,2)})</b>`:""}</div>${ps.length?ps.map(p=>{
+  return `<div class="bx"><div class="bh"><a href="#portfolio">보유 종목 ${ps.length}</a> ${ageTag((D.risk||{}).at,"현재가")}${ps.length?`<b class="num ptot ${cls(tot)}" title="평가손익 합계 (매수 금액 대비 %)">${tot>0?"+":""}${w(tot)}원 (${pc(cost?tot/cost*100:null,2)})</b>`:""}</div>${ps.length?ps.map(p=>{
    const near=p.to_stop_pct!=null&&p.to_stop_pct>-3, pct=p.price?(p.price/p.avg_price-1)*100:null, oneR=p.avg_price-(p.initial_stop??p.stop);
    const left=oneR>0&&p.price?(p.price-p.stop)/oneR:null, bar=Math.max(0,Math.min(100,((p.r_multiple||0)+1)/4*100));
    return `<div class="hpos" data-go="portfolio">
@@ -1592,7 +1596,7 @@ function marketFold(){
 /* 오른쪽 열 (2026-11-11 사용자 요청): 코스피·코스닥 지수 + 투자자 수급은 접지 않고 맨 위, 해외·매크로 '시장 숫자'는 맨 아래 */
 function krFlowBox(){
   const P=D.pulse, st=P?(P.markets?.[0]?.status=="CLOSE"?"마감":"장중")+" "+(P.at||"").slice(11):"";
-  return `<div class="bx"><div class="bh">코스피 · 코스닥 · 투자자 수급<em>${esc(st)} · 네이버 · 거래소 잠정치(억 원)</em></div>${thermoTable()}</div>`;
+  return `<div class="bx"><div class="bh">코스피 · 코스닥 · 투자자 수급<em>${P?(P.markets?.[0]?.status=="CLOSE"?"마감 ":"장중 ")+ageTag(P.at,"지수·수급"):""} · 네이버 · 거래소 잠정치(억 원)</em></div>${thermoTable()}</div>`;
 }
 function macroBox(){
   const m=D.market||{}, sp=m.spark||{};
@@ -1608,7 +1612,7 @@ function insightBox(op){
      ${op?opinionRows(op):`<div class="empty" style="margin:10px">아직 의견이 담긴 브리핑이 없습니다</div>`}</div>`;
   const S=[["story","큰 흐름"],["shifts","오늘 바뀐 것"],["gaps","엇갈리는 곳"],["meaning","내 전략에"],["against","반대 근거"],["watch","볼 것"]];
   const rows=S.filter(([k])=>(I[k]||[]).length).map(([k,n])=>`<div class="opr ins-${k}"><div class="k">${n}</div><div class="t">${I[k].map(x=>`<div class="ili">${sentLines(x)}</div>`).join("")}</div></div>`).join("");
-  return `<div class="bx insight"><div class="bh">💡 CLAUDE 인사이트<em>${esc(I.made_at)} · ${esc(I.basis||"채널 종합")}</em></div>
+  return `<div class="bx insight"><div class="bh">💡 CLAUDE 인사이트<em>${ageTag(I.made_at,"인사이트 작성")} · ${esc(I.basis||"채널 종합")}</em></div>
    <div class="ihl">${tint(I.headline)}</div>${rows}
    ${I.sources?`<div class="isrc">출처: ${esc(I.sources)}</div>`:""}
    ${op?`<a class="bmore" href="#briefs">최근 브리핑 의견: ${esc(op.kind_name)} ${esc(op.time||"")} ›</a>`:""}</div>`;
@@ -1624,6 +1628,7 @@ function viewHome2(){
    </div>
    <div class="hr2">
     ${krFlowBox()}
+    ${alertLine()}
     ${acctBox()}
     ${holdBox()}
     ${src((D.risk?.source||"")+" · "+(D.risk?.at||"")+" · 수익률 = (실현+평가 손익) ÷ 원금, 매매 일지 기준")}
@@ -1750,6 +1755,7 @@ function viewTrade(){
 function viewMore(){
   return `<h1>더보기</h1><div class="sub">일정·자동 작업·데이터 출처·채널 목록 · 바꾸고 싶으면 Claude에게 말해 주세요 (보기 전용)</div>
   <div class="chips" style="margin-bottom:12px"><button class="chip themeb" data-theme-t="1">${isDark()?"☀ 밝은 화면으로":"☾ 어두운 화면으로"}</button><span class="pill" style="white-space:normal">데이터 ${esc(D.built_at)} · 정리 평일 08·10·12·14·16시 12분 · 웹 평일 07:40·09:10~15:10 매시·16:40·19:40</span></div>
+  ${alertCenter()}
   <div class="panel" style="margin-bottom:16px"><h2>📅 일정 달력</h2>${calMonth()}</div>
   <div class="panel" style="margin-bottom:16px"><h2>📡 채널 일정 글 (최근 3일)</h2>${((D.calendar||{}).channel_posts||[]).map(p=>`<div class="post"><div class="meta"><span class="num">${esc(p.time)}</span><b>${esc(p.channel)}</b><a href="${esc(p.url)}" target="_blank" rel="noopener">원문</a></div><div>${tint(p.text||"")}</div></div>`).join("")||`<div class="muted">없음</div>`}</div>
   ${autoBoard()}
@@ -1811,6 +1817,32 @@ document.addEventListener("click",e=>{
   if(!e.target.closest(".gsearch")){const l=$("#gqlist");if(l)l.hidden=true}
 },true);
 document.addEventListener("focusin",e=>{if(e.target.id=="gq"&&e.target.value.trim())gList()});
+
+/* ---------- 기준 시각 배지 · 장중 가격 스냅샷 · 알림 센터 (2026-11-12, Balance Lab 2.0 1단계) ---------- */
+function kstNow(){const d=new Date(Date.now()+9*36e5);return d}
+function ageTag(ts,label){
+  if(!ts)return "";ts=String(ts).replace("T"," ").slice(0,16);
+  const t=new Date(ts.replace(" ","T")+":00+09:00"),now=new Date(),k=kstNow(),hm=k.getUTCHours()*100+k.getUTCMinutes(),wd=k.getUTCDay();
+  const old=!isNaN(t)&&wd>0&&wd<6&&hm>=800&&hm<=2000&&(now-t)>2*36e5;
+  const today=k.toISOString().slice(0,10)==ts.slice(0,10);
+  return `<span class="age${old?" old":""}" title="${esc((label||"기준 시각")+" "+ts+(old?" · 2시간 넘게 지난 숫자":""))}">${esc(today?ts.slice(11):ts.slice(5).replace("-","/"))}</span>`;
+}
+function applyLive(j){
+  if(!j||!j.at||!D)return;D.live=j;
+  if(D.pulse&&j.markets&&(!D.pulse.at||j.at>=String(D.pulse.at).slice(0,16))){D.pulse.markets=(D.pulse.markets||[]).map(m=>{const x=j.markets.find(y=>y.market==m.market);return x?{...m,...x}:m});D.pulse.at=j.at}
+  ((D.market||{}).kr||[]).forEach(r=>{const x=(j.markets||[]).find(y=>y.market==r.code);if(x){r.price=x.price;r.change_pct=x.change_pct}});
+  if(D.risk&&j.risk&&(!D.risk.at||j.at>=String(D.risk.at).slice(0,16))){Object.assign(D.risk,j.risk,{at:j.at});(D.risk.positions||[]).forEach(p=>{const x=(j.positions||[]).find(y=>y.code==p.code);if(x)Object.assign(p,x)})}
+  const q=j.quotes||{};(D.companies||[]).forEach(c=>{const x=q[c.code];if(x&&c.trend){c.trend.price=x.price;c.trend.live_chg=x.change_pct}});
+}
+function alertsToday(){const k=kstNow().toISOString().slice(0,10);return (D.live&&(D.live.alerts||[]).length&&D.live.at.slice(0,10)==k)?D.live.alerts:(((D.alerts||{}).log||{})[k]||[])}
+function alertCenter(){
+  const L=(D.alerts||{}).log||{},k=kstNow().toISOString().slice(0,10),days=[...new Set([k,...Object.keys(L)])].sort().reverse().slice(0,4);
+  const item=a=>`<div class="alrow"><span class="num">${esc(a.t)}</span><div>${esc(a.msg).replace(/\n/g,"<br>")}</div></div>`;
+  return `<div class="panel" id="alerts" style="margin-bottom:16px"><h2>🔔 알림 센터 <small class="muted">텔레그램으로 보낸 장중 알림 · 마지막 확인 ${ageTag((D.live&&D.live.at)||(D.alerts||{}).last_check,"알림 확인")}</small></h2>
+   ${days.map((d,i)=>{const xs=(d==k?alertsToday():L[d])||[];return `<details ${i==0?"open":""}><summary><b class="num">${esc(d)}</b> <small class="muted">${xs.length}건</small></summary>${xs.length?xs.slice().reverse().map(item).join(""):`<div class="muted" style="padding:6px 0">알림 없음</div>`}</details>`}).join("")}
+   ${src("평일 09~15시 20분마다 깃허브 자동 실행(Claude 안 씀) · 손절 근접·손절 도달·급등락·관찰 풀 돌파·보유 종목 채널 글 · 판단은 본인")}</div>`;
+}
+function alertLine(){const xs=alertsToday();if(!xs.length)return "";const a=xs[xs.length-1];return `<a class="bx albox" href="#more" data-al="1"><div class="bh">🔔 오늘 알림 ${xs.length}건<em>마지막 ${esc(a.t)}</em></div><div class="alrow"><span class="num">${esc(a.t)}</span><div>${esc(a.msg.split("\n")[0])}</div></div></a>`}
 function render(){
   if(!D){$("#main").innerHTML=`<div class="empty">데이터가 없습니다. tools/web_build.py로 만들어 주세요</div>`;return}
   nav(); $("#more").classList.remove("open"); $("#tape").innerHTML=tapeHtml();
@@ -1868,4 +1900,5 @@ document.addEventListener("click",e=>{const b=e.target.closest("[data-bnav]");if
 window.addEventListener("hashchange",()=>{if(!(route()=="strategy"&&ui.st=="companies")&&ui.cq){ui.cq="";save()}render();window.scrollTo(0,0)});   // 기업 검색어는 기업 탭을 떠나면 지움
 if(!(route()=="strategy"&&ui.st=="companies"))ui.cq="";
 render();
+try{fetch("live.json",{cache:"no-store"}).then(r=>r.ok?r.json():null).then(j=>{if(j){applyLive(j);render()}}).catch(()=>{})}catch(e){}
 </script>

@@ -32,7 +32,29 @@ jobs:
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        run: python3 tools/alerts.py --collect --state "$RUNNER_TEMP/st/state.json"
+        run: python3 tools/alerts.py --collect --state "$RUNNER_TEMP/st/state.json" --live "$RUNNER_TEMP/live.json"
+      # ---- 웹 화면 장중 가격 스냅샷 (2026-11-12, Balance Lab 2.0): 마지막 웹 배포 폴더에 live.json만 바꿔 다시 올림 ----
+      - name: 웹 배포 폴더 불러오기
+        id: site
+        uses: actions/cache/restore@v4
+        with:
+          path: site
+          key: site-${{ github.run_id }}
+          restore-keys: site-
+      - uses: actions/setup-node@v4
+        if: steps.site.outputs.cache-matched-key != ''
+        with:
+          node-version: "20"
+      - name: 웹에 장중 가격 올리기 (잠금 확인된 경우만)
+        if: steps.site.outputs.cache-matched-key != ''
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          if grep -Eq '^access_ready *= *true' config/web.toml && [ -f site/index.html ] && [ -f "$RUNNER_TEMP/live.json" ]; then
+            cp "$RUNNER_TEMP/live.json" site/live.json
+            npx --yes wrangler@3.90.0 pages deploy site --project-name balance-lab --branch main --commit-dirty=true || true
+          fi
       - name: 알림 기록 저장 (alert-state 브랜치, 기록 없이 덮어쓰기)
         run: |
           cd "$RUNNER_TEMP/st"

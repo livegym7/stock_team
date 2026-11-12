@@ -153,11 +153,35 @@ def check(state, now):
             add(f"post:{x['channel']}/{x['id']}", f"📡 {'·'.join(hit)} 관련 채널 글 {x['time'][11:16]} ({x['channel']}, {t.CATEGORIES.get(x['type'], x['type'])})\n   {first}\n   {x.get('url', '')}")
     except Exception as e:
         out.append(f"(채널 글 확인 실패: {type(e).__name__})")
+    if out:   # 알림 센터(웹 '더보기 › 알림 센터', 2026-11-12): 보낸 메시지를 시각과 함께 남김
+        state.setdefault("log", {}).setdefault(today, []).extend({"t": now.strftime("%H:%M"), "msg": m} for m in out if not m.startswith("("))
+    state["log"] = {d: v for d, v in (state.get("log") or {}).items() if d >= (now - timedelta(days=3)).strftime("%Y-%m-%d")}
     state.setdefault("sent", {})[today] = sorted(sent)
     state["sent"] = {d: v for d, v in state["sent"].items() if d >= (now - timedelta(days=3)).strftime("%Y-%m-%d")}
     state["last_post_time"] = newest
     state["last_check"] = now.isoformat(timespec="seconds")
     return out, ev
+
+
+def live_snapshot(state, ev, now):
+    """웹 화면용 장중 스냅샷 (2026-11-12, Balance Lab 2.0 X-03): 지수·수급·보유 손익·관찰 풀 가격·오늘 알림. 20분마다 site/live.json."""
+    from report_digest import live_prices
+    from common import load_toml
+    out = {"at": now.strftime("%Y-%m-%d %H:%M"), "source": "네이버(비공식) 현재가 · 20분 스냅샷"}
+    try:
+        import market_pulse
+        out["markets"] = [{k: m.get(k) for k in ("market", "name", "price", "change_pct", "status", "at", "foreign_eok", "institution_eok", "individual_eok", "up", "down", "flat", "upper", "lower", "high52", "low52")}
+                          for m in (market_pulse.market_one("KOSPI"), market_pulse.market_one("KOSDAQ"))]
+    except Exception as e:
+        out["markets_error"] = type(e).__name__
+    out["risk"] = {k: ev.get(k) for k in ("at", "E_pct", "invested_won", "CR_won", "CR_pct", "CR_limit_pct", "room_for_new_risk_won")}
+    out["positions"] = [{k: p.get(k) for k in ("code", "name", "price", "price_at", "pnl_won", "r_multiple", "to_stop_pct", "to_3r_pct", "value_won", "phase")} for p in ev["positions"]]
+    pool = []
+    for th in (load_toml("watch_pool.toml") or {}).get("themes", []):
+        pool += [s.get("code") for s in th.get("stocks", []) if s.get("code")]
+    out["quotes"] = live_prices(pool + [p["code"] for p in ev["positions"]])
+    out["alerts"] = (state.get("log") or {}).get(now.strftime("%Y-%m-%d"), [])
+    return out
 
 
 def main():
@@ -166,6 +190,7 @@ def main():
     p.add_argument("--force", action="store_true")
     p.add_argument("--collect", action="store_true", help="먼저 채널 새 글 수집")
     p.add_argument("--state", default=str(CACHE / "alerts_state.json"))
+    p.add_argument("--live", help="웹 화면용 스냅샷 JSON 경로 (예: site/live.json)")
     a = p.parse_args()
     now = datetime.now(KST)
     if not (a.force or market_open(now)):
@@ -187,7 +212,11 @@ def main():
             state["last_post_time"] = max(state.get("last_post_time") or "", gh.get("last_post_time") or "") or None
         except Exception:
             pass
+    import copy
+    log_before = copy.deepcopy(state.get("log") or {})
     msgs, ev = check(state, now)
+    if a.dry:   # 연습 실행은 보낸 알림이 아니므로 알림 센터 기록에 남기지 않음
+        state["log"] = log_before
     sent = False
     if msgs and not a.dry:
         from telegram_send import send
@@ -197,6 +226,12 @@ def main():
     if not a.dry:
         Path(a.state).parent.mkdir(parents=True, exist_ok=True)
         Path(a.state).write_text(json.dumps(state, ensure_ascii=False, indent=1), encoding="utf-8")
+    if a.live:
+        try:
+            Path(a.live).parent.mkdir(parents=True, exist_ok=True)
+            Path(a.live).write_text(json.dumps(live_snapshot(state, ev, now), ensure_ascii=False), encoding="utf-8")
+        except Exception as e:
+            print(json.dumps({"live_error": type(e).__name__}))
     print(json.dumps({"at": now.strftime("%Y-%m-%d %H:%M"), "alerts": msgs, "sent": sent}, ensure_ascii=False, indent=1))
 
 

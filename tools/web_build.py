@@ -1190,6 +1190,14 @@ LAST = WEB / "last_data.json"   # 마지막 전체 데이터 (부분 새로고�
 
 def write_html(data):
     # Claude 인사이트 (2026-11-11): 채널 며칠 치를 종합한 해석 — tools/insight.py save 가 씀. 어떤 갱신이든 최신 파일을 실음
+    # 알림 센터 (2026-11-12): 깃허브 알림 작업이 보낸 메시지 기록 (alert-state 브랜치)
+    try:
+        import subprocess
+        subprocess.run(["git", "fetch", "-q", "origin", "alert-state"], cwd=ROOT, capture_output=True, timeout=30)
+        st = json.loads(subprocess.run(["git", "show", "origin/alert-state:state.json"], cwd=ROOT, capture_output=True, text=True, timeout=15).stdout or "{}")
+        data["alerts"] = {"last_check": (st.get("last_check") or "")[:16].replace("T", " "), "log": st.get("log") or {}}
+    except Exception:
+        pass
     fi = DATA / "insight" / "latest.json"
     if fi.exists():
         data["insight"] = safe(lambda: json.loads(fi.read_text(encoding="utf-8")))
