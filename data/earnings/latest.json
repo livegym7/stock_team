@@ -1,6 +1,18 @@
 {
  "rows": [
   {
+   "name": "디아이",
+   "code": "003160",
+   "period": "2026.3Q",
+   "sales": 2177.0,
+   "op": 593.0,
+   "net": 434.0,
+   "verdict": null,
+   "time": "2026-11-12 13:40",
+   "channel": "nje2e",
+   "url": "https://t.me/nje2e/45363"
+  },
+  {
    "name": "삼성생명",
    "code": "032830",
    "period": "2026.3Q",
@@ -915,27 +927,6 @@
    "time": "2026-11-02 13:53",
    "channel": "maddingStock",
    "url": "https://t.me/maddingStock/19015"
-  },
-  {
-   "name": "디아이",
-   "code": "003160",
-   "period": "2026.3Q",
-   "sales": 2177.0,
-   "sales_est": 1975.0,
-   "sales_surprise": 10.2,
-   "sales_yoy": 99.6,
-   "op": 593.0,
-   "op_est": 444.0,
-   "op_surprise": 33.6,
-   "op_yoy": 493.1,
-   "net": 434.0,
-   "net_est": 329.0,
-   "net_surprise": 31.9,
-   "net_yoy": 466.7,
-   "verdict": "서프라이즈",
-   "time": "2026-11-02 09:45",
-   "channel": "maddingStock",
-   "url": "https://t.me/maddingStock/19003"
   },
   {
    "name": "대덕전자",
