@@ -1,6 +1,18 @@
 {
  "rows": [
   {
+   "name": "엘티씨",
+   "code": "170920",
+   "period": "2026.3Q",
+   "sales": 1143.0,
+   "op": 294.0,
+   "net": 227.0,
+   "verdict": null,
+   "time": "2026-11-12 16:08",
+   "channel": "maddingStock",
+   "url": "https://t.me/maddingStock/19383"
+  },
+  {
    "name": "HMM",
    "code": "011200",
    "period": "2026.3Q",
