@@ -1,0 +1,521 @@
+<title>Balance Lab 2.0 기획서</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@500;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap">
+<style>
+/* 레이아웃: 왼쪽 고정 목차 + 오른쪽 문서 한 줄기. 와이어프레임은 회색 상자·점선 + 번호 표식(기능 ID와 연결). Balance Lab 로고의 파란 점을 강조색으로 */
+:root{
+  --bg:#f7f7f9; --paper:#ffffff; --ink:#18181b; --muted:#60606b; --faint:#8b8b96; --rule:#e3e3e8; --tint:#f2f2f5;
+  --brand:#4553d0; --brand-soft:#ecedff; --on-brand:#ffffff; --up:#d42a2a; --down:#2160e0; --warn:#b45309; --warn-soft:#fdf2e1; --ok:#15803d; --ok-soft:#e8f6ec;
+  --wf:#eeeef2; --wf-line:#c9c9d2; --wf-ink:#6b6b78;
+  --head:'IBM Plex Sans KR','Noto Sans KR',system-ui,sans-serif; --body:'Noto Sans KR',system-ui,-apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0b0b0e; --paper:#131317; --ink:#f2f2f4; --muted:#a6a6b2; --faint:#74747f; --rule:#2a2a31; --tint:#1a1a20;
+  --brand:#8f9bff; --brand-soft:#1e2244; --on-brand:#0f1130; --up:#f87171; --down:#6aa6ff; --warn:#fbbf24; --warn-soft:#2b220e; --ok:#4ade80; --ok-soft:#10261a;
+  --wf:#1c1c22; --wf-line:#3a3a44; --wf-ink:#9a9aa6; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0b0b0e; --paper:#131317; --ink:#f2f2f4; --muted:#a6a6b2; --faint:#74747f; --rule:#2a2a31; --tint:#1a1a20;
+  --brand:#8f9bff; --brand-soft:#1e2244; --on-brand:#0f1130; --up:#f87171; --down:#6aa6ff; --warn:#fbbf24; --warn-soft:#2b220e; --ok:#4ade80; --ok-soft:#10261a;
+  --wf:#1c1c22; --wf-line:#3a3a44; --wf-ink:#9a9aa6; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.75;word-break:keep-all;overflow-wrap:anywhere;padding-block:0 80px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3,h4{font-family:var(--head);letter-spacing:-.3px;text-wrap:balance;margin:0}
+a{color:var(--brand)}
+.num{font-variant-numeric:tabular-nums}
+.wrap{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:220px minmax(0,1fr);gap:40px}
+nav.toc{position:sticky;top:env(safe-area-inset-top,0px);align-self:start;padding-top:36px;font-size:13px;max-height:100vh;overflow-y:auto}
+nav.toc b{display:block;font-family:var(--head);font-size:12px;color:var(--muted);letter-spacing:.06em;margin-bottom:8px}
+nav.toc a{display:block;color:var(--muted);text-decoration:none;padding:4px 0 4px 10px;border-left:2px solid var(--rule)}
+nav.toc a:hover{color:var(--ink);border-left-color:var(--brand)}
+main{min-width:0;padding-top:28px}
+.cover{background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:32px 36px;margin-bottom:28px}
+.cover .eb{font-size:12px;font-weight:700;color:var(--brand);letter-spacing:.08em}
+.cover h1{font-size:34px;line-height:1.25;margin:8px 0 10px}
+.cover p.lede{font-size:16.5px;color:var(--muted);margin:0 0 18px;max-width:62ch}
+.meta{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:13px;color:var(--muted)}
+.meta b{color:var(--ink);font-weight:600}
+section.s{background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:30px 36px;margin-bottom:22px}
+.sh{display:flex;align-items:baseline;gap:12px;margin-bottom:6px;flex-wrap:wrap}
+.sh .no{font-family:var(--head);font-weight:700;font-size:13px;color:var(--brand)}
+.sh h2{font-size:24px}
+.sub{color:var(--muted);margin:0 0 20px;max-width:70ch}
+h3{font-size:17.5px;margin:26px 0 10px}
+h4{font-size:15px;margin:18px 0 6px}
+p{margin:0 0 12px;max-width:72ch}
+ul,ol{margin:0 0 12px;padding-left:20px}li{margin-bottom:4px}
+.small{font-size:13px;color:var(--muted)}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:12px}
+.card{border:1px solid var(--rule);border-radius:10px;padding:16px 18px;min-width:0}
+.card h4{margin-top:0}
+.kpi{border:1px solid var(--rule);border-radius:10px;padding:14px 16px}
+.kpi small{display:block;color:var(--muted);font-size:12px}.kpi b{display:block;font-family:var(--head);font-size:24px;line-height:1.3}.kpi em{font-style:normal;font-size:12px;color:var(--faint)}
+.callout{border-radius:10px;padding:14px 18px;background:var(--brand-soft);margin:14px 0;font-size:14.5px}
+.callout.warn{background:var(--warn-soft)}.callout.ok{background:var(--ok-soft)}
+.tag{display:inline-block;font-size:11.5px;font-weight:700;border-radius:5px;padding:0 7px;line-height:1.7;white-space:nowrap;border:1px solid var(--rule);color:var(--muted)}
+.p0{background:var(--ink);color:var(--paper);border-color:var(--ink)}.p1{background:var(--brand);color:var(--on-brand);border-color:var(--brand)}.p2{color:var(--muted)}
+.tw{overflow-x:auto;border:1px solid var(--rule);border-radius:10px;margin:10px 0 6px}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th{font-size:12px;color:var(--muted);font-weight:600;text-align:left;padding:9px 12px;background:var(--tint);border-bottom:1px solid var(--rule);white-space:nowrap}
+td{padding:10px 12px;border-bottom:1px solid var(--rule);vertical-align:top}
+tr:last-child td{border-bottom:0}
+td.id{font-family:var(--head);font-weight:700;white-space:nowrap}
+td .ac{display:block;color:var(--muted);font-size:12.5px;margin-top:4px}
+.sev{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:1px}
+.sev.h{background:var(--up)}.sev.m{background:var(--warn)}.sev.l{background:var(--faint)}
+pre.mermaid{background:var(--tint);border-radius:10px;padding:16px;overflow-x:auto;margin:10px 0 14px;font-size:13px}
+/* 와이어프레임 */
+.wfwrap{display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:18px;align-items:start;margin:12px 0 18px}
+.wf{background:var(--wf);border:1px solid var(--wf-line);border-radius:12px;padding:12px;font-size:12px;color:var(--wf-ink);min-width:0;position:relative}
+.wf .lbl{position:absolute;top:-10px;left:12px;background:var(--paper);border:1px solid var(--wf-line);border-radius:5px;padding:0 8px;font-weight:700;font-size:11px;color:var(--muted)}
+.bar{height:28px;border:1px dashed var(--wf-line);border-radius:7px;display:flex;align-items:center;gap:8px;padding:0 10px;background:var(--paper);margin-bottom:8px;white-space:nowrap;overflow:hidden}
+.bx{border:1px dashed var(--wf-line);border-radius:8px;background:var(--paper);padding:8px 10px;min-width:0;position:relative}
+.bx b{color:var(--ink);font-size:12px}
+.ln{height:7px;border-radius:4px;background:var(--wf-line);margin:6px 0;opacity:.7}
+.ln.s{width:55%}.ln.m{width:75%}
+.row{display:grid;gap:8px;margin-bottom:8px}
+.c2{grid-template-columns:1.5fr 1fr}.c3{grid-template-columns:repeat(3,1fr)}.c4{grid-template-columns:repeat(4,1fr)}.c5{grid-template-columns:repeat(5,1fr)}
+.chipw{display:inline-block;border:1px solid var(--wf-line);border-radius:999px;padding:0 8px;margin:2px 2px 0 0;background:var(--paper);font-size:11px}
+.chipw.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.mk{position:absolute;top:-8px;right:-8px;width:20px;height:20px;border-radius:50%;background:var(--brand);color:var(--on-brand);font-size:11px;font-weight:700;display:grid;place-items:center;font-family:var(--head)}
+.phone{max-width:230px;border-radius:22px;padding:10px}
+.notes{font-size:13px}
+.notes ol{padding-left:0;list-style:none;counter-reset:n}
+.notes li{display:grid;grid-template-columns:22px minmax(0,1fr);gap:6px;margin-bottom:8px}
+.notes li::before{counter-increment:n;content:counter(n);width:20px;height:20px;border-radius:50%;background:var(--brand);color:var(--on-brand);font-size:11px;font-weight:700;display:grid;place-items:center;font-family:var(--head);margin-top:2px}
+.spark{display:inline-block;width:46px;height:12px;border-bottom:1.5px solid var(--wf-ink);border-radius:0 0 0 0;opacity:.6}
+.road{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:12px}
+.road .card{border-top:4px solid var(--brand)}
+.road .card.p2c{border-top-color:var(--faint)}.road .card.p0c{border-top-color:var(--ink)}
+@media(max-width:900px){.wrap{grid-template-columns:minmax(0,1fr)}nav.toc{display:none}.wfwrap{grid-template-columns:minmax(0,1fr)}section.s,.cover{padding:22px 18px}.cover h1{font-size:26px}.c4,.c5{grid-template-columns:repeat(2,1fr)}.c3{grid-template-columns:1fr 1fr}}
+</style>
+
+<div class="wrap">
+<nav class="toc" aria-label="목차">
+  <b>목차</b>
+  <a href="#summary">0. 한 장 요약</a>
+  <a href="#asis">1. 현황 진단</a>
+  <a href="#prd">2. PRD</a>
+  <a href="#ia">3. 정보 구조</a>
+  <a href="#spec">4. 기능 명세서</a>
+  <a href="#flow">5. 유저 플로우</a>
+  <a href="#wire">6. 와이어프레임</a>
+  <a href="#nfr">7. 비기능 요구사항</a>
+  <a href="#pipe">8. 에이전트·데이터 파이프라인</a>
+  <a href="#road">9. 로드맵·결정 사항</a>
+</nav>
+
+<main>
+<header class="cover">
+  <div class="eb">PRODUCT PLAN · v2.0 제안</div>
+  <h1>Balance Lab 2.0 기획서</h1>
+  <p class="lede">회사원 추세추종 트레이더가 하루 세 번, 10분 안에 "지금 무엇을 볼지"를 정하는 상황판. 지금 기능을 PRD·기능 명세·유저 플로우·와이어프레임으로 다시 정리하고 크게 손볼 곳을 제안합니다.</p>
+  <div class="meta"><span>작성 <b class="num">2026-11-12</b></span><span>기준 버전 <b>Balance Lab 1.x</b> (메뉴 5개, Artifact + Cloudflare 웹)</span><span>상태 <b>제안 · 사용자 결정 대기</b></span><span>작성 Claude (설계 담당)</span></div>
+</header>
+
+<!-- 0 -->
+<section class="s" id="summary">
+  <div class="sh"><span class="no">0</span><h2>한 장 요약</h2></div>
+  <p class="sub">기능은 이미 많습니다. 문제는 기능끼리 흩어져 있고, 같은 정보가 여러 곳에서 다른 시각으로 보인다는 점입니다. 2.0은 기능을 더하기보다 <b>묶고, 줄이고, 시각을 맞추는</b> 개편입니다.</p>
+  <div class="grid3">
+    <div class="card"><h4>문제 ① 흩어진 판단</h4><p class="small" style="margin:0">Claude 의견이 인사이트·아침 브리핑·채널 정리·리포트 정리·마감 리뷰에 각각 따로 있습니다. 첫 화면에서 "오늘 결론"이 하나로 모이지 않습니다.</p></div>
+    <div class="card"><h4>문제 ② 종목 정보가 다섯 군데</h4><p class="small" style="margin:0">한 종목을 보려면 기업 탭·관찰 풀·감시 목록·리포트 흐름·채널 원문을 오가야 합니다. 검색은 이번 주에야 생겼습니다.</p></div>
+    <div class="card"><h4>문제 ③ 두 개의 화면, 어긋난 시각</h4><p class="small" style="margin:0">Artifact와 웹이 따로 갱신되고, 데이터 시각·브리핑 시각·장중 가격 시각이 서로 다릅니다. 이번 주 고친 오류 6건 중 4건이 여기서 나왔습니다.</p></div>
+  </div>
+  <h3>2.0의 세 가지 방향</h3>
+  <div class="grid3">
+    <div class="card" style="border-color:var(--ink)"><h4>A. 상황판 첫 화면</h4><p class="small" style="margin:0">첫 화면 = 상태 5줄 + 오늘의 결론 1개 + 할 일 체크리스트. 나머지는 접습니다. 하루 세 번의 체크포인트(07:00 · 12:30 · 18:30)에 맞춰 내용이 바뀝니다.</p></div>
+    <div class="card" style="border-color:var(--ink)"><h4>B. 종목 허브</h4><p class="small" style="margin:0">'종목'을 여섯 번째 메뉴로 올립니다. 검색 → 종목 페이지 하나에 가격·RS·셋업·리포트·채널·공시·내 매매가 모입니다. 어디서 종목을 눌러도 여기로 옵니다.</p></div>
+    <div class="card" style="border-color:var(--ink)"><h4>C. 한 줄기 데이터</h4><p class="small" style="margin:0">웹(Cloudflare)으로 일원화하고 Artifact 갱신을 끕니다. 모든 숫자에 '기준 시각' 배지를 붙이고, 장중 가격은 20분 스냅샷으로 따로 갱신합니다.</p></div>
+  </div>
+  <div class="callout"><b>기대 효과.</b> 하루 확인 시간 30분 → 10분, Claude 토큰 약 20% 감소(Artifact·Haiku 웹 갱신 폐지), 시각 불일치 오류 0건, 종목 하나 보는 데 클릭 5회 → 1회.</div>
+</section>
+
+<!-- 1 -->
+<section class="s" id="asis">
+  <div class="sh"><span class="no">1</span><h2>현황 진단 (As-Is)</h2></div>
+  <p class="sub">2026-11-10 개편과 11-11~12 이틀간 수정한 내용을 바탕으로 정리했습니다.</p>
+  <div class="grid3" style="margin-bottom:16px">
+    <div class="kpi"><small>메뉴 · 하위 탭</small><b class="num">5 · 16</b><em>오늘 / 흐름 3 / 전략 5 / 내 매매 / 더보기</em></div>
+    <div class="kpi"><small>Claude 예약 작업</small><b class="num">10개</b><em>Sonnet 6 · Opus 2 · Haiku 2</em></div>
+    <div class="kpi"><small>데이터 기업 수</small><b class="num">약 410</b><em>채널 11곳 · 3일 약 1,250건</em></div>
+    <div class="kpi"><small>페이지 크기</small><b class="num">5~7MB</b><em>한 파일에 모든 데이터</em></div>
+    <div class="kpi"><small>장중 데이터 신선도</small><b class="num">최대 1시간</b><em>웹 매시 배포 · Artifact 2시간</em></div>
+    <div class="kpi"><small>이번 주 화면 오류 수정</small><b class="num">11건</b><em>11-11 ~ 11-12</em></div>
+  </div>
+  <h3>잘 되고 있는 것 (유지)</h3>
+  <ul>
+    <li><b>재료는 토큰 0 도구가, 해석은 모델이</b> 쓰는 구조. strategy_prep · insight · research_cards · market_pulse.</li>
+    <li>절대 규칙(주문 없음 · 키 비노출 · 출처·시각 · 단정 금지 · 규칙 고정)이 모든 산출물에 지켜지고 있음.</li>
+    <li>4검증(말·이익·가격·돈) → 띔 → 관찰 풀 → 감시 목록으로 이어지는 전략 깔때기.</li>
+    <li>리포트 깔때기(Tier 0~3)로 산업·전략 리포트 전부를 카드로 보는 범위 확보.</li>
+  </ul>
+  <h3>문제 목록</h3>
+  <div class="tw"><table>
+    <tr><th>#</th><th>문제</th><th>근거 (이번 주 실제 사례)</th><th>영향</th></tr>
+    <tr><td class="id">D1</td><td><span class="sev h"></span>의견이 5곳에 흩어짐</td><td>인사이트(08·12·16시), 아침 브리핑 💡, 채널 정리 💡, 리포트 정리 💡, 마감 리뷰 💡가 각각 다른 시각·관점</td><td>"오늘 결론"을 사용자가 직접 합쳐야 함</td></tr>
+    <tr><td class="id">D2</td><td><span class="sev h"></span>종목 정보 분산</td><td>SK하이닉스: RS·차트는 기업 탭, 셋업은 감시 목록, 띔은 관찰 풀, 목표가는 리포트 흐름, 원문은 채널 원문</td><td>종목 하나 보는 데 탭 4~5회 이동</td></tr>
+    <tr><td class="id">D3</td><td><span class="sev h"></span>두 배포 경로의 시각 불일치</td><td>웹만 브리핑 시각이 배포 시각으로 찍힘, 일봉 캐시 없어 RS 빈칸, 오늘만 정리 카드 2개, Artifact 게시 충돌 4회</td><td>신뢰도 하락, 고치는 데 토큰 소모</td></tr>
+    <tr><td class="id">D4</td><td><span class="sev m"></span>첫 화면이 길다</td><td>인사이트 10항목 + 소식 5 + 일정 6 + 시장 숫자 + 계좌 + 보유 → PC 3화면 분량</td><td>출근길 휴대폰에서 핵심까지 스크롤 2~3번</td></tr>
+    <tr><td class="id">D5</td><td><span class="sev m"></span>장중 가격이 늦음</td><td>보유 종목 손절 근접(NAVER −2.4%)이 최대 1시간 늦게 보임. 텔레그램 알림(20분)과 화면이 다름</td><td>화면과 알림 숫자가 어긋남</td></tr>
+    <tr><td class="id">D6</td><td><span class="sev m"></span>매매 결정 근거가 안 남음</td><td>11/11 NAVER·티에프이 매수 기록에 띔·가설·무효 조건 없음</td><td>복기·띔 성적표가 "왜 샀나"를 모름</td></tr>
+    <tr><td class="id">D7</td><td><span class="sev m"></span>모바일 입력·탐색 불편</td><td>한글 검색 깨짐(수정함), 전략 하위 탭 5개 가로 스크롤, 표가 좁은 화면에서 잘림</td><td>휴대폰 사용 비중이 높은데 PC 중심 화면</td></tr>
+    <tr><td class="id">D8</td><td><span class="sev l"></span>용어·코드 노출</td><td>감시 목록 'G', '2stage 조정 중', 'RS 백분위' 같은 내부 용어가 설명 없이 보임</td><td>초보 사용자에게 진입 장벽</td></tr>
+    <tr><td class="id">D9</td><td><span class="sev l"></span>페이지가 무겁다</td><td>채널 사진·전 종목 차트까지 한 파일(5~7MB)</td><td>휴대폰 첫 로딩 3~5초</td></tr>
+  </table></div>
+</section>
+
+<!-- 2 PRD -->
+<section class="s" id="prd">
+  <div class="sh"><span class="no">2</span><h2>PRD — 제품 요구사항</h2></div>
+  <h3>2.1 제품 한 줄 정의</h3>
+  <p><b>Balance Lab은 장중에 화면을 볼 수 없는 회사원이 텔레그램 채널과 증권사 리포트의 흐름을 놓치지 않고, 고정된 추세추종 규칙대로 "볼 종목 · 기다릴 종목 · 피할 종목"을 하루 세 번 정리받는 개인 상황판이다.</b> 주문은 하지 않는다.</p>
+  <h3>2.2 사용자</h3>
+  <div class="grid2">
+    <div class="card"><h4>주 사용자: 회사원 추세추종 트레이더 (본인)</h4><ul class="small" style="margin:0">
+      <li>장중 확인 가능 시간: 출근 전 · 점심 · 퇴근 후, 각 5~10분</li>
+      <li>전략: 깡토 돌파(셋업 → 기준가 돌파 + 인더스트리 액션), 1R = 30만 원, 처음 손절 −8%</li>
+      <li>주 사용 기기: 휴대폰(이동 중) 60% · PC(저녁) 40% <span class="faint">(추정, 확인 필요)</span></li>
+      <li>코딩 초보, 화면은 한국어, 설정은 Claude에게 말로 요청</li>
+    </ul></div>
+    <div class="card"><h4>보조 사용자: Claude 에이전트들</h4><ul class="small" style="margin:0">
+      <li>Sonnet 데스크(정리·브리핑), Opus 전략 데스크(주간), Haiku(스크립트)</li>
+      <li>화면을 직접 보지 않고 같은 데이터 파일(JSON)을 읽고 씀</li>
+      <li>요구: 재료는 짧게, 형식은 고정, 저장 때 자동 검사</li>
+    </ul></div>
+  </div>
+  <h3>2.3 사용자가 해결하려는 일 (Jobs to be done)</h3>
+  <div class="tw"><table>
+    <tr><th>ID</th><th>언제</th><th>하고 싶은 일</th><th>지금 걸리는 시간</th><th>목표</th></tr>
+    <tr><td class="id">J1</td><td>출근 전 07:00</td><td>간밤 미국·오늘 국내 장 분위기, 내 보유 종목 위험을 한눈에</td><td class="num">8~10분</td><td class="num">3분</td></tr>
+    <tr><td class="id">J2</td><td>점심 12:30</td><td>오전에 바뀐 것만, 내 종목·관찰 풀에 관련된 것만</td><td class="num">10분</td><td class="num">3분</td></tr>
+    <tr><td class="id">J3</td><td>퇴근 후 18:30</td><td>오늘 신호(돌파)가 난 종목과 내일 할 일. 매수했다면 근거를 남기기</td><td class="num">15~20분</td><td class="num">7분</td></tr>
+    <tr><td class="id">J4</td><td>궁금할 때</td><td>"이 종목 지금 어때?" 한 번에 답 얻기</td><td>탭 4~5회</td><td>검색 1회</td></tr>
+    <tr><td class="id">J5</td><td>주말</td><td>이번 주 띔이 맞았나, 다음 주 어디서 싸우나</td><td class="num">30분+</td><td class="num">15분</td></tr>
+  </table></div>
+  <h3>2.4 목표와 성공 지표</h3>
+  <div class="tw"><table>
+    <tr><th>지표</th><th>지금</th><th>2.0 목표</th><th>재는 방법</th></tr>
+    <tr><td>하루 확인 시간 합계</td><td class="num">약 30분</td><td class="num">10분 이하</td><td>체크포인트 3회 × 열람 시간 (사용자 자가 기록, 2주)</td></tr>
+    <tr><td>첫 화면에서 오늘 결론까지 스크롤</td><td class="num">2~3회 (휴대폰)</td><td class="num">0회</td><td>390px 화면 첫 프레임 안에 결론·위험·할 일</td></tr>
+    <tr><td>시각 불일치 오류</td><td class="num">주 4건</td><td class="num">0건</td><td>모든 숫자에 기준 시각 배지, 배포 후 자동 점검</td></tr>
+    <tr><td>매수 기록 중 근거(띔·무효 조건) 있는 비율</td><td class="num">0%</td><td class="num">90%↑</td><td>trades.jsonl 필드 채움 비율</td></tr>
+    <tr><td>Claude 토큰 (평일 하루)</td><td>기준값</td><td class="num">−20%</td><td>Artifact 게시·Haiku 웹 갱신 폐지, 체크포인트로 정리 통합</td></tr>
+    <tr><td>휴대폰 첫 로딩</td><td class="num">3~5초</td><td class="num">1.5초</td><td>첫 화면 데이터 1MB 이하, 나머지 지연 로딩</td></tr>
+  </table></div>
+  <h3>2.5 범위</h3>
+  <div class="grid2">
+    <div class="card"><h4>포함 (In)</h4><ul class="small" style="margin:0">
+      <li>첫 화면 상황판 개편, 체크포인트 3회 글</li>
+      <li>종목 허브(검색 + 종목 페이지), 모든 종목 이름에서 연결</li>
+      <li>웹 일원화, 기준 시각 배지, 장중 가격 20분 스냅샷</li>
+      <li>결정 로그(매수 때 띔·가설·무효 조건), 띔별 성적</li>
+      <li>알림 센터(화면 안에서 오늘 보낸 알림 모아 보기)</li>
+      <li>모바일 우선 레이아웃 정리, 용어 툴팁</li>
+    </ul></div>
+    <div class="card"><h4>제외 (Out)</h4><ul class="small" style="margin:0">
+      <li><b>주문·자동매매 기능</b> (절대 규칙 1)</li>
+      <li>매매 규칙 변경 (2027-01-31까지 고정, 표시만)</li>
+      <li>실시간 체결가 스트리밍 (네이버 비공식·클라우드 제약)</li>
+      <li>여러 사용자·공유 기능</li>
+      <li>증권사 리포트 PDF 원본 보관 (절대 규칙 3)</li>
+    </ul></div>
+  </div>
+  <h3>2.6 설계 원칙</h3>
+  <ol>
+    <li><b>결론 먼저, 근거는 한 번 더 누르면.</b> 모든 화면 맨 위는 한 문장 결론. 근거·원문은 펼치기.</li>
+    <li><b>한 정보는 한 곳에만.</b> 다른 곳에서는 그곳으로 가는 링크만 둔다.</li>
+    <li><b>모든 숫자에 출처와 기준 시각.</b> 화면 단위가 아니라 숫자 묶음 단위로 표시.</li>
+    <li><b>행동은 준비·관찰·회피 세 가지.</b> 매수·매도 단어를 쓰지 않는다.</li>
+    <li><b>휴대폰 390px에서 먼저 설계</b>하고 PC는 넓혀서 같은 순서로.</li>
+  </ol>
+</section>
+
+<!-- 3 IA -->
+<section class="s" id="ia">
+  <div class="sh"><span class="no">3</span><h2>정보 구조 (IA)</h2></div>
+  <p class="sub">메뉴를 '정보 종류'가 아니라 '질문'으로 나눕니다. 메뉴는 6개, 하위 탭은 16개에서 12개로 줄입니다.</p>
+  <div class="tw"><table>
+    <tr><th>메뉴</th><th>답하는 질문</th><th>하위 화면</th><th>지금과 달라지는 점</th></tr>
+    <tr><td><b>오늘</b></td><td>지금 무엇을 봐야 하나?</td><td>상황판 (탭 없음)</td><td>상태 5줄 + 체크포인트 결론 + 할 일. 소식·일정·시장 숫자는 접힘</td></tr>
+    <tr><td><b>시장</b></td><td>무슨 이야기가 돌고 리포트는 어디를 보나?</td><td>타임라인 · 리포트 흐름 · 채널 원문</td><td>'흐름'을 '시장'으로 이름 변경. 타임라인은 체크포인트 글이 기본</td></tr>
+    <tr><td><b>전략</b></td><td>어디서 싸우나?</td><td>띔 보드 · 보고서 · 관찰 풀 · 감시 목록</td><td>띔 보드가 첫 화면. 자료실은 '시장 › 리포트 흐름' 안으로, 기업 탭은 '종목'으로 이동</td></tr>
+    <tr><td><b>종목</b> <span class="tag p0">신규</span></td><td>이 종목 지금 어때?</td><td>검색 · 종목 페이지 · 최근 본 종목</td><td>기업 탭·기업 카드·검색 요약 카드를 하나로</td></tr>
+    <tr><td><b>내 매매</b></td><td>내 돈과 규칙은 괜찮나?</td><td>계좌 · 결정 로그 · 복기 · 계산기</td><td>결정 로그 추가, 규칙은 '더보기'로</td></tr>
+    <tr><td><b>더보기</b></td><td>시스템은 잘 돌고 있나?</td><td>알림 센터 · 달력 · 자동 작업 · 규칙 · 용어</td><td>알림 센터 신규, 규칙·용어 모음</td></tr>
+  </table></div>
+  <pre class="mermaid">
+flowchart LR
+  T[오늘 상황판] -->|종목 이름| S[종목 페이지]
+  M[시장 타임라인·리포트] -->|종목 이름| S
+  ST[전략 띔 보드·관찰 풀·감시 목록] -->|종목 이름| S
+  TR[내 매매 계좌·결정 로그] -->|보유 종목| S
+  Q[어디서나 검색칸] --> S
+  S -->|이 종목의 띔| ST
+  S -->|이 종목 리포트·채널 글| M
+  S -->|내 매수 기록| TR
+  </pre>
+  <p class="small">모든 종목 이름은 같은 종목 페이지로 연결됩니다. 종목 페이지에서 다시 띔·리포트·내 기록으로 나갑니다(허브 앤 스포크 구조).</p>
+</section>
+
+<!-- 4 SPEC -->
+<section class="s" id="spec">
+  <div class="sh"><span class="no">4</span><h2>기능 명세서</h2></div>
+  <p class="sub">우선순위: <span class="tag p0">P0</span> 2.0 출시에 꼭 필요 · <span class="tag p1">P1</span> 출시 후 4주 안 · <span class="tag p2">P2</span> 여유 있을 때. 각 기능 아래 회색 글씨는 <b>수용 기준</b>(다 되었다고 볼 조건)입니다.</p>
+  <h3>4.1 오늘 (상황판)</h3>
+  <div class="tw"><table>
+    <tr><th>ID</th><th>우선</th><th>기능</th><th>데이터 · 갱신</th><th>담당</th></tr>
+    <tr><td class="id">T-01</td><td><span class="tag p0">P0</span></td><td><b>상태 5줄</b>: 시장 신호등·권장 노출 / 내 계좌(CR·손절 근접) / 지금 커지는 이야기 3 / 오늘 남은 일정 2 / 다음 체크포인트까지 볼 것 2<span class="ac">390px 첫 화면에 5줄이 모두 보인다 · 줄마다 기준 시각 배지 · 손절 근접(−3% 안)이면 빨간 줄로 맨 위</span></td><td>regime, risk, 모멘텀 표, calendar · 20분</td><td>도구(토큰 0)</td></tr>
+    <tr><td class="id">T-02</td><td><span class="tag p0">P0</span></td><td><b>체크포인트 결론</b>: 07:00·12:30·18:30에 쓰는 한 장. "직전 이후 바뀐 것 → 지금 상태 → 다음까지 볼 것" 세 칸, 각 3줄 이내. 지금의 인사이트·채널 정리 💡·리포트 정리 💡를 대신함<span class="ac">제목 32자 이내 · 항목 9개 이내 · 지난 체크포인트의 '볼 것'을 맞음/틀림/진행으로 채점 · 저장 때 자동 검사</span></td><td>insight.py 확장 · 하루 3회</td><td>Sonnet</td></tr>
+    <tr><td class="id">T-03</td><td><span class="tag p0">P0</span></td><td><b>할 일 체크리스트</b>: 규칙에서 나온 오늘의 확인 항목(예: "NAVER 손절가 178,388원까지 −2.4%", "관찰 풀 대한항공 기준가 +1% 근접")<span class="ac">규칙 계산만, 모델 쓰지 않음 · 항목을 누르면 해당 종목 페이지 · 0개면 "오늘 확인할 것 없음"</span></td><td>risk, screener · 20분</td><td>도구</td></tr>
+    <tr><td class="id">T-04</td><td><span class="tag p1">P1</span></td><td><b>지금 커지는 이야기 표</b>: 주제(종목·업종·키워드)별 오늘 글 수 / 어제 같은 시각 글 수 / 채널 수 / 첫 등장 시각<span class="ac">상위 5개, 관찰 풀·보유와 겹치면 ⭐ · 출처: 채널 요약</span></td><td>tg_channel · 20분</td><td>도구</td></tr>
+    <tr><td class="id">T-05</td><td><span class="tag p1">P1</span></td><td><b>접힌 상세</b>: 중요한 소식 5 · 시장 숫자 · 해외 매크로 · 일정 전체<span class="ac">기본 접힘, 펼친 상태는 기기에 기억</span></td><td>기존</td><td>—</td></tr>
+  </table></div>
+  <h3>4.2 종목 (허브)</h3>
+  <div class="tw"><table>
+    <tr><th>ID</th><th>우선</th><th>기능</th><th>데이터 · 갱신</th><th>담당</th></tr>
+    <tr><td class="id">S-01</td><td><span class="tag p0">P0</span></td><td><b>어디서나 검색</b>: 이름·코드·초성·업종, 자동완성 12개, ↑↓·엔터 선택<span class="ac">한글 조합 중 깨짐 없음 · 시총 큰 순 정렬 · 최근 본 종목 5개 기억 (이번 주 1차 구현 완료)</span></td><td>companies</td><td>—</td></tr>
+    <tr><td class="id">S-02</td><td><span class="tag p0">P0</span></td><td><b>종목 페이지</b>: 머리(이름·업종·한 줄 설명·상태 칩: 보유/관찰 풀/감시 신호) → 숫자 8칸 → 주봉+매물대 차트 → 셋업·기준가 → 목표가 추이 → 리포트 타임라인 → 채널 글 → 공시 → 내 매매 기록<span class="ac">주소 #s005930 처럼 바로 열림 · 모든 종목 이름에서 연결 · 섹션마다 출처·시각 · 휴대폰에서 섹션 접기</span></td><td>companies, watch, cons, dart · 20분/일</td><td>도구</td></tr>
+    <tr><td class="id">S-03</td><td><span class="tag p1">P1</span></td><td><b>Claude 한 줄 평</b>: 종목 페이지 맨 위에 "지금 이 종목은 준비/관찰/회피 · 이유 한 줄 · 깨지는 조건 한 줄"<span class="ac">관찰 풀·보유 종목만(약 25개), 체크포인트 때 함께 갱신 · 근거 없는 종목은 표시 안 함</span></td><td>전략 보고서 + 체크포인트</td><td>Sonnet</td></tr>
+    <tr><td class="id">S-04</td><td><span class="tag p2">P2</span></td><td><b>이익 추정 추이</b>: 영업이익 컨센서스 4주 변화<span class="ac">네이버 컨센서스, 토큰 0</span></td><td>신규 도구 · 하루 1회</td><td>도구</td></tr>
+  </table></div>
+  <h3>4.3 시장 · 전략</h3>
+  <div class="tw"><table>
+    <tr><th>ID</th><th>우선</th><th>기능</th><th>데이터 · 갱신</th><th>담당</th></tr>
+    <tr><td class="id">M-01</td><td><span class="tag p0">P0</span></td><td><b>타임라인 한 날 한 카드 규칙</b>: 체크포인트 글 3장 + 아침·마감·주간. 2시간 정리는 '이전 회차' 안으로<span class="ac">하루 최대 5장 · 카드 시각 = 작성 시각(git 기준) · 이번 주 1차 구현 완료</span></td><td>reports/</td><td>—</td></tr>
+    <tr><td class="id">M-02</td><td><span class="tag p1">P1</span></td><td><b>리포트 흐름 내려가 보기</b>: 업종 줄을 누르면 그 업종의 상향·하향 종목과 산업 리포트 카드<span class="ac">자료실(카드·깊이 읽기)을 이 안으로 통합</span></td><td>report_flow, cards</td><td>—</td></tr>
+    <tr><td class="id">ST-01</td><td><span class="tag p0">P0</span></td><td><b>띔 보드</b>: 띔마다 단계(초기·확산·과열·소멸)·확신도·4검증 합계의 주별 점, 관찰 풀 종목 수, 이번 주 성적<span class="ac">전략 메뉴 첫 화면 · 띔 카드 → 보고서 해당 절 · 지난 호 대비 ▲▼</span></td><td>strategy latest·history</td><td>도구</td></tr>
+    <tr><td class="id">ST-02</td><td><span class="tag p1">P1</span></td><td><b>평일 자동 스코어카드</b>: 말·가격·돈 3축을 매일 계산, 토요일 전략가는 이익 축과 해석만<span class="ac">토 보고서 토큰 −20% · 업종 순위 변화 표시</span></td><td>strategy_prep · 매일 16:40</td><td>도구</td></tr>
+    <tr><td class="id">ST-03</td><td><span class="tag p1">P1</span></td><td><b>감시 목록 개선</b>: 정렬(완료) + 필터 저장 + 신호 이름 풀어쓰기(완료) + 종목 페이지 연결<span class="ac">표 머리 누르면 높은 순 → 낮은 순 → 기본</span></td><td>screener</td><td>—</td></tr>
+  </table></div>
+  <h3>4.4 내 매매 · 알림 · 시스템</h3>
+  <div class="tw"><table>
+    <tr><th>ID</th><th>우선</th><th>기능</th><th>데이터 · 갱신</th><th>담당</th></tr>
+    <tr><td class="id">TR-01</td><td><span class="tag p0">P0</span></td><td><b>결정 로그</b>: "OO 샀어"라고 하면 Claude가 ① 어느 띔? ② 가설 한 줄 ③ 깨지는 조건 세 가지를 묻고 기록<span class="ac">세 칸 중 하나라도 비면 "근거 없음" 꼬리표 · 규칙 밖(🔴 국면 진입·같은 날 3종목↑) 자동 꼬리표 · 강제 아님</span></td><td>trades.py 확장</td><td>대화 중 Claude</td></tr>
+    <tr><td class="id">TR-02</td><td><span class="tag p1">P1</span></td><td><b>띔별 손익</b>: 띔마다 실제 매매 건수·합계 R·승률<span class="ac">전략 보고서 성적표에 자동 칸</span></td><td>trades + strategy</td><td>도구</td></tr>
+    <tr><td class="id">N-01</td><td><span class="tag p0">P0</span></td><td><b>알림 센터</b>: 오늘 보낸 텔레그램 알림(손절 근접·관찰 풀 돌파·🔥 관련 소식)을 화면에서 시간순으로<span class="ac">알림 하루 상한 표시 · 알림 → 종목 페이지</span></td><td>alert-state 브랜치 · 20분</td><td>Actions</td></tr>
+    <tr><td class="id">N-02</td><td><span class="tag p1">P1</span></td><td><b>관련성 즉시 알림</b>: 관찰 풀 종목·업종이 3채널 이상에서 다뤄지면 한 줄<span class="ac">하루 3건 상한 · 출처: 채널 요약</span></td><td>alerts.py · 20분</td><td>Actions</td></tr>
+    <tr><td class="id">X-01</td><td><span class="tag p0">P0</span></td><td><b>웹 일원화</b>: Artifact 갱신 중단, 웹만 배포. Haiku 웹 갱신 예약 삭제<span class="ac">1주 병행 후 전환 · Artifact는 "새 주소로 이동" 안내 한 장만 남김</span></td><td>web-deploy.yml</td><td>Actions</td></tr>
+    <tr><td class="id">X-02</td><td><span class="tag p0">P0</span></td><td><b>기준 시각 배지</b>: 숫자 묶음마다 "가격 12:40 · 수급 12:20 · 정리 12:30" 식 작은 배지, 2시간 넘으면 노란색<span class="ac">배포 후 자동 점검(오래된 묶음이 있으면 텔레그램 한 줄)</span></td><td>web_build</td><td>도구</td></tr>
+    <tr><td class="id">X-03</td><td><span class="tag p0">P0</span></td><td><b>장중 가격 스냅샷</b>: 20분마다 지수·보유·관찰 풀 가격만 작은 파일로 올리고 화면이 따로 읽음<span class="ac">전체 재빌드 없이 숫자만 갱신 · 장중 신선도 20분 이내</span></td><td>alerts Actions 재사용</td><td>Actions</td></tr>
+    <tr><td class="id">X-04</td><td><span class="tag p1">P1</span></td><td><b>데이터 나누어 싣기</b>: 첫 화면 데이터 1MB 이하, 채널 사진·차트·리포트 본문은 누를 때<span class="ac">휴대폰 첫 로딩 1.5초</span></td><td>web_site.py</td><td>—</td></tr>
+    <tr><td class="id">X-05</td><td><span class="tag p2">P2</span></td><td><b>용어 툴팁</b>: RS·셋업·2stage·CR 등 처음 보는 말에 점선 밑줄과 한 줄 설명<span class="ac">용어 사전 한 파일에서 관리</span></td><td>—</td><td>—</td></tr>
+  </table></div>
+</section>
+
+<!-- 5 FLOW -->
+<section class="s" id="flow">
+  <div class="sh"><span class="no">5</span><h2>유저 플로우</h2></div>
+  <p class="sub">하루 리듬(J1~J3)과 상황별 흐름(J4·J5)입니다. 굵은 상자가 2.0에서 새로 생기거나 바뀌는 지점입니다.</p>
+  <h3>F1. 출근 전 3분 (07:00, 휴대폰)</h3>
+  <pre class="mermaid">
+flowchart TD
+  A[텔레그램: 07:00 체크포인트 알림] --> B[홈 화면 아이콘으로 Balance Lab]
+  B --> C{상태 5줄}
+  C -->|손절 근접 빨간 줄| D[종목 페이지: 손절가·거리·오늘 일정]
+  C -->|이상 없음| E[체크포인트 결론 3칸 읽기]
+  E --> F[할 일 체크리스트 확인]
+  D --> F
+  F --> G[닫기 · 장중엔 텔레그램 알림만]
+  </pre>
+  <h3>F2. 점심 3분 (12:30)</h3>
+  <pre class="mermaid">
+flowchart TD
+  A[12:30 체크포인트] --> B[바뀐 것 3줄: 07:00의 '볼 것' 채점 포함]
+  B --> C{내 종목·관찰 풀과 관련?}
+  C -->|예 ⭐| D[종목 페이지 → 채널 글·리포트]
+  C -->|아니오| E[지금 커지는 이야기 표 훑기]
+  D --> F[알림 센터: 오전에 온 알림 확인]
+  E --> F
+  </pre>
+  <h3>F3. 퇴근 후 7분 (18:30): 신호에서 결정 기록까지</h3>
+  <pre class="mermaid">
+flowchart TD
+  A[18:30 체크포인트 + 16:40 감시 목록] --> B{관찰 풀 돌파 신호 🔥?}
+  B -->|없음| C[내일 볼 것 확인 · 끝]
+  B -->|있음| D[종목 페이지: 셋업·기준가·인더스트리 액션·띔]
+  D --> E[계산기: 매수가·손절가 → 수량·1R]
+  E --> F{다음 날 직접 매수?}
+  F -->|안 함| C
+  F -->|함| G[Claude에게 'OO 샀어']
+  G --> H[Claude: 어느 띔? 가설? 깨지는 조건?]
+  H --> I[결정 로그 저장 · 규칙 점검 결과]
+  I --> J[보유 종목에 자동 추가 · 알림 대상]
+  </pre>
+  <h3>F4. 종목이 궁금할 때 (J4)</h3>
+  <pre class="mermaid">
+flowchart LR
+  A[어느 화면이든 검색칸] --> B[이름·초성 입력]
+  B --> C[자동완성 → 엔터]
+  C --> D[종목 페이지]
+  D --> E[띔으로]
+  D --> F[리포트·채널 글로]
+  D --> G[네이버 증권 ↗]
+  </pre>
+  <h3>F5. 주말 15분 (J5)</h3>
+  <pre class="mermaid">
+flowchart TD
+  A[토 09:07 전략 보고서 발간 알림] --> B[전략 › 띔 보드]
+  B --> C[지난 호 띔 성적: 맞음·틀림·진행]
+  C --> D[내 매매 › 띔별 손익]
+  D --> E[이번 호 결정 박스: 준비·관찰·회피]
+  E --> F[관찰 풀 변경 확인 → 감시 목록 자동 반영]
+  </pre>
+</section>
+
+<!-- 6 WIRE -->
+<section class="s" id="wire">
+  <div class="sh"><span class="no">6</span><h2>와이어프레임</h2></div>
+  <p class="sub">회색 상자는 위치와 비중만 나타낸 저해상도 그림입니다. 파란 번호는 오른쪽 설명과 기능 ID에 연결됩니다.</p>
+
+  <h3>W1. 오늘 — 휴대폰 (390px 첫 화면)</h3>
+  <div class="wfwrap">
+    <div style="display:flex;gap:18px;flex-wrap:wrap">
+      <div class="wf phone"><span class="lbl">휴대폰</span>
+        <div class="bar" style="margin-top:6px"><b>B</b>Balance Lab<span style="margin-left:auto">🔍</span></div>
+        <div class="bx" style="margin-bottom:8px"><span class="mk">1</span><b>12:30 체크포인트</b> <span class="chipw">빨강</span><div class="ln"></div><div class="ln m"></div></div>
+        <div class="bx" style="margin-bottom:8px;border-color:var(--up)"><span class="mk">2</span><b>⚠ NAVER 손절까지 −2.4%</b><div class="ln s"></div></div>
+        <div class="bx" style="margin-bottom:8px"><span class="mk">3</span><b>상태 5줄</b><div class="ln"></div><div class="ln m"></div><div class="ln"></div><div class="ln s"></div><div class="ln m"></div></div>
+        <div class="bx" style="margin-bottom:8px"><span class="mk">4</span><b>할 일 3</b><div class="ln m"></div><div class="ln s"></div></div>
+        <div class="bx"><span class="mk">5</span><b>▸ 소식 · 시장 숫자 · 일정</b></div>
+        <div class="bar" style="margin:8px 0 0;justify-content:space-around"><span>오늘</span><span>시장</span><span>전략</span><span>종목</span><span>내 매매</span></div>
+      </div>
+    </div>
+    <div class="notes"><ol>
+      <li><span><b>체크포인트 결론</b> (T-02). 제목 한 줄 + 세 칸 요약 첫 줄. 누르면 전체.</span></li>
+      <li><span><b>위험 줄</b> (T-01). 손절 근접·CR 한도 근접일 때만 나타나는 빨간 줄.</span></li>
+      <li><span><b>상태 5줄</b> (T-01). 줄마다 기준 시각 배지.</span></li>
+      <li><span><b>할 일</b> (T-03). 규칙 계산 결과, 누르면 종목 페이지.</span></li>
+      <li><span><b>접힌 상세</b> (T-05). 기본 접힘. 아래 탭 막대는 5개(더보기는 오른쪽 위 메뉴로).</span></li>
+    </ol></div>
+  </div>
+
+  <h3>W2. 오늘 — PC (1400px)</h3>
+  <div class="wfwrap">
+    <div class="wf"><span class="lbl">PC</span>
+      <div class="bar" style="margin-top:6px"><b>B</b>Balance Lab<span class="chipw on">오늘</span><span class="chipw">시장</span><span class="chipw">전략</span><span class="chipw">종목</span><span class="chipw">내 매매</span><span style="margin-left:auto" class="chipw">🔍 기업 검색</span><span class="chipw">가격 12:40</span></div>
+      <div class="row c2">
+        <div class="bx"><span class="mk">1</span><b>12:30 체크포인트 · 이틀 반등, 리더는 매일 바뀐다</b><div class="row c3" style="margin-top:8px"><div class="bx"><b>바뀐 것</b><div class="ln"></div><div class="ln m"></div><div class="ln s"></div></div><div class="bx"><b>지금 상태</b><div class="ln"></div><div class="ln m"></div><div class="ln s"></div></div><div class="bx"><b>다음까지 볼 것</b><div class="ln"></div><div class="ln m"></div><div class="ln s"></div></div></div></div>
+        <div style="display:grid;gap:8px"><div class="bx"><span class="mk">2</span><b>상태 5줄</b><div class="ln"></div><div class="ln m"></div><div class="ln"></div><div class="ln s"></div><div class="ln m"></div></div><div class="bx"><span class="mk">3</span><b>할 일</b><div class="ln m"></div><div class="ln s"></div></div></div>
+      </div>
+      <div class="row c3"><div class="bx"><span class="mk">4</span><b>지금 커지는 이야기</b><div class="ln"></div><div class="ln m"></div><div class="ln s"></div></div><div class="bx"><b>보유 종목 2</b> <span class="spark"></span><div class="ln m"></div><div class="ln s"></div></div><div class="bx"><b>코스피·코스닥·수급</b><div class="ln"></div><div class="ln m"></div></div></div>
+      <div class="bx"><span class="mk">5</span><b>▸ 중요한 소식 · 일정 · 해외 매크로 (접힘)</b></div>
+    </div>
+    <div class="notes"><ol>
+      <li><span>체크포인트를 <b>세 칸 가로 배치</b>. 지금의 인사이트 6칸을 3칸으로 줄임.</span></li>
+      <li><span>오른쪽 위는 휴대폰과 같은 상태 5줄.</span></li>
+      <li><span>할 일은 상태 아래에 붙여 '보고 → 할 일'이 한 시선.</span></li>
+      <li><span>둘째 줄: 이야기 모멘텀 · 보유 · 지수 수급(지금의 오른쪽 열을 가로로).</span></li>
+      <li><span>나머지는 접힘. 위쪽 바에 <b>가격 기준 시각</b> 배지(X-02).</span></li>
+    </ol></div>
+  </div>
+
+  <h3>W3. 종목 페이지 (S-02)</h3>
+  <div class="wfwrap">
+    <div class="wf"><span class="lbl">종목 · #s000660</span>
+      <div class="bx" style="margin:6px 0 8px"><span class="mk">1</span><b>SK하이닉스</b> 000660 · 반도체(메모리·대형) <span class="chipw">관찰 풀 T3</span><span class="chipw">감시: 셋업 없음</span><div class="ln m"></div></div>
+      <div class="bx" style="margin-bottom:8px;background:var(--brand-soft)"><span class="mk">2</span><b>Claude: 관찰 · 외국인 매도가 멈출 때까지 · 깨지는 조건: 20일선 회복 실패</b></div>
+      <div class="row c4" style="margin-bottom:8px"><div class="bx"><b>현재가</b><div class="ln s"></div></div><div class="bx"><b>RS 85 ▼4</b><div class="ln s"></div></div><div class="bx"><b>1개월</b><div class="ln s"></div></div><div class="bx"><b>컨센</b><div class="ln s"></div></div></div>
+      <div class="row c2"><div class="bx" style="height:120px"><span class="mk">3</span><b>주봉 + 매물대</b><div style="display:flex;align-items:flex-end;gap:3px;height:80px;margin-top:6px">
+        <i style="flex:1;background:var(--wf-line);height:40%"></i><i style="flex:1;background:var(--wf-line);height:55%"></i><i style="flex:1;background:var(--wf-line);height:70%"></i><i style="flex:1;background:var(--wf-line);height:90%"></i><i style="flex:1;background:var(--wf-line);height:60%"></i><i style="flex:1;background:var(--wf-line);height:45%"></i><i style="flex:1;background:var(--wf-line);height:50%"></i></div></div>
+        <div class="bx"><span class="mk">4</span><b>셋업 · 기준가 · 손절가</b><div class="ln"></div><div class="ln m"></div><b>목표가 추이</b><div class="ln"></div></div></div>
+      <div class="row c3"><div class="bx"><span class="mk">5</span><b>리포트 11</b><div class="ln"></div><div class="ln m"></div><div class="ln s"></div></div><div class="bx"><b>채널 글 87 (7일)</b><div class="ln"></div><div class="ln m"></div></div><div class="bx"><b>공시 · 내 매매</b><div class="ln m"></div><div class="ln s"></div></div></div>
+    </div>
+    <div class="notes"><ol>
+      <li><span><b>머리</b>: 상태 칩(보유·관찰 풀·감시)이 이 종목이 시스템 어디에 있는지 한 줄로 보여 줌.</span></li>
+      <li><span><b>Claude 한 줄 평</b> (S-03): 관찰 풀·보유 종목만, 행동 세 단어 + 깨지는 조건.</span></li>
+      <li><span>사용자 기본 차트(주봉+매물대)를 그대로.</span></li>
+      <li><span>규칙 숫자: 기준가·알림가·손절가·1R 수량 계산기 바로가기.</span></li>
+      <li><span>리포트·채널·공시·내 매매는 탭이 아니라 세로 섹션(휴대폰에선 접힘).</span></li>
+    </ol></div>
+  </div>
+
+  <h3>W4. 전략 › 띔 보드 (ST-01)</h3>
+  <div class="wfwrap">
+    <div class="wf"><span class="lbl">전략</span>
+      <div class="bar" style="margin-top:6px"><span class="chipw on">띔 보드</span><span class="chipw">보고서</span><span class="chipw">관찰 풀</span><span class="chipw">감시 목록</span><span style="margin-left:auto">제3호 · 11/11</span></div>
+      <div class="bx" style="margin-bottom:8px"><span class="mk">1</span><b>T1 국내 AI DC 운영·SW</b> <span class="chipw">확산</span> 확신 ■■■□□ · 4검증 7/8<div style="display:flex;gap:14px;align-items:center;margin-top:6px"><span>W44 ●</span><span>W45 ●●</span><span>W46 ●●●</span><span style="margin-left:auto">풀 7 · 이번 주 +11.9%</span></div></div>
+      <div class="bx" style="margin-bottom:8px"><b>T2 유가 하락 → 항공</b> <span class="chipw">초기</span> 확신 ■■□□□ · 6/8<div style="display:flex;gap:14px;margin-top:6px"><span>W46 ●</span><span style="margin-left:auto">풀 3</span></div></div>
+      <div class="bx"><span class="mk">2</span><b>업종 스코어카드 (매일 갱신)</b><div class="ln"></div><div class="ln m"></div><div class="ln"></div></div>
+    </div>
+    <div class="notes"><ol>
+      <li><span>띔마다 <b>주별 생애주기 점</b>, 단계·확신도·4검증 합계, 관찰 풀 수와 이번 주 성적.</span></li>
+      <li><span>스코어카드는 평일 매일 3축 자동(ST-02), 토요일에 이익 축과 해석 추가.</span></li>
+    </ol></div>
+  </div>
+
+  <h3>W5. 결정 로그 기록 (TR-01, 대화)</h3>
+  <div class="wfwrap">
+    <div class="wf"><span class="lbl">Claude 대화</span>
+      <div class="bx" style="margin:6px 0 6px auto;max-width:60%;text-align:right"><b>대한항공 40주 31,500에 샀어</b></div>
+      <div class="bx" style="margin-bottom:6px;max-width:80%"><b>기록 전에 세 가지만:</b><div class="small">① 어느 띔? (T2 유가 하락 → 항공 / 기타)<br>② 가설 한 줄?<br>③ 깨지는 조건? (예: WTI 주간 +8%)</div></div>
+      <div class="bx" style="margin:0 0 6px auto;max-width:60%;text-align:right"><b>T2, 유가 하락 지속, WTI 반등이면 정리</b></div>
+      <div class="bx" style="max-width:80%;background:var(--ok-soft)"><b>✓ 기록됨</b><div class="small">손절 28,980(−8%) · 1R 10만 원 · 규칙 점검: 🔴 국면 진입 꼬리표</div></div>
+    </div>
+    <div class="notes"><ol>
+      <li><span>강제하지 않음. "몰라"라고 하면 "근거 없음" 꼬리표로 저장.</span></li>
+      <li><span>복기·띔별 손익(TR-02)이 이 세 칸을 읽음.</span></li>
+    </ol></div>
+  </div>
+</section>
+
+<!-- 7 NFR -->
+<section class="s" id="nfr">
+  <div class="sh"><span class="no">7</span><h2>비기능 요구사항</h2></div>
+  <div class="tw"><table>
+    <tr><th>분류</th><th>요구사항</th><th>기준</th></tr>
+    <tr><td>성능</td><td>휴대폰 첫 화면 표시</td><td class="num">1.5초 이내, 첫 화면 데이터 1MB 이하</td></tr>
+    <tr><td>신선도</td><td>장중 가격·보유 손익</td><td>20분 이내 (스냅샷), 그 밖 데이터 1시간 이내</td></tr>
+    <tr><td>정확성</td><td>모든 숫자에 출처·기준 시각</td><td>숫자 묶음 단위 배지, 2시간 초과 시 노란색</td></tr>
+    <tr><td>보안</td><td>개인 계좌·보유 노출 방지</td><td>Cloudflare Access 이메일 PIN, 검색 차단, 키는 화면·파일에 없음</td></tr>
+    <tr><td>안정성</td><td>배포 실패 대응</td><td>실패 시 텔레그램 한 줄 + 직전 배포 유지</td></tr>
+    <tr><td>접근성</td><td>휴대폰 390px · 다크 모드 · 키보드</td><td>가로 넘침 0, 대비 4.5:1, 움직임 줄이기 존중</td></tr>
+    <tr><td>비용</td><td>Claude 토큰 · 깃허브 실행 시간</td><td>토큰 −20%, Actions 월 2,000분 무료 한도의 70% 이하</td></tr>
+    <tr><td>규칙</td><td>절대 규칙 5개</td><td>저장 도구가 매수·매도 단정 표현을 거부 (insight.py 방식 확대)</td></tr>
+  </table></div>
+</section>
+
+<!-- 8 PIPE -->
+<section class="s" id="pipe">
+  <div class="sh"><span class="no">8</span><h2>에이전트·데이터 파이프라인 (To-Be)</h2></div>
+  <p class="sub">글쓰기는 하루 세 번의 체크포인트로 모으고, 화면 갱신은 모두 깃허브 자동 실행(토큰 0)으로 넘깁니다.</p>
+  <div class="tw"><table>
+    <tr><th>시각 (평일)</th><th>작업</th><th>담당</th><th>지금</th><th>2.0</th></tr>
+    <tr><td class="num">07:00</td><td>체크포인트 ① (아침 브리핑 통합)</td><td>Sonnet</td><td>아침 브리핑 06:55</td><td>체크포인트 형식으로</td></tr>
+    <tr><td class="num">08·10·14·16시</td><td>채널·리포트 정리</td><td>Sonnet</td><td>5회 + 인사이트 3회</td><td>10·14시는 웹 보관용 짧은 정리만, 인사이트 폐지</td></tr>
+    <tr><td class="num">12:30</td><td>체크포인트 ②</td><td>Sonnet</td><td>12:12 정리</td><td>체크포인트 형식으로</td></tr>
+    <tr><td class="num">14:53</td><td>리포트 브리핑</td><td>Sonnet</td><td>텔레그램 발송</td><td>18:30 체크포인트에 합침 (폐지)</td></tr>
+    <tr><td class="num">15:47</td><td>마감 리뷰 + 띔 메모</td><td>Sonnet</td><td>유지</td><td>띔 메모만 남기고 글은 18:30으로</td></tr>
+    <tr><td class="num">16:07 · 16:40</td><td>감시 목록 · 일봉 갱신 · 스코어카드</td><td>Haiku → Actions</td><td>Haiku 예약</td><td>깃허브 자동 실행(토큰 0)</td></tr>
+    <tr><td class="num">18:30</td><td>체크포인트 ③</td><td>Sonnet</td><td>없음</td><td><b>신규</b></td></tr>
+    <tr><td class="num">18:40 · 19:13</td><td>리포트 카드 · 깊이 읽기</td><td>Haiku · Sonnet</td><td>유지</td><td>유지</td></tr>
+    <tr><td class="num">20분마다</td><td>가격 스냅샷 · 알림</td><td>Actions</td><td>알림만</td><td>+ 화면용 가격 스냅샷</td></tr>
+    <tr><td class="num">07:32 · 16:32</td><td>Artifact 웹 갱신</td><td>Haiku</td><td>유지</td><td><b>폐지</b> (웹 일원화)</td></tr>
+    <tr><td>토 09:07</td><td>전략 보고서 v4</td><td>Opus</td><td>유지</td><td>평일 스코어카드 재사용으로 재료 축소</td></tr>
+  </table></div>
+</section>
+
+<!-- 9 ROAD -->
+<section class="s" id="road">
+  <div class="sh"><span class="no">9</span><h2>로드맵 · 결정해 주실 것</h2></div>
+  <div class="road">
+    <div class="card p0c"><h4>1단계 · 1주 — 한 줄기</h4><ul class="small" style="margin:0"><li>X-01 웹 일원화 (Artifact 1주 병행 후 종료)</li><li>X-02 기준 시각 배지, X-03 가격 스냅샷</li><li>M-01 타임라인 규칙 마무리</li><li>N-01 알림 센터</li></ul><p class="small" style="margin:8px 0 0">완료 기준: 시각 불일치 0건, 장중 가격 20분</p></div>
+    <div class="card p0c"><h4>2단계 · 2주 — 상황판과 종목</h4><ul class="small" style="margin:0"><li>T-01~03 상황판 첫 화면</li><li>T-02 체크포인트 3회 (인사이트·리포트 브리핑 통합)</li><li>S-02 종목 페이지 + 모든 종목 이름 연결</li><li>TR-01 결정 로그</li></ul><p class="small" style="margin:8px 0 0">완료 기준: 390px 첫 화면에 결론·위험·할 일</p></div>
+    <div class="card"><h4>3단계 · 4주 — 전략 깊이</h4><ul class="small" style="margin:0"><li>ST-01 띔 보드, ST-02 평일 스코어카드</li><li>S-03 종목 한 줄 평, TR-02 띔별 손익</li><li>M-02 리포트 흐름 내려가 보기(자료실 통합)</li><li>X-04 데이터 나누어 싣기</li></ul></div>
+    <div class="card p2c"><h4>이후 · 2027-01 재검토와 함께</h4><ul class="small" style="margin:0"><li>S-04 이익 추정 추이, X-05 용어 툴팁</li><li>결정 로그 30건으로 규칙 밖 매매의 R 비교</li><li>매매 규칙 재검토 재료 정리 (규칙은 그때까지 고정)</li></ul></div>
+  </div>
+  <h3>결정해 주실 것</h3>
+  <div class="tw"><table>
+    <tr><th>#</th><th>질문</th><th>제안</th><th>대안</th></tr>
+    <tr><td class="id">Q1</td><td>체크포인트 시각</td><td class="num">07:00 · 12:30 · 18:30</td><td>퇴근 시각에 맞춰 18:00 또는 19:00</td></tr>
+    <tr><td class="id">Q2</td><td>텔레그램으로 받을 것</td><td>체크포인트 3회 + 즉시 알림(손절 근접·관찰 풀 돌파·관련 소식, 하루 상한 5)</td><td>지금처럼 브리핑별 발송 유지</td></tr>
+    <tr><td class="id">Q3</td><td>Artifact 종료 시점</td><td>웹 1주 병행 확인 뒤 (11/19 전후)</td><td>당분간 둘 다 유지 (토큰 +)</td></tr>
+    <tr><td class="id">Q4</td><td>'종목' 메뉴를 6번째로 올릴지</td><td>올림 (휴대폰 아래 탭은 5개 유지, 더보기를 위쪽으로)</td><td>검색 요약 카드만 유지</td></tr>
+    <tr><td class="id">Q5</td><td>결정 로그 세 질문</td><td>매번 묻되 "몰라"면 꼬리표만</td><td>묻지 않고 나중에 복기 때 채움</td></tr>
+  </table></div>
+  <div class="callout warn"><b>바꾸지 않는 것.</b> 주문 기능 없음 · 키는 환경 변수로만 · 리포트 원문 저장 안 함 · 매매 규칙 2027-01-31까지 고정 · 행동은 준비/관찰/회피.</div>
+  <p class="small">이 문서는 저장소 <span class="num">docs/balance-lab-2-plan.html</span>에도 있습니다. Q1~Q5에 답해 주시면 1단계부터 순서대로 만들고, 단계마다 화면을 보여 드린 뒤 다음으로 넘어갑니다.</p>
+</section>
+</main>
+</div>
