@@ -22,7 +22,8 @@ WEB = ROOT / "web"
 SCHEDULE = [("06:55", "아침 브리핑", "morning"),
             ("14:53", "리포트 브리핑", "report_brief_pm"), ("15:47", "마감 리뷰", "close"), ("16:07", "감시 목록", "watchlist")]
 KIND = {"morning": "아침 브리핑", "report_brief_am": "리포트 브리핑 · 오전", "report_brief_pm": "리포트 브리핑 · 오후",
-        "channels": "채널 정리", "report_live": "리포트 정리", "close": "마감 리뷰", "weekly": "주간 리뷰"}
+        "channels": "채널 정리", "report_live": "리포트 정리", "close": "마감 리뷰", "weekly": "주간 리뷰",
+        "strategy": "전략 보고서", "deep_research": "딥리서치"}
 
 
 def safe(fn, default=None):
@@ -91,6 +92,24 @@ def section(text, marker):
     return None
 
 
+def file_time(p):
+    """파일이 마지막으로 바뀐 한국 시각 "YYYY-MM-DD HH:MM". 커밋된 그대로면 git 커밋 시각(깃허브 배포에서도 정확), 아직 안 올린 변경이면 파일 수정 시각."""
+    import subprocess
+    p = Path(p)
+    if not p.exists():
+        return None
+    try:
+        rel = str(p.resolve().relative_to(ROOT))
+        dirty = subprocess.run(["git", "status", "--porcelain", "--", rel], cwd=ROOT, capture_output=True, text=True, timeout=15).stdout.strip()
+        if not dirty:
+            iso = subprocess.run(["git", "log", "-1", "--format=%cI", "--", rel], cwd=ROOT, capture_output=True, text=True, timeout=15).stdout.strip()
+            if iso:
+                return datetime.fromisoformat(iso).astimezone(KST).strftime("%Y-%m-%d %H:%M")
+    except Exception:
+        pass
+    return datetime.fromtimestamp(p.stat().st_mtime, KST).strftime("%Y-%m-%d %H:%M")
+
+
 def brief_times():
     """보고서 파일이 처음 저장(커밋)된 한국 시각 {경로: "HH:MM"}. 예약 브리핑은 파일 이름에 시각이 없어서 커밋 시각을 쓴다."""
     import subprocess
@@ -116,24 +135,28 @@ def briefs(days=21):
     for f in sorted(glob.glob(str(ROOT / "reports" / "*" / "*.md")), reverse=True):
         p = Path(f)
         day = p.parent.name
-        if day < since or p.stem.endswith("_test"):
+        if day < since or p.stem.endswith(("_test", "_tg")):   # _tg = 텔레그램으로 보낸 요약본(본문과 중복)
             continue
         kind = next((k for k in KIND if p.stem.startswith(k)), "etc")
         text = p.read_text(encoding="utf-8")
         rel = f"reports/{day}/{p.name}"
         m = re.search(r"_(\d{2})(\d{2})$", p.stem)  # channels_1130 처럼 이름에 시각이 있으면 그걸 쓴다
-        tm = f"{m.group(1)}:{m.group(2)}" if m else times.get(rel) or datetime.fromtimestamp(p.stat().st_mtime, KST).strftime("%H:%M")
+        tm = f"{m.group(1)}:{m.group(2)}" if m else times.get(rel) or (file_time(p) or "")[11:]
         rows.append({"date": day, "time": tm, "kind": kind, "kind_name": KIND.get(kind, p.stem), "file": rel,
                      "title": text.splitlines()[0].strip() if text else p.stem, "text": text,
                      "opinion": section(text, "💡") or section(text, "🧭")})
     rows.sort(key=lambda r: (r["date"], r["time"]), reverse=True)
-    # 1시간마다 쌓이는 채널·리포트 정리는 오늘 것만 다 보여 주고, 지난날은 마지막 1개만 (누적 정리라 마지막에 다 들어 있음)
-    today, seen, out = datetime.now(KST).strftime("%Y-%m-%d"), set(), []
+    # 2시간마다 쌓이는 채널·리포트 정리는 누적 정리라 날마다 마지막 1개만 카드로 (오늘 포함, 2026-11-12 사용자 요청).
+    # 앞선 회차 시각은 versions에 남겨 카드에 "n회째 · 첫 정리 08:12"로 보여 준다
+    keep, out = {}, []
     for r in rows:
-        if r["kind"] in ("channels", "report_live") and r["date"] != today:
-            if (r["date"], r["kind"]) in seen:
+        if r["kind"] in ("channels", "report_live"):
+            k = (r["date"], r["kind"])
+            if k in keep:
+                keep[k]["versions"].append(r["time"])
                 continue
-            seen.add((r["date"], r["kind"]))
+            r["versions"] = [r["time"]]
+            keep[k] = r
         out.append(r)
     return out
 
@@ -143,7 +166,8 @@ def schedule(now, brief_rows):
     have = {b["kind"] for b in brief_rows if b["date"] == today}
     # 감시 목록은 장 마감 뒤(16시 이후) 만든 것만 '완료'로 본다 (장중 "모니터링 새로고침" 결과는 제외)
     for f in (ROOT / "reports" / today / "watchlist.png", DATA / "bus" / today / "screener.json"):
-        if f.exists() and datetime.fromtimestamp(f.stat().st_mtime, KST).strftime("%H:%M") >= "16:00":
+        ft = file_time(f)
+        if ft and ft[:10] == today and ft[11:] >= "16:00":
             have.add("watchlist")
     out = []
     mon = (load_toml("features.toml") or {}).get("monitoring", True)
@@ -872,8 +896,8 @@ def automation(now, data, allp):
     today, hm, wd = now.strftime("%Y-%m-%d"), now.strftime("%H:%M"), now.weekday()
     times = brief_times()
 
-    def mtime(p):
-        return datetime.fromtimestamp(p.stat().st_mtime, KST).strftime("%Y-%m-%d %H:%M") if p.exists() else None
+    def mtime(p):   # 깃허브 배포에서도 맞도록 커밋 시각 우선 (2026-11-12)
+        return file_time(p)
 
     alert_state = {}
     try:

@@ -478,6 +478,7 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.6px}h2{font-size:17px;font-we
 
 /* 기업 검색 (2026-11-12): 메뉴 옆 검색칸 + 자동완성 목록 + 요약 카드 */
 .navrow{display:flex;align-items:center;gap:8px;max-width:1440px}.navrow .pillnav{flex:1;min-width:0}
+.tver{font-size:11px;white-space:nowrap}
 .gsearch{position:relative;flex:0 0 280px;margin:10px max(16px,env(safe-area-inset-right,0px)) 0 0}
 .gsearch input{width:100%;padding:8px 12px;border-radius:999px;font-size:13.5px}
 .gqlist{position:absolute;left:0;right:0;top:calc(100% + 4px);z-index:40;background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:0 10px 30px -8px rgb(0 0 0 / .25);max-height:60vh;overflow-y:auto;padding:4px}
@@ -1621,16 +1622,16 @@ function flowTimeline(){
   const k=kinds.some(([v])=>v==fam(ui.bk))?fam(ui.bk):"all", list=(D.briefs||[]).filter(b=>k=="all"||fam(b.kind)==k);
   const byDay={}; list.forEach(b=>(byDay[b.date]=byDay[b.date]||[]).push(b));
   const days=Object.keys(byDay).sort().reverse().slice(0,10);
-  const first=b=>{const t=(b.text||"").split("\n").map(x=>x.trim()).filter(x=>x&&!/^#/.test(x));
+  const first=b=>{const t=(b.text||"").split("\n").map(x=>x.trim()).filter(x=>x&&!/^#/.test(x)&&!/^_.*_$/.test(x)&&!/^\*.*\*$/.test(x));
     let i=t.findIndex(x=>/^💡/.test(x)); let line=i>=0?t[i].replace(/^💡\s*(Claude\s*의견|CLAUDE\s*의견|의견)?\s*:?\s*/i,""):"";
     for(let j=i+1;(!line||/^(핵심|의견)\s*:?$/.test(line))&&j<t.length&&j<i+4;j++)line=t[j];
     if(!line)line=t[1]||t[0]||"";
     return line.replace(/^[-•]\s*/,"").replace(/^\*\*?(핵심|핵심:)\*?\*?\s*:?\s*/,"").replace(/^(핵심|핵심:)\s*/,"").slice(0,140)};
   const open=ui.bf;
   return `<div class="chips">${kinds.map(([v,n])=>`<button class="chip ${k==v?"on":""}" data-bk="${v}">${n}</button>`).join("")}</div>
-  ${days.length?days.map(d=>`<div class="tday"><div class="tdh num">${esc(d)} <small class="muted">${["일","월","화","수","목","금","토"][new Date(d+"T00:00:00+09:00").getDay()]}</small></div>
+  ${days.length?days.map(d=>`<div class="tday"><div class="tdh num">${esc(d)} <small class="muted">${["일","월","화","수","목","금","토"][new Date(d+"T00:00:00Z").getUTCDay()]}</small></div>
    ${byDay[d].sort((a,b)=>(b.time||"").localeCompare(a.time||"")).map(b=>`<div class="tcard ${open==b.file?"open":""}">
-     <button class="tch" data-bf="${esc(b.file)}"><span class="num">${esc(b.time||"")}</span><span class="pill">${esc(b.kind_name)}</span><span class="tfirst">${tint(first(b))}</span><span class="muted">${open==b.file?"▲":"▼"}</span></button>
+     <button class="tch" data-bf="${esc(b.file)}"><span class="num">${esc(b.time||"")}</span><span class="pill">${esc(b.kind_name)}</span>${(b.versions||[]).length>1?`<small class="tver muted" title="이 정리는 하루 동안 계속 덧붙여 갱신됩니다. 회차 시각: ${esc(b.versions.slice().reverse().join(" · "))}">${b.versions.length}회째 · 첫 ${esc(b.versions[b.versions.length-1])}</small>`:""}<span class="tfirst">${tint(first(b))}</span><span class="muted">${open==b.file?"▲":"▼"}</span></button>
      ${open==b.file?`<article class="panel brief br2" style="margin:0 0 10px">${briefHtml(b.text)}</article>`:""}</div>`).join("")}</div>`).join(""):`<div class="empty">이 종류의 브리핑이 아직 없습니다</div>`}`;
 }
 function reportFlowTab(){
