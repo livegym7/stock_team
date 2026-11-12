@@ -475,6 +475,22 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.6px}h2{font-size:17px;font-we
 .chip{border-radius:999px;padding:6px 13px;font-size:13px}.chip.on{background:var(--fg);color:var(--bg);border-color:var(--fg)}.chips.tabs .chip{font-weight:600}
 .pill{border-radius:999px}.badge{border-radius:999px;border:0;padding:3px 10px}
 .topbar{border-bottom-color:var(--line)}.brandbar b{font-weight:800}
+
+/* 기업 검색 (2026-11-12): 메뉴 옆 검색칸 + 자동완성 목록 + 요약 카드 */
+.navrow{display:flex;align-items:center;gap:8px;max-width:1440px}.navrow .pillnav{flex:1;min-width:0}
+.gsearch{position:relative;flex:0 0 280px;margin:10px max(16px,env(safe-area-inset-right,0px)) 0 0}
+.gsearch input{width:100%;padding:8px 12px;border-radius:999px;font-size:13.5px}
+.gqlist{position:absolute;left:0;right:0;top:calc(100% + 4px);z-index:40;background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:0 10px 30px -8px rgb(0 0 0 / .25);max-height:60vh;overflow-y:auto;padding:4px}
+.gqi{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center;width:100%;padding:8px 10px;border:0;border-radius:8px;background:none;color:var(--fg);font:inherit;text-align:left;cursor:pointer}
+.gqi:hover,.gqi.on{background:var(--soft)}.gqi b{font-size:14px}.gqi small{color:var(--muted);font-size:12px}.gqi .r{font-size:11.5px;color:var(--muted);white-space:nowrap}
+.gqempty{padding:10px;color:var(--muted);font-size:13px}
+.gcard{border:1px solid var(--line);border-radius:12px;background:var(--panel);padding:16px;margin:0 0 16px;box-shadow:var(--shadow)}
+.gcard .gh{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}.gcard .gh h2{margin:0;font-size:20px}.gcard .gx{margin-left:auto;border:0;background:none;color:var(--muted);font-size:20px;cursor:pointer;line-height:1}
+.gcard .g1{color:var(--muted);margin:4px 0 10px}
+.gkp{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin-bottom:12px}.gkp>div{background:var(--soft);border-radius:8px;padding:8px 10px}.gkp small{display:block;color:var(--muted);font-size:11.5px}.gkp b{font-size:16px}
+.grep{display:grid;gap:6px;margin-bottom:12px}.grep>div{font-size:13px;line-height:1.55;border-left:2px solid var(--line);padding-left:10px}.grep small{color:var(--muted)}
+.glinks{display:flex;flex-wrap:wrap;gap:6px}.glinks a,.glinks button{font:inherit;font-size:13px;padding:6px 12px;border:1px solid var(--input,var(--line));border-radius:8px;background:var(--background,var(--panel));color:var(--fg);text-decoration:none;cursor:pointer}
+@media(max-width:820px){.navrow{display:block}.gsearch{margin:10px 16px 0 16px;flex:none}}
 /* PC: 왼쪽 아이콘 레일 → 위쪽 알약 메뉴 */
 .pillnav{display:none}
 @media(min-width:821px){
@@ -523,7 +539,8 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.6px}h2{font-size:17px;font-we
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="bl-icon" viewBox="0 0 1024 1024"><defs><linearGradient id="blbg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#52525b"/><stop offset="1" stop-color="#18181b"/></linearGradient><linearGradient id="blgl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".16"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/></linearGradient></defs><rect width="1024" height="1024" rx="232" fill="url(#blbg)"/><rect width="1024" height="1024" rx="232" fill="url(#blgl)"/><path d="M352 262 V762 M352 262 H528 A122 122 0 0 1 528 506 H352 M352 506 H574 A128 128 0 0 1 574 762 H352" fill="none" stroke="#fff" stroke-linejoin="round" stroke-linecap="round" stroke-width="104"/><circle cx="742" cy="290" r="44" fill="#6d7dff"/></symbol></svg>
 <header class="topbar"><a class="brandbar" href="#home" title="Balance Lab · 추세추종 돌파 · 보기 전용"><svg class="bl-ico" viewBox="0 0 1024 1024" aria-hidden="true"><use href="#bl-icon"/></svg><b>Balance Lab</b></a><div class="tape num" id="tape"></div></header>
-<nav class="pillnav" id="pillnav"></nav>
+<div class="navrow"><nav class="pillnav" id="pillnav"></nav>
+<div class="gsearch"><label for="gq" class="sr">기업 검색</label><input id="gq" type="search" autocomplete="off" spellcheck="false" placeholder="🔍 기업 검색 (이름·코드·초성)" aria-autocomplete="list" aria-controls="gqlist"><div class="gqlist" id="gqlist" role="listbox" hidden></div></div></div>
 <div class="app">
   <nav class="side" id="side"></nav>
   <main id="main"></main>
@@ -1721,17 +1738,66 @@ function viewMore(){
 
 /* ---------- 라우터 ---------- */
 const VIEWS={home:viewHome2,flow:viewFlow,strategy:viewStrategy2,trade:viewTrade,more:viewMore};
+
+/* ---------- 기업 검색 (2026-11-12 사용자 요청) ---------- */
+const CHO="ㄱㄲㄴㄷㄸㄹㅁㅂㅃㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎ";
+function cho(t){return [...String(t||"")].map(ch=>{const c=ch.charCodeAt(0)-0xAC00;return c>=0&&c<11172?CHO[Math.floor(c/588)]:ch}).join("")}
+function gFind(q){
+  q=String(q||"").trim().toLowerCase(); if(!q)return [];
+  const isCho=/^[ㄱ-ㅎ]+$/.test(q);
+  return (D.companies||[]).map(c=>{const n=c.name.toLowerCase();let sc=0;
+    if(n==q||c.code==q)sc=100;else if(n.startsWith(q)||(c.code||"").startsWith(q))sc=80;else if(n.includes(q))sc=60;
+    else if(isCho&&cho(c.name).startsWith(q))sc=50;else if(isCho&&cho(c.name).includes(q))sc=40;
+    else if((c.group||"").toLowerCase().includes(q)||(c.detail||"").toLowerCase().includes(q))sc=20;
+    return [c,sc]}).filter(x=>x[1]).sort((a,b)=>b[1]-a[1]||(b[0].market_cap_eok||0)-(a[0].market_cap_eok||0)||(b[0].n_reports||0)-(a[0].n_reports||0)).slice(0,12).map(x=>x[0]);
+}
+let gHits=[],gIdx=0;
+function gList(){
+  const el=$("#gqlist"),v=$("#gq").value; gHits=gFind(v); gIdx=0;
+  if(!v.trim()){el.hidden=true;return}
+  el.innerHTML=gHits.length?gHits.map((c,i)=>{const t=c.trend||{};return `<button class="gqi${i==gIdx?" on":""}" role="option" data-gsel="${esc(c.name)}"><span><b>${t.held?"⭐ ":""}${esc(c.name)}</b> <small>${esc(c.code||"")} · ${esc(c.group||c.sector||"")}</small></span><span class="r">${t.rs!=null?"RS "+t.rs+" · ":""}리포트 ${c.n_reports||0}</span></button>`}).join(""):`<div class="gqempty">데이터가 있는 기업 중에 찾는 이름이 없습니다</div>`;
+  el.hidden=false;
+}
+function gMark(){document.querySelectorAll("#gqlist .gqi").forEach((b,i)=>b.classList.toggle("on",i==gIdx));const on=document.querySelector("#gqlist .gqi.on");on&&on.scrollIntoView({block:"nearest"})}
+function gPick(name){ui.gsel=name;save();$("#gq").value="";$("#gqlist").hidden=true;$("#gq").blur();render();window.scrollTo(0,0)}
+function gCard(){
+  const c=ui.gsel&&(D.companies||[]).find(x=>x.name==ui.gsel); if(!c)return "";
+  const t=c.trend||{}, cons=c.cons||{}, pool=((D.watch_pool||{}).themes||[]).some(th=>(th.stocks||[]).some(s=>s.code==c.code));
+  const kp=(n,v,cl)=>`<div><small>${n}</small><b class="num ${cl||""}">${v}</b></div>`;
+  const reps=(c.reports||[]).slice(0,3).map(r=>`<div><b>${esc((r.time||"").slice(5,10).replace("-","/"))} ${esc(r.broker||"")}</b> ${r.direction=="상향"?'<span class="up">🔺상향</span>':r.direction=="하향"?'<span class="down">🔽하향</span>':esc(r.direction||"")} ${r.before?w(r.before)+"→":""}${r.after?w(r.after)+"원":""}<br><small>${esc(r.title||"")}${(r.points||[])[0]?" — "+esc(r.points[0].slice(0,120)):""}</small></div>`).join("");
+  return `<section class="gcard" aria-label="${esc(c.name)} 요약"><div class="gh"><h2>${t.held?"⭐ ":""}${esc(c.name)}</h2><small class="muted num">${esc(c.code||"")} · ${esc(c.group||"")}${c.detail&&c.detail!=c.group?" · "+esc(c.detail):""}</small>${pool?'<span class="pill">관찰 풀</span>':""}<button class="gx" data-gclose="1" aria-label="요약 닫기">×</button></div>
+   <div class="g1">${esc(c.one_liner||"")}</div>
+   <div class="gkp">${kp("현재가 "+esc((t.date||"").slice(4,6)+"/"+(t.date||"").slice(6)),t.price!=null?w(t.price):"-")}${kp("RS (4주 변화)",t.rs!=null?t.rs+(t.rs_chg4w?` <small>${t.rs_chg4w>0?"▲":"▼"}${Math.abs(t.rs_chg4w)}</small>`:""):"-")}${kp("1주",pc(t.r1w),cls(t.r1w))}${kp("1개월",pc(t.r1m),cls(t.r1m))}${kp("고점 대비",pc(t.off_high))}${kp("20일선",t.above20==null?"-":t.above20?"위":"아래",t.above20?"up":"down")}${kp("리포트 (상향/하향)",`${c.n_reports||0} <small><span class="up">${c.up||0}</span>/<span class="down">${c.down||0}</span></small>`)}${kp("컨센 목표가",cons.now?w(Math.round(cons.now))+` <small>(${cons.n}곳)</small>`:c.median_target?w(c.median_target):"-")}</div>
+   ${reps?`<div class="grep">${reps}</div>`:""}
+   <div class="glinks"><button data-cq="${esc(c.name)}">기업 카드·리포트 전체 ›</button>${pool?'<a href="#strategy" data-st="pool">관찰 풀에서 보기 ›</a>':""}${t.held?'<a href="#trade">내 매매에서 보기 ›</a>':""}<a href="https://finance.naver.com/item/main.naver?code=${esc(c.code)}" target="_blank" rel="noopener">네이버 증권 ↗</a><a href="https://finance.naver.com/research/company_list.naver?searchType=itemCode&itemCode=${esc(c.code)}" target="_blank" rel="noopener">네이버 리서치 리포트 ↗</a></div>
+   ${src("시세·RS = 네이버 일봉(비공식) "+(t.date||"")+" · 리포트 = 텔레그램 채널 리포트 요약(2차) · 매수·매도 권유 아님")}</section>`;
+}
+document.addEventListener("input",e=>{if(e.target.id=="gq")gList()});
+document.addEventListener("keydown",e=>{
+  if(e.target.id!="gq")return;
+  if(e.isComposing||e.keyCode==229){if(e.key!="Enter")return;}   // 한글 조합 중 엔터: 조합만 끝냄
+  if(e.key=="ArrowDown"){e.preventDefault();if(gHits.length){gIdx=(gIdx+1)%gHits.length;gMark()}}
+  else if(e.key=="ArrowUp"){e.preventDefault();if(gHits.length){gIdx=(gIdx-1+gHits.length)%gHits.length;gMark()}}
+  else if(e.key=="Enter"){e.preventDefault();if(e.isComposing)setTimeout(()=>{gList();gHits[0]&&gPick(gHits[gIdx].name)},0);else if(gHits[gIdx])gPick(gHits[gIdx].name)}
+  else if(e.key=="Escape"){$("#gqlist").hidden=true;e.target.blur()}
+});
+document.addEventListener("click",e=>{
+  const g=e.target.closest("[data-gsel]"); if(g){gPick(g.dataset.gsel);return}
+  if(e.target.closest("[data-gclose]")){ui.gsel=null;save();render();return}
+  if(!e.target.closest(".gsearch")){const l=$("#gqlist");if(l)l.hidden=true}
+},true);
+document.addEventListener("focusin",e=>{if(e.target.id=="gq"&&e.target.value.trim())gList()});
 function render(){
   if(!D){$("#main").innerHTML=`<div class="empty">데이터가 없습니다. tools/web_build.py로 만들어 주세요</div>`;return}
   nav(); $("#more").classList.remove("open"); $("#tape").innerHTML=tapeHtml();
-  const r=route(); $("#main").innerHTML=`<div class="view">${VIEWS[r]()}</div>`;
+  const r=route(); $("#main").innerHTML=`<div class="view">${gCard()}${VIEWS[r]()}</div>`;
   if(r=="trade")calc();
 }
 document.addEventListener("click",e=>{
   if(e.target.closest("[data-theme-t]")){toggleTheme();return}
   if(e.target.closest("[data-rfpop]")){$("#rfpop").classList.toggle("open");return}
   if(!e.target.closest("#rfpop"))$("#rfpop").classList.remove("open");
-  const q=e.target.closest("[data-cq]"); if(q){ui.cq=q.dataset.cq;ui.st="companies";save();if(location.hash=="#strategy")render();else location.hash="strategy";return}
+  const q=e.target.closest("[data-cq]"); if(q){if(q.closest(".gcard"))ui.gsel=null;ui.cq=q.dataset.cq;ui.st="companies";save();if(location.hash=="#strategy")render();else location.hash="strategy";return}
   const lt=e.target.closest("[data-lt]"); if(lt){ui.lt=lt.dataset.lt;save();render();return}
   if(e.target.closest("#refreshBtn")){doRefresh();return}
   const rfb=e.target.closest("[data-rf]"); if(rfb){refreshPart(rfb.dataset.rf);return}
@@ -1767,9 +1833,11 @@ document.addEventListener("click",e=>{
 });
 document.addEventListener("input",e=>{
   if(["cEntry","cStop","cPct"].includes(e.target.id))calc();
+  if((e.target.id=="rq"||e.target.id=="cq")&&(e.isComposing||e.inputType=="insertCompositionText"))return;   // 한글 조합 중 다시 그리면 글자가 ㅅㅏㅁ처럼 깨짐 (2026-11-12)
   if(e.target.id=="rq"){ui.rq=e.target.value;save();const pos=e.target.selectionStart;render();const el=$("#rq");el.focus();el.setSelectionRange(pos,pos);return}
   if(e.target.id=="cq"){ui.cq=e.target.value;save();const pos=e.target.selectionStart;render();const el=$("#cq");el.focus();el.setSelectionRange(pos,pos)}
 });
+document.addEventListener("compositionend",e=>{if(e.target.id=="rq"||e.target.id=="cq")e.target.dispatchEvent(new Event("input",{bubbles:true}))});
 document.addEventListener("toggle",e=>{const d=e.target;if(d&&d.dataset&&d.dataset.fold){ui[d.dataset.fold]=d.open;save()}},true);
 document.addEventListener("change",e=>{if(e.target.id=="chSel"){ui.ch=e.target.value;save();render()}if(e.target.id=="bSel"){ui.bf=e.target.value;save();render()}if(e.target.id=="cfSel"){ui.cf=e.target.value;save();render()}});
 document.addEventListener("click",e=>{const b=e.target.closest("[data-bnav]");if(!b||b.disabled)return;const o=$("#bSel");if(!o)return;const i=o.selectedIndex-parseInt(b.dataset.bnav);if(i>=0&&i<o.options.length){ui.bf=o.options[i].value;save();render()}});
