@@ -1,6 +1,54 @@
 {
  "rows": [
   {
+   "name": "파이버프로",
+   "code": "368770",
+   "period": "2026.3Q",
+   "sales": 197.0,
+   "op": 64.0,
+   "net": 41.0,
+   "verdict": null,
+   "time": "2026-11-12 10:07",
+   "channel": "nje2e",
+   "url": "https://t.me/nje2e/45347"
+  },
+  {
+   "name": "환인제약",
+   "code": "016580",
+   "period": "2026.3Q",
+   "sales": 716.0,
+   "op": 75.0,
+   "net": 65.0,
+   "verdict": null,
+   "time": "2026-11-12 10:06",
+   "channel": "nje2e",
+   "url": "https://t.me/nje2e/45346"
+  },
+  {
+   "name": "코세스",
+   "code": "089890",
+   "period": "2026.3Q",
+   "sales": 622.0,
+   "op": 243.0,
+   "net": 150.0,
+   "verdict": null,
+   "time": "2026-11-12 09:44",
+   "channel": "maddingStock",
+   "url": "https://t.me/maddingStock/19356"
+  },
+  {
+   "name": "디바이스",
+   "code": "187870",
+   "period": "2026.3Q",
+   "sales": 329.0,
+   "op": 97.0,
+   "net": 62.0,
+   "verdict": null,
+   "time": "2026-11-12 09:08",
+   "channel": "maddingStock",
+   "url": "https://t.me/maddingStock/19349"
+  },
+  {
    "name": "위메이드",
    "code": "112040",
    "period": "2026.3Q",
@@ -997,25 +1045,6 @@
    "time": "2026-10-29 10:41",
    "channel": "maddingStock",
    "url": "https://t.me/maddingStock/18915"
-  },
-  {
-   "name": "환인제약",
-   "code": "016580",
-   "period": "2026.3Q",
-   "sales": 716.0,
-   "sales_est": 688.0,
-   "sales_surprise": 4.1,
-   "sales_yoy": 8.9,
-   "op": 75.0,
-   "op_est": 48.0,
-   "op_surprise": 56.2,
-   "op_yoy": 111.8,
-   "net": 65.0,
-   "net_yoy": 98.1,
-   "verdict": "서프라이즈",
-   "time": "2026-10-29 10:14",
-   "channel": "maddingStock",
-   "url": "https://t.me/maddingStock/18911"
   },
   {
    "name": "삼성전자",
