@@ -1,6 +1,18 @@
 {
  "rows": [
   {
+   "name": "케이엔제이",
+   "code": "272110",
+   "period": "2026.3Q",
+   "sales": 391.0,
+   "op": 100.0,
+   "net": 56.0,
+   "verdict": null,
+   "time": "2026-11-12 14:21",
+   "channel": "nje2e",
+   "url": "https://t.me/nje2e/45365"
+  },
+  {
    "name": "디아이",
    "code": "003160",
    "period": "2026.3Q",
