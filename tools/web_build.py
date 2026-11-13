@@ -1294,6 +1294,8 @@ def write_html(data):
         pass
     # 차트 데이터 (2026-11-13): 코스피·코스닥 일봉 260개 + 종목별 일봉 파일(web/c/코드.json, 마우스오버 팝업·종목 페이지용, 웹에서만 필요할 때 받음)
     data["index_daily"] = safe(index_daily, {})
+    import fundamentals   # 실적·밸류에이션 (2026-11-13): 네이버 재무·컨센서스 캐시 → D.fund, 네이버 기준 서프라이즈 → D.fund_sur
+    data["fund"], data["fund_sur"] = safe(fundamentals.build_web, ({}, []))
     data["index_rs"] = safe(lambda: json.loads((DATA / "radar" / "company_rs.json").read_text(encoding="utf-8")).get("_KOSPI", {}).get("rs_hist"))   # 코스피 RS 12주
     # 신고가 모아보기 (2026-11-13): 마감 확정 목록 + 장중 비교용 기준선 web/highs_base.json (깃허브 알림 작업이 20분마다 site/highs_live.json)
     import new_highs

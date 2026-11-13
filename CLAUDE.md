@@ -56,6 +56,7 @@ python3 tools/market_pulse.py pulse|flows|econ        # 시황(토큰 0): 온도
 python3 tools/new_highs.py eod|base|live          # 신고가 모아보기(토큰 0): 60·200일 고가 기준·시총 2천억↑ → 웹 '시장 > 신고가' + '오늘' 한 줄. 마감 확정(web_build) + 장중 20분(alerts.yml, 09:20~15:45 참고). 텔레그램 없음 (2026-11-13)
 python3 tools/flow_osc.py update [--budget 240]|show --stock 코드   # 수급 오실레이터(토큰 0, 사용자 확정 후보 B 2026-11-13): (외국인+기관 순매수 ÷ 상장주식수) 6일−22일 평균 → 3일 평활, P = 최근 60개 중 위치. 보유·관찰 풀·기업 메뉴 약 440종목, 깃허브 배포 회차마다 4분 안에서 갱신 → 종목 페이지 그림·팝업·보유·관찰 풀 '수급 P'. 참고용(매매 규칙 아님)
 python3 tools/stock_profile.py update [--budget]   # 기본 카드(토큰 0): 시총 2천억↑ 전 종목 기업 개요(네이버 기업 정보) → data/stock_profiles.json
+python3 tools/fundamentals.py update [--budget 150]|show --stock 코드   # 실적·밸류에이션(토큰 0, 2026-11-13 확정): 네이버 재무 분기6·연간4(컨센서스 E 포함) → data/cache/fund/, 날마다 올해 EPS 추정 기록(1개월 변화), E→실제 바뀐 분기 = 네이버 기준 서프라이즈(±10%). 깃허브 배포 회차마다 → 웹 '시장 > 실적' 대시보드·종목 페이지 ③·팝업 한 줄·종목 목록 PER(E)
 python3 tools/stock_cards.py queue|save            # 깊은 카드(2026-11-13 확정): 조건(보유·관찰 풀 / 200일 신고가+RS80 / 7일 리포트2·채널3) 종목만 하루 10개, 18:40 /research-cards 마지막 단계(Haiku) → data/companies.json
 python3 tools/sector_map.py check                     # 업종 분류표(사용자 custom 53개) 빠진 종목·확인 필요 점검 / set --code --custom 로 채우기
 python3 tools/backtest.py                              # 검증실: 돌파 규칙 백테스트(3년 일봉, 약 1분·캐시) + 감시 목록 성적표 → data/backtest/
