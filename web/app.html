@@ -1944,6 +1944,9 @@ function candleChart(all,o){
   let lo=Math.min(...R.map(r=>r[3])),hi=Math.max(...R.map(r=>r[2]));
   const PL=4,PR=o.axis?Math.max(40,10+(o.fs||10)*0.64*fax(hi*1.05).length):6,PT=6,PB=o.dates?18:4,W=o.w,H=o.h,pw=W-PL-PR,ph=H-PT-PB;
   mas.forEach(([n,a])=>a.slice(st).forEach(v=>{if(v!=null){lo=Math.min(lo,v);hi=Math.max(hi,v)}}));
+  /* 리포트 목표가 점 (2026-11-13 캔들 차트로 옮김): 날짜가 속한 봉 위치에, 범위는 가격의 1.35배까지만 넓히고 넘으면 맨 위 ▲ */
+  const d0=R[0][0],TG=(o.tg||[]).map(t=>{const d=(t.t||"").replace(/-/g,"");if(!d||d<d0||!t.after)return null;let i=R.length-1;while(i>0&&R[i][0]>d)i--;return{...t,i}}).filter(Boolean);
+  const cap=hi*1.35;TG.forEach(t=>{if(t.after<=cap){hi=Math.max(hi,t.after);lo=Math.min(lo,t.after)}});
   const pad=(hi-lo)*0.04||1;lo-=pad;hi+=pad;
   const y=v=>(PT+(hi-v)/(hi-lo)*ph), step=pw/R.length, x=i=>PL+i*step+step/2, cw=Math.max(1,Math.min(9,step*0.66));
   let g="";
@@ -1959,6 +1962,9 @@ function candleChart(all,o){
   R.forEach((r,i)=>{const up=r[4]>=r[1],c=up?"var(--up)":"var(--down)",yo=y(r[1]),yc=y(r[4]);
     g+=`<line x1="${x(i).toFixed(1)}" x2="${x(i).toFixed(1)}" y1="${y(r[2]).toFixed(1)}" y2="${y(r[3]).toFixed(1)}" stroke="${c}" stroke-width="1"/><rect x="${(x(i)-cw/2).toFixed(1)}" y="${Math.min(yo,yc).toFixed(1)}" width="${cw.toFixed(1)}" height="${Math.max(1,Math.abs(yc-yo)).toFixed(1)}" fill="${c}"/>`});
   mas.forEach(([n,a])=>{const pts=a.slice(st).map((v,i)=>v==null?null:`${x(i).toFixed(1)},${y(v).toFixed(1)}`);let d="",pen=false;pts.forEach(p=>{if(!p){pen=false;return}d+=(pen?"L":"M")+p;pen=true});if(d)g+=`<path d="${d}" fill="none" stroke="${MA_COL[n]||"var(--muted)"}" stroke-width="1.3"/>`});
+  TG.forEach(t=>{const col=t.dir=="상향"?"var(--up)":t.dir=="하향"?"var(--down)":"var(--muted)",tip=`<title>${esc(t.t+" "+(t.broker||"")+" 목표가 "+w(t.after)+(t.dir?" ("+t.dir+")":""))}</title>`;
+    if(t.after>hi)g+=`<path d="M${(x(t.i)-4).toFixed(1)} ${PT+7} L${x(t.i).toFixed(1)} ${PT} L${(x(t.i)+4).toFixed(1)} ${PT+7}Z" fill="${col}" fill-opacity=".85">${tip}</path>`;
+    else g+=`<circle cx="${x(t.i).toFixed(1)}" cy="${y(t.after).toFixed(1)}" r="4" fill="${col}" fill-opacity=".85" stroke="var(--panel)" stroke-width="1">${tip}</circle>`});
   const last=R[R.length-1];
   if(o.label){g+=`<line x1="${PL}" x2="${PL+pw}" y1="${y(last[4]).toFixed(1)}" y2="${y(last[4]).toFixed(1)}" stroke="var(--fg)" stroke-opacity=".35" stroke-dasharray="1 2"/>`;if(o.axis)g+=`<rect x="${W-PR+1}" y="${(y(last[4])-8).toFixed(1)}" width="${PR-2}" height="16" rx="3" fill="var(--fg)"/><text x="${W-PR+4}" y="${(y(last[4])+3.5).toFixed(1)}" font-size="${o.fs||10}" font-weight="700" fill="var(--bg)">${fax(last[4])}</text>`}
   if(o.dates){const lab=i=>{const d=R[i][0];return d.slice(4,6)+"/"+d.slice(6)};[0,Math.floor(R.length/2),R.length-1].forEach((i,k)=>{g+=`<text x="${x(i).toFixed(1)}" y="${H-4}" font-size="${o.fs||10}" fill="var(--muted)" text-anchor="${k==0?"start":k==2?"end":"middle"}">${lab(i)}</text>`})}
@@ -1988,7 +1994,7 @@ function stockChartBox(c){
     if(!rows){el.innerHTML=priceChart((c.trend||{}).chart,c.target_hist);return}
     const q=liveQuote(c.code);let r=rows;if(q&&q.price){const k=kstNow().toISOString().slice(0,10).replace(/-/g,""),l=r[r.length-1];if(l[0]==k)r=r.slice(0,-1).concat([[k,l[1],Math.max(l[2],q.price),Math.min(l[3],q.price),q.price,l[5]]])}
     const rr=mode=="w"?weekly(r):r;
-    el.innerHTML=`<div class="ixh"><small>${maPos(r,[20,60,120])}</small><span style="margin-left:auto" class="cg2"><button class="chip ${mode=="d"?"on":""}" data-scw="d">일봉 200일</button><button class="chip ${mode=="w"?"on":""}" data-scw="w">주봉 1년</button></span></div>${candleChart(rr,{w:720,h:300,n:mode=="w"?52:200,ma:mode=="w"?[10,20]:[20,60,120],vp:true})}<div class="src">${maLegend(mode=="w"?[10,20]:[20,60,120])} · 매물대 = 거래대금을 가격대별로 쌓은 막대(캔들 뒤 회색, 진한 칸이 가장 많이 거래된 가격) · 네이버 일봉(비공식)</div>`}),0);
+    el.innerHTML=`<div class="ixh"><small>${maPos(r,[20,60,120])}</small><span style="margin-left:auto" class="cg2"><button class="chip ${mode=="d"?"on":""}" data-scw="d">일봉 200일</button><button class="chip ${mode=="w"?"on":""}" data-scw="w">주봉 1년</button></span></div>${candleChart(rr,{w:720,h:300,n:mode=="w"?52:200,ma:mode=="w"?[10,20]:[20,60,120],vp:true,tg:c.target_hist})}<div class="src">${maLegend(mode=="w"?[10,20]:[20,60,120])} · 점 = 리포트 목표가 (<span class="up">● 상향</span> <span class="down">● 하향</span> <span class="muted">● 신규·유지</span>, ▲ = 차트 위로 벗어남, 점에 마우스를 올리면 증권사·날짜) · 매물대 = 최근 200봉 거래량을 종가 기준 10칸으로(빨강 = 가장 많이, 노랑 = 현재가 칸) · 출처: 네이버 일봉(비공식), 채널 리포트 요약(2차 자료)</div>`}),0);
   return `<div id="${id}" class="schart"><div class="muted" style="padding:20px;font-size:13px">차트 불러오는 중…</div></div>`;
 }
 /* ---------- 종목명 마우스오버 팝업 (휴대폰은 한 번 누르면) ---------- */

@@ -1,6 +1,18 @@
 {
  "rows": [
   {
+   "name": "싸이맥스",
+   "code": "160980",
+   "period": "2026.3Q",
+   "sales": 711.0,
+   "op": 134.0,
+   "net": 109.0,
+   "verdict": null,
+   "time": "2026-11-13 15:24",
+   "channel": "nje2e",
+   "url": "https://t.me/nje2e/45436"
+  },
+  {
    "name": "티앤엘",
    "code": "340570",
    "period": "2026.3Q",
