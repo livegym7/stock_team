@@ -1215,7 +1215,19 @@ def write_ohlc(data):
     for th in (data.get("watch_pool") or {}).get("themes", []):
         keep |= {s.get("code") for s in th.get("stocks", [])}
     embed, n = {}, 0
-    for c in data.get("companies") or []:
+    # 2026-11-13: 기업 카드 종목 + 시총 2천억↑ 전 종목(일봉 캐시 있는 것) → 모든 종목명에 팝업
+    comp = {c.get("code") for c in data.get("companies") or []}
+    uni = {}
+    try:
+        import new_highs
+        b = json.loads((WEB / "highs_base.json").read_text(encoding="utf-8"))["stocks"] if (WEB / "highs_base.json").exists() else {}
+        for code, s in new_highs.universe_info().items():
+            if code not in comp and (CACHE / "daily" / f"{code}.json").exists():
+                uni[code] = [s["name"], s["group"], (b.get(code) or {}).get("rs")]
+    except Exception:
+        pass
+    data["uni"] = uni
+    for c in list(data.get("companies") or []) + [{"code": k} for k in uni]:
         f = CACHE / "daily" / f"{c.get('code')}.json"
         if not f.exists():
             continue
@@ -1243,11 +1255,11 @@ def write_html(data):
         pass
     # 차트 데이터 (2026-11-13): 코스피·코스닥 일봉 260개 + 종목별 일봉 파일(web/c/코드.json, 마우스오버 팝업·종목 페이지용, 웹에서만 필요할 때 받음)
     data["index_daily"] = safe(index_daily, {})
-    data["ohlc"] = safe(lambda: write_ohlc(data), {})
     # 신고가 모아보기 (2026-11-13): 마감 확정 목록 + 장중 비교용 기준선 web/highs_base.json (깃허브 알림 작업이 20분마다 site/highs_live.json)
     import new_highs
     data["highs"] = safe(new_highs.eod)
     safe(lambda: (WEB / "highs_base.json").write_text(json.dumps(new_highs.base(), ensure_ascii=False, separators=(",", ":")), encoding="utf-8"))
+    data["ohlc"] = safe(lambda: write_ohlc(data), {})
     fc = DATA / "checkpoint" / "latest.json"   # 체크포인트 (Balance Lab 2.0, 하루 3회)
     if fc.exists():
         data["checkpoint"] = safe(lambda: json.loads(fc.read_text(encoding="utf-8")))

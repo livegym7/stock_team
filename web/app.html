@@ -1918,6 +1918,13 @@ function stockWhere(c){
 }
 function viewStock(){
   const c=ui.sc&&(D.companies||[]).find(x=>x.code==ui.sc);
+  const u=!c&&ui.sc&&stockByCode(ui.sc);
+  if(u){const t=u.trend||{};if(!t.price)ohlcGet(u.code).then(r=>{if(r&&!u.trend.price){u.trend=trendFrom(r,u.trend.rs);render()}});
+    return `<div class="sub" style="margin-bottom:6px"><a href="#stock">← 종목 목록</a> · 기업 카드가 없는 종목이라 차트·숫자만 보여 줍니다 (#s${esc(u.code)})</div>
+    <div class="panel"><h2>${esc(u.name)} <small class="muted">${esc(u.code)} · ${esc(u.group||"")}</small></h2>
+    <div class="tiles" style="margin:8px 0 12px"><div class="tile"><span>종가</span><b>${w(t.price)}</b></div><div class="tile"><span>1개월</span><b class="${cls(t.r1m)}">${pc(t.r1m)}</b></div><div class="tile"><span>52주 고점 대비</span><b>${pc(t.off_high)}</b></div><div class="tile"><span>RS</span><b>${t.rs??"-"}</b></div><div class="tile"><span>20일선</span><b>${t.above20==null?"-":t.above20?"위":"아래"}</b></div></div>
+    <h3>가격 흐름</h3>${stockChartBox(u)}</div>
+    <div class="glinks" style="margin-top:12px"><a href="https://finance.naver.com/item/main.naver?code=${esc(u.code)}" target="_blank" rel="noopener">네이버 증권 ↗</a><a href="https://dart.fss.or.kr/dsab001/main.do?textCrpNm=${encodeURIComponent(u.name)}" target="_blank" rel="noopener">DART 공시 ↗</a></div>`}
   if(!c){const L=viewCompanies().replace(/^<h1>기업<\/h1>/,"<h1>종목</h1>");
     const rec=(ui.recent||[]).map(k=>(D.companies||[]).find(x=>x.code==k)).filter(Boolean);
     return L.replace('<div class="ctool">',`${rec.length?`<div class="chips" style="margin-bottom:10px"><span class="muted" style="font-size:12.5px;align-self:center;padding:0 6px">최근 본 종목</span>${rec.map(x=>`<a class="chip" href="#s${x.code}">${esc(x.name)}</a>`).join("")}</div>`:""}<div class="ctool">`)}
@@ -2046,7 +2053,14 @@ function stockChartBox(c){
 /* ---------- 종목명 마우스오버 팝업 (휴대폰은 한 번 누르면) ---------- */
 const HOVER=matchMedia("(hover:hover)").matches;
 let popT=null,popFor=null;
-function popTarget(el){const t=el&&el.closest&&el.closest("[data-cq],b.stk,[data-pop]");if(!t||t.closest("#pop"))return null;const n=(t.dataset.cq||t.dataset.pop||t.textContent||"").trim();const c=(D.companies||[]).find(x=>x.name==n);return c?{el:t,c}:null}
+let UNI_BY_NAME=null;
+function stockByName(n){const c=(D.companies||[]).find(x=>x.name==n);if(c)return c;   // 기업 카드 없으면 시총 2천억↑ 간이 종목 (2026-11-13)
+  if(!UNI_BY_NAME){UNI_BY_NAME={};Object.entries(D.uni||{}).forEach(([k,v])=>{UNI_BY_NAME[v[0]]={code:k,name:v[0],group:v[1],pseudo:true,trend:{rs:v[2]}}})}
+  return UNI_BY_NAME[n]||null}
+function stockByCode(k){const c=(D.companies||[]).find(x=>x.code==k);if(c)return c;const v=(D.uni||{})[k];return v?stockByName(v[0]):null}
+function trendFrom(rows,rs){const c=rows.map(r=>r[4]),n=c.length,last=c[n-1],hi=Math.max(...rows.slice(-250).map(r=>r[2])),ma20=n>=20?c.slice(-20).reduce((a,b)=>a+b,0)/20:null;
+  return {rs,price:last,r1m:n>21?(last/c[n-22]-1)*100:null,off_high:(last/hi-1)*100,above20:ma20?last>=ma20:null,live_chg:n>1?(last/c[n-2]-1)*100:null}}
+function popTarget(el){const t=el&&el.closest&&el.closest("[data-cq],b.stk,[data-pop]");if(!t||t.closest("#pop"))return null;const n=(t.dataset.cq||t.dataset.pop||t.textContent||"").trim();const c=stockByName(n);return c?{el:t,c}:null}
 function showPop(t){
   const c=t.c, x=c.trend||{}, q=liveQuote(c.code), price=(q&&q.price)||x.price, chg=q?q.change_pct:x.live_chg;
   const pos=((D.risk||{}).positions||[]).find(p=>p.code==c.code), pool=((D.watch_pool||{}).themes||[]).find(th=>(th.stocks||[]).some(s=>s.code==c.code));
@@ -2057,7 +2071,7 @@ function showPop(t){
     <div>1개월 <span class="num ${cls(x.r1m)}">${pc(x.r1m)}</span></div><div>고점 대비 <span class="num">${pc(x.off_high)}</span></div>
     <div>RS <b class="num">${x.rs??"-"}</b>${x.rs_chg4w?` <small class="${x.rs_chg4w>0?"up":"down"}">${x.rs_chg4w>0?"▲":"▼"}${Math.abs(x.rs_chg4w)}</small>`:""}</div>
     <div>20일선 ${x.above20==null?"-":x.above20?'<span class="up">위</span>':'<span class="down">아래</span>'}</div>
-    <div>리포트 ${c.n_reports||0} <small><span class="up">${c.up||0}</span>/<span class="down">${c.down||0}</span></small></div>
+    ${c.pseudo?'<div class="muted">기업 카드 없음</div>':""}<div ${c.pseudo?"hidden":""}>리포트 ${c.n_reports||0} <small><span class="up">${c.up||0}</span>/<span class="down">${c.down||0}</span></small></div>
     ${pos?`<div class="up">보유 · 손절까지 ${pc(pos.to_stop_pct)}</div>`:""}${pool?`<div>관찰 풀 ${esc(pool.id)}</div>`:""}</div></div>
    <a class="ppl" href="#s${c.code}">종목 페이지 ›</a>`;
   const r=t.el.getBoundingClientRect(),pw=Math.min(430,innerWidth-16);P.style.width=pw+"px";P.hidden=false;const ph=P.offsetHeight;let left,top;
@@ -2066,7 +2080,7 @@ function showPop(t){
     top=Math.min(Math.max(8,popM.y-ph/2),innerHeight-ph-8);
   }else{left=Math.min(Math.max(8,r.left),innerWidth-pw-8);top=r.bottom+6;if(top+ph>innerHeight-8)top=Math.max(8,r.top-ph-6)}
   P.style.left=left+"px";P.style.top=top+"px";
-  ohlcGet(c.code).then(rows=>{if(popFor!=c.code)return;const el=$("#ppc");if(!el)return;el.innerHTML=rows?candleChart(rows,{w:260,h:140,n:200,ma:[20,60],vp:true,axis:false,dates:true,label:true}):`<div class="muted" style="font-size:12px;padding:30px 0;text-align:center">차트 없음</div>`});
+  ohlcGet(c.code).then(rows=>{if(popFor!=c.code)return;if(c.pseudo&&rows&&!c.trend.price){c.trend=trendFrom(rows,c.trend.rs);popFor=null;showPop(t);return}const el=$("#ppc");if(!el)return;el.innerHTML=rows?candleChart(rows,{w:260,h:140,n:200,ma:[20,60],vp:true,axis:false,dates:true,label:true}):`<div class="muted" style="font-size:12px;padding:30px 0;text-align:center">차트 없음</div>`});
 }
 function hidePop(){const P=$("#pop");if(P){P.hidden=true;popFor=null}}
 let popM=null;document.addEventListener("mousemove",e=>{if(HOVER)popM={x:e.clientX,y:e.clientY}},{passive:true});
@@ -2102,7 +2116,7 @@ document.addEventListener("click",e=>{
   if(e.target.closest("[data-theme-t]")){toggleTheme();return}
   if(e.target.closest("[data-rfpop]")){$("#rfpop").classList.toggle("open");return}
   if(!e.target.closest("#rfpop"))$("#rfpop").classList.remove("open");
-  const q=e.target.closest("[data-cq]"); if(q){const cc=(D.companies||[]).find(c=>c.name==q.dataset.cq);if(cc){ui.gsel=null;location.hash="s"+cc.code;return}if(q.closest(".gcard"))ui.gsel=null;ui.cq=q.dataset.cq;save();if(location.hash=="#stock")render();else location.hash="stock";return}
+  const q=e.target.closest("[data-cq]"); if(q){const cc=stockByName(q.dataset.cq);if(cc){ui.gsel=null;location.hash="s"+cc.code;return}if(q.closest(".gcard"))ui.gsel=null;ui.cq=q.dataset.cq;save();if(location.hash=="#stock")render();else location.hash="stock";return}
   const lt=e.target.closest("[data-lt]"); if(lt){ui.lt=lt.dataset.lt;save();render();return}
   if(e.target.closest("#refreshBtn")){doRefresh();return}
   const rfb=e.target.closest("[data-rf]"); if(rfb){refreshPart(rfb.dataset.rf);return}
@@ -2149,6 +2163,8 @@ document.addEventListener("compositionend",e=>{if(e.target.id=="rq"||e.target.id
 document.addEventListener("toggle",e=>{const d=e.target;if(d&&d.dataset&&d.dataset.fold){ui[d.dataset.fold]=d.open;save()}},true);
 document.addEventListener("change",e=>{if(e.target.id=="chSel"){ui.ch=e.target.value;save();render()}if(e.target.id=="bSel"){ui.bf=e.target.value;save();render()}if(e.target.id=="cfSel"){ui.cf=e.target.value;save();render()}});
 document.addEventListener("click",e=>{const b=e.target.closest("[data-bnav]");if(!b||b.disabled)return;const o=$("#bSel");if(!o)return;const i=o.selectedIndex-parseInt(b.dataset.bnav);if(i>=0&&i<o.options.length){ui.bf=o.options[i].value;save();render()}});
+document.addEventListener("click",e=>{const a=e.target.closest('a[href^="#"]');if(!a||e.defaultPrevented)return;const h=a.getAttribute("href").slice(1);
+  if(h&&h==location.hash.slice(1)){if(h=="stock"){ui.sc=null;ui.cc=null;ui.cq="";save()}render();window.scrollTo(0,0)}});
 window.addEventListener("hashchange",()=>{if(!(route()=="strategy"&&ui.st=="companies")&&ui.cq){ui.cq="";save()}render();window.scrollTo(0,0)});   // 기업 검색어는 기업 탭을 떠나면 지움
 if(!(route()=="strategy"&&ui.st=="companies"))ui.cq="";
 render();
