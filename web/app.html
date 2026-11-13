@@ -385,7 +385,7 @@ tr.click:hover td,tbody tr:hover td{background:color-mix(in srgb,var(--muted-bg)
 .qt th,.qt td{padding-left:8px;padding-right:8px}.qt th:first-child,.qt td:first-child{padding-left:16px}.qt td:last-child,.qt th:last-child{padding-left:0;padding-right:14px}
 tr.me td{background:var(--muted-bg)}
 /* 목록 선택 */
-.rrow.on,.step.now{background:var(--muted-bg);box-shadow:none}.rrow:hover{background:color-mix(in srgb,var(--muted-bg) 60%,transparent)}
+.rrow.on{background:var(--muted-bg);box-shadow:none}.step.now{background:var(--accent-soft);box-shadow:none;outline:2px solid var(--accent);outline-offset:-2px;font-weight:600}.step.now b{color:var(--accent)}.step.now b::before{content:"▶ "}.rrow:hover{background:color-mix(in srgb,var(--muted-bg) 60%,transparent)}
 .rgrp{background:transparent;border-top-color:var(--border);color:var(--foreground)}
 .crow.on,.item.on{border-color:var(--primary);box-shadow:none;background:color-mix(in srgb,var(--muted-bg) 60%,var(--card))}.crow:hover{border-color:var(--ring)}
 .cd.today{border-color:var(--primary);box-shadow:none}.cd.on{background:var(--muted-bg)}
@@ -567,6 +567,19 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.6px}h2{font-size:17px;font-we
 .br2 .brh{margin:28px 0 12px;padding-top:18px}
 .br2 .brx .bl{margin-bottom:2px}
 @media(max-width:820px){.opr{padding:12px 14px}.opr .t{font-size:14.5px}}
+/* 모바일 가독성 (2026-11-13): 좁은 칸에서 글이 세로로 길게 줄바뀜 되던 곳 정리 */
+@media(max-width:600px){
+ .step{grid-template-columns:auto minmax(0,1fr) auto;row-gap:3px;column-gap:10px}
+ .step>span:nth-child(3){grid-column:1/-1;grid-row:2;font-size:12px;color:var(--muted)}.step.now>span:nth-child(3){color:var(--fg)}
+ .step>span:nth-child(4){grid-column:3;grid-row:1}.step>span:nth-child(3):empty{display:none}
+ .opr{grid-template-columns:minmax(0,1fr)!important;gap:2px!important}
+ .sboard .sbr{grid-template-columns:minmax(0,1fr);gap:2px}.sboard .sbr .k{font-size:11.5px}
+ .tw table{font-size:12.5px}.tw th,.tw td.num{white-space:nowrap}.tw td.l{min-width:7.5em}.tw td.l small{white-space:normal}
+ .panel{padding-left:12px;padding-right:12px}
+ .g4{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px}.g4>.panel{padding:12px}.g4 .kpi b,.g4>.panel>b{font-size:20px}
+ .tw td.l{min-width:9em}
+ .gloss tr{display:block;padding:8px 0;border-bottom:1px solid var(--line)}.gloss td{border:0!important;padding:0!important}.gloss td:not(.wrap){display:inline-block;margin-right:8px}.gloss td.wrap{display:block;margin-top:3px}
+}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="bl-icon" viewBox="0 0 1024 1024"><defs><linearGradient id="blbg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#52525b"/><stop offset="1" stop-color="#18181b"/></linearGradient><linearGradient id="blgl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".16"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/></linearGradient></defs><rect width="1024" height="1024" rx="232" fill="url(#blbg)"/><rect width="1024" height="1024" rx="232" fill="url(#blgl)"/><path d="M352 262 V762 M352 262 H528 A122 122 0 0 1 528 506 H352 M352 506 H574 A128 128 0 0 1 574 762 H352" fill="none" stroke="#fff" stroke-linejoin="round" stroke-linecap="round" stroke-width="104"/><circle cx="742" cy="290" r="44" fill="#6d7dff"/></symbol></svg>

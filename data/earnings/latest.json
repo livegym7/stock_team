@@ -1,6 +1,18 @@
 {
  "rows": [
   {
+   "name": "LIG아큐버",
+   "code": "073490",
+   "period": "2026.3Q",
+   "sales": 774.0,
+   "op": 93.0,
+   "net": 67.0,
+   "verdict": null,
+   "time": "2026-11-13 16:14",
+   "channel": "maddingStock",
+   "url": "https://t.me/maddingStock/19456"
+  },
+  {
    "name": "IPARK현대산업개발",
    "code": "294870",
    "period": null,
