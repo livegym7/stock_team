@@ -1196,13 +1196,13 @@ def index_daily():
     """코스피·코스닥 일봉 (네이버 siseJson, 비공식) → {KOSPI: [[날짜, 시가, 고가, 저가, 종가, 거래량], ...]} 최근 260개."""
     import ast
     from common import http_get
-    end = datetime.now(KST); start = end - timedelta(days=420)
+    end = datetime.now(KST); start = end - timedelta(days=600)
     out = {}
     for m in ("KOSPI", "KOSDAQ"):
         raw = http_get("https://api.finance.naver.com/siseJson.naver", {"symbol": m, "requestType": 1, "timeframe": "day",
                        "startTime": start.strftime("%Y%m%d"), "endTime": end.strftime("%Y%m%d")}).decode("utf-8", "replace")
         rows = [r for r in ast.literal_eval(raw.strip()) if r and str(r[0]).isdigit()]
-        out[m] = [[r[0], r[1], r[2], r[3], r[4], r[5]] for r in rows][-260:]
+        out[m] = [[r[0], r[1], r[2], r[3], r[4], r[5]] for r in rows][-380:]   # 1년 표시 + 120일선 계산용
     return out
 
 
@@ -1220,14 +1220,14 @@ def write_ohlc(data):
         if not f.exists():
             continue
         try:
-            rows = json.loads(f.read_text())["rows"][-250:]
+            rows = json.loads(f.read_text())["rows"][-400:]   # 1년 표시 + 120일선 계산용 (2026-11-13)
         except Exception:
             continue
         arr = [[r["date"], r["open"], r["high"], r["low"], r["close"], r["volume"]] for r in rows]
         (out_dir / f"{c['code']}.json").write_text(json.dumps(arr, separators=(",", ":")), encoding="utf-8")
         n += 1
         if c["code"] in keep:
-            embed[c["code"]] = arr[-130:]
+            embed[c["code"]] = arr[-380:]
     return embed
 
 
