@@ -1206,6 +1206,30 @@ def index_daily():
     return out
 
 
+def vtop_enrich(o):
+    """거래대금 상위: 일봉 캐시로 20·60일선·52주 범위·RS를 붙임 (차트 위치를 한눈에)."""
+    from common import CACHE
+    try:
+        base = json.loads((WEB / "highs_base.json").read_text(encoding="utf-8"))["stocks"]
+    except Exception:
+        base = {}
+    for x in o.get("items") or []:
+        f = CACHE / "daily" / f"{x['code']}.json"
+        b = base.get(x["code"]) or {}
+        x["rs"] = b.get("rs")
+        if not f.exists():
+            continue
+        try:
+            rows = json.loads(f.read_text())["rows"][-250:]
+        except Exception:
+            continue
+        c = [r["close"] for r in rows]
+        if len(c) >= 60:
+            x["ma20"], x["ma60"] = round(sum(c[-20:]) / 20), round(sum(c[-60:]) / 60)
+        x["hi"], x["lo"] = max(r["high"] for r in rows), min(r["low"] for r in rows)
+    return o
+
+
 def write_ohlc(data):
     """종목별 일봉 파일 web/c/코드.json (최근 250개 [날짜,시가,고가,저가,종가,거래량]) — 감시 목록 일봉 캐시에서. 보유·관찰 풀은 화면 안에도 넣음(Artifact용)."""
     from common import CACHE
@@ -1270,6 +1294,7 @@ def write_html(data):
     # 신고가 모아보기 (2026-11-13): 마감 확정 목록 + 장중 비교용 기준선 web/highs_base.json (깃허브 알림 작업이 20분마다 site/highs_live.json)
     import new_highs
     data["highs"] = safe(new_highs.eod)
+    data["vtop"] = safe(lambda: vtop_enrich(__import__("value_top").fetch()))   # 거래대금 상위 100 (2026-11-13)
     safe(lambda: (WEB / "highs_base.json").write_text(json.dumps(new_highs.base(), ensure_ascii=False, separators=(",", ":")), encoding="utf-8"))
     data["ohlc"] = safe(lambda: write_ohlc(data), {})
     # 수급 오실레이터 (2026-11-13, 후보 B): 캐시로 계산 → web/f/코드.json(종목 페이지 그림) + 요약 P

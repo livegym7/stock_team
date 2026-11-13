@@ -31,5 +31,15 @@ export async function onRequestGet({ request }) {
     out.markets.push(m);
   });
   st.forEach(d => ((d && d.datas) || []).forEach(x => { out.quotes[x.itemCode] = { price: num(x.closePrice), change_pct: num(x.fluctuationsRatio), at: (x.localTradedAt || "").slice(0, 16) }; }));
+  // 거래대금 상위 100 (2026-11-13): ?top=1 이면 코스피·코스닥 거래대금 순위를 합쳐 ETF·ETN·스팩·우선주·리츠 제외
+  if (u.searchParams.get("top") === "1") {
+    const pages = await Promise.all(["KOSPI", "KOSDAQ"].flatMap(m => [1, 2].map(p => j(`https://m.stock.naver.com/api/stocks/priceTop/${m}?page=${p}&pageSize=100`).then(d => ({ m, d })))));
+    const plain = s => { const n = s.stockName || ""; return s.stockEndType == "stock" && !n.includes("스팩") && !n.includes("리츠") && !n.includes("(전환)") && !(/(우|우B|우C)$/.test(n) && n.length > 2); };
+    const rows = [];
+    pages.forEach(({ m, d }) => ((d && d.stocks) || []).filter(plain).forEach(x => rows.push({ code: x.itemCode, name: x.stockName, market: m, price: num(x.closePrice), chg: num(x.fluctuationsRatio),
+      value_eok: Math.round((num(x.accumulatedTradingValue) || 0) / 100), cap_eok: num(x.marketValue), at: (x.localTradedAt || "").slice(0, 16).replace("T", " ") })));
+    const seen = new Set();
+    out.top = rows.sort((a, b) => b.value_eok - a.value_eok).filter(r => !seen.has(r.code) && seen.add(r.code)).slice(0, 100);
+  }
   return new Response(JSON.stringify(out), { headers: { "content-type": "application/json; charset=utf-8", "cache-control": "no-store" } });
 }
