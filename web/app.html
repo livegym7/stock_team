@@ -591,6 +591,8 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.6px}h2{font-size:17px;font-we
 .fdch{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}.fdg{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;text-align:center;font-size:12.5px}.fdg>b{font-size:11px;color:var(--muted);font-weight:500}
 .fdg>span,.fdg>button{height:30px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:6px;border:0;background:none;font:inherit;color:inherit}.fdg>span.off{color:var(--faint,#bbb)}
 .fdg>button{cursor:pointer;font-weight:600}.fdg>button:hover{background:var(--soft)}.fdg>button i{width:4px;height:4px;border-radius:50%;background:var(--accent);margin-top:1px}.fdg>button.on{background:var(--accent);color:var(--on-accent,#fff)}.fdg>button.on i{background:currentColor}
+.sp2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 22px;align-items:start}.sp2 .src{font-size:11px}
+@media(max-width:900px){.sp2{grid-template-columns:minmax(0,1fr)}}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="bl-icon" viewBox="0 0 1024 1024"><defs><linearGradient id="blbg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#52525b"/><stop offset="1" stop-color="#18181b"/></linearGradient><linearGradient id="blgl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".16"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/></linearGradient></defs><rect width="1024" height="1024" rx="232" fill="url(#blbg)"/><rect width="1024" height="1024" rx="232" fill="url(#blgl)"/><path d="M352 262 V762 M352 262 H528 A122 122 0 0 1 528 506 H352 M352 506 H574 A128 128 0 0 1 574 762 H352" fill="none" stroke="#fff" stroke-linejoin="round" stroke-linecap="round" stroke-width="104"/><circle cx="742" cy="290" r="44" fill="#6d7dff"/></symbol></svg>
@@ -1211,8 +1213,8 @@ function stockPage(c){
      <div class="tile"><span>1주 / 1개월 / 3개월</span><b style="font-size:15px"><span class="${cls(t.r1w)}">${pc(t.r1w)}</span> / <span class="${cls(t.r1m)}">${pc(t.r1m)}</span> / <span class="${cls(t.r3m)}">${pc(t.r3m)}</span></b></div>
      <div class="tile"><span>52주 고점 대비</span><b>${pc(t.off_high)}</b></div>
      <div class="tile"><span>이동평균선</span><b style="font-size:15px">${t.above20==null?"-":`20일 ${t.above20?'<span class="up">위</span>':'<span class="down">아래</span>'}${t.above50!=null?` · 50일 ${t.above50?'<span class="up">위</span>':'<span class="down">아래</span>'}`:""}`}</b></div></div></div>
-   ${H("① 가격",stockChartBox(c))}
-   ${H("② 수급",flowP(c.code)!=null?flowBox(c).replace(/^<h3[^>]*>[\s\S]*?<\/h3>/,""):`<div class="muted" style="font-size:13px">수급 데이터 없음 (보유·관찰 풀·기업 메뉴 종목부터 매일 채움)</div>`)}
+   <div class="sp2">${H("① 가격",stockChartBox(c))}
+   ${H("② 수급",flowP(c.code)!=null?flowBox(c).replace(/^<h3[^>]*>[\s\S]*?<\/h3>/,""):`<div class="muted" style="font-size:13px">수급 데이터 없음 (보유·관찰 풀·기업 메뉴·신고가 종목부터 매일 채움)</div>`)}</div>
    ${H(`③ 최근 소식 <small class="muted">채널·리포트·실적·매매를 날짜순으로 · 채널 글은 2차 자료</small>`,stockNews(c))}
    ${H(`④ 리포트 목표가 <small class="muted">${c.n_reports?`최근 1개월 ${c.n_reports}건 · 🔺${c.up} 🔽${c.down} · 중앙값 ${w(c.median_target)}${c.median_target&&t.price?` (현재가 대비 ${pc((c.median_target/t.price-1)*100)})`:""}`:""}</small>`,(c.cons?consChart(c.cons,t.price):"")+rev||`<div class="muted" style="font-size:13px">최근 1개월 리포트 없음</div>`)}
    ${H("⑤ 같은 업종 비교",peerTable(c).replace(/^<h3>[\s\S]*?<\/h3>/,"")||`<div class="muted" style="font-size:13px">비교할 종목 없음</div>`)}
@@ -2114,7 +2116,7 @@ function flowChart(j){
 function flowBox(c){
   if(flowP(c.code)==null)return "";const id="fo"+c.code;
   setTimeout(()=>flowGet(c.code).then(j=>{const el=document.getElementById(id);if(el)el.innerHTML=j?flowChart(j):`<div class="muted" style="font-size:12.5px;padding:8px 0">그림은 웹(balance-lab.pages.dev)에서만 보입니다 · 지금 ${flowTag(c.code,1)}</div>`}),0);
-  return `<h3 style="margin-top:14px">수급 오실레이터 ${flowTag(c.code,1)}</h3><div id="${id}" style="max-width:640px"><div class="muted" style="padding:14px;font-size:13px">불러오는 중…</div></div>
+  return `<h3 style="margin-top:14px">수급 오실레이터 ${flowTag(c.code,1)}</h3><div id="${id}"><div class="muted" style="padding:14px;font-size:13px">불러오는 중…</div></div>
    <div class="src">— 시가총액 · <span class="up">— 수급 오실레이터</span> = (외국인+기관 순매수 수량 ÷ 상장주식수)의 6일 평균 − 22일 평균, 3일 평활 · P = 최근 60개 중 위치(🔵 25 이하 비어 있음 · 🟠 75 이상 차 있음) · 참고용, 매매 규칙 아님 · 출처: 네이버 투자자별 매매동향(비공식), ${esc(String(((D.flowosc||{})[c.code]||[])[1]||"").replace(/^(\d{4})(\d\d)(\d\d)$/,"$1-$2-$3"))} 기준</div>`}
 function stockChartBox(c){
   const id="sc"+c.code, mode=ui.scw||"d";
@@ -2122,7 +2124,7 @@ function stockChartBox(c){
     if(!rows){el.innerHTML=priceChart((c.trend||{}).chart,c.target_hist);return}
     const q=liveQuote(c.code);let r=rows;if(q&&q.price){const k=kstNow().toISOString().slice(0,10).replace(/-/g,""),l=r[r.length-1];if(l[0]==k)r=r.slice(0,-1).concat([[k,l[1],Math.max(l[2],q.price),Math.min(l[3],q.price),q.price,l[5]]])}
     const rr=mode=="w"?weekly(r):r;
-    el.innerHTML=`<div class="ixh"><small>${maPos(r,[20,60,120])}</small><span style="margin-left:auto" class="cg2"><button class="chip ${mode=="d"?"on":""}" data-scw="d">일봉 200일</button><button class="chip ${mode=="w"?"on":""}" data-scw="w">주봉 1년</button></span></div>${candleChart(rr,{w:720,h:300,n:mode=="w"?52:200,ma:mode=="w"?[10,20]:[20,60,120],vp:true,tg:c.target_hist})}<div class="src">${maLegend(mode=="w"?[10,20]:[20,60,120])} · 점 = 리포트 목표가 (<span class="up">● 상향</span> <span class="down">● 하향</span> <span class="muted">● 신규·유지</span>, ▲ = 차트 위로 벗어남, 점에 마우스를 올리면 증권사·날짜) · 매물대 = 최근 200봉 거래량을 종가 기준 10칸으로(빨강 = 가장 많이, 노랑 = 현재가 칸) · 출처: 네이버 일봉(비공식), 채널 리포트 요약(2차 자료)</div>`}),0);
+    el.innerHTML=`<div class="ixh"><small>${maPos(r,[20,60,120])}</small><span style="margin-left:auto" class="cg2"><button class="chip ${mode=="d"?"on":""}" data-scw="d">일봉 200일</button><button class="chip ${mode=="w"?"on":""}" data-scw="w">주봉 1년</button></span></div>${candleChart(rr,{w:600,h:330,n:mode=="w"?52:200,ma:mode=="w"?[10,20]:[20,60,120],vp:true,tg:c.target_hist})}<div class="src">${maLegend(mode=="w"?[10,20]:[20,60,120])} · 점 = 리포트 목표가 (<span class="up">● 상향</span> <span class="down">● 하향</span> <span class="muted">● 신규·유지</span>, ▲ = 차트 위로 벗어남, 점에 마우스를 올리면 증권사·날짜) · 매물대 = 최근 200봉 거래량을 종가 기준 10칸으로(빨강 = 가장 많이, 노랑 = 현재가 칸) · 출처: 네이버 일봉(비공식), 채널 리포트 요약(2차 자료)</div>`}),0);
   return `<div id="${id}" class="schart"><div class="muted" style="padding:20px;font-size:13px">차트 불러오는 중…</div></div>`;
 }
 /* ---------- 종목명 마우스오버 팝업 (휴대폰은 한 번 누르면) ---------- */
