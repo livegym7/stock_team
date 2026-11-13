@@ -655,11 +655,12 @@ html body .view .rfr{padding:3px 0;gap:8px;grid-template-columns:minmax(200px,30
 .spcons{gap:0 18px}.spcons .tw{margin-top:4px}
 .sppeer{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:0 22px;align-items:start}.sppeer>.spsec{min-width:0}
 @media(max-width:900px){.sppeer{grid-template-columns:minmax(0,1fr)}}
+.pop2{z-index:61}.esub{border-bottom:1px dotted var(--muted);cursor:pointer}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="bl-icon" viewBox="0 0 1024 1024"><defs><linearGradient id="blbg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#52525b"/><stop offset="1" stop-color="#18181b"/></linearGradient><linearGradient id="blgl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".16"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/></linearGradient></defs><rect width="1024" height="1024" rx="232" fill="url(#blbg)"/><rect width="1024" height="1024" rx="232" fill="url(#blgl)"/><path d="M352 262 V762 M352 262 H528 A122 122 0 0 1 528 506 H352 M352 506 H574 A128 128 0 0 1 574 762 H352" fill="none" stroke="#fff" stroke-linejoin="round" stroke-linecap="round" stroke-width="104"/><circle cx="742" cy="290" r="44" fill="#6d7dff"/></symbol></svg>
 <header class="topbar"><a class="brandbar" href="#home" title="Balance Lab · 추세추종 돌파 · 보기 전용"><svg class="bl-ico" viewBox="0 0 1024 1024" aria-hidden="true"><use href="#bl-icon"/></svg><b>Balance Lab</b></a><div class="tape num" id="tape"></div></header>
-<div id="pop" class="pop" hidden></div>
+<div id="pop" class="pop" hidden></div><div id="pop2" class="pop pop2" hidden></div>
 <button id="totop" hidden aria-label="맨 위로">↑</button><div class="navrow"><nav class="pillnav" id="pillnav"></nav>
 <div class="gsearch"><label for="gq" class="sr">기업 검색</label><input id="gq" type="search" autocomplete="off" spellcheck="false" placeholder="🔍 기업 검색 (이름·코드·초성)" aria-autocomplete="list" aria-controls="gqlist"><div class="gqlist" id="gqlist" role="listbox" hidden></div></div></div>
 <div class="app">
@@ -2283,18 +2284,19 @@ function etfPop(a,ev){   // ETF 구성종목 상위 10 (2026-11-13, 네이버 ET
   const x=((D.etfb||{}).items||[]).find(i=>i.code==a.dataset.etf),P=$("#pop");if(!x||!(x.top10||[]).length||!P)return;popFor="etf"+x.code;
   P.innerHTML=`<div class="pph"><b>${esc(x.name)}</b> <small class="muted">구성종목 상위 ${x.top10.length}</small></div>
    <table class="etfh">${x.top10.map((t,i)=>{const q=liveQuote(t[0]),c=stockByCode(t[0]),chg=q&&q.change_pct!=null?q.change_pct:c?(c.trend||{}).live_chg:null;
-     return `<tr><td class="num muted">${i+1}</td><td class="l">${esc(t[1])}</td><td class="num">${t[2]!=null?t[2].toFixed(1)+"%":""}</td><td class="num ${cls(chg)}">${chg!=null?pc(chg,2):""}</td><td><span class="ehb" style="width:${Math.min(60,(t[2]||0)*2.5).toFixed(0)}px"></span></td></tr>`}).join("")}</table>
-   <div class="src" style="margin-top:4px">비중 = ETF 안 차지 비율 · 오늘 등락은 마지막 갱신 기준 · 출처: 네이버 ETF 분석(비공식)</div>`;
+     return `<tr><td class="num muted">${i+1}</td><td class="l">${c?`<span class="esub" data-sub="${esc(c.code)}">${esc(t[1])}</span>`:esc(t[1])}</td><td class="num">${t[2]!=null?t[2].toFixed(1)+"%":""}</td><td class="num ${cls(chg)}">${chg!=null?pc(chg,2):""}</td><td><span class="ehb" style="width:${Math.min(60,(t[2]||0)*2.5).toFixed(0)}px"></span></td></tr>`}).join("")}</table>
+   <div class="src" style="margin-top:4px">종목 이름에 마우스를 올리면(휴대폰은 누르면) 차트 · 비중 = ETF 안 차지 비율 · 오늘 등락은 마지막 갱신 기준 · 출처: 네이버 ETF 분석(비공식)</div>`;
   const pw=Math.min(330,innerWidth-16);P.style.width=pw+"px";P.hidden=false;const ph=P.offsetHeight,r=a.getBoundingClientRect();
   let left=(ev&&ev.clientX?ev.clientX:r.right)+16;if(left+pw>innerWidth-8)left=Math.max(8,(ev&&ev.clientX?ev.clientX:r.left)-16-pw);
   P.style.left=left+"px";P.style.top=Math.min(Math.max(8,(ev&&ev.clientY?ev.clientY:r.top)-ph/2),innerHeight-ph-8)+"px"}
 function popTarget(el){const t=el&&el.closest&&el.closest("[data-cq],b.stk,[data-pop]");if(!t||t.closest("#pop"))return null;const n=(t.dataset.cq||t.dataset.pop||t.textContent||"").trim();const c=stockByName(n);return c?{el:t,c}:null}
-function showPop(t){
+let pop2For=null;
+function showPop(t,sub){   // sub = ETF 팝업 안에서 띄우는 두 번째 팝업 (2026-11-13)
   const c=t.c, x=c.trend||{}, q=liveQuote(c.code), price=(q&&q.price)||x.price, chg=q?q.change_pct:x.live_chg;
   const pos=((D.risk||{}).positions||[]).find(p=>p.code==c.code), pool=((D.watch_pool||{}).themes||[]).find(th=>(th.stocks||[]).some(s=>s.code==c.code));
-  const P=$("#pop");popFor=c.code;
+  const P=$(sub?"#pop2":"#pop"),CID=sub?"ppc2":"ppc";if(sub)pop2For=c.code;else popFor=c.code;
   P.innerHTML=`<div class="pph"><b>${pos?"⭐ ":""}${esc(c.name)}</b> <small class="muted">${esc(c.group||c.sector||"")}</small><a class="ppl" href="#s${c.code}">종목 페이지 ›</a>${HOVER?"":`<span class="ppx muted">✕</span>`}</div>
-   <div class="ppb"><div class="ppc" id="ppc"><div class="muted" style="font-size:12px;padding:30px 0;text-align:center">차트 불러오는 중…</div></div>
+   <div class="ppb"><div class="ppc" id="${CID}"><div class="muted" style="font-size:12px;padding:30px 0;text-align:center">차트 불러오는 중…</div></div>
    <div class="ppi"><div><b class="num">${w(price)}</b> <span class="num ${cls(chg)}">${chg!=null?pc(chg,2):""}</span></div>
     <div>1개월 <span class="num ${cls(x.r1m)}">${pc(x.r1m)}</span></div><div>고점 대비 <span class="num">${pc(x.off_high)}</span></div>
     <div>RS <b class="num">${x.rs??"-"}</b>${x.rs_chg4w?` <small class="${x.rs_chg4w>0?"up":"down"}">${x.rs_chg4w>0?"▲":"▼"}${Math.abs(x.rs_chg4w)}</small>`:""}</div>
@@ -2303,21 +2305,30 @@ function showPop(t){
     ${pos?`<div class="up">보유 · 손절까지 ${pc(pos.to_stop_pct)}</div>`:""}${pool?`<div>관찰 풀 ${esc(pool.id)}</div>`:""}</div></div>
    ${HOVER?"":`<div class="muted" style="font-size:11px;text-align:center;margin-top:6px">카드를 한 번 더 누르면 닫힙니다</div>`}`;
   const r=t.el.getBoundingClientRect(),pw=Math.min(430,innerWidth-16);P.style.width=pw+"px";P.hidden=false;const ph=P.offsetHeight;let left,top;
-  if(HOVER&&popM){/* 마우스 커서 옆(오른쪽, 자리 없으면 왼쪽)에 띄워 아래 줄을 가리지 않게 (2026-11-13) */
+  if(sub){const R0=$("#pop").getBoundingClientRect();if(HOVER){left=R0.right+8;if(left+pw>innerWidth-8)left=R0.left-8-pw;left=Math.min(Math.max(8,left),innerWidth-pw-8);top=Math.min(Math.max(8,r.top-40),innerHeight-ph-8)}
+    else{left=Math.min(Math.max(8,R0.left),innerWidth-pw-8);top=Math.min(Math.max(8,R0.top+20),innerHeight-ph-8)}}
+  else if(HOVER&&popM){/* 마우스 커서 옆(오른쪽, 자리 없으면 왼쪽)에 띄워 아래 줄을 가리지 않게 (2026-11-13) */
     left=popM.x+18;if(left+pw>innerWidth-8)left=popM.x-18-pw;left=Math.min(Math.max(8,left),innerWidth-pw-8);
     top=Math.min(Math.max(8,popM.y-ph/2),innerHeight-ph-8);
   }else{left=Math.min(Math.max(8,r.left),innerWidth-pw-8);top=r.bottom+6;if(top+ph>innerHeight-8)top=Math.max(8,r.top-ph-6)}
   P.style.left=left+"px";P.style.top=top+"px";
-  ohlcGet(c.code).then(rows=>{if(popFor!=c.code)return;if(c.pseudo&&rows&&rows.length&&!c.trend.price){c.trend=trendFrom(rows,c.trend.rs);popFor=null;showPop(t);return}const el=$("#ppc");if(!el)return;el.innerHTML=rows?candleChart(rows,{w:260,h:165,n:200,ma:[20,60],vp:true,axis:false,dates:true,label:true}):`<div class="muted" style="font-size:12px;padding:30px 0;text-align:center">차트 없음</div>`});
+  ohlcGet(c.code).then(rows=>{if((sub?pop2For:popFor)!=c.code)return;if(c.pseudo&&rows&&rows.length&&!c.trend.price){c.trend=trendFrom(rows,c.trend.rs);if(sub)pop2For=null;else popFor=null;showPop(t,sub);return}const el=$("#"+CID);if(!el)return;el.innerHTML=rows?candleChart(rows,{w:260,h:165,n:200,ma:[20,60],vp:true,axis:false,dates:true,label:true}):`<div class="muted" style="font-size:12px;padding:30px 0;text-align:center">차트 없음</div>`});
 }
-function hidePop(){const P=$("#pop");if(P){P.hidden=true;popFor=null}}
+function hidePop2(){const P=$("#pop2");if(P){P.hidden=true;pop2For=null}}
+function hidePop(){const P=$("#pop");if(P){P.hidden=true;popFor=null}hidePop2()}
+function subTarget(el){const a=el&&el.closest&&el.closest("#pop [data-sub]");const c=a&&stockByCode(a.dataset.sub);return c?{el:a,c}:null}
 let popM=null;document.addEventListener("mousemove",e=>{if(HOVER)popM={x:e.clientX,y:e.clientY}},{passive:true});
-document.addEventListener("mouseover",e=>{if(!HOVER)return;if(e.target.closest("#pop")){clearTimeout(popT);return}
+let pop2T=null;
+document.addEventListener("mouseover",e=>{if(!HOVER)return;
+  if(e.target.closest("#pop2")){clearTimeout(popT);clearTimeout(pop2T);return}
+  if(e.target.closest("#pop")){clearTimeout(popT);const st=subTarget(e.target);clearTimeout(pop2T);
+    if(st)pop2T=setTimeout(()=>{if(pop2For!=st.c.code)showPop(st,1)},220);else if(pop2For)pop2T=setTimeout(hidePop2,300);return}
   const ea=e.target.closest("[data-etf]");if(ea){clearTimeout(popT);popT=setTimeout(()=>{if(popFor!="etf"+ea.dataset.etf)etfPop(ea,e)},250);return}
   const t=popTarget(e.target);clearTimeout(popT);
   if(t)popT=setTimeout(()=>{if(popFor!=t.c.code)showPop(t)},280);else if(popFor)popT=setTimeout(hidePop,220)});
 document.addEventListener("click",e=>{
-  if(e.target.closest("#pop")){if(e.target.closest(".ppl")||!HOVER)hidePop();return}   // 휴대폰: 카드를 한 번 더 누르면 닫힘 (2026-11-13)
+  if(e.target.closest("#pop2")){if(e.target.closest(".ppl"))hidePop();else if(!HOVER)hidePop2();return}
+  if(e.target.closest("#pop")){const st=subTarget(e.target);if(st){e.preventDefault();if(pop2For==st.c.code)hidePop2();else showPop(st,1);return}if(e.target.closest(".ppl")||!HOVER)hidePop();return}   // 휴대폰: 카드를 한 번 더 누르면 닫힘 (2026-11-13)
   if(!HOVER){const ea=e.target.closest("[data-etf]");if(ea){e.preventDefault();e.stopPropagation();if(popFor=="etf"+ea.dataset.etf)hidePop();else etfPop(ea,e);return}
     const t=popTarget(e.target);if(t&&popFor!=t.c.code){e.preventDefault();e.stopPropagation();showPop(t);return}}
   hidePop();
