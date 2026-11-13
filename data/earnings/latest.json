@@ -1,6 +1,18 @@
 {
  "rows": [
   {
+   "name": "티앤엘",
+   "code": "340570",
+   "period": "2026.3Q",
+   "sales": 525.0,
+   "op": 217.0,
+   "net": 129.0,
+   "verdict": null,
+   "time": "2026-11-13 14:40",
+   "channel": "maddingStock",
+   "url": "https://t.me/maddingStock/19437"
+  },
+  {
    "name": "엑시콘",
    "code": "092870",
    "period": "2026.3Q",
