@@ -1244,6 +1244,10 @@ def write_html(data):
     # 차트 데이터 (2026-11-13): 코스피·코스닥 일봉 260개 + 종목별 일봉 파일(web/c/코드.json, 마우스오버 팝업·종목 페이지용, 웹에서만 필요할 때 받음)
     data["index_daily"] = safe(index_daily, {})
     data["ohlc"] = safe(lambda: write_ohlc(data), {})
+    # 신고가 모아보기 (2026-11-13): 마감 확정 목록 + 장중 비교용 기준선 web/highs_base.json (깃허브 알림 작업이 20분마다 site/highs_live.json)
+    import new_highs
+    data["highs"] = safe(new_highs.eod)
+    safe(lambda: (WEB / "highs_base.json").write_text(json.dumps(new_highs.base(), ensure_ascii=False, separators=(",", ":")), encoding="utf-8"))
     fc = DATA / "checkpoint" / "latest.json"   # 체크포인트 (Balance Lab 2.0, 하루 3회)
     if fc.exists():
         data["checkpoint"] = safe(lambda: json.loads(fc.read_text(encoding="utf-8")))

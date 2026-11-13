@@ -1645,6 +1645,7 @@ function viewHome2(){
    </div>
    <div class="hr2">
     ${krFlowBox()}
+    ${highsLine()}
     ${alertLine()}
     ${acctBox()}
     ${holdBox()}
@@ -1691,10 +1692,42 @@ function reportFlowTab(){
 }
 function viewFlow(){
   const t=ui.ft||"digest";
-  const tabs=[["digest","정리"],["reports","리포트"],["channels","채널 원문"]];
+  const tabs=[["digest","정리"],["reports","리포트"],["highs","신고가"],["channels","채널 원문"]];
   return `<h1>흐름</h1><div class="sub">무슨 이야기가 돌고, 리포트는 어디를 올리고 내리나 · 정리는 평일 08·10·12·14·16시 12분 자동 · 채널 글은 2차 자료</div>
   <div class="chips tabs">${tabs.map(([v,n])=>`<button class="chip ${t==v?"on":""}" data-ft="${v}">${n}</button>`).join("")}</div>
-  ${t=="digest"?flowTimeline():t=="reports"?reportFlowTab():stripH1(viewChannels())}`;
+  ${t=="digest"?flowTimeline():t=="reports"?reportFlowTab():t=="highs"?highsTab():stripH1(viewChannels())}`;
+}
+/* ---------- 신고가 모아보기 (2026-11-13): 60·200일, 고가 기준, 시총 2천억↑ · 마감 확정 + 장중 20분 참고 ---------- */
+function highsData(){const E=D.highs,L=D.highsLive,today=kstNow().toISOString().slice(0,10);
+  const liveOk=L&&String(L.made_at||"").slice(0,10)==today&&(!E||E.as_of!=today.replace(/-/g,""));
+  return {E,L:liveOk?L:null,use:liveOk&&ui.hm!="eod"?L:E}}
+function highsLine(){const {use}=highsData();if(!use||!use.items)return "";const it=use.items.filter(x=>(x.today||[]).length);
+  const n60=it.filter(x=>x.today.includes(60)).length,n200=it.filter(x=>x.today.includes(200)).length,g=(use.groups||[]).slice(0,3).map(x=>x.group).join("·");
+  return `<a class="bx hline" href="#flow" data-ft="highs" style="display:block;padding:10px 14px;text-decoration:none;color:inherit">🏔 <b>신고가</b> 60일 <b class="num">${n60}</b> · 200일 <b class="num">${n200}</b>${g?` · 많은 업종 ${esc(g)}`:""} <small class="muted">${use.mode=="live"?"장중 "+esc(String(use.made_at).slice(11)):"마감 "+esc(fmtYmd(use.as_of))} ›</small></a>`}
+function fmtYmd(d){d=String(d||"");return d.length==8?d.slice(4,6)+"/"+d.slice(6):d}
+function highsTab(){
+  const {E,L,use}=highsData();if(!use||!use.items)return `<div class="empty">신고가 데이터가 아직 없습니다 (다음 웹 갱신 때 생깁니다)</div>`;
+  const live=use.mode=="live",win=+(ui.hw||60),rng=live?"today":(ui.hr||"today"),pool=!!ui.hp;
+  let it=use.items.filter(x=>(rng=="today"?x.today:x.recent5||[]).includes(win));if(pool)it=it.filter(x=>x.pool||x.held);
+  const S=ui.hs||{k:"vol_x",d:"desc"},val=(x,k)=>k=="name"||k=="group"?String(x[k]||""):k=="c20"?((x.count20||{})[win]??-1e9):k=="hold"?+!!x.hold:(x[k]??-1e9);
+  it.sort((a,b)=>{const va=val(a,S.k),vb=val(b,S.k);return (typeof va=="string"?va.localeCompare(vb):va-vb)*(S.d=="asc"?1:-1)});
+  const all=use.items.filter(x=>(x.today||[]).length),n60=all.filter(x=>x.today.includes(60)).length,n200=all.filter(x=>x.today.includes(200)).length;
+  const H=(E&&E.history)||[],mx=Math.max(1,...H.map(h=>h.n60));
+  const bars=H.length?`<div style="display:flex;align-items:flex-end;gap:2px;height:46px;margin-top:6px">${H.map(h=>`<div title="${fmtYmd(h.date)} 60일 ${h.n60} · 200일 ${h.n200}" style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;height:100%"><div style="height:${(Math.max(0,h.n60-h.n200)/mx*100).toFixed(0)}%;background:color-mix(in srgb,var(--accent) 35%,transparent);border-radius:2px 2px 0 0"></div><div style="height:${(h.n200/mx*100).toFixed(0)}%;background:var(--accent)"></div></div>`).join("")}</div><div class="src" style="margin:2px 0 0">최근 ${H.length}거래일 마감 기준 · 연한 막대 = 60일 신고가 수, 진한 부분 = 200일 · 늘면 상승이 넓어지고, 줄면 일부 종목만 오르는 장</div>`:"";
+  const th=(k,n,l)=>`<th class="sortable${l?" l":""}${S.k==k?" on":""}" data-hsort="${k}">${n}<span class="sar">${S.k==k?(S.d=="asc"?"▲":"▼"):"↕"}</span></th>`;
+  const chip=(key,v,n,on)=>`<button class="chip ${on?"on":""}" data-hk="${key}" data-hv="${v}">${n}</button>`;
+  return `<div class="sub" style="margin-top:-6px">${live?`<b>장중 ${esc(String(use.made_at).slice(11))}</b> 참고 목록 (20분마다, 09:20~15:40) · 확정은 장 마감 후`:`<b>${esc(fmtYmd(use.as_of))} 마감</b> 확정 목록`} · ${esc(use.rule||"")} · 대상 ${use.universe||"-"}종목</div>
+  <div class="grid2" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-bottom:12px">
+   <div class="bx" style="padding:12px 14px"><div class="muted" style="font-size:12px">${live?"지금까지":"오늘"} 신고가</div><div style="font-size:22px;font-weight:700"><span class="num">${n60}</span> <small class="muted" style="font-size:12px">60일</small> · <span class="num">${n200}</span> <small class="muted" style="font-size:12px">200일</small></div>${bars}</div>
+   <div class="bx" style="padding:12px 14px"><div class="muted" style="font-size:12px;margin-bottom:6px">업종별 (60일 신고가 많은 순)</div>${(use.groups||[]).slice(0,8).map(g=>`<div style="display:flex;gap:8px;font-size:13px;padding:2px 0"><b style="min-width:7em">${esc(g.group)}</b><span class="num">${g.n60}</span><small class="muted" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(g.names.slice(0,5).join(", "))}</small></div>`).join("")||`<div class="muted">없음</div>`}</div>
+  </div>
+  <div class="chips" style="margin-bottom:8px">${chip("hw",60,"60일",win==60)}${chip("hw",200,"200일",win==200)}
+   ${live?"":`<span style="width:10px"></span>${chip("hr","today","오늘",rng=="today")}${chip("hr","r5","최근 5일",rng=="r5")}`}
+   <span style="width:10px"></span>${chip("hp",pool?"":"1","🎯 관찰 풀·보유만",pool)}
+   ${L&&E?`<span style="width:10px"></span>${chip("hm",live?"eod":"live",live?"직전 마감 보기":"장중 보기",false)}`:""}</div>
+  ${it.length?`<div class="tw"><table><tr>${th("name","종목",1)}${th("group","업종",1)}${th("close","종가")}${th("chg","등락")}${th("vol_x",live?"거래량 배수*":"거래량 배수")}${th("rs","RS")}${live?th("hold","상태"):th("c20","20일 내 횟수")}${th("to_52w","52주 고점 대비")}</tr>
+   ${it.map(x=>`<tr class="click" data-cq="${esc(x.name)}"><td class="l"><b class="stk">${esc(x.name)}</b>${x.held?" ⭐":""}${x.pool?" 🎯":""}${x.new?" 🆕":""}${(x.today||[]).includes(200)?' <span class="pill">200일</span>':""}</td><td class="l"><small>${esc(x.group||"")}</small></td><td class="num">${w(x.close)}</td><td class="num ${cls(x.chg)}">${pc(x.chg,2)}</td><td class="num">${x.vol_x!=null?x.vol_x.toFixed(1)+"배":"-"}</td><td class="num">${x.rs??"-"}</td><td>${live?(x.hold?'🟢 버팀':'⚪ 밀림'):`<span class="num">${(x.count20||{})[win]??"-"}</span>${(x.count20||{})[win]==1?' <small class="muted">처음</small>':""}`}</td><td class="num">${x.to_52w<0?x.to_52w.toFixed(1)+"%":"고점"}</td></tr>`).join("")}</table></div>`:`<div class="empty">조건에 맞는 종목이 없습니다</div>`}
+  ${src((live?"* 거래량 배수 = 지금까지 거래량 ÷ (20일 평균 × 이 시각까지 보통 지나는 비율), 시간 보정 추정 · 🟢 버팀 = 현재가도 직전 60일 최고가 위, ⚪ 밀림 = 고가만 넘고 내려옴 · 🆕 = 직전 20분 회차 이후 새로 들어옴 · ":"20일 내 횟수 = 최근 20거래일 동안 이 신고가가 몇 번 나왔나(1 = 처음) · ")+"⭐ 보유 🎯 관찰 풀 · 종목에 마우스를 올리면 차트 · 출처: 네이버 일봉·현재가(비공식) · 판단은 본인")}`;
 }
 
 /* ---------- ③ 전략: 보고서 · 관찰 풀 · 자료실 · 기업 (· 감시 목록) ---------- */
@@ -2063,7 +2096,9 @@ document.addEventListener("click",e=>{
   const cm=e.target.closest("[data-calm],[data-cald],[data-calk],[data-calrel]");
   if(cm){if(cm.dataset.calrel)ui.calRel=!ui.calRel;if(cm.dataset.calm)ui.calm=cm.dataset.calm;if(cm.dataset.cald)ui.cald=cm.dataset.cald;
     if(cm.dataset.calk){const o=new Set(ui.calOff||[]);o.has(cm.dataset.calk)?o.delete(cm.dataset.calk):o.add(cm.dataset.calk);ui.calOff=[...o]}save();render();return}
-  const ft=e.target.closest("[data-ft]"); if(ft){ui.ft=ft.dataset.ft;save();render();return}
+  const ft=e.target.closest("[data-ft]"); if(ft){ui.ft=ft.dataset.ft;save();if(ft.tagName=="A"){e.preventDefault();location.hash="flow"}render();return}
+  const hk=e.target.closest("[data-hk]"); if(hk){ui[hk.dataset.hk]=hk.dataset.hv;save();render();return}
+  const hso=e.target.closest("[data-hsort]"); if(hso){const k=hso.dataset.hsort,c=ui.hs||{k:"vol_x",d:"desc"},first=k=="name"||k=="group"?"asc":"desc";ui.hs=c.k==k?(c.d==first?{k,d:first=="asc"?"desc":"asc"}:{k:"vol_x",d:"desc"}):{k,d:first};save();render();return}
   const stb=e.target.closest("[data-st]"); if(stb){ui.st=stb.dataset.st;save();if(stb.tagName=="A"){return}render();return}
   const rcf=e.target.closest("[data-rcf]"); if(rcf){ui.rcf=rcf.dataset.rcf;save();render();return}
   const rcs=e.target.closest("[data-rcs]"); if(rcs){ui.rcs=rcs.dataset.rcs;save();render();return}
@@ -2104,6 +2139,7 @@ document.addEventListener("click",e=>{const b=e.target.closest("[data-bnav]");if
 window.addEventListener("hashchange",()=>{if(!(route()=="strategy"&&ui.st=="companies")&&ui.cq){ui.cq="";save()}render();window.scrollTo(0,0)});   // 기업 검색어는 기업 탭을 떠나면 지움
 if(!(route()=="strategy"&&ui.st=="companies"))ui.cq="";
 render();
+try{fetch("highs_live.json",{cache:"no-store"}).then(r=>r.ok?r.json():null).then(j=>{if(j){D.highsLive=j;render()}}).catch(()=>{})}catch(e){}
 try{fetch("live.json",{cache:"no-store"}).then(r=>r.ok?r.json():null).then(j=>{if(j){applyLive(j);render()}}).catch(()=>{}).finally(()=>{pollQuotes(true);setInterval(pollQuotes,60000)})}catch(e){}
 document.addEventListener("visibilitychange",()=>{if(!document.hidden)pollQuotes()});
 </script>

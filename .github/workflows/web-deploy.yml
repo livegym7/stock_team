@@ -85,6 +85,7 @@ jobs:
         run: |
           git fetch -q origin alert-state 2>/dev/null && git show origin/alert-state:state.json > "$RUNNER_TEMP/st_dry.json" || echo '{}' > "$RUNNER_TEMP/st_dry.json"
           python3 tools/alerts.py --dry --force --state "$RUNNER_TEMP/st_dry.json" --live site/live.json > /dev/null || true
+          [ -f site/highs_base.json ] && python3 tools/new_highs.py live --base site/highs_base.json --out site/highs_live.json > /dev/null || true
       - name: 배포 폴더 저장 (알림 작업이 장중 가격만 바꿔 다시 올릴 때 씀)
         if: steps.gate.outputs.ready == '1'
         uses: actions/cache/save@v4

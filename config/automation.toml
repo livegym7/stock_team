@@ -115,7 +115,7 @@ tokens = "0"
 check = "web"
 
 [[tasks]]
-name = "보유 종목 장중 알림 + 관찰 풀 돌파 알림(🔥) + 웹 장중 가격(live.json)"
+name = "보유 종목 장중 알림 + 관찰 풀 돌파 알림(🔥) + 웹 장중 가격(live.json) + 장중 신고가(highs_live.json)"
 when = "평일 장중 20분마다"
 due = "09:20"
 runner = "actions"

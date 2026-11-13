@@ -28,6 +28,7 @@ jobs:
         run: |
           mkdir -p "$RUNNER_TEMP/st"
           git fetch -q origin alert-state 2>/dev/null && git show origin/alert-state:state.json > "$RUNNER_TEMP/st/state.json" || echo '{}' > "$RUNNER_TEMP/st/state.json"
+          git show origin/alert-state:highs_prev.json > "$RUNNER_TEMP/st/highs_prev.json" 2>/dev/null || echo '{}' > "$RUNNER_TEMP/st/highs_prev.json"
       - name: 확인하고 새 알림만 텔레그램으로
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
@@ -53,12 +54,14 @@ jobs:
         run: |
           if grep -Eq '^access_ready *= *true' config/web.toml && [ -f site/index.html ] && [ -f "$RUNNER_TEMP/live.json" ]; then
             cp "$RUNNER_TEMP/live.json" site/live.json
+            # 장중 신고가 (2026-11-13, 09:20~15:45만 계산, 토큰 0)
+            [ -f site/highs_base.json ] && python3 tools/new_highs.py live --base site/highs_base.json --out site/highs_live.json --prev "$RUNNER_TEMP/st/highs_prev.json" || true
             npx --yes wrangler@3.90.0 pages deploy site --project-name balance-lab --branch main --commit-dirty=true || true
           fi
       - name: 알림 기록 저장 (alert-state 브랜치, 기록 없이 덮어쓰기)
         run: |
           cd "$RUNNER_TEMP/st"
           git init -q
-          git add state.json
+          git add state.json highs_prev.json 2>/dev/null || git add state.json
           git -c user.name="alert bot" -c user.email="actions@users.noreply.github.com" commit -qm "alert state $(TZ=Asia/Seoul date '+%F %H:%M')"
           git push -fq "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}" HEAD:alert-state
