@@ -1,6 +1,42 @@
 {
  "rows": [
   {
+   "name": "브이엠",
+   "code": "089970",
+   "period": "2026.3Q",
+   "sales": 849.0,
+   "op": 299.0,
+   "net": 178.0,
+   "verdict": null,
+   "time": "2026-11-13 11:22",
+   "channel": "nje2e",
+   "url": "https://t.me/nje2e/45419"
+  },
+  {
+   "name": "비에이치아이",
+   "code": "083650",
+   "period": "2026.3Q",
+   "sales": 2865.0,
+   "op": 403.0,
+   "net": 798.0,
+   "verdict": null,
+   "time": "2026-11-13 10:45",
+   "channel": "nje2e",
+   "url": "https://t.me/nje2e/45413"
+  },
+  {
+   "name": "제주반도체",
+   "code": "080220",
+   "period": "2026.3Q",
+   "sales": 3461.0,
+   "op": 1599.0,
+   "net": 673.0,
+   "verdict": null,
+   "time": "2026-11-13 10:45",
+   "channel": "nje2e",
+   "url": "https://t.me/nje2e/45414"
+  },
+  {
    "name": "프로텍",
    "code": "053610",
    "period": "2026.3Q",
