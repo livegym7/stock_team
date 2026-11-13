@@ -484,7 +484,7 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.6px}h2{font-size:17px;font-we
 .schart{margin-bottom:10px}.cg2 .chip{padding:3px 10px;font-size:12px}
 .pop{position:fixed;z-index:60;background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:0 12px 32px -10px rgb(0 0 0 / .35);padding:10px 12px;font-size:12.5px}
 .pph{margin-bottom:6px}.pph b{font-size:14px}.ppb{display:grid;grid-template-columns:minmax(0,1fr) 128px;gap:10px;align-items:start}.ppi{display:grid;gap:3px;line-height:1.45}.ppi b{font-size:15px}.ppl{display:block;margin-top:6px;font-size:12px;color:var(--muted);text-decoration:none}.ppl:hover{color:var(--fg)}
-@media(max-width:420px){.ppb{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:600px){.ppb{grid-template-columns:minmax(0,1fr);gap:6px}.ppi{grid-template-columns:repeat(3,minmax(0,1fr));gap:2px 10px;font-size:11.5px;line-height:1.35}.ppi>div:first-child{grid-column:1/-1;font-size:13px}.ppi>div{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ppi .fpt{font-size:10.5px;padding:0 4px}}
 .sboard .sbr{display:grid;grid-template-columns:92px minmax(0,1fr);gap:8px;padding:7px 16px;border-top:1px solid var(--line);font-size:13.5px;line-height:1.55}.sboard .sbr:first-of-type{border-top:0}.sboard .sbr .k{color:var(--muted);font-size:12px;font-weight:600;padding-top:2px}.sboard .sbr.hot{background:color-mix(in srgb,var(--up) 7%,transparent)}
 .todo{display:block;padding:8px 16px;border-top:1px solid var(--line);text-decoration:none;color:inherit;border-left:3px solid var(--line)}.todo.h{border-left-color:var(--up)}.todo.m{border-left-color:var(--warn)}.todo b{display:block;font-size:13.5px}.todo small{color:var(--muted);font-size:12px}.todo:hover{background:var(--soft)}
 .stgrid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:12px;align-items:start}.stside>.panel:first-child{margin-top:0!important}
@@ -636,6 +636,9 @@ html body .view .spone,html body .view .sppts{font-size:13px;line-height:1.6}
 html body .view .daycard .dct{font-size:13.5px}html body .view .dsec>summary{font-size:12.5px;padding:7px 0}
 html body .pop{font-size:12px}
 @media(max-width:600px){html body{font-size:13px}html body .view h1{font-size:18px}html body .view td,html body .view th{padding:5px 6px}}
+.etft tr.bench td{font-weight:700}.etft tr.bk1 td{background:color-mix(in srgb,#2f6fed 16%,var(--panel))}.etft tr.bk2 td{background:color-mix(in srgb,#8a5cf6 16%,var(--panel))}
+.etft .etfn{color:inherit;text-decoration:none}.etft .etfn:hover{text-decoration:underline}
+.ebar{position:relative;display:block;height:8px;width:100%;min-width:100px;background:linear-gradient(90deg,transparent 49.5%,var(--line) 49.5%,var(--line) 50.5%,transparent 50.5%)}.ebar i{position:absolute;top:0;height:8px;border-radius:2px}.ebar i.up{background:var(--up);opacity:.7}.ebar i.dn{background:var(--down);opacity:.7}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="bl-icon" viewBox="0 0 1024 1024"><defs><linearGradient id="blbg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#52525b"/><stop offset="1" stop-color="#18181b"/></linearGradient><linearGradient id="blgl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".16"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/></linearGradient></defs><rect width="1024" height="1024" rx="232" fill="url(#blbg)"/><rect width="1024" height="1024" rx="232" fill="url(#blgl)"/><path d="M352 262 V762 M352 262 H528 A122 122 0 0 1 528 506 H352 M352 506 H574 A128 128 0 0 1 574 762 H352" fill="none" stroke="#fff" stroke-linejoin="round" stroke-linecap="round" stroke-width="104"/><circle cx="742" cy="290" r="44" fill="#6d7dff"/></symbol></svg>
@@ -1817,12 +1820,31 @@ function reportFlowTab(){
 }
 function viewFlow(){
   const t=ui.ft||"digest";
-  const tabs=[["digest","정리"],["reports","리포트"],["vtop","거래대금"],["highs","신고가"],["channels","채널 원문"]];
+  const tabs=[["digest","정리"],["reports","리포트"],["etf","ETF"],["vtop","거래대금"],["highs","신고가"],["channels","채널 원문"]];
   return `<h1>시장</h1><div class="sub">무슨 이야기가 돌고, 리포트는 어디를 올리고 내리나 · 정리는 평일 08·10·12·14·16시 12분 자동 · 채널 글은 2차 자료</div>
-  ${(()=>{let body=t=="digest"?flowTimeline():t=="reports"?reportFlowTab():t=="vtop"?vtopTab():t=="highs"?highsTab():stripH1(viewChannels()),bar="";
+  ${(()=>{let body=t=="digest"?flowTimeline():t=="reports"?reportFlowTab():t=="vtop"?vtopTab():t=="etf"?etfTab():t=="highs"?highsTab():stripH1(viewChannels()),bar="";
     body=body.replace(/<!--bar-->([\s\S]*?)<!--\/bar-->/,(m,x)=>{bar=x;return ""});   // 탭 · 종류 · 날짜를 한 줄로 (2026-11-13)
     return `<div class="flowbar"><div class="chips tabs">${tabs.map(([v,n])=>`<button class="chip ${t==v?"on":""}" data-ft="${v}">${n}</button>`).join("")}</div>${bar}</div>${body}`})()}`;
 }
+/* ---------- ETF 시세판 (2026-11-13): 등락률 순, 코스피·코스닥 줄을 같은 표에 끼워 시장 대비 강약을 한눈에 ---------- */
+function idxChg(code){const m=((D.pulse||{}).markets||[]).find(x=>x.market==code);if(m&&m.change_pct!=null)return m.change_pct;const b=((D.etfb||{}).index||[]).find(x=>x.code==code);return b?b.chg:null}
+function etfTab(){
+  const B=D.etfb||{};if(!(B.items||[]).length)return `<div class="empty">ETF 시세가 아직 없습니다 (다음 웹 갱신 때 생깁니다)</div>`;
+  const kp=idxChg("KOSPI"),kq=idxChg("KOSDAQ");
+  const rows=B.items.map(x=>{const q=liveQuote(x.code);return {...x,price:(q&&q.price)||x.price,chg:q&&q.change_pct!=null?q.change_pct:x.chg,live:!!(q&&q.price)}});
+  rows.push({bench:1,code:"KOSPI",name:"코스피",chg:kp,price:(((D.pulse||{}).markets||[]).find(m=>m.market=="KOSPI")||{}).price},{bench:1,code:"KOSDAQ",name:"코스닥",chg:kq,price:(((D.pulse||{}).markets||[]).find(m=>m.market=="KOSDAQ")||{}).price});
+  const S=ui.es||{k:"chg",d:"desc"},v=(r,k)=>k=="name"?r.name:k=="vs"?(r.bench?-1e9:(r.chg??-1e9)-(kp??0)):(r[k]??-1e9);
+  rows.sort((a,b)=>{const x=v(a,S.k),y=v(b,S.k);return (typeof x=="string"?x.localeCompare(y,"ko"):x-y)*(S.d=="asc"?1:-1)});
+  const th=(k,n,l)=>`<th class="sortable${l?" l":""}${S.k==k?" on":""}" data-esort="${k}">${n}<span class="sar">${S.k==k?(S.d=="asc"?"▲":"▼"):"↕"}</span></th>`;
+  const mx=Math.max(1,...rows.map(r=>Math.abs(r.chg||0)));
+  const nAbove=rows.filter(r=>!r.bench&&kp!=null&&r.chg>kp).length,n=rows.filter(r=>!r.bench).length;
+  return `<div class="sub" style="margin-top:-4px"><b>${esc((rows.some(r=>r.live)?(D.live||{}).at:B.made_at)||"")}</b> 기준 · 코스피 <b class="${cls(kp)}">${pc(kp,2)}</b> · 코스닥 <b class="${cls(kq)}">${pc(kq,2)}</b> · 코스피보다 강한 ETF ${nAbove}/${n}개 · 장중엔 1분마다 갱신</div>
+  <div class="tw"><table class="etft"><tr>${th("name","ETF",1)}${th("price","현재가")}${th("chg","등락률")}<th class="l" style="min-width:120px">강약</th>${th("vs","코스피 대비")}${th("value_eok","거래대금(억)")}</tr>
+  ${rows.map(r=>{const w2=Math.abs(r.chg||0)/mx*50;return `<tr class="${r.bench?"bench "+(r.code=="KOSPI"?"bk1":"bk2"):""}"><td class="l">${r.bench?`<b>📊 ${esc(r.name)}</b> <small>지수</small>`:`<a href="https://finance.naver.com/item/main.naver?code=${esc(r.code)}" target="_blank" rel="noopener" class="etfn">${esc(r.name)}</a>`}</td>
+   <td class="num">${r.price!=null?(r.bench?r.price.toLocaleString("en-US",{maximumFractionDigits:2}):w(r.price)):"-"}</td><td class="num ${cls(r.chg)}"><b>${pc(r.chg,2)}</b></td>
+   <td class="l"><span class="ebar"><i class="${(r.chg||0)>=0?"up":"dn"}" style="${(r.chg||0)>=0?"left:50%":"right:50%"};width:${w2.toFixed(1)}%"></i></span></td>
+   <td class="num ${r.bench?"":cls((r.chg??0)-(kp??0))}">${r.bench?"":pc((r.chg??0)-(kp??0),2).replace("%","%p")}</td><td class="num">${r.value_eok!=null?w(r.value_eok):""}</td></tr>`}).join("")}</table></div>
+  ${src("📊 파란 줄 = 코스피, 보라 줄 = 코스닥 · 그 줄보다 위 = 시장보다 강한 섹터 · 강약 막대 = 등락률(가운데 0) · 목록은 config/etf_board.toml (Claude에게 '○○ ETF 추가해줘'라고 말하면 됩니다) · 출처: 네이버(비공식)")}`}
 /* ---------- 거래대금 상위 100 (2026-11-13): ETF·ETN·스팩·우선주·리츠 제외 · 장중엔 1분마다 · 차트 위치를 한눈에 ---------- */
 function vtopTab(){
   const B=D.vtop||{},L=D.vtopLive,base=Object.fromEntries((B.items||[]).map(x=>[x.code,x]));
@@ -2258,7 +2280,8 @@ window.addEventListener("scroll",()=>{if(!HOVER)return;hidePop()},{passive:true}
 /* ---------- 화면이 열려 있는 동안 1분마다 시세 (웹에서만, /api/quote) ---------- */
 let LIST_CODES=[];
 function quoteCodes(){const s=new Set(((D.risk||{}).positions||[]).map(p=>p.code));((D.watch_pool||{}).themes||[]).forEach(th=>(th.stocks||[]).forEach(x=>s.add(x.code)));if(ui.sc)s.add(ui.sc);
-  if(route()=="stock"&&!ui.sc)LIST_CODES.forEach(c=>s.add(c));   // 종목 목록을 보고 있으면 목록 위쪽 종목도 (2026-11-13)
+  if(route()=="stock"&&!ui.sc)LIST_CODES.forEach(c=>s.add(c));
+  if(route()=="flow"&&ui.ft=="etf")((D.etfb||{}).items||[]).forEach(x=>s.add(x.code));   // ETF 시세판을 보고 있으면 ETF도 (2026-11-13)   // 종목 목록을 보고 있으면 목록 위쪽 종목도 (2026-11-13)
   return [...s].filter(Boolean).slice(0,200)}
 function busy(){const a=document.activeElement;return (a&&/INPUT|SELECT|TEXTAREA/.test(a.tagName))||popFor}
 function applyQuote(j){
@@ -2301,6 +2324,7 @@ document.addEventListener("click",e=>{
   if(e.target.closest("[data-fdcal]")){ui.fdOpen=!ui.fdOpen;ui.fcm=null;save();render();return}
   const fcm=e.target.closest("[data-fcm]"); if(fcm){ui.fcm=fcm.dataset.fcm;save();render();return}
   if(ui.fdOpen&&!e.target.closest(".fdcal")){ui.fdOpen=false;save();render()}
+  const eso=e.target.closest("[data-esort]"); if(eso){const k=eso.dataset.esort,c=ui.es||{k:"chg",d:"desc"},first=k=="name"?"asc":"desc";ui.es=c.k==k?(c.d==first?{k,d:first=="asc"?"desc":"asc"}:{k:"chg",d:"desc"}):{k,d:first};save();render();return}
   const vf=e.target.closest("[data-vf]"); if(vf){ui.vf=vf.dataset.vf;save();render();return}
   const vso=e.target.closest("[data-vsort]"); if(vso){const k=vso.dataset.vsort,c=ui.vs||{k:"value_eok",d:"desc"},first=k=="name"||k=="rank"?"asc":"desc";ui.vs=c.k==k?(c.d==first?{k,d:first=="asc"?"desc":"asc"}:{k:"value_eok",d:"desc"}):{k,d:first};save();render();return}
   const toc=e.target.closest("[data-toc]"); if(toc){const el=document.getElementById(toc.dataset.toc);if(el){window.scrollTo({top:el.getBoundingClientRect().top+scrollY-(innerWidth>820?160:60),behavior:"smooth"})}return}
@@ -2320,7 +2344,7 @@ document.addEventListener("click",e=>{
   const cm=e.target.closest("[data-calm],[data-cald],[data-calk],[data-calrel]");
   if(cm){if(cm.dataset.calrel)ui.calRel=!ui.calRel;if(cm.dataset.calm)ui.calm=cm.dataset.calm;if(cm.dataset.cald)ui.cald=cm.dataset.cald;
     if(cm.dataset.calk){const o=new Set(ui.calOff||[]);o.has(cm.dataset.calk)?o.delete(cm.dataset.calk):o.add(cm.dataset.calk);ui.calOff=[...o]}save();render();return}
-  const ft=e.target.closest("[data-ft]"); if(ft){ui.ft=ft.dataset.ft;save();if(ui.ft=="vtop")setTimeout(()=>pollQuotes(),50);if(ft.tagName=="A"){e.preventDefault();location.hash="flow"}render();return}
+  const ft=e.target.closest("[data-ft]"); if(ft){ui.ft=ft.dataset.ft;save();if(ui.ft=="vtop"||ui.ft=="etf")setTimeout(()=>pollQuotes(),50);if(ft.tagName=="A"){e.preventDefault();location.hash="flow"}render();return}
   const hk=e.target.closest("[data-hk]"); if(hk){ui[hk.dataset.hk]=hk.dataset.hv;save();render();return}
   const hso=e.target.closest("[data-hsort]"); if(hso){const k=hso.dataset.hsort,c=ui.hs||{k:"vol_x",d:"desc"},first=k=="name"||k=="group"?"asc":"desc";ui.hs=c.k==k?(c.d==first?{k,d:first=="asc"?"desc":"asc"}:{k:"vol_x",d:"desc"}):{k,d:first};save();render();return}
   const stb=e.target.closest("[data-st]"); if(stb){ui.st=stb.dataset.st;save();if(stb.tagName=="A"){return}render();return}

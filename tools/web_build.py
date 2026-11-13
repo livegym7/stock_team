@@ -1295,6 +1295,7 @@ def write_html(data):
     import new_highs
     data["highs"] = safe(new_highs.eod)
     data["vtop"] = safe(lambda: vtop_enrich(__import__("value_top").fetch()))   # 거래대금 상위 100 (2026-11-13)
+    data["etfb"] = safe(lambda: __import__("etf_board").fetch())   # ETF 시세판 (2026-11-13)
     safe(lambda: (WEB / "highs_base.json").write_text(json.dumps(new_highs.base(), ensure_ascii=False, separators=(",", ":")), encoding="utf-8"))
     data["ohlc"] = safe(lambda: write_ohlc(data), {})
     # 수급 오실레이터 (2026-11-13, 후보 B): 캐시로 계산 → web/f/코드.json(종목 페이지 그림) + 요약 P
