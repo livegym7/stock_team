@@ -656,6 +656,9 @@ html body .view .rfr{padding:3px 0;gap:8px;grid-template-columns:minmax(200px,30
 .sppeer{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:0 22px;align-items:start}.sppeer>.spsec{min-width:0}
 @media(max-width:900px){.sppeer{grid-template-columns:minmax(0,1fr)}}
 .pop2{z-index:61}.esub{border-bottom:1px dotted var(--muted);cursor:pointer}
+.sppeer{grid-template-columns:400px minmax(0,1fr)}.sppeer.norl{grid-template-columns:minmax(0,1fr)}.spcons{grid-template-columns:minmax(0,4fr) minmax(0,6fr)}
+td.pearn{white-space:nowrap}td.pearn .pill{padding:1px 6px}
+@media(max-width:900px){.sppeer,.spcons{grid-template-columns:minmax(0,1fr)}}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="bl-icon" viewBox="0 0 1024 1024"><defs><linearGradient id="blbg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#52525b"/><stop offset="1" stop-color="#18181b"/></linearGradient><linearGradient id="blgl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".16"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/></linearGradient></defs><rect width="1024" height="1024" rx="232" fill="url(#blbg)"/><rect width="1024" height="1024" rx="232" fill="url(#blgl)"/><path d="M352 262 V762 M352 262 H528 A122 122 0 0 1 528 506 H352 M352 506 H574 A128 128 0 0 1 574 762 H352" fill="none" stroke="#fff" stroke-linejoin="round" stroke-linecap="round" stroke-width="104"/><circle cx="742" cy="290" r="44" fill="#6d7dff"/></symbol></svg>
@@ -1207,11 +1210,11 @@ function rsBadge(t){if(t.rs==null)return `<span class="rsb muted">RS -</span>`;c
   const ch=t.rs_chg4w;return `<span class="rsb ${cls}" title="RS = 1년 수익률 가중 백분위(0~99), 70↑이 강함. 화살표 = 4주 전 대비">RS ${t.rs}${ch?` <small class="${ch>0?"up":"down"}">${ch>0?"▲":"▼"}${Math.abs(ch)}</small>`:""}</span>`}
 function miniLine(c,W=64,H=22){if(!c||c.length<3)return "";const lo=Math.min(...c),hi=Math.max(...c),rg=(hi-lo)||1,n=c.length;
   const col=c[n-1]>=c[0]?"var(--up)":"var(--down)";return `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" aria-hidden="true"><path d="${c.map((v,i)=>(i?"L":"M")+(i/(n-1)*W).toFixed(1)+" "+(H-2-(v-lo)/rg*(H-4)).toFixed(1)).join("")}" fill="none" stroke="${col}" stroke-width="1.3"/></svg>`}
-function rsLine(h){if(!h||h.filter(x=>x!=null).length<3)return "";const W=260,H=70,n=h.length,y=v=>(H-6-(v/99)*(H-12)).toFixed(1),x=i=>(8+i/(n-1)*(W-16)).toFixed(1);
+function rsLine(h){if(!h||h.filter(x=>x!=null).length<3)return "";const W=400,H=230,n=h.length,lo0=Math.max(0,Math.min(60,...h.filter(v=>v!=null))-5),y=v=>(H-16-((v-lo0)/(100-lo0))*(H-26)).toFixed(1),x=i=>(8+i/(n-1)*(W-16)).toFixed(1);
   const pts=h.map((v,i)=>v==null?null:[x(i),y(v)]).filter(Boolean);
-  return `<svg viewBox="0 0 ${W} ${H}" width="100%" style="max-width:360px" aria-label="RS 12주 추이"><line x1="8" x2="${W-8}" y1="${y(70)}" y2="${y(70)}" stroke="var(--up)" stroke-dasharray="3 3" stroke-width=".8"/><text x="${W-8}" y="${+y(70)-3}" font-size="9" text-anchor="end" fill="var(--up)">70</text>
+  return `<svg viewBox="0 0 ${W} ${H}" width="100%" style="max-width:${W}px;display:block" aria-label="RS 12주 추이"><line x1="8" x2="${W-8}" y1="${y(70)}" y2="${y(70)}" stroke="var(--up)" stroke-dasharray="3 3" stroke-width=".8"/><text x="${W-8}" y="${+y(70)-3}" font-size="9" text-anchor="end" fill="var(--up)">70</text>
    <path d="${pts.map((p,i)=>(i?"L":"M")+p[0]+" "+p[1]).join("")}" fill="none" stroke="var(--accent)" stroke-width="1.8"/>${pts.map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="2" fill="var(--accent)"/>`).join("")}
-   <text x="8" y="${H-1}" font-size="9" fill="var(--muted)">12주 전</text><text x="${W-8}" y="${H-1}" font-size="9" text-anchor="end" fill="var(--muted)">지금 ${h[n-1]??"-"}</text></svg>`}
+   <text x="8" y="${H-2}" font-size="10" fill="var(--muted)">12주 전</text><text x="${W-8}" y="${H-2}" font-size="10" text-anchor="end" fill="var(--muted)">지금 ${h[n-1]??"-"}</text></svg>`}
 function priceChart(ch,tg){if(!ch||!ch.c||ch.c.length<5)return `<div class="empty">6개월 차트는 기업 카드·보유·관심·리포트 2건 이상 종목만 보여 줍니다</div>`;
   if(!ch.ma20){ // 새 형식: 날짜 MMDD + 앞 50일 더 붙은 종가 → 이동평균을 여기서 계산
     const n0=ch.d.length, full=ch.c, off=full.length-n0, y0=+ch.d0;let y=y0;
@@ -1233,8 +1236,8 @@ function priceChart(ch,tg){if(!ch||!ch.c||ch.c.length<5)return `<div class="empt
 function peerTable(sel){
   const g=sel.group, P=(D.companies||[]).filter(c=>c.group&&c.group==g).sort((a,b)=>((b.trend||{}).rs??-1)-((a.trend||{}).rs??-1));
   if(P.length<2)return "";
-  return `<h3>같은 업종 비교 · ${esc(g)} <small class="muted">기업 메뉴에 있는 ${P.length}개 · 강도순</small></h3><div class="tw"><table><tr><th class="l">종목</th><th>강도</th><th>1개월</th><th>3개월</th><th>고점 대비</th><th>시총(억)</th><th>리포트 🔺/🔽</th><th>최근 실적</th></tr>
-  ${P.slice(0,12).map(c=>{const t=c.trend||{};return `<tr class="${c.code==sel.code?"me":"click"}" ${c.code==sel.code?"":`data-cc="${c.code}"`}><td class="l"><b>${esc(c.name)}</b></td><td>${rsBadge(t)}</td><td>${retC(t.r1m)}</td><td>${retC(t.r3m)}</td><td>${retC(t.off_high)}</td><td class="num">${w(c.market_cap_eok)}</td><td class="num"><span class="up">${c.up}</span>/<span class="down">${c.down}</span></td><td>${earnLine(c.code,true)||"-"}</td></tr>`}).join("")}</table></div>
+  return `<h3>같은 업종 비교 · ${esc(g)} <small class="muted">기업 메뉴에 있는 ${P.length}개 · 강도순</small></h3><div class="tw"><table><tr><th class="l">종목</th><th>강도</th><th>1개월</th><th>3개월</th><th>고점 대비</th><th>시총(억)</th><th>리포트 🔺/🔽</th><th>실적</th></tr>
+  ${P.slice(0,12).map(c=>{const t=c.trend||{};return `<tr class="${c.code==sel.code?"me":"click"}" ${c.code==sel.code?"":`data-cc="${c.code}"`}><td class="l"><b>${esc(c.name)}</b></td><td>${rsBadge(t)}</td><td>${retC(t.r1m)}</td><td>${retC(t.r3m)}</td><td>${retC(t.off_high)}</td><td class="num">${w(c.market_cap_eok)}</td><td class="num"><span class="up">${c.up}</span>/<span class="down">${c.down}</span></td><td class="pearn">${(earnLine(c.code,true)||"-").replace(/>(🔴|🔵|⚪) [^<]*?(서프라이즈|쇼크|실적)( [+−-][\d.,]+%)?</,(m,a,b,d)=>`>${a}${d||(b=="실적"?" 실적":" "+b)}<`)}</td></tr>`}).join("")}</table></div>
   <div class="src">업종 = 사용자 분류표(sector_map custom) · 시세 네이버 일봉(비공식) · 리포트 31일 채널 요약</div>`}
 /* ---------- 종목 페이지 하나로 (2026-11-13 사용자 확정): 어디서 들어와도 같은 모양, 칸 순서 고정, 빈 칸은 한 줄 ---------- */
 function stockMarks(c){const t=c.trend||{},H=(D.highs||{}).items||[],h=H.find(x=>x.code==c.code),pos=((D.risk||{}).positions||[]).some(p=>p.code==c.code),
@@ -1270,8 +1273,8 @@ function stockPage(c){
    ${H("② 수급",(flowP(c.code)!=null?flowBox(c).replace(/^<h3[^>]*>[\s\S]*?<\/h3>/,""):`<div class="muted" style="font-size:13px">수급 오실레이터 없음 (보유·관찰 풀·기업 메뉴·신고가 종목부터 매일 채움)</div>`)+invBox(c))}</div>
    ${H(`③ 최근 소식 <small class="muted">채널·리포트·실적·매매를 날짜순으로 · 채널 글은 2차 자료</small>`,stockNews(c))}
    ${H(`④ 리포트 목표가 <small class="muted">${c.n_reports?`최근 1개월 ${c.n_reports}건 · 🔺${c.up} 🔽${c.down} · 중앙값 ${w(c.median_target)}${c.median_target&&t.price?` (현재가 대비 ${pc((c.median_target/t.price-1)*100)})`:""}`:""}</small>`,(c.cons&&rev?`<div class="sp2 spcons"><div>${consChart(c.cons,t.price)}</div><div>${rev}</div></div>`:(c.cons?consChart(c.cons,t.price):"")+rev)||`<div class="muted" style="font-size:13px">최근 1개월 리포트 없음</div>`)}
-   <div class="sppeer">${H("⑤ 같은 업종 비교",peerTable(c).replace(/^<h3>[\s\S]*?<\/h3>/,"")||`<div class="muted" style="font-size:13px">비교할 종목 없음</div>`)}
-   ${t.rs_hist?H(`강도(RS) 추이 · 12주 <small class="muted">${t.rs_chg4w==null?"":`4주 전보다 ${t.rs_chg4w>0?"+":""}${t.rs_chg4w}`}</small>`,rsLine(t.rs_hist)):""}</div>
+   <div class="sppeer ${t.rs_hist?"":"norl"}">${t.rs_hist?H(`강도(RS) 추이 · 12주 <small class="muted">${t.rs_chg4w==null?"":`4주 전보다 ${t.rs_chg4w>0?"+":""}${t.rs_chg4w}`}</small>`,rsLine(t.rs_hist)):""}
+   ${H("⑤ 같은 업종 비교",peerTable(c).replace(/^<h3>[\s\S]*?<\/h3>/,"")||`<div class="muted" style="font-size:13px">비교할 종목 없음</div>`)}</div>
    <div class="glinks" style="margin-top:14px"><a href="https://finance.naver.com/item/main.naver?code=${esc(c.code)}" target="_blank" rel="noopener">네이버 증권 ↗</a><a href="https://finance.naver.com/research/company_list.naver?searchType=itemCode&itemCode=${esc(c.code)}" target="_blank" rel="noopener">네이버 리서치 ↗</a><a href="https://dart.fss.or.kr/dsab007/main.do?textCrpNm=${encodeURIComponent(c.name)}" target="_blank" rel="noopener">DART 공시 ↗</a></div>
    ${src((c.updated?"깊은 카드 "+c.updated+" · ":"")+"시세 네이버 일봉(비공식) · 리포트·채널은 채널 요약(2차 자료) · 판단은 본인")}</article>`}
 function stockRows(all){   // 목록용 행: 기업 메뉴 종목 + (전체 보기면) 시총 2천억↑ 나머지
@@ -1343,10 +1346,10 @@ function retC(v){return v==null?`<span class="muted">-</span>`:`<span class="num
 const eo=x=>x==null?"-":Math.abs(x)>=10000?(x/10000).toFixed(1)+"조":w(x)+"억";
 function consChart(c,price){   // 목표가 컨센서스 추이 (증권사별 최근 목표가 평균)
   if(!c||!c.series||c.series.length<2)return "";
-  const S=c.series, W=560,H=120,L=58,R=10,T=10,B=20, vals=S.map(x=>x[1]).concat(price?[price]:[]), lo=Math.min(...vals)*0.97, hi=Math.max(...vals)*1.03;
+  const S=c.series, W=400,H=210,L=58,R=10,T=10,B=20, vals=S.map(x=>x[1]).concat(price?[price]:[]), lo=Math.min(...vals)*0.97, hi=Math.max(...vals)*1.03;
   const x=i=>(L+i/(S.length-1)*(W-L-R)).toFixed(1), y=v=>(T+(hi-v)/(hi-lo)*(H-T-B)).toFixed(1);
   return `<h3>🎯 목표가 컨센서스 추이 · 30일 <small class="muted">증권사 ${c.n}곳 평균 ${w(c.now)}원 · 30일 전 대비 <span class="${cls(c.chg_pct)}">${pc(c.chg_pct)}</span>${price?` · 현재가 대비 ${pc((c.now/price-1)*100)}`:""}</small></h3>
-  <svg viewBox="0 0 ${W} ${H}" width="100%" style="max-width:${W}px" role="img" aria-label="목표가 컨센서스 추이">
+  <svg viewBox="0 0 ${W} ${H}" width="100%" style="max-width:${W}px;display:block" role="img" aria-label="목표가 컨센서스 추이">
    ${[hi/1.03,lo/0.97].map(v=>`<text x="${L-4}" y="${+y(v)+3}" font-size="10" text-anchor="end" fill="var(--muted)">${w(v)}</text><line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)" stroke-width=".6"/>`).join("")}
    ${price?`<line x1="${L}" x2="${W-R}" y1="${y(price)}" y2="${y(price)}" stroke="var(--muted)" stroke-dasharray="4 3"/><text x="${W-R}" y="${+y(price)-3}" font-size="10" text-anchor="end" fill="var(--muted)">현재가</text>`:""}
    <path d="${S.map((p,i)=>(i?"L":"M")+x(i)+" "+y(p[1])).join("")}" fill="none" stroke="var(--accent)" stroke-width="2"/>
