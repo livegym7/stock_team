@@ -56,6 +56,8 @@ def build(placeholder=False):
             raise SystemExit("web/index.html 없음 — 먼저 python3 tools/web_build.py")
         body = src.read_text(encoding="utf-8")
     (SITE / "index.html").write_text(HEAD + body + TAIL, encoding="utf-8")
+    if not placeholder and (WEB / "c").exists():   # 종목별 일봉 파일 (팝업·종목 페이지가 필요할 때 받음)
+        shutil.copytree(WEB / "c", SITE / "c")
     shutil.copy(WEB / "brand" / "balance-lab-icon-1024.png", SITE / "icon-512.png")
     shutil.copy(WEB / "brand" / "balance-lab-icon.svg", SITE / "icon.svg")
     shutil.copy(WEB / "brand" / "balance-lab-icon-1024.png", SITE / "favicon.png")
@@ -67,7 +69,7 @@ def build(placeholder=False):
                   {"src": "/icon.svg", "sizes": "any", "type": "image/svg+xml"}]}, ensure_ascii=False), encoding="utf-8")
     (SITE / "_headers").write_text("/*\n  Cache-Control: no-store\n  X-Robots-Tag: noindex, nofollow\n  Referrer-Policy: no-referrer\n  X-Frame-Options: DENY\n", encoding="utf-8")
     (SITE / "robots.txt").write_text("User-agent: *\nDisallow: /\n", encoding="utf-8")
-    kb = sum(f.stat().st_size for f in SITE.iterdir()) // 1024
+    kb = sum(f.stat().st_size for f in SITE.rglob("*") if f.is_file()) // 1024
     return {"site": "site/", "placeholder": placeholder, "kb": kb, "at": now}
 
 

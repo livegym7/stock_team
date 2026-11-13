@@ -1192,6 +1192,45 @@ def main():
 LAST = WEB / "last_data.json"   # 마지막 전체 데이터 (부분 새로고침용, 커밋 안 함)
 
 
+def index_daily():
+    """코스피·코스닥 일봉 (네이버 siseJson, 비공식) → {KOSPI: [[날짜, 시가, 고가, 저가, 종가, 거래량], ...]} 최근 260개."""
+    import ast
+    from common import http_get
+    end = datetime.now(KST); start = end - timedelta(days=420)
+    out = {}
+    for m in ("KOSPI", "KOSDAQ"):
+        raw = http_get("https://api.finance.naver.com/siseJson.naver", {"symbol": m, "requestType": 1, "timeframe": "day",
+                       "startTime": start.strftime("%Y%m%d"), "endTime": end.strftime("%Y%m%d")}).decode("utf-8", "replace")
+        rows = [r for r in ast.literal_eval(raw.strip()) if r and str(r[0]).isdigit()]
+        out[m] = [[r[0], r[1], r[2], r[3], r[4], r[5]] for r in rows][-260:]
+    return out
+
+
+def write_ohlc(data):
+    """종목별 일봉 파일 web/c/코드.json (최근 250개 [날짜,시가,고가,저가,종가,거래량]) — 감시 목록 일봉 캐시에서. 보유·관찰 풀은 화면 안에도 넣음(Artifact용)."""
+    from common import CACHE
+    out_dir = WEB / "c"
+    out_dir.mkdir(exist_ok=True)
+    keep = {p.get("code") for p in ((data.get("risk") or {}).get("positions") or [])}
+    for th in (data.get("watch_pool") or {}).get("themes", []):
+        keep |= {s.get("code") for s in th.get("stocks", [])}
+    embed, n = {}, 0
+    for c in data.get("companies") or []:
+        f = CACHE / "daily" / f"{c.get('code')}.json"
+        if not f.exists():
+            continue
+        try:
+            rows = json.loads(f.read_text())["rows"][-250:]
+        except Exception:
+            continue
+        arr = [[r["date"], r["open"], r["high"], r["low"], r["close"], r["volume"]] for r in rows]
+        (out_dir / f"{c['code']}.json").write_text(json.dumps(arr, separators=(",", ":")), encoding="utf-8")
+        n += 1
+        if c["code"] in keep:
+            embed[c["code"]] = arr[-130:]
+    return embed
+
+
 def write_html(data):
     # Claude 인사이트 (2026-11-11): 채널 며칠 치를 종합한 해석 — tools/insight.py save 가 씀. 어떤 갱신이든 최신 파일을 실음
     # 알림 센터 (2026-11-12): 깃허브 알림 작업이 보낸 메시지 기록 (alert-state 브랜치)
@@ -1202,6 +1241,9 @@ def write_html(data):
         data["alerts"] = {"last_check": (st.get("last_check") or "")[:16].replace("T", " "), "log": st.get("log") or {}}
     except Exception:
         pass
+    # 차트 데이터 (2026-11-13): 코스피·코스닥 일봉 260개 + 종목별 일봉 파일(web/c/코드.json, 마우스오버 팝업·종목 페이지용, 웹에서만 필요할 때 받음)
+    data["index_daily"] = safe(index_daily, {})
+    data["ohlc"] = safe(lambda: write_ohlc(data), {})
     fc = DATA / "checkpoint" / "latest.json"   # 체크포인트 (Balance Lab 2.0, 하루 3회)
     if fc.exists():
         data["checkpoint"] = safe(lambda: json.loads(fc.read_text(encoding="utf-8")))

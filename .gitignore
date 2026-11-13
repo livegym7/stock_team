@@ -11,3 +11,4 @@ __pycache__/
 web/index.html
 web/last_data.json
 site/
+web/c/
