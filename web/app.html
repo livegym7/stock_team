@@ -659,6 +659,7 @@ html body .view .rfr{padding:3px 0;gap:8px;grid-template-columns:minmax(200px,30
 .sppeer{grid-template-columns:400px minmax(0,1fr)}.sppeer.norl{grid-template-columns:minmax(0,1fr)}.spcons{grid-template-columns:minmax(0,4fr) minmax(0,6fr)}
 td.pearn{white-space:nowrap}td.pearn .pill{padding:1px 6px}
 @media(max-width:900px){.sppeer,.spcons{grid-template-columns:minmax(0,1fr)}}
+.opr.cpk{grid-template-columns:104px minmax(0,1fr)}.opr.cpk .k{white-space:nowrap}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="bl-icon" viewBox="0 0 1024 1024"><defs><linearGradient id="blbg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#52525b"/><stop offset="1" stop-color="#18181b"/></linearGradient><linearGradient id="blgl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".16"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/></linearGradient></defs><rect width="1024" height="1024" rx="232" fill="url(#blbg)"/><rect width="1024" height="1024" rx="232" fill="url(#blgl)"/><path d="M352 262 V762 M352 262 H528 A122 122 0 0 1 528 506 H352 M352 506 H574 A128 128 0 0 1 574 762 H352" fill="none" stroke="#fff" stroke-linejoin="round" stroke-linecap="round" stroke-width="104"/><circle cx="742" cy="290" r="44" fill="#6d7dff"/></symbol></svg>
@@ -2112,7 +2113,7 @@ function checkpointBox(op){
   const K=D.checkpoint, age=K&&K.made_at?(Date.now()-new Date(K.made_at.replace(" ","T")+":00+09:00"))/36e5:1e9;
   if(!K||age>20)return insightBox(op);
   const M={"맞음":"✅","틀림":"❌","진행":"⏳"};
-  const sec=(k,n)=>(K[k]||[]).length?`<div class="opr ins-${k} cpflow"><div class="k">${n}</div><div class="t">${K[k].map(x=>`<div class="ili">${tint(x)}</div>`).join("")}</div></div>`:"";   // 2026-11-13: 문장마다 줄을 바꾸지 않음(오른쪽 여백 활용)
+  const sec=(k,n)=>(K[k]||[]).length?`<div class="opr ins-${k} cpk"><div class="k">${n}</div><div class="t">${K[k].map(x=>`<div class="ili">${sentLines(x)}</div>`).join("")}</div></div>`:"";   // 2026-11-13: 사용자 요청으로 문장마다 줄바꿈 복구, 이름 칸은 넓혀 한 줄
   return `<div class="bx insight"><div class="bh">🧭 체크포인트 · ${esc(SLOTN[K.slot]||"")}<em>${ageTag(K.made_at,"체크포인트 작성")} · 하루 3회 (07:00·12:30·18:30) · 텔레그램 발송</em></div>
    <div class="ihl">${tint(K.title)}</div>
    ${(K.graded||[]).length?`<div class="cpg">${K.graded.map(g=>`<span class="pill cpgp" title="${esc(g.note||"")}">${M[g.result]||""} ${esc(g.watch)}${g.note?` <small class="muted">→ ${esc(g.note)}</small>`:""}</span>`).join("")}</div>`:""}
