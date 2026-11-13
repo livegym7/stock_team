@@ -1,6 +1,30 @@
 {
  "rows": [
   {
+   "name": "심텍홀딩스",
+   "code": "036710",
+   "period": "2026.3Q",
+   "sales": 5922.0,
+   "op": 1047.0,
+   "net": 74.0,
+   "verdict": null,
+   "time": "2026-11-13 15:39",
+   "channel": "maddingStock",
+   "url": "https://t.me/maddingStock/19446"
+  },
+  {
+   "name": "브이티",
+   "code": "018290",
+   "period": "2026.3Q",
+   "sales": 1378.0,
+   "op": 149.0,
+   "net": 74.0,
+   "verdict": null,
+   "time": "2026-11-13 15:35",
+   "channel": "maddingStock",
+   "url": "https://t.me/maddingStock/19444"
+  },
+  {
    "name": "싸이맥스",
    "code": "160980",
    "period": "2026.3Q",
