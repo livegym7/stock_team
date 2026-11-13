@@ -58,6 +58,8 @@ def build(placeholder=False):
     (SITE / "index.html").write_text(HEAD + body + TAIL, encoding="utf-8")
     if not placeholder and (WEB / "c").exists():   # 종목별 일봉 파일 (팝업·종목 페이지가 필요할 때 받음)
         shutil.copytree(WEB / "c", SITE / "c")
+    if not placeholder and (WEB / "f").exists():   # 수급 오실레이터 그림 데이터
+        shutil.copytree(WEB / "f", SITE / "f")
     if not placeholder and (WEB / "highs_base.json").exists():   # 장중 신고가 비교 기준선 (alerts.yml이 읽음)
         shutil.copy(WEB / "highs_base.json", SITE / "highs_base.json")
     shutil.copy(WEB / "brand" / "balance-lab-icon-1024.png", SITE / "icon-512.png")

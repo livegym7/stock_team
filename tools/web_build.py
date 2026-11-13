@@ -1260,6 +1260,9 @@ def write_html(data):
     data["highs"] = safe(new_highs.eod)
     safe(lambda: (WEB / "highs_base.json").write_text(json.dumps(new_highs.base(), ensure_ascii=False, separators=(",", ":")), encoding="utf-8"))
     data["ohlc"] = safe(lambda: write_ohlc(data), {})
+    # 수급 오실레이터 (2026-11-13, 후보 B): 캐시로 계산 → web/f/코드.json(종목 페이지 그림) + 요약 P
+    import flow_osc
+    data["flowosc"] = safe(lambda: flow_osc.build_web(WEB / "f"), {})
     fc = DATA / "checkpoint" / "latest.json"   # 체크포인트 (Balance Lab 2.0, 하루 3회)
     if fc.exists():
         data["checkpoint"] = safe(lambda: json.loads(fc.read_text(encoding="utf-8")))
