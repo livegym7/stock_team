@@ -33,6 +33,29 @@ def eok(t):
     return round(v * 10000 if m.group(2) == "조" else v / 100 if m.group(2) == "백만" else v, 1)
 
 
+def holdings(codes):
+    """ETF 구성종목 상위 10 [[코드, 이름, 비중%], ...] — 네이버 ETF 분석(비공식), data/cache/etf_hold.json 하루 캐시."""
+    from common import CACHE
+    f = CACHE / "etf_hold.json"
+    today = datetime.now(KST).strftime("%Y-%m-%d")
+    try:
+        c = json.loads(f.read_text(encoding="utf-8"))
+    except Exception:
+        c = {}
+    for code in codes:
+        if (c.get(code) or {}).get("at") == today:
+            continue
+        try:
+            j = json.loads(http_get(f"https://m.stock.naver.com/api/stock/{code}/etfAnalysis", timeout=15))
+            c[code] = {"at": today, "top": [[x.get("itemCode"), x.get("itemName"), num(str(x.get("etfWeight", "")).rstrip("%"))]
+                                             for x in (j.get("etfTop10MajorConstituentAssets") or [])[:10]]}
+        except Exception:
+            pass
+    f.parent.mkdir(parents=True, exist_ok=True)
+    f.write_text(json.dumps(c, ensure_ascii=False), encoding="utf-8")
+    return {k: v.get("top") for k, v in c.items()}
+
+
 def fetch():
     E = (load_toml("etf_board.toml") or {}).get("etfs", [])
     out = []
@@ -45,6 +68,9 @@ def fetch():
         for x in d.get("datas", []):
             out.append({"code": x["itemCode"], "name": x.get("stockName"), "price": num(x.get("closePrice")), "chg": num(x.get("fluctuationsRatio")),
                         "value_eok": eok(x.get("accumulatedTradingValue")), "at": (x.get("localTradedAt") or "")[:16].replace("T", " ")})
+    hold = holdings([x["code"] for x in out])   # 구성종목 상위 10 (하루 1번 캐시)
+    for x in out:
+        x["top10"] = hold.get(x["code"]) or []
     idx = []
     try:
         d = json.loads(http_get(POLL + "index/KOSPI,KOSDAQ"))
