@@ -5,7 +5,7 @@
 # check: 실행됐는지 확인하는 방법 (report:파일이름 / bus / naver_pick / alerts / calendar / naver / channels / weekly / live / web / strategy)
 
 [[tasks]]
-name = "체크포인트 07:00 · 12:30 · 18:30 (텔레그램 정기 발송은 이것뿐)"
+name = "체크포인트 07:00 · 12:30 · 18:30 (텔레그램 정기 발송은 이것뿐, 18:30은 마감 리뷰 겸함)"
 when = "평일 06:47 · 12:17 · 18:17 시작"
 due = "06:47"
 runner = "claude"
@@ -42,13 +42,14 @@ check = "report:report_brief_pm"
 paused = true
 
 [[tasks]]
-name = "마감 리뷰 + 띔 메모 + 매매 복기 (웹에만, 텔레그램은 18:30 체크포인트)"
+name = "마감 리뷰 — 중단 (2026-11-13, 18:30 체크포인트로 합침)"
 when = "평일 15:47"
 due = "15:47"
 runner = "claude"
 model = "Sonnet"
-tokens = "보통"
+tokens = "0"
 check = "report:close"
+paused = true
 
 [[tasks]]
 name = "감시 목록 (관찰 풀 + RS 70↑ 한정)"

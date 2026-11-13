@@ -594,6 +594,12 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.6px}h2{font-size:17px;font-we
 .sp2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 22px;align-items:start}.sp2 .src{font-size:11px}
 @media(max-width:900px){.sp2{grid-template-columns:minmax(0,1fr)}}
 .flowbar{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;margin-bottom:12px}.flowbar>.chips,.flowbar .fdbar{margin:0}
+.daycard{border:1px solid var(--line);border-radius:12px;background:var(--panel);padding:12px 14px;margin-bottom:12px}
+.daycard .dch{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:baseline;padding-bottom:8px;border-bottom:1px solid var(--line)}.daycard .dct{font-weight:600;font-size:14.5px;flex:1 1 320px;min-width:0}
+.dsec{border-bottom:1px dashed var(--line)}.dsec:last-child{border-bottom:0}.dsec>summary{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:baseline;padding:9px 0;cursor:pointer;list-style:none;font-size:13px}
+.dsec>summary::-webkit-details-marker{display:none}.dsec>summary::before{content:"▸";color:var(--muted);width:12px}.dsec[open]>summary::before{content:"▾"}
+.dsec .dsl{flex:1 1 280px;min-width:0;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.dsec[open] .dsl{white-space:normal;color:var(--fg)}
+@media(max-width:600px){.daycard{padding:10px 12px}.dsec .dsl{flex-basis:100%}}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="bl-icon" viewBox="0 0 1024 1024"><defs><linearGradient id="blbg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#52525b"/><stop offset="1" stop-color="#18181b"/></linearGradient><linearGradient id="blgl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".16"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/></linearGradient></defs><rect width="1024" height="1024" rx="232" fill="url(#blbg)"/><rect width="1024" height="1024" rx="232" fill="url(#blgl)"/><path d="M352 262 V762 M352 262 H528 A122 122 0 0 1 528 506 H352 M352 506 H574 A128 128 0 0 1 574 762 H352" fill="none" stroke="#fff" stroke-linejoin="round" stroke-linecap="round" stroke-width="104"/><circle cx="742" cy="290" r="44" fill="#6d7dff"/></symbol></svg>
@@ -900,18 +906,6 @@ function viewHome(){
   </div>`;
 }
 
-/* ---------- 브리핑 ---------- */
-function viewBriefs(){
-  const kinds=[["all","전체"],["morning","아침"],["report","리포트"],["channels","채널"],["review","리뷰"]];
-  const k=kinds.some(([v])=>v==fam(ui.bk))?fam(ui.bk):"all", list=(D.briefs||[]).filter(b=>k=="all"||fam(b.kind)==k);
-  const sel=list.find(b=>b.file==ui.bf)||list[0];
-  return `<h1>브리핑</h1><div class="sub">채널 정리·리포트 정리는 평일 08·10·12·14·16시 12분에 자동으로 새로 수집해 함께 업데이트합니다 (오늘 것은 시간대별로, 지난날은 마지막 정리만) · 아침·마감·주간은 예약 시각에 텔레그램과 함께</div>
-  <div class="chips">${kinds.map(([v,n])=>`<button class="chip ${k==v?"on":""}" data-bk="${v}">${n}</button>`).join("")}</div>
-  ${list.length?`<div class="bsel"><label for="bSel" class="sr">브리핑 고르기</label><select id="bSel">${list.map(b=>`<option value="${esc(b.file)}" ${b.file==sel.file?"selected":""}>${esc(b.date)}${b.time?" "+esc(b.time):""} · ${esc(b.kind_name)}</option>`).join("")}</select>
-   <button class="chip" data-bnav="1" ${list.indexOf(sel)>=list.length-1?"disabled":""}>‹ 이전</button><button class="chip" data-bnav="-1" ${list.indexOf(sel)<=0?"disabled":""}>다음 ›</button></div>
-  <article class="panel brief br2">${briefHtml(sel.text)}</article>`:`<div class="empty">이 종류의 브리핑이 아직 없습니다. 다음 자동 업데이트 때 생깁니다</div>`}`;
-}
-
 /* 브리핑 본문 꾸미기 (2026-11-05): 줄 모양으로 제목·소제목·종목·목록·들여쓰기·읽는 법을 구분. 글 내용은 그대로 */
 const BR_ICON=[[/간밤 미국|미국장/,"🇺🇸"],[/국내 직전|국내 시장/,"🇰🇷"],[/공시|실적/,"🧾"],[/리포트|목표가/,"📑"],[/뉴스/,"📰"],[/검증/,"🔍"],[/그 밖에/,"➕"],[/일정|볼 것/,"📅"]];
 const EMO=/^(\p{Extended_Pictographic}|\p{Regional_Indicator})/u;
@@ -945,7 +939,9 @@ function briefHtml(text){
   return out.join("");
 }
 
-const fam=k=>{k=String(k||"");return k.startsWith("report")?"report":(k=="close"||k=="weekly")?"review":k};
+const FAM={weekly:"weekly",strategy:"strategy",deep_research:"research"};
+const fam=k=>FAM[String(k||"")]||"today";   // 나머지(체크포인트·정리·마감·아침)는 모두 '오늘' 한 장으로 (2026-11-13)
+const FAMN={today:"오늘",weekly:"주간",strategy:"전략",research:"자료"};
 let NAME_RE=null;
 function boldNames(h){   // 종목명 굵게 (보유 종목은 강조색). 긴 이름 먼저 맞춘다
   if(NAME_RE===null){const N=D&&D.stock_names||[];NAME_RE=N.length?new RegExp("("+N.map(n=>esc(n).replace(/[.*+?^${}()|[\]\\]/g,"\\$&")).join("|")+")","g"):false}
@@ -1592,7 +1588,7 @@ function refreshBox(){
 }
 function paintRefresh(){document.querySelectorAll(".rslot").forEach(el=>el.innerHTML=refreshBox());const s=$("#side .built");if(s)s.innerHTML=refreshBox()+"<br>"+esc(D.note)}
 const REFRESH_HELP="Claude 대화에서 \"분석 새로고침\" / \"모니터링 새로고침\" / \"채널만 새로고침\"이라고 말해 주세요";
-// 웹에서 직접 새로고침하는 방법은 없음(깃허브 커넥터 없음, 2026-11-04). 버튼은 대화 명령을 안내만 한다.
+// 웹에서 직접 새로고침하는 방법은 없음(깃허브 커넥터 없음, 2026-11-04). 버튼은 대화 명령을 안내만 합니다.
 let RFP=null;
 const RFTXT={analysis:["분석 새로고침","시세·계좌·브리핑 목록·기업·채널 (약 1~2분)"],monitoring:["모니터링 새로고침","감시 목록 다시 계산 + 섹터·검증실 (약 5~10분)"]};
 function partAt(part){const P=D.parts||{};return P[part]||D.built_at}
@@ -1728,22 +1724,30 @@ function datePicker(days,label){
    <button class="chip" ${next?`data-fd="${next}"`:"disabled"} aria-label="다음 날짜">▶</button>
    ${next?`<button class="chip" data-fd="${ds[ds.length-1]}">최신</button>`:""}${label?`<small class="muted">${esc(label)} · 자료 있는 날 ${ds.length}일</small>`:""}
    ${ui.fdOpen?`<div class="fdcal"><div class="fdch"><button class="linkb" data-fcm="${pm}">‹</button><b>${Y}년 ${M}월</b><button class="linkb" data-fcm="${nm}">›</button></div><div class="fdg">${WD.map(w=>`<b>${w}</b>`).join("")}${cells}</div></div>`:""}</div>`}
+function briefLine(b){   // 카드 요약 한 줄: 💡 의견 첫 줄
+  const t=(b.text||"").split("\n").map(x=>x.trim()).filter(x=>x&&!/^#/.test(x)&&!/^_.*_$/.test(x)&&!/^\*.*\*$/.test(x));
+  let i=t.findIndex(x=>/^💡/.test(x)); let line=i>=0?t[i].replace(/^💡\s*(Claude\s*의견|CLAUDE\s*의견|의견)?\s*:?\s*/i,""):"";
+  for(let j=i+1;(!line||/^(핵심|의견)\s*:?$/.test(line))&&j<t.length&&j<i+4;j++)line=t[j];
+  if(!line)line=t[1]||t[0]||"";
+  return line.replace(/^[-•]\s*/,"").replace(/^\*\*?(핵심|핵심:)\*?\*?\s*:?\s*/,"").replace(/^(핵심|핵심:)\s*/,"").slice(0,140)}
+const SECN={checkpoint:"체크포인트",channels:"장중 정리 · 채널",report_live:"장중 정리 · 리포트",close:"마감 리뷰",morning:"아침 브리핑",
+  report_brief_am:"리포트 브리핑",report_brief_pm:"리포트 브리핑",weekly:"주간 리뷰",strategy:"전략 보고서",deep_research:"딥리서치"};
 function flowTimeline(){
-  const kinds=[["all","전체"],["morning","아침"],["channels","채널"],["report","리포트"],["review","리뷰"]];
-  const k=kinds.some(([v])=>v==fam(ui.bk))?fam(ui.bk):"all", list=(D.briefs||[]).filter(b=>k=="all"||fam(b.kind)==k);
+  const F=[["all","전체"],["today","오늘"],["weekly","주간"],["strategy","전략"],["research","자료"]];
+  const k=F.some(([v])=>v==ui.bk)?ui.bk:"all", list=(D.briefs||[]).filter(b=>k=="all"||fam(b.kind)==k);
   const byDay={}; list.forEach(b=>(byDay[b.date]=byDay[b.date]||[]).push(b));
-  const {d:fd}=fdPick(Object.keys(byDay)), days=byDay[fd]?[fd]:[];
-  const first=b=>{const t=(b.text||"").split("\n").map(x=>x.trim()).filter(x=>x&&!/^#/.test(x)&&!/^_.*_$/.test(x)&&!/^\*.*\*$/.test(x));
-    let i=t.findIndex(x=>/^💡/.test(x)); let line=i>=0?t[i].replace(/^💡\s*(Claude\s*의견|CLAUDE\s*의견|의견)?\s*:?\s*/i,""):"";
-    for(let j=i+1;(!line||/^(핵심|의견)\s*:?$/.test(line))&&j<t.length&&j<i+4;j++)line=t[j];
-    if(!line)line=t[1]||t[0]||"";
-    return line.replace(/^[-•]\s*/,"").replace(/^\*\*?(핵심|핵심:)\*?\*?\s*:?\s*/,"").replace(/^(핵심|핵심:)\s*/,"").slice(0,140)};
-  const open=ui.bf;
-  return `<!--bar--><div class="chips">${kinds.map(([v,n])=>`<button class="chip ${k==v?"on":""}" data-bk="${v}">${n}</button>`).join("")}</div>${datePicker(Object.keys(byDay),"")}<!--/bar-->
-  ${days.length?days.map(d=>`<div class="tday"><div class="tdh num">${esc(d)} <small class="muted">${["일","월","화","수","목","금","토"][new Date(d+"T00:00:00Z").getUTCDay()]}</small></div>
-   ${byDay[d].sort((a,b)=>(b.time||"").localeCompare(a.time||"")).map(b=>`<div class="tcard ${open==b.file?"open":""}">
-     <button class="tch" data-bf="${esc(b.file)}"><span class="num">${esc(b.time||"")}</span><span class="pill">${esc(b.kind_name)}</span>${(b.versions||[]).length>1?`<small class="tver muted" title="이 정리는 하루 동안 계속 덧붙여 갱신됩니다. 회차 시각: ${esc(b.versions.slice().reverse().join(" · "))}">${b.versions.length}회째 · 첫 ${esc(b.versions[b.versions.length-1])}</small>`:""}<span class="tfirst">${tint(first(b))}</span><span class="muted">${open==b.file?"▲":"▼"}</span></button>
-     ${open==b.file?`<article class="panel brief br2" style="margin:0 0 10px">${briefHtml(b.text)}</article>`:""}</div>`).join("")}</div>`).join(""):`<div class="empty">이 종류의 브리핑이 아직 없습니다</div>`}`;
+  const {d:fd}=fdPick(Object.keys(byDay)), items=(byDay[fd]||[]).slice().sort((a,b)=>(a.time||"").localeCompare(b.time||""));
+  const day=items.filter(b=>fam(b.kind)=="today"), rest=items.filter(b=>fam(b.kind)!="today");
+  const last=day.filter(b=>b.kind=="checkpoint").slice(-1)[0]||day[day.length-1];
+  const wd=fd?["일","월","화","수","목","금","토"][new Date(fd+"T00:00:00Z").getUTCDay()]:"";
+  const sec=(b,open)=>`<details class="dsec" ${open?"open":""} data-bf="${esc(b.file)}"><summary><span class="num">${esc(b.time||"")}</span><span class="pill">${esc(SECN[b.kind]||b.kind_name)}</span>${(b.versions||[]).length>1?`<small class="muted">${b.versions.length}회째 · 첫 ${esc(b.versions[b.versions.length-1])}</small>`:""}<span class="dsl">${esc(briefLine(b))}</span></summary><article class="panel brief br2" style="margin:8px 0 0">${briefHtml(b.text)}</article></details>`;
+  const cards=[];
+  if(day.length)cards.push(`<section class="daycard"><div class="dch"><b class="num">${esc(fd.slice(5).replace("-","/"))}(${wd})</b> <span class="dct">${esc(last?briefLine(last):"")}</span> <small class="muted">${day.length}개 · ${esc(day[0].time||"")}~${esc(day[day.length-1].time||"")}</small></div>
+   ${day.map((b,i)=>sec(b,i==day.length-1)).join("")}</section>`);
+  rest.forEach(b=>cards.push(`<section class="daycard"><div class="dch"><b class="num">${esc(fd.slice(5).replace("-","/"))}(${wd})</b> <span class="pill">${esc(FAMN[fam(b.kind)])}</span> <span class="dct">${esc(briefLine(b))}</span></div>${sec(b,rest.length==1&&!day.length)}</section>`));
+  return `<!--bar--><div class="chips">${F.map(([v,n])=>`<button class="chip ${k==v?"on":""}" data-bk="${v}">${n}</button>`).join("")}</div>${datePicker(Object.keys(byDay),"")}<!--/bar-->
+  ${cards.join("")||`<div class="empty">이 날 글이 없습니다</div>`}
+  ${src("하루에 나온 글은 한 장으로 묶여 시각순으로 쌓입니다 · 체크포인트 07:00·12:30·18:30(18:30은 마감 리뷰 겸함) · 장중 정리 08·10·12·14·16시 · 주간(금) · 전략(토) · 접힌 칸을 누르면 전문이 열립니다")}`;
 }
 const TODAY_NM={G:["포켓피봇","G = 포켓피봇: 조정 중 상승한 날 거래량이 직전 10일 하락일 최대 거래량보다 큰 날 (신호, 셋업 아님)"],H:["H 이벤트","H = 하루 +5%↑ 거래량 50일 평균 2배↑ (신호, 셋업 아님)"]};
 function dayReports(){
@@ -2245,7 +2249,7 @@ document.addEventListener("click",e=>{
   const t=e.target.closest("[data-bk],[data-bf],[data-wg],[data-ws],[data-wd],[data-cc],[data-ct],[data-go],[data-kind],.post");
   if(!t)return;
   if(t.dataset.bk!=null){ui.bk=t.dataset.bk;ui.bf=null}
-  else if(t.dataset.bf!=null)ui.bf=(ui.bf==t.dataset.bf&&t.classList.contains("tch"))?null:t.dataset.bf;
+  else if(t.dataset.bf!=null){return}
   else if(t.dataset.wg!=null){ui.wg=t.dataset.wg;ui.ws=""}
   else if(t.dataset.ws!=null)ui.ws=t.dataset.ws;
   else if(t.dataset.wd!=null)ui.wd=ui.wd==t.dataset.wd?null:t.dataset.wd;

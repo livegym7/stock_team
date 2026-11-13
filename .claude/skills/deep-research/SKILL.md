@@ -94,3 +94,6 @@ python3 tools/web_build.py --only analysis     # 딥리서치 메뉴 갱신
 git add data/research config/research.toml && git commit -m "딥리서치: 문서 n개 분석" && git push -u origin main
 ```
 - 사용자에게: 새로 분석한 문서, 종합의 핵심 아이디어 2~3개(반대 근거 포함)를 짧게.
+
+## 어투 (사용자 확정 2026-11-13)
+모든 문장은 **"~입니다"**로 맺습니다. `~다 / ~한다 / ~이다`로 끝내지 않습니다. 짧게 끊고, 어미가 단조로우면 명사로 끝내도 됩니다. 자세한 규칙은 `docs/brief-style.md`.

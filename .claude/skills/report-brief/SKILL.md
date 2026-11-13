@@ -92,3 +92,6 @@ python3 tools/sector_map.py check
 python3 tools/web_build.py --only channels
 ```
 그다음 Artifact 도구로 https://claude.ai/artifact/C8B5Dd1zwtyyqP3c4e3ric 를 read 후 file_path=web/index.html, 같은 url로 publish (icon 없이). 충돌이 나면 다시 read 후 publish.
+
+## 어투 (사용자 확정 2026-11-13)
+모든 문장은 **"~입니다"**로 맺습니다. `~다 / ~한다 / ~이다`로 끝내지 않습니다. 짧게 끊고, 어미가 단조로우면 명사로 끝내도 됩니다. 자세한 규칙은 `docs/brief-style.md`.

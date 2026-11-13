@@ -9,8 +9,9 @@
   python3 tools/checkpoint.py save --file x.json      # 형식 검사 → data/checkpoint/latest.json + history + reports/날짜/checkpoint_HHMM.md
   python3 tools/checkpoint.py send                    # 방금 저장한 체크포인트를 텔레그램으로 (features.toml이 허용하는 유일한 정기 브리핑)
 
-JSON 칸: made_at, slot("07"|"12"|"18"), title(32자 이내), changed[1~3], now[1~3], watch[1~3], graded[{watch, result: 맞음|틀림|진행, note}],
-         mine[0~2](보유·관찰 풀에 주는 뜻), sources(한 줄). 항목은 110자 이내, 문장은 "~다."로. 매수·매도 단정 금지.
+JSON 칸: made_at, slot("07"|"12"|"18"), title(32자 이내), changed, now, watch, graded[{watch, result: 맞음|틀림|진행, note}],
+         mine(보유·관찰 풀에 주는 뜻), sources(한 줄). 항목은 110자 이내, 문장은 "~입니다."로 맺는다. 매수·매도 단정 금지.
+         18:30 회차는 마감 리뷰를 겸한다 (2026-11-13 사용자 확정): market(지수 한 줄)·today(오늘 중요했던 것)를 더 쓰고 칸마다 최대 4개.
 """
 import argparse, json, sys
 from datetime import datetime
@@ -23,6 +24,7 @@ from strategy_prep import KST  # noqa: E402
 DATA = ROOT / "data" / "checkpoint"
 SLOTS = {"07": "07:00 출근 전", "12": "12:30 점심", "18": "18:30 퇴근 후"}
 LISTS = ("changed", "now", "watch")
+# 18:30 회차는 마감 리뷰를 겸한다 (2026-11-13 사용자 확정): market 한 줄 + today(오늘 시장에서 중요했던 것)
 
 
 def slot_now(now=None):
@@ -63,6 +65,27 @@ def prep(slot):
         o["calendar"] = SP.safe(lambda: SP.calendar_ahead(SP.pool_stocks(), 2), [])
     except Exception:
         pass
+    if slot == "18":   # 마감 리뷰를 겸한다 (2026-11-13 사용자 확정): 오늘 잠정실적 · 리포트 흐름 · 매매 복기
+        today = datetime.now(KST).strftime("%Y-%m-%d")
+        try:
+            E = json.loads((ROOT / "data" / "earnings" / "latest.json").read_text(encoding="utf-8"))
+            o["earnings_today"] = [e for e in (E.get("rows") or []) if str(e.get("time", "")).startswith(today)]
+        except Exception as e:
+            o["earnings_error"] = type(e).__name__
+        try:
+            w = json.loads((ROOT / "web" / "last_data.json").read_text(encoding="utf-8"))
+            o["report_flow"] = (w.get("report_flow") or [])[:8]
+            o["reports_today"] = [{"name": c["name"], "broker": r.get("broker"), "after": r.get("after"), "before": r.get("before"), "dir": r.get("direction"),
+                                   "point": (r.get("points") or [""])[0][:120]}
+                                  for c in w.get("companies") or [] for r in (c.get("reports") or []) if str(r.get("time", "")).startswith(today)][:25]
+            o["highs_today"] = {"as_of": (w.get("highs") or {}).get("as_of"), "groups": (w.get("highs") or {}).get("groups", [])[:5]}
+        except Exception as e:
+            o["reports_error"] = type(e).__name__
+        try:
+            import trades
+            o["trade_review"] = trades.review()
+        except Exception as e:
+            o["trade_review_error"] = type(e).__name__
     return o
 
 
@@ -83,6 +106,20 @@ def md_prep(o):
     if o.get("calendar"):
         L.append("## 오늘·내일 일정")
         L += [f"- {c}" if isinstance(c, str) else f"- {c.get('date', '')} {c.get('time', '')} {c.get('name', c.get('title', ''))}" for c in o["calendar"][:10]]
+    if o.get("earnings_today"):
+        L.append("## 오늘 잠정실적")
+        L += [f"- {e.get('name')} {e.get('period')} 영업이익 {e.get('op')} (예상 {e.get('op_est')}, {e.get('op_surprise')}%) {e.get('verdict') or ''} · {e.get('time')} {e.get('channel')}" for e in o["earnings_today"][:12]]
+    if o.get("reports_today"):
+        L.append("## 오늘 리포트 (채널 요약 2차)")
+        L += [f"- {r['name']} {r.get('broker') or ''} {r.get('before') or ''}→{r.get('after')} {r.get('dir') or ''} · {r['point']}" for r in o["reports_today"]]
+    if o.get("report_flow"):
+        L.append("- 31일 업종 흐름: " + " · ".join(f"{s.get('sector')} 🔺{s.get('up')}/🔽{s.get('down')}" for s in o["report_flow"]))
+    if (o.get("highs_today") or {}).get("groups"):
+        L.append("- 신고가 많은 업종: " + " · ".join(f"{g['group']} {g['n60']}" for g in o["highs_today"]["groups"]))
+    tr = o.get("trade_review") or {}
+    if tr:
+        L.append(f"## 매매 복기: 끝난 거래 {tr.get('n')}건 · 승률 {tr.get('win_rate')}% · 기대값 {tr.get('expectancy_r')}R · 연속 손절 {tr.get('current_loss_streak')} · 규칙 지킴 {tr.get('rule_ok_pct')}%")
+        L += [f"- {x}" for x in (tr.get("lessons") or [])[:4]]
     L.append(insight.md(o))
     return "\n".join(L)
 
@@ -96,16 +133,21 @@ def save(path):
         raise SystemExit("slot은 07 / 12 / 18")
     if len(d["title"]) > 32:
         raise SystemExit(f"title은 32자 이내: 지금 {len(d['title'])}자")
-    for k in LISTS + ("mine",):
+    cap = 4 if d["slot"] == "18" else 3   # 18:30은 마감 리뷰를 겸해 한 칸 더 (2026-11-13)
+    for k in LISTS + ("mine", "today"):
         v = d.get(k) or []
-        if not isinstance(v, list) or len(v) > 3:
-            raise SystemExit(f"{k}는 1~3개 문장 목록")
+        if not isinstance(v, list) or len(v) > cap:
+            raise SystemExit(f"{k}는 1~{cap}개 문장 목록")
         long = [x[:20] for x in v if len(x) > 110]
         if long:
             raise SystemExit(f"{k} 항목은 110자 이내: {long}")
     for g in d.get("graded") or []:
         if g.get("result") not in ("맞음", "틀림", "진행"):
             raise SystemExit("graded.result는 맞음/틀림/진행")
+    import re   # 어투: 문장은 "~입니다"로 맺는다 (사용자 확정 2026-11-13). 명사로 끝나는 줄은 그대로 둔다
+    plain = [x[:24] for k in LISTS + ("mine", "today") for x in (d.get(k) or []) if re.search(r"(?<!니)다\.?$", x.strip())]
+    if plain:
+        raise SystemExit(f'어투: 문장은 "~입니다"로 맺습니다. 고칠 줄: {plain}')
     bad = [w for w in ("매수 추천", "매도 추천", "사세요", "파세요", "비중 확대 추천") if w in json.dumps(d, ensure_ascii=False)]
     if bad:
         raise SystemExit(f"매수·매도 단정 표현: {bad}")
@@ -124,12 +166,15 @@ def save(path):
 
 def to_md(d):
     mark = {"맞음": "✅", "틀림": "❌", "진행": "⏳"}
-    L = [f"# 🧭 체크포인트 {SLOTS[d['slot']]} — {d['made_at'][5:10].replace('-', '/')}", "", f"💡 {d['title']}", ""]
+    L = [f"# 🧭 체크포인트 {SLOTS[d['slot']]} — {d['made_at'][5:10].replace('-', '/')}", ""]
+    if d.get("market"):
+        L += [d["market"], ""]
+    L += [f"💡 {d['title']}", ""]
     if d.get("graded"):
         L.append("📋 지난 '볼 것' 채점")
         L += [f"- {mark[g['result']]} {g['watch']}" + (f" → {g['note']}" if g.get("note") else "") for g in d["graded"]]
         L.append("")
-    for k, n in (("changed", "🔄 바뀐 것"), ("now", "📍 지금 상태"), ("mine", "⭐ 내 종목·관찰 풀"), ("watch", "👀 다음 체크포인트까지 볼 것")):
+    for k, n in (("changed", "🔄 바뀐 것"), ("today", "📊 오늘 중요했던 것"), ("now", "📍 지금 상태"), ("mine", "⭐ 내 종목·관찰 풀"), ("watch", "👀 다음 체크포인트까지 볼 것")):
         if d.get(k):
             L.append(n)
             L += [f"- {x}" for x in d[k]]

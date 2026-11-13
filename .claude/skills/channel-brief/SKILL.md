@@ -55,3 +55,6 @@ python3 tools/risk.py                                       # 보유 종목 R·�
 python3 tools/telegram_send.py --file reports/YYYY-MM-DD/channels_HHMM.md
 git add data/telegram reports && git commit -m "채널 정리 MM/DD HH:MM" && git push -u origin main
 ```
+
+## 어투 (사용자 확정 2026-11-13)
+모든 문장은 **"~입니다"**로 맺습니다. `~다 / ~한다 / ~이다`로 끝내지 않습니다. 짧게 끊고, 어미가 단조로우면 명사로 끝내도 됩니다. 자세한 규칙은 `docs/brief-style.md`.
