@@ -586,6 +586,11 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.6px}h2{font-size:17px;font-we
 .snr{display:grid;grid-template-columns:78px 52px minmax(0,1fr);gap:8px;padding:6px 0;border-bottom:1px dashed var(--line);font-size:13px;align-items:baseline}.snr:last-child{border-bottom:0}
 @media(max-width:600px){.snr{grid-template-columns:64px minmax(0,1fr)}.snr>div{grid-column:1/-1}}
 .sppts{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:10px;margin:0 0 12px;font-size:13.5px;line-height:1.6}.sppts>div{background:var(--soft);border-radius:8px;padding:8px 12px}
+.fdbar{position:relative;display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:0 0 12px}.fdbar .chip[disabled]{opacity:.35;cursor:default}.fdcur{font-weight:700}
+.fdcal{position:absolute;top:40px;left:0;z-index:40;background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:0 12px 28px -10px rgb(0 0 0/.3);padding:10px;width:260px}
+.fdch{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}.fdg{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;text-align:center;font-size:12.5px}.fdg>b{font-size:11px;color:var(--muted);font-weight:500}
+.fdg>span,.fdg>button{height:30px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:6px;border:0;background:none;font:inherit;color:inherit}.fdg>span.off{color:var(--faint,#bbb)}
+.fdg>button{cursor:pointer;font-weight:600}.fdg>button:hover{background:var(--soft)}.fdg>button i{width:4px;height:4px;border-radius:50%;background:var(--accent);margin-top:1px}.fdg>button.on{background:var(--accent);color:var(--on-accent,#fff)}.fdg>button.on i{background:currentColor}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="bl-icon" viewBox="0 0 1024 1024"><defs><linearGradient id="blbg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#52525b"/><stop offset="1" stop-color="#18181b"/></linearGradient><linearGradient id="blgl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".16"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/></linearGradient></defs><rect width="1024" height="1024" rx="232" fill="url(#blbg)"/><rect width="1024" height="1024" rx="232" fill="url(#blgl)"/><path d="M352 262 V762 M352 262 H528 A122 122 0 0 1 528 506 H352 M352 506 H574 A128 128 0 0 1 574 762 H352" fill="none" stroke="#fff" stroke-linejoin="round" stroke-linecap="round" stroke-width="104"/><circle cx="742" cy="290" r="44" fill="#6d7dff"/></symbol></svg>
@@ -1411,12 +1416,14 @@ function postCard(p,i){   // 텔레그램처럼: 머리줄 → 본문 → 사진
   ${L?`<a class="lcard" href="${esc(L.url)}" target="_blank" rel="noopener"><div>${L.site_name?`<small>${esc(L.site_name)}</small>`:""}${L.title?`<b>${esc(L.title)}</b>`:""}${L.description?`<span>${esc(L.description)}</span>`:""}${!L.title&&!L.site_name?`<span>${esc(L.url)}</span>`:""}</div>${L.thumb?`<img src="${L.thumb}" alt="">`:""}</a>`:""}</div>`;
 }
 function viewChannels(){
-  const t=ui.ct||"all", ch=ui.ch||"", P=(D.channels||[]).filter(p=>(t=="all"||p.type==t)&&(!ch||p.channel==ch));
+  const t=ui.ct||"all", ch=ui.ch||"", P0=(D.channels||[]).filter(p=>(t=="all"||p.type==t)&&(!ch||p.channel==ch));
+  const cd=P0.map(p=>(p.time||"").slice(0,10)).filter(Boolean), {d:fd}=fdPick(cd), P=P0.filter(p=>(p.time||"").startsWith(fd));
   const cats=Object.entries(D.categories||{}).filter(([k])=>k!="other");
   return `<h1>채널</h1><div class="sub"><b>채널 글 ${esc((D.parts&&D.parts.channels)||D.built_at)} 기준</b> · 최근 72시간 · 채널 ${(D.channel_stats||[]).length}개 · 중복·잡담 제외 ${(D.channels||[]).length}개 글 · 출처: 채널(2차 자료)</div>
   <div class="chips"><button class="chip ${t=="all"?"on":""}" data-ct="all">전체</button>${cats.map(([k,n])=>`<button class="chip ${t==k?"on":""}" data-ct="${k}">${n}</button>`).join("")}</div>
   <div style="margin-bottom:12px"><label for="chSel">채널<select id="chSel"><option value="">전체 채널</option>${(D.channel_stats||[]).map(c=>`<option value="${c.id}" ${ch==c.id?"selected":""}>${c.id}</option>`).join("")}</select></label></div>
-  <div class="feed">${P.slice(0,150).map((p,i)=>postCard(p,i)).join("")||`<div class="empty">글 없음</div>`}</div>
+  ${datePicker(cd,"최근 72시간 채널 글")}
+  <div class="feed">${P.slice(0,200).map((p,i)=>postCard(p,i)).join("")||`<div class="empty">이 날 글 없음</div>`}</div>
   <h2 style="margin-top:20px">채널 성향 (30일)</h2><div class="tw"><table><tr><th class="l">채널</th><th class="l">역할</th><th>하루 글</th><th title="다른 채널 글을 옮기지 않은 자기 글 비율">자기 글</th><th title="여러 채널이 다룬 소식에서 먼저 올린 비율">먼저 올림</th><th title="남이 먼저 올린 소식을 따라 올릴 때 늦은 시간(중앙값)">따라 올릴 때</th><th title="리포트·실적·기업 글 비율">기업·실적·리포트</th><th>많이 올리는 시각</th><th class="l">많은 분류</th></tr>
   ${(D.channel_stats||[]).map(c=>`<tr><td class="l"><a href="https://t.me/${c.id}" target="_blank" rel="noopener">${c.id}</a></td><td class="l" style="white-space:normal;min-width:200px">${esc(c.description)}</td><td class="num">${c.per_day}</td><td class="num">${c.original_pct??"-"}%</td><td class="num">${c.first_pct==null?"-":`<b>${c.first_pct}%</b> <small class="muted">${c.first}/${c.first+c.follow}</small>`}</td><td class="num">${c.lag_min==null?"-":c.lag_min>=120?Math.round(c.lag_min/60)+"시간":c.lag_min+"분"}</td><td class="num">${c.useful_pct??"-"}%</td><td class="num">${(c.peak_hours||[]).map(h=>h+"시").join("·")}</td><td class="l">${(c.top||[]).map(([k,v])=>`${esc(k)} ${v}`).join(" · ")}</td></tr>`).join("")}</table></div>
   ${src("먼저 올림 = 여러 채널이 같이 다룬 소식 중 이 채널이 처음 올린 비율 (속보성) · 따라 올릴 때 = 남이 먼저 올린 소식을 몇 분 늦게 올리는지 · 자기 글 = 다른 채널과 겹치지 않는 글 비율 (독자성) · 중복 판정은 글 내용·링크 기준이라 완벽하지 않습니다")}`;
@@ -1701,24 +1708,45 @@ function viewHome2(){
 }
 
 /* ---------- ② 흐름: 정리(타임라인) · 리포트 · 채널 원문 ---------- */
+/* ---------- 시장 날짜 고르기 (2026-11-13): 날짜별로 아래로 쌓이던 것을 한 날짜씩 · ◀ ▶ · 📅 작은 달력(자료 있는 날 점) ---------- */
+const WD=["일","월","화","수","목","금","토"];
+function fdPick(days){   // days: 자료 있는 날짜(YYYY-MM-DD) 배열 → 선택 날짜
+  const ds=[...new Set(days)].sort();let d=ui.fd;if(!d||!ds.includes(d))d=ds[ds.length-1]||kstNow().toISOString().slice(0,10);return {d,ds}}
+function datePicker(days,label){
+  const {d,ds}=fdPick(days),i=ds.indexOf(d),prev=i>0?ds[i-1]:null,next=i>=0&&i<ds.length-1?ds[i+1]:null;
+  const dt=new Date(d+"T00:00:00Z"),cm=ui.fcm||d.slice(0,7),[Y,M]=cm.split("-").map(Number),first=new Date(Date.UTC(Y,M-1,1)),nd=new Date(Date.UTC(Y,M,0)).getUTCDate(),has=new Set(ds);
+  let cells="";for(let k=0;k<first.getUTCDay();k++)cells+="<span></span>";
+  for(let k=1;k<=nd;k++){const x=`${cm}-${String(k).padStart(2,"0")}`;cells+=has.has(x)?`<button class="${x==d?"on":""}" data-fd="${x}">${k}<i></i></button>`:`<span class="off">${k}</span>`}
+  const pm=new Date(Date.UTC(Y,M-2,1)).toISOString().slice(0,7),nm=new Date(Date.UTC(Y,M,1)).toISOString().slice(0,7);
+  return `<div class="fdbar"><button class="chip" ${prev?`data-fd="${prev}"`:"disabled"} aria-label="이전 날짜">◀</button>
+   <button class="chip on fdcur" data-fdcal="1" aria-label="달력 열기">📅 ${esc(d.slice(5).replace("-","/"))}(${WD[dt.getUTCDay()]})</button>
+   <button class="chip" ${next?`data-fd="${next}"`:"disabled"} aria-label="다음 날짜">▶</button>
+   ${next?`<button class="chip" data-fd="${ds[ds.length-1]}">최신</button>`:""}<small class="muted">${esc(label||"")} · 자료 있는 날 ${ds.length}일</small>
+   ${ui.fdOpen?`<div class="fdcal"><div class="fdch"><button class="linkb" data-fcm="${pm}">‹</button><b>${Y}년 ${M}월</b><button class="linkb" data-fcm="${nm}">›</button></div><div class="fdg">${WD.map(w=>`<b>${w}</b>`).join("")}${cells}</div></div>`:""}</div>`}
 function flowTimeline(){
   const kinds=[["all","전체"],["morning","아침"],["channels","채널"],["report","리포트"],["review","리뷰"]];
   const k=kinds.some(([v])=>v==fam(ui.bk))?fam(ui.bk):"all", list=(D.briefs||[]).filter(b=>k=="all"||fam(b.kind)==k);
   const byDay={}; list.forEach(b=>(byDay[b.date]=byDay[b.date]||[]).push(b));
-  const days=Object.keys(byDay).sort().reverse().slice(0,10);
+  const {d:fd}=fdPick(Object.keys(byDay)), days=byDay[fd]?[fd]:[];
   const first=b=>{const t=(b.text||"").split("\n").map(x=>x.trim()).filter(x=>x&&!/^#/.test(x)&&!/^_.*_$/.test(x)&&!/^\*.*\*$/.test(x));
     let i=t.findIndex(x=>/^💡/.test(x)); let line=i>=0?t[i].replace(/^💡\s*(Claude\s*의견|CLAUDE\s*의견|의견)?\s*:?\s*/i,""):"";
     for(let j=i+1;(!line||/^(핵심|의견)\s*:?$/.test(line))&&j<t.length&&j<i+4;j++)line=t[j];
     if(!line)line=t[1]||t[0]||"";
     return line.replace(/^[-•]\s*/,"").replace(/^\*\*?(핵심|핵심:)\*?\*?\s*:?\s*/,"").replace(/^(핵심|핵심:)\s*/,"").slice(0,140)};
   const open=ui.bf;
-  return `<div class="chips">${kinds.map(([v,n])=>`<button class="chip ${k==v?"on":""}" data-bk="${v}">${n}</button>`).join("")}</div>
+  return `${datePicker(Object.keys(byDay),"정리·브리핑")}<div class="chips">${kinds.map(([v,n])=>`<button class="chip ${k==v?"on":""}" data-bk="${v}">${n}</button>`).join("")}</div>
   ${days.length?days.map(d=>`<div class="tday"><div class="tdh num">${esc(d)} <small class="muted">${["일","월","화","수","목","금","토"][new Date(d+"T00:00:00Z").getUTCDay()]}</small></div>
    ${byDay[d].sort((a,b)=>(b.time||"").localeCompare(a.time||"")).map(b=>`<div class="tcard ${open==b.file?"open":""}">
      <button class="tch" data-bf="${esc(b.file)}"><span class="num">${esc(b.time||"")}</span><span class="pill">${esc(b.kind_name)}</span>${(b.versions||[]).length>1?`<small class="tver muted" title="이 정리는 하루 동안 계속 덧붙여 갱신됩니다. 회차 시각: ${esc(b.versions.slice().reverse().join(" · "))}">${b.versions.length}회째 · 첫 ${esc(b.versions[b.versions.length-1])}</small>`:""}<span class="tfirst">${tint(first(b))}</span><span class="muted">${open==b.file?"▲":"▼"}</span></button>
      ${open==b.file?`<article class="panel brief br2" style="margin:0 0 10px">${briefHtml(b.text)}</article>`:""}</div>`).join("")}</div>`).join(""):`<div class="empty">이 종류의 브리핑이 아직 없습니다</div>`}`;
 }
 const TODAY_NM={G:["포켓피봇","G = 포켓피봇: 조정 중 상승한 날 거래량이 직전 10일 하락일 최대 거래량보다 큰 날 (신호, 셋업 아님)"],H:["H 이벤트","H = 하루 +5%↑ 거래량 50일 평균 2배↑ (신호, 셋업 아님)"]};
+function dayReports(){
+  const R=[];(D.companies||[]).forEach(c=>(c.reports||[]).forEach(r=>R.push({...r,name:c.name,code:c.code,detail:c.detail||c.group||""})));
+  const {d}=fdPick(R.map(r=>(r.time||"").slice(0,10)).filter(Boolean)),L=R.filter(r=>(r.time||"").startsWith(d)).sort((a,b)=>(b.time||"").localeCompare(a.time||""));
+  return `${datePicker(R.map(r=>(r.time||"").slice(0,10)).filter(Boolean),"채널 리포트 요약(2차)")}
+  <div class="panel" style="margin-bottom:12px"><h3>이 날 나온 리포트 <small class="muted">${L.length}건 · 🔺${L.filter(r=>r.direction=="상향").length} 🔽${L.filter(r=>r.direction=="하향").length}</small></h3>
+  ${L.length?`<div class="tw"><table><tr><th class="l">시각</th><th class="l">종목</th><th class="l">증권사</th><th>목표가</th><th class="l">핵심</th></tr>${L.map(r=>`<tr class="click" data-cq="${esc(r.name)}"><td class="l num">${esc((r.time||"").slice(11,16))}</td><td class="l"><b class="stk">${esc(r.name)}</b><br><small class="muted">${esc(r.detail)}</small></td><td class="l">${esc(r.broker||"")}</td><td class="num">${r.before?w(r.before)+" → ":""}<b>${w(r.after)}</b> ${r.direction=="상향"?"🔺":r.direction=="하향"?"🔽":"🆕"}</td><td class="l"><small>${esc((r.points||[])[0]||"")}</small></td></tr>`).join("")}</table></div>`:`<div class="empty">이 날 리포트 요약 없음</div>`}</div>`}
 function reportFlowTab(){
   const F=D.report_flow||[];
   const tot=F.reduce((a,s)=>({up:a.up+(s.up||0),down:a.down+(s.down||0),nw:a.nw+(s.new||0)}),{up:0,down:0,nw:0});
@@ -1728,7 +1756,7 @@ function reportFlowTab(){
      <div class="rfb2" title="상향 ${s.up||0} · 신규 ${s.new||0} · 하향 ${s.down||0} (모두 ${n}건)"><div class="rft" style="width:${n/mx*100}%"><i style="flex:${s.up||0};background:var(--up)"></i><i style="flex:${s.new||0};background:var(--faint)"></i><i style="flex:${s.down||0};background:var(--down)"></i></div></div>
      <span class="num rfc up">${s.up||0}</span><span class="num rfc down">${s.down||0}</span><span class="num rfc muted">${s.new||0}</span>
      <span class="num rfc ${net>0?"up":net<0?"down":""}">${net>0?"+":""}${net}</span><span class="num rfc ${cls(s.avg_change_pct)}">${s.avg_change_pct!=null?pc(s.avg_change_pct):"-"}</span></div>`};
-  return `<div class="panel rflow" style="margin-bottom:12px"><div class="rfhead"><h3>31일 리포트 흐름 <small class="muted">업종별 목표가 변경 · 채널 리포트 요약(2차) · ${esc((D.parts&&D.parts.channels)||D.built_at)}</small></h3>
+  return `${dayReports()}<div class="panel rflow" style="margin-bottom:12px"><div class="rfhead"><h3>31일 리포트 흐름 <small class="muted">업종별 목표가 변경 · 채널 리포트 요약(2차) · ${esc((D.parts&&D.parts.channels)||D.built_at)}</small></h3>
    <div class="rfsum num"><span><i style="background:var(--up)"></i>상향 <b>${tot.up}</b></span><span><i style="background:var(--down)"></i>하향 <b>${tot.down}</b></span><span><i style="background:var(--faint)"></i>신규 <b>${tot.nw}</b></span><span>하향 비율 <b>${tot.up+tot.down?Math.round(tot.down/(tot.up+tot.down)*100):0}%</b></span></div></div>
    <div class="rfr rfh"><span>업종 <small>(대표 종목)</small></span><span>건수 (상향 · 신규 · 하향)</span><span class="rfc">상향</span><span class="rfc">하향</span><span class="rfc">신규</span><span class="rfc">순증</span><span class="rfc">평균 변경</span></div>
    ${F.slice(0,20).map(row).join("")}
@@ -1738,7 +1766,7 @@ function reportFlowTab(){
 function viewFlow(){
   const t=ui.ft||"digest";
   const tabs=[["digest","정리"],["reports","리포트"],["highs","신고가"],["channels","채널 원문"]];
-  return `<h1>흐름</h1><div class="sub">무슨 이야기가 돌고, 리포트는 어디를 올리고 내리나 · 정리는 평일 08·10·12·14·16시 12분 자동 · 채널 글은 2차 자료</div>
+  return `<h1>시장</h1><div class="sub">무슨 이야기가 돌고, 리포트는 어디를 올리고 내리나 · 정리는 평일 08·10·12·14·16시 12분 자동 · 채널 글은 2차 자료</div>
   <div class="chips tabs">${tabs.map(([v,n])=>`<button class="chip ${t==v?"on":""}" data-ft="${v}">${n}</button>`).join("")}</div>
   ${t=="digest"?flowTimeline():t=="reports"?reportFlowTab():t=="highs"?highsTab():stripH1(viewChannels())}`;
 }
@@ -2172,6 +2200,10 @@ document.addEventListener("click",e=>{
   if(e.target.closest("[data-rfpop]")){$("#rfpop").classList.toggle("open");return}
   if(!e.target.closest("#rfpop"))$("#rfpop").classList.remove("open");
   const q=e.target.closest("[data-cq]"); if(q){const cc=stockByName(q.dataset.cq);if(cc){ui.gsel=null;location.hash="s"+cc.code;return}if(q.closest(".gcard"))ui.gsel=null;ui.cq=q.dataset.cq;save();if(location.hash=="#stock")render();else location.hash="stock";return}
+  const fdb=e.target.closest("[data-fd]"); if(fdb&&!fdb.disabled){ui.fd=fdb.dataset.fd;ui.fdOpen=false;ui.fcm=null;save();render();return}
+  if(e.target.closest("[data-fdcal]")){ui.fdOpen=!ui.fdOpen;ui.fcm=null;save();render();return}
+  const fcm=e.target.closest("[data-fcm]"); if(fcm){ui.fcm=fcm.dataset.fcm;save();render();return}
+  if(ui.fdOpen&&!e.target.closest(".fdcal")){ui.fdOpen=false;save();render()}
   const gs=e.target.closest("[data-go-s]"); if(gs){location.hash="s"+gs.dataset.goS;return}
   const scf=e.target.closest("[data-scf]"); if(scf){ui.cf=scf.dataset.scf;ui.sMore=false;save();render();return}
   if(e.target.closest("[data-sall]")){ui.sAll=!ui.sAll;ui.sMore=false;save();render();return}
