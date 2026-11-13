@@ -668,6 +668,11 @@ td.pearn{white-space:nowrap}td.pearn .pill{padding:1px 6px}
 .ftab td.nw{white-space:nowrap}.ppfund{grid-column:1/-1;border-top:1px dashed var(--line);padding-top:4px;margin-top:2px}
 @media(max-width:900px){.fgt{grid-template-columns:repeat(2,minmax(0,1fr))}.fgc,.ergrid{grid-template-columns:minmax(0,1fr)}}
 @media(max-width:600px){.invh .ivsum{min-width:0}.invh .ivb{display:none}.invh th,.invh td{padding:3px 3px;font-size:11.5px}}
+.invh{width:auto;min-width:0;font-size:12px}.invh th,.invh td{padding:3px 6px}.invh td.l{padding-right:4px}.invh .ivsum{min-width:0;padding-left:8px}
+@media(max-width:600px){.invh{font-size:11px}.invh th,.invh td{padding:3px 3px}}
+.dshort{display:none}@media(max-width:600px){.invh .dlong{display:none}.invh .dshort{display:inline}.invh{font-size:10.5px;letter-spacing:-.2px}.invh th,.invh td{padding:3px 2px}}
+html body .view .invh td,html body .view .invh th{padding:4px 6px}html body .view .invh td.l{min-width:0;padding-left:2px}
+@media(max-width:600px){html body .view .invh td,html body .view .invh th{padding:3px 2px;font-size:10.5px}}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="bl-icon" viewBox="0 0 1024 1024"><defs><linearGradient id="blbg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#52525b"/><stop offset="1" stop-color="#18181b"/></linearGradient><linearGradient id="blgl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".16"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/></linearGradient></defs><rect width="1024" height="1024" rx="232" fill="url(#blbg)"/><rect width="1024" height="1024" rx="232" fill="url(#blgl)"/><path d="M352 262 V762 M352 262 H528 A122 122 0 0 1 528 506 H352 M352 506 H574 A128 128 0 0 1 574 762 H352" fill="none" stroke="#fff" stroke-linejoin="round" stroke-linecap="round" stroke-width="104"/><circle cx="742" cy="290" r="44" fill="#6d7dff"/></symbol></svg>
@@ -985,7 +990,7 @@ function briefHtml(text){
   const isSec=t=>!isItem(t)&&!/^(⭐|☆|⚠️|※|범례|⚖️|리스크:|\(|↳)/u.test(t)&&(t.replace(/\(.*?\)/g,"").length<=46)&&(EMO.test(t)||/^\d+\)\s/.test(t)||/^그 밖에/.test(t))&&!(/^[🔴🔵🔺🔽🆕➖⭐]/u.test(t)&&/[:：]|\d/.test(t));
   for(;i<L.length;i++){
     const raw=L[i], t=raw.trim();
-    if(i==0){out.push(`<div class="brt">${H(t)}</div>`);continue}
+    if(i==0){out.push(`<div class="brt">${H(t.replace(/^#+\s*/,""))}</div>`);continue}
     if(!t){if(inMeta&&out.length>1)inMeta=false;continue}
     if(/^범례|^※/.test(t)){out.push(`<div class="brf">${H(t)}</div>`);continue}
     if(/^⚖️/u.test(t)){out.push(`<div class="brn">${H(t)}</div>`);continue}
@@ -1809,7 +1814,7 @@ function briefLine(b){   // 카드 요약 한 줄: 💡 의견 첫 줄
   let i=t.findIndex(x=>/^💡/.test(x)); let line=i>=0?t[i].replace(/^💡\s*(Claude\s*의견|CLAUDE\s*의견|의견)?\s*:?\s*/i,""):"";
   for(let j=i+1;(!line||/^(핵심|의견)\s*:?$/.test(line))&&j<t.length&&j<i+4;j++)line=t[j];
   if(!line)line=t[1]||t[0]||"";
-  return line.replace(/^[-•]\s*/,"").replace(/^\*\*?(핵심|핵심:)\*?\*?\s*:?\s*/,"").replace(/^(핵심|핵심:)\s*/,"").slice(0,140)}
+  return line.replace(/^[-•]\s*/,"").replace(/^\*\*?(핵심|핵심:)\*?\*?\s*:?\s*/,"").replace(/^(핵심|핵심:)\s*/,"").replace(/^[:：]\s*/,"").slice(0,140)}
 const SECN={checkpoint:"체크포인트",channels:"장중 정리 · 채널",report_live:"장중 정리 · 리포트",close:"마감 리뷰",morning:"아침 브리핑",
   report_brief_am:"리포트 브리핑",report_brief_pm:"리포트 브리핑",weekly:"주간 리뷰",strategy:"전략 보고서",deep_research:"딥리서치"};
 function flowTimeline(){
@@ -1817,8 +1822,8 @@ function flowTimeline(){
   const k=F.some(([v])=>v==ui.bk)?ui.bk:"all", list=(D.briefs||[]).filter(b=>k=="all"||fam(b.kind)==k);
   const byDay={}; list.forEach(b=>(byDay[b.date]=byDay[b.date]||[]).push(b));
   const {d:fd}=fdPick(Object.keys(byDay)), items=(byDay[fd]||[]).slice().sort((a,b)=>(a.time||"").localeCompare(b.time||""));
-  const day=items.filter(b=>fam(b.kind)=="today"), rest=items.filter(b=>fam(b.kind)!="today");
-  const last=day.filter(b=>b.kind=="checkpoint").slice(-1)[0]||day[day.length-1];
+  const day=items, rest=[];   // 2026-11-13 사용자 요청: 주간·전략·자료도 그날 카드 한 장 안에
+  const last=day.filter(b=>b.kind=="checkpoint").slice(-1)[0]||day.filter(b=>fam(b.kind)=="today").slice(-1)[0]||day[day.length-1];
   const wd=fd?["일","월","화","수","목","금","토"][new Date(fd+"T00:00:00Z").getUTCDay()]:"";
   const sec=(b,open)=>`<details class="dsec" ${open?"open":""} data-bf="${esc(b.file)}"><summary><span class="num">${esc(b.time||"")}</span><span class="pill">${esc(SECN[b.kind]||b.kind_name)}</span>${(b.versions||[]).length>1?`<small class="muted">${b.versions.length}회째 · 첫 ${esc(b.versions[b.versions.length-1])}</small>`:""}<span class="dsl">${esc(briefLine(b))}</span></summary><article class="panel brief br2" style="margin:8px 0 0">${briefHtml(b.text)}</article></details>`;
   const cards=[];   // [최신 시각, html] → 최신이 위로
@@ -2348,9 +2353,9 @@ function invTable(rows){   // rows: [[날짜, 외국인, 기관, 개인, 종가]
   const e=(q,c)=>q==null||c==null?null:q*c/1e8, R=rows.slice(-5).map(r=>[r[0],e(r[1],r[4]),e(r[2],r[4]),e(r[3],r[4])]);
   const sum=k=>R.every(r=>r[k]!=null)?R.reduce((a,r)=>a+r[k],0):null, S=[sum(1),sum(2),sum(3)], mx=Math.max(1,...S.map(x=>Math.abs(x||0)));
   const f=x=>x==null?"-":`<span class="${cls(x)}">${x>0?"+":""}${Math.abs(x)>=10?Math.round(x).toLocaleString():x.toFixed(1)}</span>`;
-  const bar=x=>x==null?"":`<span class="ivb"><i class="${x>=0?"up":"dn"}" style="${x>=0?"left:50%":"right:50%"};width:${(Math.abs(x)/mx*50).toFixed(0)}%"></i></span>`;
-  return `<div class="tw"><table class="invt invh"><tr><th class="l"></th>${R.map(r=>`<th>${esc(String(r[0]).slice(4,6)+"/"+String(r[0]).slice(6))}</th>`).join("")}<th class="ivsum">5일 합계</th></tr>
-   ${[["외국인",1],["기관",2],["개인",3]].map(([n,k])=>`<tr><td class="l"><b>${n}</b></td>${R.map(r=>`<td class="num">${f(r[k])}</td>`).join("")}<td class="num ivsum"><b>${f(S[k-1])}</b>${bar(S[k-1])}</td></tr>`).join("")}</table></div>`}   // 2026-11-13 시안 A(사용자 확정)
+  const bar0=x=>x==null?"":`<span class="ivb"><i class="${x>=0?"up":"dn"}" style="${x>=0?"left:50%":"right:50%"};width:${(Math.abs(x)/mx*50).toFixed(0)}%"></i></span>`;
+  return `<div class="tw"><table class="invt invh"><tr><th class="l"></th>${R.map(r=>`<th>${esc(String(r[0]).slice(4,6)+"/"+String(r[0]).slice(6))}</th>`).join("")}<th class="ivsum"><span class="dlong">5일 </span>합계</th></tr>
+   ${[["외국인",1,"외인"],["기관",2,"기관"],["개인",3,"개인"]].map(([n,k,sn])=>`<tr><td class="l"><b><span class="dlong">${n}</span><span class="dshort">${sn}</span></b></td>${R.map(r=>`<td class="num">${f(r[k])}</td>`).join("")}<td class="num ivsum"><b>${f(S[k-1])}</b></td></tr>`).join("")}</table></div>`}   // 2026-11-13 시안 A(사용자 확정)
 function invBox(c){const id="iv"+c.code;
   setTimeout(()=>{const el=document.getElementById(id);if(!el)return;
     const fromFile=()=>flowGet(c.code).then(j=>{const el2=document.getElementById(id);if(el2)el2.innerHTML=invTable(j&&j.inv)});
