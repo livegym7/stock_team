@@ -1247,6 +1247,11 @@ def write_ohlc(data):
         n += 1
         if c["code"] in keep:
             embed[c["code"]] = arr[-380:]
+        if isinstance(c.get("trend"), dict) and c["trend"].get("live_chg") is None and len(arr) > 1:   # 목록 '오늘' 칸: 마지막 종가 기준 등락
+            c["trend"]["live_chg"] = round((arr[-1][4] / arr[-2][4] - 1) * 100, 2)
+        if c["code"] in uni and len(arr) > 22:   # 목록용 숫자 (2026-11-13): 종가 · 오늘 등락 · 1개월 · 52주 고점 대비
+            cl, hi = arr[-1][4], max(r[2] for r in arr[-250:])
+            uni[c["code"]] += [cl, round((cl / arr[-2][4] - 1) * 100, 2), round((cl / arr[-22][4] - 1) * 100, 1), round((cl / hi - 1) * 100, 1), arr[-1][0]]
     return embed
 
 

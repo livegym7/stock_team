@@ -593,6 +593,7 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.6px}h2{font-size:17px;font-we
 .fdg>button{cursor:pointer;font-weight:600}.fdg>button:hover{background:var(--soft)}.fdg>button i{width:4px;height:4px;border-radius:50%;background:var(--accent);margin-top:1px}.fdg>button.on{background:var(--accent);color:var(--on-accent,#fff)}.fdg>button.on i{background:currentColor}
 .sp2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 22px;align-items:start}.sp2 .src{font-size:11px}
 @media(max-width:900px){.sp2{grid-template-columns:minmax(0,1fr)}}
+.flowbar{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;margin-bottom:12px}.flowbar>.chips,.flowbar .fdbar{margin:0}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="bl-icon" viewBox="0 0 1024 1024"><defs><linearGradient id="blbg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#52525b"/><stop offset="1" stop-color="#18181b"/></linearGradient><linearGradient id="blgl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".16"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/></linearGradient></defs><rect width="1024" height="1024" rx="232" fill="url(#blbg)"/><rect width="1024" height="1024" rx="232" fill="url(#blgl)"/><path d="M352 262 V762 M352 262 H528 A122 122 0 0 1 528 506 H352 M352 506 H574 A128 128 0 0 1 574 762 H352" fill="none" stroke="#fff" stroke-linejoin="round" stroke-linecap="round" stroke-width="104"/><circle cx="742" cy="290" r="44" fill="#6d7dff"/></symbol></svg>
@@ -701,9 +702,9 @@ function alerts(r){
 }
 function holdMini(r){
   const ps=(r&&r.positions)||[]; if(!ps.length)return "";
-  return `<div class="tw" style="margin-top:10px"><table><tr><th class="l">보유 종목</th><th>현재가</th><th>평가손익</th><th>진행 R</th><th>손절가까지</th><th class="l">다음 기준</th></tr>
+  return `<div class="tw" style="margin-top:10px"><table><tr><th class="l">보유 종목</th><th>현재가</th><th>오늘</th><th>평가손익</th><th>진행 R</th><th>손절가까지</th><th class="l">다음 기준</th></tr>
   ${ps.map(p=>{const pct=p.price?(p.price/p.avg_price-1)*100:null, nx=nextStep(p);
-   return `<tr class="click" data-go="portfolio"><td class="l"><b>${esc(p.name)}</b> <small class="muted">${p.qty}주 · 평균 ${w(p.avg_price)}</small></td><td class="num"><b>${w(p.price)}</b></td>
+   return `<tr class="click" data-go="portfolio"><td class="l"><b>${esc(p.name)}</b> <small class="muted">${p.qty}주 · 평균 ${w(p.avg_price)}</small></td><td class="num"><b>${w(p.price)}</b></td><td class="num ${cls(todayChg(p.code))}">${todayChg(p.code)!=null?pc(todayChg(p.code),2):"-"}</td>
    <td class="num ${cls(p.pnl_won)}">${w(p.pnl_won)} <small>(${pc(pct)})</small></td><td class="num ${cls(p.r_multiple)}">${p.r_multiple==null?"-":(p.r_multiple>0?"+":"")+p.r_multiple.toFixed(2)+"R"}</td>
    <td class="num">${pc(p.to_stop_pct)}</td><td class="l"><small>${esc(nx)}</small></td></tr>`}).join("")}</table></div>`;
 }
@@ -996,9 +997,9 @@ function viewPortfolio(){
   return `<h1>내 포트폴리오</h1><div class="sub">${esc(r.at||"")} · ${esc(r.source||"")}</div>
   ${alerts(r)}${riskKpis(r)}
   <h2 style="margin-top:18px">보유 종목</h2>
-  <div class="tw"><table><tr><th class="l">종목</th><th>수량</th><th>평균가</th><th>현재가</th><th>평가손익</th><th>평가금액·비중</th><th>손절가·거리</th><th>1R</th><th>진행 R</th><th>3R 가격</th><th>CR</th></tr>
+  <div class="tw"><table><tr><th class="l">종목</th><th>수량</th><th>평균가</th><th>현재가</th><th>오늘</th><th>평가손익</th><th>평가금액·비중</th><th>손절가·거리</th><th>1R</th><th>진행 R</th><th>3R 가격</th><th>CR</th></tr>
   ${ps.map(p=>{const pct=p.price?(p.price/p.avg_price-1)*100:null, bar=Math.max(0,Math.min(100,((p.r_multiple||0)+1)/4*100));
-   return `<tr><td class="l"><b>${esc(p.name)}</b> ${flowTag(p.code)}<br><small class="muted">${esc(comp[p.code]?.detail||p.code)}</small></td><td class="num">${p.qty}</td><td class="num">${w(p.avg_price)}</td><td class="num"><b>${w(p.price)}</b></td>
+   return `<tr><td class="l"><b>${esc(p.name)}</b> ${flowTag(p.code)}<br><small class="muted">${esc(comp[p.code]?.detail||p.code)}</small></td><td class="num">${p.qty}</td><td class="num">${w(p.avg_price)}</td><td class="num"><b>${w(p.price)}</b></td><td class="num ${cls(todayChg(p.code))}">${todayChg(p.code)!=null?pc(todayChg(p.code),2):"-"}</td>
    <td class="num ${cls(p.pnl_won)}">${w(p.pnl_won)}<br><small>${pc(pct)}</small></td><td class="num">${w(p.value_won)}<br><small class="muted">${(p.value_won/r.capital*100).toFixed(1)}%</small></td>
    <td class="num">${w(p.stop)}<br><small class="muted">${pc(p.to_stop_pct)}</small></td><td class="num">${w(p.one_r_won)}<br><small class="muted">${p.one_r_vs_account}R</small></td>
    <td class="num ${cls(p.r_multiple)}"><b>${p.r_multiple==null?"-":(p.r_multiple>0?"+":"")+p.r_multiple.toFixed(2)+"R"}</b><div class="rbar" title="−1R ~ 3R"><i style="width:${bar}%"></i></div></td>
@@ -1223,7 +1224,8 @@ function stockPage(c){
    ${src((c.updated?"깊은 카드 "+c.updated+" · ":"")+"시세 네이버 일봉(비공식) · 리포트·채널은 채널 요약(2차 자료) · 판단은 본인")}</article>`}
 function stockRows(all){   // 목록용 행: 기업 메뉴 종목 + (전체 보기면) 시총 2천억↑ 나머지
   const R=(D.companies||[]).map(c=>({c,code:c.code,name:c.name,grp:c.detail||c.sector||c.group||"",t:c.trend||{},rep:c.n_reports||0,card:c.card!==false&&!!c.one_liner}));
-  if(all)Object.entries(D.uni||{}).forEach(([k,v])=>R.push({c:stockByCode(k),code:k,name:v[0],grp:v[1]||"",t:{rs:v[2]},rep:0,card:false,cap:v[4]}));
+  if(all)Object.entries(D.uni||{}).forEach(([k,v])=>R.push({c:stockByCode(k),code:k,name:v[0],grp:v[1]||"",t:{rs:v[2],price:v[5],live_chg:v[6],r1m:v[7],off_high:v[8]},rep:0,card:false,cap:v[4]}));
+  R.forEach(r=>{const q=liveQuote(r.code);r.px=(q&&q.price)||r.t.price;r.chg=q&&q.change_pct!=null?q.change_pct:r.t.live_chg;r.live=!!(q&&q.price)});   // 오늘 시세: 장중엔 1분 시세, 아니면 마지막 종가
   return R}
 function viewCompanies(){
   const q=(ui.cq||"").trim(), cf=ui.cf||"all", all=!!ui.sAll, S=ui.ss||{k:"rs",d:"desc"};
@@ -1231,19 +1233,20 @@ function viewCompanies(){
   const pos=new Set(((D.risk||{}).positions||[]).map(p=>p.code)), pool=new Set(((D.watch_pool||{}).themes||[]).flatMap(th=>(th.stocks||[]).map(s=>s.code)));
   let R=stockRows(all).filter(r=>(!q||r.name.includes(q)||r.grp.includes(q)||r.code.includes(q)||cho(r.name).includes(q))
     &&(cf=="all"||(cf=="mine"&&(pos.has(r.code)||pool.has(r.code)))||(cf=="high"&&hiSet.has(r.code))||(cf=="rep"&&r.rep>0)||(cf=="card"&&r.card)));
-  const val=(r,k)=>k=="name"?r.name:k=="grp"?r.grp:k=="flow"?(flowP(r.code)??-1):k=="rep"?r.rep:(r.t[k]??-1e9);
+  const val=(r,k)=>k=="name"?r.name:k=="grp"?r.grp:k=="flow"?(flowP(r.code)??-1):k=="rep"?r.rep:k=="price"?(r.px??-1e9):k=="chg"?(r.chg??-1e9):(r.t[k]??-1e9);
   R.sort((a,b)=>{const x=val(a,S.k),y=val(b,S.k);return (typeof x=="string"?x.localeCompare(y,"ko"):x-y)*(S.d=="asc"?1:-1)});
   const th=(k,n,l)=>`<th class="sortable${l?" l":""}${S.k==k?" on":""}" data-ssort="${k}">${n}<span class="sar">${S.k==k?(S.d=="asc"?"▲":"▼"):"↕"}</span></th>`;
   const F=[["all","전체"],["mine","⭐ 보유·관찰 풀"],["high","🏔 신고가"],["rep","📄 리포트 있음"],["card","📇 깊은 카드"]];
   const nAll=(D.companies||[]).length+Object.keys(D.uni||{}).length, shown=R.slice(0,ui.sMore?R.length:150);
+  LIST_CODES=shown.slice(0,160).map(r=>r.code);
   return `<h1>기업</h1><div class="sub">${all?`시총 2천억↑ 전체 ${nAll}종목`:`정보가 있는 ${(D.companies||[]).length}종목 (기업 카드 + 최근 31일 리포트·채널)`} · 종목을 누르면 종목 페이지 · RS = 1년 수익률 가중 백분위 · 수급 P = 최근 60일 중 위치</div>
   <div class="ctool"><label for="cq" class="sr">찾기</label><input id="cq" value="${esc(q)}" placeholder="🔍 이름·업종·코드·초성으로 찾기">
    <button class="chip ${all?"on":""}" data-sall="1">${all?`✓ 전체 보기 (${nAll})`:`전체 보기 (${nAll})`}</button></div>
   <div class="chips">${F.map(([k,n])=>`<button class="chip ${cf==k?"on":""}" data-scf="${k}">${n}</button>`).join("")}</div>
-  ${R.length?`<div class="tw"><table class="slist"><tr>${th("name","종목",1)}${th("grp","업종",1)}${th("price","종가")}${th("r1m","1개월")}${th("rs","RS")}${th("flow","수급")}${th("off_high","고점 대비")}${th("rep","리포트")}</tr>
-   ${shown.map(r=>`<tr class="click" data-go-s="${r.code}"><td class="l"><b class="stk">${esc(r.name)}</b> ${pos.has(r.code)?"⭐":""}${pool.has(r.code)?"🎯":""}${hiSet.has(r.code)?"🏔":""}${r.card?"📇":""}</td><td class="l"><small>${esc(r.grp)}</small></td><td class="num">${w(r.t.price)}</td><td class="num ${cls(r.t.r1m)}">${pc(r.t.r1m)}</td><td class="num">${r.t.rs??"-"}</td><td>${flowTag(r.code)||"-"}</td><td class="num">${pc(r.t.off_high)}</td><td class="num">${r.rep||"-"}</td></tr>`).join("")}</table></div>
+  ${R.length?`<div class="tw"><table class="slist"><tr>${th("name","종목",1)}${th("grp","업종",1)}${th("price","현재가")}${th("chg","오늘")}${th("r1m","1개월")}${th("rs","RS")}${th("flow","수급")}${th("off_high","고점 대비")}${th("rep","리포트")}</tr>
+   ${shown.map(r=>`<tr class="click" data-go-s="${r.code}"><td class="l"><b class="stk">${esc(r.name)}</b> ${pos.has(r.code)?"⭐":""}${pool.has(r.code)?"🎯":""}${hiSet.has(r.code)?"🏔":""}${r.card?"📇":""}</td><td class="l"><small>${esc(r.grp)}</small></td><td class="num"><b>${w(r.px)}</b></td><td class="num ${cls(r.chg)}">${r.chg!=null?pc(r.chg,2):"-"}</td><td class="num ${cls(r.t.r1m)}">${pc(r.t.r1m)}</td><td class="num">${r.t.rs??"-"}</td><td>${flowTag(r.code)||"-"}</td><td class="num">${pc(r.t.off_high)}</td><td class="num">${r.rep||"-"}</td></tr>`).join("")}</table></div>
    ${R.length>shown.length?`<button class="chip" data-smore="1" style="margin-top:8px">${R.length-shown.length}종목 더 보기</button>`:""}`:`<div class="empty">찾는 종목이 없습니다</div>`}
-  ${src("⭐ 보유 · 🎯 관찰 풀 · 🏔 오늘 신고가 · 📇 깊은 카드(Claude) · 전체 보기의 추가 종목은 종가·1개월이 종목 페이지에서 계산됨 · 출처: 네이버(비공식), 채널 요약(2차)")}`;
+  ${src("⭐ 보유 · 🎯 관찰 풀 · 🏔 오늘 신고가 · 📇 깊은 카드(Claude) · 현재가·오늘 = 장중엔 웹이 1분마다 받는 시세(목록 위 160종목), 장 밖에선 마지막 종가 "+((D.live||{}).at?"· 시세 "+(D.live||{}).at:"")+" · 출처: 네이버(비공식), 채널 요약(2차)")}`;
 }
 /* ---------- 딥리서치 ---------- */
 function rsChip(name,code){const R=D.research||{},t=(R.trend||{})[code]||{};
@@ -1424,7 +1427,7 @@ function viewChannels(){
   return `<h1>채널</h1><div class="sub"><b>채널 글 ${esc((D.parts&&D.parts.channels)||D.built_at)} 기준</b> · 최근 72시간 · 채널 ${(D.channel_stats||[]).length}개 · 중복·잡담 제외 ${(D.channels||[]).length}개 글 · 출처: 채널(2차 자료)</div>
   <div class="chips"><button class="chip ${t=="all"?"on":""}" data-ct="all">전체</button>${cats.map(([k,n])=>`<button class="chip ${t==k?"on":""}" data-ct="${k}">${n}</button>`).join("")}</div>
   <div style="margin-bottom:12px"><label for="chSel">채널<select id="chSel"><option value="">전체 채널</option>${(D.channel_stats||[]).map(c=>`<option value="${c.id}" ${ch==c.id?"selected":""}>${c.id}</option>`).join("")}</select></label></div>
-  ${datePicker(cd,"최근 72시간 채널 글")}
+  <!--bar-->${datePicker(cd,"")}<!--/bar-->
   <div class="feed">${P.slice(0,200).map((p,i)=>postCard(p,i)).join("")||`<div class="empty">이 날 글 없음</div>`}</div>
   <h2 style="margin-top:20px">채널 성향 (30일)</h2><div class="tw"><table><tr><th class="l">채널</th><th class="l">역할</th><th>하루 글</th><th title="다른 채널 글을 옮기지 않은 자기 글 비율">자기 글</th><th title="여러 채널이 다룬 소식에서 먼저 올린 비율">먼저 올림</th><th title="남이 먼저 올린 소식을 따라 올릴 때 늦은 시간(중앙값)">따라 올릴 때</th><th title="리포트·실적·기업 글 비율">기업·실적·리포트</th><th>많이 올리는 시각</th><th class="l">많은 분류</th></tr>
   ${(D.channel_stats||[]).map(c=>`<tr><td class="l"><a href="https://t.me/${c.id}" target="_blank" rel="noopener">${c.id}</a></td><td class="l" style="white-space:normal;min-width:200px">${esc(c.description)}</td><td class="num">${c.per_day}</td><td class="num">${c.original_pct??"-"}%</td><td class="num">${c.first_pct==null?"-":`<b>${c.first_pct}%</b> <small class="muted">${c.first}/${c.first+c.follow}</small>`}</td><td class="num">${c.lag_min==null?"-":c.lag_min>=120?Math.round(c.lag_min/60)+"시간":c.lag_min+"분"}</td><td class="num">${c.useful_pct??"-"}%</td><td class="num">${(c.peak_hours||[]).map(h=>h+"시").join("·")}</td><td class="l">${(c.top||[]).map(([k,v])=>`${esc(k)} ${v}`).join(" · ")}</td></tr>`).join("")}</table></div>
@@ -1723,7 +1726,7 @@ function datePicker(days,label){
   return `<div class="fdbar"><button class="chip" ${prev?`data-fd="${prev}"`:"disabled"} aria-label="이전 날짜">◀</button>
    <button class="chip on fdcur" data-fdcal="1" aria-label="달력 열기">📅 ${esc(d.slice(5).replace("-","/"))}(${WD[dt.getUTCDay()]})</button>
    <button class="chip" ${next?`data-fd="${next}"`:"disabled"} aria-label="다음 날짜">▶</button>
-   ${next?`<button class="chip" data-fd="${ds[ds.length-1]}">최신</button>`:""}<small class="muted">${esc(label||"")} · 자료 있는 날 ${ds.length}일</small>
+   ${next?`<button class="chip" data-fd="${ds[ds.length-1]}">최신</button>`:""}${label?`<small class="muted">${esc(label)} · 자료 있는 날 ${ds.length}일</small>`:""}
    ${ui.fdOpen?`<div class="fdcal"><div class="fdch"><button class="linkb" data-fcm="${pm}">‹</button><b>${Y}년 ${M}월</b><button class="linkb" data-fcm="${nm}">›</button></div><div class="fdg">${WD.map(w=>`<b>${w}</b>`).join("")}${cells}</div></div>`:""}</div>`}
 function flowTimeline(){
   const kinds=[["all","전체"],["morning","아침"],["channels","채널"],["report","리포트"],["review","리뷰"]];
@@ -1736,7 +1739,7 @@ function flowTimeline(){
     if(!line)line=t[1]||t[0]||"";
     return line.replace(/^[-•]\s*/,"").replace(/^\*\*?(핵심|핵심:)\*?\*?\s*:?\s*/,"").replace(/^(핵심|핵심:)\s*/,"").slice(0,140)};
   const open=ui.bf;
-  return `${datePicker(Object.keys(byDay),"정리·브리핑")}<div class="chips">${kinds.map(([v,n])=>`<button class="chip ${k==v?"on":""}" data-bk="${v}">${n}</button>`).join("")}</div>
+  return `<!--bar--><div class="chips">${kinds.map(([v,n])=>`<button class="chip ${k==v?"on":""}" data-bk="${v}">${n}</button>`).join("")}</div>${datePicker(Object.keys(byDay),"")}<!--/bar-->
   ${days.length?days.map(d=>`<div class="tday"><div class="tdh num">${esc(d)} <small class="muted">${["일","월","화","수","목","금","토"][new Date(d+"T00:00:00Z").getUTCDay()]}</small></div>
    ${byDay[d].sort((a,b)=>(b.time||"").localeCompare(a.time||"")).map(b=>`<div class="tcard ${open==b.file?"open":""}">
      <button class="tch" data-bf="${esc(b.file)}"><span class="num">${esc(b.time||"")}</span><span class="pill">${esc(b.kind_name)}</span>${(b.versions||[]).length>1?`<small class="tver muted" title="이 정리는 하루 동안 계속 덧붙여 갱신됩니다. 회차 시각: ${esc(b.versions.slice().reverse().join(" · "))}">${b.versions.length}회째 · 첫 ${esc(b.versions[b.versions.length-1])}</small>`:""}<span class="tfirst">${tint(first(b))}</span><span class="muted">${open==b.file?"▲":"▼"}</span></button>
@@ -1746,7 +1749,7 @@ const TODAY_NM={G:["포켓피봇","G = 포켓피봇: 조정 중 상승한 날 �
 function dayReports(){
   const R=[];(D.companies||[]).forEach(c=>(c.reports||[]).forEach(r=>R.push({...r,name:c.name,code:c.code,detail:c.detail||c.group||""})));
   const {d}=fdPick(R.map(r=>(r.time||"").slice(0,10)).filter(Boolean)),L=R.filter(r=>(r.time||"").startsWith(d)).sort((a,b)=>(b.time||"").localeCompare(a.time||""));
-  return `${datePicker(R.map(r=>(r.time||"").slice(0,10)).filter(Boolean),"채널 리포트 요약(2차)")}
+  return `<!--bar-->${datePicker(R.map(r=>(r.time||"").slice(0,10)).filter(Boolean),"")}<!--/bar-->
   <div class="panel" style="margin-bottom:12px"><h3>이 날 나온 리포트 <small class="muted">${L.length}건 · 🔺${L.filter(r=>r.direction=="상향").length} 🔽${L.filter(r=>r.direction=="하향").length}</small></h3>
   ${L.length?`<div class="tw"><table><tr><th class="l">시각</th><th class="l">종목</th><th class="l">증권사</th><th>목표가</th><th class="l">핵심</th></tr>${L.map(r=>`<tr class="click" data-cq="${esc(r.name)}"><td class="l num">${esc((r.time||"").slice(11,16))}</td><td class="l"><b class="stk">${esc(r.name)}</b><br><small class="muted">${esc(r.detail)}</small></td><td class="l">${esc(r.broker||"")}</td><td class="num">${r.before?w(r.before)+" → ":""}<b>${w(r.after)}</b> ${r.direction=="상향"?"🔺":r.direction=="하향"?"🔽":"🆕"}</td><td class="l"><small>${esc((r.points||[])[0]||"")}</small></td></tr>`).join("")}</table></div>`:`<div class="empty">이 날 리포트 요약 없음</div>`}</div>`}
 function reportFlowTab(){
@@ -1769,8 +1772,9 @@ function viewFlow(){
   const t=ui.ft||"digest";
   const tabs=[["digest","정리"],["reports","리포트"],["highs","신고가"],["channels","채널 원문"]];
   return `<h1>시장</h1><div class="sub">무슨 이야기가 돌고, 리포트는 어디를 올리고 내리나 · 정리는 평일 08·10·12·14·16시 12분 자동 · 채널 글은 2차 자료</div>
-  <div class="chips tabs">${tabs.map(([v,n])=>`<button class="chip ${t==v?"on":""}" data-ft="${v}">${n}</button>`).join("")}</div>
-  ${t=="digest"?flowTimeline():t=="reports"?reportFlowTab():t=="highs"?highsTab():stripH1(viewChannels())}`;
+  ${(()=>{let body=t=="digest"?flowTimeline():t=="reports"?reportFlowTab():t=="highs"?highsTab():stripH1(viewChannels()),bar="";
+    body=body.replace(/<!--bar-->([\s\S]*?)<!--\/bar-->/,(m,x)=>{bar=x;return ""});   // 탭 · 종류 · 날짜를 한 줄로 (2026-11-13)
+    return `<div class="flowbar"><div class="chips tabs">${tabs.map(([v,n])=>`<button class="chip ${t==v?"on":""}" data-ft="${v}">${n}</button>`).join("")}</div>${bar}</div>${body}`})()}`;
 }
 /* ---------- 신고가 모아보기 (2026-11-13): 60·200일, 고가 기준, 시총 2천억↑ · 마감 확정 + 장중 20분 참고 ---------- */
 function highsData(){const E=D.highs,L=D.highsLive,today=kstNow().toISOString().slice(0,10);
@@ -1854,9 +1858,9 @@ function viewTrade(){
   return `<h1>내 매매</h1><div class="sub">${esc(r.at||"")} · ${esc(r.source||"")} · 기록만 하는 화면, 주문은 증권사 앱에서 직접</div>
   ${alerts(r)}${riskKpis(r)}
   ${ps.length?`<h2 style="margin-top:18px">보유 종목</h2>
-  <div class="tw"><table><tr><th class="l">종목</th><th>수량</th><th>평균가</th><th>현재가</th><th>평가손익</th><th>평가금액·비중</th><th>손절가·거리</th><th>1R</th><th>진행 R</th><th>3R 가격</th><th>CR</th></tr>
+  <div class="tw"><table><tr><th class="l">종목</th><th>수량</th><th>평균가</th><th>현재가</th><th>오늘</th><th>평가손익</th><th>평가금액·비중</th><th>손절가·거리</th><th>1R</th><th>진행 R</th><th>3R 가격</th><th>CR</th></tr>
   ${ps.map(p=>{const pct=p.price?(p.price/p.avg_price-1)*100:null, bar=Math.max(0,Math.min(100,((p.r_multiple||0)+1)/4*100));
-   return `<tr><td class="l"><b>${esc(p.name)}</b> ${flowTag(p.code)}<br><small class="muted">${esc(comp[p.code]?.detail||p.code)}</small></td><td class="num">${p.qty}</td><td class="num">${w(p.avg_price)}</td><td class="num"><b>${w(p.price)}</b></td>
+   return `<tr><td class="l"><b>${esc(p.name)}</b> ${flowTag(p.code)}<br><small class="muted">${esc(comp[p.code]?.detail||p.code)}</small></td><td class="num">${p.qty}</td><td class="num">${w(p.avg_price)}</td><td class="num"><b>${w(p.price)}</b></td><td class="num ${cls(todayChg(p.code))}">${todayChg(p.code)!=null?pc(todayChg(p.code),2):"-"}</td>
    <td class="num ${cls(p.pnl_won)}">${w(p.pnl_won)}<br><small>${pc(pct)}</small></td><td class="num">${w(p.value_won)}<br><small class="muted">${(p.value_won/r.capital*100).toFixed(1)}%</small></td>
    <td class="num">${w(p.stop)}<br><small class="muted">${pc(p.to_stop_pct)}</small></td><td class="num">${w(p.one_r_won)}<br><small class="muted">${p.one_r_vs_account}R</small></td>
    <td class="num ${cls(p.r_multiple)}"><b>${p.r_multiple==null?"-":(p.r_multiple>0?"+":"")+p.r_multiple.toFixed(2)+"R"}</b><div class="rbar" title="−1R ~ 3R"><i style="width:${bar}%"></i></div></td>
@@ -2089,6 +2093,7 @@ const OHLC={};
 function ohlcGet(code){if(OHLC[code])return Promise.resolve(OHLC[code]);if((D.ohlc||{})[code])return Promise.resolve(OHLC[code]=D.ohlc[code]);
   return fetch("c/"+code+".json").then(r=>r.ok?r.json():null).then(j=>{if(j)OHLC[code]=j;return j}).catch(()=>null)}
 function liveQuote(code){const q=(D.live||{}).quotes||{};return q[code]}
+function todayChg(code){const q=liveQuote(code);if(q&&q.change_pct!=null)return q.change_pct;const c=(D.companies||[]).find(x=>x.code==code);if(c&&(c.trend||{}).live_chg!=null)return c.trend.live_chg;const u=(D.uni||{})[code];return u&&u[6]!=null?u[6]:null}
 /* ---------- 수급 오실레이터 (2026-11-13, 후보 B: (외국인+기관 순매수 ÷ 상장주식수) 6일−22일 평균 → 3일 평활, P = 최근 60개 중 위치) ---------- */
 function flowP(code){const v=(D.flowosc||{})[code];return v?v[0]:null}
 function flowTag(code,long){const p=flowP(code);if(p==null)return "";const k=p<=25?"lo":p>=75?"hi":"mid",t=p<=25?"비어 있음":p>=75?"차 있음":"보통";
@@ -2170,7 +2175,10 @@ document.addEventListener("click",e=>{
 },true);
 window.addEventListener("scroll",()=>{if(!HOVER)return;hidePop()},{passive:true});
 /* ---------- 화면이 열려 있는 동안 1분마다 시세 (웹에서만, /api/quote) ---------- */
-function quoteCodes(){const s=new Set(((D.risk||{}).positions||[]).map(p=>p.code));((D.watch_pool||{}).themes||[]).forEach(th=>(th.stocks||[]).forEach(x=>s.add(x.code)));if(ui.sc)s.add(ui.sc);return [...s].filter(Boolean).slice(0,80)}
+let LIST_CODES=[];
+function quoteCodes(){const s=new Set(((D.risk||{}).positions||[]).map(p=>p.code));((D.watch_pool||{}).themes||[]).forEach(th=>(th.stocks||[]).forEach(x=>s.add(x.code)));if(ui.sc)s.add(ui.sc);
+  if(route()=="stock"&&!ui.sc)LIST_CODES.forEach(c=>s.add(c));   // 종목 목록을 보고 있으면 목록 위쪽 종목도 (2026-11-13)
+  return [...s].filter(Boolean).slice(0,200)}
 function busy(){const a=document.activeElement;return (a&&/INPUT|SELECT|TEXTAREA/.test(a.tagName))||popFor}
 function applyQuote(j){
   const pos=((D.risk||{}).positions||[]).map(p=>{const q=j.quotes[p.code];if(!q||!q.price)return {code:p.code};const risk=p.avg_price-(p.initial_stop??p.stop);

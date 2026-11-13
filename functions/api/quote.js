@@ -10,7 +10,7 @@ async function j(url) {
 }
 export async function onRequestGet({ request }) {
   const u = new URL(request.url);
-  const codes = [...new Set((u.searchParams.get("codes") || "").split(",").filter(c => /^\d{6}$/.test(c)))].slice(0, 80);
+  const codes = [...new Set((u.searchParams.get("codes") || "").split(",").filter(c => /^\d{6}$/.test(c)))].slice(0, 200);
   const chunks = []; for (let i = 0; i < codes.length; i += 40) chunks.push(codes.slice(i, i + 40));
   const flows = u.searchParams.get("flows") === "1";
   const reqs = [j("https://polling.finance.naver.com/api/realtime/domestic/index/KOSPI,KOSDAQ"),
