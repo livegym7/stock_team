@@ -2109,7 +2109,15 @@ function pollQuotes(force){
 function render(){
   if(!D){$("#main").innerHTML=`<div class="empty">데이터가 없습니다. tools/web_build.py로 만들어 주세요</div>`;return}
   nav(); $("#more").classList.remove("open"); $("#tape").innerHTML=tapeHtml();
-  const r=route(); $("#main").innerHTML=`<div class="view">${VIEWS[r]()}</div>`;
+  const r=route();let html;
+  try{html=VIEWS[r]()}catch(err){   // 2026-11-13: 화면 하나가 오류 나면 이전 화면에 멈춰 있던 문제 → 저장된 화면 설정을 비우고 한 번 더, 그래도 안 되면 오류 문구 표시
+    console.error(err);const RESET={stock:["sc","cc","cq","cf","cs","recent"],strategy:["st","wsort","cc","cq"],flow:["ft","hw","hr","hp","hm","hs"],trade:["cEntry","cStop"],home:["mkOpen"],more:[]};
+    (RESET[r]||[]).forEach(k=>{delete ui[k]});save();
+    try{html=VIEWS[r]()}catch(e2){html=`<div class="empty" style="text-align:left"><b>이 화면을 그리다 오류가 났습니다.</b><br>이 문구를 캡처해서 Claude에게 보여 주세요.<br><small class="mono">${esc(r+": "+(e2&&e2.message||e2)+" / "+String(e2&&e2.stack||"").split("\n").slice(0,3).join(" ← "))}</small></div>`}
+    window.__lastErr=r+": "+(err&&err.message||err);
+    html=`<div class="src" style="border:1px dashed var(--warn);border-radius:8px;padding:6px 10px;margin-bottom:10px">⚠ 저장된 화면 설정 때문에 오류가 나서 이 메뉴 설정을 초기화했습니다 · 원인: <span class="mono">${esc(window.__lastErr)} ← ${esc(String(err&&err.stack||"").split("\n")[1]||"")}</span></div>`+html;
+  }
+  $("#main").innerHTML=`<div class="view">${html}</div>`;
   if(r=="trade")calc();
 }
 document.addEventListener("click",e=>{
