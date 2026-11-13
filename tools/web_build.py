@@ -503,8 +503,11 @@ def company_trends(comp_list, allp, fetch_limit=10):
                             for r in c.pop("_all_reports", []) if r.get("after")]
     if rich:
         snap_path.parent.mkdir(parents=True, exist_ok=True)
-        snap_path.write_text(json.dumps({c["code"]: {k: c["trend"].get(k) for k in ("rs", "rs_chg4w", "rs_hist")}
-                                         for c in comp_list if c["trend"].get("rs") is not None}, ensure_ascii=False), encoding="utf-8")
+        out = {c["code"]: {k: c["trend"].get(k) for k in ("rs", "rs_chg4w", "rs_hist")} for c in comp_list if c["trend"].get("rs") is not None}
+        if "KOSPI" in closes:   # 코스피 지수도 같은 식으로 RS (종목 RS 추이와 비교용, 2026-11-13)
+            k = closes["KOSPI"]
+            out["_KOSPI"] = {"rs_hist": [pct(lag, S.rs_raw(k[:len(k) - lag] if lag else k)) for lag in lags][::-1]}
+        snap_path.write_text(json.dumps(out, ensure_ascii=False), encoding="utf-8")
     return comp_list
 
 
@@ -1291,6 +1294,7 @@ def write_html(data):
         pass
     # 차트 데이터 (2026-11-13): 코스피·코스닥 일봉 260개 + 종목별 일봉 파일(web/c/코드.json, 마우스오버 팝업·종목 페이지용, 웹에서만 필요할 때 받음)
     data["index_daily"] = safe(index_daily, {})
+    data["index_rs"] = safe(lambda: json.loads((DATA / "radar" / "company_rs.json").read_text(encoding="utf-8")).get("_KOSPI", {}).get("rs_hist"))   # 코스피 RS 12주
     # 신고가 모아보기 (2026-11-13): 마감 확정 목록 + 장중 비교용 기준선 web/highs_base.json (깃허브 알림 작업이 20분마다 site/highs_live.json)
     import new_highs
     data["highs"] = safe(new_highs.eod)
