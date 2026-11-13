@@ -55,6 +55,8 @@ python3 tools/insight.py prep|save|show                # Claude 인사이트(웹
 python3 tools/market_pulse.py pulse|flows|econ        # 시황(토큰 0): 온도계(투자자별 순매수·등락 종목 수·신고가)·업종/테마 등락·상승하락 상위 / 시총 상위 300 수급(저녁 확정) / 경제지표 실제 vs 예상(TradingView). web_build가 매번 부름 → 웹 '시황' 메뉴
 python3 tools/new_highs.py eod|base|live          # 신고가 모아보기(토큰 0): 60·200일 고가 기준·시총 2천억↑ → 웹 '시장 > 신고가' + '오늘' 한 줄. 마감 확정(web_build) + 장중 20분(alerts.yml, 09:20~15:45 참고). 텔레그램 없음 (2026-11-13)
 python3 tools/flow_osc.py update [--budget 240]|show --stock 코드   # 수급 오실레이터(토큰 0, 사용자 확정 후보 B 2026-11-13): (외국인+기관 순매수 ÷ 상장주식수) 6일−22일 평균 → 3일 평활, P = 최근 60개 중 위치. 보유·관찰 풀·기업 메뉴 약 440종목, 깃허브 배포 회차마다 4분 안에서 갱신 → 종목 페이지 그림·팝업·보유·관찰 풀 '수급 P'. 참고용(매매 규칙 아님)
+python3 tools/stock_profile.py update [--budget]   # 기본 카드(토큰 0): 시총 2천억↑ 전 종목 기업 개요(네이버 기업 정보) → data/stock_profiles.json
+python3 tools/stock_cards.py queue|save            # 깊은 카드(2026-11-13 확정): 조건(보유·관찰 풀 / 200일 신고가+RS80 / 7일 리포트2·채널3) 종목만 하루 10개, 18:40 /research-cards 마지막 단계(Haiku) → data/companies.json
 python3 tools/sector_map.py check                     # 업종 분류표(사용자 custom 53개) 빠진 종목·확인 필요 점검 / set --code --custom 로 채우기
 python3 tools/backtest.py                              # 검증실: 돌파 규칙 백테스트(3년 일봉, 약 1분·캐시) + 감시 목록 성적표 → data/backtest/
 python3 tools/research.py status                       # 딥리서치: 분석한 드라이브 문서 / save·skip·context·save-synthesis (.claude/skills/deep-research)
@@ -116,6 +118,7 @@ python3 tools/telegram_send.py --file reports/날짜/파일.md
 - 리스크 규칙: 1R = 계좌 2%(30만 원), 처음 손절 −8%, **3R 도달 시 50% 익절 + 남은 물량 손절가 본전 → CR 0**, **3R 이후 20일선 종가 하향 돌파 시 나머지 전략 매도**, CR은 매수가 기준, **CR 한도 6%(3R)** (사용자 확정 2026-11-03)
 - 인더스트리 액션 업종 그룹은 `config/sector_map.csv`(사용자 엑셀 custom 분류, 2026-11-03)를 먼저 쓰고 없으면 네이버 업종. 신규 상장은 Claude가 추론해 채우고 애매하면 '확인 필요'로 표시 후 사용자에게 묻는다
 - 기업 섹터는 `config/sector_taxonomy.toml`의 세부 섹터 안에서만 고른다. 기업 카드 기본 정보는 `data/companies.json`
+- **종목 페이지는 하나 (2026-11-13 사용자 확정)**: 어디서 들어와도 `#s코드` 같은 모양(머리·① 가격·② 수급·③ 최근 소식·④ 리포트 목표가·⑤ 같은 업종). 카드 3단계 = ① 기본(자동, 전 종목) ② 자동 채움(채널·리포트·실적·매매) ③ 깊은 카드(조건 종목만 Claude). 종목 메뉴는 목록만(정보 있는 종목 기본, '전체 보기'로 860)
 - **Balance Lab 2.0 개편 중 (2026-11-12 확정, `docs/balance-lab-2-plan.html`)**: 웹 https://balance-lab.pages.dev (Cloudflare Access 잠금)로 일원화, Artifact는 11/19 전후 종료. 장중 가격은 alerts.yml이 20분마다 live.json으로. 체크포인트 07:00·12:30·18:30, 텔레그램은 체크포인트 3회 + 즉시 알림(하루 5건), '종목' 메뉴, 매수 기록 때 띔·가설·깨지는 조건 세 질문("몰라"면 꼬리표)
 - 웹 화면(트레이딩룸) 이름은 **Balance Lab** (2026-11-09 사용자 요청, 옛 이름 JH트레이딩룸). 심볼(그래파이트 앱 아이콘에 흰 B + 파란 점)은 `web/brand/balance-lab-icon.svg`·`-1024.png`
 - 브리핑·채널 정리 글은 `docs/brief-style.md` '읽기 쉬운 글쓰기' 규칙(한 문장 한 줄, 짧게, 의견 라벨 4줄)을 따른다 — 웹이 문장마다 줄을 바꿔 보여 준다 (2026-11-09)

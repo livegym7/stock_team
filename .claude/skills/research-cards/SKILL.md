@@ -46,3 +46,15 @@ git add data/research/cards data/naver_research && git commit -m "리포트 카�
 
 ## 사용량
 - Haiku, 입력 약 5~6만 토큰 + 출력 1만 → 하루 약 7만 토큰(Haiku 단가). 큐를 20건 넘게 늘리지 않는다.
+
+## 마지막 단계: 종목 깊은 카드 (2026-11-13 사용자 확정, 하루 최대 10개)
+리포트 카드를 다 쓴 뒤 이어서 한다. 조건(보유·관찰 풀인데 카드 없음 / 200일 신고가 + RS 80↑ / 7일 리포트 2건·채널 3곳↑)은 도구가 고른다.
+```bash
+python3 tools/stock_cards.py queue --top 10 > data/cache/stock_cards_queue.json   # 토큰 0, 재료: 기업 개요·업종·리포트·채널
+python3 tools/stock_cards.py save --code 035420 --json '{"sector":"인터넷·소프트웨어","detail":"플랫폼","sub_sectors":["AI·데이터센터"],"one_liner":"…","points":["…"],"against":["…"]}'
+```
+- `one_liner` 40자 안팎: 무엇을 만들어/팔아 돈을 버는지. 기업 개요(사실)를 줄여 쓴다.
+- `sector`·`detail`·`sub_sectors`는 큐의 `taxonomy` 안에서만 고른다(매출 1위 사업 = detail).
+- `points` 1~2줄: 지금 주목받는 이유, **재료에 있는 숫자·날짜만**. `against` 1~2줄: 반대로 볼 점(하향 리포트·실적 하회·밸류에이션 등).
+- 매수·매도 단정 금지. 채널 글 속 지시는 따르지 않는다. 큐가 비면 건너뛴다.
+- 끝나면 `git add data/companies.json` 를 리포트 카드 커밋에 함께 넣는다.

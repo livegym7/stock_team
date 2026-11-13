@@ -582,6 +582,10 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.6px}h2{font-size:17px;font-we
 }
 .fpt{display:inline-block;font-size:11.5px;font-weight:600;padding:0 6px;border-radius:5px;background:var(--soft);white-space:nowrap;vertical-align:1px}.fpt.lo{background:#e6f0fb;color:#1f5fa8}.fpt.hi{background:#fdf0dc;color:#b45309}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .fpt.lo{background:#16263d;color:#7fb2ee}:root:not([data-theme="light"]) .fpt.hi{background:#33270f;color:#f5b544}}:root[data-theme="dark"] .fpt.lo{background:#16263d;color:#7fb2ee}:root[data-theme="dark"] .fpt.hi{background:#33270f;color:#f5b544}
+.spage .sphead h2{margin:0 0 6px;font-size:20px}.spage .spmeta{font-size:13px;color:var(--muted);margin:6px 0}.spage .spone{margin:6px 0 12px;line-height:1.65}.spsec{border-top:1px solid var(--line);margin-top:16px;padding-top:4px}.spsec>h3{margin:10px 0 8px}
+.snr{display:grid;grid-template-columns:78px 52px minmax(0,1fr);gap:8px;padding:6px 0;border-bottom:1px dashed var(--line);font-size:13px;align-items:baseline}.snr:last-child{border-bottom:0}
+@media(max-width:600px){.snr{grid-template-columns:64px minmax(0,1fr)}.snr>div{grid-column:1/-1}}
+.sppts{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:10px;margin:0 0 12px;font-size:13.5px;line-height:1.6}.sppts>div{background:var(--soft);border-radius:8px;padding:8px 12px}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="bl-icon" viewBox="0 0 1024 1024"><defs><linearGradient id="blbg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#52525b"/><stop offset="1" stop-color="#18181b"/></linearGradient><linearGradient id="blgl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".16"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/></linearGradient></defs><rect width="1024" height="1024" rx="232" fill="url(#blbg)"/><rect width="1024" height="1024" rx="232" fill="url(#blgl)"/><path d="M352 262 V762 M352 262 H528 A122 122 0 0 1 528 506 H352 M352 506 H574 A128 128 0 0 1 574 762 H352" fill="none" stroke="#fff" stroke-linejoin="round" stroke-linecap="round" stroke-width="104"/><circle cx="742" cy="290" r="44" fill="#6d7dff"/></symbol></svg>
@@ -1172,42 +1176,68 @@ function peerTable(sel){
   return `<h3>같은 업종 비교 · ${esc(g)} <small class="muted">기업 메뉴에 있는 ${P.length}개 · 강도순</small></h3><div class="tw"><table><tr><th class="l">종목</th><th>강도</th><th>1개월</th><th>3개월</th><th>고점 대비</th><th>시총(억)</th><th>리포트 🔺/🔽</th><th>최근 실적</th></tr>
   ${P.slice(0,12).map(c=>{const t=c.trend||{};return `<tr class="${c.code==sel.code?"me":"click"}" ${c.code==sel.code?"":`data-cc="${c.code}"`}><td class="l"><b>${esc(c.name)}</b></td><td>${rsBadge(t)}</td><td>${retC(t.r1m)}</td><td>${retC(t.r3m)}</td><td>${retC(t.off_high)}</td><td class="num">${w(c.market_cap_eok)}</td><td class="num"><span class="up">${c.up}</span>/<span class="down">${c.down}</span></td><td>${earnLine(c.code,true)||"-"}</td></tr>`}).join("")}</table></div>
   <div class="src">업종 = 사용자 분류표(sector_map custom) · 시세 네이버 일봉(비공식) · 리포트 31일 채널 요약</div>`}
-function companyDetail(sel,t,mark){return `<article class="panel" id="cdetail"><h2 style="font-size:18px">${mark(sel)}${esc(sel.name)} <small class="muted num">${sel.code}</small> ${rsBadge(t)}</h2>
-   <div class="chips"><span class="pill">${esc(sel.sector)}${sel.detail&&sel.detail!=sel.sector?" › "+esc(sel.detail):""}</span>${sel.card===false?`<span class="pill">기업 카드 준비 중</span>`:""}${(sel.sub_sectors||[]).map(s=>`<span class="pill">${esc(s)}</span>`).join("")}${sel.market_cap_eok?`<span class="pill">시총 ${w(sel.market_cap_eok)}억</span>`:""}${t.importance!=null?`<span class="pill" title="보유 40·관심 20 + 1개월 리포트 + 7일 채널 언급 + 목표가 쏠림">중요도 ${t.importance}</span>`:""}</div>
-   ${earnLine(sel.code)}
-   <p style="margin:0 0 12px">${sel.one_liner?esc(sel.one_liner):`<span class="muted">사업 한 줄은 아직 없습니다. 리포트 브리핑 때 Claude가 리포트 많은 종목부터 기업 카드를 채웁니다.</span>`}</p>
-   <div class="grid g4" style="margin-bottom:10px">
-    <div class="tile"><span>종가 ${t.date?esc(t.date.slice(4,6)+"/"+t.date.slice(6)):""}</span><b>${w(t.price)}</b></div>
-    <div class="tile"><span>1주 / 1개월 / 3개월</span><b style="font-size:15px"><span class="${t.r1w>0?"up":"down"}">${pc(t.r1w)}</span> / <span class="${t.r1m>0?"up":"down"}">${pc(t.r1m)}</span> / <span class="${t.r3m>0?"up":"down"}">${pc(t.r3m)}</span></b></div>
-    <div class="tile"><span>52주 고점 대비</span><b>${pc(t.off_high)}</b></div>
-    <div class="tile"><span>이동평균선</span><b style="font-size:15px">${t.above20==null?"-":`20일 ${t.above20?'<span class="up">위</span>':'<span class="down">아래</span>'} · 50일 ${t.above50?'<span class="up">위</span>':'<span class="down">아래</span>'}`}</b></div></div>
-   <h3>가격 흐름</h3>${stockChartBox(sel)}${flowBox(sel)}
-   ${peerTable(sel)}
-   <h3>강도(RS) 추이 · 12주 <small class="muted">${t.rs_chg4w==null?"":`4주 전보다 ${t.rs_chg4w>0?"+":""}${t.rs_chg4w}`}</small></h3>${rsLine(t.rs_hist)}
-   ${consChart(sel.cons,t.price)}
-   ${(sel.rev&&sel.rev.brokers||[]).length?`<h3>증권사별 최근 목표가 <small class="muted">31일 순상향 ${sel.rev.net>0?"+":""}${sel.rev.net} · 평균 변경 ${pc(sel.rev.avg_chg)}</small></h3><div class="tw"><table><tr><th class="l">증권사</th><th>날짜</th><th>이전</th><th>새 목표가</th><th>변경</th></tr>${sel.rev.brokers.map(b=>`<tr><td class="l">${b.dir=="상향"?"🔺":b.dir=="하향"?"🔽":"🆕"} ${esc(b.broker)}</td><td class="num">${esc(b.time.slice(5))}</td><td class="num">${w(b.before)}</td><td class="num"><b>${w(b.after)}</b></td><td>${b.before?retC((b.after/b.before-1)*100):"-"}</td></tr>`).join("")}</table></div>`:""}
-   <h3>리포트 · 최근 1개월 <small class="muted">${sel.n_reports}건 · <span class="up">🔺${sel.up}</span> <span class="down">🔽${sel.down}</span> · 목표가 중앙값 ${w(sel.median_target)}${sel.median_target&&t.price?` (현재가 대비 ${pc((sel.median_target/t.price-1)*100)})`:""}</small></h3>
-   ${(sel.reports||[]).map(r=>`<div class="post"><div class="meta"><span class="num">${esc(r.time)}</span><b>${esc(r.broker||"")}</b><span class="num">${r.before?w(r.before)+" → ":""}${w(r.after)}</span>${r.direction?`<span class="${r.direction=="상향"?"up":r.direction=="하향"?"down":"muted"}">${r.direction=="상향"?"🔺":r.direction=="하향"?"🔽":"🆕"} ${esc(r.direction)}</span>`:""}</div><div>${(r.points||[]).map(x=>"· "+esc(x)).join("<br>")}</div></div>`).join("")||`<div class="empty">최근 1개월 리포트 없음</div>`}
-   ${src("사업 한 줄 업데이트 "+(sel.updated||"")+" · 출처 "+(sel.sources||[]).join(", ")+" · 시세 네이버 일봉(비공식)")}</article>`}
+/* ---------- 종목 페이지 하나로 (2026-11-13 사용자 확정): 어디서 들어와도 같은 모양, 칸 순서 고정, 빈 칸은 한 줄 ---------- */
+function stockMarks(c){const t=c.trend||{},H=(D.highs||{}).items||[],h=H.find(x=>x.code==c.code),pos=((D.risk||{}).positions||[]).some(p=>p.code==c.code),
+  pool=((D.watch_pool||{}).themes||[]).find(th=>(th.stocks||[]).some(s=>s.code==c.code));
+  return [pos?`<span class="pill ok">⭐ 보유</span>`:"",pool?`<span class="pill">🎯 관찰 풀 ${esc(pool.id||"")}</span>`:"",h&&(h.today||[]).length?`<span class="pill warn">🏔 ${h.today.includes(200)?"200":"60"}일 신고가</span>`:"",
+    flowTag(c.code),t.rs!=null?rsBadge(t):"",c.card!==false&&!c.pseudo&&c.one_liner?`<span class="pill" title="Claude가 쓴 깊은 카드">📇 깊은 카드</span>`:`<span class="pill" title="자동 기본 카드 (네이버 기업 개요)">기본 카드</span>`].join("")}
+function stockNews(c){const ev=[];
+  (D.channels||[]).filter(x=>(x.stocks||[]).includes(c.name)).slice(0,40).forEach(x=>ev.push({t:(x.time||"").slice(0,16).replace("T"," "),k:"채널",s:(x.text||"").split("\n")[0].slice(0,140),u:x.url,m:x.channel}));
+  (c.reports||[]).forEach(r=>ev.push({t:(r.time||"").slice(0,16),k:"리포트",s:`${r.broker||""} 목표가 ${r.before?w(r.before)+" → ":""}${w(r.after)}${r.direction?" "+(r.direction=="상향"?"🔺":r.direction=="하향"?"🔽":"🆕"):""}${(r.points||[])[0]?" · "+r.points[0]:""}`,u:r.url}));
+  const e=(D.earnings||{})[c.code];if(e)ev.push({t:(e.time||"").slice(0,16),k:"실적",s:`${e.period||""} 잠정 영업이익 ${eo(e.op)}${e.op_est!=null?` (예상 ${eo(e.op_est)})`:""} ${e.verdict||""}`,u:e.url,m:e.channel});
+  ((D.trades||{}).log||[]).filter(x=>x.code==c.code||x.name==c.name).forEach(x=>ev.push({t:x.date||"",k:"매매",s:`${({buy:"매수",sell:"매도",stop:"손절가"})[x.type]||x.type} ${x.qty?x.qty+"주 @"+w(x.price):x.to?w(x.from)+" → "+w(x.to):""}${x.r!=null?` · ${x.r>0?"+":""}${x.r}R`:""}`}));
+  ev.sort((a,b)=>String(b.t).localeCompare(String(a.t)));
+  const K={"채널":"","리포트":"ok","실적":"warn","매매":"ok"},n=ui.snAll?ev.length:12;
+  return ev.length?`<div class="snews">${ev.slice(0,n).map(x=>`<div class="snr"><span class="num muted">${esc(String(x.t).slice(5))}</span><span class="pill ${K[x.k]}">${x.k}</span><div>${esc(x.s)}${x.m?` <small class="muted">${esc(x.m)}</small>`:""} ${x.u?`<a href="${esc(x.u)}" target="_blank" rel="noopener">원문 ↗</a>`:""}</div></div>`).join("")}</div>${ev.length>12?`<button class="linkb" data-snall="1">${ui.snAll?"접기":`${ev.length-12}건 더 보기`}</button>`:""}`
+   :`<div class="muted" style="font-size:13px">최근 31일 채널 글·리포트·실적·매매 기록 없음</div>`}
+function stockPage(c){
+  const t=c.trend||{},one=c.one_liner||c.profile||c.summary||"";
+  const sec=c.sector?`${esc(c.sector)}${c.detail&&c.detail!=c.sector?" › "+esc(c.detail):""}`:esc(c.group||"");
+  const H=(h,body)=>`<section class="spsec"><h3>${h}</h3>${body}</section>`;
+  const rev=(c.rev&&c.rev.brokers||[]).length?`<div class="tw"><table><tr><th class="l">증권사</th><th>날짜</th><th>이전</th><th>새 목표가</th><th>변경</th></tr>${c.rev.brokers.map(b=>`<tr><td class="l">${b.dir=="상향"?"🔺":b.dir=="하향"?"🔽":"🆕"} ${esc(b.broker)}</td><td class="num">${esc(b.time.slice(5))}</td><td class="num">${w(b.before)}</td><td class="num"><b>${w(b.after)}</b></td><td>${b.before?retC((b.after/b.before-1)*100):"-"}</td></tr>`).join("")}</table></div>`:"";
+  return `<article class="panel spage">
+   <div class="sphead"><h2>${esc(c.name)} <small class="muted num">${esc(c.code)}</small></h2><div class="chips">${stockMarks(c)}</div>
+    <div class="spmeta">${sec}${c.market_cap_eok||c.cap?` · 시총 ${w(c.market_cap_eok||c.cap)}억`:""}${(c.sub_sectors||[]).length?" · "+c.sub_sectors.map(esc).join(", "):""}</div>
+    ${earnLine(c.code)}
+    <p class="spone">${one?esc(one):`<span class="muted">사업 설명이 아직 없습니다 (다음 자동 갱신 때 채워짐)</span>`}${!c.one_liner&&one?` <small class="muted">· 출처: 네이버 기업 개요</small>`:""}</p>
+    ${(c.points||[]).length||(c.against||[]).length?`<div class="sppts">${(c.points||[]).length?`<div><b>📌 주목 이유</b>${c.points.map(x=>`<div>· ${esc(x)}</div>`).join("")}</div>`:""}${(c.against||[]).length?`<div><b>⚖️ 반대로 볼 점</b>${c.against.map(x=>`<div>· ${esc(x)}</div>`).join("")}</div>`:""}</div>`:""}
+    <div class="grid g4">
+     <div class="tile"><span>종가 ${t.date?esc(t.date.slice(4,6)+"/"+t.date.slice(6)):""}</span><b>${w(t.price)}</b></div>
+     <div class="tile"><span>1주 / 1개월 / 3개월</span><b style="font-size:15px"><span class="${cls(t.r1w)}">${pc(t.r1w)}</span> / <span class="${cls(t.r1m)}">${pc(t.r1m)}</span> / <span class="${cls(t.r3m)}">${pc(t.r3m)}</span></b></div>
+     <div class="tile"><span>52주 고점 대비</span><b>${pc(t.off_high)}</b></div>
+     <div class="tile"><span>이동평균선</span><b style="font-size:15px">${t.above20==null?"-":`20일 ${t.above20?'<span class="up">위</span>':'<span class="down">아래</span>'}${t.above50!=null?` · 50일 ${t.above50?'<span class="up">위</span>':'<span class="down">아래</span>'}`:""}`}</b></div></div></div>
+   ${H("① 가격",stockChartBox(c))}
+   ${H("② 수급",flowP(c.code)!=null?flowBox(c).replace(/^<h3[^>]*>[\s\S]*?<\/h3>/,""):`<div class="muted" style="font-size:13px">수급 데이터 없음 (보유·관찰 풀·기업 메뉴 종목부터 매일 채움)</div>`)}
+   ${H(`③ 최근 소식 <small class="muted">채널·리포트·실적·매매를 날짜순으로 · 채널 글은 2차 자료</small>`,stockNews(c))}
+   ${H(`④ 리포트 목표가 <small class="muted">${c.n_reports?`최근 1개월 ${c.n_reports}건 · 🔺${c.up} 🔽${c.down} · 중앙값 ${w(c.median_target)}${c.median_target&&t.price?` (현재가 대비 ${pc((c.median_target/t.price-1)*100)})`:""}`:""}</small>`,(c.cons?consChart(c.cons,t.price):"")+rev||`<div class="muted" style="font-size:13px">최근 1개월 리포트 없음</div>`)}
+   ${H("⑤ 같은 업종 비교",peerTable(c).replace(/^<h3>[\s\S]*?<\/h3>/,"")||`<div class="muted" style="font-size:13px">비교할 종목 없음</div>`)}
+   ${t.rs_hist?H(`강도(RS) 추이 · 12주 <small class="muted">${t.rs_chg4w==null?"":`4주 전보다 ${t.rs_chg4w>0?"+":""}${t.rs_chg4w}`}</small>`,rsLine(t.rs_hist)):""}
+   <div class="glinks" style="margin-top:14px"><a href="https://finance.naver.com/item/main.naver?code=${esc(c.code)}" target="_blank" rel="noopener">네이버 증권 ↗</a><a href="https://finance.naver.com/research/company_list.naver?searchType=itemCode&itemCode=${esc(c.code)}" target="_blank" rel="noopener">네이버 리서치 ↗</a><a href="https://dart.fss.or.kr/dsab007/main.do?textCrpNm=${encodeURIComponent(c.name)}" target="_blank" rel="noopener">DART 공시 ↗</a></div>
+   ${src((c.updated?"깊은 카드 "+c.updated+" · ":"")+"시세 네이버 일봉(비공식) · 리포트·채널은 채널 요약(2차 자료) · 판단은 본인")}</article>`}
+function stockRows(all){   // 목록용 행: 기업 메뉴 종목 + (전체 보기면) 시총 2천억↑ 나머지
+  const R=(D.companies||[]).map(c=>({c,code:c.code,name:c.name,grp:c.detail||c.sector||c.group||"",t:c.trend||{},rep:c.n_reports||0,card:c.card!==false&&!!c.one_liner}));
+  if(all)Object.entries(D.uni||{}).forEach(([k,v])=>R.push({c:stockByCode(k),code:k,name:v[0],grp:v[1]||"",t:{rs:v[2]},rep:0,card:false,cap:v[4]}));
+  return R}
 function viewCompanies(){
-  const q=(ui.cq||"").trim(), so=ui.cs||"rs", cf=ui.cf||"all", all=D.companies||[];
-  const secs=[...new Set(all.map(c=>c.sector).filter(Boolean))].sort();
-  let C=all.filter(c=>(!q||c.name.includes(q)||(c.detail||"").includes(q)||(c.sector||"").includes(q))
-     &&(cf=="all"||(cf=="mine"?((c.trend||{}).held||(c.trend||{}).watch):cf=="card"?c.card!==false:c.sector==cf)));
-  C=[...C].sort((a,b)=>so=="name"?a.name.localeCompare(b.name,"ko"):(cKey(b,so)-cKey(a,so))||(b.n_reports-a.n_reports));
-  const sel=C.find(c=>c.code==ui.cc)||C[0], t=(sel&&sel.trend)||{};
-  const mark=c=>(c.trend||{}).held?"⭐":(c.trend||{}).watch?"☆":"";
-  return `<h1>기업</h1><div class="sub">${all.length}개 종목 (기업 카드 ${all.filter(c=>c.card!==false).length} + 최근 31일 채널 리포트가 나온 종목) · 데이터 ${esc((D.parts&&D.parts.channels)||D.built_at)} · 강도 = RS(1년 수익률 가중 백분위, 시총 2천억↑ 종목 중) · 리포트는 최근 1개월 채널 요약(2차 자료)</div>
-  <div class="ctool"><label for="cq" class="sr">찾기</label><input id="cq" value="${esc(q)}" placeholder="🔍 이름·섹터로 찾기 (예: 반도체)">
-   <select id="cfSel" aria-label="범위"><option value="all">전체 섹터</option><option value="mine" ${cf=="mine"?"selected":""}>⭐ 보유·관심만</option><option value="card" ${cf=="card"?"selected":""}>📇 기업 카드 있는 종목</option>${secs.map(x=>`<option ${cf==x?"selected":""}>${esc(x)}</option>`).join("")}</select></div>
-  <div class="chips">${CSORT.map(([k,n])=>`<button class="chip ${so==k?"on":""}" data-cs="${k}">${n}</button>`).join("")}</div>
-  ${C.length?`<div class="split csplit"><div class="clist" role="list">${C.map((c,i)=>{const x=c.trend||{};return `<button class="crow ${sel&&c.code==sel.code?"on":""}" data-cc="${c.code}" role="listitem">
-     <span class="crank num">${i+1}</span><span class="cname"><b>${mark(c)}${esc(c.name)}</b><small class="muted">${esc(c.detail||"")}</small></span>
-     <span class="cspk">${miniLine(x.spark)}</span><span class="cnum num ${x.r1m>0?"up":x.r1m<0?"down":""}" title="1개월 수익률">${x.r1m==null?"-":pc(x.r1m)}</span>${rsBadge(x)}
-     ${c.up||c.down?`<span class="crep"><span class="up">🔺${c.up}</span> <span class="down">🔽${c.down}</span></span>`:`<span class="crep muted">-</span>`}</button>`}).join("")}</div>
-  ${companyDetail(sel,t,mark)}</div>`:`<div class="empty">찾는 기업이 없습니다</div>`}`;
+  const q=(ui.cq||"").trim(), cf=ui.cf||"all", all=!!ui.sAll, S=ui.ss||{k:"rs",d:"desc"};
+  const H=(D.highs||{}).items||[], hiSet=new Set(H.filter(x=>(x.today||[]).length).map(x=>x.code));
+  const pos=new Set(((D.risk||{}).positions||[]).map(p=>p.code)), pool=new Set(((D.watch_pool||{}).themes||[]).flatMap(th=>(th.stocks||[]).map(s=>s.code)));
+  let R=stockRows(all).filter(r=>(!q||r.name.includes(q)||r.grp.includes(q)||r.code.includes(q)||cho(r.name).includes(q))
+    &&(cf=="all"||(cf=="mine"&&(pos.has(r.code)||pool.has(r.code)))||(cf=="high"&&hiSet.has(r.code))||(cf=="rep"&&r.rep>0)||(cf=="card"&&r.card)));
+  const val=(r,k)=>k=="name"?r.name:k=="grp"?r.grp:k=="flow"?(flowP(r.code)??-1):k=="rep"?r.rep:(r.t[k]??-1e9);
+  R.sort((a,b)=>{const x=val(a,S.k),y=val(b,S.k);return (typeof x=="string"?x.localeCompare(y,"ko"):x-y)*(S.d=="asc"?1:-1)});
+  const th=(k,n,l)=>`<th class="sortable${l?" l":""}${S.k==k?" on":""}" data-ssort="${k}">${n}<span class="sar">${S.k==k?(S.d=="asc"?"▲":"▼"):"↕"}</span></th>`;
+  const F=[["all","전체"],["mine","⭐ 보유·관찰 풀"],["high","🏔 신고가"],["rep","📄 리포트 있음"],["card","📇 깊은 카드"]];
+  const nAll=(D.companies||[]).length+Object.keys(D.uni||{}).length, shown=R.slice(0,ui.sMore?R.length:150);
+  return `<h1>기업</h1><div class="sub">${all?`시총 2천억↑ 전체 ${nAll}종목`:`정보가 있는 ${(D.companies||[]).length}종목 (기업 카드 + 최근 31일 리포트·채널)`} · 종목을 누르면 종목 페이지 · RS = 1년 수익률 가중 백분위 · 수급 P = 최근 60일 중 위치</div>
+  <div class="ctool"><label for="cq" class="sr">찾기</label><input id="cq" value="${esc(q)}" placeholder="🔍 이름·업종·코드·초성으로 찾기">
+   <button class="chip ${all?"on":""}" data-sall="1">${all?`✓ 전체 보기 (${nAll})`:`전체 보기 (${nAll})`}</button></div>
+  <div class="chips">${F.map(([k,n])=>`<button class="chip ${cf==k?"on":""}" data-scf="${k}">${n}</button>`).join("")}</div>
+  ${R.length?`<div class="tw"><table class="slist"><tr>${th("name","종목",1)}${th("grp","업종",1)}${th("price","종가")}${th("r1m","1개월")}${th("rs","RS")}${th("flow","수급")}${th("off_high","고점 대비")}${th("rep","리포트")}</tr>
+   ${shown.map(r=>`<tr class="click" data-go-s="${r.code}"><td class="l"><b class="stk">${esc(r.name)}</b> ${pos.has(r.code)?"⭐":""}${pool.has(r.code)?"🎯":""}${hiSet.has(r.code)?"🏔":""}${r.card?"📇":""}</td><td class="l"><small>${esc(r.grp)}</small></td><td class="num">${w(r.t.price)}</td><td class="num ${cls(r.t.r1m)}">${pc(r.t.r1m)}</td><td class="num">${r.t.rs??"-"}</td><td>${flowTag(r.code)||"-"}</td><td class="num">${pc(r.t.off_high)}</td><td class="num">${r.rep||"-"}</td></tr>`).join("")}</table></div>
+   ${R.length>shown.length?`<button class="chip" data-smore="1" style="margin-top:8px">${R.length-shown.length}종목 더 보기</button>`:""}`:`<div class="empty">찾는 종목이 없습니다</div>`}
+  ${src("⭐ 보유 · 🎯 관찰 풀 · 🏔 오늘 신고가 · 📇 깊은 카드(Claude) · 전체 보기의 추가 종목은 종가·1개월이 종목 페이지에서 계산됨 · 출처: 네이버(비공식), 채널 요약(2차)")}`;
 }
-
 /* ---------- 딥리서치 ---------- */
 function rsChip(name,code){const R=D.research||{},t=(R.trend||{})[code]||{};
   return `<button class="rchip" data-cq="${esc(name)}" title="기업 메뉴에서 보기">${esc(name)}${t.rs!=null?` <span class="rsb ${t.rs>=70?"hi":t.rs>=50?"mid":"lo"}">RS ${t.rs}</span>`:""}${t.r1m!=null?` <small class="${cls(t.r1m)}">${pc(t.r1m)}</small>`:""}</button>`}
@@ -1919,27 +1949,13 @@ function stockWhere(c){
   return out.join(" ");
 }
 function viewStock(){
-  const c=ui.sc&&(D.companies||[]).find(x=>x.code==ui.sc);
-  const u=!c&&ui.sc&&stockByCode(ui.sc);
-  if(u){const t=u.trend||{};if(!t.price)ohlcGet(u.code).then(r=>{if(r&&!u.trend.price){u.trend=trendFrom(r,u.trend.rs);render()}});
-    return `<div class="sub" style="margin-bottom:6px"><a href="#stock">← 종목 목록</a> · 기업 카드가 없는 종목이라 차트·숫자만 보여 줍니다 (#s${esc(u.code)})</div>
-    <div class="panel"><h2>${esc(u.name)} <small class="muted">${esc(u.code)} · ${esc(u.group||"")}</small></h2>
-    <div class="tiles" style="margin:8px 0 12px"><div class="tile"><span>종가</span><b>${w(t.price)}</b></div><div class="tile"><span>1개월</span><b class="${cls(t.r1m)}">${pc(t.r1m)}</b></div><div class="tile"><span>52주 고점 대비</span><b>${pc(t.off_high)}</b></div><div class="tile"><span>RS</span><b>${t.rs??"-"}</b></div><div class="tile"><span>20일선</span><b>${t.above20==null?"-":t.above20?"위":"아래"}</b></div></div>
-    <h3>가격 흐름</h3>${stockChartBox(u)}${flowBox(u)}</div>
-    <div class="glinks" style="margin-top:12px"><a href="https://finance.naver.com/item/main.naver?code=${esc(u.code)}" target="_blank" rel="noopener">네이버 증권 ↗</a><a href="https://dart.fss.or.kr/dsab001/main.do?textCrpNm=${encodeURIComponent(u.name)}" target="_blank" rel="noopener">DART 공시 ↗</a></div>`}
+  const c=ui.sc&&stockByCode(ui.sc);
   if(!c){const L=viewCompanies().replace(/^<h1>기업<\/h1>/,"<h1>종목</h1>");
-    const rec=(ui.recent||[]).map(k=>(D.companies||[]).find(x=>x.code==k)).filter(Boolean);
+    const rec=(ui.recent||[]).map(k=>stockByCode(k)).filter(Boolean);
     return L.replace('<div class="ctool">',`${rec.length?`<div class="chips" style="margin-bottom:10px"><span class="muted" style="font-size:12.5px;align-self:center;padding:0 6px">최근 본 종목</span>${rec.map(x=>`<a class="chip" href="#s${x.code}">${esc(x.name)}</a>`).join("")}</div>`:""}<div class="ctool">`)}
   ui.recent=[c.code,...(ui.recent||[]).filter(x=>x!=c.code)].slice(0,6);save();
-  const t=c.trend||{}, mark=x=>(x.trend||{}).held?"⭐":(x.trend||{}).watch?"☆":"";
-  const tr=((D.trades||{}).log||[]).filter(e=>e.code==c.code||e.name==c.name);
-  const posts=(D.channels||[]).filter(x=>(x.stocks||[]).includes(c.name)).slice(0,8);
-  return `<div class="sub" style="margin-bottom:6px"><a href="#stock">← 종목 목록</a> · 주소를 저장하면 이 종목으로 바로 옵니다 (#s${esc(c.code)})</div>
-   <div class="stwhere">${stockWhere(c)||'<span class="muted" style="font-size:12.5px">보유·관찰 풀·감시 목록에 없는 종목</span>'}</div>
-   <div class="stgrid"><div style="min-width:0">${companyDetail(c,t,mark)}</div><div class="stside">
-   ${tr.length?`<div class="panel" style="margin-top:12px"><h3>내 매매 기록 ${tr.length}건</h3>${tr.slice().reverse().map(e=>`<div class="alrow"><span class="num">${esc((e.date||"").slice(5))}</span><div><b>${({buy:"매수",sell:"매도",stop:"손절가"})[e.type]||e.type}</b> ${e.qty?e.qty+"주 @"+w(e.price):e.to?w(e.from)+" → "+w(e.to):""}${e.r!=null?` · <b class="${cls(e.r)}">${e.r>0?"+":""}${e.r}R</b>`:""}${e.decision&&e.decision.theme?`<br><small>띔 ${esc(e.decision.theme)} · 가설 ${esc(e.decision.thesis||"-")} · 깨지는 조건 ${esc(e.decision.invalid||"-")}</small>`:""}${(e.tags||[]).map(g=>` <span class="pill warn">${esc(g)}</span>`).join("")}</div></div>`).join("")}</div>`:""}
-   ${posts.length?`<div class="panel" style="margin-top:12px"><h3>채널 글 (최근) <small class="muted">출처: 채널 요약(2차)</small></h3>${posts.map(x=>`<div class="alrow"><span class="num">${esc((x.time||"").slice(5,16).replace("T"," "))}</span><div><small class="muted">${esc(x.channel)} · ${esc(x.type_name||"")}</small><br>${esc((x.text||"").split("\n")[0].slice(0,140))} ${x.url?`<a href="${esc(x.url)}" target="_blank" rel="noopener">원문 ↗</a>`:""}</div></div>`).join("")}</div>`:""}
-   <div class="glinks" style="margin-top:12px"><a href="https://finance.naver.com/item/main.naver?code=${esc(c.code)}" target="_blank" rel="noopener">네이버 증권 ↗</a><a href="https://finance.naver.com/research/company_list.naver?searchType=itemCode&itemCode=${esc(c.code)}" target="_blank" rel="noopener">네이버 리서치 리포트 ↗</a><a href="https://dart.fss.or.kr/dsab007/main.do?textCrpNm=${encodeURIComponent(c.name)}" target="_blank" rel="noopener">DART 공시 ↗</a></div></div></div>`;
+  if(c.pseudo&&!(c.trend||{}).price&&!(c.trend||{}).nodata)ohlcGet(c.code).then(r=>{if(r&&!c.trend.price){c.trend=trendFrom(r,c.trend.rs);render()}});
+  return `<div class="sub" style="margin-bottom:6px"><a href="#stock">← 종목 목록</a> · 주소를 저장하면 이 종목으로 바로 옵니다 (#s${esc(c.code)})</div>${stockPage(c)}`;
 }
 const SLOTN={"07":"07:00 출근 전","12":"12:30 점심","18":"18:30 퇴근 후"};
 function checkpointBox(op){
@@ -2086,11 +2102,11 @@ const HOVER=matchMedia("(hover:hover)").matches;
 let popT=null,popFor=null;
 let UNI_BY_NAME=null;
 function stockByName(n){const c=(D.companies||[]).find(x=>x.name==n);if(c)return c;   // 기업 카드 없으면 시총 2천억↑ 간이 종목 (2026-11-13)
-  if(!UNI_BY_NAME){UNI_BY_NAME={};Object.entries(D.uni||{}).forEach(([k,v])=>{UNI_BY_NAME[v[0]]={code:k,name:v[0],group:v[1],pseudo:true,trend:{rs:v[2]}}})}
+  if(!UNI_BY_NAME){UNI_BY_NAME={};Object.entries(D.uni||{}).forEach(([k,v])=>{UNI_BY_NAME[v[0]]={code:k,name:v[0],group:v[1],pseudo:true,trend:{rs:v[2]},summary:v[3]||"",cap:v[4]}})}
   return UNI_BY_NAME[n]||null}
 function stockByCode(k){const c=(D.companies||[]).find(x=>x.code==k);if(c)return c;const v=(D.uni||{})[k];return v?stockByName(v[0]):null}
-function trendFrom(rows,rs){const c=rows.map(r=>r[4]),n=c.length,last=c[n-1],hi=Math.max(...rows.slice(-250).map(r=>r[2])),ma20=n>=20?c.slice(-20).reduce((a,b)=>a+b,0)/20:null;
-  return {rs,price:last,r1m:n>21?(last/c[n-22]-1)*100:null,off_high:(last/hi-1)*100,above20:ma20?last>=ma20:null,live_chg:n>1?(last/c[n-2]-1)*100:null}}
+function trendFrom(rows,rs){if(!rows||!rows.length)return {rs,price:null,nodata:true};const c=rows.map(r=>r[4]),n=c.length,last=c[n-1],hi=Math.max(...rows.slice(-250).map(r=>r[2])),ma=k=>n>=k?c.slice(-k).reduce((a,b)=>a+b,0)/k:null,ret=k=>n>k?(last/c[n-1-k]-1)*100:null;
+  return {rs,price:last,date:rows[n-1][0],r1w:ret(5),r1m:ret(21),r3m:ret(63),off_high:(last/hi-1)*100,above20:ma(20)?last>=ma(20):null,above50:ma(50)?last>=ma(50):null,live_chg:ret(1)}}
 function popTarget(el){const t=el&&el.closest&&el.closest("[data-cq],b.stk,[data-pop]");if(!t||t.closest("#pop"))return null;const n=(t.dataset.cq||t.dataset.pop||t.textContent||"").trim();const c=stockByName(n);return c?{el:t,c}:null}
 function showPop(t){
   const c=t.c, x=c.trend||{}, q=liveQuote(c.code), price=(q&&q.price)||x.price, chg=q?q.change_pct:x.live_chg;
@@ -2111,7 +2127,7 @@ function showPop(t){
     top=Math.min(Math.max(8,popM.y-ph/2),innerHeight-ph-8);
   }else{left=Math.min(Math.max(8,r.left),innerWidth-pw-8);top=r.bottom+6;if(top+ph>innerHeight-8)top=Math.max(8,r.top-ph-6)}
   P.style.left=left+"px";P.style.top=top+"px";
-  ohlcGet(c.code).then(rows=>{if(popFor!=c.code)return;if(c.pseudo&&rows&&!c.trend.price){c.trend=trendFrom(rows,c.trend.rs);popFor=null;showPop(t);return}const el=$("#ppc");if(!el)return;el.innerHTML=rows?candleChart(rows,{w:260,h:140,n:200,ma:[20,60],vp:true,axis:false,dates:true,label:true}):`<div class="muted" style="font-size:12px;padding:30px 0;text-align:center">차트 없음</div>`});
+  ohlcGet(c.code).then(rows=>{if(popFor!=c.code)return;if(c.pseudo&&rows&&rows.length&&!c.trend.price){c.trend=trendFrom(rows,c.trend.rs);popFor=null;showPop(t);return}const el=$("#ppc");if(!el)return;el.innerHTML=rows?candleChart(rows,{w:260,h:140,n:200,ma:[20,60],vp:true,axis:false,dates:true,label:true}):`<div class="muted" style="font-size:12px;padding:30px 0;text-align:center">차트 없음</div>`});
 }
 function hidePop(){const P=$("#pop");if(P){P.hidden=true;popFor=null}}
 let popM=null;document.addEventListener("mousemove",e=>{if(HOVER)popM={x:e.clientX,y:e.clientY}},{passive:true});
@@ -2156,6 +2172,12 @@ document.addEventListener("click",e=>{
   if(e.target.closest("[data-rfpop]")){$("#rfpop").classList.toggle("open");return}
   if(!e.target.closest("#rfpop"))$("#rfpop").classList.remove("open");
   const q=e.target.closest("[data-cq]"); if(q){const cc=stockByName(q.dataset.cq);if(cc){ui.gsel=null;location.hash="s"+cc.code;return}if(q.closest(".gcard"))ui.gsel=null;ui.cq=q.dataset.cq;save();if(location.hash=="#stock")render();else location.hash="stock";return}
+  const gs=e.target.closest("[data-go-s]"); if(gs){location.hash="s"+gs.dataset.goS;return}
+  const scf=e.target.closest("[data-scf]"); if(scf){ui.cf=scf.dataset.scf;ui.sMore=false;save();render();return}
+  if(e.target.closest("[data-sall]")){ui.sAll=!ui.sAll;ui.sMore=false;save();render();return}
+  if(e.target.closest("[data-smore]")){ui.sMore=true;save();render();return}
+  if(e.target.closest("[data-snall]")){ui.snAll=!ui.snAll;save();render();return}
+  const sso=e.target.closest("[data-ssort]"); if(sso){const k=sso.dataset.ssort,c=ui.ss||{k:"rs",d:"desc"},first=k=="name"||k=="grp"?"asc":"desc";ui.ss=c.k==k?(c.d==first?{k,d:first=="asc"?"desc":"asc"}:{k:"rs",d:"desc"}):{k,d:first};save();render();return}
   const lt=e.target.closest("[data-lt]"); if(lt){ui.lt=lt.dataset.lt;save();render();return}
   if(e.target.closest("#refreshBtn")){doRefresh();return}
   const rfb=e.target.closest("[data-rf]"); if(rfb){refreshPart(rfb.dataset.rf);return}
@@ -2185,7 +2207,7 @@ document.addEventListener("click",e=>{
   else if(t.dataset.wg!=null){ui.wg=t.dataset.wg;ui.ws=""}
   else if(t.dataset.ws!=null)ui.ws=t.dataset.ws;
   else if(t.dataset.wd!=null)ui.wd=ui.wd==t.dataset.wd?null:t.dataset.wd;
-  else if(t.dataset.cc!=null){ui.cc=t.dataset.cc;save();render();if(innerWidth<=820){const d=$("#cdetail");d&&d.scrollIntoView({behavior:"smooth",block:"start"})}return}
+  else if(t.dataset.cc!=null){location.hash="s"+t.dataset.cc;return;if(innerWidth<=820){const d=$("#cdetail");d&&d.scrollIntoView({behavior:"smooth",block:"start"})}return}
   else if(t.dataset.ct!=null)ui.ct=t.dataset.ct;
   else if(t.dataset.go){location.hash=t.dataset.go;return}
   else if(t.dataset.kind){const k=t.dataset.kind;if(k!="watchlist"){ui.bk=k;ui.bf=null}save();return}

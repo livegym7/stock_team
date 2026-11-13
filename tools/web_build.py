@@ -1218,12 +1218,19 @@ def write_ohlc(data):
     # 2026-11-13: 기업 카드 종목 + 시총 2천억↑ 전 종목(일봉 캐시 있는 것) → 모든 종목명에 팝업
     comp = {c.get("code") for c in data.get("companies") or []}
     uni = {}
+    try:   # 기본 카드(기업 개요, tools/stock_profile.py) — 기업 메뉴 종목에도 붙임
+        prof = json.loads((DATA / "stock_profiles.json").read_text(encoding="utf-8"))
+    except Exception:
+        prof = {}
+    for c in data.get("companies") or []:
+        if prof.get(c.get("code"), {}).get("summary"):
+            c["profile"] = prof[c["code"]]["summary"]
     try:
         import new_highs
         b = json.loads((WEB / "highs_base.json").read_text(encoding="utf-8"))["stocks"] if (WEB / "highs_base.json").exists() else {}
         for code, s in new_highs.universe_info().items():
             if code not in comp and (CACHE / "daily" / f"{code}.json").exists():
-                uni[code] = [s["name"], s["group"], (b.get(code) or {}).get("rs")]
+                uni[code] = [s["name"], s["group"], (b.get(code) or {}).get("rs"), (prof.get(code) or {}).get("summary") or "", s["cap"]]
     except Exception:
         pass
     data["uni"] = uni

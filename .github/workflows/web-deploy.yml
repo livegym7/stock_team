@@ -66,6 +66,7 @@ jobs:
           python3 -c "import sys; sys.path.insert(0,'tools'); import strategy_prep as S; print('daily cache', S.ensure_daily_cache(min_n=$N))" || true
           # 수급 오실레이터 (2026-11-13): 외국인·기관 순매수 받기 — 회차마다 4분 안에서 오래된 것부터(처음 채우기는 몇 회차에 나눠), 19시 회차가 저녁 확정치로 갱신
           timeout 300 python3 tools/flow_osc.py update --budget 240 || true
+          timeout 150 python3 tools/stock_profile.py update --budget 100 || true   # 기본 카드: 새 상장·60일 지난 기업 개요만 (보통 몇 초)
           if [ ! -f web/last_data.json ] || [ "$H" = "07" ]; then
             python3 tools/web_build.py
           else

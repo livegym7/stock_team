@@ -68,6 +68,8 @@ def targets(all_=False):
         d = json.loads((Path(__file__).resolve().parent.parent / "web" / "last_data.json").read_text(encoding="utf-8"))
         for c in d.get("companies") or []:
             codes.setdefault(c["code"], c["name"])
+        for x in (d.get("highs") or {}).get("items") or []:   # 최근 5일 신고가 종목도
+            codes.setdefault(x["code"], x["name"])
     except Exception:
         pass
     if all_:
