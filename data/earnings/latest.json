@@ -1,18 +1,6 @@
 {
  "rows": [
   {
-   "name": "IPARK현대산업개발",
-   "code": "294870",
-   "period": null,
-   "sales": 10000.0,
-   "op": 1658.0,
-   "net": 1113.0,
-   "verdict": null,
-   "time": "2026-11-13 16:02",
-   "channel": "maddingStock",
-   "url": "https://t.me/maddingStock/19454"
-  },
-  {
    "name": "심텍홀딩스",
    "code": "036710",
    "period": "2026.3Q",
