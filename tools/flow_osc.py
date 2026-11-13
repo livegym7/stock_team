@@ -91,7 +91,8 @@ def fetch_trend(code, days, before=None):
             break
         for r in batch:
             rows.append({"d": r["bizdate"], "c": _num(r.get("closePrice")),
-                         "f": _num(r.get("foreignerPureBuyQuant")) or 0, "i": _num(r.get("organPureBuyQuant")) or 0})
+                         "f": _num(r.get("foreignerPureBuyQuant")) or 0, "i": _num(r.get("organPureBuyQuant")) or 0,
+                         "p": _num(r.get("individualPureBuyQuant"))})   # 개인 (2026-11-13, 최근 5일 수급 표)
         before = batch[-1]["bizdate"]
         time.sleep(0.25)
     return rows
@@ -185,9 +186,12 @@ def build_web(out_dir):
         if not c:
             continue
         k = 120
-        (out_dir / f"{d['code']}.json").write_text(json.dumps({"d": c["dates"][-k:], "cap": c["cap"][-k:], "osc": c["osc"][-k:], "p": c["p"], "n": c["n"]},
+        inv = [[r["d"], r["f"], r["i"], r.get("p"), r["c"]] for r in (d.get("rows") or [])[-5:]]   # 최근 5일 외국인·기관·개인 수량 + 종가
+        (out_dir / f"{d['code']}.json").write_text(json.dumps({"d": c["dates"][-k:], "cap": c["cap"][-k:], "osc": c["osc"][-k:], "p": c["p"], "n": c["n"], "inv": inv},
                                                               separators=(",", ":")), encoding="utf-8")
-        summary[d["code"]] = [c["p"], c["as_of"]]
+        eok = lambda key: round(sum((x[key] or 0) * (x["c"] or 0) for x in inv5) / 1e8) if all(x.get(key) is not None for x in inv5) else None  # noqa: E731
+        inv5 = (d.get("rows") or [])[-5:]
+        summary[d["code"]] = [c["p"], c["as_of"], eok("f"), eok("i"), eok("p")]   # P · 기준일 · 5일 외국인·기관·개인 순매수(억, 수량×종가 추정)
     return summary
 
 

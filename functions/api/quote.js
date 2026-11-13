@@ -31,6 +31,12 @@ export async function onRequestGet({ request }) {
     out.markets.push(m);
   });
   st.forEach(d => ((d && d.datas) || []).forEach(x => { out.quotes[x.itemCode] = { price: num(x.closePrice), change_pct: num(x.fluctuationsRatio), at: (x.localTradedAt || "").slice(0, 16) }; }));
+  // 최근 5일 투자자별 순매수 (2026-11-13): ?trend=005930 → 외국인·기관·개인 수량 + 종가 (네이버 투자자별 매매동향)
+  const tc = u.searchParams.get("trend");
+  if (tc && /^\d{6}$/.test(tc)) {
+    const t = await j(`https://m.stock.naver.com/api/stock/${tc}/trend?pageSize=5`);
+    out.trend = ((Array.isArray(t) ? t : []) || []).map(x => [x.bizdate, num(x.foreignerPureBuyQuant), num(x.organPureBuyQuant), num(x.individualPureBuyQuant), num(x.closePrice)]).reverse();
+  }
   // 거래대금 상위 100 (2026-11-13): ?top=1 이면 코스피·코스닥 거래대금 순위를 합쳐 ETF·ETN·스팩·우선주·리츠 제외
   if (u.searchParams.get("top") === "1") {
     const pages = await Promise.all(["KOSPI", "KOSDAQ"].flatMap(m => [1, 2].map(p => j(`https://m.stock.naver.com/api/stocks/priceTop/${m}?page=${p}&pageSize=100`).then(d => ({ m, d })))));

@@ -639,6 +639,9 @@ html body .pop{font-size:12px}
 .etft tr.bench td{font-weight:700}.etft tr.bk1 td{background:color-mix(in srgb,#2f6fed 16%,var(--panel))}.etft tr.bk2 td{background:color-mix(in srgb,#8a5cf6 16%,var(--panel))}
 .etft .etfn{color:inherit;text-decoration:none}.etft .etfn:hover{text-decoration:underline}
 .ebar{position:relative;display:block;height:8px;width:100%;min-width:100px;background:linear-gradient(90deg,transparent 49.5%,var(--line) 49.5%,var(--line) 50.5%,transparent 50.5%)}.ebar i{position:absolute;top:0;height:8px;border-radius:2px}.ebar i.up{background:var(--up);opacity:.7}.ebar i.dn{background:var(--down);opacity:.7}
+.invt{width:100%;font-size:12.5px;border-collapse:collapse}.invt th{font-size:11px;color:var(--muted);font-weight:500;text-align:right;padding:4px 6px;border-bottom:1px solid var(--line)}.invt th.l,.invt td.l{text-align:left}.invt td{padding:4px 6px;border-bottom:1px dashed var(--line)}.invt tr.invs td{border-bottom:0;border-top:1px solid var(--line);padding-top:6px}
+.ivb{display:block;position:relative;height:5px;margin-top:3px;background:linear-gradient(90deg,transparent 49.5%,var(--line) 49.5%,var(--line) 50.5%,transparent 50.5%)}.ivb i{position:absolute;top:0;height:5px;border-radius:2px;opacity:.7}.ivb i.up{background:var(--up)}.ivb i.dn{background:var(--down)}
+.ppi .ppinv{grid-column:1/-1;font-size:11px;white-space:normal}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="bl-icon" viewBox="0 0 1024 1024"><defs><linearGradient id="blbg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#52525b"/><stop offset="1" stop-color="#18181b"/></linearGradient><linearGradient id="blgl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".16"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/></linearGradient></defs><rect width="1024" height="1024" rx="232" fill="url(#blbg)"/><rect width="1024" height="1024" rx="232" fill="url(#blgl)"/><path d="M352 262 V762 M352 262 H528 A122 122 0 0 1 528 506 H352 M352 506 H574 A128 128 0 0 1 574 762 H352" fill="none" stroke="#fff" stroke-linejoin="round" stroke-linecap="round" stroke-width="104"/><circle cx="742" cy="290" r="44" fill="#6d7dff"/></symbol></svg>
@@ -1250,7 +1253,7 @@ function stockPage(c){
      <div class="tile"><span>52주 고점 대비</span><b>${pc(t.off_high)}</b></div>
      <div class="tile"><span>이동평균선</span><b style="font-size:15px">${t.above20==null?"-":`20일 ${t.above20?'<span class="up">위</span>':'<span class="down">아래</span>'}${t.above50!=null?` · 50일 ${t.above50?'<span class="up">위</span>':'<span class="down">아래</span>'}`:""}`}</b></div></div></div>
    <div class="sp2">${H("① 가격",stockChartBox(c))}
-   ${H("② 수급",flowP(c.code)!=null?flowBox(c).replace(/^<h3[^>]*>[\s\S]*?<\/h3>/,""):`<div class="muted" style="font-size:13px">수급 데이터 없음 (보유·관찰 풀·기업 메뉴·신고가 종목부터 매일 채움)</div>`)}</div>
+   ${H("② 수급",(flowP(c.code)!=null?flowBox(c).replace(/^<h3[^>]*>[\s\S]*?<\/h3>/,""):`<div class="muted" style="font-size:13px">수급 오실레이터 없음 (보유·관찰 풀·기업 메뉴·신고가 종목부터 매일 채움)</div>`)+invBox(c))}</div>
    ${H(`③ 최근 소식 <small class="muted">채널·리포트·실적·매매를 날짜순으로 · 채널 글은 2차 자료</small>`,stockNews(c))}
    ${H(`④ 리포트 목표가 <small class="muted">${c.n_reports?`최근 1개월 ${c.n_reports}건 · 🔺${c.up} 🔽${c.down} · 중앙값 ${w(c.median_target)}${c.median_target&&t.price?` (현재가 대비 ${pc((c.median_target/t.price-1)*100)})`:""}`:""}</small>`,(c.cons?consChart(c.cons,t.price):"")+rev||`<div class="muted" style="font-size:13px">최근 1개월 리포트 없음</div>`)}
    ${H("⑤ 같은 업종 비교",peerTable(c).replace(/^<h3>[\s\S]*?<\/h3>/,"")||`<div class="muted" style="font-size:13px">비교할 종목 없음</div>`)}
@@ -2221,6 +2224,25 @@ function flowChart(j){
   g+=`<path d="M${(px-6).toFixed(1)} ${by-11} L${(px+6).toFixed(1)} ${by-11} L${px.toFixed(1)} ${by-1}Z" fill="var(--fg)"/><text x="${L}" y="${by-15}" font-size="12" fill="var(--fg)">현재 수급 위치 <tspan font-weight="700">P${j.p}</tspan> (최근 ${j.n}개)</text>`;
   ["P0","P25","P50","P75","P100"].forEach((t,k)=>{g+=`<text x="${(L+k/4*pw).toFixed(1)}" y="${H-2}" font-size="10" fill="var(--muted)" text-anchor="${k==0?"start":k==4?"end":"middle"}">${t}</text>`});
   return `<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="수급 오실레이터">${g}</svg>`}
+/* ---------- 최근 5일 투자자별 순매수 (2026-11-13): 외국인·기관·개인, 억 원(수량×종가 추정). 프로그램은 거래소 자료가 로그인 필요라 제외 ---------- */
+function invShort(code){const v=(D.flowosc||{})[code];if(!v||v[2]==null)return "";const f=x=>x==null?"-":`<span class="${cls(x)}">${x>0?"+":""}${x.toLocaleString()}억</span>`;
+  return `5일 외 ${f(v[2])} · 기 ${f(v[3])} · 개 ${f(v[4])}`}
+function invTable(rows){   // rows: [[날짜, 외국인, 기관, 개인, 종가], ...] 오래된 → 최신
+  if(!rows||!rows.length)return `<div class="muted" style="font-size:12px">투자자별 수급 자료 없음</div>`;
+  const e=(q,c)=>q==null||c==null?null:q*c/1e8, R=rows.slice(-5).map(r=>[r[0],e(r[1],r[4]),e(r[2],r[4]),e(r[3],r[4])]);
+  const sum=k=>R.every(r=>r[k]!=null)?R.reduce((a,r)=>a+r[k],0):null, S=[sum(1),sum(2),sum(3)], mx=Math.max(1,...S.map(x=>Math.abs(x||0)));
+  const f=x=>x==null?"-":`<span class="${cls(x)}">${x>0?"+":""}${Math.abs(x)>=10?Math.round(x).toLocaleString():x.toFixed(1)}</span>`;
+  const bar=x=>x==null?"":`<span class="ivb"><i class="${x>=0?"up":"dn"}" style="${x>=0?"left:50%":"right:50%"};width:${(Math.abs(x)/mx*50).toFixed(0)}%"></i></span>`;
+  return `<table class="invt"><tr><th class="l">날짜</th><th>외국인</th><th>기관</th><th>개인</th></tr>
+   ${R.slice().reverse().map(r=>`<tr><td class="l num">${esc(String(r[0]).slice(4,6)+"/"+String(r[0]).slice(6))}</td><td class="num">${f(r[1])}</td><td class="num">${f(r[2])}</td><td class="num">${f(r[3])}</td></tr>`).join("")}
+   <tr class="invs"><td class="l"><b>5일 합계</b></td>${S.map(x=>`<td class="num"><b>${f(x)}</b>${bar(x)}</td>`).join("")}</tr></table>`}
+function invBox(c){const id="iv"+c.code;
+  setTimeout(()=>{const el=document.getElementById(id);if(!el)return;
+    const fromFile=()=>flowGet(c.code).then(j=>{const el2=document.getElementById(id);if(el2)el2.innerHTML=invTable(j&&j.inv)});
+    if(/^https?:/.test(location.protocol))fetch("api/quote?trend="+c.code,{cache:"no-store"}).then(r=>r.ok?r.json():null).then(j=>{const el2=document.getElementById(id);if(!el2)return;if(j&&j.trend&&j.trend.length)el2.innerHTML=invTable(j.trend);else fromFile()}).catch(fromFile);
+    else fromFile()},0);
+  return `<h3 style="margin-top:12px">최근 5일 수급 <small class="muted">억 원 · 순매수 · 수량×종가 추정</small></h3><div id="${id}"><div class="muted" style="font-size:12px">불러오는 중…</div></div>
+   <div class="src">출처: 네이버 투자자별 매매동향(비공식) · 오늘 숫자는 장중 잠정 · 프로그램 매매는 거래소 자료가 로그인 전용이라 뺐습니다</div>`}
 function flowBox(c){
   if(flowP(c.code)==null)return "";const id="fo"+c.code;
   setTimeout(()=>flowGet(c.code).then(j=>{const el=document.getElementById(id);if(el)el.innerHTML=j?flowChart(j):`<div class="muted" style="font-size:12.5px;padding:8px 0">그림은 웹(balance-lab.pages.dev)에서만 보입니다 · 지금 ${flowTag(c.code,1)}</div>`}),0);
@@ -2255,7 +2277,7 @@ function showPop(t){
    <div class="ppi"><div><b class="num">${w(price)}</b> <span class="num ${cls(chg)}">${chg!=null?pc(chg,2):""}</span></div>
     <div>1개월 <span class="num ${cls(x.r1m)}">${pc(x.r1m)}</span></div><div>고점 대비 <span class="num">${pc(x.off_high)}</span></div>
     <div>RS <b class="num">${x.rs??"-"}</b>${x.rs_chg4w?` <small class="${x.rs_chg4w>0?"up":"down"}">${x.rs_chg4w>0?"▲":"▼"}${Math.abs(x.rs_chg4w)}</small>`:""}</div>
-    <div>20일선 ${x.above20==null?"-":x.above20?'<span class="up">위</span>':'<span class="down">아래</span>'}</div>${flowP(c.code)!=null?`<div>${flowTag(c.code)}</div>`:""}
+    <div>20일선 ${x.above20==null?"-":x.above20?'<span class="up">위</span>':'<span class="down">아래</span>'}</div>${flowP(c.code)!=null?`<div>${flowTag(c.code)}</div>`:""}${invShort(c.code)?`<div class="ppinv">${invShort(c.code)}</div>`:""}
     ${c.pseudo?'<div class="muted">기업 카드 없음</div>':""}<div ${c.pseudo?"hidden":""}>리포트 ${c.n_reports||0} <small><span class="up">${c.up||0}</span>/<span class="down">${c.down||0}</span></small></div>
     ${pos?`<div class="up">보유 · 손절까지 ${pc(pos.to_stop_pct)}</div>`:""}${pool?`<div>관찰 풀 ${esc(pool.id)}</div>`:""}</div></div>
    ${HOVER?"":`<div class="muted" style="font-size:11px;text-align:center;margin-top:6px">카드를 한 번 더 누르면 닫힙니다</div>`}`;
