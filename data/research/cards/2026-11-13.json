@@ -15,7 +15,7 @@
   "body": true,
   "series_key": "IBK투자증권|게임|인터넷/게임",
   "prev_nid": "46938",
-  "new_ratio": 0.83,
+  "new_ratio": 1.0,
   "novelty": 0.81,
   "stance_hint": "중립",
   "neg": 0,
@@ -431,7 +431,7 @@
    "흑전 3818 43000"
   ],
   "status": "draft",
-  "built_at": "2026-11-13 18:41",
+  "built_at": "2026-11-14 07:38",
   "error": null
  },
  "industry:46982": {
@@ -859,7 +859,7 @@
    "흐름 주목 올해"
   ],
   "status": "draft",
-  "built_at": "2026-11-13 18:41",
+  "built_at": "2026-11-14 07:38",
   "error": null
  },
  "industry:46983": {
@@ -1310,7 +1310,7 @@
    "센티먼트도 주가에 일부",
    "센티먼트와 펀더멘털 MLCC"
   ],
-  "status": "card",
+  "status": "deep",
   "built_at": "2026-11-13 18:41",
   "error": null,
   "thesis": "MLCC·기판 수급 타이트, 리드타임 연장으로 27~28년 EPS 상향 여지 (센티먼트 약세와 괴리)",
@@ -1342,7 +1342,9 @@
   ],
   "horizon": "2027~2028년 (LTA 매출 1Q27부터 반영)",
   "filled_by": "haiku",
-  "filled_at": "2026-11-13 18:43"
+  "filled_at": "2026-11-13 18:43",
+  "deep_file": "naver_industry_46983",
+  "deep_at": "2026-11-14 07:40"
  },
  "industry:46984": {
   "nid": "46984",
@@ -4759,7 +4761,7 @@
    "유틸리티 유니버스 수익률",
    "의존도가 낮고 Spot"
   ],
-  "status": "card",
+  "status": "deep",
   "built_at": "2026-11-13 18:41",
   "error": null,
   "thesis": "11월 SMP 150원대로 급반등했지만 LMP 도입은 발전사에 부정적, 한전은 4Q 적자전환 가능성",
@@ -4790,7 +4792,9 @@
   ],
   "horizon": "4Q26~1Q27 (겨울 가스 수급·SMP 흐름)",
   "filled_by": "haiku",
-  "filled_at": "2026-11-13 18:43"
+  "filled_at": "2026-11-13 18:43",
+  "deep_file": "naver_industry_46990",
+  "deep_at": "2026-11-14 07:40"
  },
  "industry:46991": {
   "nid": "46991",
@@ -4859,7 +4863,7 @@
    "환경에서 곳은 외형"
   ],
   "status": "draft",
-  "built_at": "2026-11-13 18:41",
+  "built_at": "2026-11-14 07:38",
   "error": null
  },
  "invest:40809": {
@@ -4985,7 +4989,7 @@
    "훼손에 대한 우려가"
   ],
   "status": "draft",
-  "built_at": "2026-11-13 18:41",
+  "built_at": "2026-11-14 07:38",
   "error": null
  },
  "invest:40810": {
@@ -6409,7 +6413,7 @@
    "대비 61 하락한"
   ],
   "status": "draft",
-  "built_at": "2026-11-13 18:41",
+  "built_at": "2026-11-14 07:38",
   "error": null
  },
  "invest:40813": {
@@ -7837,7 +7841,7 @@
    "자동차 반도체 장비"
   ],
   "status": "draft",
-  "built_at": "2026-11-13 18:41",
+  "built_at": "2026-11-14 07:38",
   "error": null
  },
  "invest:40816": {
@@ -8288,7 +8292,7 @@
    "억위안 주간 수익률"
   ],
   "status": "draft",
-  "built_at": "2026-11-13 18:41",
+  "built_at": "2026-11-14 07:38",
   "error": null
  }
 }

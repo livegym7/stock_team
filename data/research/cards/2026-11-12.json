@@ -946,7 +946,7 @@
    "흑전 3943 54000"
   ],
   "status": "draft",
-  "built_at": "2026-11-13 18:41",
+  "built_at": "2026-11-14 07:38",
   "error": null
  },
  "industry:46961": {
@@ -1929,7 +1929,7 @@
   "body": true,
   "series_key": "유진투자증권|기타|안녕하세요 데일리에요",
   "prev_nid": "46940",
-  "new_ratio": 0.93,
+  "new_ratio": 1.0,
   "novelty": 1.0,
   "stance_hint": "강세",
   "neg": 1,
@@ -2322,7 +2322,7 @@
    "휴머노이드 액추에이터 6종을"
   ],
   "status": "draft",
-  "built_at": "2026-11-13 18:41",
+  "built_at": "2026-11-14 07:38",
   "error": null
  },
  "industry:46964": {
@@ -2989,7 +2989,7 @@
    "흥미로운 행선지다 면세점"
   ],
   "status": "draft",
-  "built_at": "2026-11-13 18:41",
+  "built_at": "2026-11-14 07:38",
   "error": null
  },
  "industry:46966": {
@@ -3950,7 +3950,7 @@
    "영업이익 전망 Base",
    "영업이익 추정치 극단적"
   ],
-  "status": "card",
+  "status": "deep",
   "built_at": "2026-11-12 18:45",
   "error": null,
   "thesis": "2018년식 다운사이클 가정의 극단 시나리오가 이미 주가에 상당 부분 반영, 메모리 쇼티지 장기화로 업황 강세 지속 전망",
@@ -3980,7 +3980,9 @@
   ],
   "horizon": "2027~2028년",
   "filled_by": "haiku",
-  "filled_at": "2026-11-12 18:48"
+  "filled_at": "2026-11-12 18:48",
+  "deep_file": "naver_industry_46967",
+  "deep_at": "2026-11-14 07:40"
  },
  "industry:46968": {
   "nid": "46968",
@@ -6932,7 +6934,7 @@
    "연구위원 Today Signal"
   ],
   "status": "draft",
-  "built_at": "2026-11-13 18:41",
+  "built_at": "2026-11-14 07:38",
   "error": null
  },
  "industry:46974": {
@@ -8360,7 +8362,7 @@
    "에프앤가이드 하나증권 도표"
   ],
   "status": "draft",
-  "built_at": "2026-11-13 18:41",
+  "built_at": "2026-11-14 07:38",
   "error": null
  },
  "industry:46977": {
@@ -10821,7 +10823,7 @@
    "상승이 얼마나 가능할지가"
   ],
   "status": "draft",
-  "built_at": "2026-11-13 18:41",
+  "built_at": "2026-11-14 07:38",
   "error": null
  },
  "invest:40799": {
@@ -11745,7 +11747,7 @@
    "연간 실적 전망은"
   ],
   "status": "draft",
-  "built_at": "2026-11-13 18:41",
+  "built_at": "2026-11-14 07:38",
   "error": null
  },
  "invest:40801": {
@@ -12204,7 +12206,7 @@
    "대한 신뢰 회복"
   ],
   "status": "draft",
-  "built_at": "2026-11-13 18:41",
+  "built_at": "2026-11-14 07:38",
   "error": null
  },
  "invest:40802": {
@@ -12672,7 +12674,7 @@
    "유입된 점은 AI"
   ],
   "status": "draft",
-  "built_at": "2026-11-13 18:41",
+  "built_at": "2026-11-14 07:38",
   "error": null
  },
  "invest:40803": {
@@ -13131,7 +13133,7 @@
    "연준이사의 50bp 인상"
   ],
   "status": "draft",
-  "built_at": "2026-11-13 18:41",
+  "built_at": "2026-11-14 07:38",
   "error": null
  },
  "invest:40804": {
@@ -13595,7 +13597,7 @@
    "지속 Key Point"
   ],
   "status": "draft",
-  "built_at": "2026-11-13 18:41",
+  "built_at": "2026-11-14 07:38",
   "error": null
  },
  "invest:40805": {
@@ -14075,7 +14077,7 @@
    "실적 개선 산업은"
   ],
   "status": "draft",
-  "built_at": "2026-11-13 18:41",
+  "built_at": "2026-11-14 07:38",
   "error": null
  },
  "invest:40806": {
@@ -14550,7 +14552,7 @@
    "영업이익률이다 과거 매도"
   ],
   "status": "draft",
-  "built_at": "2026-11-13 18:41",
+  "built_at": "2026-11-14 07:38",
   "error": null
  },
  "invest:40807": {
@@ -15012,7 +15014,7 @@
    "주간 FY1 FY1"
   ],
   "status": "draft",
-  "built_at": "2026-11-13 18:41",
+  "built_at": "2026-11-14 07:38",
   "error": null
  },
  "invest:40808": {
@@ -15481,7 +15483,7 @@
    "대만 75 Part"
   ],
   "status": "draft",
-  "built_at": "2026-11-13 18:41",
+  "built_at": "2026-11-14 07:38",
   "error": null
  }
 }

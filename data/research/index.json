@@ -941,6 +941,42 @@
    "drive_modified": null,
    "analyzed_at": "2026-11-12 19:17",
    "depth": "full"
+  },
+  "naver_industry_46983": {
+   "title": "[iM증권 전기전자] MLCC와 PCB, 센티먼트와 펀더멘털 (고의영, 2026-11-13)",
+   "broker": "iM증권",
+   "date": "2026-11-13",
+   "kind": "산업",
+   "subject": "전기전자 · MLCC·기판 (공급 부족 vs 센티먼트)",
+   "one_line": "생산은 둔화됐지만 납기가 오히려 길어져 MLCC·기판의 공급 부족은 해소되지 않았고, 데이터센터 건설 지연 우려로 줄어든 멀티플은 우려가 풀리면 빨리 되돌 수 있다고 본다.",
+   "url": "https://stock.naver.com/research/industry/46983",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-14 07:40",
+   "depth": "full"
+  },
+  "naver_industry_46967": {
+   "title": "[유진투자증권 반도체] 이미 많은 것이 반영된 주가 (손인준, 2026-11-12)",
+   "broker": "유진투자증권",
+   "date": "2026-11-12",
+   "kind": "산업",
+   "subject": "반도체 · 메모리 (다운사이클 시나리오)",
+   "one_line": "2018년 다운사이클을 그대로 대입한 극단 시나리오에서도 삼성전자·SK하이닉스 영업이익률이 높게 유지되고, 그 시나리오는 이미 주가에 상당 부분 반영돼 있어 비중 확대 기회라고 본다.",
+   "url": "https://stock.naver.com/research/industry/46967",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-14 07:40",
+   "depth": "full"
+  },
+  "naver_industry_46990": {
+   "title": "[하나증권 유틸리티 Weekly] 11월 일별 SMP 상승 확인 (2026-11-13)",
+   "broker": "하나증권",
+   "date": "2026-11-13",
+   "kind": "산업",
+   "subject": "유틸리티 · 전력·가스 (반대 의견·비주류 고정 칸)",
+   "one_line": "일별 SMP가 kWh당 150원대로 올랐지만, 한국전력은 일회성 비용을 빼도 감익이고 4분기 적자전환 가능성이 있으며 가스는 LNG 공급 감소로 상대적으로 낫다는 주간 점검이다.",
+   "url": "https://stock.naver.com/research/industry/46990",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-14 07:40",
+   "depth": "full"
   }
  },
  "skipped": {
