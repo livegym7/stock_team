@@ -600,6 +600,8 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.6px}h2{font-size:17px;font-we
 .dsec>summary::-webkit-details-marker{display:none}.dsec>summary::before{content:"▸";color:var(--muted);width:12px}.dsec[open]>summary::before{content:"▾"}
 .dsec .dsl{flex:1 1 280px;min-width:0;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.dsec[open] .dsl{white-space:normal;color:var(--fg)}
 @media(max-width:600px){.daycard{padding:10px 12px}.dsec .dsl{flex-basis:100%}}
+/* 상단 메뉴 고정 (2026-11-13): 넓은 화면은 시세 띠 바로 아래에 메뉴 줄을 붙여 둠. 휴대폰은 아래 탭 막대가 이미 고정 */
+@media(min-width:821px){.navrow{position:sticky;top:44px;z-index:14;max-width:none;background:color-mix(in srgb,var(--background,var(--bg)) 94%,transparent);backdrop-filter:blur(8px);padding-bottom:8px;border-bottom:1px solid var(--line)}}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="bl-icon" viewBox="0 0 1024 1024"><defs><linearGradient id="blbg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#52525b"/><stop offset="1" stop-color="#18181b"/></linearGradient><linearGradient id="blgl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".16"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/></linearGradient></defs><rect width="1024" height="1024" rx="232" fill="url(#blbg)"/><rect width="1024" height="1024" rx="232" fill="url(#blgl)"/><path d="M352 262 V762 M352 262 H528 A122 122 0 0 1 528 506 H352 M352 506 H574 A128 128 0 0 1 574 762 H352" fill="none" stroke="#fff" stroke-linejoin="round" stroke-linecap="round" stroke-width="104"/><circle cx="742" cy="290" r="44" fill="#6d7dff"/></symbol></svg>
