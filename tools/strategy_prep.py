@@ -571,6 +571,12 @@ def save(path):
         for k in ("id", "name", "stage", "conviction", "thesis", "logic", "evidence", "companies", "against", "invalid"):
             if k not in th:
                 raise SystemExit(f"띔 {th.get('id')} 에 {k} 없음")
+        # 반론 3개 이상 (2026-11-15 사용자 확정: 반론가 규칙 '띔마다 3~5개'를 저장 때 검사)
+        n_against = len([x for x in (th.get("against") or []) if str(x).strip()])
+        if n_against < 3:
+            raise SystemExit(f"띔 {th.get('id')} 반론이 {n_against}개 — 3개 이상 필요 (반론가 단계를 다시 하세요)")
+    if not d.get("red_team"):
+        raise SystemExit("red_team 칸 없음 — 반론가 보조 에이전트 결과(누가·몇 개·확신도 조정)를 적으세요 (SKILL 2단계)")
     HIST.mkdir(parents=True, exist_ok=True)
     old = load_latest()
     if old:
