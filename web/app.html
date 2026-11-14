@@ -673,6 +673,13 @@ td.pearn{white-space:nowrap}td.pearn .pill{padding:1px 6px}
 .dshort{display:none}@media(max-width:600px){.invh .dlong{display:none}.invh .dshort{display:inline}.invh{font-size:10.5px;letter-spacing:-.2px}.invh th,.invh td{padding:3px 2px}}
 html body .view .invh td,html body .view .invh th{padding:4px 6px}html body .view .invh td.l{min-width:0;padding-left:2px}
 @media(max-width:600px){html body .view .invh td,html body .view .invh th{padding:3px 2px;font-size:10.5px}}
+/* 2026-11-14 보고서 목차: 휴대폰 한 줄 옆으로 넘기기, 넓은 화면 여러 줄 */
+html body .view .rtoc{display:flex;flex-wrap:nowrap;overflow-x:auto;gap:6px;width:100%;box-sizing:border-box;padding:6px 2px;background:var(--bg);scrollbar-width:none}
+html body .view .rtoc .chip{flex:0 0 auto;white-space:nowrap;border:1px solid var(--line);border-radius:999px;padding:5px 11px;font-size:12.5px}
+@media(min-width:821px){html body .view .rtoc{flex-wrap:wrap;overflow:visible}}
+/* 2026-11-14 최근 5일 수급 표: 오실레이터 차트와 같은 폭, 칸 균등 */
+html body .view table.invh{width:100%;table-layout:fixed}html body .view .invh th:first-child,html body .view .invh td:first-child{width:44px}
+html body .view .invh td.num,html body .view .invh th{text-align:right}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="bl-icon" viewBox="0 0 1024 1024"><defs><linearGradient id="blbg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#52525b"/><stop offset="1" stop-color="#18181b"/></linearGradient><linearGradient id="blgl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".16"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/></linearGradient></defs><rect width="1024" height="1024" rx="232" fill="url(#blbg)"/><rect width="1024" height="1024" rx="232" fill="url(#blgl)"/><path d="M352 262 V762 M352 262 H528 A122 122 0 0 1 528 506 H352 M352 506 H574 A128 128 0 0 1 574 762 H352" fill="none" stroke="#fff" stroke-linejoin="round" stroke-linecap="round" stroke-width="104"/><circle cx="742" cy="290" r="44" fill="#6d7dff"/></symbol></svg>
@@ -2475,7 +2482,7 @@ function render(){
   if(r=="strategy"&&(ui.st||"report")=="report"){   // 전략 보고서 목차 (2026-11-13): 누르면 그 칸으로
     const hs=[...document.querySelectorAll(".view section.rpt > h2")].filter(h=>h.textContent.trim());
     if(hs.length>2){hs.forEach((h,i)=>h.id="rptsec"+i);const bar=document.createElement("div");bar.className="rtoc chips";
-      bar.innerHTML=hs.map((h,i)=>`<button class="chip" data-toc="rptsec${i}">${esc(h.textContent.trim().replace(/\s+/g," ").slice(0,14))}</button>`).join("");
+      bar.innerHTML=hs.map((h,i)=>{const x=h.cloneNode(true);x.querySelectorAll("small").forEach(s=>s.remove());return `<button class="chip" data-toc="rptsec${i}">${esc((t=>{const c=t.replace(/\s+[·(].*$/,"");return (c.replace(/^\S+\s*/,"").length<5?t.replace(/\s+·\s+/,"·").replace(/\s+[·(].*$/,""):c).slice(0,20)})(x.textContent.trim().replace(/\s+/g," ")))}</button>`}).join("");   // 2026-11-14: 설명(작은 글씨)·날짜 빼고 짧게
       const first=document.querySelector(".view section.rpt");first&&first.parentNode.insertBefore(bar,first)}}
   if(r=="trade")calc();
 }
