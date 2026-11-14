@@ -378,7 +378,7 @@ def market_fragments(P):
         qc = {"리더": "pos", "모멘텀만": "warn", "기다림": "neu", "회피": "neg"}.get(q, "neu")
         srow.append(f'<tr><td>{m["rank"]}</td><td class="l"><b>{E(m["group"])}</b></td><td class="{cls(ch)}">{("▲" + str(ch)) if ch and ch > 0 else (("▼" + str(-ch)) if ch and ch < 0 else "-")}</td><td>{m["score"]}</td><td>{m["breadth"]}%</td>'
                     f'<td>{gtxt(m.get("opg"))}</td><td>{m.get("per") or "-"}</td><td class="{cls(m.get("f5"))}">{eok(m.get("f5"))}</td><td class="{cls(m.get("i5"))}">{eok(m.get("i5"))}</td><td>{f"<span class=\"tag {qc}\">{q}</span>" if q != "-" else "-"}</td></tr>')
-    T = "<div class=\"tw\"><table class=\"slist\">"
+    T = "<div class=\"tw\"><table>"   # 시장 탭 표는 '숫자 비교표'라 휴대폰에서도 표 (2026-11-14 표·카드 규칙)
     asof = P["regime"]["date"]; R = P["rally"]
     html_ = {
         "macro": f'<div class="fig"><div class="ft"><span>표</span>글로벌 지표 — 최근 · 1주 · 1개월</div>{T}<tr><th class="l">지표</th><th>최근</th><th>1주</th><th>1개월</th><th class="l">기준일</th></tr>{"".join(mrow)}</table></div><div class="src">출처: Yahoo Finance(비공식, 지연 가능) · {E(P["made_at"])} 받음</div></div>'
