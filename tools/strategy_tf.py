@@ -282,6 +282,119 @@ def topdown_brief():
     return out
 
 
+def rally(k):
+    """랠리 시도·팔로스루 (오닐 방식 단순화): 최근 30거래일 최저 종가 뒤 첫 상승일부터 센 날짜 · 4일째부터 +1.5%↑ + 거래량 증가 = 팔로스루."""
+    c = [x["close"] for x in k[-40:]]; v = [x["volume"] for x in k[-40:]]; d = [x["date"] for x in k[-40:]]
+    lo = min(range(len(c) - 30, len(c)), key=lambda i: c[i])
+    st = next((i for i in range(lo + 1, len(c)) if c[i] > c[i - 1]), None)
+    ftd = None
+    if st is not None:
+        for i in range(st + 3, len(c)):
+            if (c[i] / c[i - 1] - 1) * 100 >= 1.5 and v[i] > v[i - 1]:
+                ftd = d[i]
+    return {"low_date": d[lo], "low": c[lo], "day": (len(c) - st) if st is not None else 0, "start": d[st] if st is not None else None, "ftd": ftd}
+
+
+def breadth_fast(daily, uni, days=60):
+    """시장 폭(50·20일선 위 비율) — 누적합으로 빠르게. 신고가·신저가 수는 네이버 시장 집계를 쓰므로 계산하지 않는다(⑫)."""
+    dates = [r["date"] for r in daily["KOSPI"][-days:]]
+    cnt = {d: [0, 0, 0] for d in dates}
+    for c in uni:
+        rows = daily.get(c)
+        if not rows or len(rows) < 60:
+            continue
+        cl = [r["close"] for r in rows]; pre = [0]
+        for x in cl:
+            pre.append(pre[-1] + x)
+        pos = {r["date"]: i for i, r in enumerate(rows)}
+        for d in dates:
+            i = pos.get(d)
+            if i is None or i < 50:
+                continue
+            m50 = (pre[i + 1] - pre[i - 49]) / 50; m20 = (pre[i + 1] - pre[i - 19]) / 20
+            z = cnt[d]; z[0] += 1; z[1] += cl[i] > m50; z[2] += cl[i] > m20
+    return [{"date": d, "n": z[0], "a50": round(z[1] / z[0] * 100, 1), "a20": round(z[2] / z[0] * 100, 1)} for d, z in cnt.items() if z[0]]
+
+
+def daily_market():
+    """웹 '시장'(탑다운) 탭·'오늘' 국면 추적판용 (2026-11-14 2차): prep의 시장 부분만 매일. 해석 글 없음."""
+    import new_highs
+    daily, fund, uni = _daily(), _fund(), new_highs.universe_info()
+    px = {c: r[-1]["close"] for c, r in daily.items()}
+    P = {"made_at": datetime.now(KST).strftime("%Y-%m-%d %H:%M")}
+    P["macro"] = macro()
+    P["regime"] = regime_block(daily); P["rally"] = rally(daily["KOSPI"])
+    P["breadth"] = breadth_fast(daily, uni)
+    days = {}
+    for p in sorted(glob.glob(str(DATA / "market" / "days" / "*.json")))[-14:]:
+        m = next((m for m in (_j(p, {}) or {}).get("markets", []) if m.get("market") == "KOSPI"), None)
+        if m and m.get("deal_date"):
+            days[m["deal_date"]] = {"date": m["deal_date"], "f": m.get("foreign_eok"), "i": m.get("institution_eok"), "p": m.get("individual_eok"), "chg": m.get("change_pct")}
+    P["days"] = sorted(days.values(), key=lambda d: d["date"])[-8:]
+    flows = _j(DATA / "market" / "flows_latest.json", {}) or {}
+    P["flow_sectors"] = [s for s in flows.get("sectors", []) if s.get("f5") is not None]; P["flows_src"] = flows.get("source", "")
+    rad = _j(DATA / "radar" / "latest.json", {}) or {}
+    grp = {}
+    for code, s in uni.items():
+        grp.setdefault(s["group"] or "기타", []).append((code, s))
+    fg = {}
+    for g, L in grp.items():
+        ope = opl = num = den = n = 0
+        for code, s in L:
+            fa, la = _fa_la(fund.get(code))
+            if fa and la and fa.get("op") is not None and la.get("op") is not None:
+                ope += fa["op"]; opl += la["op"]; n += 1
+                if px.get(code) and fa.get("eps") and fa["eps"] > 0:
+                    num += s["cap"]; den += s["cap"] * fa["eps"] / px[code]
+        fg[g] = {"n_fund": n, "opg": round((ope / opl - 1) * 100, 1) if opl > 0 and n >= 2 else None, "per": round(num / den, 1) if den else None}
+    fs = {x["group"]: x for x in flows.get("sectors", [])}; hist = rad.get("history") or []; r4 = hist[-5]["ranks"] if len(hist) >= 5 else {}
+    P["matrix"] = [{"group": g["group"], "rank": g["rank"], "score": g["score"], "n": g["n"], "breadth": g["breadth_pct"], "rank4": r4.get(g["group"]),
+                    **fg.get(g["group"], {}), "f5": (fs.get(g["group"]) or {}).get("f5"), "i5": (fs.get(g["group"]) or {}).get("i5")} for g in rad.get("groups", [])]
+    P["radar_as_of"] = rad.get("as_of")
+    return P
+
+
+def market_fragments(P):
+    """'시장' 탭 4칸 HTML 조각 + '오늘' 추적판 숫자. 그림은 주간 지면과 같은 함수."""
+    N = auto_narr({**P, "board": [], "calendar": [], "scenarios": []})
+    lb = P["breadth"][-1] if P["breadth"] else {"a50": 0, "a20": 0, "n": 0, "date": ""}
+    dd = len(P["regime"]["dist_days"]); DY = P["days"]; f5 = sum((d["f"] or 0) for d in DY[-5:]); i5 = sum((d["i"] or 0) for d in DY[-5:])
+    mrow = []
+    for m in P["macro"]:
+        if "err" in m or not m.get("w1"):
+            continue
+        if m["sym"] == "^TNX":
+            now = f'{m["now"]:.2f}%'; a = (m["now"] - m["w1"]) * 100; b = (m["now"] - m["m1"]) * 100; d1, dm = f"{a:+.0f}bp", f"{b:+.0f}bp"
+        else:
+            now = w(m["now"], 2 if m["now"] < 1000 else 0); a = (m["now"] / m["w1"] - 1) * 100; b = (m["now"] / m["m1"] - 1) * 100; d1, dm = pc(a), pc(b)
+        mrow.append(f'<tr><td class="l">{E(m["name"])}</td><td><b>{now}</b></td><td class="{cls(a)}">{d1}</td><td class="{cls(b)}">{dm}</td><td class="l"><small>{E(m.get("date", ""))}</small></td></tr>')
+    impl = "".join(f'<tr><td class="l">{E(a)}</td><td><span class="tag {c}">{E(b)}</span></td><td class="l wrap">{E(t)}</td></tr>' for a, b, t, c in N.get("impl") or [])
+    FS = sorted(P["flow_sectors"], key=lambda s: -((s["f5"] or 0) + (s["i5"] or 0)))
+    frow = lambda L: "".join(f'<tr><td class="l">{E(s["group"])}</td><td class="{cls(s["f5"])}">{eok(s["f5"])}</td><td class="{cls(s["i5"])}">{eok(s["i5"])}</td><td class="{cls(s.get("r5"))}">{pc(s.get("r5"))}</td></tr>' for s in L)  # noqa: E731
+    srt = sorted(P["matrix"], key=lambda m: m["rank"]); srow = []
+    for m in srt[:20]:
+        ch = (m["rank4"] - m["rank"]) if m.get("rank4") else None
+        q = quad(m) if m.get("opg") is not None and (m.get("n_fund") or 0) >= 3 else "-"
+        qc = {"리더": "pos", "모멘텀만": "warn", "기다림": "neu", "회피": "neg"}.get(q, "neu")
+        srow.append(f'<tr><td>{m["rank"]}</td><td class="l"><b>{E(m["group"])}</b></td><td class="{cls(ch)}">{("▲" + str(ch)) if ch and ch > 0 else (("▼" + str(-ch)) if ch and ch < 0 else "-")}</td><td>{m["score"]}</td><td>{m["breadth"]}%</td>'
+                    f'<td>{gtxt(m.get("opg"))}</td><td>{m.get("per") or "-"}</td><td class="{cls(m.get("f5"))}">{eok(m.get("f5"))}</td><td class="{cls(m.get("i5"))}">{eok(m.get("i5"))}</td><td>{f"<span class=\"tag {qc}\">{q}</span>" if q != "-" else "-"}</td></tr>')
+    T = "<div class=\"tw\"><table class=\"slist\">"
+    asof = P["regime"]["date"]; R = P["rally"]
+    html_ = {
+        "macro": f'<div class="fig"><div class="ft"><span>표</span>글로벌 지표 — 최근 · 1주 · 1개월</div>{T}<tr><th class="l">지표</th><th>최근</th><th>1주</th><th>1개월</th><th class="l">기준일</th></tr>{"".join(mrow)}</table></div><div class="src">출처: Yahoo Finance(비공식, 지연 가능) · {E(P["made_at"])} 받음</div></div>'
+                 f'<div class="fig"><div class="ft"><span>표</span>매크로 → 업종 연결 (자동 규칙 문장)</div>{T}<tr><th class="l">변화</th><th>방향</th><th class="l">무엇에 영향</th></tr>{impl}</table></div><div class="src">1주 변화로 만든 규칙 문장입니다 · 해석은 주간 보고서(토)</div></div>',
+        "regime": f'<div class="fig"><div class="ft"><span>그림</span>코스피 120거래일 · ▼ 분산일 · 점선 20일선</div>{chart_kospi(P)}<div class="src">분산일 = 종가 −0.2%↓ + 거래량 전날보다 많음(25거래일 {dd}개) · 랠리 시도 {R["day"]}일째(저점 {md(R["low_date"])}) · 팔로스루 {md(R["ftd"]) if R["ftd"] else "아직"} · 출처: 네이버 코스피 일봉(비공식) {md(asof)}</div></div>'
+                  f'<div class="fig"><div class="ft"><span>그림</span>시장 폭 — 50일선·20일선 위 종목 비율</div>{chart_breadth(P)}<div class="leg"><span><i style="background:var(--acc)"></i>50일선 위 {lb["a50"]:.0f}%</span><span><i style="background:var(--ink3)"></i>20일선 위 {lb["a20"]:.0f}%</span></div><div class="src">시총 2천억↑ {lb["n"]}종목 · 출처: 네이버 일봉(비공식) 계산</div></div>',
+        "flows": f'<div class="fig"><div class="ft"><span>그림</span>코스피 투자자별 순매수(억 원) · 아래 = 그날 코스피 등락</div>{chart_flows(P)}<div class="leg"><span><i style="background:var(--acc)"></i>외국인</span><span><i style="background:var(--warn)"></i>기관</span><span><i style="background:var(--ink3)"></i>개인</span><span>5일 합 외국인 {f5/10000:+.2f}조 · 기관 {i5/10000:+.2f}조</span></div><div class="src">출처: 네이버 시황(비공식)</div></div>'
+                 f'<div class="two"><div class="fig"><div class="ft"><span>표</span>5일 순매수 상위 업종(억)</div>{T}<tr><th class="l">업종</th><th>외국인</th><th>기관</th><th>5일</th></tr>{frow(FS[:8])}</table></div></div><div class="fig"><div class="ft"><span>표</span>5일 순매도 상위 업종(억)</div>{T}<tr><th class="l">업종</th><th>외국인</th><th>기관</th><th>5일</th></tr>{frow(FS[-8:][::-1])}</table></div></div></div><div class="src">{E(P.get("flows_src") or "")}</div>',
+        "sectors": f'<div class="fig"><div class="ft"><span>그림</span>업종 테크노펀더멘탈 지도 — 이익(가로) × 추세(세로)</div>{chart_matrix(P)}<div class="src">가로 = 올해 영업이익 컨센서스 업종 합 증가율 · 세로 = 주도 섹터 레이더 점수({md(P.get("radar_as_of") or asof)}) · 출처: 네이버 재무·컨센서스(비공식)</div></div>'
+                   f'<div class="fig"><div class="ft"><span>표</span>업종 스코어 — 강도 상위 20</div>{T}<tr><th>순위</th><th class="l">업종</th><th>4주</th><th>강도</th><th>20일선 위</th><th>올해 영업이익</th><th>PER(E)</th><th>외국인 5일</th><th>기관 5일</th><th>분류</th></tr>{"".join(srow)}</table></div><div class="src">분류: 이익 +{XQ}%↑ / 강도 {YQ}↑ (리더 · 모멘텀만 · 기다림 · 회피) · 컨센서스 있는 종목 3개 미만 업종은 “-”</div></div>'}
+    lt, _ = light(P)
+    track = {"light": lt, "gap20": P["regime"]["gap20"], "slope20": P["regime"]["slope20"], "dist": dd, "rally_day": R["day"], "rally_low": R["low_date"], "ftd": R["ftd"],
+             "a50": lb["a50"], "a20": lb["a20"], "f5": f5, "i5": i5, "as_of": asof}
+    return {"made_at": P["made_at"], "css": TOKENS_WEB + CSS, "html": html_, "track": track}
+
+
 # ---------------------------------------------------------------- 분류 · 기본 해석
 def quad(m):
     o, s = m.get("opg"), m["score"]
