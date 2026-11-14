@@ -482,7 +482,7 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.6px}h2{font-size:17px;font-we
 .ixc{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 10px;padding:6px 16px 0}.ixc .ixh small{font-size:10.5px}.ixh{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;font-size:12.5px;margin:6px 0 2px}.ixh small{color:var(--muted);font-size:11.5px}.cc{display:block;max-width:100%;height:auto}
 .mal i{display:inline-block;width:10px;height:3px;border-radius:2px;margin:0 3px 2px 6px;vertical-align:middle}
 .schart{margin-bottom:10px}.cg2 .chip{padding:3px 10px;font-size:12px}
-.pop{position:fixed;z-index:60;background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:0 12px 32px -10px rgb(0 0 0 / .35);padding:10px 12px;font-size:12.5px}
+.pop{position:fixed;z-index:60;max-height:calc(100vh - 16px);max-height:calc(100dvh - 16px);overflow-y:auto;overscroll-behavior:contain;background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:0 12px 32px -10px rgb(0 0 0 / .35);padding:10px 12px;font-size:12.5px}
 .pph{margin-bottom:6px}.pph b{font-size:14px}.ppb{display:grid;grid-template-columns:minmax(0,1fr) 128px;gap:10px;align-items:start}.ppi{display:grid;gap:3px;line-height:1.45}.ppi b{font-size:15px}.ppl{display:block;margin-top:6px;font-size:12px;color:var(--muted);text-decoration:none}.ppl:hover{color:var(--fg)}
 @media(max-width:600px){.ppb{grid-template-columns:minmax(0,1fr);gap:6px}.ppi{grid-template-columns:repeat(3,minmax(0,1fr));gap:2px 10px;font-size:11.5px;line-height:1.35}.ppi>div:first-child{grid-column:1/-1;font-size:13px}.ppi>div{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ppi .fpt{font-size:10.5px;padding:0 4px}}
 .sboard .sbr{display:grid;grid-template-columns:92px minmax(0,1fr);gap:8px;padding:7px 16px;border-top:1px solid var(--line);font-size:13.5px;line-height:1.55}.sboard .sbr:first-of-type{border-top:0}.sboard .sbr .k{color:var(--muted);font-size:12px;font-weight:600;padding-top:2px}.sboard .sbr.hot{background:color-mix(in srgb,var(--up) 7%,transparent)}
@@ -2537,15 +2537,17 @@ function showPop(t,sub){   // sub = ETF 팝업 안에서 띄우는 두 번째 �
     ${c.pseudo?'<div class="muted">기업 카드 없음</div>':""}<div ${c.pseudo?"hidden":""}>리포트 ${c.n_reports||0} <small><span class="up">${c.up||0}</span>/<span class="down">${c.down||0}</span></small></div>
     ${pos?`<div class="up">보유 · 손절까지 ${pc(pos.to_stop_pct)}</div>`:""}${pool?`<div>관찰 풀 ${esc(pool.id)}</div>`:""}${fundLine(c.code)}</div></div>
    ${HOVER?"":`<div class="muted" style="font-size:11px;text-align:center;margin-top:6px">카드를 한 번 더 누르면 닫힙니다</div>`}`;
-  const r=t.el.getBoundingClientRect(),pw=Math.min(430,innerWidth-16);P.style.width=pw+"px";P.hidden=false;const ph=P.offsetHeight;let left,top;
+  const r=t.el.getBoundingClientRect(),pw=Math.min(430,innerWidth-16);P.style.width=pw+"px";P.hidden=false;
+  const place=()=>{const ph=Math.min(P.offsetHeight,innerHeight-16);let left,top;   // 차트가 늦게 들어와 높이가 늘면 다시 맞춤 (2026-11-14 휴대폰 아래 잘림)
   if(sub){const R0=$("#pop").getBoundingClientRect();if(HOVER){left=R0.right+8;if(left+pw>innerWidth-8)left=R0.left-8-pw;left=Math.min(Math.max(8,left),innerWidth-pw-8);top=Math.min(Math.max(8,r.top-40),innerHeight-ph-8)}
     else{left=Math.min(Math.max(8,R0.left),innerWidth-pw-8);top=Math.min(Math.max(8,R0.top+20),innerHeight-ph-8)}}
   else if(HOVER&&popM){/* 마우스 커서 옆(오른쪽, 자리 없으면 왼쪽)에 띄워 아래 줄을 가리지 않게 (2026-11-13) */
     left=popM.x+18;if(left+pw>innerWidth-8)left=popM.x-18-pw;left=Math.min(Math.max(8,left),innerWidth-pw-8);
     top=Math.min(Math.max(8,popM.y-ph/2),innerHeight-ph-8);
   }else{left=Math.min(Math.max(8,r.left),innerWidth-pw-8);top=r.bottom+6;if(top+ph>innerHeight-8)top=Math.max(8,r.top-ph-6)}
-  P.style.left=left+"px";P.style.top=top+"px";
-  ohlcGet(c.code).then(rows=>{if((sub?pop2For:popFor)!=c.code)return;if(c.pseudo&&rows&&rows.length&&!c.trend.price){c.trend=trendFrom(rows,c.trend.rs);if(sub)pop2For=null;else popFor=null;showPop(t,sub);return}const el=$("#"+CID);if(!el)return;el.innerHTML=rows?candleChart(rows,{w:260,h:165,n:200,ma:[20,60],vp:true,axis:false,dates:true,label:true}):`<div class="muted" style="font-size:12px;padding:30px 0;text-align:center">차트 없음</div>`});
+  top=Math.max(8,Math.min(top,innerHeight-ph-8));P.style.left=left+"px";P.style.top=top+"px"};
+  place();
+  ohlcGet(c.code).then(rows=>{if((sub?pop2For:popFor)!=c.code)return;if(c.pseudo&&rows&&rows.length&&!c.trend.price){c.trend=trendFrom(rows,c.trend.rs);if(sub)pop2For=null;else popFor=null;showPop(t,sub);return}const el=$("#"+CID);if(!el)return;el.innerHTML=rows?candleChart(rows,{w:260,h:165,n:200,ma:[20,60],vp:true,axis:false,dates:true,label:true}):`<div class="muted" style="font-size:12px;padding:30px 0;text-align:center">차트 없음</div>`;place()});
 }
 function hidePop2(){const P=$("#pop2");if(P){P.hidden=true;pop2For=null}}
 function hidePop(){const P=$("#pop");if(P){P.hidden=true;popFor=null}hidePop2()}
