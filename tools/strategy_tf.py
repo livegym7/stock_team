@@ -867,6 +867,60 @@ def render(date=None):
     return {"page": out["page"], "narr": bool(user), "title": out["title"], "core": [x["name"] for x in P["board"] if cat(x)[0] == 0]}
 
 
+def pool(date=None):
+    """관찰 풀을 테크노펀더 지면 기준으로 다시 씀 (2026-11-14 사용자 지적: 풀이 옛 v3 띔 기준이라 보고서와 달랐음).
+    핵심 후보(준비) · 펀더 OK·기술 대기(관찰) · 달리는 주도주 펀더 2↑(첫 눌림 대기) · 리더 업종 주도주 펀더 2↑(업종 리더). 펀더 0~1은 넣지 않음."""
+    fs = [TF / f"prep_{date}.json"] if date else sorted(TF.glob("prep_*.json"))
+    P = _j(fs[-1])
+    BD = sorted(P["board"], key=lambda b: (cat(b)[0], b["dist"] if b["dist"] is not None else 99))
+    fp = lambda b: (b["fs"] or {}).get("pts", 0)  # noqa: E731
+    seen = set()
+
+    def take(L):
+        out = []
+        for b in L:
+            if b["code"] not in seen:
+                seen.add(b["code"]); out.append(b)
+        return out
+    core = take([b for b in BD if cat(b)[0] == 0])
+    wait = take([b for b in BD if cat(b)[0] == 1])
+    run = take([b for b in BD if cat(b)[0] == 4 and fp(b) >= 2])
+    from universe import load as _uni
+    code_of = {x["name"]: x["code"] for x in _uni()["stocks"]}
+    fund = _fund()
+    lead = []
+    MT = sorted([m for m in P["matrix"] if m.get("opg") is not None and (m.get("n_fund") or 0) >= 3 and quad(m) == "리더"], key=lambda m: m["rank"])
+    for m in MT:
+        k = 0
+        for nm in m.get("leaders") or []:
+            c = code_of.get(nm)
+            if not c or c in seen:
+                continue
+            f = fscore(fund.get(c), None)
+            if f and f["pts"] >= 2:
+                seen.add(c); lead.append({"name": nm, "code": c, "group": m["group"], "pts": f["pts"]}); k += 1
+            if k >= 2:
+                break
+    skip = [b["name"] for b in BD if cat(b)[0] in (2, 3) or (cat(b)[0] == 4 and fp(b) < 2)]
+    q = lambda v: str(v or "").replace('"', "")  # noqa: E731
+    row = lambda nm, c, role, g: f'  {{ name = "{q(nm)}", code = "{c}", role = "{q(role)}", group = "{q(g)}" }},'  # noqa: E731
+    now = datetime.now(KST).strftime("%Y-%m-%d %H:%M")
+    L = ["# 관찰 풀 — 테크노펀더 주간 지면(strategy_tf.py pool)이 고른 종목. 매주 토요일 보고서 때 다시 씀.",
+         "# 직접 고쳐도 됨(빼려면 줄 삭제, 넣으려면 같은 형식으로 추가). 감시 목록(screener --pool)은 이 풀 + RS 70↑만 본다. 주문 기능 없음.",
+         f'updated = "{now}"', f'source = "테크노펀더 주간 {P["date"]}"', ""]
+    for tid, name, stage, items in [
+        ("C1", "🎯 핵심 후보 — 펀더 2/3↑ + 기술 2/3↑ (기준가 돌파 대기)", "준비", [row(b["name"], b["code"], f"준비 · 기준가 {b['breakout']:,}" if b.get("breakout") else "준비", b["group"]) for b in core]),
+        ("C2", "펀더 OK · 기술 대기 — 이익은 받쳐 주고 베이스·RS를 기다림", "관찰", [row(b["name"], b["code"], "관찰", b["group"]) for b in wait]),
+        ("C3", "달리는 주도주 — 베이스 없음, 추격하지 않고 첫 눌림 대기", "첫 눌림 대기", [row(b["name"], b["code"], "눌림 대기", b["group"]) for b in run]),
+        ("C4", "리더 업종 주도주 — 업종 이익 +20%↑ × 강도 65↑, 종목 펀더 2/3↑", "리더 업종", [row(x["name"], x["code"], "업종 리더", x["group"]) for x in lead])]:
+        if items:
+            L += ["[[themes]]", f'id = "{tid}"', f'name = "{name}"', f'stage = "{stage}"', "stocks = ["] + items + ["]", ""]
+    if skip:
+        L.append("# 넣지 않음(기술만 좋고 펀더 0~1 또는 미확인): " + ", ".join(skip))
+    (ROOT / "config" / "watch_pool.toml").write_text("\n".join(L) + "\n", encoding="utf-8")
+    return {"core": len(core), "wait": len(wait), "run": len(run), "lead": len(lead), "skip": skip}
+
+
 def tg(date=None):
     """토요일 텔레그램 요약(30줄 안팎, 2026-11-14 사용자 요청: 테크노펀더 지면 기준) → reports/날짜/strategy_tg.md"""
     fs = [TF / f"prep_{date}.json"] if date else sorted(TF.glob("prep_*.json"))
@@ -915,6 +969,7 @@ def main():
     sp.add_parser("prep"); sp.add_parser("narr-template"); sp.add_parser("core")
     r = sp.add_parser("render"); r.add_argument("--date")
     t = sp.add_parser("tg"); t.add_argument("--date")
+    pl = sp.add_parser("pool", help="관찰 풀을 이 지면 기준으로 다시 씀 → config/watch_pool.toml"); pl.add_argument("--date")
     a = ap.parse_args()
     if a.cmd == "prep":
         P = prep()
@@ -926,6 +981,8 @@ def main():
         print(json.dumps(auto_narr(_j(fs[-1])), ensure_ascii=False, indent=1))
     elif a.cmd == "core":
         print(json.dumps(core_list(), ensure_ascii=False, indent=1))
+    elif a.cmd == "pool":
+        print(json.dumps(pool(a.date), ensure_ascii=False))
     elif a.cmd == "tg":
         print(json.dumps(tg(a.date), ensure_ascii=False))
     else:

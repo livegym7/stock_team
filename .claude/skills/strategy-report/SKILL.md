@@ -58,7 +58,7 @@ python3 tools/naver_research.py candidates --top 15   # 이번 주 읽을 만한
 2. `risks`(이 보고서의 한계: 원문 확인 건수, 시세 시각, light 요약 비중), `method`, `references`, `agents`, `sources` 채움.
 3. 초안을 `data/strategy/draft.json`에 쓰고 저장:
 ```bash
-python3 tools/strategy_prep.py save --file data/strategy/draft.json   # 형식 검사 → history 보관 → latest.json → config/watch_pool.toml 갱신
+python3 tools/strategy_prep.py save --file data/strategy/draft.json   # 형식 검사 → history 보관 → latest.json → config/watch_pool.toml 갱신(임시, 5단계 strategy_tf.py pool이 최종으로 다시 씀)
 python3 tools/strategy_prep.py pool                                   # 관찰 풀 종목 수 확인
 ```
 4. 읽기용 마크다운도 남긴다: `reports/YYYY-MM-DD/strategy.md` (summary → regime → 띔 → 스코어카드 표 → 관찰 풀 표 → 시나리오 → 성적표 → 체크리스트 → 한계·출처). 표는 마크다운 표.
@@ -67,6 +67,7 @@ python3 tools/strategy_prep.py pool                                   # 관찰 �
 python3 tools/strategy_tf.py prep            # 매크로·분산일·시장 폭·수급·업종(이익×강도)·종목 펀더/기술 점수 → data/strategy/tf/prep_날짜.json (토큰 0, 1~3분)
 python3 tools/strategy_tf.py narr-template   # 해석 칸 기본값(숫자로 만든 자동 문장) — 이걸 고쳐 data/strategy/tf/narr_날짜.json 으로 저장
 python3 tools/strategy_tf.py render          # → reports/날짜/strategy_tf.html + data/strategy/tf/latest.json (웹 조각)
+python3 tools/strategy_tf.py pool            # 관찰 풀(config/watch_pool.toml)을 이 지면 기준으로 다시 씀 — 반드시 v3 save 뒤에 (2026-11-14 사용자 지적: 풀이 옛 v3 띔 기준이라 보고서와 달랐음). 핵심 후보=준비, 펀더 OK·기술 대기=관찰, 달리는 주도주(펀더 2↑)=눌림 대기, 리더 업종 주도주(펀더 2↑). 펀더 0~1은 넣지 않음
 ```
    해석 JSON(`narr_날짜.json`)에서 Claude가 쓰는 칸: `title`(결론 한 문장) · `sub`(3문장) · `call`(한 줄 결론) · `macro_view`/`macro_note` · `leaders_label` · `desk`([[이름, 의견, pos|neu|warn|neg]] 5~6줄, 의견은 관찰/준비/모멘텀만/기다림/펀더 미확인/회피) · `todo`(4개) · `impl`(매크로→업종 연결 [[변화, 방향, 영향 한두 문장, 색]] 4~5줄) · `macro_side`/`regime_side`/`flow_side`/`sector_side`(칸마다 2~3문단, `<b>`만 허용) · `deep_code`+`deep_side`(핵심 후보 1종목 심층: 무엇을 만드는지·분기 이익 흐름·트리거·반대 근거) · `warns`({코드: "기술은 좋은데 펀더가 약한 이유"} 2~3개) · `events`.
    - 숫자는 prep JSON에서만 가져온다(지어내지 않음). 빈 칸은 자동 문장이 채운다.

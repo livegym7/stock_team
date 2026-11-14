@@ -68,7 +68,7 @@ python3 tools/earnings.py                              # 채널 잠정실적 공
 python3 tools/trades.py buy|sell|stop --name 종목 --qty --price   # 매매 기록(주문 아님) → positions.toml 자동 갱신·일지·R. "OO 샀어/팔았어/손절가 올렸어" 말하면 실행
 python3 tools/trades.py review                         # 매매 복기(토큰 0): 연속 손절·같은 날 몰아 매수·규칙 준수·진입일 신호등별 R → 웹 '내 매매', 마감·주간 리뷰 재료
 python3 tools/strategy_prep.py prep|score|pool|save    # 전략 보고서 재료(토큰 0): 4검증(말·이익·가격·돈) 숫자·국면·자료실·메모·일정 / 지난 띔 성적 / 관찰 풀(config/watch_pool.toml) / 저장(형식 검사·history). /strategy-report 가 씀
-python3 tools/strategy_tf.py prep|narr-template|render   # 테크노펀더멘탈·탑다운 주간 지면(2026-11-14 사용자 확정): 매크로→시황·국면(분산일·시장 폭)→수급→업종(이익×강도: 리더/모멘텀만/기다림/회피)→종목(펀더 3점 필터 → 기술 3점 트리거)→보유·성적. 숫자 토큰 0, 해석은 data/strategy/tf/narr_날짜.json(없으면 자동 문장) → 웹 '전략 › 보고서' 맨 위 + reports/날짜/strategy_tf.html. /strategy-report 5단계
+python3 tools/strategy_tf.py prep|narr-template|render|pool   # 관찰 풀도 이 지면 기준(pool, 2026-11-14) · 테크노펀더멘탈·탑다운 주간 지면(2026-11-14 사용자 확정): 매크로→시황·국면(분산일·시장 폭)→수급→업종(이익×강도: 리더/모멘텀만/기다림/회피)→종목(펀더 3점 필터 → 기술 3점 트리거)→보유·성적. 숫자 토큰 0, 해석은 data/strategy/tf/narr_날짜.json(없으면 자동 문장) → 웹 '전략 › 보고서' 맨 위 + reports/날짜/strategy_tf.html. /strategy-report 5단계
 python3 tools/screener.py --pool --send                # 감시 목록을 관찰 풀 + RS 70↑ 한정으로 (2026-11-10 재가동, 평일 16:07 Haiku 예약). 풀 밖 신호는 '발굴'(참고)
 python3 tools/alerts.py --dry --force                  # 보유 종목 장중 알림 점검 (실제 실행은 깃허브 Actions 20분마다, Claude 안 씀)
 python3 tools/report_digest.py --collect              # 리포트 브리핑 재료 (주요 종목·섹터·내 종목), /report-brief
