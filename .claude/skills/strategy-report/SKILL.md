@@ -75,7 +75,7 @@ python3 tools/strategy_tf.py render          # → reports/날짜/strategy_tf.ht
 ```bash
 python3 tools/web_build.py --only analysis
 # Artifact: https://claude.ai/artifact/C8B5Dd1zwtyyqP3c4e3ric 를 read 한 뒤 web/index.html을 같은 url로 publish (icon 없이)
-python3 tools/telegram_send.py --file reports/YYYY-MM-DD/strategy_tg.md   # 형식 문서의 '텔레그램 요약'(30줄 안팎)만 따로 써서 보냄
+python3 tools/strategy_tf.py tg && python3 tools/telegram_send.py --file reports/YYYY-MM-DD/strategy_tg.md   # 텔레그램 요약 = 테크노펀더 지면 기준(2026-11-14), 도구가 만듦(30줄 안팎)
 git add data/strategy data/research/notes config/watch_pool.toml reports  # data/strategy/tf 포함 && git commit -m "전략 보고서 제n호 MM/DD" && git push -u origin main
 ```
 

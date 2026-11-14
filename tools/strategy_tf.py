@@ -7,6 +7,7 @@
 
   python3 tools/strategy_tf.py prep              # 숫자 모으기 → data/strategy/tf/prep_날짜.json (+ 해석 칸 기본값 출력)
   python3 tools/strategy_tf.py narr-template     # 해석 JSON 기본값(자동 문장) 출력 → Claude가 고쳐서 narr_날짜.json 으로 저장
+  python3 tools/strategy_tf.py tg                # 토요일 텔레그램 요약 → reports/날짜/strategy_tg.md
   python3 tools/strategy_tf.py render            # prep + narr → reports/날짜/strategy_tf.html + data/strategy/tf/latest.json(웹 조각)
 
 펀더 점수(3): 최근 분기 영업이익 YoY +20%↑/흑자전환 · 영업이익률 1년 전보다 높음 · 올해 영업이익 +20%↑(E, 없으면 최근 2분기 합)
@@ -653,11 +654,48 @@ def render(date=None):
     return {"page": out["page"], "narr": bool(user), "title": out["title"], "core": [x["name"] for x in P["board"] if cat(x)[0] == 0]}
 
 
+def tg(date=None):
+    """토요일 텔레그램 요약(30줄 안팎, 2026-11-14 사용자 요청: 테크노펀더 지면 기준) → reports/날짜/strategy_tg.md"""
+    fs = [TF / f"prep_{date}.json"] if date else sorted(TF.glob("prep_*.json"))
+    P = _j(fs[-1]); N = auto_narr(P); N.update({k: v for k, v in (_j(TF / f"narr_{P['date']}.json", {}) or {}).items() if v not in (None, "", [], {})})
+    import re
+    plain = lambda t: re.sub(r"<[^>]+>", "", str(t or ""))  # noqa: E731
+    lt, _ = light(P); lb = P["breadth"][-1] if P["breadth"] else {"a50": 0}
+    DY = P["days"]; f5 = sum((d["f"] or 0) for d in DY[-5:]); i5 = sum((d["i"] or 0) for d in DY[-5:])
+    MT = sorted([m for m in P["matrix"] if m.get("opg") is not None and (m.get("n_fund") or 0) >= 3], key=lambda m: m["rank"])
+    byq = lambda q: ", ".join([f"{m['group']}({m['rank']}위)" for m in MT if quad(m) == q][:3]) or "없음"  # noqa: E731
+    BD = sorted(P["board"], key=lambda b: (cat(b)[0], b["dist"] if b["dist"] is not None else 99))
+    core = [b for b in BD if cat(b)[0] == 0]
+    FS = sorted(P["flow_sectors"], key=lambda s: -((s["f5"] or 0) + (s["i5"] or 0)))
+    L = [f"📊 테크노펀더 주간 전략 · {P['date'][5:].replace('-', '/')} (시세 {md(P['regime']['date'])} 종가)", "",
+         f"💡 {plain(N.get('title'))}", f"→ {plain(N.get('call'))}", "",
+         f"🌐 매크로: {N.get('macro_view', '중립')} — {N.get('macro_note', '')}"]
+    L += [f"- {a}: {b}" for a, b, _t, _c in (N.get("impl") or [])[:3]]
+    L += ["", f"🚦 국면: 신호등 {lt} · 분산일 {len(P['regime']['dist_days'])}개 · 50일선 위 종목 {lb['a50']:.0f}% · 20일선 대비 {pc(P['regime']['gap20'])}",
+          f"💰 수급(코스피 5일): 외국인 {f5/10000:+.2f}조 · 기관 {i5/10000:+.2f}조 · 업종 순매수 상위 {', '.join(s['group'] for s in FS[:2])}", "",
+          f"🏭 업종 (이익 × 추세)", f"- 리더: {byq('리더')}", f"- 모멘텀만: {byq('모멘텀만')}", f"- 기다림: {byq('기다림')}", "",
+          f"🎯 핵심 후보 {len(core)}종목 (펀더 2/3↑ + 기술 2/3↑, 기준가까지)"]
+    L += [f"- {b['name']} 기준가 {w(b['breakout'])}원 ({b['dist']:.1f}%) · 펀더 {(b['fs'] or {}).get('pts', 0)}/3 · 기술 {b['tech']}/3" for b in core[:5]]
+    warns = N.get("warns") or {}
+    if warns:
+        nm = {b["code"]: b["name"] for b in P["board"]}
+        L += ["", "⚠️ 기술만 좋고 펀더 미확인: " + ", ".join(nm.get(c, c) for c in warns)]
+    if P["positions"]:
+        L += ["", "💼 보유"] + [f"- ⭐{p['name']} {p['r']:+.2f}R · 3R {w(p['r3'])}원({pc(p['to3'])}) · 손절 {w(p['stop'])}원" for p in P["positions"]]
+    if N.get("events"):
+        L += ["", "📅 " + " / ".join(N["events"][:3])]
+    L += ["", "자세히: Balance Lab › 전략 › 보고서", "출처: 네이버(비공식)·Yahoo·감시 목록 · 매수·매도 권유 아님 · 매매 규칙 2027-01-31까지 고정"]
+    rep = ROOT / "reports" / P["date"]; rep.mkdir(parents=True, exist_ok=True)
+    (rep / "strategy_tg.md").write_text("\n".join(L) + "\n", encoding="utf-8")
+    return {"file": f"reports/{P['date']}/strategy_tg.md", "lines": len(L)}
+
+
 def main():
     ap = argparse.ArgumentParser(description="테크노펀더멘탈 · 탑다운 주간 보고서 (숫자 토큰 0)")
     sp = ap.add_subparsers(dest="cmd", required=True)
     sp.add_parser("prep"); sp.add_parser("narr-template")
     r = sp.add_parser("render"); r.add_argument("--date")
+    t = sp.add_parser("tg"); t.add_argument("--date")
     a = ap.parse_args()
     if a.cmd == "prep":
         P = prep()
@@ -667,6 +705,8 @@ def main():
     elif a.cmd == "narr-template":
         fs = sorted(TF.glob("prep_*.json"))
         print(json.dumps(auto_narr(_j(fs[-1])), ensure_ascii=False, indent=1))
+    elif a.cmd == "tg":
+        print(json.dumps(tg(a.date), ensure_ascii=False))
     else:
         print(json.dumps(render(a.date), ensure_ascii=False))
 
