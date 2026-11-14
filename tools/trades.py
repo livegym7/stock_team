@@ -93,6 +93,18 @@ def buy(a):
     if len(same_day | {code}) >= 3:
         tags.append("같은 날 3종목↑")
     ev["tags"] = tags
+    try:   # 3차(2026-11-14): 매수 때 펀더 점수(0~3)·업종을 함께 저장 → 복기에서 '펀더 점수별·업종별 성적'
+        import strategy_tf as _tf
+        f = _tf.fscore(_tf._fund().get(code), a.price)
+        ev["fp"] = f["pts"] if f else None
+    except Exception:
+        ev["fp"] = None
+    try:
+        import csv as _csv
+        with open(ROOT / "config" / "sector_map.csv", encoding="utf-8-sig") as fh:
+            ev["group"] = next((r.get("custom") for r in _csv.DictReader(fh) if (r.get("티커") or "").zfill(6) == code), None)
+    except Exception:
+        ev["group"] = None
     # 규칙 점검: 손절폭·위험 금액
     one_r = (a.price - stop) * a.qty
     ev["risk_won"] = round(one_r)
@@ -157,7 +169,7 @@ def summary():
         pnl = sum(s["pnl_won"] for s in t["sells"])
         trades.append({"name": t["name"], "code": t["code"], "open": t["buys"][0]["date"], "close": t["sells"][-1]["date"],
                        "qty": qty, "avg": round(cost / qty), "pnl_won": pnl, "r": round(pnl / risk, 2) if risk > 0 else None,
-                       "setup": t["buys"][0].get("setup"), "exits": [f"{s['qty']}주 {s['price']:,} ({s.get('reason') or '-'})" for s in t["sells"]],
+                       "setup": t["buys"][0].get("setup"), "fp": t["buys"][0].get("fp"), "group": t["buys"][0].get("group"), "exits": [f"{s['qty']}주 {s['price']:,} ({s.get('reason') or '-'})" for s in t["sells"]],
                        "rule_ok": all(all(v is not False for v in e.get("checks", {}).values()) for e in t["buys"] + t["sells"])})
     rs = [x["r"] for x in trades if x["r"] is not None]
     stats = {"n": len(trades), "win": sum(1 for r in rs if r > 0), "avg_r": round(sum(rs) / len(rs), 2) if rs else None,
@@ -215,6 +227,21 @@ def review():
         xs = [t["r"] for t in closed if t.get("regime_at_entry") == k and t["r"] is not None]
         if xs:
             by_regime[k or "unknown"] = {"n": len(xs), "avg_r": round(sum(xs) / len(xs), 2), "win": sum(1 for r in xs if r > 0)}
+    def _grp(key, minn=1):   # 3차: 펀더 점수별·업종별 성적 (기록 있는 것만)
+        out = {}
+        for t in closed:
+            k = t.get(key)
+            if k is None or t["r"] is None:
+                continue
+            out.setdefault(str(k), []).append(t["r"])
+        return {k: {"n": len(v), "avg_r": round(sum(v) / len(v), 2), "win": sum(1 for r in v if r > 0)} for k, v in out.items() if len(v) >= minn}
+    by_fp, by_group = _grp("fp"), _grp("group", 5)
+    eq, c = [], 0.0   # 누적 R 곡선 (마감일 순)
+    for t in closed:
+        if t["r"] is not None:
+            c += t["r"]; eq.append({"date": t["close"], "name": t["name"], "r": t["r"], "cum": round(c, 2)})
+    bins = [("−2R↓", -99, -2), ("−2~−1R", -2, -1), ("−1~0R", -1, 0), ("0~1R", 0, 1), ("1~3R", 1, 3), ("3R↑", 3, 99)]
+    hist = [{"label": l, "n": sum(1 for r in rs if lo <= r < hi), "win": lo >= 0} for l, lo, hi in bins]
     worse = [t for t in closed if t["r"] is not None and t["r"] < -1.1]   # 손절가보다 더 잃음(갭·지연)
     lessons = []
     if streaks:
@@ -231,7 +258,8 @@ def review():
             "expectancy_r": exp, "sum_r": round(sum(rs), 2) if rs else 0, "pnl_won": sum(t["pnl_won"] for t in closed),
             "max_loss_streak": max((len(x) for x in streaks), default=cur_streak), "current_loss_streak": cur_streak,
             "rule_ok_pct": round(sum(1 for t in closed if t["rule_ok"]) / len(closed) * 100) if closed else None,
-            "worse_than_stop": len(worse), "same_day_clusters": same_day, "by_regime": by_regime,
+            "worse_than_stop": len(worse), "same_day_clusters": same_day, "by_regime": by_regime, "by_fp": by_fp, "by_group": by_group, "equity_r": eq, "r_hist": hist,
+            "big_wins": sum(1 for r in rs if r >= 3),
             "avg_hold_days": round(sum(t["hold_days"] for t in closed) / len(closed), 1) if closed else None,
             "trades": closed[::-1][:20], "lessons": lessons,
             "source": "data/trades/trades.jsonl · 신호등 = 진입일 코스피 종가 vs 20일선(네이버 일봉, 비공식) · 숫자만, 판단은 사용자"}

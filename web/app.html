@@ -704,6 +704,9 @@ html body .view .invh td.num,html body .view .invh th{text-align:right}
 @media(max-width:600px){html body .view table.slist td.emp{display:none}html body .view table.slist td .pill{white-space:normal;max-width:100%}html body .view table.slist td{overflow-wrap:anywhere}}
 /* 2026-11-14 표·카드 규칙: ① 종목 고르는 목록 = 넓은 화면 표 · 휴대폰 카드(table.slist) ② 숫자 비교표 = 항상 표(휴대폰은 작게) ③ 요약 상자 = 짧은 목록 */
 @media(max-width:600px){html body .view table:not(.slist){font-size:11px}html body .view table:not(.slist) td,html body .view table:not(.slist) th{padding:3px 4px}}
+.evb{display:inline-block;font-size:11px;line-height:1.5;padding:0 6px;border-radius:9px;white-space:nowrap;margin:1px 2px;vertical-align:middle;font-weight:500}
+.evb.b3{background:var(--up);color:#fff}.evb.b7{background:#e8a33d;color:#fff}.evb.bx{background:var(--line);color:var(--fg)}
+.evl{display:flex;flex-wrap:wrap;gap:2px;align-items:center;padding:2px 0}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="bl-icon" viewBox="0 0 1024 1024"><defs><linearGradient id="blbg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#52525b"/><stop offset="1" stop-color="#18181b"/></linearGradient><linearGradient id="blgl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".16"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/></linearGradient></defs><rect width="1024" height="1024" rx="232" fill="url(#blbg)"/><rect width="1024" height="1024" rx="232" fill="url(#blgl)"/><path d="M352 262 V762 M352 262 H528 A122 122 0 0 1 528 506 H352 M352 506 H574 A128 128 0 0 1 574 762 H352" fill="none" stroke="#fff" stroke-linejoin="round" stroke-linecap="round" stroke-width="104"/><circle cx="742" cy="290" r="44" fill="#6d7dff"/></symbol></svg>
@@ -816,7 +819,7 @@ function holdMini(r){
   const ps=(r&&r.positions)||[]; if(!ps.length)return "";
   return `<div class="tw" style="margin-top:10px"><table class="slist"><tr><th class="l">보유 종목</th><th>현재가</th><th>오늘</th><th>평가손익</th><th>진행 R</th><th>손절가까지</th><th class="l">다음 기준</th></tr>
   ${ps.map(p=>{const pct=p.price?(p.price/p.avg_price-1)*100:null, nx=nextStep(p);
-   return `<tr class="click" data-go="portfolio"><td class="l"><b>${esc(p.name)}</b> <small class="muted">${p.qty}주 · 평균 ${w(p.avg_price)}</small></td><td class="num"><b>${w(p.price)}</b></td><td class="num ${cls(todayChg(p.code))}">${todayChg(p.code)!=null?pc(todayChg(p.code),2):"-"}</td>
+   return `<tr class="click" data-go="portfolio"><td class="l"><b>${esc(p.name)}</b> ${evBadge(p.code)} <small class="muted">${p.qty}주 · 평균 ${w(p.avg_price)}</small></td><td class="num"><b>${w(p.price)}</b></td><td class="num ${cls(todayChg(p.code))}">${todayChg(p.code)!=null?pc(todayChg(p.code),2):"-"}</td>
    <td class="num ${cls(p.pnl_won)}">${w(p.pnl_won)} <small>(${pc(pct)})</small></td><td class="num ${cls(p.r_multiple)}">${p.r_multiple==null?"-":(p.r_multiple>0?"+":"")+p.r_multiple.toFixed(2)+"R"}</td>
    <td class="num">${pc(p.to_stop_pct)}</td><td class="l"><small>${esc(nx)}</small></td></tr>`}).join("")}</table></div>`;
 }
@@ -1101,7 +1104,7 @@ function viewPortfolio(){
   <h2 style="margin-top:18px">보유 종목</h2>
   <div class="tw"><table class="slist"><tr><th class="l">종목</th><th>수량</th><th>평균가</th><th>현재가</th><th>오늘</th><th>평가손익</th><th>평가금액·비중</th><th>손절가·거리</th><th>1R</th><th>진행 R</th><th>3R 가격</th><th>CR</th></tr>
   ${ps.map(p=>{const pct=p.price?(p.price/p.avg_price-1)*100:null, bar=Math.max(0,Math.min(100,((p.r_multiple||0)+1)/4*100));
-   return `<tr><td class="l"><b>${esc(p.name)}</b> ${flowTag(p.code)}<br><small class="muted">${esc(comp[p.code]?.detail||p.code)}</small></td><td class="num">${p.qty}</td><td class="num">${w(p.avg_price)}</td><td class="num"><b>${w(p.price)}</b></td><td class="num ${cls(todayChg(p.code))}">${todayChg(p.code)!=null?pc(todayChg(p.code),2):"-"}</td>
+   return `<tr><td class="l"><b>${esc(p.name)}</b> ${flowTag(p.code)} ${evBadge(p.code)}<br><small class="muted">${esc(comp[p.code]?.detail||p.code)}</small></td><td class="num">${p.qty}</td><td class="num">${w(p.avg_price)}</td><td class="num"><b>${w(p.price)}</b></td><td class="num ${cls(todayChg(p.code))}">${todayChg(p.code)!=null?pc(todayChg(p.code),2):"-"}</td>
    <td class="num ${cls(p.pnl_won)}">${w(p.pnl_won)}<br><small>${pc(pct)}</small></td><td class="num">${w(p.value_won)}<br><small class="muted">${(p.value_won/r.capital*100).toFixed(1)}%</small></td>
    <td class="num">${w(p.stop)}<br><small class="muted">${pc(p.to_stop_pct)}</small></td><td class="num">${w(p.one_r_won)}<br><small class="muted">${p.one_r_vs_account}R</small></td>
    <td class="num ${cls(p.r_multiple)}"><b>${p.r_multiple==null?"-":(p.r_multiple>0?"+":"")+p.r_multiple.toFixed(2)+"R"}</b><div class="rbar" title="−1R ~ 3R"><i style="width:${bar}%"></i></div></td>
@@ -1307,7 +1310,7 @@ function stockPage(c){
   const H=(h,body)=>`<section class="spsec"><h3>${h}</h3>${body}</section>`;
   const rev=(c.rev&&c.rev.brokers||[]).length?`<div class="tw"><table><tr><th class="l">증권사</th><th>날짜</th><th>이전</th><th>새 목표가</th><th>변경</th></tr>${c.rev.brokers.map(b=>`<tr><td class="l">${b.dir=="상향"?"🔺":b.dir=="하향"?"🔽":"🆕"} ${esc(b.broker)}</td><td class="num">${esc(b.time.slice(5))}</td><td class="num">${w(b.before)}</td><td class="num"><b>${w(b.after)}</b></td><td>${b.before?retC((b.after/b.before-1)*100):"-"}</td></tr>`).join("")}</table></div>`:"";
   return `<article class="panel spage">
-   <div class="sphead"><h2>${esc(c.name)} <small class="muted num">${esc(c.code)}</small></h2><div class="chips">${stockMarks(c)}</div>
+   <div class="sphead"><h2>${esc(c.name)} <small class="muted num">${esc(c.code)}</small></h2><div class="chips">${stockMarks(c)}${evBadge(c.code)}</div>
     <div class="spmeta">${sec}${c.market_cap_eok||c.cap?` · 시총 ${w(c.market_cap_eok||c.cap)}억`:""}${(c.sub_sectors||[]).length?" · "+c.sub_sectors.map(esc).join(", "):""}</div>
     ${earnLine(c.code)}
     <p class="spone">${one?esc(one):`<span class="muted">사업 설명이 아직 없습니다 (다음 자동 갱신 때 채워짐)</span>`}${!c.one_liner&&one?` <small class="muted">· 출처: 네이버 기업 개요</small>`:""}</p>
@@ -2052,15 +2055,23 @@ function vtopTab(){
 function highsData(){const E=D.highs,L=D.highsLive,today=kstNow().toISOString().slice(0,10);
   const liveOk=L&&String(L.made_at||"").slice(0,10)==today&&(!E||E.as_of!=today.replace(/-/g,""));
   return {E,L:liveOk?L:null,use:liveOk&&ui.hm!="eod"?L:E}}
+/* 이벤트 배지 (3차 2026-11-14): 일정까지 남은 날 · 빨강 3일 안 · 주황 7일 안 · 회색 30일 안. 날짜는 화면 여는 날 기준으로 다시 셈 */
+function evDays(e){const t=nowKst().slice(0,10);return Math.round((Date.parse(e.date)-Date.parse(t))/864e5)}
+function evNext(code,lim){lim=lim||30;let b=null;((D.calendar||{}).events||[]).forEach(e=>{if(e.code!=code)return;const d=evDays(e);if(d>=0&&d<=lim&&(!b||d<b.d))b={e,d}});return b}
+function evBadge(code){const n=evNext(code);if(!n)return "";const k=n.d<=3?"b3":n.d<=7?"b7":"bx",lab=/IR|설명회/.test(n.e.name)?"IR":/실적/.test(n.e.name)||n.e.kind=="earnings_us"?"실적":"일정";
+  return `<span class="evb ${k}" title="${esc(n.e.date+" "+n.e.name+" · 출처: "+(n.e.source||""))}">${lab} ${n.d?"D-"+n.d:"오늘"}</span>`}
+function mktEvLine(){const L=((D.calendar||{}).events||[]).filter(e=>!e.code&&/policy|market|macro/.test(e.kind)&&e.rel!==false).map(e=>({e,d:evDays(e)})).filter(x=>x.d>=0&&x.d<=30).sort((a,b)=>a.d-b.d).slice(0,4);
+  return L.length?`<div class="evl"><small class="muted">시장 일정</small> ${L.map(x=>`<span class="evb ${x.d<=3?"b3":x.d<=7?"b7":"bx"}" title="${esc(x.e.date+" "+(x.e.detail||"")+" · "+(x.e.source||""))}">${esc(x.e.name.split("(")[0].trim())} ${x.d?"D-"+x.d:"오늘"}</span>`).join("")}</div>`:""}
 function coreBox(){   // 핵심 후보 매일 갱신 (2026-11-14 1차): 펀더 2/3↑ + 기술 2/3↑ · 기준가까지 남은 % (장중엔 현재가로)
   const C=D.tf_core;if(!C||!(C.items||[]).length)return "";
   const L=C.items.filter(x=>x.core).concat(C.items.filter(x=>!x.core&&x.fp>=2).slice(0,2)).slice(0,6);
   const row=x=>{const q=liveQuote(x.code),px=(q&&q.price)||x.close,d=x.breakout&&px?(x.breakout/px-1)*100:x.dist;
-    return `<div class="cbr" title="${esc((x.why||[]).join(" · ")+(x.note?" · "+x.note:""))}"><span><b class="stk">${esc(x.name)}</b>${x.pool?" 🎯":""}</span><small class="muted">${esc(x.group)}</small>
+    return `<div class="cbr" title="${esc((x.why||[]).join(" · ")+(x.note?" · "+x.note:""))}"><span><b class="stk">${esc(x.name)}</b>${x.pool?" 🎯":""} ${evBadge(x.code)}</span><small class="muted">${esc(x.group)}</small>
      <span class="cbd">${"●".repeat(x.fp)}${"○".repeat(3-x.fp)} <i>펀더</i> ${"●".repeat(x.tech)}${"○".repeat(3-x.tech)} <i>기술</i></span>
      <span class="num ${d!=null&&d<=3?"up":""}">${d==null?"-":(d<=0?"돌파 ":"")+Math.abs(d).toFixed(1)+"%"}</span></div>`};
   return `<div class="bx corebx"><div class="bh">🎯 핵심 후보 <em>펀더+기술 · 기준가까지 · 감시 목록 ${esc(fmtYmd(C.as_of||""))}</em></div>
    ${L.map(row).join("")}
+   <div style="padding:4px 12px 0">${mktEvLine()}</div>
    <div class="src" style="padding:4px 12px 8px">핵심 ${C.n_core}종목 · ${esc(C.rule)} · 종목에 마우스를 올리면 근거 · 참고용, 매매 규칙은 그대로</div></div>`}
 function highsLine(){const {use}=highsData();if(!use||!use.items)return "";const it=use.items.filter(x=>(x.today||[]).length);
   const n60=it.filter(x=>x.today.includes(60)).length,n200=it.filter(x=>x.today.includes(200)).length,g=(use.groups||[]).slice(0,3).map(x=>x.group).join("·");
@@ -2115,6 +2126,25 @@ function viewStrategy2(){
 }
 
 /* ---------- ④ 내 매매: 계좌 · 보유 · 복기 · 계산기 · 규칙 ---------- */
+function perfBox(){   // 3차(2026-11-14): 성적 분석 — 누적 R 곡선 · R 분포 · 국면/펀더 점수/업종별. 큰 시세 한 번(3R↑)이 핵심인 전략이라 승률보다 곡선 기울기
+  const R=D.trade_review;if(!R||R.error||!R.n)return "";
+  const E=[{cum:0}].concat(R.equity_r||[]),W=600,H=180,lo=Math.min(-1,...E.map(e=>e.cum)),hi=Math.max(1,...E.map(e=>e.cum)),
+    x=i=>(44+i*(W-54)/Math.max(1,E.length-1)).toFixed(1),y=v=>(12+(hi-v)/(hi-lo)*(H-30)).toFixed(1),col=E[E.length-1].cum>=0?"var(--up)":"var(--down)";
+  const eq=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="누적 R 곡선"><line x1="44" x2="${W-10}" y1="${y(0)}" y2="${y(0)}" stroke="var(--line)"/>
+   <polyline points="${E.map((e,i)=>x(i)+","+y(e.cum)).join(" ")}" fill="none" stroke="${col}" stroke-width="2"/>${E.map((e,i)=>`<circle cx="${x(i)}" cy="${y(e.cum)}" r="2.6" fill="${col}">${e.name?`<title>${esc(e.date+" "+e.name+" "+e.r+"R → 누적 "+e.cum+"R")}</title>`:""}</circle>`).join("")}
+   <text x="40" y="${+y(0)+4}" text-anchor="end" font-size="10" fill="var(--muted)">0R</text><text x="40" y="${+y(E[E.length-1].cum)+4}" text-anchor="end" font-size="10" fill="var(--muted)">${E[E.length-1].cum}R</text><text x="44" y="${H-4}" font-size="10" fill="var(--muted)">매매 순서 →</text></svg>`;
+  const Hs=R.r_hist||[],m=Math.max(1,...Hs.map(h=>h.n)),bw=(W-20)/Math.max(1,Hs.length);
+  const hist=`<svg viewBox="0 0 ${W} 180" width="100%" role="img" aria-label="R 분포">${Hs.map((h,i)=>{const bh=h.n/m*120;return `<rect x="${(10+i*bw+(bw-Math.min(70,bw-12))/2).toFixed(1)}" y="${(148-bh).toFixed(1)}" width="${Math.min(70,bw-12).toFixed(1)}" height="${bh.toFixed(1)}" fill="${h.win?"var(--up)":"var(--down)"}" opacity=".8"/><text x="${(10+i*bw+bw/2).toFixed(1)}" y="${(142-bh).toFixed(1)}" text-anchor="middle" font-size="11" fill="var(--muted)">${h.n}</text><text x="${(10+i*bw+bw/2).toFixed(1)}" y="166" text-anchor="middle" font-size="11" fill="var(--muted)">${h.label}</text>`}).join("")}</svg>`;
+  const reg={green:"진입 국면 🟢 (코스피 20일선 위)",red:"진입 국면 🔴 (20일선 아래)",unknown:"진입 국면 ?"},row=(k,v)=>`<tr><td class="l">${k}</td><td class="num">${v.n}</td><td class="num ${cls(v.avg_r)}">${v.avg_r>0?"+":""}${v.avg_r}R</td><td class="num">${Math.round(v.win/v.n*100)}%</td></tr>`;
+  const fp=Object.entries(R.by_fp||{}).sort((a,b)=>b[0]-a[0]),gp=Object.entries(R.by_group||{});
+  return `<div class="panel" style="margin-top:12px"><h2>📊 성적 분석 <small class="muted">누적 R · ${esc(R.at||"")}</small></h2>
+   <div class="grid g4" style="margin-bottom:8px"><div class="tile"><span>누적</span><b class="${cls(R.sum_r)}">${R.sum_r>0?"+":""}${R.sum_r}R</b></div><div class="tile"><span>기대값 (거래당)</span><b class="${cls(R.expectancy_r)}">${R.expectancy_r>0?"+":""}${R.expectancy_r}R</b></div><div class="tile"><span>3R↑ 큰 시세</span><b>${R.big_wins||0}건</b></div><div class="tile"><span>평균 보유</span><b>${R.avg_hold_days??"-"}일</b></div></div>
+   <div class="grid g2"><div><h3>누적 R 곡선</h3>${eq}</div><div><h3>R 분포</h3>${hist}</div></div>
+   <div class="tw"><table class="slist"><tr><th class="l">나눠 보기</th><th>건수</th><th>평균 R</th><th>승률</th></tr>
+    ${Object.entries(R.by_regime||{}).map(([k,v])=>row(reg[k]||k,v)).join("")}
+    ${fp.length?fp.map(([k,v])=>row("펀더 점수 "+k+"/3",v)).join(""):`<tr><td class="l">펀더 점수 3 · 2 · 0~1</td><td class="muted" colspan="3">다음 매수부터 기록 (매수 때 점수를 함께 저장)</td></tr>`}
+    ${gp.length?gp.map(([k,v])=>row(esc(k),v)).join(""):`<tr><td class="l">업종별</td><td class="muted" colspan="3">한 업종에 5건 이상 쌓이면 표시</td></tr>`}</table></div>
+   <div class="src">작은 손절 여러 번을 큰 시세 한 번으로 만회하는 전략이라 승률보다 곡선의 기울기와 3R↑ 칸이 핵심입니다 · 출처: data/trades/trades.jsonl · 판단은 본인</div></div>`}
 function reviewBox(){
   const R=D.trade_review; if(!R||R.error)return "";
   const reg={green:"🟢 20일선 위",red:"🔴 20일선 아래",unknown:"?"};
@@ -2152,6 +2182,7 @@ function viewTrade(){
    <td class="num">${w(p.breakeven_price_at_3r)}<br><small class="muted">${pc(p.to_3r_pct)}</small></td><td class="num">${w(p.cr_won)}</td></tr>`}).join("")}</table></div>
   <h2 style="margin-top:18px">다음 액션 · 가격별 규칙</h2><div class="acts">${ps.map(p=>actionCard(p)).join("")}</div>`
   :`<div class="panel" style="margin-top:12px"><b>보유 종목 없음.</b> 새 위험 여유 ${man(r.room_for_new_risk_won)}원 · 관찰 풀은 <a href="#strategy" data-st="pool">전략 › 관찰 풀</a>에서</div>`}
+  ${perfBox()}
   ${reviewBox()}
   ${equityChart()}
   ${journal()}
@@ -2353,7 +2384,7 @@ function candleChart(all,o){
   const mas=o.ma.map(n=>[n,maArr(all,n)]), st=Math.max(0,all.length-o.n), R=all.slice(st);
   let lo=Math.min(...R.map(r=>r[3])),hi=Math.max(...R.map(r=>r[2]));
   const PL=4,PR=o.axis?Math.max(40,10+(o.fs||10)*0.64*fax(hi*1.05).length):6,PT=6,PB=o.dates?18:4,W=o.w,H=o.h,pw=W-PL-PR,
-    VH=o.vol?Math.round((H-PT-PB)*0.2):0, ph=H-PT-PB-(VH?VH+4:0);   // 아래 20%는 거래대금 막대 (2026-11-13)
+    VH=o.vol?Math.round((H-PT-PB)*0.2):0, RH=o.rs?Math.round((H-PT-PB)*0.2):0, ph=H-PT-PB-(VH?VH+4:0)-(RH?RH+8:0);   // 아래 20%는 거래대금 막대 (2026-11-13) · RS선 칸 20% (3차 2026-11-14)
   mas.forEach(([n,a])=>a.slice(st).forEach(v=>{if(v!=null){lo=Math.min(lo,v);hi=Math.max(hi,v)}}));
   /* 리포트 목표가 점 (2026-11-13 캔들 차트로 옮김): 날짜가 속한 봉 위치에, 범위는 가격의 1.35배까지만 넓히고 넘으면 맨 위 ▲ */
   const d0=R[0][0],TG=(o.tg||[]).map(t=>{const d=(t.t||"").replace(/-/g,"");if(!d||d<d0||!t.after)return null;let i=R.length-1;while(i>0&&R[i][0]>d)i--;return{...t,i}}).filter(Boolean);
@@ -2376,6 +2407,16 @@ function candleChart(all,o){
     const fv=v=>o.vlab=="거래량"?(v>=1e3?(v/1e3).toFixed(0)+"백만주":Math.round(v)+"천주"):(v>=1e12?(v/1e12).toFixed(1)+"조":Math.round(v/1e8).toLocaleString()+"억");
     if(o.axis)g+=`<text x="${W-PR+4}" y="${(vb-VH+8).toFixed(1)}" font-size="${(o.fs||10)-1}" fill="var(--muted)">${fv(vm)}</text>`;
     g+=`<text x="${PL+2}" y="${(vb-VH+8).toFixed(1)}" font-size="${(o.fs||10)-1}" fill="var(--muted)">${o.vlab}</text>`}
+  if(RH){/* RS선 = 종가 ÷ 코스피 (처음=100) · 주가가 이전 고점 아래인데 RS선이 먼저 신고가면 ● (3차 2026-11-14, 참고 신호) */
+    const IX={};o.rs.forEach(r=>{IX[r[0]]=r[4]});const rv=R.map(r=>IX[r[0]]?r[4]/IX[r[0]]:null),b0=rv.find(v=>v!=null);
+    if(b0){const v=rv.map(x=>x==null?null:x/b0*100),vv=v.filter(x=>x!=null),rl=Math.min(...vv),rh=Math.max(...vv),top=PT+ph+(VH?VH+4:0)+8,yr=q=>top+(rh-q)/((rh-rl)||1)*(RH-4);
+      g+=`<line x1="${PL}" x2="${PL+pw}" y1="${top-4}" y2="${top-4}" stroke="var(--line)"/>`;
+      let d="",pen=false,mxr=-1e9,mxc=-1e9;const mk=[];
+      v.forEach((q,i)=>{if(q==null){pen=false;return}d+=(pen?"L":"M")+x(i).toFixed(1)+","+yr(q).toFixed(1);pen=true;
+        if(i>=20&&q>=mxr&&R[i][4]<mxc)mk.push(i);mxr=Math.max(mxr,q);mxc=Math.max(mxc,R[i][4])});
+      g+=`<path d="${d}" fill="none" stroke="#7c4dff" stroke-width="1.6"/>`;
+      mk.slice(-3).forEach(i=>{g+=`<circle cx="${x(i).toFixed(1)}" cy="${yr(v[i]).toFixed(1)}" r="3.5" fill="#7c4dff" stroke="var(--panel)"><title>${R[i][0].slice(4,6)}/${R[i][0].slice(6)} RS선 신고가 (주가는 고점 아래)</title></circle>`});
+      const lv=v[v.length-1];g+=`<text x="${PL+2}" y="${top+8}" font-size="${(o.fs||10)-1}" fill="#7c4dff" stroke="var(--panel)" stroke-width="3" paint-order="stroke">RS선 ÷코스피 ${lv==null?"":Math.round(lv)}${lv!=null&&lv>=rh*0.999?" · 신고가":""}</text>`}}
   R.forEach((r,i)=>{const up=r[4]>=r[1],c=up?"var(--up)":"var(--down)",yo=y(r[1]),yc=y(r[4]);
     g+=`<line x1="${x(i).toFixed(1)}" x2="${x(i).toFixed(1)}" y1="${y(r[2]).toFixed(1)}" y2="${y(r[3]).toFixed(1)}" stroke="${c}" stroke-width="1"/><rect x="${(x(i)-cw/2).toFixed(1)}" y="${Math.min(yo,yc).toFixed(1)}" width="${cw.toFixed(1)}" height="${Math.max(1,Math.abs(yc-yo)).toFixed(1)}" fill="${c}"/>`});
   mas.forEach(([n,a])=>{const pts=a.slice(st).map((v,i)=>v==null?null:`${x(i).toFixed(1)},${y(v).toFixed(1)}`);let d="",pen=false;pts.forEach(p=>{if(!p){pen=false;return}d+=(pen?"L":"M")+p;pen=true});if(d)g+=`<path d="${d}" fill="none" stroke="${MA_COL[n]||"var(--muted)"}" stroke-width="1.3"/>`});
@@ -2459,7 +2500,7 @@ function stockChartBox(c){
     if(!rows){el.innerHTML=priceChart((c.trend||{}).chart,c.target_hist);return}
     const q=liveQuote(c.code);let r=rows;if(q&&q.price){const k=kstNow().toISOString().slice(0,10).replace(/-/g,""),l=r[r.length-1];if(l[0]==k)r=r.slice(0,-1).concat([[k,l[1],Math.max(l[2],q.price),Math.min(l[3],q.price),q.price,l[5]]])}
     const rr=mode=="w"?weekly(r):r;
-    el.innerHTML=`<div class="ixh"><small>${maPos(r,[20,60,120])}</small><span style="margin-left:auto" class="cg2"><button class="chip ${mode=="d"?"on":""}" data-scw="d">일봉 200일</button><button class="chip ${mode=="w"?"on":""}" data-scw="w">주봉 1년</button></span></div>${candleChart(rr,{w:600,h:330,n:mode=="w"?52:200,ma:mode=="w"?[10,20]:[20,60,120],vp:true,tg:c.target_hist})}<div class="src">${maLegend(mode=="w"?[10,20]:[20,60,120])} · 점 = 리포트 목표가 (<span class="up">● 상향</span> <span class="down">● 하향</span> <span class="muted">● 신규·유지</span>, ▲ = 차트 위로 벗어남, 점에 마우스를 올리면 증권사·날짜) · 매물대 = 최근 200봉 거래량을 종가 기준 10칸으로(빨강 = 가장 많이, 노랑 = 현재가 칸) · 출처: 네이버 일봉(비공식), 채널 리포트 요약(2차 자료)</div>`}),0);
+    el.innerHTML=`<div class="ixh"><small>${maPos(r,[20,60,120])}</small><span style="margin-left:auto" class="cg2"><button class="chip ${mode=="d"?"on":""}" data-scw="d">일봉 200일</button><button class="chip ${mode=="w"?"on":""}" data-scw="w">주봉 1년</button></span></div>${candleChart(rr,{w:600,h:400,n:mode=="w"?52:200,ma:mode=="w"?[10,20]:[20,60,120],vp:true,tg:c.target_hist,rs:(D.index_daily||{}).KOSPI?(mode=="w"?weekly(D.index_daily.KOSPI):D.index_daily.KOSPI):null})}<div class="src">${maLegend(mode=="w"?[10,20]:[20,60,120])} · <span style="color:#7c4dff">보라 선 = RS선(주가÷코스피), ● = 주가보다 먼저 신고가(참고)</span> · 점 = 리포트 목표가 (<span class="up">● 상향</span> <span class="down">● 하향</span> <span class="muted">● 신규·유지</span>, ▲ = 차트 위로 벗어남, 점에 마우스를 올리면 증권사·날짜) · 매물대 = 최근 200봉 거래량을 종가 기준 10칸으로(빨강 = 가장 많이, 노랑 = 현재가 칸) · 출처: 네이버 일봉(비공식), 채널 리포트 요약(2차 자료)</div>`}),0);
   return `<div id="${id}" class="schart"><div class="muted" style="padding:20px;font-size:13px">차트 불러오는 중…</div></div>`;
 }
 /* ---------- 종목명 마우스오버 팝업 (휴대폰은 한 번 누르면) ---------- */

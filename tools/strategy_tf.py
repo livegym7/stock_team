@@ -606,6 +606,7 @@ CSS = """
 .tfr .sec .side{border-top:2px solid var(--ink);padding-top:10px}.tfr .sec .main{border-top:2px solid var(--ink);padding-top:10px;min-width:0}
 .tfr .side h4{font-size:11px;letter-spacing:.1em;color:var(--acc);margin:0 0 6px}
 .tfr .side p{margin:0 0 10px;color:var(--ink2)}.tfr .side dl{display:grid;grid-template-columns:1fr auto;gap:4px 8px;margin:0 0 14px}.tfr .side dt{color:var(--ink3)}.tfr .side dd{margin:0;text-align:right}
+.tfr .cmp{border:1px solid var(--line);border-left:4px solid var(--warn);padding:10px 14px;margin:0 0 14px;font-size:13px}.tfr .cmp>div{margin-top:4px}.tfr .cmp table{margin-top:6px}
 .tfr .call{background:var(--acc2);border-left:4px solid var(--acc);padding:12px 16px;margin:0 0 14px}.tfr .call b{display:block;font-size:12px;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
 .tfr .fig{margin:10px 0 4px}.tfr .fig .ft{font-size:12.5px;font-weight:600;margin-bottom:2px}.tfr .fig .ft span{color:var(--acc);margin-right:6px}
 .tfr .src{font-size:11px;color:var(--ink3);margin-top:2px}
@@ -636,6 +637,57 @@ body{background:var(--bg);color:var(--ink);margin:0;padding-block:24px;padding-l
 # 웹(Balance Lab) 안에서는 앱 색 토큰을 그대로 따른다
 TOKENS_WEB = """.tfr{--paper:var(--panel);--ink:var(--fg);--ink2:var(--muted);--ink3:var(--faint);--rule:var(--line);--acc:var(--accent);--acc2:var(--accent-soft);--dn:var(--down);--warn:var(--warn,#b45309);
 --f-body:inherit;--f-disp:inherit;--f-num:ui-monospace,SFMono-Regular,Menlo,monospace}"""
+
+
+def compare(P):
+    """지난 호 대비 (3차 2026-11-14): 국면 · 업종 사분면 변화 · 핵심 후보 들어옴/빠짐 · 지난 호 핵심 후보 1주 성적 vs 코스피. 숫자만(토큰 0)"""
+    prev = [f for f in sorted(TF.glob("prep_*.json")) if f.stem[5:] < P["date"]]
+    if not prev:
+        return {"first": True}
+    Q = _j(prev[-1])
+    okm = lambda m: m.get("opg") is not None and (m.get("n_fund") or 0) >= 3  # noqa: E731
+    pm = {m["group"]: m for m in Q.get("matrix") or [] if okm(m)}
+    sec = []
+    for m in sorted(P["matrix"], key=lambda m: m["rank"]):
+        if not okm(m):
+            continue
+        o = pm.get(m["group"]); qn = quad(m); qo = quad(o) if o else None
+        if qo != qn and (qn in ("리더", "모멘텀만") or qo in ("리더", "모멘텀만")):
+            sec.append({"group": m["group"], "before": qo or "—", "now": qn, "rank_before": o["rank"] if o else None, "rank": m["rank"]})
+    core_now = {b["code"]: b["name"] for b in P["board"] if cat(b)[0] == 0}
+    core_old = {b["code"]: b for b in Q.get("board") or [] if cat(b)[0] == 0}
+    now_px = {b["code"]: b.get("close") for b in P["board"]}
+    perf = []
+    for c, b in core_old.items():
+        px = now_px.get(c)
+        if px is None:
+            rows = (_j(DATA / "cache" / "daily" / f"{c}.json", {}) or {}).get("rows") or []
+            px = rows[-1]["close"] if rows else None
+        if px and b.get("close"):
+            perf.append({"name": b["name"], "ret": round((px / b["close"] - 1) * 100, 1)})
+    k0, k1 = Q["regime"].get("close"), P["regime"].get("close")
+    l0, _ = light(Q); l1, _ = light(P)
+    return {"first": False, "prev_date": Q["date"], "light": [l0, l1], "dist": [len(Q["regime"]["dist_days"]), len(P["regime"]["dist_days"])],
+            "sectors": sec[:8], "core_in": [core_now[c] for c in core_now if c not in core_old], "core_out": [b["name"] for c, b in core_old.items() if c not in core_now],
+            "core_perf": sorted(perf, key=lambda x: -x["ret"]), "kospi_ret": round((k1 / k0 - 1) * 100, 1) if k0 and k1 else None}
+
+
+def compare_html(P, core):
+    C = compare(P)
+    if C["first"]:
+        return ('<div class="cmp"><b>지난 호 대비</b> <small>이번 호가 첫 호입니다. 다음 호부터 국면·업종 위치·핵심 후보 변화와 지난 호 핵심 후보의 1주 성적을 여기에 자동으로 적습니다.</small>'
+                f'<div><small>🆕 핵심 후보: {E(", ".join(b["name"] for b in core) or "없음")}</small></div></div>')
+    qc = {"리더": "pos", "모멘텀만": "warn", "기다림": "neu", "회피": "neg", "—": "neu"}
+    rows = "".join(f'<tr><td class="l">{E(x["group"])}</td><td><span class="tag {qc[x["before"]]}">{E(x["before"])}</span></td><td>→</td><td><span class="tag {qc[x["now"]]}"><b>{E(x["now"])}</b></span></td>'
+                   f'<td>{x["rank_before"] or "-"}위 → {x["rank"]}위</td></tr>' for x in C["sectors"])
+    avg = round(sum(x["ret"] for x in C["core_perf"]) / len(C["core_perf"]), 1) if C["core_perf"] else None
+    perf = " · ".join(f'{E(x["name"])} <span class="{cls(x["ret"])}">{pc(x["ret"])}</span>' for x in C["core_perf"][:6])
+    return (f'<div class="cmp"><b>지난 호({E(C["prev_date"][5:].replace("-", "/"))}) 대비</b>'
+            f'<div><small>국면 {C["light"][0]} → <b>{C["light"][1]}</b> · 분산일 {C["dist"][0]} → <b>{C["dist"][1]}</b> · 코스피 1주 {pc(C["kospi_ret"])}</small></div>'
+            + (f'<div class="tw"><table><thead><tr><th class="l">업종</th><th>지난 호</th><th></th><th>이번 호</th><th>강도 순위</th></tr></thead><tbody>{rows}</tbody></table></div>' if rows else '<div><small>업종 위치(리더·모멘텀만) 변화 없음</small></div>')
+            + f'<div><small>🎯 핵심 후보 🆕 들어옴: {E(", ".join(C["core_in"]) or "없음")} · ➖ 빠짐: {E(", ".join(C["core_out"]) or "없음")}</small></div>'
+            + (f'<div><small>지난 호 핵심 후보 1주: 평균 <b class="{cls(avg)}">{pc(avg)}</b> (코스피 {pc(C["kospi_ret"])}) — {perf}</small></div>' if perf else "")
+            + '</div>')
 
 
 def body(P, N):
@@ -731,6 +783,7 @@ def body(P, N):
   <div><span>리더 업종</span><b style="font-size:13.5px">{E(N.get("leaders_label") or "·".join(leaders[:3]) or "없음")}</b><small>이익 +{XQ}%↑ + 강도 {YQ}↑</small></div>
   <div><span>핵심 후보</span><b>{len(core)}종목</b><small>펀더 2/3↑ + 기술 2/3↑</small></div>
  </div>
+ {compare_html(P, core)}
  <div class="cover">
   <aside class="side"><h4>데스크 의견</h4><dl>{"".join(f'<dt>{E(a)}</dt><dd><span class="tag {c}">{E(b)}</span></dd>' for a, b, c in desk)}</dl>
    <h4>이번 주 할 일</h4><p>{" ".join(f"{"①②③④⑤"[i]} {E(t)}" for i, t in enumerate((N.get("todo") or [])[:5]))}</p>
@@ -828,7 +881,13 @@ def tg(date=None):
     core = [b for b in BD if cat(b)[0] == 0]
     FS = sorted(P["flow_sectors"], key=lambda s: -((s["f5"] or 0) + (s["i5"] or 0)))
     L = [f"📊 테크노펀더 주간 전략 · {P['date'][5:].replace('-', '/')} (시세 {md(P['regime']['date'])} 종가)", "",
-         f"💡 {plain(N.get('title'))}", f"→ {plain(N.get('call'))}", "",
+         f"💡 {plain(N.get('title'))}", f"→ {plain(N.get('call'))}", ""]
+    C = compare(P)
+    if not C["first"]:
+        sx = ", ".join(f"{x['group']} {x['before']}→{x['now']}" for x in C["sectors"][:3]) or "업종 위치 변화 없음"
+        L += [f"🔁 지난 호 대비: 국면 {C['light'][0]}→{C['light'][1]} · 분산일 {C['dist'][0]}→{C['dist'][1]} · {sx}",
+              f"   핵심 후보 🆕 {', '.join(C['core_in'][:4]) or '없음'} / ➖ {', '.join(C['core_out'][:4]) or '없음'}", ""]
+    L += [
          f"🌐 매크로: {N.get('macro_view', '중립')} — {N.get('macro_note', '')}"]
     L += [f"- {a}: {b}" for a, b, _t, _c in (N.get("impl") or [])[:3]]
     L += ["", f"🚦 국면: 신호등 {lt} · 분산일 {len(P['regime']['dist_days'])}개 · 50일선 위 종목 {lb['a50']:.0f}% · 20일선 대비 {pc(P['regime']['gap20'])}",
