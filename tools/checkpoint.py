@@ -60,6 +60,11 @@ def prep(slot):
         o["screener_as_of"] = w.get("as_of")
     except Exception as e:
         o["pool_near_error"] = type(e).__name__
+    try:   # 탑다운 요약 (2026-11-14 1차): 국면·분산일 · 업종 분류(주간 지면) · 핵심 후보(펀더+기술) 기준가 거리
+        import strategy_tf
+        o["topdown"] = strategy_tf.topdown_brief()
+    except Exception as e:
+        o["topdown_error"] = type(e).__name__
     try:
         import strategy_prep as SP
         o["calendar"] = SP.safe(lambda: SP.calendar_ahead(SP.pool_stocks(), 2), [])
@@ -101,6 +106,20 @@ def md_prep(o):
         L.append(f"- {h['name']} {h['price']} (평단 {h['avg_price']}, 손절 {h['stop']}, 손절까지 {h['to_stop_pct']}%, {h['r_multiple']}R, {h['phase']}) {h.get('alert') or ''}")
     if o.get("account"):
         L.append(f"- 계좌: CR {o['account']['CR_pct']}% / 한도 {o['account']['CR_limit_pct']}% · 투자 비중 {o['account']['E_pct']}%")
+    T = o.get("topdown") or {}
+    if T:   # 탑다운 요약 (2026-11-14): now 칸은 매크로 → 국면 → 수급 → 업종 순서, mine 칸에 핵심 후보 거리
+        L.append("## 탑다운 요약 (now 칸 순서: 매크로 → 국면 → 수급 → 업종)")
+        r = T.get("regime") or {}
+        if r:
+            L.append(f"- 국면: 코스피 {r.get('close')} · 20일선 대비 {r.get('gap20')}% · 20일선 기울기 {r.get('slope20')}% · 분산일(25거래일) {r.get('dist_days_n')}개 ({r.get('date')} 종가)")
+        sw = T.get("sectors_week") or {}
+        if sw:
+            L.append(f"- 업종 분류(주간 지면 {sw.get('as_of')}): 리더 {', '.join(sw.get('리더') or []) or '-'} / 모멘텀만 {', '.join(sw.get('모멘텀만') or []) or '-'} / 기다림 {', '.join(sw.get('기다림') or []) or '-'}")
+        bw = T.get("breadth_week") or {}
+        if bw:
+            L.append(f"- 시장 폭: 50일선 위 {bw.get('a50')}% · 20일선 위 {bw.get('a20')}% ({bw.get('date')})")
+        L.append(f"## 핵심 후보 (펀더 2/3↑ + 기술 2/3↑) — mine 칸에 기준가까지 %")
+        L += [f"- {x['name']} ({x['group']}) 기준가 {x['breakout']} · {x['dist']}% 남음 · 펀더 {x['fp']}/3 · 기술 {x['tech']}/3 {x.get('note') or ''}" for x in T.get("core") or []] or ["- 없음"]
     L.append(f"## 관찰 풀 기준가 ±3% (감시 목록 {o.get('screener_as_of')})")
     L += [f"- {x['name']} ({x['tier']}) {x['close']} → 기준가 {x['breakout']} ({x['distance_pct']:+}%) 오늘 {x.get('today') or ''}" for x in o.get("pool_near") or []]
     if o.get("calendar"):

@@ -5,7 +5,7 @@
   - 3R 도달 (50% 익절 + 남은 물량 손절가 본전 규칙)
   - 3R 이후 20일선 아래 (종가로 확인 필요)
   - 하루 등락 -5% 이하 / +7% 이상
-  - 감시 목록(전날 16:07) 종목의 기준가 근접(−2% 이내)·장중 돌파 (예상 거래량 배수 포함)
+  - 감시 목록(전날 16:07) 종목의 기준가 근접(−2% 이내)·장중 돌파 (예상 거래량 배수 포함) · 핵심 후보(펀더+기술, core.json)는 🎯로 먼저 (2026-11-14)
   - 보유 종목이 주인공인 채널 새 글 (기업·실적·리포트·정책 글, 중복·잡담·시황 나열 제외, 지난 확인 이후)
 판단만 알린다. 매수·매도를 대신하지 않는다 (절대 규칙 1·4).
 
@@ -17,6 +17,7 @@
 """
 import argparse
 import json
+import os
 from datetime import datetime, timedelta
 from pathlib import Path
 
@@ -53,6 +54,13 @@ def breakout_watch(now, sent, limit=40):
             lv = x.get("levels") or {}
             if lv.get("breakout"):
                 items.append((tier, x))
+    core = {}
+    for cp in (os.environ.get("CORE_JSON") or "", str(Path(__file__).resolve().parent.parent / "web" / "core.json")):   # 핵심 후보(펀더 2/3↑+기술 2/3↑, 2026-11-14)
+        try:
+            core = {x["code"]: x for x in json.loads(Path(cp).read_text(encoding="utf-8"))["items"]}; break
+        except Exception:
+            pass
+    items.sort(key=lambda t: (not (core.get(t[1]["code"]) or {}).get("core"), -((core.get(t[1]["code"]) or {}).get("fp") or 0)))   # 핵심 후보 먼저
     items = items[:limit]
     if not items:
         return []
@@ -75,6 +83,11 @@ def breakout_watch(now, sent, limit=40):
         vr = (r["vol"] / frac / x["vol50"]) if r.get("vol") and x.get("vol50") else None
         vtxt = f" · 예상 거래량 {vr:.1f}배" if vr else ""
         grade = "🔥" if x.get("pool") else ("참고" if x.get("pool") is False else "")   # 관찰 풀 안 🔥 / 밖 참고 (2026-11-10)
+        cx = core.get(c) or {}
+        if cx.get("core"):
+            grade = f"🎯핵심(펀더 {cx['fp']}/3) " + grade
+        elif cx and cx.get("fp", 0) <= 1:
+            grade = grade + "(펀더 미확인) "
         note = f"{grade}{tier} {x['stock']} {px:,.0f}원 ({r.get('chg') or 0:+.2f}%) · 기준가 {piv:,}"
         miss = f" · 부족: {', '.join(x.get('missing') or [])}" if x.get("missing") else ""
         if px > piv:

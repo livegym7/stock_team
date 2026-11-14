@@ -29,12 +29,6 @@ jobs:
           mkdir -p "$RUNNER_TEMP/st"
           git fetch -q origin alert-state 2>/dev/null && git show origin/alert-state:state.json > "$RUNNER_TEMP/st/state.json" || echo '{}' > "$RUNNER_TEMP/st/state.json"
           git show origin/alert-state:highs_prev.json > "$RUNNER_TEMP/st/highs_prev.json" 2>/dev/null || echo '{}' > "$RUNNER_TEMP/st/highs_prev.json"
-      - name: 확인하고 새 알림만 텔레그램으로
-        env:
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        run: python3 tools/alerts.py --collect --state "$RUNNER_TEMP/st/state.json" --live "$RUNNER_TEMP/live.json"
-      # ---- 웹 화면 장중 가격 스냅샷 (2026-11-12, Balance Lab 2.0): 마지막 웹 배포 폴더에 live.json만 바꿔 다시 올림 ----
       - name: 웹 배포 폴더 불러오기
         id: site
         uses: actions/cache/restore@v4
@@ -42,6 +36,13 @@ jobs:
           path: site
           key: site-${{ github.run_id }}
           restore-keys: site-
+      - name: 확인하고 새 알림만 텔레그램으로
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          CORE_JSON: site/core.json   # 핵심 후보(펀더+기술) 🎯 표시 (2026-11-14)
+        run: python3 tools/alerts.py --collect --state "$RUNNER_TEMP/st/state.json" --live "$RUNNER_TEMP/live.json"
+      # ---- 웹 화면 장중 가격 스냅샷 (2026-11-12, Balance Lab 2.0): 마지막 웹 배포 폴더에 live.json만 바꿔 다시 올림 ----
       - uses: actions/setup-node@v4
         if: steps.site.outputs.cache-matched-key != ''
         with:

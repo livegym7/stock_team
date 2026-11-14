@@ -60,6 +60,8 @@ def build(placeholder=False):
         shutil.copytree(WEB / "c", SITE / "c")
     if not placeholder and (WEB / "f").exists():   # 수급 오실레이터 그림 데이터
         shutil.copytree(WEB / "f", SITE / "f")
+    if not placeholder and (WEB / "core.json").exists():   # 핵심 후보(펀더+기술) — 장중 알림이 🎯 표시에 씀 (2026-11-14)
+        shutil.copy(WEB / "core.json", SITE / "core.json")
     if not placeholder and (WEB / "highs_base.json").exists():   # 장중 신고가 비교 기준선 (alerts.yml이 읽음)
         shutil.copy(WEB / "highs_base.json", SITE / "highs_base.json")
     shutil.copy(WEB / "brand" / "balance-lab-icon-1024.png", SITE / "icon-512.png")

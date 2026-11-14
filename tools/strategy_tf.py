@@ -235,6 +235,53 @@ def prep():
     return P
 
 
+def core_list():
+    """매일 갱신용 핵심 후보(2026-11-14, 1차 개선): 최신 감시 목록 + 실적 캐시로 펀더·기술 점수만 (네트워크 없음, 몇 초).
+    web_build가 매번 부르고, 웹 '오늘'·장중 알림(site/core.json)이 쓴다."""
+    fund = _fund()
+    scf = sorted(glob.glob(str(DATA / "bus" / "*" / "screener.json")))
+    sc = _j(scf[-1], {}) if scf else {}
+    prevfs = {}
+    if len(fund) < 100:   # 실적 캐시가 없는 곳(예약 대화 컨테이너): 커밋된 지난 주간 지면의 펀더 점수로 대신
+        pf = sorted(TF.glob("prep_*.json"))
+        prevfs = {b["code"]: b.get("fs") for b in ((_j(pf[-1], {}) or {}).get("board") or [])} if pf else {}
+    items = []
+    for r in sc.get("watch", []):
+        lv, b = r.get("levels") or {}, r.get("base") or {}
+        f = fscore(fund.get(r["code"]), r.get("close")) if fund.get(r["code"]) else prevfs.get(r["code"])
+        dist = lv.get("distance_pct")
+        tech = (1 if (r["rs"] or 0) >= 80 else 0) + (1 if dist is not None and dist <= 10 and not r["missing"] else 0) + (1 if r["ia"] == "동반 상승" else 0)
+        fp = (f or {}).get("pts", 0)
+        note = "베이스 짧고 얕음(확인 필요)" if (b.get("days") or 99) < 10 and (b.get("depth_pct") or 99) < 3 else ""
+        items.append({"code": r["code"], "name": r["stock"], "group": r["group"], "rs": r["rs"], "close": r["close"], "breakout": lv.get("breakout"),
+                      "stop": lv.get("stop_1r"), "dist": dist, "fp": fp, "tech": tech, "why": (f or {}).get("why") or [], "ia": r["ia"] == "동반 상승",
+                      "pool": r["pool"], "core": fp >= 2 and tech >= 2, "note": note})
+    items.sort(key=lambda x: (not x["core"], -x["fp"], x["dist"] if x["dist"] is not None else 99))
+    return {"as_of": sc.get("as_of"), "made_at": datetime.now(KST).strftime("%Y-%m-%d %H:%M"), "items": items[:20],
+            "n_core": sum(1 for x in items if x["core"]), "rule": "핵심 = 펀더 2/3↑ + 기술 2/3↑ (펀더: 분기 이익·이익률·올해 이익 / 기술: RS 80↑·기준가 10% 안·업종 동행)"}
+
+
+def topdown_brief():
+    """체크포인트용 탑다운 요약(2026-11-14 1차, 토큰 0·몇 초): 국면(분산일·20일선) · 시장 폭 · 업종 분류(지난 주간 지면) · 핵심 후보 거리."""
+    out = {}
+    try:
+        k = json.loads((CACHE / "daily" / "KOSPI.json").read_text())["rows"]
+        out["regime"] = {kk: v for kk, v in regime_block({"KOSPI": k}).items() if kk != "kospi"}
+        out["regime"]["dist_days_n"] = len(out["regime"]["dist_days"])
+    except Exception as e:
+        out["regime_error"] = type(e).__name__
+    fs = sorted(TF.glob("prep_*.json"))
+    if fs:
+        P = _j(fs[-1], {}) or {}
+        MT = sorted([m for m in P.get("matrix", []) if m.get("opg") is not None and (m.get("n_fund") or 0) >= 3], key=lambda m: m["rank"])
+        out["sectors_week"] = {"as_of": P.get("date"), **{q: [f"{m['group']}({m['rank']}위, 이익 {m['opg']:+.0f}%)" for m in MT if quad(m) == q][:4] for q in ("리더", "모멘텀만", "기다림")}}
+        out["breadth_week"] = {k: v for k, v in ((P.get("breadth") or [{}])[-1]).items() if k not in ("nh", "nl")}   # 신고가·신저가 수는 네이버 시장 집계 하나만 씀(⑫)
+    c = core_list()
+    out["core"] = [{k: x[k] for k in ("name", "group", "breakout", "dist", "fp", "tech", "note")} for x in c["items"] if x["core"]][:6]
+    out["core_rule"] = c["rule"]
+    return out
+
+
 # ---------------------------------------------------------------- 분류 · 기본 해석
 def quad(m):
     o, s = m.get("opg"), m["score"]
@@ -526,7 +573,7 @@ def body(P, N):
                     f'<td title="{E(" / ".join(f.get("why") or ["조건 없음"]))}"><span class="dots">{dots(f.get("pts", 0))}</span></td><td><span class="dots">{dots(b["tech"])}</span></td>'
                     f'<td>{gtxt(f.get("yoy"))}</td><td>{gtxt(f.get("opg"))}</td><td>{f.get("per") or "-"}</td><td>{b["rs"]}</td><td><b>{w(b["breakout"])}</b></td>'
                     f'<td class="{"near" if b["dist"] is not None and b["dist"] <= 5 else ""}">{"-" if b["dist"] is None else f"{b["dist"]:.1f}%"}</td><td>{w(b["stop"])}</td><td>{b["qty"] or "-"}주</td>'
-                    f'<td>{b["base_days"] or "-"}일·{(b["depth"] or 0):.0f}%</td><td class="{"up" if b["ia"] == "동반 상승" else "dn"}">{"동행" if b["ia"] == "동반 상승" else "나 홀로"}</td><td class="l"><small>{E(b["event"] or "")} {E(", ".join(b["missing"]))}</small></td></tr>')
+                    f'<td>{b["base_days"] or "-"}일·{(b["depth"] or 0):.0f}%</td><td class="{"up" if b["ia"] == "동반 상승" else "dn"}">{"동행" if b["ia"] == "동반 상승" else "나 홀로"}</td><td class="l"><small>{E(b["event"] or "")} {E(", ".join(b["missing"]))}{" 베이스 짧고 얕음(확인 필요)" if (b["base_days"] or 99) < 10 and (b["depth"] or 99) < 3 else ""}</small></td></tr>')
     runrow = "".join(f'<tr><td class="l"><b class="stk">{E(b["name"])}</b>{" 🎯" if b["pool"] else ""}<br><small>{E(b["group"])}</small></td><td>{b["rs"]}</td><td><span class="dots">{dots((b["fs"] or {}).get("pts", 0))}</span></td><td class="up">{pc(b["r1m"])}</td><td>{pc(b["gap20"])}</td>'
                      f'<td class="l"><small>{"20일선과 멀어 추격 위험 · 첫 눌림 뒤 새 베이스 대기" if (b["gap20"] or 0) > 10 else "20일선 근처 · 새 베이스가 생기는지 확인"}</small></td></tr>' for b in BD if b["list"] == "running")
     # 심층
@@ -693,7 +740,7 @@ def tg(date=None):
 def main():
     ap = argparse.ArgumentParser(description="테크노펀더멘탈 · 탑다운 주간 보고서 (숫자 토큰 0)")
     sp = ap.add_subparsers(dest="cmd", required=True)
-    sp.add_parser("prep"); sp.add_parser("narr-template")
+    sp.add_parser("prep"); sp.add_parser("narr-template"); sp.add_parser("core")
     r = sp.add_parser("render"); r.add_argument("--date")
     t = sp.add_parser("tg"); t.add_argument("--date")
     a = ap.parse_args()
@@ -705,6 +752,8 @@ def main():
     elif a.cmd == "narr-template":
         fs = sorted(TF.glob("prep_*.json"))
         print(json.dumps(auto_narr(_j(fs[-1])), ensure_ascii=False, indent=1))
+    elif a.cmd == "core":
+        print(json.dumps(core_list(), ensure_ascii=False, indent=1))
     elif a.cmd == "tg":
         print(json.dumps(tg(a.date), ensure_ascii=False))
     else:
