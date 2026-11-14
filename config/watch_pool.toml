@@ -1,20 +1,16 @@
 # 관찰 풀 — 전략 보고서가 고른 종목 (Claude가 보고서 저장 때 다시 씀. 직접 고쳐도 됨: 빼고 싶은 종목은 줄을 지우고, 넣고 싶은 종목은 같은 형식으로 추가)
 # 감시 목록(screener --pool)은 이 풀 + RS 70↑ 종목만 본다. 주문 기능 없음.
-updated = "2026-11-11 15:32"
-source = "전략 보고서 2026-11-11 15:40"
+updated = "2026-11-14 09:18"
+source = "전략 보고서 2026-11-14 09:40"
 
 [[themes]]
 id = "T1"
-name = "AI 인프라 '미국 밖' 재배치 → 운영·소프트웨어·시공"
-stage = "초기→확산"
+name = "국내 데이터센터·반도체 팹 건설 — 2027년 일감이 국내로 돌아온다"
+stage = "확산"
 stocks = [
-  { name = "NAVER", code = "035420", role = "선도 후보", group = "IT/소프트웨어" },
-  { name = "삼성에스디에스", code = "018260", role = "확산 후보", group = "로봇" },
-  { name = "삼성E&A", code = "028050", role = "확산 후보 (시공)", group = "건설" },
-  { name = "NHN", code = "181710", role = "선도", group = "IT/소프트웨어" },
-  { name = "카카오", code = "035720", role = "후속", group = "IT/소프트웨어" },
-  { name = "GS건설", code = "006360", role = "후속 (시공)", group = "건설" },
-  { name = "혜인", code = "003010", role = "원천 (비상전력)", group = "기계" },
+  { name = "삼성E&A", code = "028050", role = "선도", group = "건설" },
+  { name = "GS건설", code = "006360", role = "선도", group = "건설" },
+  { name = "계룡건설", code = "013580", role = "후속", group = "건설" },
 ]
 
 [[themes]]
@@ -23,18 +19,29 @@ name = "유가 하락 → 항공 이익 추정 상향 (대한항공 중심)"
 stage = "확산"
 stocks = [
   { name = "대한항공", code = "003490", role = "선도", group = "운송/물류" },
-  { name = "진에어", code = "272450", role = "선도", group = "운송/물류" },
   { name = "제주항공", code = "089590", role = "후속", group = "운송/물류" },
+  { name = "진에어", code = "272450", role = "후속", group = "운송/물류" },
 ]
 
 [[themes]]
 id = "T3"
-name = "메모리 — 이익 전망은 위, 수급은 아래"
-stage = "관찰"
+name = "AI 공급 부족 → 반도체 장비·테스트·메모리 (2028년까지 타이트)"
+stage = "초기"
 stocks = [
-  { name = "SK하이닉스", code = "000660", role = "선도", group = "반도체(메모리·대형)" },
   { name = "삼성전자", code = "005930", role = "선도", group = "반도체(메모리·대형)" },
-  { name = "티에프이", code = "425420", role = "원천 (테스트)", group = "반도체 테스트·후공정" },
-  { name = "엑시콘", code = "092870", role = "원천 (테스트)", group = "반도체 테스트·후공정" },
-  { name = "심텍", code = "222800", role = "후속 (기판)", group = "반도체 기판·전자부품" },
+  { name = "SK하이닉스", code = "000660", role = "선도", group = "반도체(메모리·대형)" },
+  { name = "티에프이", code = "425420", role = "원천(테스트)", group = "반도체 테스트·후공정" },
+  { name = "엑시콘", code = "092870", role = "원천(테스트)", group = "반도체 테스트·후공정" },
+  { name = "피에스케이홀딩스", code = "031980", role = "장비", group = "반도체 장비" },
+  { name = "이오테크닉스", code = "039030", role = "장비", group = "반도체 장비" },
+  { name = "심텍", code = "222800", role = "기판", group = "반도체 기판·전자부품" },
+]
+
+[[themes]]
+id = "T4"
+name = "AI 인프라 운영·소프트웨어 (지난 호 메인 → 관찰로 강등)"
+stage = "소멸"
+stocks = [
+  { name = "삼성에스디에스", code = "018260", role = "운영·SW", group = "로봇" },
+  { name = "NHN", code = "181710", role = "운영·SW", group = "IT/소프트웨어" },
 ]
