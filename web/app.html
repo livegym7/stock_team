@@ -2488,7 +2488,7 @@ function invBox(c){const id="iv"+c.code;
     if(/^https?:/.test(location.protocol))fetch("api/quote?trend="+c.code,{cache:"no-store"}).then(r=>r.ok?r.json():null).then(j=>{const el2=document.getElementById(id);if(!el2)return;if(j&&j.trend&&j.trend.length)el2.innerHTML=invTable(j.trend);else fromFile()}).catch(fromFile);
     else fromFile()},0);
   return `<h3 style="margin-top:8px">최근 5일 수급 <small class="muted">억 원 · 순매수 · 수량×종가 추정</small></h3><div id="${id}"><div class="muted" style="font-size:12px">불러오는 중…</div></div>
-   <div class="src">출처: 네이버 투자자별 매매동향(비공식) · 오늘은 장중 잠정</div>`}
+   <div class="src">출처: 네이버 투자자별 매매동향(비공식) · <b>KRX(한국거래소) 기준, 넥스트레이드(NXT) 거래 제외</b> — 증권사 앱 '통합' 화면과 다를 수 있음 · 오늘은 장중 잠정</div>`}
 function flowBox(c){
   if(flowP(c.code)==null)return "";const id="fo"+c.code;
   setTimeout(()=>flowGet(c.code).then(j=>{const el=document.getElementById(id);if(el)el.innerHTML=j?flowChart(j):`<div class="muted" style="font-size:12.5px;padding:8px 0">그림은 웹(balance-lab.pages.dev)에서만 보입니다 · 지금 ${flowTag(c.code,1)}</div>`}),0);
