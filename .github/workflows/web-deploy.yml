@@ -11,6 +11,7 @@ on:
     paths:
       - "data/insight/**"
       - "data/strategy/latest.json"
+      - "data/strategy/tf/latest.json"
       - "config/positions.toml"
       - "web/app.html"
       - "config/web.toml"

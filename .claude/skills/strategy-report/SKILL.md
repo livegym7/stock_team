@@ -61,12 +61,22 @@ python3 tools/strategy_prep.py save --file data/strategy/draft.json   # 형식 �
 python3 tools/strategy_prep.py pool                                   # 관찰 풀 종목 수 확인
 ```
 4. 읽기용 마크다운도 남긴다: `reports/YYYY-MM-DD/strategy.md` (summary → regime → 띔 → 스코어카드 표 → 관찰 풀 표 → 시나리오 → 성적표 → 체크리스트 → 한계·출처). 표는 마크다운 표.
-5. 웹·텔레그램·커밋:
+5. **테크노펀더멘탈 지면 (2026-11-14 사용자 확정, 웹 '전략 › 보고서' 맨 위에 보이는 정식 지면)** — 사용자는 테크노펀더멘탈리스트다(펀더가 받쳐 주는 종목 안에서 추세 상승 트리거를 노림, 분석은 탑다운).
+```bash
+python3 tools/strategy_tf.py prep            # 매크로·분산일·시장 폭·수급·업종(이익×강도)·종목 펀더/기술 점수 → data/strategy/tf/prep_날짜.json (토큰 0, 1~3분)
+python3 tools/strategy_tf.py narr-template   # 해석 칸 기본값(숫자로 만든 자동 문장) — 이걸 고쳐 data/strategy/tf/narr_날짜.json 으로 저장
+python3 tools/strategy_tf.py render          # → reports/날짜/strategy_tf.html + data/strategy/tf/latest.json (웹 조각)
+```
+   해석 JSON(`narr_날짜.json`)에서 Claude가 쓰는 칸: `title`(결론 한 문장) · `sub`(3문장) · `call`(한 줄 결론) · `macro_view`/`macro_note` · `leaders_label` · `desk`([[이름, 의견, pos|neu|warn|neg]] 5~6줄, 의견은 관찰/준비/모멘텀만/기다림/펀더 미확인/회피) · `todo`(4개) · `impl`(매크로→업종 연결 [[변화, 방향, 영향 한두 문장, 색]] 4~5줄) · `macro_side`/`regime_side`/`flow_side`/`sector_side`(칸마다 2~3문단, `<b>`만 허용) · `deep_code`+`deep_side`(핵심 후보 1종목 심층: 무엇을 만드는지·분기 이익 흐름·트리거·반대 근거) · `warns`({코드: "기술은 좋은데 펀더가 약한 이유"} 2~3개) · `events`.
+   - 숫자는 prep JSON에서만 가져온다(지어내지 않음). 빈 칸은 자동 문장이 채운다.
+   - 펀더 점수는 **순서를 정하는 참고**다. 매매 규칙(진입·손절)은 바꾸지 않는다. 행동은 관찰/준비/회피.
+   - 위 v3 보고서(latest.json)의 띔·관찰 풀·시나리오는 그대로 쓴다(지면이 시나리오를 latest.json에서 읽음). 두 보고서의 판단이 다르면(예: 펀더 미확인 종목을 v3에서 '준비'로 둠) 지면 쪽 `warns`에 적고 v3도 맞춰 고친다.
+6. 웹·텔레그램·커밋:
 ```bash
 python3 tools/web_build.py --only analysis
 # Artifact: https://claude.ai/artifact/C8B5Dd1zwtyyqP3c4e3ric 를 read 한 뒤 web/index.html을 같은 url로 publish (icon 없이)
 python3 tools/telegram_send.py --file reports/YYYY-MM-DD/strategy_tg.md   # 형식 문서의 '텔레그램 요약'(30줄 안팎)만 따로 써서 보냄
-git add data/strategy data/research/notes config/watch_pool.toml reports && git commit -m "전략 보고서 제n호 MM/DD" && git push -u origin main
+git add data/strategy data/research/notes config/watch_pool.toml reports  # data/strategy/tf 포함 && git commit -m "전략 보고서 제n호 MM/DD" && git push -u origin main
 ```
 
 ## 분량·토큰

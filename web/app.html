@@ -2045,11 +2045,15 @@ function poolTab(){
    ${(th.stocks||[]).map(s=>{const c=comp[s.code]||{},t=c.trend||{},wx=wmap[s.code];return `<tr class="click" data-cq="${esc(s.name)}"><td class="l"><b>${esc(s.name)}</b><br><small class="muted">${esc(s.group||"")}</small></td><td class="l"><small>${esc(s.role||"")}</small></td><td class="num">${t.rs??"-"}</td><td class="num ${cls(t.r1w)}">${pc(t.r1w)}</td><td class="num ${cls(t.r1m)}">${pc(t.r1m)}</td><td class="num">${pc(t.off_high)}</td><td>${t.above20==null?"-":t.above20?'<span class="up">위</span>':'<span class="down">아래</span>'}</td><td>${flowTag(s.code)||"-"}</td><td class="l"><small>${wx?esc(wx.tier)+(wx.setups&&wx.setups.length?" · 셋업 "+esc(wx.setups.join(",")):"")+(wx.levels&&wx.levels.pivot?` · 기준가 ${w(wx.levels.pivot)} (${pc(wx.levels.distance_pct)})`:""):'<span class="muted">-</span>'}</small></td><td class="num">${c.n_reports?`<span class="up">🔺${c.up}</span> <span class="down">🔽${c.down}</span>`:'<span class="muted">-</span>'}</td></tr>`}).join("")}</table></div></div>`).join("")}
   ${src("RS·수익률 = 네이버 일봉(비공식), 기업 메뉴와 같은 값 · 감시 목록 칸은 가장 최근 screener 결과 · 종목을 누르면 기업 상세")}`;
 }
+function tfReport(){   // 테크노펀더멘탈 · 탑다운 주간 보고서(2026-11-14 사용자 확정) — strategy_tf.py가 만든 조각 + 지난 형식은 접어 둠
+  const T=D.strategy_tf; if(!T||!T.html)return stripH1(viewStrategy());
+  return `<style>${T.css||""}</style>${T.html}
+   <details class="fold" data-fold="oldRpt" ${ui.oldRpt?"open":""}><summary class="foldh">📄 지난 형식(애널리스트 v3) 보고서 · 관찰 풀·가설 성적표 원본 <small class="muted">눌러서 펼치기</small></summary>${stripH1(viewStrategy())}</details>`}
 function viewStrategy2(){
   const tabs=[["report","보고서"],["pool","관찰 풀"],["research","자료실"]];
   if(!MON_OFF)tabs.push(["watch","감시 목록"]);
   let t=ui.st||"report"; if(!tabs.some(([v])=>v==t))t="report";
-  const body=t=="report"?stripH1(viewStrategy()):t=="pool"?poolTab():t=="research"?stripH1(viewResearch()):t=="companies"?stripH1(viewCompanies()):stripH1(viewWatch());
+  const body=t=="report"?tfReport():t=="pool"?poolTab():t=="research"?stripH1(viewResearch()):t=="companies"?stripH1(viewCompanies()):stripH1(viewWatch());
   return `<h1>전략</h1><div class="sub">어디서 추세추종을 할 것인가 — 주 1회(토 09:07) 전략 보고서 → 관찰 풀 → 감시 목록 · 자료실은 리포트 원문 요약 창고 · 행동은 관찰/준비/회피(매수·매도 권유 아님)</div>
   <div class="chips tabs">${tabs.map(([v,n])=>`<button class="chip ${t==v?"on":""}" data-st="${v}">${n}</button>`).join("")}</div>${body}`;
 }
@@ -2480,10 +2484,10 @@ function render(){
   }
   $("#main").innerHTML=`<div class="view">${html}</div>`;
   if(r=="strategy"&&(ui.st||"report")=="report"){   // 전략 보고서 목차 (2026-11-13): 누르면 그 칸으로
-    const hs=[...document.querySelectorAll(".view section.rpt > h2")].filter(h=>h.textContent.trim());
+    const TFR=document.querySelector(".view .tfr"),hs=[...document.querySelectorAll(TFR?".view .tfr .mast > h2":".view section.rpt > h2")].filter(h=>h.textContent.trim());   // 새 형식이 있으면 그 목차만
     if(hs.length>2){hs.forEach((h,i)=>h.id="rptsec"+i);const bar=document.createElement("div");bar.className="rtoc chips";
-      bar.innerHTML=hs.map((h,i)=>{const x=h.cloneNode(true);x.querySelectorAll("small").forEach(s=>s.remove());return `<button class="chip" data-toc="rptsec${i}">${esc((t=>{const c=t.replace(/\s+[·(].*$/,"");return (c.replace(/^\S+\s*/,"").length<5?t.replace(/\s+·\s+/,"·").replace(/\s+[·(].*$/,""):c).slice(0,20)})(x.textContent.trim().replace(/\s+/g," ")))}</button>`}).join("");   // 2026-11-14: 설명(작은 글씨)·날짜 빼고 짧게
-      const first=document.querySelector(".view section.rpt");first&&first.parentNode.insertBefore(bar,first)}}
+      bar.innerHTML=hs.map((h,i)=>{if(h.dataset.tl)return `<button class="chip" data-toc="rptsec${i}">${esc(h.dataset.tl)}</button>`;const x=h.cloneNode(true);x.querySelectorAll("small").forEach(s=>s.remove());return `<button class="chip" data-toc="rptsec${i}">${esc((t=>{const c=t.replace(/\s+[·(].*$/,"");return (c.replace(/^\S+\s*/,"").length<5?t.replace(/\s+·\s+/,"·").replace(/\s+[·(].*$/,""):c).slice(0,20)})(x.textContent.trim().replace(/\s+/g," ")))}</button>`}).join("");   // 2026-11-14: 설명(작은 글씨)·날짜 빼고 짧게
+      const first=TFR||document.querySelector(".view section.rpt");first&&first.parentNode.insertBefore(bar,first)}}
   if(r=="trade")calc();
 }
 document.addEventListener("click",e=>{

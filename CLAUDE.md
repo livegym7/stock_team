@@ -68,6 +68,7 @@ python3 tools/earnings.py                              # 채널 잠정실적 공
 python3 tools/trades.py buy|sell|stop --name 종목 --qty --price   # 매매 기록(주문 아님) → positions.toml 자동 갱신·일지·R. "OO 샀어/팔았어/손절가 올렸어" 말하면 실행
 python3 tools/trades.py review                         # 매매 복기(토큰 0): 연속 손절·같은 날 몰아 매수·규칙 준수·진입일 신호등별 R → 웹 '내 매매', 마감·주간 리뷰 재료
 python3 tools/strategy_prep.py prep|score|pool|save    # 전략 보고서 재료(토큰 0): 4검증(말·이익·가격·돈) 숫자·국면·자료실·메모·일정 / 지난 띔 성적 / 관찰 풀(config/watch_pool.toml) / 저장(형식 검사·history). /strategy-report 가 씀
+python3 tools/strategy_tf.py prep|narr-template|render   # 테크노펀더멘탈·탑다운 주간 지면(2026-11-14 사용자 확정): 매크로→시황·국면(분산일·시장 폭)→수급→업종(이익×강도: 리더/모멘텀만/기다림/회피)→종목(펀더 3점 필터 → 기술 3점 트리거)→보유·성적. 숫자 토큰 0, 해석은 data/strategy/tf/narr_날짜.json(없으면 자동 문장) → 웹 '전략 › 보고서' 맨 위 + reports/날짜/strategy_tf.html. /strategy-report 5단계
 python3 tools/screener.py --pool --send                # 감시 목록을 관찰 풀 + RS 70↑ 한정으로 (2026-11-10 재가동, 평일 16:07 Haiku 예약). 풀 밖 신호는 '발굴'(참고)
 python3 tools/alerts.py --dry --force                  # 보유 종목 장중 알림 점검 (실제 실행은 깃허브 Actions 20분마다, Claude 안 씀)
 python3 tools/report_digest.py --collect              # 리포트 브리핑 재료 (주요 종목·섹터·내 종목), /report-brief
@@ -109,6 +110,7 @@ python3 tools/telegram_send.py --file reports/날짜/파일.md
 - 사용자가 "샀다/팔았다/손절가 올렸다"고 하면 `tools/trades.py`로 기록한다(직접 positions.toml을 고치지 않음). 날짜·수량·가격이 빠졌으면 묻는다. **매수는 기록 전에 세 가지를 묻는다 (결정 로그, 2026-11-12 사용자 확정): ① 어느 띔? ② 가설 한 줄? ③ 깨지는 조건?** → `--theme --thesis --invalid`. "몰라"면 비워 두고 기록(자동 '근거 없음' 꼬리표). 기록 후 규칙 점검(손절폭·1R)과 꼬리표(🔴 국면 진입·같은 날 3종목↑)를 알려 준다
 - **모니터링은 2026-11-10부터 '관찰 풀 한정'으로 재가동** (`config/features.toml` monitoring = true, scope = "pool"): 감시 목록은 전략 보고서가 고른 관찰 풀(`config/watch_pool.toml`, 사용자가 직접 고쳐도 됨) + RS 70↑ 종목만. 풀 안 돌파 알림 🔥 / 풀 밖은 참고. 16:07 예약은 Haiku 대화. (11-04~11-09는 전면 중단이었음)
 - **역할 구분 (2026-11-05, 11-11 갱신)**: 자료실 = 네이버 산업·전략 리포트 전부 카드(초안→Haiku 카드 15건/일) + 깊이 읽기 3건/일(1건은 반대 의견 고정, 띔 질문에 발췌로 답하기, 종합 안 함) / 전략 보고서 = **주 1회 토 09:07 자동 발간**(+ 요청 시), 재료는 `strategy_prep.py prep`(숫자) + 자료실 요약 + `data/strategy/memos/`(띔 메모) + 주간 리뷰. 31일 치 채널 글을 다시 읽지 않는다. 행동은 관찰/준비/회피로만 쓴다. 신호등별 '권장 노출'과 '연속 손절 3건 뒤 쉬기'는 **표시만**(규칙 고정, 2027-01 재검토 재료)
+- **사용자는 테크노펀더멘탈리스트 (2026-11-14)**: 펀더멘털이 받쳐 주는 종목 안에서 추세 상승 트리거를 노리고, 분석은 탑다운(매크로→시황→수급→업종→종목). 전략 보고서 정식 지면은 `strategy_tf.py`(펀더 점수는 순서 참고, 매매 규칙은 고정)
 - 시장 기준은 **코스피 지수** (신호등·수익률 비교, 2026-11-05 KODEX 200에서 변경)
 - 사용량 줄이기 (2026-11-05): 채널·리포트 정리 2시간 간격, 웹 전체 갱신 07:32·16:32만, 텔레그램 리포트 브리핑 14:53 하루 1번. (2026-11-10) 글쓰기 예약은 Sonnet, 주 1회 종합만 Opus, 스크립트는 Haiku · 자료실 2건
 - 자동 작업 목록은 `config/automation.toml` (웹 규칙·일정 > 자동 작업 현황). 예약을 만들거나 끄면 여기도 고친다
