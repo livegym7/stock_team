@@ -352,8 +352,8 @@ def daily_market():
     P = {"made_at": datetime.now(KST).strftime("%Y-%m-%d %H:%M")}
     P["macro"] = macro()
     P["regime"] = regime_block(daily); P["rally"] = rally(daily["KOSPI"])
-    P["breadth"] = breadth_fast(daily, uni)
-    P["adr"] = adr(daily)
+    P["breadth"] = breadth_fast(daily, uni, days=120)   # 국면·시장 폭 그림 모두 120거래일 (2026-11-15 사용자 요청)
+    P["adr"] = adr(daily, days=120)
     P["kospi40"] = [{"date": r["date"], "close": r["close"], "volume": r["volume"]} for r in daily["KOSPI"][-13:]]
     days = {}
     for p in sorted(glob.glob(str(DATA / "market" / "days" / "*.json")))[-14:]:
@@ -423,7 +423,7 @@ def market_fragments(P):
         "macro": f'<div class="fig"><div class="ft"><span>표</span>글로벌 지표 — 최근 · 1주 · 1개월</div>{T}<tr><th class="l">지표</th><th class="l">추이 (60일 일봉)</th><th>최근</th><th>1주</th><th>1개월</th><th class="l">60일 위치</th><th class="l">기준일</th></tr>{"".join(mrow)}</table></div><div class="src">추이 = 최근 60거래일 종가(오른쪽 점 = 마지막) · 60일 위치 = 60일 최저 0% ~ 최고 100% 중 지금 · 출처: Yahoo Finance(비공식, 지연 가능) · {E(P["made_at"])} 받음</div></div>'
                  f'<div class="fig"><div class="ft"><span>표</span>매크로 → 업종 연결 (자동 규칙 문장)</div>{T}<tr><th class="l">변화</th><th>방향</th><th class="l">무엇에 영향</th></tr>{impl}</table></div><div class="src">1주 변화로 만든 규칙 문장입니다 · 해석은 주간 보고서(토)</div></div>',
         "regime": ftd_html(P) + f'<div class="fig"><div class="ft"><span>그림</span>코스피 120거래일 · ▼ 분산일 · 점선 20일선</div>{chart_kospi(P)}<div class="src">분산일 = 종가 −0.2%↓ + 거래량 전날보다 많음(25거래일 {dd}개) · 랠리 시도 {R["day"]}일째(저점 {md(R["low_date"])}) · 팔로스루 {md(R["ftd"]) if R["ftd"] else "아직"} · 출처: 네이버 코스피 일봉(비공식) {md(asof)}</div></div>'
-                  f'<div class="fig"><div class="ft"><span>그림</span>시장 폭 — 50일선·20일선 위 종목 비율</div>{chart_breadth(P)}<div class="leg"><span><i style="background:var(--acc)"></i>50일선 위 {lb["a50"]:.0f}%</span><span><i style="background:var(--ink3)"></i>20일선 위 {lb["a20"]:.0f}%</span></div><div class="src">시총 2천억↑ {lb["n"]}종목 · 출처: 네이버 일봉(비공식) 계산</div></div>',
+                  f'<div class="fig"><div class="ft"><span>그림</span>시장 폭 — 50일선·20일선 위 종목 비율 · 120거래일</div>{chart_breadth(P)}<div class="leg"><span><i style="background:var(--acc)"></i>50일선 위 {lb["a50"]:.0f}%</span><span><i style="background:var(--ink3)"></i>20일선 위 {lb["a20"]:.0f}%</span></div><div class="src">시총 2천억↑ {lb["n"]}종목 · 출처: 네이버 일봉(비공식) 계산</div></div>',
         "flows": f'<div class="fig"><div class="ft"><span>그림</span>코스피 투자자별 순매수(억 원) · 아래 = 그날 코스피 등락</div>{chart_flows(P)}<div class="leg"><span><i style="background:var(--acc)"></i>외국인</span><span><i style="background:var(--warn)"></i>기관</span><span><i style="background:var(--ink3)"></i>개인</span><span>5일 합 외국인 {f5/10000:+.2f}조 · 기관 {i5/10000:+.2f}조</span></div><div class="src">출처: 네이버 시황(비공식)</div></div>'
                  f'<div class="two"><div class="fig"><div class="ft"><span>표</span>5일 순매수 상위 업종(억)</div>{T}<tr><th class="l">업종</th><th>외국인</th><th>기관</th><th>5일</th></tr>{frow(FS[:8])}</table></div></div><div class="fig"><div class="ft"><span>표</span>5일 순매도 상위 업종(억)</div>{T}<tr><th class="l">업종</th><th>외국인</th><th>기관</th><th>5일</th></tr>{frow(FS[-8:][::-1])}</table></div></div></div><div class="src">{E(P.get("flows_src") or "")}</div>',
         "sectors": f'<div class="fig"><div class="ft"><span>그림</span>업종 테크노펀더멘탈 지도 — 이익(가로) × 추세(세로)</div>{chart_matrix(P)}<div class="src">가로 = 올해 영업이익 컨센서스 업종 합 증가율 · 세로 = 주도 섹터 레이더 점수({md(P.get("radar_as_of") or asof)}) · 출처: 네이버 재무·컨센서스(비공식)</div></div>'
@@ -431,7 +431,7 @@ def market_fragments(P):
     AD = (P.get("adr") or {}).get("rows") or []
     if AD:
         la = AD[-1]
-        html_["regime"] += (f'<div class="fig"><div class="ft"><span>그림</span>ADR(20일 등락비율) — 파란 선 · 점선 = 코스피 지수(오른쪽 눈금)</div>{chart_adr(P)}'
+        html_["regime"] += (f'<div class="fig"><div class="ft"><span>그림</span>ADR(20일 등락비율) 120거래일 — 파란 선 · 점선 = 코스피 지수(오른쪽 눈금)</div>{chart_adr(P)}'
                             f'<div class="leg"><span><i style="background:var(--acc)"></i>ADR {la["adr"]:.0f}</span><span><i style="background:var(--ink3)"></i>코스피 {la["kospi"]:,.0f}</span><span>오늘 오름 {la["up"]} · 내림 {la["dn"]}</span></div>'
                             f'<div class="src">ADR = 최근 20거래일 오른 종목 수 합 ÷ 내린 종목 수 합 × 100 · 코스피 종목 중 일봉이 있는 시총 2천억↑ {P["adr"]["n"]}종목 기준(시장 전체 아님) · 120↑ 과열 · 75↓ 침체(바닥권) · 출처: 네이버 일봉(비공식)</div></div>')
     lt, _ = light(P)
