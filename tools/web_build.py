@@ -43,8 +43,9 @@ def market(live):
     kr = safe(lambda: run("tools/naver_quote.py", "index"))
     us = safe(lambda: run("tools/us_quote.py", "price"))
     import us_quote
-    extra = {"NQ=F": ("나스닥100 선물", "future"), "EWY": ("EWY 한국 ETF", "etf"), "CL=F": ("WTI 원유", "future")}
-    want = ["EWY", "^GSPC", "^IXIC", "NQ=F", "^DJI", "^SOX", "KRW=X", "^TNX", "^VIX", "CL=F"]  # 화면 순서
+    extra = {"NQ=F": ("나스닥100 선물", "future"), "EWY": ("EWY 한국 ETF", "etf"), "CL=F": ("WTI 원유", "future"),
+             "DX-Y.NYB": ("달러인덱스", "fx"), "^N225": ("닛케이225", "index"), "000001.SS": ("상해종합", "index"), "^TWII": ("대만 가권", "index")}   # 2026-11-15 추가
+    want = ["EWY", "^GSPC", "^IXIC", "NQ=F", "^DJI", "^SOX", "KRW=X", "DX-Y.NYB", "^TNX", "^VIX", "CL=F", "^N225", "000001.SS", "^TWII"]  # 화면 순서
     got = {r["symbol"]: r for r in (us.get("results", []) if isinstance(us, dict) else []) if r.get("price") is not None}
     for sym, (name, kind) in extra.items():
         q = safe(lambda: us_quote.quote(sym, name, kind), {})

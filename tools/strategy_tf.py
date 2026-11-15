@@ -24,7 +24,8 @@ from strategy_prep import KST  # noqa: E402
 
 TF = DATA / "strategy" / "tf"
 E = html.escape
-MACRO = [("^GSPC", "S&P 500"), ("^SOX", "필라델피아 반도체"), ("^TNX", "미 10년물 금리"), ("KRW=X", "원/달러"), ("CL=F", "WTI 원유"), ("^VIX", "VIX"), ("EWY", "EWY(한국 ETF)")]
+MACRO = [("^GSPC", "S&P 500"), ("^IXIC", "나스닥"), ("^SOX", "필라델피아 반도체"), ("^TNX", "미 10년물 금리"), ("DX-Y.NYB", "달러인덱스"), ("KRW=X", "원/달러"), ("CL=F", "WTI 원유"), ("^VIX", "VIX"),
+         ("^N225", "일본 닛케이225"), ("000001.SS", "중국 상해종합"), ("^TWII", "대만 가권"), ("EWY", "EWY(한국 ETF)")]   # 2026-11-15 나스닥·달러·일본·중국·대만 추가
 XQ, YQ = 20, 65   # 업종 분류 문턱: 올해 영업이익 +20% · 강도 65
 
 
@@ -61,11 +62,12 @@ def macro():
     out = []
     for sym, nm in MACRO:
         try:
-            j = json.loads(subprocess.run([sys.executable, str(ROOT / "tools" / "us_quote.py"), "daily", "--symbol", sym, "--days", "30"],
+            j = json.loads(subprocess.run([sys.executable, str(ROOT / "tools" / "us_quote.py"), "daily", "--symbol", sym, "--days", "90"],
                                           capture_output=True, text=True, timeout=60).stdout)
             rows = [r for r in j["results"][0]["rows"] if r.get("close") is not None]
             c = [r["close"] for r in rows]
-            out.append({"sym": sym, "name": nm, "now": c[-1], "w1": c[-6] if len(c) > 5 else None, "m1": c[0], "date": rows[-1]["date"]})
+            out.append({"sym": sym, "name": nm, "now": c[-1], "w1": c[-6] if len(c) > 5 else None, "m1": c[-22] if len(c) > 22 else c[0], "date": rows[-1]["date"],
+                        "c60": [round(x, 4) for x in c[-60:]]})   # 60일 일봉 종가 = 추이 미니 차트 · 60일 위치 (2026-11-15)
         except Exception as e:
             out.append({"sym": sym, "name": nm, "err": str(e)[:80]})
     return out
@@ -316,6 +318,32 @@ def breadth_fast(daily, uni, days=60):
     return [{"date": d, "n": z[0], "a50": round(z[1] / z[0] * 100, 1), "a20": round(z[2] / z[0] * 100, 1)} for d, z in cnt.items() if z[0]]
 
 
+def adr(daily, days=60, win=20):
+    """ADR(등락비율) 20일 = 최근 20거래일 오른 종목 수 합 ÷ 내린 종목 수 합 × 100 (2026-11-15 사용자 요청).
+    코스피 종목(일봉 캐시가 있는 시총 2천억↑)만 — 코스피 지수와 겹쳐 비교. 120↑ 과열 · 75↓ 침체."""
+    from universe import load as _uni
+    kos = {x["code"] for x in _uni()["stocks"] if x.get("market") == "KOSPI"}
+    dates = [r["date"] for r in daily["KOSPI"][-(days + win):]]
+    cnt = {d: [0, 0] for d in dates}; n = 0
+    for c, rows in daily.items():
+        if c not in kos:
+            continue
+        n += 1
+        for i in range(1, len(rows)):
+            d = rows[i]["date"]
+            if d in cnt:
+                if rows[i]["close"] > rows[i - 1]["close"]:
+                    cnt[d][0] += 1
+                elif rows[i]["close"] < rows[i - 1]["close"]:
+                    cnt[d][1] += 1
+    kc = {r["date"]: r["close"] for r in daily["KOSPI"]}
+    out = []
+    for i in range(win - 1, len(dates)):
+        a = sum(cnt[d][0] for d in dates[i - win + 1:i + 1]); b = sum(cnt[d][1] for d in dates[i - win + 1:i + 1])
+        out.append({"date": dates[i], "adr": round(a / max(b, 1) * 100, 1), "up": cnt[dates[i]][0], "dn": cnt[dates[i]][1], "kospi": kc.get(dates[i])})
+    return {"n": n, "rows": out[-days:]}
+
+
 def daily_market():
     """웹 '시장'(탑다운) 탭·'오늘' 국면 추적판용 (2026-11-14 2차): prep의 시장 부분만 매일. 해석 글 없음."""
     import new_highs
@@ -325,6 +353,8 @@ def daily_market():
     P["macro"] = macro()
     P["regime"] = regime_block(daily); P["rally"] = rally(daily["KOSPI"])
     P["breadth"] = breadth_fast(daily, uni)
+    P["adr"] = adr(daily)
+    P["kospi40"] = [{"date": r["date"], "close": r["close"], "volume": r["volume"]} for r in daily["KOSPI"][-13:]]
     days = {}
     for p in sorted(glob.glob(str(DATA / "market" / "days" / "*.json")))[-14:]:
         m = next((m for m in (_j(p, {}) or {}).get("markets", []) if m.get("market") == "KOSPI"), None)
@@ -367,7 +397,16 @@ def market_fragments(P):
             now = f'{m["now"]:.2f}%'; a = (m["now"] - m["w1"]) * 100; b = (m["now"] - m["m1"]) * 100; d1, dm = f"{a:+.0f}bp", f"{b:+.0f}bp"
         else:
             now = w(m["now"], 2 if m["now"] < 1000 else 0); a = (m["now"] / m["w1"] - 1) * 100; b = (m["now"] / m["m1"] - 1) * 100; d1, dm = pc(a), pc(b)
-        mrow.append(f'<tr><td class="l">{E(m["name"])}</td><td><b>{now}</b></td><td class="{cls(a)}">{d1}</td><td class="{cls(b)}">{dm}</td><td class="l"><small>{E(m.get("date", ""))}</small></td></tr>')
+        c60 = m.get("c60") or []
+        sp, posv = "", None
+        if len(c60) >= 5:
+            lo_, hi_ = min(c60), max(c60); n_ = len(c60); sw, sh = 120, 28
+            pts = " ".join(f"{2+i*(sw-4)/(n_-1):.1f},{2+(hi_-v)/((hi_-lo_) or 1)*(sh-4):.1f}" for i, v in enumerate(c60))
+            col = "var(--up)" if c60[-1] >= c60[0] else "var(--dn)"
+            sp = f'<svg width="{sw}" height="{sh}" viewBox="0 0 {sw} {sh}" class="spk"><polyline points="{pts}" fill="none" stroke="{col}" stroke-width="1.4"/><circle cx="{sw-2}" cy="{2+(hi_-c60[-1])/((hi_-lo_) or 1)*(sh-4):.1f}" r="2.2" fill="{col}"/></svg>'
+            posv = (c60[-1] - lo_) / ((hi_ - lo_) or 1) * 100
+        pos = f'<span class="pbar"><i style="left:{posv:.0f}%"></i></span><small>{posv:.0f}%</small>' if posv is not None else "-"
+        mrow.append(f'<tr><td class="l">{E(m["name"])}</td><td class="l">{sp}</td><td><b>{now}</b></td><td class="{cls(a)}">{d1}</td><td class="{cls(b)}">{dm}</td><td class="l nw">{pos}</td><td class="l"><small>{E(m.get("date", ""))}</small></td></tr>')
     impl = "".join(f'<tr><td class="l">{E(a)}</td><td><span class="tag {c}">{E(b)}</span></td><td class="l wrap">{E(t)}</td></tr>' for a, b, t, c in N.get("impl") or [])
     FS = sorted(P["flow_sectors"], key=lambda s: -((s["f5"] or 0) + (s["i5"] or 0)))
     frow = lambda L: "".join(f'<tr><td class="l">{E(s["group"])}</td><td class="{cls(s["f5"])}">{eok(s["f5"])}</td><td class="{cls(s["i5"])}">{eok(s["i5"])}</td><td class="{cls(s.get("r5"))}">{pc(s.get("r5"))}</td></tr>' for s in L)  # noqa: E731
@@ -381,17 +420,24 @@ def market_fragments(P):
     T = "<div class=\"tw\"><table>"   # 시장 탭 표는 '숫자 비교표'라 휴대폰에서도 표 (2026-11-14 표·카드 규칙)
     asof = P["regime"]["date"]; R = P["rally"]
     html_ = {
-        "macro": f'<div class="fig"><div class="ft"><span>표</span>글로벌 지표 — 최근 · 1주 · 1개월</div>{T}<tr><th class="l">지표</th><th>최근</th><th>1주</th><th>1개월</th><th class="l">기준일</th></tr>{"".join(mrow)}</table></div><div class="src">출처: Yahoo Finance(비공식, 지연 가능) · {E(P["made_at"])} 받음</div></div>'
+        "macro": f'<div class="fig"><div class="ft"><span>표</span>글로벌 지표 — 최근 · 1주 · 1개월</div>{T}<tr><th class="l">지표</th><th class="l">추이 (60일 일봉)</th><th>최근</th><th>1주</th><th>1개월</th><th class="l">60일 위치</th><th class="l">기준일</th></tr>{"".join(mrow)}</table></div><div class="src">추이 = 최근 60거래일 종가(오른쪽 점 = 마지막) · 60일 위치 = 60일 최저 0% ~ 최고 100% 중 지금 · 출처: Yahoo Finance(비공식, 지연 가능) · {E(P["made_at"])} 받음</div></div>'
                  f'<div class="fig"><div class="ft"><span>표</span>매크로 → 업종 연결 (자동 규칙 문장)</div>{T}<tr><th class="l">변화</th><th>방향</th><th class="l">무엇에 영향</th></tr>{impl}</table></div><div class="src">1주 변화로 만든 규칙 문장입니다 · 해석은 주간 보고서(토)</div></div>',
-        "regime": f'<div class="fig"><div class="ft"><span>그림</span>코스피 120거래일 · ▼ 분산일 · 점선 20일선</div>{chart_kospi(P)}<div class="src">분산일 = 종가 −0.2%↓ + 거래량 전날보다 많음(25거래일 {dd}개) · 랠리 시도 {R["day"]}일째(저점 {md(R["low_date"])}) · 팔로스루 {md(R["ftd"]) if R["ftd"] else "아직"} · 출처: 네이버 코스피 일봉(비공식) {md(asof)}</div></div>'
+        "regime": ftd_html(P) + f'<div class="fig"><div class="ft"><span>그림</span>코스피 120거래일 · ▼ 분산일 · 점선 20일선</div>{chart_kospi(P)}<div class="src">분산일 = 종가 −0.2%↓ + 거래량 전날보다 많음(25거래일 {dd}개) · 랠리 시도 {R["day"]}일째(저점 {md(R["low_date"])}) · 팔로스루 {md(R["ftd"]) if R["ftd"] else "아직"} · 출처: 네이버 코스피 일봉(비공식) {md(asof)}</div></div>'
                   f'<div class="fig"><div class="ft"><span>그림</span>시장 폭 — 50일선·20일선 위 종목 비율</div>{chart_breadth(P)}<div class="leg"><span><i style="background:var(--acc)"></i>50일선 위 {lb["a50"]:.0f}%</span><span><i style="background:var(--ink3)"></i>20일선 위 {lb["a20"]:.0f}%</span></div><div class="src">시총 2천억↑ {lb["n"]}종목 · 출처: 네이버 일봉(비공식) 계산</div></div>',
         "flows": f'<div class="fig"><div class="ft"><span>그림</span>코스피 투자자별 순매수(억 원) · 아래 = 그날 코스피 등락</div>{chart_flows(P)}<div class="leg"><span><i style="background:var(--acc)"></i>외국인</span><span><i style="background:var(--warn)"></i>기관</span><span><i style="background:var(--ink3)"></i>개인</span><span>5일 합 외국인 {f5/10000:+.2f}조 · 기관 {i5/10000:+.2f}조</span></div><div class="src">출처: 네이버 시황(비공식)</div></div>'
                  f'<div class="two"><div class="fig"><div class="ft"><span>표</span>5일 순매수 상위 업종(억)</div>{T}<tr><th class="l">업종</th><th>외국인</th><th>기관</th><th>5일</th></tr>{frow(FS[:8])}</table></div></div><div class="fig"><div class="ft"><span>표</span>5일 순매도 상위 업종(억)</div>{T}<tr><th class="l">업종</th><th>외국인</th><th>기관</th><th>5일</th></tr>{frow(FS[-8:][::-1])}</table></div></div></div><div class="src">{E(P.get("flows_src") or "")}</div>',
         "sectors": f'<div class="fig"><div class="ft"><span>그림</span>업종 테크노펀더멘탈 지도 — 이익(가로) × 추세(세로)</div>{chart_matrix(P)}<div class="src">가로 = 올해 영업이익 컨센서스 업종 합 증가율 · 세로 = 주도 섹터 레이더 점수({md(P.get("radar_as_of") or asof)}) · 출처: 네이버 재무·컨센서스(비공식)</div></div>'
                    f'<div class="fig"><div class="ft"><span>표</span>업종 스코어 — 강도 상위 20</div>{T}<tr><th>순위</th><th class="l">업종</th><th>4주</th><th>강도</th><th>20일선 위</th><th>올해 영업이익</th><th>PER(E)</th><th>외국인 5일</th><th>기관 5일</th><th>분류</th></tr>{"".join(srow)}</table></div><div class="src">분류: 이익 +{XQ}%↑ / 강도 {YQ}↑ (리더 · 모멘텀만 · 기다림 · 회피) · 컨센서스 있는 종목 3개 미만 업종은 “-”</div></div>'}
+    AD = (P.get("adr") or {}).get("rows") or []
+    if AD:
+        la = AD[-1]
+        html_["regime"] += (f'<div class="fig"><div class="ft"><span>그림</span>ADR(20일 등락비율) — 파란 선 · 점선 = 코스피 지수(오른쪽 눈금)</div>{chart_adr(P)}'
+                            f'<div class="leg"><span><i style="background:var(--acc)"></i>ADR {la["adr"]:.0f}</span><span><i style="background:var(--ink3)"></i>코스피 {la["kospi"]:,.0f}</span><span>오늘 오름 {la["up"]} · 내림 {la["dn"]}</span></div>'
+                            f'<div class="src">ADR = 최근 20거래일 오른 종목 수 합 ÷ 내린 종목 수 합 × 100 · 코스피 종목 중 일봉이 있는 시총 2천억↑ {P["adr"]["n"]}종목 기준(시장 전체 아님) · 120↑ 과열 · 75↓ 침체(바닥권) · 출처: 네이버 일봉(비공식)</div></div>')
     lt, _ = light(P)
     track = {"light": lt, "gap20": P["regime"]["gap20"], "slope20": P["regime"]["slope20"], "dist": dd, "rally_day": R["day"], "rally_low": R["low_date"], "ftd": R["ftd"],
-             "a50": lb["a50"], "a20": lb["a20"], "f5": f5, "i5": i5, "as_of": asof}
+             "a50": lb["a50"], "a20": lb["a20"], "f5": f5, "i5": i5, "as_of": asof,
+             "adr": AD[-1]["adr"] if AD else None, "adr_prev": AD[-6]["adr"] if len(AD) > 5 else None}
     return {"made_at": P["made_at"], "css": TOKENS_WEB + CSS, "html": html_, "track": track}
 
 
@@ -522,6 +568,47 @@ def chart_breadth(P):
     return f'<svg viewBox="0 0 {W} {H}" class="chart" role="img" aria-label="시장 폭">{"".join(g)}</svg>'
 
 
+def chart_adr(P):
+    A = (P.get("adr") or {}).get("rows") or []
+    if len(A) < 5:
+        return ""
+    m = len(A); W, H, L, R, T, B = 640, 190, 44, 52, 12, 22
+    lo = min(60, min(x["adr"] for x in A) - 5); hi = max(130, max(x["adr"] for x in A) + 5)
+    kc = [x["kospi"] for x in A if x.get("kospi")]; klo, khi = min(kc), max(kc)
+    x = lambda i: L + i / (m - 1) * (W - L - R); y = lambda v: T + (hi - v) / (hi - lo) * (H - T - B)  # noqa: E731
+    yk = lambda v: T + (khi - v) / ((khi - klo) or 1) * (H - T - B)  # noqa: E731
+    g = [f'<rect x="{L}" y="{y(hi):.1f}" width="{W-L-R}" height="{y(120)-y(hi):.1f}" fill="var(--up)" opacity=".07"/>',
+         f'<rect x="{L}" y="{y(75):.1f}" width="{W-L-R}" height="{y(lo)-y(75):.1f}" fill="var(--dn)" opacity=".07"/>']
+    g += [f'<line x1="{L}" x2="{W-R}" y1="{y(v):.1f}" y2="{y(v):.1f}" class="{"basel" if v == 100 else "grid"}"/><text x="{L-6}" y="{y(v)+3:.1f}" class="ax" text-anchor="end">{v}</text>' for v in (75, 100, 120)]
+    g.append('<path d="' + "".join(("M" if i == 0 else "L") + f"{x(i):.1f} {yk(a['kospi']):.1f}" for i, a in enumerate(A) if a.get("kospi")) + '" fill="none" stroke="var(--ink3)" stroke-width="1.3" stroke-dasharray="4 3"/>')
+    g += [f'<text x="{W-R+6}" y="{yk(v)+3:.1f}" class="ax">{v:,.0f}</text>' for v in (khi, klo)]
+    g.append('<path d="' + "".join(("M" if i == 0 else "L") + f"{x(i):.1f} {y(a['adr']):.1f}" for i, a in enumerate(A)) + '" fill="none" stroke="var(--acc)" stroke-width="2"/>')
+    g.append(f'<circle cx="{x(m-1):.1f}" cy="{y(A[-1]["adr"]):.1f}" r="3.5" fill="var(--acc)"/><text x="{x(m-1)-6:.1f}" y="{y(A[-1]["adr"])-7:.1f}" class="vl" text-anchor="end">{A[-1]["adr"]:.0f}</text>')
+    g.append(f'<text x="{L+4}" y="{y(hi)+11:.1f}" class="ax">과열 120↑</text><text x="{L+4}" y="{y(lo)-4:.1f}" class="ax">침체 75↓</text>')
+    g += [_lab(i, m, f"{x(i):.1f}", H - 6) + f"{md(A[i]['date'])}</text>" for i in (0, m // 2, m - 1)]
+    return f'<svg viewBox="0 0 {W} {H}" class="chart" role="img" aria-label="ADR과 코스피">{"".join(g)}</svg>'
+
+
+def ftd_html(P):
+    """FTD(팔로스루) 판정 카드 — 오닐 방식 단순화 (2026-11-15)"""
+    R = P["rally"]; K = P.get("kospi40") or []
+    if R.get("ftd"):
+        st, col = f'✅ 팔로스루 확인 — {md(R["ftd"])}', "var(--ok,#15803d)"
+    elif not R.get("start"):
+        st, col = "— 랠리 시도 없음 (저점 갱신 중)", "var(--ink3)"
+    elif R["day"] < 4:
+        st, col = f'⏳ 랠리 시도 {R["day"]}일째 — 4일째부터 판정', "var(--warn)"
+    elif R["day"] <= 7:
+        st, col = f'⏳ 랠리 시도 {R["day"]}일째 — 팔로스루 대기', "var(--warn)"
+    else:
+        st, col = f'⚠️ 랠리 시도 {R["day"]}일째 — 7일 안에 팔로스루 없음(힘 약함)', "var(--warn)"
+    cells = "".join(f'<td class="{cls(K[i]["close"] / K[i-1]["close"] - 1)}">{md(K[i]["date"])}<br>{pc((K[i]["close"] / K[i-1]["close"] - 1) * 100)}<br><small>{"거래↑" if K[i]["volume"] > K[i-1]["volume"] else "거래↓"}</small></td>' for i in range(1, len(K)))
+    return (f'<div class="ftdc" style="border-left-color:{col}"><div class="k">FTD 판정 · 코스피</div><div class="st">{st}</div>'
+            f'<div class="d">저점 {md(R["low_date"])} 종가 {R["low"]:,.0f}' + (f' · 시도 시작 {md(R["start"])}' if R.get("start") else "") +
+            ' · 조건: 시도 4일째부터 코스피 <b>+1.5%↑ + 거래량 전날보다 많음</b> · 실패: 저점 종가 아래</div>'
+            + (f'<div class="tw"><table class="ktab"><tr>{cells}</tr></table></div>' if cells else "") + '</div>')
+
+
 def chart_flows(P):
     DY = P["days"]; nd = len(DY)
     if not nd:
@@ -606,6 +693,9 @@ CSS = """
 .tfr .sec .side{border-top:2px solid var(--ink);padding-top:10px}.tfr .sec .main{border-top:2px solid var(--ink);padding-top:10px;min-width:0}
 .tfr .side h4{font-size:11px;letter-spacing:.1em;color:var(--acc);margin:0 0 6px}
 .tfr .side p{margin:0 0 10px;color:var(--ink2)}.tfr .side dl{display:grid;grid-template-columns:1fr auto;gap:4px 8px;margin:0 0 14px}.tfr .side dt{color:var(--ink3)}.tfr .side dd{margin:0;text-align:right}
+.tfr .spk{display:block}.tfr .pbar{position:relative;display:inline-block;width:64px;height:6px;border-radius:3px;background:linear-gradient(90deg,var(--dn),var(--rule),var(--up));opacity:.85;margin-right:6px;vertical-align:middle}.tfr .pbar i{position:absolute;top:-3px;width:3px;height:12px;background:var(--ink);border-radius:2px;transform:translateX(-1px)}.tfr td.nw{white-space:nowrap}
+.tfr .ftdc{border:1px solid var(--rule);border-left:4px solid var(--warn);border-radius:8px;padding:10px 12px;margin:0 0 14px}.tfr .ftdc .k{font-size:11.5px;color:var(--ink3)}.tfr .ftdc .st{font-size:16px;font-weight:700;margin:2px 0}.tfr .ftdc .d{font-size:12px;color:var(--ink2)}
+.tfr .ktab td{text-align:center;font-size:11px;padding:4px 3px;white-space:nowrap}
 .tfr .rtm{border:1px solid var(--rule);border-left:4px solid var(--up);padding:10px 14px;margin:0 0 14px;font-size:12.5px}.tfr .rtm b.h{display:block;font-size:12px;letter-spacing:.06em;color:var(--up);margin-bottom:4px}
 .tfr .ctg{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}@media(max-width:600px){.tfr .ctg{grid-template-columns:1fr}}
 .tfr .ctc{border:1px solid var(--rule);border-radius:8px;padding:10px 12px;font-size:12.5px}.tfr .ctc .n{font-weight:700}.tfr .ctc ul{margin:6px 0 4px 18px;padding:0}.tfr .ctc li{margin:2px 0}
