@@ -2544,7 +2544,8 @@ function etfPop(a,ev){   // ETF 구성종목 상위 10 (2026-11-13, 네이버 ET
   const pw=Math.min(330,innerWidth-16);P.style.width=pw+"px";P.hidden=false;const ph=P.offsetHeight,r=a.getBoundingClientRect();
   let left=(ev&&ev.clientX?ev.clientX:r.right)+16;if(left+pw>innerWidth-8)left=Math.max(8,(ev&&ev.clientX?ev.clientX:r.left)-16-pw);
   P.style.left=left+"px";P.style.top=Math.min(Math.max(8,(ev&&ev.clientY?ev.clientY:r.top)-ph/2),innerHeight-ph-8)+"px"}
-function popTarget(el){const t=el&&el.closest&&el.closest("[data-cq],b.stk,[data-pop]");if(!t||t.closest("#pop"))return null;const n=(t.dataset.cq||t.dataset.pop||t.textContent||"").trim();const c=stockByName(n);return c?{el:t,c}:null}
+function popTarget(el){const t=el&&el.closest&&el.closest("[data-cq],b.stk,[data-pop]");if(!t||t.closest("#pop"))return null;const n=(t.dataset.cq||t.dataset.pop||t.textContent||"").trim();
+  const c=stockByName(n)||stockByName(n.replace(/^[^\p{L}\p{N}]+|[^\p{L}\p{N}.)]+$/gu,"").trim());return c?{el:t,c}:null}   // 이름 앞뒤 이모지(🔴·⭐ 등)는 떼고 찾음 (2026-11-15 실적 탭)
 let pop2For=null;
 function showPop(t,sub){   // sub = ETF 팝업 안에서 띄우는 두 번째 팝업 (2026-11-13)
   const c=t.c, x=c.trend||{}, q=liveQuote(c.code), price=(q&&q.price)||x.price, chg=q?q.change_pct:x.live_chg;
