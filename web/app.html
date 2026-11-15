@@ -2646,6 +2646,9 @@ function render(){
       bar.innerHTML=hs.map((h,i)=>{if(h.dataset.tl)return `<button class="chip" data-toc="rptsec${i}">${esc(h.dataset.tl)}</button>`;const x=h.cloneNode(true);x.querySelectorAll("small").forEach(s=>s.remove());return `<button class="chip" data-toc="rptsec${i}">${esc((t=>{const c=t.replace(/\s+[·(].*$/,"");return (c.replace(/^\S+\s*/,"").length<5?t.replace(/\s+·\s+/,"·").replace(/\s+[·(].*$/,""):c).slice(0,20)})(x.textContent.trim().replace(/\s+/g," ")))}</button>`}).join("");   // 2026-11-14: 설명(작은 글씨)·날짜 빼고 짧게
       const first=TFR||document.querySelector(".view section.rpt");first&&first.parentNode.insertBefore(bar,first)}}
   if(r=="trade")calc();
+  slistCards();
+}
+function slistCards(){
   document.querySelectorAll(".view table.slist").forEach(t=>{   // 휴대폰 카드 표 (2026-11-14 2차): 머리글 이름을 칸마다 붙여 600px 아래에서 카드로
     const hr=t.querySelector("tr");if(!hr||!hr.querySelector("th"))return;hr.classList.add("mh");
     const L=[...hr.children].map(x=>x.textContent.replace(/[↕▲▼]/g,"").trim());
@@ -2718,13 +2721,29 @@ document.addEventListener("click",e=>{
   else if(t.classList.contains("post")){if(e.target.closest("a"))return;t.classList.toggle("open");return}
   save();render();
 });
+/* 검색칸은 다시 만들지 않고 결과만 바꿈 (2026-11-15: 아이폰 한글 자판에서 입력칸이 새로 만들어지며 'ㅅㅁㅅㅓㅇ'처럼 낱자로 깨짐) */
+function softRender(inputId){
+  const cur=$("#"+inputId),view=$("#main .view");if(!cur||!view){render();return}
+  let html;try{html=VIEWS[route()]()}catch(e){return}
+  const tmp=document.createElement("div");tmp.innerHTML=html;
+  const keep=cur.closest(".ctool,.rtool")||cur.parentNode;   // 검색칸이 든 줄은 그대로
+  const nk=tmp.querySelector("#"+inputId);const nkeep=nk&&(nk.closest(".ctool,.rtool")||nk.parentNode);
+  if(!nkeep){render();return}
+  const P=keep.parentNode,NP=nkeep.parentNode;   // 검색칸 줄의 부모 안에서만 형제들을 새 것으로 바꿈
+  [...P.children].forEach(ch=>{if(ch!==keep)ch.remove()});
+  const kids=[...NP.children],at=kids.indexOf(nkeep);
+  kids.slice(0,at).forEach(ch=>P.insertBefore(ch,keep));
+  kids.slice(at+1).forEach(ch=>P.appendChild(ch));
+  // 같은 줄 안의 버튼(전체 보기 등) 글자만 새 것으로
+  [...nkeep.querySelectorAll("button")].forEach((nb,i)=>{const ob=keep.querySelectorAll("button")[i];if(ob){ob.className=nb.className;ob.innerHTML=nb.innerHTML}});
+  slistCards();
+}
+let qT=null;
 document.addEventListener("input",e=>{
   if(["cEntry","cStop","cPct"].includes(e.target.id))calc();
-  if((e.target.id=="rq"||e.target.id=="cq")&&(e.isComposing||e.inputType=="insertCompositionText"))return;   // 한글 조합 중 다시 그리면 글자가 ㅅㅏㅁ처럼 깨짐 (2026-11-12)
-  if(e.target.id=="rq"){ui.rq=e.target.value;save();const pos=e.target.selectionStart;render();const el=$("#rq");el.focus();el.setSelectionRange(pos,pos);return}
-  if(e.target.id=="cq"){ui.cq=e.target.value;save();const pos=e.target.selectionStart;render();const el=$("#cq");el.focus();el.setSelectionRange(pos,pos)}
+  if(e.target.id=="rq"||e.target.id=="cq"){const id=e.target.id;ui[id]=e.target.value;save();clearTimeout(qT);qT=setTimeout(()=>softRender(id),180)}
 });
-document.addEventListener("compositionend",e=>{if(e.target.id=="rq"||e.target.id=="cq")e.target.dispatchEvent(new Event("input",{bubbles:true}))});
+document.addEventListener("compositionend",e=>{if(e.target.id=="rq"||e.target.id=="cq"){ui[e.target.id]=e.target.value;save();clearTimeout(qT);qT=setTimeout(()=>softRender(e.target.id),60)}});
 document.addEventListener("toggle",e=>{const d=e.target;if(d&&d.dataset&&d.dataset.fold){ui[d.dataset.fold]=d.open;save()}},true);
 document.addEventListener("change",e=>{if(e.target.id=="chSel"){ui.ch=e.target.value;save();render()}if(e.target.id=="bSel"){ui.bf=e.target.value;save();render()}if(e.target.id=="cfSel"){ui.cf=e.target.value;save();render()}});
 document.addEventListener("click",e=>{const b=e.target.closest("[data-bnav]");if(!b||b.disabled)return;const o=$("#bSel");if(!o)return;const i=o.selectedIndex-parseInt(b.dataset.bnav);if(i>=0&&i<o.options.length){ui.bf=o.options[i].value;save();render()}});
