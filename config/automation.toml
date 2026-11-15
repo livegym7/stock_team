@@ -109,7 +109,7 @@ check = "strategy"
 
 [[tasks]]
 name = "웹 배포 (Cloudflare, balance-lab.pages.dev)"
-when = "평일 07:40·12:40·16:40·19:40 · 토 10:30 · 글 저장 때 바로"
+when = "평일 07:40·12:40·16:40·19:40 · 토 10:30·18:40 · 일 12:40·20:40(주말은 채널 글 수집) · 글 저장 때 바로"
 due = "07:40"
 runner = "actions"
 tokens = "0"
