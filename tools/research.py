@@ -62,6 +62,9 @@ def cmd_save(path):
     miss = [k for k in REQUIRED if k not in d]
     if miss:
         raise SystemExit(f"빠진 항목: {miss}")
+    for k, t in (("summary", list), ("thesis", list), ("claude", dict), ("risks", list)):   # 웹 자료실이 이 모양을 기대함 (2026-11-15 문자열 저장으로 화면 오류)
+        if not isinstance(d.get(k), t):
+            raise SystemExit(f"{k}는 {'목록' if t is list else '객체'}이어야 합니다 (예: summary=[\"문장\", …], claude={{\"opinion\": …, \"counter\": […]}})")
     if d["kind"] not in KINDS:
         raise SystemExit(f"kind는 {KINDS} 중 하나")
     if not str(d["url"]).startswith(("https://drive.google.com/", "https://stock.naver.com/research/")):
