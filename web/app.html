@@ -746,7 +746,7 @@ const pc=(n,d=1)=>n==null||isNaN(n)?"-":(n>0?"+":"")+Number(n).toFixed(d)+"%";
 const cls=n=>n>0?"up":n<0?"down":"";
 const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
 const ui=store.get("tr-ui",{});
-delete ui.fd;delete ui.fcm;   // 소식 날짜 선택은 화면을 새로 열면 최신 날짜로 (2026-11-15: 지난 날짜가 남아 오늘 채널 글이 안 보였음)
+delete ui.fd;delete ui.fcm;delete ui.bk;   // 소식 날짜·종류(자료·주간 등) 선택은 화면을 새로 열면 최신·전체로 (2026-11-16: 자료 칩이 남아 오늘 체크포인트가 안 보였음) (2026-11-15: 지난 날짜가 남아 오늘 채널 글이 안 보였음)
 function save(){store.set("tr-ui",ui)}
 /* 밝게/어둡게: ui.theme 없으면 기기 설정을 따름 */
 function isDark(){return ui.theme?ui.theme=="dark":matchMedia("(prefers-color-scheme: dark)").matches}
