@@ -977,6 +977,30 @@
    "drive_modified": null,
    "analyzed_at": "2026-11-14 07:40",
    "depth": "full"
+  },
+  "naver_company_96541": {
+   "title": "[대신증권 엑시콘] 아직도 더 갈 수 있다 (2026-10-08)",
+   "broker": "대신증권",
+   "date": "2026-10-08",
+   "kind": "기업",
+   "subject": "엑시콘(092870)",
+   "one_line": "2027년 SSD Gen 6 전환으로 주요 고객사의 SSD 테스터 수요가 예상보다 매우 강해, 2027년 영업이익 477억(+98%)을 보고 목표주가를 68,000원으로 66% 올렸습니다.",
+   "url": "https://stock.naver.com/research/company/96541",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-15 09:40",
+   "depth": "excerpt"
+  },
+  "naver_company_97409": {
+   "title": "[iM증권 원익홀딩스] 실적개선(반도체)과 성장성(로봇)의 조화 (2026-11-02)",
+   "broker": "iM증권",
+   "date": "2026-11-02",
+   "kind": "기업",
+   "subject": "원익홀딩스(030530)",
+   "one_line": "삼성 P5가 클린룸·유틸리티를 동시에 짓는 패스트트랙으로 Ph1 클린룸을 3Q26부터 시작해, 원익홀딩스 가스 공급 시스템 매출이 하반기부터 본격 늘 것으로 봅니다(투자의견 없음, NR).",
+   "url": "https://stock.naver.com/research/company/97409",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-15 09:40",
+   "depth": "excerpt"
   }
  },
  "skipped": {

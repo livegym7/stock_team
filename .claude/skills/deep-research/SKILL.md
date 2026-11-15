@@ -18,15 +18,16 @@ description: 딥리서치. 사용자가 구글 드라이브(config/research.toml
 ```bash
 python3 tools/naver_research.py collect --days 3
 python3 tools/research_cards.py build --days 2            # 카드 초안이 없으면 만든다 (토큰 0)
-python3 tools/research_cards.py pick-deep --top 3         # 깊이 읽을 3건: 2건은 점수 순, 1건은 반대 의견·비주류 업종 고정
-python3 tools/research_cards.py questions                 # 전략 보고서 띔의 무효 신호·체크포인트·볼 것 → 질문 목록 (data/research/questions.json)
+python3 tools/research_cards.py pick-deep --top 3         # 깊이 읽을 3칸 (2026-11-15 사용자 확정): ① 핵심 후보 종목 리포트(관찰 풀 C1, 국내종목) ② 리더 업종 산업 리포트(C1·C4 업종) ③ 반대 의견 고정 — 토요일 보고서가 남긴 "이번 주 질문"에 걸리는 것 먼저, 빈 칸은 점수 순 보충
+python3 tools/research_cards.py questions                 # 질문 목록 (data/research/questions.json): 토요일 보고서가 남긴 data/strategy/questions_week.json이 있으면 그것(이번 주 확인할 질문 5~8개), 없으면 띔의 무효 신호·체크포인트
 ```
 - 3건마다 **질문 주도 읽기**: 카드(thesis·numbers3·new_claim)를 먼저 보고, 질문 목록 중 이 리포트에 답이 있을 법한 질문 3~5개를 고른다. 각 질문의 키워드로 발췌만 받는다:
   `python3 tools/research_cards.py excerpt --cat industry --nid 46926 --q "DRAM|계약가|LTA" --window 600` (키워드 주변 600자, 최대 6곳). 발췌에 답이 없으면 "없음"으로 적는다. 전문(`naver_research.py pdf`)은 **표·결론을 꼭 봐야 할 때 한 번만**, `--max 12000`으로.
 - 분석 JSON(2번 형식)에 `"questions": [{"q": "...", "answer": "...", "page_hint": "..."}]` 칸을 더해 저장한다. `file_id` = `naver_<cat>_<nid>`, `url` = 카드의 url.
 - 저장 뒤 카드 상태를 바꾼다: `python3 tools/research_cards.py mark-deep --cat industry --nid 46926`
 - 고른 이유 기록은 그대로: `python3 tools/naver_research.py pick --date 오늘 --nid industry:46926 --why "한 줄"`
-- 기업(국내종목) 리포트는 이 절차의 대상이 아니다(채널 리포트 요약이 맡음). 관찰 풀 종목의 기업 리포트가 꼭 필요하면 `candidates`로 1건까지만.
+- **① 칸(핵심 후보 종목 리포트, cat=company)**: 카드가 없으므로 발췌는 `research_cards.py excerpt --cat company --nid …`로 받고, 질문은 "이익이 왜 느는가(제품·고객·가격)·다음 분기 숫자·리포트가 보는 위험"을 기본으로 이번 주 질문을 더한다. 저장 `file_id` = `naver_company_<nid>`. `mark-deep`은 하지 않는다(카드 없음, 문서 파일로 읽음 여부를 판단).
+- 질문 답은 숫자·근거가 있는 문장으로. 가격·수급(20일선, 외국인 3일 등)처럼 리포트가 답할 수 없는 질문은 고르지 않는다.
 - 드라이브 새 파일(1번)이 있으면 그것을 우선하고, 네이버는 남은 칸만(합쳐서 하루 최대 3건).
 
 ## 1. 새 파일 찾기 (구글 드라이브)

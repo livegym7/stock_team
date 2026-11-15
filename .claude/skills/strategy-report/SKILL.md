@@ -26,6 +26,12 @@ python3 tools/strategy_prep.py prep            # 재료 요약(약 6만 자: 숫
 python3 tools/strategy_prep.py score           # 지난 호 띔·관찰 종목의 그 뒤 성적 (가설 채점 숫자). latest.json 없으면 건너뜀
 python3 tools/naver_research.py candidates --top 15   # 이번 주 읽을 만한 원문 후보 (제목·점수만)
 ```
+**필수 재료 (2026-11-15 사용자 확정 — 양보다 연결):**
+```bash
+python3 tools/research_cards.py answers --days 7     # 한 주 깊이 읽기에서 '이번 주 질문'에 답이 나온 것 — 띔·핵심 후보 근거로 먼저 쓴다
+ls data/research/notes/                               # 리더 업종(관찰 풀 C1·C4 그룹)의 업종 지식 노트는 반드시 Read
+```
+- 원문 확인 3건은 **핵심 후보 종목과 리더 업종 숫자 확인에만** 씁니다(핵심 후보 국내종목 리포트 우선: `naver_research.py pdf --cat company --nid …`).
 재료 요약이 7만 자를 넘으면 전체 JSON(`data/strategy/prep/날짜.json`)은 열지 말고, 필요한 종목·업종만 `python3 -c`로 뽑아 본다.
 
 ## 1. 전략가 — 띔 세우기 (메인 1 · 서브 1~2 · 관찰 0~1)
@@ -91,6 +97,14 @@ python3 tools/web_build.py --only analysis
 python3 tools/strategy_tf.py tg && python3 tools/telegram_send.py --file reports/YYYY-MM-DD/strategy_tg.md   # 텔레그램 요약 = 테크노펀더 지면 기준(2026-11-14), 도구가 만듦(30줄 안팎)
 git add data/strategy data/research/notes config/watch_pool.toml reports  # data/strategy/tf 포함 && git commit -m "전략 보고서 제n호 MM/DD" && git push -u origin main
 ```
+
+7. **이번 주 확인할 질문 남기기 (2026-11-15, 빠뜨리지 말 것)** — 평일 깊이 읽기(Sonnet 19:13)가 이 질문에 답하는 리포트를 먼저 고릅니다. `data/strategy/questions_week.json`:
+```json
+{"issue_date": "YYYY-MM-DD", "items": [{"q": "엑시콘 3분기에도 흑자가 이어지는 근거(고객·제품)는?", "kind": "core", "code": "092870", "kw": "엑시콘|흑자|DDR5|SSD"}, {"q": "반도체 기판 외국인 매도는 업황 때문인가?", "kind": "sector", "group": "반도체 기판·전자부품", "kw": "기판|PCB|FC-BGA|수요"}]}
+```
+   - 5~8개. kind는 core(핵심 후보) · sector(리더 업종) · contra(반론가 사전 부검에서 나온 것) · theme. **리포트가 답할 수 있는 질문만**(이익·제품·고객·가격·수요). 가격·수급 질문(20일선, 외국인 3일)은 쓰지 않습니다 — 그건 도구가 셉니다.
+   - 반론가 결과의 `premortem`·`counter.invalid`에서 2개 이상 가져옵니다.
+   - 커밋 목록에 `data/strategy/questions_week.json`을 넣습니다.
 
 ## 분량·토큰
 - JSON 2.5만~4만 자, 마크다운 비슷. 원문 pdf는 3건까지(건당 발췌 검색으로 필요한 쪽만).

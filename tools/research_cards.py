@@ -338,7 +338,112 @@ def save_card(cat, nid, fields):
 
 
 # ---------- Tier 2 ----------
+WEEKQ = DATA / "strategy" / "questions_week.json"   # 토요일 보고서가 남기는 '이번 주 확인할 질문' (2026-11-15)
+
+
+def _pool_targets():
+    """관찰 풀(테크노펀더 지면이 씀): C1 핵심 후보 코드·이름, 리더 업종(C1·C4 그룹)과 그 종목 이름"""
+    wp = load_toml("watch_pool.toml") or {}
+    core, groups = {}, defaultdict(set)
+    for th in wp.get("themes", []):
+        for st in th.get("stocks", []):
+            if th.get("id") == "C1":
+                core[st["code"]] = st["name"]
+            if th.get("id") in ("C1", "C4") and st.get("group"):
+                groups[st["group"]].add(st["name"])
+    return core, groups
+
+
+def _week_q():
+    if not WEEKQ.exists():
+        return []
+    d = json.loads(WEEKQ.read_text(encoding="utf-8"))
+    try:
+        if (datetime.now(KST).date() - datetime.fromisoformat(d.get("issue_date", "2000-01-01")).date()).days > 8:
+            return []
+    except Exception:
+        return []
+    return d.get("items") or []
+
+
+def _deep_done_ids():
+    docs = DATA / "research" / "docs"
+    return {f.stem for f in docs.glob("*.json")} if docs.exists() else set()
+
+
 def pick_deep(top=3, days=2):
+    """깊이 읽기 3칸 (2026-11-15 사용자 확정): ① 핵심 후보 종목 리포트 ② 리더 업종 산업 리포트 ③ 반대 의견(고정).
+    '이번 주 질문'(questions_week.json)에 걸리는 리포트를 먼저. 칸이 비면 옛 점수 순으로 채움."""
+    core, groups = _pool_targets()
+    wq = _week_q()
+    qkw = "|".join(x.get("kw", "") for x in wq if x.get("kw")) or None
+    qre = re.compile(qkw, re.I) if qkw else None
+    done = _deep_done_ids()
+    picked = []
+    # ① 핵심 후보 종목 리포트 (네이버 국내종목, 45일, 아직 안 읽은 것, 최신·질문 일치 우선)
+    comp = [r for r in NR.load("company").values() if r.get("code") in core and f"naver_company_{r['nid']}" not in done]
+    comp.sort(key=lambda r: ((1 if qre and qre.search(r.get("title", "") + r.get("summary", "")) else 0), r.get("date", "")), reverse=True)
+    if comp:
+        r = comp[0]
+        picked.append({"slot": "① 핵심 후보 종목", "cat": "company", "nid": r["nid"], "title": r["title"], "broker": r.get("broker"), "date": r.get("date"),
+                       "sector": r.get("name"), "why": f"핵심 후보 {r.get('name')} 리포트 · 목표가 {r.get('target') or '-'}", "url": f"https://stock.naver.com/research/company/{r['nid']}"})
+    cards = all_cards(max(days, 7))
+    pool = [c for c in cards.values() if c["status"] in ("card", "draft") and c.get("body") and f"naver_{c['cat']}_{c['nid']}" not in done and c["status"] != "deep"]
+    val = {"상": 30, "중": 10, "하": -20}
+
+    def sc(c):
+        q = 20 if qre and qre.search(c["title"] + " " + (c.get("summary") or "")) else 0
+        return rank(c) + val.get(c.get("depth_value"), 0) + (10 if c["status"] == "card" else 0) + q
+
+    # ② 리더 업종 산업 리포트: 카드의 종목·제목이 리더 업종 이름이나 그 업종 종목과 겹치는 것
+    def hit_group(c):
+        txt = c["title"] + " " + (c.get("industry") or "") + " " + " ".join(c.get("stocks") or [])
+        for g, names in groups.items():
+            toks = [t for t in re.split(r"[·/\s]+", g) if len(t) >= 2]
+            if any(t in txt for t in toks) or any(n in txt for n in names):
+                return g
+        return None
+    lead = sorted((c for c in pool if hit_group(c)), key=lambda c: -sc(c))
+    if lead:
+        c = lead[0]
+        picked.append({"slot": "② 리더 업종", "cat": c["cat"], "nid": c["nid"], "title": c["title"], "broker": c["broker"], "date": c["date"], "sector": hit_group(c),
+                       "why": f"리더 업종 {hit_group(c)} · 점수 {sc(c)}", "url": c["url"]})
+    # ③ 반대 의견 (기존 규칙)
+    is_contra = lambda c: bool(c.get("theme_hit") or hit_group(c)) and (c.get("stance") or c.get("stance_hint")) == "약세" and c.get("depth_value") != "하"  # noqa: E731
+    used = {x["nid"] for x in picked}
+    cont = sorted((c for c in pool if is_contra(c) and c["nid"] not in used), key=lambda c: -sc(c))
+    if not cont:
+        cont = sorted((c for c in pool if not c.get("theme_hit") and not hit_group(c) and c.get("depth_value") != "하" and c["nid"] not in used), key=lambda c: -sc(c))
+    if cont:
+        c = cont[0]
+        picked.append({"slot": "③ 반대 의견", "cat": c["cat"], "nid": c["nid"], "title": c["title"], "broker": c["broker"], "date": c["date"], "sector": c["sector"],
+                       "why": f"반대 의견·비주류 고정 · 입장 {c.get('stance') or c['stance_hint']}", "url": c["url"]})
+    # 빈 칸은 옛 점수 순
+    used = {x["nid"] for x in picked}
+    for c in sorted((c for c in pool if c["nid"] not in used), key=lambda c: -sc(c)):
+        if len(picked) >= top:
+            break
+        picked.append({"slot": "보충", "cat": c["cat"], "nid": c["nid"], "title": c["title"], "broker": c["broker"], "date": c["date"], "sector": c["sector"], "why": f"점수 {sc(c)}", "url": c["url"]})
+    return picked[:top]
+
+
+def answers(days=7):
+    """한 주 깊이 읽기에서 질문에 답이 나온 것 (토요일 보고서 필수 재료, 2026-11-15)"""
+    docs = DATA / "research" / "docs"
+    since = (datetime.now(KST) - timedelta(days=days)).strftime("%Y-%m-%d")
+    out = []
+    for f in sorted(docs.glob("*.json")) if docs.exists() else []:
+        d = json.loads(f.read_text(encoding="utf-8"))
+        if (d.get("analyzed_at") or "")[:10] < since:
+            continue
+        for q in d.get("questions") or []:
+            a = str(q.get("answer") or "")
+            if a and not a.startswith("없음"):
+                out.append({"q": q.get("q"), "answer": a, "from": f"{d.get('broker', '')} {d.get('title', '')}".strip(), "file_id": d.get("file_id")})
+    return {"days": days, "n": len(out), "items": out}
+
+
+def _old_pick_deep(top=3, days=2):
     cards = all_cards(days)
     done = {c["nid"] for c in cards.values() if c["status"] == "deep"}
     pool = [c for c in cards.values() if c["status"] in ("card", "draft") and c.get("body") and c["nid"] not in done]
@@ -366,6 +471,13 @@ def mark_deep(cat, nid, file_id=None):
 
 
 def questions():
+    wq = _week_q()
+    if wq:   # 토요일 보고서가 남긴 '이번 주 질문'이 있으면 그것 (2026-11-15)
+        out = {"made_at": datetime.now(KST).strftime("%Y-%m-%d %H:%M"), "source": "questions_week.json",
+               "themes": [{"id": "W", "name": "이번 주 확인할 질문 (전략 보고서)", "questions": [{"q": x["q"], "kw": x.get("kw") or kw(x["q"])} for x in wq]}]}
+        (DATA / "research").mkdir(parents=True, exist_ok=True)
+        (DATA / "research" / "questions.json").write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
+        return out
     f = DATA / "strategy" / "latest.json"
     out = {"made_at": datetime.now(KST).strftime("%Y-%m-%d %H:%M"), "themes": []}
     if f.exists():
@@ -465,6 +577,7 @@ def main():
     s = sub.add_parser("save"); s.add_argument("--cat", required=True); s.add_argument("--nid", required=True); s.add_argument("--file"); s.add_argument("--json")
     s = sub.add_parser("pick-deep"); s.add_argument("--top", type=int, default=3)
     sub.add_parser("questions")
+    s = sub.add_parser("answers"); s.add_argument("--days", type=int, default=7)
     s = sub.add_parser("mark-deep"); s.add_argument("--cat", required=True); s.add_argument("--nid", required=True); s.add_argument("--file-id")
     s = sub.add_parser("excerpt"); s.add_argument("--cat", required=True); s.add_argument("--nid", required=True); s.add_argument("--q", required=True); s.add_argument("--window", type=int, default=600)
     s = sub.add_parser("weekly"); s.add_argument("--days", type=int, default=7); s.add_argument("--json", action="store_true")
@@ -482,6 +595,8 @@ def main():
         print(json.dumps(mark_deep(a.cat, a.nid, a.file_id), ensure_ascii=False))
     elif a.cmd == "questions":
         q = questions(); print(json.dumps({"themes": len(q["themes"]), "questions": sum(len(t["questions"]) for t in q["themes"]) + len(q.get("general", []))}, ensure_ascii=False))
+    elif a.cmd == "answers":
+        print(json.dumps(answers(a.days), ensure_ascii=False, indent=1))
     elif a.cmd == "excerpt":
         print(json.dumps(excerpt(a.cat, a.nid, a.q, a.window), ensure_ascii=False, indent=1))
     elif a.cmd == "weekly":
