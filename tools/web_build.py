@@ -1327,6 +1327,18 @@ def write_html(data):
     if ftf.exists():
         data["strategy_tf"] = safe(lambda: json.loads(ftf.read_text(encoding="utf-8")))
     data["strategy_issues"] = safe(lambda: __import__("strategy_tf").issues())   # 발간호 칩 (2026-11-15)
+    def _secpop():   # 업종 마우스오버 팝업 재료 (2026-11-15): 레이더 주요 종목 펀더 점수 + 업종 올해 이익(지난 주간 지면)
+        import strategy_tf as T
+        fund, fp = T._fund(), {}
+        for g in ((data.get("radar") or {}).get("groups") or []):
+            for l in g.get("leaders") or []:
+                f = T.fscore(fund.get(l.get("code")), None)
+                if f:
+                    fp[l["code"]] = f["pts"]
+        fs = sorted((DATA / "strategy" / "tf").glob("prep_*.json"))
+        opg = {m["group"]: m.get("opg") for m in (json.loads(fs[-1].read_text(encoding="utf-8")).get("matrix") or [])} if fs else {}
+        return {"fp": fp, "opg": opg}
+    data["secpop"] = safe(_secpop)
     WEB.mkdir(exist_ok=True)
     LAST.write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
     tpl = (WEB / "app.html").read_text(encoding="utf-8")

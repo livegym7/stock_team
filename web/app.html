@@ -164,7 +164,7 @@ td.wrap{white-space:normal;line-height:1.5} .gloss td{white-space:normal} .gloss
   nav.side{display:none}
   .split{grid-template-columns:minmax(0,1fr)}
   .mobile-only{display:block;margin-bottom:12px}
-  .tabbar{display:grid;grid-template-columns:repeat(5,1fr);position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--panel);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px);padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px)}
+  .tabbar{display:grid;grid-template-columns:repeat(6,1fr);position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--panel);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px);padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px)}
   .tabbar a,.tabbar button{display:grid;place-items:center;gap:1px;padding:8px 2px;font-size:11px;color:var(--muted);text-decoration:none;background:none;border:0;font-family:inherit}
   .tabbar .ico{font-family:var(--mono);font-size:13px}
   .tabbar .on{color:var(--accent)}
@@ -709,6 +709,7 @@ html body .view .invh td.num,html body .view .invh th{text-align:right}
 .evl{display:flex;flex-wrap:wrap;gap:2px;align-items:center;padding:2px 0}
 .issbar{display:flex;gap:6px;align-items:center;overflow-x:auto;padding:0 0 8px;margin-bottom:6px;scrollbar-width:none}.issbar::-webkit-scrollbar{display:none}.issbar>span{font-size:12px;white-space:nowrap;margin-right:2px}.issbar .chip{white-space:nowrap;flex:none}.issbar .chip small{opacity:.7}
 .issban{display:flex;gap:8px;align-items:center;flex-wrap:wrap;background:color-mix(in srgb,#e8a33d 14%,var(--panel));border:1px solid #e8a33d;border-radius:8px;padding:8px 12px;margin-bottom:10px;font-size:12.5px}.issban a{margin-left:auto;font-weight:600}
+.seckp{font-size:11.5px;color:var(--muted);margin-bottom:6px;line-height:1.6}.seckp b{color:var(--fg)}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="bl-icon" viewBox="0 0 1024 1024"><defs><linearGradient id="blbg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#52525b"/><stop offset="1" stop-color="#18181b"/></linearGradient><linearGradient id="blgl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".16"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/></linearGradient></defs><rect width="1024" height="1024" rx="232" fill="url(#blbg)"/><rect width="1024" height="1024" rx="232" fill="url(#blgl)"/><path d="M352 262 V762 M352 262 H528 A122 122 0 0 1 528 506 H352 M352 506 H574 A128 128 0 0 1 574 762 H352" fill="none" stroke="#fff" stroke-linejoin="round" stroke-linecap="round" stroke-width="104"/><circle cx="742" cy="290" r="44" fill="#6d7dff"/></symbol></svg>
@@ -729,15 +730,15 @@ let D = /*__DATA__*/null;
 /* 새로고침으로 받은 더 최신 데이터가 이 브라우저에 있으면 그걸 쓴다 */
 try{const c=JSON.parse(localStorage.getItem("tr-data")||"null");if(c&&D&&c.built_at>D.built_at)D=c}catch(e){}
 /* 메뉴 5개 (2026-11-10 다시 설계): 질문 하나에 메뉴 하나 — 오늘(지금 장은?) · 흐름(무슨 얘기·리포트?) · 전략(어디서 싸우나?) · 내 매매(내 돈·규칙·복기) · 더보기(일정·설정) */
-const MENU=[["home","오늘","◎"],["flow","시장","≡"],["stock","종목","◇"],["strategy","전략","◐"],["trade","내 매매","₩"],["more","더보기","⚙"]];   // 2026-11-14 2차: 탑다운 순서(오늘·시장·종목·전략·내 매매), 더보기는 ⚙   // 2026-11-12 Balance Lab 2.0: 종목 메뉴 신설, 흐름 → 시장
+const MENU=[["home","오늘","◎"],["flow","시장","≡"],["news","소식","✉"],["stock","종목","◇"],["strategy","전략","◐"],["trade","내 매매","₩"],["more","더보기","⚙"]];   // 2026-11-14 2차: 탑다운 순서(오늘·시장·종목·전략·내 매매), 더보기는 ⚙   // 2026-11-12 Balance Lab 2.0: 종목 메뉴 신설, 흐름 → 시장
 // 옛 메뉴 id → 새 메뉴 + 탭 (기존 링크·data-go 호환)
-const ALIAS={briefs:["flow","news","digest"],channels:["flow","news","channels"],portfolio:["trade",null],companies:["stock","list"],research:["strategy","research"],watch:["stock","setup"],sectors:["flow","sectors"],lab:["stock","setup"],config:["more",null]};
+const ALIAS={briefs:["news",null,"digest"],channels:["news",null,"channels"],reports:["news",null,"reports"],portfolio:["trade",null],companies:["stock","list"],research:["strategy","research"],watch:["stock","setup"],sectors:["flow","sectors"],lab:["stock","setup"],config:["more",null]};
 const STOCK_TABS=[["setup","셋업 보드"],["highs","신고가"],["vtop","거래대금"],["earn","실적"],["etf","ETF"],["list","전체 목록"]];
-const MKT_TABS=[["macro","매크로"],["regime","국면·시장 폭"],["flows","수급"],["sectors","업종 지도"],["news","소식"]];
-const GROUPS_ALL=[["메뉴","analysis",["home","flow","stock","strategy","trade","more"]]];
+const MKT_TABS=[["macro","매크로"],["regime","국면·시장 폭"],["flows","수급"],["sectors","업종 지도"]];   // 소식은 메뉴로 분리 (2026-11-15 A안)
+const GROUPS_ALL=[["메뉴","analysis",["home","flow","news","stock","strategy","trade","more"]]];
 const MON_OFF=!!(D&&D.features&&D.features.monitoring===false);
 const GROUPS=GROUPS_ALL;
-const TABS=["home","flow","stock","strategy","trade"];
+const TABS=["home","flow","news","stock","strategy","trade"];   // 소식 분리 (2026-11-15 A안)
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const w=n=>n==null||isNaN(n)?"-":Math.round(n).toLocaleString("ko-KR");
@@ -773,7 +774,7 @@ function nav(){
 function route(){let h=location.hash.slice(1);
   if(/^s\d{6}$/.test(h)){ui.sc=h.slice(1);return "stock"}   // 종목 페이지 #s000660
   if(h=="stock"){ui.sc=null;if(!ui.kt)ui.kt="setup"}
-  if(ALIAS[h]){const [pg,tab,sub]=ALIAS[h];if(tab){if(pg=="flow")ui.ft=tab;if(pg=="strategy")ui.st=tab;if(pg=="stock"){ui.kt=tab;ui.sc=null}if(sub)ui.nt=sub;save()}h=pg}
+  if(ALIAS[h]){const [pg,tab,sub]=ALIAS[h];if(tab){if(pg=="flow")ui.ft=tab;if(pg=="strategy")ui.st=tab;if(pg=="stock"){ui.kt=tab;ui.sc=null}}if(sub)ui.nt=sub;if(tab||sub)save();h=pg}
   return MENU.some(m=>m[0]==h)?h:"home"}
 const stripH1=h=>h.replace(/<h1[^>]*>[\s\S]*?<\/h1>/,"").replace(/^(\s*<div class="sub"[^>]*>[\s\S]*?<\/div>)/,"");
 
@@ -2003,10 +2004,10 @@ function newsTab(){
   return `<div class="flowbar"><div class="chips">${[["digest","정리"],["reports","리포트"],["channels","채널 원문"]].map(([v,n])=>`<button class="chip ${nt==v?"on":""}" data-nt="${v}">${n}</button>`).join("")}</div>${bar}</div>${body}`}
 function viewFlow(){   // 2026-11-14 2차: 시장 = 매일 보는 탑다운(매크로 → 국면·시장 폭 → 수급 → 업종 지도) + 소식
   let t=ui.ft||"macro";
-  if(["digest","reports","channels"].includes(t)){ui.nt=t;t="news"}
+  if(["digest","reports","channels","news"].includes(t)){if(t!="news")ui.nt=t;ui.ft="macro";save();setTimeout(()=>{location.hash="news"},0);t="macro"}
   if(!MKT_TABS.some(([v])=>v==t))t="macro";
-  const body=t=="news"?newsTab():tfMarket(t);
-  return `<h1>시장</h1><div class="sub">탑다운: 매크로 → 국면·시장 폭 → 수급 → 업종 지도 · 숫자는 웹 갱신 때마다 자동(토큰 0) · 소식 = 정리·리포트·채널 원문(채널 글은 2차 자료)</div>
+  const body=tfMarket(t);
+  return `<h1>시장</h1><div class="sub">탑다운: 매크로 → 국면·시장 폭 → 수급 → 업종 지도 · 숫자는 웹 갱신 때마다 자동(토큰 0) · 글로 된 소식은 '소식' 메뉴</div>
   <div class="chips tabs" style="margin-bottom:10px">${MKT_TABS.map(([v,n])=>`<button class="chip ${t==v?"on":""}" data-ft="${v}">${n}</button>`).join("")}</div>${body}`;
 }
 /* ---------- ETF 시세판 (2026-11-13): 등락률 순, 코스피·코스닥 줄을 같은 표에 끼워 시장 대비 강약을 한눈에 ---------- */
@@ -2230,7 +2231,8 @@ function viewMore(){
 }
 
 /* ---------- 라우터 ---------- */
-const VIEWS={home:viewHome2,flow:viewFlow,strategy:viewStrategy2,stock:viewStock,trade:viewTrade,more:viewMore};
+function viewNews(){return `<h1>소식</h1><div class="sub">정리(체크포인트·장중 정리·마감) · 리포트 · 채널 원문 — 채널 글은 2차 자료, 판단은 본인</div>${newsTab()}`}
+const VIEWS={home:viewHome2,flow:viewFlow,news:viewNews,strategy:viewStrategy2,stock:viewStock,trade:viewTrade,more:viewMore};
 
 /* ---------- 기업 검색 (2026-11-12 사용자 요청) ---------- */
 const CHO="ㄱㄲㄴㄷㄸㄹㅁㅂㅃㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎ";
@@ -2553,7 +2555,8 @@ function showPop(t,sub){   // sub = ETF 팝업 안에서 띄우는 두 번째 �
     ${c.pseudo?'<div class="muted">기업 카드 없음</div>':""}<div ${c.pseudo?"hidden":""}>리포트 ${c.n_reports||0} <small><span class="up">${c.up||0}</span>/<span class="down">${c.down||0}</span></small></div>
     ${pos?`<div class="up">보유 · 손절까지 ${pc(pos.to_stop_pct)}</div>`:""}${pool?`<div>관찰 풀 ${esc(pool.id)}</div>`:""}${fundLine(c.code)}</div></div>
    ${HOVER?"":`<div class="muted" style="font-size:11px;text-align:center;margin-top:6px">카드를 한 번 더 누르면 닫힙니다</div>`}`;
-  const r=t.el.getBoundingClientRect(),pw=Math.min(430,innerWidth-16);P.style.width=pw+"px";P.hidden=false;
+  const r=t.el.getBoundingClientRect(),pw=Math.min(HOVER?600:430,innerWidth-16);   // 넓은 화면 팝업 1.4배(2026-11-15 사용자 확정), 늘어난 폭은 차트에
+  P.style.width=pw+"px";P.hidden=false;
   const place=()=>{const ph=Math.min(P.offsetHeight,innerHeight-16);let left,top;   // 차트가 늦게 들어와 높이가 늘면 다시 맞춤 (2026-11-14 휴대폰 아래 잘림)
   if(sub){const R0=$("#pop").getBoundingClientRect();if(HOVER){left=R0.right+8;if(left+pw>innerWidth-8)left=R0.left-8-pw;left=Math.min(Math.max(8,left),innerWidth-pw-8);top=Math.min(Math.max(8,r.top-40),innerHeight-ph-8)}
     else{left=Math.min(Math.max(8,R0.left),innerWidth-pw-8);top=Math.min(Math.max(8,R0.top+20),innerHeight-ph-8)}}
@@ -2563,9 +2566,25 @@ function showPop(t,sub){   // sub = ETF 팝업 안에서 띄우는 두 번째 �
   }else{left=Math.min(Math.max(8,r.left),innerWidth-pw-8);top=r.bottom+6;if(top+ph>innerHeight-8)top=Math.max(8,r.top-ph-6)}
   top=Math.max(8,Math.min(top,innerHeight-ph-8));P.style.left=left+"px";P.style.top=top+"px"};
   place();
-  ohlcGet(c.code).then(rows=>{if((sub?pop2For:popFor)!=c.code)return;if(c.pseudo&&rows&&rows.length&&!c.trend.price){c.trend=trendFrom(rows,c.trend.rs);if(sub)pop2For=null;else popFor=null;showPop(t,sub);return}const el=$("#"+CID);if(!el)return;el.innerHTML=rows?candleChart(rows,{w:260,h:165,n:200,ma:[20,60],vp:true,axis:false,dates:true,label:true}):`<div class="muted" style="font-size:12px;padding:30px 0;text-align:center">차트 없음</div>`;place()});
+  ohlcGet(c.code).then(rows=>{if((sub?pop2For:popFor)!=c.code)return;if(c.pseudo&&rows&&rows.length&&!c.trend.price){c.trend=trendFrom(rows,c.trend.rs);if(sub)pop2For=null;else popFor=null;showPop(t,sub);return}const el=$("#"+CID);if(!el)return;el.innerHTML=rows?candleChart(rows,{w:HOVER?430:260,h:165,n:200,ma:[20,60],vp:true,axis:false,dates:true,label:true}):`<div class="muted" style="font-size:12px;padding:30px 0;text-align:center">차트 없음</div>`;place()});
 }
 function hidePop2(){const P=$("#pop2");if(P){P.hidden=true;pop2For=null}}
+/* 업종 이름 마우스오버 → 주요 종목 팝업 (2026-11-15 사용자 확정): 표의 업종 칸 글자가 레이더 업종 이름과 같으면 */
+let SECMAP=null;
+function secTarget(el){if(!el||!el.closest||el.closest("#pop,#pop2"))return null;const td=el.closest("td,th,.sgrp");if(!td)return null;
+  if(!SECMAP){SECMAP={};((D.radar||{}).groups||[]).forEach(g=>{SECMAP[g.group]=g})}
+  const b=td.querySelector("b"),cand=[td.textContent.trim(),b?b.textContent.trim():""];for(const n of cand)if(n&&SECMAP[n])return{el:td,g:n};return null}
+function secPop(el,g,ev){const G=SECMAP[g],P=$("#pop");if(!G||!P)return;popFor="sec"+g;const S=D.secpop||{},fp=S.fp||{},opg=(S.opg||{})[g];
+  const pool=new Set();((D.watch_pool||{}).themes||[]).forEach(t=>(t.stocks||[]).forEach(x=>pool.add(x.code)));
+  const rows=(G.leaders||[]).slice(0,5).map(l=>{const c=stockByCode(l.code),u=(D.uni||{})[l.code],rs=(c&&(c.trend||{}).rs)??(u?u[2]:null),chg=todayChg(l.code),f=fp[l.code];
+    return `<tr><td class="l">${c?`<span class="esub" data-sub="${esc(l.code)}"><b>${esc(l.name)}</b></span>`:`<b>${esc(l.name)}</b>`}${pool.has(l.code)?" 🎯":""}</td><td class="num ${cls(l.r1m_pct)}">${pc(l.r1m_pct)}</td><td class="num ${cls(chg)}">${chg!=null?pc(chg,2):"-"}</td><td class="num">${rs??"-"}</td><td class="num">${f==null?'<span class="muted">미확인</span>':"●".repeat(f)+"○".repeat(3-f)}</td></tr>`}).join("");
+  P.innerHTML=`<div class="pph" style="display:flex;justify-content:space-between"><b>${esc(g)}</b><small class="muted">강도 ${G.rank}위 · ${G.score}점${(D.radar.confirmed||[]).includes(g)?" · 주도":""}</small></div>
+   <div class="seckp">종목 <b>${G.n}</b> · 20일선 위 <b>${G.breadth_pct}%</b> · 신고가 <b>${G.newhigh_pct}%</b> · 1개월 시장 대비 <b class="${cls(G.rel1m_pct)}">${G.rel1m_pct>0?"+":""}${G.rel1m_pct}%p</b>${opg!=null?` · 올해 이익 <b class="${cls(opg)}">${pc(opg,0)}</b>`:""}</div>
+   <table class="etfh"><tr><th class="l">주요 종목 (1개월 순)</th><th>1개월</th><th>오늘</th><th>RS</th><th>펀더</th></tr>${rows||'<tr><td colspan="5" class="muted">주요 종목 없음</td></tr>'}</table>
+   <div class="src" style="margin-top:4px">종목 이름에 마우스를 올리면(휴대폰은 누르면) 차트 · 🎯 관찰 풀 · 출처: 주도 섹터 레이더 ${esc(fmtYmd((D.radar||{}).as_of||""))} · 네이버(비공식)</div>`;
+  const pw=Math.min(420,innerWidth-16);P.style.width=pw+"px";P.hidden=false;const ph=P.offsetHeight,r=el.getBoundingClientRect();
+  let left=(ev&&ev.clientX?ev.clientX:r.right)+16;if(left+pw>innerWidth-8)left=Math.max(8,(ev&&ev.clientX?ev.clientX:r.left)-16-pw);
+  P.style.left=Math.min(left,innerWidth-pw-8)+"px";P.style.top=Math.min(Math.max(8,(ev&&ev.clientY?ev.clientY:r.top)-ph/2),innerHeight-ph-8)+"px"}
 function hidePop(){const P=$("#pop");if(P){P.hidden=true;popFor=null}hidePop2()}
 function subTarget(el){const a=el&&el.closest&&el.closest("#pop [data-sub]");const c=a&&stockByCode(a.dataset.sub);return c?{el:a,c}:null}
 let popM=null;document.addEventListener("mousemove",e=>{if(HOVER)popM={x:e.clientX,y:e.clientY}},{passive:true});
@@ -2576,12 +2595,14 @@ document.addEventListener("mouseover",e=>{if(!HOVER)return;
     if(st)pop2T=setTimeout(()=>{if(pop2For!=st.c.code)showPop(st,1)},220);else if(pop2For)pop2T=setTimeout(hidePop2,300);return}
   const ea=e.target.closest("[data-etf]");if(ea){clearTimeout(popT);popT=setTimeout(()=>{if(popFor!="etf"+ea.dataset.etf)etfPop(ea,e)},250);return}
   const t=popTarget(e.target);clearTimeout(popT);
+  if(!t){const sg=secTarget(e.target);if(sg){popT=setTimeout(()=>{if(popFor!="sec"+sg.g)secPop(sg.el,sg.g,e)},280);return}}
   if(t)popT=setTimeout(()=>{if(popFor!=t.c.code)showPop(t)},280);else if(popFor)popT=setTimeout(hidePop,220)});
 document.addEventListener("click",e=>{
   if(e.target.closest("#pop2")){if(e.target.closest(".ppl"))hidePop();else if(!HOVER)hidePop2();return}
   if(e.target.closest("#pop")){const st=subTarget(e.target);if(st){e.preventDefault();if(pop2For==st.c.code)hidePop2();else showPop(st,1);return}if(e.target.closest(".ppl")||!HOVER)hidePop();return}   // 휴대폰: 카드를 한 번 더 누르면 닫힘 (2026-11-13)
   if(!HOVER){const ea=e.target.closest("[data-etf]");if(ea){e.preventDefault();e.stopPropagation();if(popFor=="etf"+ea.dataset.etf)hidePop();else etfPop(ea,e);return}
-    const t=popTarget(e.target);if(t&&popFor!=t.c.code){e.preventDefault();e.stopPropagation();showPop(t);return}}
+    const t=popTarget(e.target);if(t&&popFor!=t.c.code){e.preventDefault();e.stopPropagation();showPop(t);return}
+    if(!t){const sg=secTarget(e.target);if(sg){e.preventDefault();e.stopPropagation();if(popFor=="sec"+sg.g)hidePop();else secPop(sg.el,sg.g,e);return}}}
   hidePop();
 },true);
 window.addEventListener("scroll",()=>{if(!HOVER)return;hidePop()},{passive:true});
@@ -2662,7 +2683,7 @@ document.addEventListener("click",e=>{
     if(cm.dataset.calk){const o=new Set(ui.calOff||[]);o.has(cm.dataset.calk)?o.delete(cm.dataset.calk):o.add(cm.dataset.calk);ui.calOff=[...o]}save();render();return}
   const ft=e.target.closest("[data-ft]"); if(ft){const v=ft.dataset.ft;
     if(STOCK_TABS.some(([k])=>k==v)){ui.kt=v;ui.sc=null;save();if(v=="vtop"||v=="etf")setTimeout(()=>pollQuotes(),50);e.preventDefault();if(location.hash!="#stock")location.hash="stock";else render();return}   // 옛 시장 탭(신고가·거래대금·실적·ETF) → 종목
-    if(["digest","reports","channels"].includes(v)){ui.ft="news";ui.nt=v}else ui.ft=v;save();if(ft.tagName=="A"){e.preventDefault();location.hash="flow"}render();return}
+    if(["digest","reports","channels","news"].includes(v)){if(v!="news")ui.nt=v;save();e.preventDefault();location.hash="news";return}else ui.ft=v;save();if(ft.tagName=="A"){e.preventDefault();location.hash="flow"}render();return}
   const kt=e.target.closest("[data-kt]"); if(kt){ui.kt=kt.dataset.kt;ui.sc=null;save();if(ui.kt=="vtop"||ui.kt=="etf")setTimeout(()=>pollQuotes(),50);if(location.hash!="#stock")location.hash="stock";else render();return}
   const nt=e.target.closest("[data-nt]"); if(nt){ui.nt=nt.dataset.nt;save();render();return}
   const hk=e.target.closest("[data-hk]"); if(hk){ui[hk.dataset.hk]=hk.dataset.hv;save();render();return}
