@@ -1326,6 +1326,7 @@ def write_html(data):
     ftf = DATA / "strategy" / "tf" / "latest.json"   # 테크노펀더멘탈 주간 보고서(2026-11-14 확정): strategy_tf.py render 결과 조각
     if ftf.exists():
         data["strategy_tf"] = safe(lambda: json.loads(ftf.read_text(encoding="utf-8")))
+    data["strategy_issues"] = safe(lambda: __import__("strategy_tf").issues())   # 발간호 칩 (2026-11-15)
     WEB.mkdir(exist_ok=True)
     LAST.write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
     tpl = (WEB / "app.html").read_text(encoding="utf-8")

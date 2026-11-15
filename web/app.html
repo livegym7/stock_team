@@ -707,6 +707,8 @@ html body .view .invh td.num,html body .view .invh th{text-align:right}
 .evb{display:inline-block;font-size:11px;line-height:1.5;padding:0 6px;border-radius:9px;white-space:nowrap;margin:1px 2px;vertical-align:middle;font-weight:500}
 .evb.b3{background:var(--up);color:#fff}.evb.b7{background:#e8a33d;color:#fff}.evb.bx{background:var(--line);color:var(--fg)}
 .evl{display:flex;flex-wrap:wrap;gap:2px;align-items:center;padding:2px 0}
+.issbar{display:flex;gap:6px;align-items:center;overflow-x:auto;padding:0 0 8px;margin-bottom:6px;scrollbar-width:none}.issbar::-webkit-scrollbar{display:none}.issbar>span{font-size:12px;white-space:nowrap;margin-right:2px}.issbar .chip{white-space:nowrap;flex:none}.issbar .chip small{opacity:.7}
+.issban{display:flex;gap:8px;align-items:center;flex-wrap:wrap;background:color-mix(in srgb,#e8a33d 14%,var(--panel));border:1px solid #e8a33d;border-radius:8px;padding:8px 12px;margin-bottom:10px;font-size:12.5px}.issban a{margin-left:auto;font-weight:600}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="bl-icon" viewBox="0 0 1024 1024"><defs><linearGradient id="blbg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#52525b"/><stop offset="1" stop-color="#18181b"/></linearGradient><linearGradient id="blgl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".16"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/></linearGradient></defs><rect width="1024" height="1024" rx="232" fill="url(#blbg)"/><rect width="1024" height="1024" rx="232" fill="url(#blgl)"/><path d="M352 262 V762 M352 262 H528 A122 122 0 0 1 528 506 H352 M352 506 H574 A128 128 0 0 1 574 762 H352" fill="none" stroke="#fff" stroke-linejoin="round" stroke-linecap="round" stroke-width="104"/><circle cx="742" cy="290" r="44" fill="#6d7dff"/></symbol></svg>
@@ -2113,9 +2115,23 @@ function poolTab(){
    ${(th.stocks||[]).map(s=>{const c=comp[s.code]||{},wx=wmap[s.code],u=(D.uni||{})[s.code],t=c.trend||(u?{rs:u[2]??(wx||{}).rs,r1m:u[7],off_high:u[8]}:{rs:(wx||{}).rs,off_high:(wx||{}).off_high_pct});return `<tr class="click" data-cq="${esc(s.name)}"><td class="l"><b>${esc(s.name)}</b><br><small class="muted">${esc(s.group||"")}</small></td><td class="l"><small>${esc(s.role||"")}</small></td><td class="num">${t.rs??"-"}</td><td class="num ${cls(t.r1w)}">${pc(t.r1w)}</td><td class="num ${cls(t.r1m)}">${pc(t.r1m)}</td><td class="num">${pc(t.off_high)}</td><td>${t.above20==null?"-":t.above20?'<span class="up">위</span>':'<span class="down">아래</span>'}</td><td>${flowTag(s.code)||"-"}</td><td class="l"><small>${wx?esc(wx.tier)+(wx.setups&&wx.setups.length?" · 셋업 "+esc(wx.setups.join(",")):"")+(wx.levels&&wx.levels.pivot?` · 기준가 ${w(wx.levels.pivot)} (${pc(wx.levels.distance_pct)})`:""):'<span class="muted">-</span>'}</small></td><td class="num">${c.n_reports?`<span class="up">🔺${c.up}</span> <span class="down">🔽${c.down}</span>`:'<span class="muted">-</span>'}</td></tr>`}).join("")}</table></div></div>`).join("")}
   ${src("RS·수익률 = 네이버 일봉(비공식), 기업 메뉴와 같은 값 · 감시 목록 칸은 가장 최근 screener 결과 · 종목을 누르면 기업 상세")}`;
 }
+/* 발간호 칩 (2026-11-15 사용자 확정 A안): 최근 8호 + 전체 목록, 지난 호는 r/날짜.json을 누를 때만 받음 */
+const ISS={};
+function issueBar(){const I=D.strategy_issues||[];if(I.length<2)return "";const sel=ui.si||I[0].date,L=ui.siAll?I:I.slice(0,8);
+  return `<div class="issbar"><span class="muted">발간호</span>${L.map((x,i)=>`<button class="chip ${x.date==sel?"on":""}" data-si="${esc(x.date)}" title="${esc(x.title)}">${esc(x.date.slice(5).replace("-","/"))}${x.issue?" "+esc(x.issue):""}${i==0&&I[0]===x?" <small>최신</small>":""}</button>`).join("")}${I.length>8?`<button class="chip" data-si="__all">${ui.siAll?"접기":"전체 목록 ("+I.length+")"}</button>`:""}</div>`}
+function pastReport(date){
+  const I=D.strategy_issues||[],meta=I.find(x=>x.date==date)||{},J=ISS[date];
+  const ban=`<div class="issban">📂 <span><b>지난 호(${esc(date.slice(5).replace("-","/"))}${meta.issue?" "+esc(meta.issue):""})</b>를 보고 있습니다. 숫자는 그날 기준입니다.</span><a href="#strategy" data-si="${esc(I[0].date)}">최신 호로 ›</a></div>`;
+  if(!J){if(!/^https?:/.test(location.protocol))return ban+`<div class="empty">지난 호 본문은 웹(balance-lab.pages.dev)에서 열립니다</div>`;
+    fetch("r/"+date+".json").then(r=>r.ok?r.json():null).then(j=>{ISS[date]=j||{err:1};if(ui.si==date)render()}).catch(()=>{ISS[date]={err:1};render()});
+    return ban+`<div class="muted" style="padding:20px">불러오는 중…</div>`}
+  if(J.err)return ban+`<div class="empty">이 호의 본문 파일을 찾지 못했습니다</div>`;
+  const v3=()=>{if(!J.v3)return "";const keep=D.strategy;D.strategy=J.v3;try{return stripH1(viewStrategy())}finally{D.strategy=keep}};
+  return ban+(J.tf&&J.tf.html?`<style>${J.tf.css||""}</style>${J.tf.html}<details class="fold"><summary class="foldh">📄 같은 호 옛 형식(v3) <small class="muted">눌러서 펼치기</small></summary>${v3()}</details>`:v3()||`<div class="empty">본문 없음</div>`)}
 function tfReport(){   // 테크노펀더멘탈 · 탑다운 주간 보고서(2026-11-14 사용자 확정) — strategy_tf.py가 만든 조각 + 지난 형식은 접어 둠
-  const T=D.strategy_tf; if(!T||!T.html)return stripH1(viewStrategy());
-  return `<style>${T.css||""}</style>${T.html}
+  const I=D.strategy_issues||[];if(ui.si&&I.length&&ui.si!=I[0].date&&I.some(x=>x.date==ui.si))return issueBar()+pastReport(ui.si);
+  const T=D.strategy_tf; if(!T||!T.html)return issueBar()+stripH1(viewStrategy());
+  return `${issueBar()}<style>${T.css||""}</style>${T.html}
    <details class="fold" data-fold="oldRpt" ${ui.oldRpt?"open":""}><summary class="foldh">📄 지난 형식(애널리스트 v3) 보고서 · 관찰 풀·가설 성적표 원본 <small class="muted">눌러서 펼치기</small></summary>${stripH1(viewStrategy())}</details>`}
 function viewStrategy2(){
   const tabs=[["report","보고서"],["pool","관찰 풀"],["research","자료실"]];   // 감시 목록은 종목 › 셋업 보드로 옮김 (2026-11-14 2차)
@@ -2651,6 +2667,7 @@ document.addEventListener("click",e=>{
   const nt=e.target.closest("[data-nt]"); if(nt){ui.nt=nt.dataset.nt;save();render();return}
   const hk=e.target.closest("[data-hk]"); if(hk){ui[hk.dataset.hk]=hk.dataset.hv;save();render();return}
   const hso=e.target.closest("[data-hsort]"); if(hso){const k=hso.dataset.hsort,c=ui.hs||{k:"vol_x",d:"desc"},first=k=="name"||k=="group"?"asc":"desc";ui.hs=c.k==k?(c.d==first?{k,d:first=="asc"?"desc":"asc"}:{k:"vol_x",d:"desc"}):{k,d:first};save();render();return}
+  const sib=e.target.closest("[data-si]"); if(sib){e.preventDefault();const v=sib.dataset.si;if(v=="__all")ui.siAll=!ui.siAll;else{ui.si=v;ui.st="report"}save();render();if(v!="__all")scrollTo(0,0);return}
   const stb=e.target.closest("[data-st]"); if(stb){ui.st=stb.dataset.st;save();if(stb.tagName=="A"){return}render();return}
   const rcf=e.target.closest("[data-rcf]"); if(rcf){ui.rcf=rcf.dataset.rcf;save();render();return}
   const rcs=e.target.closest("[data-rcs]"); if(rcs){ui.rcs=rcs.dataset.rcs;save();render();return}

@@ -898,6 +898,7 @@ def render(date=None):
     out = {"date": P["date"], "made_at": P["made_at"], "title": N.get("title"), "narr": bool(user), "css": TOKENS_WEB + CSS, "html": b,
            "page": f"reports/{P['date']}/strategy_tf.html"}
     (TF / "latest.json").write_text(json.dumps(out, ensure_ascii=False), encoding="utf-8")
+    (TF / f"issue_{P['date']}.json").write_text(json.dumps(out, ensure_ascii=False), encoding="utf-8")   # 지난 호 보기용 (2026-11-15)
     return {"page": out["page"], "narr": bool(user), "title": out["title"], "core": [x["name"] for x in P["board"] if cat(x)[0] == 0]}
 
 
@@ -953,6 +954,37 @@ def pool(date=None):
         L.append("# 넣지 않음(기술만 좋고 펀더 0~1 또는 미확인): " + ", ".join(skip))
     (ROOT / "config" / "watch_pool.toml").write_text("\n".join(L) + "\n", encoding="utf-8")
     return {"core": len(core), "wait": len(wait), "run": len(run), "lead": len(lead), "skip": skip}
+
+
+def _v3_issues():
+    """v3 보고서: history/*.json(지난 호) + latest.json(이번 호) → {날짜: json}"""
+    out = {}
+    for f in sorted((DATA / "strategy" / "history").glob("*.json")) + [DATA / "strategy" / "latest.json"]:
+        d = _j(f)
+        if d and not d.get("sample"):
+            out[(d.get("made_at") or f.stem)[:10]] = d
+    return out
+
+
+def issues():
+    """발간호 목록 (웹 '전략 › 보고서' 칩, 2026-11-15 사용자 확정 A안): 최신 먼저 [{date, issue, title, tf, v3}]"""
+    v3 = _v3_issues()
+    tf = {f.stem[6:]: _j(f) for f in TF.glob("issue_*.json")}
+    rows = []
+    for d in sorted(set(v3) | set(tf), reverse=True):
+        a, b = v3.get(d) or {}, tf.get(d) or {}
+        rows.append({"date": d, "issue": (a.get("issue") or "").split(" ·")[0], "title": b.get("title") or a.get("title") or "", "tf": bool(b), "v3": bool(a)})
+    return rows
+
+
+def write_issue_files(outdir):
+    """지난 호 본문 파일 → site/r/날짜.json ({v3, tf}). 웹이 누를 때만 받음"""
+    outdir.mkdir(parents=True, exist_ok=True)
+    v3 = _v3_issues()
+    tf = {f.stem[6:]: _j(f) for f in TF.glob("issue_*.json")}
+    for d in set(v3) | set(tf):
+        (outdir / f"{d}.json").write_text(json.dumps({"date": d, "v3": v3.get(d), "tf": tf.get(d)}, ensure_ascii=False), encoding="utf-8")
+    return len(set(v3) | set(tf))
 
 
 def tg(date=None):
