@@ -129,6 +129,46 @@ def brief_times():
     return out
 
 
+def research_digest_rows(since, skip_days=()):
+    """소식 › 정리 '자료' 칸 (2026-11-15 사용자 요청): 자료실 깊이 읽기(data/research/docs)를 날짜별 한 장으로 모음. 토큰 0.
+    11/05부터 깊이 읽기는 문서만 저장하고 정리 글을 쓰지 않아 자료 칸이 11/04에서 멈춰 있었음."""
+    by = {}
+    for f in (DATA / "research" / "docs").glob("*.json"):
+        try:
+            d = json.loads(f.read_text(encoding="utf-8"))
+        except Exception:
+            continue
+        at = (d.get("analyzed_at") or "")[:16]
+        if at[:10] >= since and at[:10] not in skip_days:
+            by.setdefault(at[:10], []).append(d)
+    out = []
+    for day, L in by.items():
+        L.sort(key=lambda d: d.get("analyzed_at") or "")
+        heads = [re.sub(r"\s*\(.*?\d{4}-\d{2}-\d{2}\)\s*$", "", re.sub(r"^\[([^]]*)\]\s*", r"\1 · ", d.get("title") or ""))[:40] for d in L]
+        lines = [f"📚 자료실 깊이 읽기 · {day[5:].replace('-', '/')} · {len(L)}건", "", "💡 " + " / ".join(heads[:3]) + (f" 외 {len(L) - 3}건" if len(L) > 3 else "")]
+        lines += [f"- {d.get('broker') or ''} · {re.sub(r'^\[[^]]*\]\s*', '', d.get('title') or '')[:60]}" for d in L]
+        lines.append("")
+        for i, d in enumerate(L, 1):
+            C = d.get("claude") if isinstance(d.get("claude"), dict) else {}
+            contra = any("반대" in str(t) for t in (d.get("tags") or [])) or "반대" in str(d.get("depth") or "")
+            lines.append(f"{i}. {'⚖️ ' if contra else ''}{d.get('title') or ''} ({d.get('kind') or ''})")
+            if d.get("one_line"):
+                lines.append(f"- {d['one_line']}")
+            for c in (C.get("counter") or [])[:1]:
+                lines.append(f"- 반대 근거: {c}")
+            qa = [q for q in (d.get("questions") or []) if q.get("answer") and not str(q["answer"]).startswith("없음")][:2]
+            for q in qa:
+                lines.append(f"- 질문 답: {str(q.get('q'))[:50]} → {str(q['answer'])[:120]}")
+            if d.get("url"):
+                lines.append(f"- 원문: {d['url']}")
+            lines.append("")
+        lines.append("자세한 요약은 전략 › 자료실 · 출처: 증권사 리포트(1차) 요약 · 판단은 본인이 합니다.")
+        text = "\n".join(lines)
+        out.append({"date": day, "time": (L[-1].get("analyzed_at") or "")[11:16], "kind": "deep_research", "kind_name": KIND.get("deep_research", "딥리서치"),
+                    "file": f"data/research/docs ({day})", "title": lines[0], "text": text, "opinion": "\n".join(lines[3:3 + len(L)])})
+    return out
+
+
 def briefs(days=21):
     rows = []
     times = brief_times()
@@ -146,6 +186,7 @@ def briefs(days=21):
         rows.append({"date": day, "time": tm, "kind": kind, "kind_name": KIND.get(kind, p.stem), "file": rel,
                      "title": text.splitlines()[0].strip() if text else p.stem, "text": text,
                      "opinion": section(text, "💡") or section(text, "🧭")})
+    rows += research_digest_rows(since, {r["date"] for r in rows if r["kind"] == "deep_research"})
     rows.sort(key=lambda r: (r["date"], r["time"]), reverse=True)
     # 2시간마다 쌓이는 채널·리포트 정리는 누적 정리라 날마다 마지막 1개만 카드로 (오늘 포함, 2026-11-12 사용자 요청).
     # 앞선 회차 시각은 versions에 남겨 카드에 "n회째 · 첫 정리 08:12"로 보여 준다
