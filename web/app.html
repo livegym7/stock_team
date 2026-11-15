@@ -2001,7 +2001,9 @@ function tfMarket(k){   // 매일 숫자·그림 (strategy_tf.market_fragments, 
   return `<style>${T.css||""}</style><div class="tfr"><div class="page">${T.html[k]}<div class="src" style="margin-top:8px">숫자 ${esc(T.made_at||"")} · 해석은 <a href="#strategy" data-st="report">전략 › 주간 보고서</a></div></div></div>`}
 function newsTab(){
   const nt=["digest","reports","channels"].includes(ui.nt)?ui.nt:"digest";
-  let body=nt=="digest"?flowTimeline():nt=="reports"?reportFlowTab():stripH1(viewChannels()),bar="";
+  const M=D.brief_missed||[];
+  const miss=nt=="digest"&&M.length?`<details class="fold missb"><summary class="foldh">⚠ 오늘 정리에 없는 관련 글 ${M.length}개 <small class="muted">보유·관찰 풀·핵심 후보 언급 · 다음 정리 때 반영 확인</small></summary>${M.slice(-20).reverse().map(m=>`<div class="insrow"><span class="num muted">${esc(m.time)}</span> <b>${esc(m.names.join(", "))}</b> <small class="muted">${esc(m.channel)}</small><br><small>${esc(m.text)}</small>${m.url?` <a href="${esc(m.url)}" target="_blank" rel="noopener">원문</a>`:""}</div>`).join("")}</details>`:"";
+  let body=nt=="digest"?miss+flowTimeline():nt=="reports"?reportFlowTab():stripH1(viewChannels()),bar="";
   body=body.replace(/<!--bar-->([\s\S]*?)<!--\/bar-->/,(m,x)=>{bar=x;return ""});
   return `<div class="flowbar"><div class="chips">${[["digest","정리"],["reports","리포트"],["channels","채널 원문"]].map(([v,n])=>`<button class="chip ${nt==v?"on":""}" data-nt="${v}">${n}</button>`).join("")}</div>${bar}</div>${body}`}
 function viewFlow(){   // 2026-11-14 2차: 시장 = 매일 보는 탑다운(매크로 → 국면·시장 폭 → 수급 → 업종 지도) + 소식

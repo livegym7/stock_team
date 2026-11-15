@@ -1381,6 +1381,7 @@ def write_html(data):
         opg = {m["group"]: m.get("opg") for m in (json.loads(fs[-1].read_text(encoding="utf-8")).get("matrix") or [])} if fs else {}
         return {"fp": fp, "opg": opg}
     data["secpop"] = safe(_secpop)
+    data["brief_missed"] = safe(lambda: __import__("live_brief").missed(data), [])   # 놓친 것 점검 (2026-11-15, 토큰 0)
     WEB.mkdir(exist_ok=True)
     LAST.write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
     tpl = (WEB / "app.html").read_text(encoding="utf-8")

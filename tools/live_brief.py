@@ -61,6 +61,64 @@ def prev_weekday_1500(now):
     return t.strftime("%Y-%m-%d") + " 15:00"
 
 
+NUM_RE = re.compile(r"[+\-−]?\d[\d,]*(?:\.\d+)?\s?(?:%|억|조|원|배|bp|달러)")
+
+
+def focus_names(D):
+    """깊게 읽을 종목 (2026-11-15 사용자 확정): 보유 + 관찰 풀 + 핵심 후보"""
+    from common import load_toml
+    n = {p["name"] for p in ((D.get("risk") or {}).get("positions") or [])}
+    for th in (load_toml("watch_pool.toml") or {}).get("themes", []):
+        n |= {x["name"] for x in th.get("stocks", [])}
+    n |= {x["name"] for x in ((D.get("tf_core") or {}).get("items") or []) if x.get("core")}
+    return {x for x in n if len(x) >= 2}
+
+
+def important(p, names):
+    """전문으로 넘길 글: 보유·관찰 풀·핵심 후보 언급 · 여러 채널 · 숫자 많은 글(실적·수주·목표가)"""
+    t = p.get("text") or ""
+    return bool(p.get("also_in")) or any(n in t or n in (p.get("stocks") or []) for n in names) or len(NUM_RE.findall(t)) >= 8
+
+
+def other_titles(since, limit=60):
+    """'기타'로 분류돼 정리에서 빠지던 글의 앞 80자 (잘못 분류된 중요한 글을 건지게, 2026-11-15)"""
+    out = []
+    for f in sorted((ROOT / "data" / "telegram").glob("*.jsonl")):
+        for l in f.read_text(encoding="utf-8").splitlines():
+            try:
+                x = json.loads(l)
+            except Exception:
+                continue
+            tm = (x.get("time") or "")[:16].replace("T", " ")
+            if x.get("type") != "other" or tm <= since or x.get("dup_of"):
+                continue
+            t = re.sub(r"https?://\S+", "", x.get("text") or "").strip()
+            if len(t) < 15:
+                continue
+            out.append((tm, x.get("channel"), re.sub(r"\s+", " ", t)[:80]))
+    out.sort()
+    return out[-limit:]
+
+
+def missed(D, day=None):
+    """놓친 것 점검 (토큰 0): 오늘 보유·관찰 풀·핵심 후보를 언급한 채널 글 중, 오늘 정리(채널·리포트)에 그 종목 이름이 없는 것"""
+    day = day or datetime.now(KST).strftime("%Y-%m-%d")
+    names = focus_names(D)
+    _, ch = latest(day, "channels"); _, rp = latest(day, "report")
+    done = (ch or "") + (rp or "")
+    if not done:
+        return []
+    out = []
+    for p in sorted(D.get("channels") or [], key=lambda p: p["time"]):
+        if not p["time"].startswith(day):
+            continue
+        hit = [n for n in names if n in (p.get("text") or "") or n in (p.get("stocks") or [])]
+        lost = [n for n in hit if n not in done]
+        if lost:
+            out.append({"time": p["time"][11:16], "channel": p["channel"], "names": lost, "text": re.sub(r"\s+", " ", p.get("text") or "")[:120], "url": p.get("url")})
+    return out
+
+
 def line(p, n):
     multi = f"|{len(p['also_in']) + 1}개 채널" if p.get("also_in") else ""
     return f"[{p['time']}|{p['channel']}|{p['type_name']}{multi}] {re.sub(r'\s+', ' ', p['text'])[:n]}"
@@ -185,14 +243,34 @@ def prep():
     rp_part = (f"[(B) 이전 리포트 정리 — {rp_prev_at[11:]} 기준. 이 내용을 모두 살려 업데이트]\n{rp_prev[:9000]}"
                if rp_prev else "[(B) 이전 리포트 정리] 없음 — 오늘 첫 정리. 아래 글 전체로 처음 만든다")
     rp_rows = rp_new if rp_prev else rp_today
+    FN = focus_names(D)
+
+    def pri(p):   # 전문 우선순위: 보유·관찰 풀·핵심 후보 언급 3 > 여러 채널 2 > 숫자 많은 글 1
+        t = p.get("text") or ""
+        return 3 if any(n in t or n in (p.get("stocks") or []) for n in FN) else 2 if p.get("also_in") else 1 if len(NUM_RE.findall(t)) >= 8 else 0
+    cand = [p for p in ch_new[-150:] + rp_rows[-120:] if pri(p)]
+    cand.sort(key=lambda p: (-pri(p), p["time"]), reverse=False)
+    FULL = {id(p) for p in sorted(cand, key=lambda p: (pri(p), p["time"]), reverse=True)[:40]}   # 전문은 한 번에 최대 40개 (재료가 너무 커지지 않게)
+    full = {"n": len(FULL)}
+
+    def imp(p):
+        return id(p) in FULL
+    others = other_titles(ch_since)
+    ms = missed(D, day)
+    miss_part = ("[지난 정리에서 빠진 관련 글 — 보유·관찰 풀·핵심 후보 언급인데 오늘 정리에 그 종목이 없음. 중요하면 이번에 반영]\n"
+                 + "\n".join(f"[{m['time']}|{m['channel']}] {', '.join(m['names'])} — {m['text']}" for m in ms[-20:]) + "\n") if ms else ""
     text = f"""{rules}
 
 {common}
 
 {ch_part}
 
-[(A)용 새 채널 글 {len(ch_new)}개 · {ch_since[11:]} 이후 · 리포트·실적 제외 · {cnt(raw)}]
-{chr(10).join(line(p, 260) for p in ch_new[-150:]) or '(새 글 없음)'}
+{miss_part}
+[(A)용 새 채널 글 {len(ch_new)}개 · {ch_since[11:]} 이후 · 리포트·실적 제외 · {cnt(raw)} · ★ = 보유·관찰 풀·핵심 후보·여러 채널·숫자 많은 글이라 전문(최대 1,500자)]
+{chr(10).join(("★" + line(p, 1500)) if imp(p) else line(p, 260) for p in ch_new[-150:]) or '(새 글 없음)'}
+
+[(A) '기타'로 분류돼 빠진 글 — 앞 80자만. 실제로는 중요한 소식(잘못 분류)이면 정리에 넣고, 아니면 무시]
+{chr(10).join(f"[{t}|{c}] {x}" for t, c, x in others) or '(없음)'}
 
 {rp_part}
 
@@ -200,13 +278,13 @@ def prep():
 - '유지' 리포트(대부분 버틀러)는 보유·관심 종목이거나 같은 종목 리포트가 3건↑일 때만 본문에 쓰고, 나머지는 머리줄 ➖유지 숫자에만 센다.
 
 [(B)용 리포트·실적 글 {len(rp_rows)}개 · {(rp_since if rp_prev else rp_start)[5:]} 이후 · 오늘 누적 {len(rp_today)}건]
-{chr(10).join(line(p, 300) for p in rp_rows[-120:]) or '(새 리포트 없음)'}
+{chr(10).join(("★" + line(p, 1500)) if imp(p) else line(p, 300) for p in rp_rows[-120:]) or '(새 리포트 없음)'}
 """
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(text, encoding="utf-8")
     print(json.dumps({"prompt": str(OUT.relative_to(ROOT)), "chars": len(text), "now": f"{day} {hm}",
                       "channels_prev": ch_prev_at, "report_prev": rp_prev_at, "channels_new": len(ch_new),
-                      "report_new": len(rp_rows), "report_today": len(rp_today)}, ensure_ascii=False))
+                      "report_new": len(rp_rows), "report_today": len(rp_today), "full_text": full["n"], "other_titles": len(others), "missed": len(ms)}, ensure_ascii=False))
 
 
 def save(kind, file):
