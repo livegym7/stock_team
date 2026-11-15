@@ -606,7 +606,11 @@ CSS = """
 .tfr .sec .side{border-top:2px solid var(--ink);padding-top:10px}.tfr .sec .main{border-top:2px solid var(--ink);padding-top:10px;min-width:0}
 .tfr .side h4{font-size:11px;letter-spacing:.1em;color:var(--acc);margin:0 0 6px}
 .tfr .side p{margin:0 0 10px;color:var(--ink2)}.tfr .side dl{display:grid;grid-template-columns:1fr auto;gap:4px 8px;margin:0 0 14px}.tfr .side dt{color:var(--ink3)}.tfr .side dd{margin:0;text-align:right}
-.tfr .cmp{border:1px solid var(--line);border-left:4px solid var(--warn);padding:10px 14px;margin:0 0 14px;font-size:13px}.tfr .cmp>div{margin-top:4px}.tfr .cmp table{margin-top:6px}
+.tfr .rtm{border:1px solid var(--rule);border-left:4px solid var(--up);padding:10px 14px;margin:0 0 14px;font-size:12.5px}.tfr .rtm b.h{display:block;font-size:12px;letter-spacing:.06em;color:var(--up);margin-bottom:4px}
+.tfr .ctg{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}@media(max-width:600px){.tfr .ctg{grid-template-columns:1fr}}
+.tfr .ctc{border:1px solid var(--rule);border-radius:8px;padding:10px 12px;font-size:12.5px}.tfr .ctc .n{font-weight:700}.tfr .ctc ul{margin:6px 0 4px 18px;padding:0}.tfr .ctc li{margin:2px 0}
+.tfr .ctc .x{font-size:12px;border-top:1px dashed var(--rule);padding-top:5px;margin-top:5px}.tfr .ctc .x b{color:var(--up)}
+.tfr .cmp{border:1px solid var(--rule);border-left:4px solid var(--warn);padding:10px 14px;margin:0 0 14px;font-size:13px}.tfr .cmp>div{margin-top:4px}.tfr .cmp table{margin-top:6px}
 .tfr .call{background:var(--acc2);border-left:4px solid var(--acc);padding:12px 16px;margin:0 0 14px}.tfr .call b{display:block;font-size:12px;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
 .tfr .fig{margin:10px 0 4px}.tfr .fig .ft{font-size:12.5px;font-weight:600;margin-bottom:2px}.tfr .fig .ft span{color:var(--acc);margin-right:6px}
 .tfr .src{font-size:11px;color:var(--ink3);margin-top:2px}
@@ -688,6 +692,34 @@ def compare_html(P, core):
             + f'<div><small>🎯 핵심 후보 🆕 들어옴: {E(", ".join(C["core_in"]) or "없음")} · ➖ 빠짐: {E(", ".join(C["core_out"]) or "없음")}</small></div>'
             + (f'<div><small>지난 호 핵심 후보 1주: 평균 <b class="{cls(avg)}">{pc(avg)}</b> (코스피 {pc(C["kospi_ret"])}) — {perf}</small></div>' if perf else "")
             + '</div>')
+
+
+def red_team_html(N):
+    """공통 상자 (2026-11-15 사용자 확정 A안): 반론가 요약 — 반론 개수·확신도 조정·'틀렸다면 이유' 3줄"""
+    R = N.get("red_team") or {}
+    if not R:
+        return ""
+    ch = "".join(f"{E(c[0])} {c[1]}→{c[2]}" + (f"({E(c[3])})" if len(c) > 3 and c[3] else "") + " · " for c in R.get("conviction_changes") or [])
+    pm = "".join(f"<div>{'①②③④⑤'[i]} {E(x)}</div>" for i, x in enumerate((R.get("premortem") or [])[:3]))
+    return (f'<div class="rtm"><b class="h">반론가 · {E(R.get("by") or "보조 에이전트(따로 검토)")}</b>'
+            f'<div>반론 <b>{R.get("n_against", "-")}개</b> · 확신도 내림 <b>{len(R.get("conviction_changes") or [])}건</b>{(" — " + ch.rstrip(" · ")) if ch else ""}</div>'
+            + (f'<div style="margin-top:4px"><b>4주 뒤 틀렸다면 가장 그럴듯한 이유</b></div>{pm}' if pm else "") + '</div>')
+
+
+def counter_html(N, items, title):
+    """반론 카드 (A안): items = [(키(코드·업종명), 이름, 부제)], N['counter'][키] = {against:[..], invalid:'..'}"""
+    C = N.get("counter") or {}
+    cards = []
+    for key, name, sub in items:
+        c = C.get(key) or C.get(name)
+        if not c:
+            continue
+        li = "".join(f"<li>{E(x)}</li>" for x in (c.get("against") or [])[:3])
+        cards.append(f'<div class="ctc"><span class="n">{E(name)}</span> <span class="tag neu">{E(sub)}</span><ul>{li}</ul>'
+                     + (f'<div class="x"><b>깨지는 조건</b> {E(c.get("invalid"))}</div>' if c.get("invalid") else "") + '</div>')
+    if not cards:
+        return ""
+    return f'<h3 style="font-size:14px;margin:14px 0 6px">⚖️ {title} — 반대 근거 + 깨지는 조건</h3><div class="ctg">{"".join(cards)}</div>'
 
 
 def body(P, N):
@@ -788,7 +820,7 @@ def body(P, N):
   <aside class="side"><h4>데스크 의견</h4><dl>{"".join(f'<dt>{E(a)}</dt><dd><span class="tag {c}">{E(b)}</span></dd>' for a, b, c in desk)}</dl>
    <h4>이번 주 할 일</h4><p>{" ".join(f"{"①②③④⑤"[i]} {E(t)}" for i, t in enumerate((N.get("todo") or [])[:5]))}</p>
    <h4>작성</h4><p>Balance Lab 전략 데스크 (Claude) · 숫자: strategy_tf · fundamentals · screener · sector_radar</p></aside>
-  <div style="min-width:0"><div class="call"><b>한 줄 결론</b>{N.get("call", "")}</div>
+  <div style="min-width:0"><div class="call"><b>한 줄 결론</b>{N.get("call", "")}</div>{red_team_html(N)}
    <div class="fig"><div class="ft"><span>그림 1</span>업종 테크노펀더멘탈 지도 — 이익(가로) × 추세(세로)</div>{chart_matrix(P)}
     <div class="src">가로 = 업종 내 시총 2천억↑ 종목의 올해 영업이익 컨센서스 합 ÷ 작년 실제 합 − 1(+200%↑ 오른쪽 끝) · 세로 = 주도 섹터 레이더 점수({md(P.get("radar_as_of") or asof)}) · 원 크기 = 종목 수 · 컨센서스 있는 종목 3개↑ 업종만 · 출처: 네이버 재무·컨센서스(비공식)</div></div></div>
  </div>
@@ -823,6 +855,7 @@ def body(P, N):
  <section class="sec"><aside class="side">{para(N.get("sector_side"))}</aside><div class="main">
   <div class="fig"><div class="ft"><span>표 5</span>업종 스코어 — 강도 상위 12 + 기다림 업종</div><div class="tw"><table><thead><tr><th>순위</th><th class="l">업종</th><th>4주</th><th>강도</th><th>20일선 위</th><th>올해 영업이익</th><th>PER(E)</th><th>외국인 5일</th><th>기관 5일</th><th>분류</th></tr></thead><tbody>{"".join(srow)}</tbody></table></div>
   <div class="src">강도 = 주도 섹터 레이더(상대 강도·20일선 위 비율·신고가 비율·거래대금) · 올해 영업이익·PER(E) = 네이버 컨센서스 업종 합(비공식) · 수급 = 시총 상위 300(억, 수량×종가 추정) · 분류: 이익 +{XQ}%↑ / 강도 {YQ}↑</div></div>
+  {counter_html(N, [(m["group"], m["group"], f'{m["rank"]}위 · 이익 {gtxt(m.get("opg"))}') for m in sorted(MT, key=lambda m: m["rank"]) if quad(m) == "리더"], "리더 업종 반론")}
  </div></section>
 </article>
 <article class="page">
@@ -830,6 +863,7 @@ def body(P, N):
  <p style="margin:0 0 6px;font-size:13px"><b>펀더 점수</b>(3): ① 최근 분기 영업이익 전년 대비 +20%↑ 또는 흑자전환 ② 영업이익률이 1년 전보다 높음 ③ 올해 영업이익 +20%↑(E, 없으면 최근 2분기 합). <b>기술 점수</b>(3): ① RS 80↑ ② 기준가 10% 안 + 빠진 조건 없음 ③ 업종 동행. 점에 마우스를 올리면 근거가 보입니다.</p>
  <div class="tw"><table><thead><tr><th class="l">종목 <small>업종·순위</small></th><th>분류</th><th>펀더</th><th>기술</th><th>최근 분기</th><th>올해(E)</th><th>PER(E)</th><th>RS</th><th>기준가</th><th>거리</th><th>손절가</th><th>1R 수량</th><th>베이스</th><th>업종</th><th class="l">일정·빠진 조건</th></tr></thead><tbody>{"".join(brow)}</tbody></table></div>
  <div class="src">최근 분기·올해(E) = 영업이익 증가율 · 손절가 = 기준가 −8% · 1R 수량 = 30만 원 ÷ (기준가 − 손절가) · 🎯 관찰 풀 · 출처: 감시 목록(screener.py), 네이버 재무·컨센서스(비공식)</div>
+ {counter_html(N, [(b["code"], b["name"], f'펀더 {(b["fs"] or {}).get("pts", 0)} · 기술 {b["tech"]}') for b in core], "핵심 후보 반론")}
  {f'<h3 style="font-size:14px;margin:14px 0 4px">이미 달리는 주도주 — 베이스 없음, 추격하지 않고 첫 눌림을 기다립니다</h3><div class="tw"><table><thead><tr><th class="l">종목</th><th>RS</th><th>펀더</th><th>1개월</th><th>20일선과 거리</th><th class="l">어떻게 보나</th></tr></thead><tbody>{runrow}</tbody></table></div>' if runrow else ""}
  {deep_html}
 </article>
@@ -949,6 +983,9 @@ def tg(date=None):
           f"🏭 업종 (이익 × 추세)", f"- 리더: {byq('리더')}", f"- 모멘텀만: {byq('모멘텀만')}", f"- 기다림: {byq('기다림')}", "",
           f"🎯 핵심 후보 {len(core)}종목 (펀더 2/3↑ + 기술 2/3↑, 기준가까지)"]
     L += [f"- {b['name']} 기준가 {w(b['breakout'])}원 ({b['dist']:.1f}%) · 펀더 {(b['fs'] or {}).get('pts', 0)}/3 · 기술 {b['tech']}/3" for b in core[:5]]
+    pm = (N.get("red_team") or {}).get("premortem") or []
+    if pm:
+        L += ["", "⚖️ 반론가: 4주 뒤 틀렸다면"] + [f"{'①②③'[i]} {re.sub(r'<[^>]+>', '', str(x))}" for i, x in enumerate(pm[:3])]
     warns = N.get("warns") or {}
     if warns:
         nm = {b["code"]: b["name"] for b in P["board"]}
