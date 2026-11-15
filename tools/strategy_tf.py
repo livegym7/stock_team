@@ -609,6 +609,7 @@ CSS = """
 .tfr .rtm{border:1px solid var(--rule);border-left:4px solid var(--up);padding:10px 14px;margin:0 0 14px;font-size:12.5px}.tfr .rtm b.h{display:block;font-size:12px;letter-spacing:.06em;color:var(--up);margin-bottom:4px}
 .tfr .ctg{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}@media(max-width:600px){.tfr .ctg{grid-template-columns:1fr}}
 .tfr .ctc{border:1px solid var(--rule);border-radius:8px;padding:10px 12px;font-size:12.5px}.tfr .ctc .n{font-weight:700}.tfr .ctc ul{margin:6px 0 4px 18px;padding:0}.tfr .ctc li{margin:2px 0}
+.tfr .ctc .x2{font-size:11.5px;color:var(--ink2);margin-top:3px}.tfr .ctc .x2 b{font-weight:600}.tfr .ctc .x small{color:var(--ink3)}
 .tfr .ctc .x{font-size:12px;border-top:1px dashed var(--rule);padding-top:5px;margin-top:5px}.tfr .ctc .x b{color:var(--up)}
 .tfr .cmp{border:1px solid var(--rule);border-left:4px solid var(--warn);padding:10px 14px;margin:0 0 14px;font-size:13px}.tfr .cmp>div{margin-top:4px}.tfr .cmp table{margin-top:6px}
 .tfr .call{background:var(--acc2);border-left:4px solid var(--acc);padding:12px 16px;margin:0 0 14px}.tfr .call b{display:block;font-size:12px;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
@@ -715,8 +716,15 @@ def counter_html(N, items, title):
         if not c:
             continue
         li = "".join(f"<li>{E(x)}</li>" for x in (c.get("against") or [])[:3])
-        cards.append(f'<div class="ctc"><span class="n">{E(name)}</span> <span class="tag neu">{E(sub)}</span><ul>{li}</ul>'
-                     + (f'<div class="x"><b>깨지는 조건</b> {E(c.get("invalid"))}</div>' if c.get("invalid") else "") + '</div>')
+        # 깨지는 조건: 펀더(먼저) · 가격(보조) · 언제 확인 (2026-11-15 사용자 지적: 기술 조건만이면 빈약)
+        inv_f, inv_p = c.get("invalid_f"), c.get("invalid_p") or (c.get("invalid") if not c.get("invalid_f") else None)
+        x = ""
+        if inv_f:
+            x += f'<div class="x"><b>깨지는 조건 · 펀더</b> {E(inv_f)}' + (f' <small>({E(c.get("watch_when"))})</small>' if c.get("watch_when") else "") + '</div>'
+        if inv_p:
+            x += f'<div class="x2"><b>{"가격" if inv_f else "깨지는 조건"}</b> {E(inv_p)}</div>'
+        # sub는 이 코드가 만든 짧은 HTML(색 표시)이라 이스케이프하지 않음
+        cards.append(f'<div class="ctc"><span class="n">{E(name)}</span> <span class="tag neu">{sub}</span><ul>{li}</ul>{x}</div>')
     if not cards:
         return ""
     return f'<h3 style="font-size:14px;margin:14px 0 6px">⚖️ {title} — 반대 근거 + 깨지는 조건</h3><div class="ctg">{"".join(cards)}</div>'
