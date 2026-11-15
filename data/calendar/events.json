@@ -1,5 +1,5 @@
 {
- "fetched_at": "2026-11-15 14:01",
+ "fetched_at": "2026-11-16 06:52",
  "errors": [],
  "events": [
   {
@@ -12,72 +12,6 @@
    "code": "294570",
    "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261106900332",
    "id": "ir:294570:2026-08-20"
-  },
-  {
-   "date": "2026-10-06",
-   "time": "",
-   "kind": "earnings_kr",
-   "name": "본시스템즈 기업설명회(IR)",
-   "detail": "",
-   "source": "DART 공시",
-   "code": "496320",
-   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261006600771",
-   "id": "ir:496320:2026-10-06"
-  },
-  {
-   "date": "2026-10-06",
-   "time": "",
-   "kind": "earnings_kr",
-   "name": "이엠티 기업설명회(IR)",
-   "detail": "",
-   "source": "DART 공시",
-   "code": "232530",
-   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261006600462",
-   "id": "ir:232530:2026-10-06"
-  },
-  {
-   "date": "2026-10-06",
-   "time": "",
-   "kind": "earnings_kr",
-   "name": "비나텍 기업설명회(IR)",
-   "detail": "",
-   "source": "DART 공시",
-   "code": "126340",
-   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261006900291",
-   "id": "ir:126340:2026-10-06"
-  },
-  {
-   "date": "2026-10-06",
-   "time": "",
-   "kind": "earnings_kr",
-   "name": "올릭스 기업설명회(IR)",
-   "detail": "",
-   "source": "DART 공시",
-   "code": "226950",
-   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261006900258",
-   "id": "ir:226950:2026-10-06"
-  },
-  {
-   "date": "2026-10-06",
-   "time": "",
-   "kind": "earnings_kr",
-   "name": "클래시스 기업설명회(IR)",
-   "detail": "",
-   "source": "DART 공시",
-   "code": "214150",
-   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261006900180",
-   "id": "ir:214150:2026-10-06"
-  },
-  {
-   "date": "2026-10-06",
-   "time": "",
-   "kind": "earnings_kr",
-   "name": "한컴 기업설명회(IR)",
-   "detail": "",
-   "source": "DART 공시",
-   "code": "030520",
-   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261006900117",
-   "id": "ir:030520:2026-10-06"
   },
   {
    "date": "2026-10-07",
@@ -4631,6 +4565,16 @@
   },
   {
    "date": "2026-11-17",
+   "time": "02:00",
+   "kind": "policy",
+   "name": "미국 Fed Chairman Warsh Speaks",
+   "name_en": "Fed Chairman Warsh Speaks",
+   "detail": "",
+   "source": "ForexFactory 경제 캘린더",
+   "id": "ff:USD:Fed Chairman Warsh Speaks:20261117"
+  },
+  {
+   "date": "2026-11-17",
    "time": "09:00",
    "kind": "earnings_kr",
    "name": "이수페타시스 기업설명회(IR)",
@@ -4749,6 +4693,26 @@
    "code": "006360",
    "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261110800165",
    "id": "ir:006360:2026-11-17"
+  },
+  {
+   "date": "2026-11-17",
+   "time": "22:30",
+   "kind": "macro",
+   "name": "미국 소매판매 월간",
+   "name_en": "Core Retail Sales m/m",
+   "detail": "예상 0.4% · 이전 0.9%",
+   "source": "ForexFactory 경제 캘린더",
+   "id": "ff:USD:Core Retail Sales m/m:20261117"
+  },
+  {
+   "date": "2026-11-17",
+   "time": "22:30",
+   "kind": "macro",
+   "name": "미국 소매판매 월간",
+   "name_en": "Retail Sales m/m",
+   "detail": "예상 0.2% · 이전 0.8%",
+   "source": "ForexFactory 경제 캘린더",
+   "id": "ff:USD:Retail Sales m/m:20261117"
   },
   {
    "date": "2026-11-18",
@@ -5012,6 +4976,16 @@
    "code": "215600",
    "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261106900258",
    "id": "ir:215600:2026-11-19"
+  },
+  {
+   "date": "2026-11-19",
+   "time": "04:00",
+   "kind": "policy",
+   "name": "미국 FOMC 의사록",
+   "name_en": "FOMC Meeting Minutes",
+   "detail": "",
+   "source": "ForexFactory 경제 캘린더",
+   "id": "ff:USD:FOMC Meeting Minutes:20261119"
   },
   {
    "date": "2026-11-19",
