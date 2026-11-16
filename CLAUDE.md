@@ -27,7 +27,8 @@
 
 ## 도구 (`tools/`, 파이썬 표준 라이브러리만 사용)
 ```bash
-python3 tools/tg_channel.py collect                    # 채널 새 글 수집 + 분류 + 채널 간 중복 표시
+python3 tools/tg_channel.py collect                    # 채널 새 글 수집 + 분류 + 채널 간 중복 표시 (darthacking 공시 채널은 모을 때 거름: tools/disclosure_filter.py, 2026-11-16)
+python3 tools/disclosure_filter.py test --days 4       # 공시 채널 거르기 시험 (우리 종목 전부 + 시총 2천억↑ 실적 ±20%·촉매·악재·경영권 지분 증가)
 python3 tools/tg_channel.py summary --hours 24         # 채널별·분류별 글 수, 여러 채널이 다룬 소식
 python3 tools/tg_channel.py show --hours 24 --type report   # 분류: report earnings company market macro policy schedule other
 python3 tools/tg_channel.py show --hours 24 --watchlist     # 관심종목 관련 글 (JSON, 중복 제외)

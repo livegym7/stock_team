@@ -272,10 +272,22 @@ def save_store(channel, store):
             f.write(json.dumps(p, ensure_ascii=False) + "\n")
 
 
-def collect(channel, max_pages=10):
-    """저장된 마지막 글 이후의 새 글을 모은다. 처음에는 최대 max_pages 페이지(약 200개)까지."""
+CURSOR = STORE / "_cursor.json"   # 거르는 채널은 버린 글도 다시 받지 않게 마지막으로 본 글 번호를 따로 둠 (2026-11-16)
+
+
+def _cursor():
+    try:
+        return json.loads(CURSOR.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+
+
+def collect(channel, max_pages=10, filt=None):
+    """저장된 마지막 글 이후의 새 글을 모은다. 처음에는 최대 max_pages 페이지(약 200개)까지.
+    filt = "disclosure"면 공시 요약 채널 거르기(tools/disclosure_filter.py)로 남길 글만 저장한다."""
     store = load_store(channel)
-    last = max(store) if store else 0
+    cur = _cursor()
+    last = max([*store, cur.get(channel, 0)]) if (store or cur.get(channel)) else 0
     new, before = [], None
     for _ in range(max_pages):
         page = fetch_page(channel, before)
@@ -293,6 +305,19 @@ def collect(channel, max_pages=10):
         before = oldest
         time.sleep(1)  # 서버에 부담을 주지 않도록 천천히
     seen = datetime.now(KST).isoformat(timespec="seconds")
+    if filt == "disclosure" and new:
+        import disclosure_filter
+        names = disclosure_filter.focus_names()
+        cur[channel] = max([cur.get(channel, 0)] + [p["id"] for p in new])
+        kept = []
+        for p in new:
+            ok, why = disclosure_filter.judge(p["text"], names)
+            if ok:
+                p["why"] = why
+                kept.append(p)
+        new = kept
+        CURSOR.parent.mkdir(parents=True, exist_ok=True)
+        CURSOR.write_text(json.dumps(cur), encoding="utf-8")
     for p in new:
         p["seen"] = seen   # 수집한 시각 (늦게 수집된 옛 글도 다음 정리가 '새 글'로 받게)
         store[p["id"]] = p
@@ -409,7 +434,7 @@ def backfill(channel, store, since, max_pages=400):
 def collect_all(since=None):
     stores, counts = {}, {}
     for ch in channels():
-        stores[ch["id"]], counts[ch["id"]] = collect(ch["id"])
+        stores[ch["id"]], counts[ch["id"]] = collect(ch["id"], int(ch.get("max_pages", 10)), ch.get("filter"))
         if since:
             counts[ch["id"]] += backfill(ch["id"], stores[ch["id"]], since)
     everything = [p for s in stores.values() for p in s.values()]

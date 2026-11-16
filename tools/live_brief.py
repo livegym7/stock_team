@@ -17,7 +17,7 @@ from datetime import datetime, timedelta
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from common import ROOT  # noqa: E402
+from common import channels, ROOT  # noqa: E402
 from datetime import timezone
 KST = timezone(timedelta(hours=9))
 
@@ -250,6 +250,16 @@ def prep():
                if rp_prev else "[(B) 이전 리포트 정리] 없음 — 오늘 첫 정리. 아래 글 전체로 처음 만든다")
     rp_rows = rp_new if rp_prev else rp_today
     FN = focus_names(D)
+    # 공시 요약 채널(darthacking, 2026-11-16): 실적 공시는 차이 큰 순 15건만 재료로, 나머지는 건수만 (웹 '실적'·earnings.py는 전부 씀)
+    import disclosure_filter as DF
+    DISC = {c["id"] for c in channels() if c.get("filter") == "disclosure"}
+    def is_disc_earn(p):
+        t = p.get("text") or ""
+        return p.get("channel") in DISC and DF.op_pct(t) is not None and not any(n in t for n in FN)
+    de = [p for p in rp_rows if is_disc_earn(p)]
+    top = {id(p) for p in sorted(de, key=lambda p: -abs(DF.op_pct(p["text"])))[:15]}
+    disc_cut = len(de) - len(top)
+    rp_rows = [p for p in rp_rows if not is_disc_earn(p) or id(p) in top]
 
     def pri(p):   # 전문 우선순위: 보유·관찰 풀·핵심 후보 언급 3 > 여러 채널 2 > 숫자 많은 글 1
         t = p.get("text") or ""
@@ -283,7 +293,7 @@ def prep():
 [(B) 리포트 대조 — 머리줄 다음 줄에 그대로 한 줄로 적고, 버틀러에만 있는 목표가 변경은 빠짐없이 반영] {xcheck}
 - '유지' 리포트(대부분 버틀러)는 보유·관심 종목이거나 같은 종목 리포트가 3건↑일 때만 본문에 쓰고, 나머지는 머리줄 ➖유지 숫자에만 센다.
 
-[(B)용 리포트·실적 글 {len(rp_rows)}개 · {(rp_since if rp_prev else rp_start)[5:]} 이후 · 오늘 누적 {len(rp_today)}건]
+[(B)용 리포트·실적 글 {len(rp_rows)}개 · {(rp_since if rp_prev else rp_start)[5:]} 이후 · 오늘 누적 {len(rp_today)}건{f" · 공시 채널 실적 {disc_cut}건은 예상치 차이가 작아 뺌(웹 실적 탭에 있음)" if disc_cut else ""}]
 {chr(10).join(("★" + line(p, 1500)) if imp(p) else line(p, 300) for p in rp_rows[-120:]) or '(새 리포트 없음)'}
 """
     OUT.parent.mkdir(parents=True, exist_ok=True)
