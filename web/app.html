@@ -2413,7 +2413,7 @@ function candleChart(all,o){
   const d0=R[0][0],TG=(o.tg||[]).map(t=>{const d=(t.t||"").replace(/-/g,"");if(!d||d<d0||!t.after)return null;let i=R.length-1;while(i>0&&R[i][0]>d)i--;return{...t,i}}).filter(Boolean);
   const cap=hi*1.35;TG.forEach(t=>{if(t.after<=cap){hi=Math.max(hi,t.after);lo=Math.min(lo,t.after)}});
   const pad=(hi-lo)*0.04||1;lo-=pad;hi+=pad;
-  const y=v=>(PT+(hi-v)/(hi-lo)*ph), step=pw/R.length, x=i=>PL+i*step+step/2, cw=Math.max(1,Math.min(9,step*0.66));
+  const y=v=>(PT+(hi-v)/(hi-lo)*ph), step=pw/R.length, x=i=>PL+i*step+step/2, cw=step<4?Math.max(1.6,step*0.8):Math.min(9,step*0.66),WK=step<4?0.6:1;   // 좁은 차트(팝업 200일)는 꼬리 가늘게·몸통 넓게 (2026-11-16 사용자 확정 ②안)
   let g="";
   if(o.vp){/* 키움 MTS 방식에 맞춤(2026-11-13): 최근 200봉 · 10칸 · 거래량을 종가 칸에 · 최대 매물대 빨강, 현재가 칸 노랑 */
     const V=R.slice(-200),B=10,vl=Math.min(...V.map(r=>r[3])),vh=Math.max(...V.map(r=>r[2])),bs=(vh-vl)/B||1,bins=new Array(B).fill(0);
@@ -2441,7 +2441,7 @@ function candleChart(all,o){
       mk.slice(-3).forEach(i=>{g+=`<circle cx="${x(i).toFixed(1)}" cy="${yr(v[i]).toFixed(1)}" r="3.5" fill="#7c4dff" stroke="var(--panel)"><title>${R[i][0].slice(4,6)}/${R[i][0].slice(6)} RS선 신고가 (주가는 고점 아래)</title></circle>`});
       const lv=v[v.length-1];g+=`<text x="${PL+2}" y="${top+8}" font-size="${(o.fs||10)-1}" fill="#7c4dff" stroke="var(--panel)" stroke-width="3" paint-order="stroke">RS선 ÷코스피 ${lv==null?"":Math.round(lv)}${lv!=null&&lv>=rh*0.999?" · 신고가":""}</text>`}}
   R.forEach((r,i)=>{const up=r[4]>=r[1],c=up?"var(--up)":"var(--down)",yo=y(r[1]),yc=y(r[4]);
-    g+=`<line x1="${x(i).toFixed(1)}" x2="${x(i).toFixed(1)}" y1="${y(r[2]).toFixed(1)}" y2="${y(r[3]).toFixed(1)}" stroke="${c}" stroke-width="1"/><rect x="${(x(i)-cw/2).toFixed(1)}" y="${Math.min(yo,yc).toFixed(1)}" width="${cw.toFixed(1)}" height="${Math.max(1,Math.abs(yc-yo)).toFixed(1)}" fill="${c}"/>`});
+    g+=`<line x1="${x(i).toFixed(1)}" x2="${x(i).toFixed(1)}" y1="${y(r[2]).toFixed(1)}" y2="${y(r[3]).toFixed(1)}" stroke="${c}" stroke-width="${WK}"/><rect x="${(x(i)-cw/2).toFixed(1)}" y="${Math.min(yo,yc).toFixed(1)}" width="${cw.toFixed(1)}" height="${Math.max(1,Math.abs(yc-yo)).toFixed(1)}" fill="${c}"/>`});
   mas.forEach(([n,a])=>{const pts=a.slice(st).map((v,i)=>v==null?null:`${x(i).toFixed(1)},${y(v).toFixed(1)}`);let d="",pen=false;pts.forEach(p=>{if(!p){pen=false;return}d+=(pen?"L":"M")+p;pen=true});if(d)g+=`<path d="${d}" fill="none" stroke="${MA_COL[n]||"var(--muted)"}" stroke-width="1.3"/>`});
   TG.forEach(t=>{const col=t.dir=="상향"?"var(--up)":t.dir=="하향"?"var(--down)":"var(--muted)",tip=`<title>${esc(t.t+" "+(t.broker||"")+" 목표가 "+w(t.after)+(t.dir?" ("+t.dir+")":""))}</title>`;
     if(t.after>hi)g+=`<path d="M${(x(t.i)-4).toFixed(1)} ${PT+7} L${x(t.i).toFixed(1)} ${PT} L${(x(t.i)+4).toFixed(1)} ${PT+7}Z" fill="${col}" fill-opacity=".85">${tip}</path>`;
@@ -2469,6 +2469,11 @@ const OHLC={};
 function ohlcGet(code){if(OHLC[code])return Promise.resolve(OHLC[code]);if((D.ohlc||{})[code])return Promise.resolve(OHLC[code]=D.ohlc[code]);
   return fetch("c/"+code+".json").then(r=>r.ok?r.json():null).then(j=>{if(j)OHLC[code]=j;return j}).catch(()=>null)}
 const HTTP=/^https?:/.test(location.protocol);
+/* 오늘 캔들 (2026-11-16 사용자 확정): 일봉 파일은 장 마감 뒤 갱신이라, 장중엔 1분 시세(시가·고가·저가·현재가·거래량)로 오늘 봉을 보통 캔들로 덧붙임 */
+function liveRow(rows,q){if(!rows||!rows.length||!q||!q.price||!q.open)return rows;const k=String(q.at||"").slice(0,10).replace(/-/g,"");if(!/^\d{8}$/.test(k))return rows;
+  const l=rows[rows.length-1];if(k<l[0])return rows;
+  const row=[k,q.open,Math.max(q.high||q.price,q.price),Math.min(q.low||q.price,q.price),q.price,q.vol!=null?q.vol:(l[0]==k?l[5]:0)];
+  return l[0]==k?rows.slice(0,-1).concat([row]):rows.concat([row])}
 function liveQuote(code){const q=(D.live||{}).quotes||{};return q[code]}
 function todayChg(code){const q=liveQuote(code);if(q&&q.change_pct!=null)return q.change_pct;const c=(D.companies||[]).find(x=>x.code==code);if(c&&(c.trend||{}).live_chg!=null)return c.trend.live_chg;const u=(D.uni||{})[code];return u&&u[6]!=null?u[6]:null}
 /* ---------- 수급 오실레이터 (2026-11-13, 후보 B: (외국인+기관 순매수 ÷ 상장주식수) 6일−22일 평균 → 3일 평활, P = 최근 60개 중 위치) ---------- */
@@ -2522,7 +2527,7 @@ function stockChartBox(c){
   const id="sc"+c.code, mode=ui.scw||"d";
   setTimeout(()=>ohlcGet(c.code).then(rows=>{const el=document.getElementById(id);if(!el)return;
     if(!rows){el.innerHTML=priceChart((c.trend||{}).chart,c.target_hist);return}
-    const q=liveQuote(c.code);let r=rows;if(q&&q.price){const k=kstNow().toISOString().slice(0,10).replace(/-/g,""),l=r[r.length-1];if(l[0]==k)r=r.slice(0,-1).concat([[k,l[1],Math.max(l[2],q.price),Math.min(l[3],q.price),q.price,l[5]]])}
+    const r=liveRow(rows,liveQuote(c.code));
     const rr=mode=="w"?weekly(r):r;
     el.innerHTML=`<div class="ixh"><small>${maPos(r,[20,60,120])}</small><span style="margin-left:auto" class="cg2"><button class="chip ${mode=="d"?"on":""}" data-scw="d">일봉 200일</button><button class="chip ${mode=="w"?"on":""}" data-scw="w">주봉 1년</button></span></div>${candleChart(rr,{w:600,h:400,n:mode=="w"?52:200,ma:mode=="w"?[10,20]:[20,60,120],vp:true,tg:c.target_hist,rs:(D.index_daily||{}).KOSPI?(mode=="w"?weekly(D.index_daily.KOSPI):D.index_daily.KOSPI):null})}<div class="src">${maLegend(mode=="w"?[10,20]:[20,60,120])} · <span style="color:#7c4dff">보라 선 = RS선(주가÷코스피), ● = 주가보다 먼저 신고가(참고)</span> · 점 = 리포트 목표가 (<span class="up">● 상향</span> <span class="down">● 하향</span> <span class="muted">● 신규·유지</span>, ▲ = 차트 위로 벗어남, 점에 마우스를 올리면 증권사·날짜) · 매물대 = 최근 200봉 거래량을 종가 기준 10칸으로(빨강 = 가장 많이, 노랑 = 현재가 칸) · 출처: 네이버 일봉(비공식), 채널 리포트 요약(2차 자료)</div>`}),0);
   return `<div id="${id}" class="schart"><div class="muted" style="padding:20px;font-size:13px">차트 불러오는 중…</div></div>`;
@@ -2578,7 +2583,10 @@ function showPop(t,sub){   // sub = ETF 팝업 안에서 띄우는 두 번째 �
   }else{left=Math.min(Math.max(8,r.left),innerWidth-pw-8);top=r.bottom+6;if(top+ph>innerHeight-8)top=Math.max(8,r.top-ph-6)}
   top=Math.max(8,Math.min(top,innerHeight-ph-8));P.style.left=left+"px";P.style.top=top+"px"};
   place();
-  ohlcGet(c.code).then(rows=>{if((sub?pop2For:popFor)!=c.code)return;if(c.pseudo&&rows&&rows.length&&!c.trend.price){c.trend=trendFrom(rows,c.trend.rs);if(sub)pop2For=null;else popFor=null;showPop(t,sub);return}const el=$("#"+CID);if(!el)return;el.innerHTML=rows?candleChart(rows,{w:HOVER?430:260,h:165,n:200,ma:[20,60],vp:true,axis:false,dates:true,label:true}):`<div class="muted" style="font-size:12px;padding:30px 0;text-align:center">차트 없음</div>`;place()});
+  ohlcGet(c.code).then(rows=>{if((sub?pop2For:popFor)!=c.code)return;if(c.pseudo&&rows&&rows.length&&!c.trend.price){c.trend=trendFrom(rows,c.trend.rs);if(sub)pop2For=null;else popFor=null;showPop(t,sub);return}const el=$("#"+CID);if(!el)return;const draw=()=>{const e2=$("#"+CID);if(e2&&rows)e2.innerHTML=candleChart(liveRow(rows,liveQuote(c.code)),{w:HOVER?430:260,h:165,n:200,ma:[20,60],vp:true,axis:false,dates:true,label:true})};
+   if(rows&&HTTP){const q0=liveQuote(c.code),fresh=q0&&q0.open&&q0.at&&(Date.now()-new Date(String(q0.at).slice(0,16)+":00+09:00"))<90000;
+     if(!fresh)fetch("api/quote?codes="+c.code,{cache:"no-store"}).then(r=>r.ok?r.json():null).then(j=>{const q=j&&(j.quotes||{})[c.code];if(!q||(sub?pop2For:popFor)!=c.code)return;D.live=D.live||{};D.live.quotes=Object.assign(D.live.quotes||{},{[c.code]:q});draw();place()}).catch(()=>{})}
+   el.innerHTML=rows?candleChart(liveRow(rows,liveQuote(c.code)),{w:HOVER?430:260,h:165,n:200,ma:[20,60],vp:true,axis:false,dates:true,label:true}):`<div class="muted" style="font-size:12px;padding:30px 0;text-align:center">차트 없음</div>`;place()});
 }
 function hidePop2(){const P=$("#pop2");if(P){P.hidden=true;pop2For=null}}
 /* 업종 이름 마우스오버 → 주요 종목 팝업 (2026-11-15 사용자 확정): 표의 업종 칸 글자가 레이더 업종 이름과 같으면 */

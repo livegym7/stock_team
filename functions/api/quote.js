@@ -30,7 +30,7 @@ export async function onRequestGet({ request }) {
     if (ud) Object.assign(m, { up: (num(ud.riseCount) || 0) + (num(ud.upperCount) || 0), upper: num(ud.upperCount) || 0, down: (num(ud.fallCount) || 0) + (num(ud.lowerCount) || 0), lower: num(ud.lowerCount) || 0, flat: num(ud.steadyCount) || 0 });
     out.markets.push(m);
   });
-  st.forEach(d => ((d && d.datas) || []).forEach(x => { out.quotes[x.itemCode] = { price: num(x.closePrice), change_pct: num(x.fluctuationsRatio), at: (x.localTradedAt || "").slice(0, 16) }; }));
+  st.forEach(d => ((d && d.datas) || []).forEach(x => { out.quotes[x.itemCode] = { price: num(x.closePrice), change_pct: num(x.fluctuationsRatio), at: (x.localTradedAt || "").slice(0, 16), open: num(x.openPrice), high: num(x.highPrice), low: num(x.lowPrice), vol: num(x.accumulatedTradingVolume) };   // 시가·고가·저가·거래량 = 오늘 캔들용 (2026-11-16) }));
   // 최근 5일 투자자별 순매수 (2026-11-13): ?trend=005930 → 외국인·기관·개인 수량 + 종가 (네이버 투자자별 매매동향)
   const tc = u.searchParams.get("trend");
   if (tc && /^\d{6}$/.test(tc)) {
