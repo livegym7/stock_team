@@ -824,7 +824,7 @@ function holdMini(r){
   const ps=(r&&r.positions)||[]; if(!ps.length)return "";
   return `<div class="tw" style="margin-top:10px"><table class="slist"><tr><th class="l">보유 종목</th><th>현재가</th><th>오늘</th><th>평가손익</th><th>진행 R</th><th>손절가까지</th><th class="l">다음 기준</th></tr>
   ${ps.map(p=>{const pct=p.price?(p.price/p.avg_price-1)*100:null, nx=nextStep(p);
-   return `<tr class="click" data-go="portfolio"><td class="l"><b>${esc(p.name)}</b> ${evBadge(p.code)} <small class="muted">${p.qty}주 · 평균 ${w(p.avg_price)}</small></td><td class="num"><b>${w(p.price)}</b></td><td class="num ${cls(todayChg(p.code))}">${todayChg(p.code)!=null?pc(todayChg(p.code),2):"-"}</td>
+   return `<tr class="click" data-go="portfolio"><td class="l"><b data-pop="${esc(p.name)}">${esc(p.name)}</b> ${evBadge(p.code)} <small class="muted">${p.qty}주 · 평균 ${w(p.avg_price)}</small></td><td class="num"><b>${w(p.price)}</b></td><td class="num ${cls(todayChg(p.code))}">${todayChg(p.code)!=null?pc(todayChg(p.code),2):"-"}</td>
    <td class="num ${cls(p.pnl_won)}">${w(p.pnl_won)} <small>(${pc(pct)})</small></td><td class="num ${cls(p.r_multiple)}">${p.r_multiple==null?"-":(p.r_multiple>0?"+":"")+p.r_multiple.toFixed(2)+"R"}</td>
    <td class="num">${pc(p.to_stop_pct)}</td><td class="l"><small>${esc(nx)}</small></td></tr>`}).join("")}</table></div>`;
 }
@@ -1109,7 +1109,7 @@ function viewPortfolio(){
   <h2 style="margin-top:18px">보유 종목</h2>
   <div class="tw"><table class="slist"><tr><th class="l">종목</th><th>수량</th><th>평균가</th><th>현재가</th><th>오늘</th><th>평가손익</th><th>평가금액·비중</th><th>손절가·거리</th><th>1R</th><th>진행 R</th><th>3R 가격</th><th>CR</th></tr>
   ${ps.map(p=>{const pct=p.price?(p.price/p.avg_price-1)*100:null, bar=Math.max(0,Math.min(100,((p.r_multiple||0)+1)/4*100));
-   return `<tr><td class="l"><b>${esc(p.name)}</b> ${flowTag(p.code)} ${evBadge(p.code)}<br><small class="muted">${esc(comp[p.code]?.detail||p.code)}</small></td><td class="num">${p.qty}</td><td class="num">${w(p.avg_price)}</td><td class="num"><b>${w(p.price)}</b></td><td class="num ${cls(todayChg(p.code))}">${todayChg(p.code)!=null?pc(todayChg(p.code),2):"-"}</td>
+   return `<tr><td class="l"><b data-pop="${esc(p.name)}">${esc(p.name)}</b> ${flowTag(p.code)} ${evBadge(p.code)}<br><small class="muted">${esc(comp[p.code]?.detail||p.code)}</small></td><td class="num">${p.qty}</td><td class="num">${w(p.avg_price)}</td><td class="num"><b>${w(p.price)}</b></td><td class="num ${cls(todayChg(p.code))}">${todayChg(p.code)!=null?pc(todayChg(p.code),2):"-"}</td>
    <td class="num ${cls(p.pnl_won)}">${w(p.pnl_won)}<br><small>${pc(pct)}</small></td><td class="num">${w(p.value_won)}<br><small class="muted">${(p.value_won/r.capital*100).toFixed(1)}%</small></td>
    <td class="num">${w(p.stop)}<br><small class="muted">${pc(p.to_stop_pct)}</small></td><td class="num">${w(p.one_r_won)}<br><small class="muted">${p.one_r_vs_account}R</small></td>
    <td class="num ${cls(p.r_multiple)}"><b>${p.r_multiple==null?"-":(p.r_multiple>0?"+":"")+p.r_multiple.toFixed(2)+"R"}</b><div class="rbar" title="−1R ~ 3R"><i style="width:${bar}%"></i></div></td>
@@ -2197,7 +2197,7 @@ function viewTrade(){
   ${ps.length?`<h2 style="margin-top:18px">보유 종목</h2>
   <div class="tw"><table><tr><th class="l">종목</th><th>수량</th><th>평균가</th><th>현재가</th><th>오늘</th><th>평가손익</th><th>평가금액·비중</th><th>손절가·거리</th><th>1R</th><th>진행 R</th><th>3R 가격</th><th>CR</th></tr>
   ${ps.map(p=>{const pct=p.price?(p.price/p.avg_price-1)*100:null, bar=Math.max(0,Math.min(100,((p.r_multiple||0)+1)/4*100));
-   return `<tr><td class="l"><b>${esc(p.name)}</b> ${flowTag(p.code)}<br><small class="muted">${esc(comp[p.code]?.detail||p.code)}</small></td><td class="num">${p.qty}</td><td class="num">${w(p.avg_price)}</td><td class="num"><b>${w(p.price)}</b></td><td class="num ${cls(todayChg(p.code))}">${todayChg(p.code)!=null?pc(todayChg(p.code),2):"-"}</td>
+   return `<tr><td class="l"><b data-pop="${esc(p.name)}">${esc(p.name)}</b> ${flowTag(p.code)}<br><small class="muted">${esc(comp[p.code]?.detail||p.code)}</small></td><td class="num">${p.qty}</td><td class="num">${w(p.avg_price)}</td><td class="num"><b>${w(p.price)}</b></td><td class="num ${cls(todayChg(p.code))}">${todayChg(p.code)!=null?pc(todayChg(p.code),2):"-"}</td>
    <td class="num ${cls(p.pnl_won)}">${w(p.pnl_won)}<br><small>${pc(pct)}</small></td><td class="num">${w(p.value_won)}<br><small class="muted">${(p.value_won/r.capital*100).toFixed(1)}%</small></td>
    <td class="num">${w(p.stop)}<br><small class="muted">${pc(p.to_stop_pct)}</small></td><td class="num">${w(p.one_r_won)}<br><small class="muted">${p.one_r_vs_account}R</small></td>
    <td class="num ${cls(p.r_multiple)}"><b>${p.r_multiple==null?"-":(p.r_multiple>0?"+":"")+p.r_multiple.toFixed(2)+"R"}</b><div class="rbar" title="−1R ~ 3R"><i style="width:${bar}%"></i></div></td>
