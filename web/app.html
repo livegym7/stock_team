@@ -2467,6 +2467,7 @@ function indexCharts(){
 const OHLC={};
 function ohlcGet(code){if(OHLC[code])return Promise.resolve(OHLC[code]);if((D.ohlc||{})[code])return Promise.resolve(OHLC[code]=D.ohlc[code]);
   return fetch("c/"+code+".json").then(r=>r.ok?r.json():null).then(j=>{if(j)OHLC[code]=j;return j}).catch(()=>null)}
+const HTTP=/^https?:/.test(location.protocol);
 function liveQuote(code){const q=(D.live||{}).quotes||{};return q[code]}
 function todayChg(code){const q=liveQuote(code);if(q&&q.change_pct!=null)return q.change_pct;const c=(D.companies||[]).find(x=>x.code==code);if(c&&(c.trend||{}).live_chg!=null)return c.trend.live_chg;const u=(D.uni||{})[code];return u&&u[6]!=null?u[6]:null}
 /* ---------- 수급 오실레이터 (2026-11-13, 후보 B: (외국인+기관 순매수 ÷ 상장주식수) 6일−22일 평균 → 3일 평활, P = 최근 60개 중 위치) ---------- */
@@ -2539,8 +2540,13 @@ function etfPop(a,ev){   // ETF 구성종목 상위 10 (2026-11-13, 네이버 ET
   const x=((D.etfb||{}).items||[]).find(i=>i.code==a.dataset.etf),P=$("#pop");if(!x||!(x.top10||[]).length||!P)return;popFor="etf"+x.code;
   P.innerHTML=`<div class="pph"><b>${esc(x.name)}</b> <small class="muted">구성종목 상위 ${x.top10.length}</small></div>
    <table class="etfh">${x.top10.map((t,i)=>{const q=liveQuote(t[0]),c=stockByCode(t[0]),chg=q&&q.change_pct!=null?q.change_pct:c?(c.trend||{}).live_chg:null;
-     return `<tr><td class="num muted">${i+1}</td><td class="l">${c?`<span class="esub" data-sub="${esc(c.code)}">${esc(t[1])}</span>`:esc(t[1])}</td><td class="num">${t[2]!=null?t[2].toFixed(1)+"%":""}</td><td class="num ${cls(chg)}">${chg!=null?pc(chg,2):""}</td><td><span class="ehb" style="width:${Math.min(60,(t[2]||0)*2.5).toFixed(0)}px"></span></td></tr>`}).join("")}</table>
-   <div class="src" style="margin-top:4px">종목 이름에 마우스를 올리면(휴대폰은 누르면) 차트 · 비중 = ETF 안 차지 비율 · 오늘 등락은 마지막 갱신 기준 · 출처: 네이버 ETF 분석(비공식)</div>`;
+     return `<tr><td class="num muted">${i+1}</td><td class="l">${c?`<span class="esub" data-sub="${esc(c.code)}">${esc(t[1])}</span>`:esc(t[1])}</td><td class="num">${t[2]!=null?t[2].toFixed(1)+"%":""}</td><td class="num ${cls(chg)}" data-ec="${esc(t[0])}">${chg!=null?pc(chg,2):""}</td><td><span class="ehb" style="width:${Math.min(60,(t[2]||0)*2.5).toFixed(0)}px"></span></td></tr>`}).join("")}</table>
+   <div class="src" style="margin-top:4px">종목 이름에 마우스를 올리면(휴대폰은 누르면) 차트 · 비중 = ETF 안 차지 비율 · 오늘 등락 <span id="etfqt">${HTTP?"불러오는 중…":"마지막 갱신 기준"}</span> · 출처: 네이버 ETF 분석·현재가(비공식)</div>`;
+  /* 2026-11-16: 구성종목 등락이 지난 값이던 문제 → 팝업을 열 때 10종목 현재가를 바로 받아 채움 (/api/quote, 웹에서만) */
+  if(HTTP)fetch("api/quote?codes="+x.top10.map(t=>t[0]).join(","),{cache:"no-store"}).then(r=>r.ok?r.json():null).then(j=>{if(!j||popFor!="etf"+x.code)return;const Q=j.quotes||{};
+    if(D.live)D.live.quotes=Object.assign(D.live.quotes||{},Q);
+    P.querySelectorAll("[data-ec]").forEach(td=>{const q=Q[td.dataset.ec];if(q&&q.change_pct!=null){td.className="num "+cls(q.change_pct);td.textContent=pc(q.change_pct,2)}});
+    const e=$("#etfqt");if(e)e.textContent=Object.keys(Q).length?j.at.slice(11)+" 현재가":"마지막 갱신 기준"}).catch(()=>{const e=$("#etfqt");if(e)e.textContent="마지막 갱신 기준"});
   const pw=Math.min(330,innerWidth-16);P.style.width=pw+"px";P.hidden=false;const ph=P.offsetHeight,r=a.getBoundingClientRect();
   let left=(ev&&ev.clientX?ev.clientX:r.right)+16;if(left+pw>innerWidth-8)left=Math.max(8,(ev&&ev.clientX?ev.clientX:r.left)-16-pw);
   P.style.left=left+"px";P.style.top=Math.min(Math.max(8,(ev&&ev.clientY?ev.clientY:r.top)-ph/2),innerHeight-ph-8)+"px"}
