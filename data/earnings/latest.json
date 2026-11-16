@@ -1,6 +1,30 @@
 {
  "rows": [
   {
+   "name": "모나용평",
+   "code": "070960",
+   "period": "2026.3Q",
+   "sales": 515.0,
+   "op": 74.0,
+   "net": -19.0,
+   "verdict": null,
+   "time": "2026-11-16 13:55",
+   "channel": "maddingStock",
+   "url": "https://t.me/maddingStock/19510"
+  },
+  {
+   "name": "파인엠텍",
+   "code": "441270",
+   "period": "2026.3Q",
+   "sales": 1446.0,
+   "op": 215.0,
+   "net": 81.0,
+   "verdict": null,
+   "time": "2026-11-16 13:30",
+   "channel": "maddingStock",
+   "url": "https://t.me/maddingStock/19507"
+  },
+  {
    "name": "GST",
    "code": "083450",
    "period": "2026.3Q",

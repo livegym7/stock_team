@@ -101,7 +101,7 @@ def other_titles(since, limit=60):
 
 
 def missed(D, day=None):
-    """놓친 것 점검 (토큰 0): 오늘 보유·관찰 풀·핵심 후보를 언급한 채널 글 중, 오늘 정리(채널·리포트)에 그 종목 이름이 없는 것"""
+    """놓친 것 점검 (토큰 0): 오늘 보유·관찰 풀·핵심 후보를 본문에 직접 언급한 채널 글 중, 오늘 정리(채널·리포트)에 그 종목 이름이 없는 것. 리포트 글은 그 종목이 주인공인 기업 리포트만 (2026-11-16)"""
     day = day or datetime.now(KST).strftime("%Y-%m-%d")
     names = focus_names(D)
     _, ch = latest(day, "channels"); _, rp = latest(day, "report")
@@ -112,7 +112,13 @@ def missed(D, day=None):
     for p in sorted(D.get("channels") or [], key=lambda p: p["time"]):
         if not p["time"].startswith(day):
             continue
-        hit = [n for n in names if n in (p.get("text") or "") or n in (p.get("stocks") or [])]
+        t = p.get("text") or ""
+        if p.get("type") == "report" or ("작성일:" in t and "작성자:" in t):   # 분류기가 company로 붙인 리포트 요약 글도 리포트로
+            # 리포트 글 (2026-11-16): 산업·전략 리포트는 리포트 정리 몫이라 빼고, 그 종목이 주인공인 기업 리포트("NHN (181710) …")만 봄
+            m = re.match(r"\s*([^\[\]()\n]{2,20}?)\s*\((\d{6})\)", t)
+            hit = [m.group(1).strip()] if m and m.group(1).strip() in names else []
+        else:
+            hit = [n for n in names if n in t]   # 본문에 이름이 직접 나올 때만 (분류기가 붙인 업종 종목 꼬리표는 안 씀)
         lost = [n for n in hit if n not in done]
         if lost:
             out.append({"time": p["time"][11:16], "channel": p["channel"], "names": lost, "text": re.sub(r"\s+", " ", p.get("text") or "")[:120], "url": p.get("url")})
