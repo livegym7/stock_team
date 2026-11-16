@@ -1,6 +1,18 @@
 {
  "rows": [
   {
+   "name": "네오셈",
+   "code": "253590",
+   "period": "2026.3Q",
+   "sales": 507.0,
+   "op": 192.0,
+   "net": 95.0,
+   "verdict": null,
+   "time": "2026-11-16 10:17",
+   "channel": "maddingStock",
+   "url": "https://t.me/maddingStock/19493"
+  },
+  {
    "name": "LIG아큐버",
    "code": "073490",
    "period": "2026.3Q",
