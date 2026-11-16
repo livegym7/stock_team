@@ -2612,6 +2612,9 @@ function etfPop(a,ev){   // ETF 구성종목 상위 10 (2026-11-13, 네이버 ET
 function popTarget(el){const t=el&&el.closest&&el.closest("[data-cq],b.stk,[data-pop]");if(!t||t.closest("#pop"))return null;const n=(t.dataset.cq||t.dataset.pop||t.textContent||"").trim();
   const c=stockByName(n)||stockByName(n.replace(/^[^\p{L}\p{N}]+|[^\p{L}\p{N}.)]+$/gu,"").trim());return c?{el:t,c}:null}   // 이름 앞뒤 이모지(🔴·⭐ 등)는 떼고 찾음 (2026-11-15 실적 탭)
 let pop2For=null;
+/* 팝업 차트 높이 (2026-11-16 사용자 확정): PC는 오른쪽 정보 칸 높이에 맞춰 차트 아래 빈칸 없앰 · 팝업 크기는 그대로 · 휴대폰은 165 그대로 */
+function popChartH(P){if(!HOVER||!P)return 165;const box=P.querySelector(".ppc"),info=P.querySelector(".ppi");if(!box||!info||!box.clientWidth)return 165;
+  return Math.max(165,Math.min(420,Math.round(info.offsetHeight*430/box.clientWidth)))}
 function showPop(t,sub){   // sub = ETF 팝업 안에서 띄우는 두 번째 팝업 (2026-11-13)
   const c=t.c, x=c.trend||{}, q=liveQuote(c.code), price=(q&&q.price)||x.price, chg=q?q.change_pct:x.live_chg;
   const pos=((D.risk||{}).positions||[]).find(p=>p.code==c.code), pool=((D.watch_pool||{}).themes||[]).find(th=>(th.stocks||[]).some(s=>s.code==c.code));
@@ -2636,10 +2639,10 @@ function showPop(t,sub){   // sub = ETF 팝업 안에서 띄우는 두 번째 �
   }else{left=Math.min(Math.max(8,r.left),innerWidth-pw-8);top=r.bottom+6;if(top+ph>innerHeight-8)top=Math.max(8,r.top-ph-6)}
   top=Math.max(8,Math.min(top,innerHeight-ph-8));P.style.left=left+"px";P.style.top=top+"px"};
   place();
-  ohlcGet(c.code).then(rows=>{if((sub?pop2For:popFor)!=c.code)return;if(c.pseudo&&rows&&rows.length&&!c.trend.price){c.trend=trendFrom(rows,c.trend.rs);if(sub)pop2For=null;else popFor=null;showPop(t,sub);return}const el=$("#"+CID);if(!el)return;const draw=()=>{const e2=$("#"+CID);if(e2&&rows)e2.innerHTML=candleChart(liveRow(rows,liveQuote(c.code)),{w:HOVER?430:260,h:165,n:200,ma:[20,60],vp:true,axis:false,dates:true,label:true})};
+  ohlcGet(c.code).then(rows=>{if((sub?pop2For:popFor)!=c.code)return;if(c.pseudo&&rows&&rows.length&&!c.trend.price){c.trend=trendFrom(rows,c.trend.rs);if(sub)pop2For=null;else popFor=null;showPop(t,sub);return}const el=$("#"+CID);if(!el)return;const draw=()=>{const e2=$("#"+CID);if(e2&&rows)e2.innerHTML=candleChart(liveRow(rows,liveQuote(c.code)),{w:HOVER?430:260,h:popChartH(P),n:200,ma:[20,60],vp:true,axis:false,dates:true,label:true})};
    if(rows&&HTTP){const q0=liveQuote(c.code),fresh=q0&&q0.open&&q0.at&&(Date.now()-new Date(String(q0.at).slice(0,16)+":00+09:00"))<90000;
      if(!fresh)fetch("api/quote?codes="+c.code,{cache:"no-store"}).then(r=>r.ok?r.json():null).then(j=>{const q=j&&(j.quotes||{})[c.code];if(!q||(sub?pop2For:popFor)!=c.code)return;D.live=D.live||{};D.live.quotes=Object.assign(D.live.quotes||{},{[c.code]:q});draw();place()}).catch(()=>{})}
-   el.innerHTML=rows?candleChart(liveRow(rows,liveQuote(c.code)),{w:HOVER?430:260,h:165,n:200,ma:[20,60],vp:true,axis:false,dates:true,label:true}):`<div class="muted" style="font-size:12px;padding:30px 0;text-align:center">차트 없음</div>`;place()});
+   el.innerHTML=rows?candleChart(liveRow(rows,liveQuote(c.code)),{w:HOVER?430:260,h:popChartH(P),n:200,ma:[20,60],vp:true,axis:false,dates:true,label:true}):`<div class="muted" style="font-size:12px;padding:30px 0;text-align:center">차트 없음</div>`;place()});
 }
 function hidePop2(){const P=$("#pop2");if(P){P.hidden=true;pop2For=null}}
 /* 업종 이름 마우스오버 → 주요 종목 팝업 (2026-11-15 사용자 확정): 표의 업종 칸 글자가 레이더 업종 이름과 같으면 */
