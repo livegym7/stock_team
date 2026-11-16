@@ -746,7 +746,8 @@ const pc=(n,d=1)=>n==null||isNaN(n)?"-":(n>0?"+":"")+Number(n).toFixed(d)+"%";
 const cls=n=>n>0?"up":n<0?"down":"";
 const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
 const ui=store.get("tr-ui",{});
-delete ui.fd;delete ui.fcm;delete ui.bk;   // 소식 날짜·종류(자료·주간 등) 선택은 화면을 새로 열면 최신·전체로 (2026-11-16: 자료 칩이 남아 오늘 체크포인트가 안 보였음) (2026-11-15: 지난 날짜가 남아 오늘 채널 글이 안 보였음)
+let RELOADED=null;try{RELOADED=JSON.parse(sessionStorage.getItem("bl-reload")||"null");sessionStorage.removeItem("bl-reload")}catch(e){}   // 새 버전 자동 새로고침 직전 상태 (2026-11-16)
+if(!RELOADED){delete ui.fd;delete ui.fcm;delete ui.bk}   // 소식 날짜·종류(자료·주간 등) 선택은 화면을 새로 열면 최신·전체로 (2026-11-16: 자료 칩이 남아 오늘 체크포인트가 안 보였음) (2026-11-15: 지난 날짜가 남아 오늘 채널 글이 안 보였음)
 function save(){store.set("tr-ui",ui)}
 /* 밝게/어둡게: ui.theme 없으면 기기 설정을 따름 */
 function isDark(){return ui.theme?ui.theme=="dark":matchMedia("(prefers-color-scheme: dark)").matches}
@@ -2780,4 +2781,27 @@ function pollHighs(first){if(!first&&(document.hidden||busy()))return;try{fetch(
 pollHighs(true);setInterval(()=>{const k=kstNow(),hm=k.getUTCHours()*100+k.getUTCMinutes(),wd=k.getUTCDay();if(wd>0&&wd<6&&hm>=900&&hm<=1600)pollHighs()},300000);   // 신고가 장중 파일 5분마다 다시 받기 (2026-11-16, 파일은 깃허브가 20분마다 만듦)
 try{fetch("live.json",{cache:"no-store"}).then(r=>r.ok?r.json():null).then(j=>{if(j){applyLive(j);render()}}).catch(()=>{}).finally(()=>{pollQuotes(true);setInterval(pollQuotes,60000)})}catch(e){}
 document.addEventListener("visibilitychange",()=>{if(!document.hidden)pollQuotes()});
+/* ---------- 새 버전 배포되면 자동 새로고침 (2026-11-16 사용자 요청) ----------
+   배포 때 site/version.json이 바뀜 → 3분마다(그리고 화면으로 돌아올 때) 확인.
+   다른 창에 가 있었으면 돌아오는 즉시, 보고 있는 중이면 1분 동안 손대지 않을 때(입력·팝업 중 아님) 새로고침.
+   메뉴·탭·날짜·펼친 칸·스크롤 위치는 그대로 이어 줌. 오른쪽 아래 알림을 누르면 바로 새로고침 */
+(function(){
+  if(!HTTP||!window.BL_VER)return;
+  let newVer=null,lastAct=Date.now();
+  ["scroll","click","keydown","touchstart","mousemove"].forEach(ev=>addEventListener(ev,()=>{lastAct=Date.now()},{passive:true,capture:true}));
+  function doReload(){
+    try{const key=d=>(d.dataset.bf||"")+"|"+((d.querySelector("summary")||{}).textContent||"").replace(/[\d.,:%+\-−▲▼]/g,"").trim().slice(0,80);
+      const open=[...document.querySelectorAll("#main details")].filter(d=>d.open).map(key);
+      sessionStorage.setItem("bl-reload",JSON.stringify({y:scrollY,open,hash:location.hash}))}catch(e){}
+    save();location.reload()}
+  function banner(){if(document.getElementById("verbar"))return;const b=document.createElement("button");b.id="verbar";b.textContent="↻ 새 버전 · 누르면 새로고침";
+    b.style.cssText="position:fixed;right:12px;bottom:calc(70px + env(safe-area-inset-bottom,0px));z-index:60;border:1px solid var(--accent);background:var(--card);color:var(--accent);border-radius:16px;padding:6px 12px;font-size:12px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.12)";
+    b.onclick=doReload;document.body.appendChild(b)}
+  function check(){fetch("version.json",{cache:"no-store"}).then(r=>r.ok?r.json():null).then(j=>{if(j&&j.v&&j.v!=window.BL_VER){newVer=j.v;banner();if(document.hidden)return;tryReload()}}).catch(()=>{})}
+  function tryReload(){if(!newVer)return;if(document.hidden)return;if(Date.now()-lastAct>=60000&&!busy())doReload()}
+  setInterval(check,180000);setInterval(tryReload,15000);
+  document.addEventListener("visibilitychange",()=>{if(document.hidden)return;if(newVer)doReload();else check()});
+})();
+if(RELOADED){setTimeout(()=>{try{const key=d=>(d.dataset.bf||"")+"|"+((d.querySelector("summary")||{}).textContent||"").replace(/[\d.,:%+\-−▲▼]/g,"").trim().slice(0,80);
+  const S=new Set(RELOADED.open||[]);document.querySelectorAll("#main details").forEach(d=>{d.open=S.has(key(d))});window.scrollTo(0,RELOADED.y||0)}catch(e){}},700)}
 </script>

@@ -55,7 +55,10 @@ def build(placeholder=False):
         if not src.exists():
             raise SystemExit("web/index.html 없음 — 먼저 python3 tools/web_build.py")
         body = src.read_text(encoding="utf-8")
-    (SITE / "index.html").write_text(HEAD + body + TAIL, encoding="utf-8")
+    import hashlib   # 새 버전 자동 새로고침 (2026-11-16): 화면 내용 지문을 index.html과 version.json에 같이 넣음
+    ver = hashlib.sha1(body.encode("utf-8")).hexdigest()[:12]
+    (SITE / "index.html").write_text(HEAD + f'<script>window.BL_VER="{ver}"</script>\n' + body + TAIL, encoding="utf-8")
+    (SITE / "version.json").write_text(json.dumps({"v": ver, "at": now}), encoding="utf-8")
     if not placeholder and (WEB / "c").exists():   # 종목별 일봉 파일 (팝업·종목 페이지가 필요할 때 받음)
         shutil.copytree(WEB / "c", SITE / "c")
     if not placeholder and (WEB / "f").exists():   # 수급 오실레이터 그림 데이터
