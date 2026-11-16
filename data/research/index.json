@@ -1001,6 +1001,42 @@
    "drive_modified": null,
    "analyzed_at": "2026-11-15 09:40",
    "depth": "excerpt"
+  },
+  "naver_company_98216": {
+   "title": "엑시콘 2027년, 두 개의 성장 엔진 (신한투자증권, 11/16)",
+   "broker": "신한투자증권",
+   "date": "2026-11-16",
+   "kind": "기업",
+   "subject": "엑시콘 · 반도체 테스트 장비 (핵심 후보 칸)",
+   "one_line": "3분기 SSD 테스터가 만든 어닝 서프라이즈를 근거로 2027년 매출 +124.9%, 영업이익 +199.2%를 제시했지만 투자의견·목표주가는 없는 Not Rated 리포트입니다.",
+   "url": "https://stock.naver.com/research/company/98216",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-16 19:16",
+   "depth": "full"
+  },
+  "naver_industry_47007": {
+   "title": "반도체 · 밸류에이션, 그리고 리스크 대비 리워드 (iM증권, 11/16)",
+   "broker": "iM증권",
+   "date": "2026-11-16",
+   "kind": "산업",
+   "subject": "반도체 · 메모리 (리더 업종 칸)",
+   "one_line": "엔비디아 규제와 데이터센터 지연이라는 최악 가정에서도 DRAM 수급률이 부족에서 균형으로 움직이는 정도라, 주가가 이미 낮은 2028년 이익을 반영해 리스크 대비 리워드가 크다는 Overweight 코멘트입니다.",
+   "url": "https://stock.naver.com/research/industry/47007",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-16 19:16",
+   "depth": "full"
+  },
+  "naver_industry_47025": {
+   "title": "철강금속 Weekly(11/16): 중국철강협회, 중국 철강 공급과잉 지속 전망 (하나증권)",
+   "broker": "하나증권",
+   "date": "2026-11-16",
+   "kind": "산업",
+   "subject": "철강 · 소재 (반대 의견·비주류 고정 칸)",
+   "one_line": "중국철강협회가 2~3년의 구조조정기를 전망하고 국내는 철근 가격이 떨어져 단기 업황 모멘텀이 제한적이라는 약세 입장의 주간 동향입니다.",
+   "url": "https://stock.naver.com/research/industry/47025",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-16 19:16",
+   "depth": "full"
   }
  },
  "skipped": {
