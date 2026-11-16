@@ -2621,16 +2621,30 @@ function quoteCodes(){const s=new Set(((D.risk||{}).positions||[]).map(p=>p.code
 function busy(){const a=document.activeElement;return (a&&/INPUT|SELECT|TEXTAREA/.test(a.tagName))||popFor}
 function applyQuote(j){
   const pos=((D.risk||{}).positions||[]).map(p=>{const q=j.quotes[p.code];if(!q||!q.price)return {code:p.code};const risk=p.avg_price-(p.initial_stop??p.stop);
-    return {code:p.code,price:q.price,price_at:q.at,pnl_won:Math.round((q.price-p.avg_price)*p.qty),r_multiple:risk>0?Math.round((q.price-p.avg_price)/risk*100)/100:p.r_multiple,to_stop_pct:Math.round((p.stop/q.price-1)*1000)/10,value_won:Math.round(q.price*p.qty)}});
-  applyLive({at:j.at,markets:j.markets,quotes:j.quotes,positions:pos.filter(p=>p.price),alerts:(D.live||{}).alerts});
+    return {code:p.code,price:q.price,price_at:q.at,pnl_won:Math.round((q.price-p.avg_price)*p.qty),r_multiple:risk>0?Math.round((q.price-p.avg_price)/risk*100)/100:p.r_multiple,to_stop_pct:Math.round((p.stop/q.price-1)*1000)/10,value_won:Math.round(q.price*p.qty),
+      ...(risk>0?{to_3r_pct:Math.round(((p.avg_price+3*risk)/q.price-1)*1000)/10}:{})}});
+  /* 2026-11-16: 1분 시세를 보유 종목 칸(오늘·내 매매)에도 — 전에는 j.risk가 없어 20분 파일(live.json)만 반영됐음. 평가금액·E%만 다시 계산(CR은 매수가 기준이라 그대로) */
+  const R0=D.risk||{},P0=R0.positions||[],inv=P0.reduce((a,p)=>{const x=pos.find(y=>y.code==p.code&&y.price);return a+(x?x.value_won:(p.value_won||0))},0);
+  const acct=R0.invested_won&&R0.E_pct?R0.invested_won/(R0.E_pct/100):null;
+  const rk={...Object.fromEntries(["E_pct","invested_won","CR_won","CR_pct","CR_limit_pct","room_for_new_risk_won"].filter(k=>k in R0).map(k=>[k,R0[k]])),invested_won:inv,...(acct?{E_pct:Math.round(inv/acct*1000)/10}:{})};
+  applyLive({at:j.at,markets:j.markets,quotes:j.quotes,risk:rk,positions:pos.filter(p=>p.price),alerts:(D.live||{}).alerts});
 }
 function pollQuotes(force){
   if(!/^https?:/.test(location.protocol)||document.hidden)return;
   const k=kstNow(),hm=k.getUTCHours()*100+k.getUTCMinutes(),wd=k.getUTCDay();
   if(!force&&(wd==0||wd==6||hm<855||hm>1545))return;
   const top=route()=="stock"&&ui.kt=="vtop";   // 거래대금 탭을 보고 있으면 순위도 함께 (2026-11-13)
-  fetch("api/quote?flows=1"+(top?"&top=1":"")+"&codes="+quoteCodes().join(","),{cache:"no-store"}).then(r=>r.ok?r.json():null).then(j=>{if(j&&j.top&&j.top.length)D.vtopLive={made_at:j.at,items:j.top};if(j&&j.markets&&j.markets.length){applyQuote(j);if(!busy())render()}}).catch(()=>{});
+  fetch("api/quote?flows=1"+(top?"&top=1":"")+"&codes="+quoteCodes().join(","),{cache:"no-store"}).then(r=>r.ok?r.json():null).then(j=>{if(j&&j.top&&j.top.length)D.vtopLive={made_at:j.at,items:j.top};if(j&&j.markets&&j.markets.length){applyQuote(j);if(!busy())liveRender()}}).catch(()=>{});
 }
+/* 1분 시세가 들어올 때 다시 그리기 (2026-11-16): 소식(정리·채널 원문)은 가격이 없어 띠만 바꾸고 화면은 그대로,
+   다른 화면은 펼쳐 둔 칸(details)과 스크롤 위치를 기억했다가 다시 그린 뒤 되돌림 → 읽던 리포트 정리가 접히던 문제 */
+function liveRender(){
+  if(route()=="news"||route()=="more"){$("#tape").innerHTML=tapeHtml();return}
+  const key=d=>(d.dataset.bf||"")+"|"+((d.querySelector("summary")||{}).textContent||"").replace(/[\d.,:%+\-−▲▼]/g,"").trim().slice(0,80);
+  const st={};document.querySelectorAll("#main details").forEach(d=>{st[key(d)]=d.open});
+  const y=scrollY;render();
+  document.querySelectorAll("#main details").forEach(d=>{const k=key(d);if(k in st)d.open=st[k]});
+  window.scrollTo(0,y)}
 function render(){
   if(!D){$("#main").innerHTML=`<div class="empty">데이터가 없습니다. tools/web_build.py로 만들어 주세요</div>`;return}
   nav(); $("#more").classList.remove("open"); $("#tape").innerHTML=tapeHtml();
@@ -2756,7 +2770,8 @@ window.addEventListener("scroll",()=>{const b=document.getElementById("totop");i
 window.addEventListener("hashchange",()=>{if(!(route()=="strategy"&&ui.st=="companies")&&ui.cq){ui.cq="";save()}render();window.scrollTo(0,0)});   // 기업 검색어는 기업 탭을 떠나면 지움
 if(!(route()=="strategy"&&ui.st=="companies"))ui.cq="";
 render();
-try{fetch("highs_live.json",{cache:"no-store"}).then(r=>r.ok?r.json():null).then(j=>{if(j){D.highsLive=j;render()}}).catch(()=>{})}catch(e){}
+function pollHighs(first){if(!first&&(document.hidden||busy()))return;try{fetch("highs_live.json",{cache:"no-store"}).then(r=>r.ok?r.json():null).then(j=>{if(!j)return;const nw=!D.highsLive||D.highsLive.made_at!=j.made_at||JSON.stringify(D.highsLive).length!=JSON.stringify(j).length;D.highsLive=j;if(first)render();else if(nw&&(route()=="home"||(route()=="stock"&&ui.kt=="highs")))liveRender()}).catch(()=>{})}catch(e){}}
+pollHighs(true);setInterval(()=>{const k=kstNow(),hm=k.getUTCHours()*100+k.getUTCMinutes(),wd=k.getUTCDay();if(wd>0&&wd<6&&hm>=900&&hm<=1600)pollHighs()},300000);   // 신고가 장중 파일 5분마다 다시 받기 (2026-11-16, 파일은 깃허브가 20분마다 만듦)
 try{fetch("live.json",{cache:"no-store"}).then(r=>r.ok?r.json():null).then(j=>{if(j){applyLive(j);render()}}).catch(()=>{}).finally(()=>{pollQuotes(true);setInterval(pollQuotes,60000)})}catch(e){}
 document.addEventListener("visibilitychange",()=>{if(!document.hidden)pollQuotes()});
 </script>
