@@ -1,6 +1,54 @@
 {
  "rows": [
   {
+   "name": "GST",
+   "code": "083450",
+   "period": "2026.3Q",
+   "sales": 1379.0,
+   "op": 270.0,
+   "net": 198.0,
+   "verdict": null,
+   "time": "2026-11-16 12:12",
+   "channel": "maddingStock",
+   "url": "https://t.me/maddingStock/19506"
+  },
+  {
+   "name": "슈피겐코리아",
+   "code": "192440",
+   "period": "2026.3Q",
+   "sales": 1383.0,
+   "op": 186.0,
+   "net": 165.0,
+   "verdict": null,
+   "time": "2026-11-16 11:44",
+   "channel": "maddingStock",
+   "url": "https://t.me/maddingStock/19503"
+  },
+  {
+   "name": "퓨릿",
+   "code": "445180",
+   "period": "2026.3Q",
+   "sales": 474.0,
+   "op": 60.0,
+   "net": 48.0,
+   "verdict": null,
+   "time": "2026-11-16 11:30",
+   "channel": "maddingStock",
+   "url": "https://t.me/maddingStock/19499"
+  },
+  {
+   "name": "영화테크",
+   "code": "265560",
+   "period": "2026.3Q",
+   "sales": 346.0,
+   "op": 75.0,
+   "net": -8.0,
+   "verdict": null,
+   "time": "2026-11-16 11:19",
+   "channel": "maddingStock",
+   "url": "https://t.me/maddingStock/19498"
+  },
+  {
    "name": "유니셈",
    "code": "036200",
    "period": "2026.3Q",
