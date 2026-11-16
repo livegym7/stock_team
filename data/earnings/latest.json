@@ -1,6 +1,66 @@
 {
  "rows": [
   {
+   "name": "KX",
+   "code": "122450",
+   "period": "2026.3Q",
+   "sales": 1160.0,
+   "op": 216.0,
+   "net": 108.0,
+   "verdict": null,
+   "time": "2026-11-16 17:16",
+   "channel": "maddingStock",
+   "url": "https://t.me/maddingStock/19537"
+  },
+  {
+   "name": "후성",
+   "code": "093370",
+   "period": "2026.3Q",
+   "sales": 2038.0,
+   "op": 361.0,
+   "net": 113.0,
+   "verdict": null,
+   "time": "2026-11-16 16:49",
+   "channel": "nje2e",
+   "url": "https://t.me/nje2e/45563"
+  },
+  {
+   "name": "이수페타시스",
+   "code": "007660",
+   "period": "2026.3Q",
+   "sales": 3892.0,
+   "op": 949.0,
+   "net": 650.0,
+   "verdict": null,
+   "time": "2026-11-16 16:37",
+   "channel": "nje2e",
+   "url": "https://t.me/nje2e/45560"
+  },
+  {
+   "name": "HPSP",
+   "code": "403870",
+   "period": "2026.3Q",
+   "sales": 516.0,
+   "op": 278.0,
+   "net": 165.0,
+   "verdict": null,
+   "time": "2026-11-16 16:37",
+   "channel": "nje2e",
+   "url": "https://t.me/nje2e/45561"
+  },
+  {
+   "name": "삼진제약",
+   "code": "005500",
+   "period": "2026.3Q",
+   "sales": 841.0,
+   "op": 119.0,
+   "net": 82.0,
+   "verdict": null,
+   "time": "2026-11-16 16:35",
+   "channel": "maddingStock",
+   "url": "https://t.me/maddingStock/19535"
+  },
+  {
    "name": "KCC건설",
    "code": "021320",
    "period": "2026.3Q",
@@ -11,30 +71,6 @@
    "time": "2026-11-16 16:31",
    "channel": "maddingStock",
    "url": "https://t.me/maddingStock/19534"
-  },
-  {
-   "name": "HPSP",
-   "code": "403870",
-   "period": "2026.3Q",
-   "sales": 516.0,
-   "op": 278.0,
-   "net": 165.0,
-   "verdict": null,
-   "time": "2026-11-16 16:21",
-   "channel": "maddingStock",
-   "url": "https://t.me/maddingStock/19533"
-  },
-  {
-   "name": "이수페타시스",
-   "code": "007660",
-   "period": "2026.3Q",
-   "sales": 3892.0,
-   "op": 949.0,
-   "net": 650.0,
-   "verdict": null,
-   "time": "2026-11-16 16:02",
-   "channel": "maddingStock",
-   "url": "https://t.me/maddingStock/19530"
   },
   {
    "name": "대덕",
