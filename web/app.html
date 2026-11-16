@@ -680,6 +680,9 @@ html body .view .rtoc .chip{flex:0 0 auto;white-space:nowrap;border:1px solid va
 /* 2026-11-14 최근 5일 수급 표: 오실레이터 차트와 같은 폭, 칸 균등 */
 html body .view table.invh{width:100%;table-layout:fixed}html body .view .invh th:first-child,html body .view .invh td:first-child{width:44px}
 html body .view .invh td.num,html body .view .invh th{text-align:right}
+table.sortt th{cursor:pointer;user-select:none} table.sortt th:hover{color:var(--accent)} table.sortt th[data-so=desc]::after{content:" ▼";font-size:9px} table.sortt th[data-so=asc]::after{content:" ▲";font-size:9px}
+.pgt tbody.hid{display:none} .pgt tr.pgd{display:none} .pgt tbody.open tr.pgd{display:table-row} .pgt tbody.open .pgc{display:inline-block;transform:rotate(90deg)} .pgt tr.pgd td{background:var(--bg);padding-top:3px;padding-bottom:3px}
+.brk{border-bottom:1px dotted var(--muted);cursor:help}
 .corebx .cbr{display:grid;grid-template-columns:auto 1fr auto auto auto;gap:4px 8px;align-items:center;padding:5px 12px;border-top:1px solid var(--line);font-size:12.5px}
 .corebx .cbr small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.corebx .cbd{font-size:10.5px;color:var(--accent);letter-spacing:-1px;white-space:nowrap}.corebx .cbd i{font-style:normal;color:var(--faint);letter-spacing:0;margin-right:4px}
 /* 2026-11-14 2차: ⚙ · 국면 추적판 · 셋업 보드 · 휴대폰 카드 표 */
@@ -1443,20 +1446,55 @@ function naverPicks(R){
    <td class="l" style="white-space:normal"><small>${esc((x.why||[]).join(" · "))}</small></td></tr>`}).join("")}</table></div>
   ${src("Claude는 매일 저녁(평일 19:13) 이 후보의 제목·요약만 보고 3건을 골라 PDF 전문을 읽습니다. 다른 리포트를 분석하고 싶으면 'OO 리포트 분석해줘'라고 말해 주세요")}`;
 }
+/* 리포트 종목별 묶기 (2026-11-16 사용자 확정 C안): 종목 한 줄(리포트 수·증권사 수·평균) → 누르면 리포트별 펼침 · 20종목씩 더 보기 · 머리 칸 정렬 */
+function pickGroups(P){
+  const G={};P.forEach(x=>{const k=x.code||x.name;(G[k]=G[k]||{name:x.name,code:x.code,L:[]}).L.push(x)});
+  const avg=(L,k)=>{const v=L.map(x=>x[k]).filter(v=>v!=null);return v.length?Math.round(v.reduce((a,b)=>a+b,0)/v.length*10)/10:null};
+  const A=Object.values(G).map(g=>({...g,n:g.L.length,nb:new Set(g.L.map(x=>x.broker)).size,ret:avg(g.L,"ret"),w1:avg(g.L,"w1"),m1:avg(g.L,"m1"),last:g.L.map(x=>x.date).sort().pop()}))
+    .sort((a,b)=>b.n-a.n||(b.ret??-999)-(a.ret??-999));
+  const lim=(ui.mn||{}).picks||20;
+  return `<div class="tw"><table class="sortt pgt" data-sid="picks" data-lim="${lim}"><thead><tr><th class="l">종목</th><th>리포트</th><th>증권사</th><th>평균</th><th>1주</th><th>1개월</th><th>최근</th></tr></thead>
+   ${A.map((g,i)=>`<tbody class="pg${i>=lim?" hid":""}"><tr class="click pgm" data-pgx="1"><td class="l"><span class="pgc">▸</span> <b data-pop="${esc(g.name)}">${esc(g.name)}</b></td><td class="num">${g.n}</td><td class="num">${g.nb}</td><td>${retC(g.ret)}</td><td>${retC(g.w1)}</td><td>${retC(g.m1)}</td><td class="num"><small>${esc((g.last||"").slice(5))}</small></td></tr>
+    ${g.L.sort((a,b)=>b.date.localeCompare(a.date)).map(x=>`<tr class="pgd"><td class="l"><small class="muted">└ ${esc(x.broker||"")} · ${esc(x.role||"")}</small></td><td class="num" colspan="2"><small>${esc(x.date.slice(5))}</small></td><td>${retC(x.ret)}</td><td>${retC(x.w1)}</td><td>${retC(x.m1)}</td><td><small class="muted">시장 ${pc(x.bench_ret)}</small></td></tr>`).join("")}</tbody>`).join("")}</table></div>
+   ${A.length>lim?`<button class="chip morebtn" data-more="picks" data-next="${lim+20}">${Math.min(20,A.length-lim)}종목 더 보기 <small class="muted">${lim}/${A.length}</small></button>`:""}`}
+/* 증권사 팝업 (2026-11-16): 그 증권사 Top pick·수혜 종목 → 종목에 다시 올리면 두 번째 팝업(차트) */
+function brkPop(el,name,ev){const P=$("#pop"),R=D.research||{},L=(R.picks||[]).filter(x=>(x.broker||"")==name).sort((a,b)=>b.date.localeCompare(a.date)),B=(R.brokers||[]).find(b=>(b.broker||"")==name)||{};if(!P||!L.length)return;popFor="brk"+name;
+  P.innerHTML=`<div class="pph" style="display:flex;justify-content:space-between"><b>${esc(name)}</b><small class="muted">종목 ${B.n||L.length} · 평균 ${pc(B.avg)} · 오른 종목 ${B.win??"-"}/${B.n||L.length} · 시장 대비 ${pc(B.excess)}</small></div>
+   <table class="etfh"><tr><th class="l">종목</th><th>리포트</th><th>지금</th><th>1주</th><th>1개월</th></tr>${L.map(x=>{const c=stockByCode(x.code);return `<tr><td class="l">${c?`<span class="esub" data-sub="${esc(x.code)}"><b>${esc(x.name)}</b></span>`:`<b>${esc(x.name)}</b>`} <small class="muted">${esc(x.role||"")}</small></td><td class="num"><small>${esc(x.date.slice(5))}</small></td><td>${retC(x.ret)}</td><td>${retC(x.w1)}</td><td>${retC(x.m1)}</td></tr>`}).join("")}</table>
+   <div class="src" style="margin-top:4px">리포트 날 전 거래일 종가 → 지금 · 종목에 마우스를 올리면(휴대폰은 누르면) 차트 · 출처: 네이버 리서치·네이버 일봉(비공식)</div>`;
+  const pw=Math.min(440,innerWidth-16);P.style.width=pw+"px";P.hidden=false;const ph=P.offsetHeight,r=el.getBoundingClientRect();
+  let left=(ev&&ev.clientX?ev.clientX:r.right)+16;if(left+pw>innerWidth-8)left=Math.max(8,(ev&&ev.clientX?ev.clientX:r.left)-16-pw);
+  P.style.left=Math.min(left,innerWidth-pw-8)+"px";P.style.top=Math.min(Math.max(8,(ev&&ev.clientY?ev.clientY:r.top)-ph/2),innerHeight-ph-8)+"px"}
+/* 머리 칸을 누르면 정렬 (2026-11-16): table.sortt · 상태는 ui.ts[data-sid]에 두어 1분 다시 그리기 뒤에도 유지 · tbody.pg 묶음 표는 묶음째 정렬 */
+function cellVal(td){if(!td)return null;const t=td.textContent.replace(/[,%원배억조p▸└]/g,"").trim();const m=t.match(/^[+\-−]?\d+(\.\d+)?/);return m?parseFloat(m[0].replace("−","-")):(t&&t!="-"?t:null)}
+function sortTable(t,col,dir){
+  const groups=[...t.querySelectorAll(":scope > tbody.pg")],head=t.querySelector("tr");
+  const units=groups.length?groups.map(g=>({el:g,row:g.querySelector("tr")})):[...t.querySelectorAll("tr")].filter(r=>r!==head&&r.querySelector("td")).map(r=>({el:r,row:r}));
+  units.forEach(u=>u.v=cellVal(u.row.children[col]));
+  units.sort((a,b)=>{const x=a.v,y=b.v;if(x==null&&y==null)return 0;if(x==null)return 1;if(y==null)return -1;const r=typeof x=="number"&&typeof y=="number"?x-y:String(x).localeCompare(String(y),"ko");return dir=="asc"?r:-r});
+  const host=groups.length?t:(head.parentNode);units.forEach(u=>host.appendChild(u.el));
+  const lim=+t.dataset.lim||0;if(groups.length&&lim)units.forEach((u,i)=>u.el.classList.toggle("hid",i>=lim));
+  [...head.children].forEach((th,i)=>{th.dataset.so=i==col?dir:""})}
+function applySorts(){const T=ui.ts||{};document.querySelectorAll("#main table.sortt").forEach(t=>{const s=T[t.dataset.sid];if(s)sortTable(t,s.c,s.d)})}
+document.addEventListener("click",e=>{
+  const th=e.target.closest("table.sortt th");if(th){const t=th.closest("table"),col=[...th.parentNode.children].indexOf(th),sid=t.dataset.sid;ui.ts=ui.ts||{};const cur=ui.ts[sid];
+    const d=cur&&cur.c==col&&cur.d=="desc"?"asc":"desc";ui.ts[sid]={c:col,d};save();sortTable(t,col,d);return}
+  const pm=e.target.closest("tr.pgm");if(pm&&!e.target.closest("[data-pop]")){pm.parentNode.classList.toggle("open");return}
+});
 function researchScore(R){
   const I=R.ideas||[], P=R.picks||[], B=R.brokers||[];
   return `<div class="sub" style="margin-top:-6px">기준가 = 아이디어·리포트가 나온 날 <b>전 거래일 종가</b>. 지금·1주·1개월·3개월 뒤 수익률을 코스피(시장)와 비교합니다. 표본이 적을 때는 우연이 크니 숫자를 단정하지 마세요 · 출처: 네이버 일봉(비공식), 계산 Claude</div>
   <h2>💡 투자 아이디어 성적</h2>
-  ${I.length?`<div class="tw"><table><tr><th class="l">아이디어</th><th>등록일</th><th>확신</th><th>평균</th><th>시장</th><th>초과</th><th class="l">종목별 (지금 · 1주 · 1개월)</th></tr>
+  ${I.length?`<div class="tw"><table class="sortt" data-sid="ideas"><tr><th class="l">아이디어</th><th>등록일</th><th>확신</th><th>평균</th><th>시장</th><th>초과</th><th class="l">종목별 (지금 · 1주 · 1개월)</th></tr>
   ${I.map(i=>`<tr><td class="l" style="white-space:normal;min-width:180px"><b>${esc(i.title)}</b>${i.active?"":` <span class="pill">종합에서 빠짐</span>`}</td><td class="num">${esc(i.first_seen.slice(5))}</td><td>${esc(i.confidence||"-")}${i.confidence_now&&i.confidence_now!=i.confidence?` → ${esc(i.confidence_now)}`:""}</td>
    <td>${retC(i.avg_ret)}</td><td>${retC(i.bench_ret)}</td><td><b>${retC(i.excess)}</b></td>
-   <td class="l" style="white-space:normal">${i.stocks.map(x=>`<span style="display:inline-block;margin:0 10px 2px 0">${esc(x.name)} ${retC(x.ret)}${x.w1!=null?` <small class="muted">1주 ${pc(x.w1)}</small>`:""}${x.m1!=null?` <small class="muted">1개월 ${pc(x.m1)}</small>`:""}</span>`).join("")}</td></tr>`).join("")}</table></div>`:`<div class="empty">아직 기록된 아이디어가 없습니다</div>`}
+   <td class="l" style="white-space:normal">${i.stocks.map(x=>`<span style="display:inline-block;margin:0 10px 2px 0"><b data-pop="${esc(x.name)}">${esc(x.name)}</b> ${retC(x.ret)}${x.w1!=null?` <small class="muted">1주 ${pc(x.w1)}</small>`:""}${x.m1!=null?` <small class="muted">1개월 ${pc(x.m1)}</small>`:""}</span>`).join("")}</td></tr>`).join("")}</table></div>`:`<div class="empty">아직 기록된 아이디어가 없습니다</div>`}
   ${(()=>{const seen=new Set(),E=[];for(const d of (R.docs||[]))for(const st of d.stocks||[]){const e=st.code&&(D.earnings||{})[st.code];if(e&&!seen.has(st.code)){seen.add(st.code);E.push({...e,doc:d})}}
-   return E.length?`<h2 style="margin-top:16px">📊 리포트 종목의 실제 실적 (채널 잠정실적 공시)</h2><div class="tw"><table><tr><th class="l">종목</th><th>분기</th><th>영업이익</th><th>예상</th><th>차이</th><th>판정</th><th class="l">리포트</th></tr>${E.map(e=>`<tr><td class="l"><b>${esc(e.name)}</b></td><td class="num">${esc(e.period)}</td><td class="num">${eo(e.op)}</td><td class="num">${eo(e.op_est)}</td><td>${retC(e.op_surprise)}</td><td>${e.verdict?(e.verdict=="서프라이즈"?"🔴 ":e.verdict=="쇼크"?"🔵 ":"⚪ ")+e.verdict:"-"}</td><td class="l"><small>${esc((e.doc.broker||"")+" "+(e.doc.date||"").slice(5))} · ${esc(e.doc.one_line||"").slice(0,40)}…</small></td></tr>`).join("")}</table></div><div class="src">예상 = 채널 글에 적힌 컨센서스 · 리포트 자체 추정치와 다를 수 있음 · 출처: 채널 실적 공시 요약(2차 자료)</div>`:""})()}
+   return E.length?`<h2 style="margin-top:16px">📊 리포트 종목의 실제 실적 (채널 잠정실적 공시)</h2><div class="tw"><table class="sortt" data-sid="rearn"><tr><th class="l">종목</th><th>분기</th><th>영업이익</th><th>예상</th><th>차이</th><th>판정</th><th class="l">리포트</th></tr>${E.map(e=>`<tr><td class="l"><b data-pop="${esc(e.name)}">${esc(e.name)}</b></td><td class="num">${esc(e.period)}</td><td class="num">${eo(e.op)}</td><td class="num">${eo(e.op_est)}</td><td>${retC(e.op_surprise)}</td><td>${e.verdict?(e.verdict=="서프라이즈"?"🔴 ":e.verdict=="쇼크"?"🔵 ":"⚪ ")+e.verdict:"-"}</td><td class="l"><small>${esc((e.doc.broker||"")+" "+(e.doc.date||"").slice(5))} · ${esc(e.doc.one_line||"").slice(0,40)}…</small></td></tr>`).join("")}</table></div><div class="src">예상 = 채널 글에 적힌 컨센서스 · 리포트 자체 추정치와 다를 수 있음 · 출처: 채널 실적 공시 요약(2차 자료)</div>`:""})()}
   <div class="grid g2" style="margin-top:16px">
-   <div class="panel"><h3>🏦 증권사별 (리포트 Top pick·수혜 종목)</h3>${B.length?`<table><tr><th class="l">증권사</th><th>종목 수</th><th>평균</th><th>오른 종목</th><th>시장 대비</th></tr>${B.map(b=>`<tr><td class="l">${esc(b.broker)}</td><td class="num">${b.n}</td><td>${retC(b.avg)}</td><td class="num">${b.win}/${b.n}</td><td><b>${retC(b.excess)}</b></td></tr>`).join("")}</table>`:`<div class="empty">-</div>`}
-    <div class="src">리포트 날 전 거래일 종가 → 지금. 리포트 몇 개로는 실력이 아니라 운일 수 있습니다</div></div>
-   <div class="panel"><h3>📄 리포트 종목별</h3><div class="tw"><table><tr><th class="l">종목</th><th class="l">리포트</th><th>지금</th><th>1주</th><th>1개월</th></tr>${P.sort((a,b)=>b.ret-a.ret).map(x=>`<tr><td class="l"><b>${esc(x.name)}</b> <small class="muted">${esc(x.role)}</small></td><td class="l"><small>${esc((x.broker||"")+" "+x.date.slice(5))}</small></td><td>${retC(x.ret)}</td><td>${retC(x.w1)}</td><td>${retC(x.m1)}</td></tr>`).join("")}</table></div></div>
+   <div class="panel"><h3>🏦 증권사별 (리포트 Top pick·수혜 종목)</h3>${B.length?`<table class="sortt" data-sid="brk"><tr><th class="l">증권사</th><th>종목 수</th><th>평균</th><th>오른 종목</th><th>시장 대비</th></tr>${B.map(b=>`<tr><td class="l"><span class="brk" data-brk="${esc(b.broker||"")}">${esc(b.broker)}</span></td><td class="num">${b.n}</td><td>${retC(b.avg)}</td><td class="num">${b.win}/${b.n}</td><td><b>${retC(b.excess)}</b></td></tr>`).join("")}</table>`:`<div class="empty">-</div>`}
+    <div class="src">리포트 날 전 거래일 종가 → 지금. 리포트 몇 개로는 실력이 아니라 운일 수 있습니다 · 증권사에 마우스를 올리면(휴대폰은 누르면) 그 증권사 종목</div></div>
+   <div class="panel"><h3>📄 리포트 종목별 <small class="muted">${new Set(P.map(x=>x.code||x.name)).size}종목 · 리포트 ${P.length}건</small></h3>${pickGroups(P)}</div>
   </div>`;
 }
 function revFlow(){
@@ -2618,6 +2656,7 @@ document.addEventListener("mouseover",e=>{if(!HOVER)return;
   if(e.target.closest("#pop")){clearTimeout(popT);const st=subTarget(e.target);clearTimeout(pop2T);
     if(st)pop2T=setTimeout(()=>{if(pop2For!=st.c.code)showPop(st,1)},220);else if(pop2For)pop2T=setTimeout(hidePop2,300);return}
   const ea=e.target.closest("[data-etf]");if(ea){clearTimeout(popT);popT=setTimeout(()=>{if(popFor!="etf"+ea.dataset.etf)etfPop(ea,e)},250);return}
+  const bk=e.target.closest("[data-brk]");if(bk){clearTimeout(popT);popT=setTimeout(()=>{if(popFor!="brk"+bk.dataset.brk)brkPop(bk,bk.dataset.brk,e)},250);return}
   const t=popTarget(e.target);clearTimeout(popT);
   if(!t){const sg=secTarget(e.target);if(sg){popT=setTimeout(()=>{if(popFor!="sec"+sg.g)secPop(sg.el,sg.g,e)},280);return}}
   if(t)popT=setTimeout(()=>{if(popFor!=t.c.code)showPop(t)},280);else if(popFor)popT=setTimeout(hidePop,220)});
@@ -2625,6 +2664,7 @@ document.addEventListener("click",e=>{
   if(e.target.closest("#pop2")){if(e.target.closest(".ppl"))hidePop();else if(!HOVER)hidePop2();return}
   if(e.target.closest("#pop")){const st=subTarget(e.target);if(st){e.preventDefault();if(pop2For==st.c.code)hidePop2();else showPop(st,1);return}if(e.target.closest(".ppl")||!HOVER)hidePop();return}   // 휴대폰: 카드를 한 번 더 누르면 닫힘 (2026-11-13)
   if(!HOVER){const ea=e.target.closest("[data-etf]");if(ea){e.preventDefault();e.stopPropagation();if(popFor=="etf"+ea.dataset.etf)hidePop();else etfPop(ea,e);return}
+    const bk=e.target.closest("[data-brk]");if(bk){e.preventDefault();e.stopPropagation();if(popFor=="brk"+bk.dataset.brk)hidePop();else brkPop(bk,bk.dataset.brk,e);return}
     const t=popTarget(e.target);if(t&&popFor!=t.c.code){e.preventDefault();e.stopPropagation();showPop(t);return}
     if(!t){const sg=secTarget(e.target);if(sg){e.preventDefault();e.stopPropagation();if(popFor=="sec"+sg.g)hidePop();else secPop(sg.el,sg.g,e);return}}}
   hidePop();
@@ -2682,7 +2722,7 @@ function render(){
       bar.innerHTML=hs.map((h,i)=>{if(h.dataset.tl)return `<button class="chip" data-toc="rptsec${i}">${esc(h.dataset.tl)}</button>`;const x=h.cloneNode(true);x.querySelectorAll("small").forEach(s=>s.remove());return `<button class="chip" data-toc="rptsec${i}">${esc((t=>{const c=t.replace(/\s+[·(].*$/,"");return (c.replace(/^\S+\s*/,"").length<5?t.replace(/\s+·\s+/,"·").replace(/\s+[·(].*$/,""):c).slice(0,20)})(x.textContent.trim().replace(/\s+/g," ")))}</button>`}).join("");   // 2026-11-14: 설명(작은 글씨)·날짜 빼고 짧게
       const first=TFR||document.querySelector(".view section.rpt");first&&first.parentNode.insertBefore(bar,first)}}
   if(r=="trade")calc();
-  slistCards();
+  slistCards();applySorts();
 }
 function slistCards(){
   document.querySelectorAll(".view table.slist").forEach(t=>{   // 휴대폰 카드 표 (2026-11-14 2차): 머리글 이름을 칸마다 붙여 600px 아래에서 카드로

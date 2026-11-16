@@ -658,7 +658,8 @@ def research(comp_list, allp):
     for it in ideas_book["ideas"].values():
         st = [{**x, **perf(x.get("code"), x.get("base"), it["first_seen"])} for x in it["stocks"]]
         rets = [x["ret"] for x in st if x.get("ret") is not None]
-        b = round((bench_now / it["bench_base"] - 1) * 100, 1) if bench_now and it.get("bench_base") else None
+        bb0 = before(bench, it["first_seen"])   # 2026-11-16: 저장된 bench_base는 옛 기준(KODEX 200 가격)이라 −94% 오류 → 등록일 전 거래일 코스피 종가로 다시 계산
+        b = round((bench_now / bb0 - 1) * 100, 1) if bench_now and bb0 else None
         avg = round(sum(rets) / len(rets), 1) if rets else None
         ideas.append({**it, "stocks": st, "avg_ret": avg, "bench_ret": b, "excess": round(avg - b, 1) if avg is not None and b is not None else None})
     ideas.sort(key=lambda x: x["first_seen"], reverse=True)
