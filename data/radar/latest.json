@@ -1,49 +1,85 @@
 {
- "made_at": "2026-11-13 16:15",
- "as_of": "20261113",
+ "made_at": "2026-11-16 16:14",
+ "as_of": "20261116",
  "groups": [
   {
    "group": "운송/물류",
-   "score": 89,
+   "score": 91,
    "n": 21,
-   "rel1m_pct": 7.2,
-   "rel1w_pct": 1.7,
-   "breadth_pct": 62,
+   "rel1m_pct": 8.1,
+   "rel1w_pct": 1.6,
+   "breadth_pct": 67,
    "newhigh_pct": 38,
-   "money_x": 2.26,
+   "money_x": 2.12,
    "leaders": [
     {
      "name": "한진칼",
      "code": "180640",
-     "r1m_pct": 61.6
+     "r1m_pct": 83.5
+    },
+    {
+     "name": "제주항공",
+     "code": "089590",
+     "r1m_pct": 29.9
     },
     {
      "name": "진에어",
      "code": "272450",
-     "r1m_pct": 27.3
-    },
-    {
-     "name": "한국공항",
-     "code": "005430",
-     "r1m_pct": 23.6
+     "r1m_pct": 29.2
     },
     {
      "name": "에어부산",
      "code": "298690",
-     "r1m_pct": 19.9
+     "r1m_pct": 22.8
     }
    ],
    "rank": 1,
-   "mentions_7d": 85,
-   "reports_up_7d": 4,
+   "mentions_7d": 90,
+   "reports_up_7d": 7,
    "reports_down_7d": 2
+  },
+  {
+   "group": "건설기계",
+   "score": 88,
+   "n": 6,
+   "rel1m_pct": 9.8,
+   "rel1w_pct": 1.2,
+   "breadth_pct": 67,
+   "newhigh_pct": 17,
+   "money_x": 1.24,
+   "leaders": [
+    {
+     "name": "TYM",
+     "code": "002900",
+     "r1m_pct": 20.6
+    },
+    {
+     "name": "전진건설로봇",
+     "code": "079900",
+     "r1m_pct": 18.4
+    },
+    {
+     "name": "두산밥캣",
+     "code": "241560",
+     "r1m_pct": 1.6
+    },
+    {
+     "name": "HD건설기계",
+     "code": "267270",
+     "r1m_pct": -1.7
+    }
+   ],
+   "rank": 2,
+   "mentions_7d": 6,
+   "reports_up_7d": 0,
+   "reports_down_7d": 0
   },
   {
    "group": "K-엔터",
    "score": 88,
    "n": 4,
-   "rel1m_pct": 10.5,
-   "rel1w_pct": 1.7,
+   "rel1m_pct": 5.9,
+   "rel1w_pct": 5.7,
    "breadth_pct": 50,
    "newhigh_pct": 25,
    "money_x": 1.48,
@@ -51,1676 +87,1564 @@
     {
      "name": "JYP Ent.",
      "code": "035900",
-     "r1m_pct": 18.9
+     "r1m_pct": 12.3
     },
     {
      "name": "와이지엔터테인먼트",
      "code": "122870",
-     "r1m_pct": 13.1
-    },
-    {
-     "name": "에스엠",
-     "code": "041510",
-     "r1m_pct": 0.4
+     "r1m_pct": 3.1
     },
     {
      "name": "하이브",
      "code": "352820",
-     "r1m_pct": -5.0
-    }
-   ],
-   "rank": 2,
-   "mentions_7d": 73,
-   "reports_up_7d": 2,
-   "reports_down_7d": 4
-  },
-  {
-   "group": "건설기계",
-   "score": 87,
-   "n": 6,
-   "rel1m_pct": 6.6,
-   "rel1w_pct": 0.6,
-   "breadth_pct": 100,
-   "newhigh_pct": 17,
-   "money_x": 1.27,
-   "leaders": [
-    {
-     "name": "전진건설로봇",
-     "code": "079900",
-     "r1m_pct": 28.9
+     "r1m_pct": -11.1
     },
     {
-     "name": "TYM",
-     "code": "002900",
-     "r1m_pct": 23.9
-    },
-    {
-     "name": "두산밥캣",
-     "code": "241560",
-     "r1m_pct": 3.1
-    },
-    {
-     "name": "진성티이씨",
-     "code": "036890",
-     "r1m_pct": 2.6
+     "name": "에스엠",
+     "code": "041510",
+     "r1m_pct": -11.6
     }
    ],
    "rank": 3,
-   "mentions_7d": 5,
-   "reports_up_7d": 0,
-   "reports_down_7d": 0
+   "mentions_7d": 67,
+   "reports_up_7d": 2,
+   "reports_down_7d": 7
   },
   {
    "group": "IT/소프트웨어",
-   "score": 82,
+   "score": 83,
    "n": 20,
-   "rel1m_pct": 8.0,
-   "rel1w_pct": 0.0,
+   "rel1m_pct": 10.4,
+   "rel1w_pct": 0.1,
    "breadth_pct": 55,
    "newhigh_pct": 5,
-   "money_x": 1.75,
+   "money_x": 1.78,
    "leaders": [
     {
      "name": "지니언스",
      "code": "263860",
-     "r1m_pct": 64.9
-    },
-    {
-     "name": "케이아이엔엑스",
-     "code": "093320",
-     "r1m_pct": 38.7
-    },
-    {
-     "name": "안랩",
-     "code": "053800",
-     "r1m_pct": 34.7
+     "r1m_pct": 55.9
     },
     {
      "name": "NHN",
      "code": "181710",
-     "r1m_pct": 33.6
+     "r1m_pct": 31.3
+    },
+    {
+     "name": "케이아이엔엑스",
+     "code": "093320",
+     "r1m_pct": 29.8
+    },
+    {
+     "name": "가비아",
+     "code": "079940",
+     "r1m_pct": 24.6
     }
    ],
    "rank": 4,
-   "mentions_7d": 88,
+   "mentions_7d": 90,
    "reports_up_7d": 10,
-   "reports_down_7d": 10
+   "reports_down_7d": 12
   },
   {
-   "group": "반도체 기판·전자부품",
-   "score": 80,
-   "n": 11,
-   "rel1m_pct": 1.8,
-   "rel1w_pct": 25.5,
-   "breadth_pct": 64,
-   "newhigh_pct": 9,
-   "money_x": 0.85,
+   "group": "미디어/엔터",
+   "score": 72,
+   "n": 7,
+   "rel1m_pct": 8.0,
+   "rel1w_pct": -4.7,
+   "breadth_pct": 43,
+   "newhigh_pct": 14,
+   "money_x": 1.43,
    "leaders": [
     {
-     "name": "심텍홀딩스",
-     "code": "036710",
-     "r1m_pct": 56.8
+     "name": "SBS",
+     "code": "034120",
+     "r1m_pct": 4.1
     },
     {
-     "name": "코리아써키트",
-     "code": "007810",
-     "r1m_pct": 46.2
+     "name": "CJ CGV",
+     "code": "079160",
+     "r1m_pct": 1.6
     },
     {
-     "name": "티엘비",
-     "code": "356860",
-     "r1m_pct": 16.4
+     "name": "YG PLUS",
+     "code": "037270",
+     "r1m_pct": 0.8
     },
     {
-     "name": "심텍",
-     "code": "222800",
-     "r1m_pct": 4.2
+     "name": "제일기획",
+     "code": "030000",
+     "r1m_pct": -1.9
     }
    ],
    "rank": 5,
-   "mentions_7d": 57,
+   "mentions_7d": 25,
+   "reports_up_7d": 0,
+   "reports_down_7d": 2
+  },
+  {
+   "group": "유틸리티",
+   "score": 72,
+   "n": 8,
+   "rel1m_pct": 2.6,
+   "rel1w_pct": -0.9,
+   "breadth_pct": 50,
+   "newhigh_pct": 12,
+   "money_x": 0.9,
+   "leaders": [
+    {
+     "name": "한국가스공사",
+     "code": "036460",
+     "r1m_pct": 5.0
+    },
+    {
+     "name": "서울가스",
+     "code": "017390",
+     "r1m_pct": 4.5
+    },
+    {
+     "name": "삼천리",
+     "code": "004690",
+     "r1m_pct": 0.0
+    },
+    {
+     "name": "E1",
+     "code": "017940",
+     "r1m_pct": -7.1
+    }
+   ],
+   "rank": 6,
+   "mentions_7d": 18,
    "reports_up_7d": 2,
    "reports_down_7d": 3
   },
   {
    "group": "반도체 테스트·후공정",
-   "score": 80,
+   "score": 71,
    "n": 19,
-   "rel1m_pct": 2.0,
-   "rel1w_pct": 23.9,
-   "breadth_pct": 63,
-   "newhigh_pct": 5,
-   "money_x": 0.92,
+   "rel1m_pct": -3.3,
+   "rel1w_pct": 10.9,
+   "breadth_pct": 32,
+   "newhigh_pct": 11,
+   "money_x": 0.98,
    "leaders": [
     {
      "name": "티에프이",
      "code": "425420",
-     "r1m_pct": 73.9
+     "r1m_pct": 34.9
     },
     {
      "name": "타이거일렉",
      "code": "219130",
-     "r1m_pct": 66.4
+     "r1m_pct": 21.8
     },
     {
      "name": "엑시콘",
      "code": "092870",
-     "r1m_pct": 39.4
+     "r1m_pct": 4.6
     },
     {
      "name": "네오셈",
      "code": "253590",
-     "r1m_pct": 31.1
-    }
-   ],
-   "rank": 6,
-   "mentions_7d": 38,
-   "reports_up_7d": 1,
-   "reports_down_7d": 2
-  },
-  {
-   "group": "반도체 설계·유통",
-   "score": 74,
-   "n": 15,
-   "rel1m_pct": 4.0,
-   "rel1w_pct": 14.2,
-   "breadth_pct": 53,
-   "newhigh_pct": 7,
-   "money_x": 0.72,
-   "leaders": [
-    {
-     "name": "유니퀘스트",
-     "code": "077500",
-     "r1m_pct": 45.7
-    },
-    {
-     "name": "칩스앤미디어",
-     "code": "094360",
-     "r1m_pct": 15.1
-    },
-    {
-     "name": "가온칩스",
-     "code": "399720",
-     "r1m_pct": 10.9
-    },
-    {
-     "name": "서울반도체",
-     "code": "046890",
-     "r1m_pct": 8.4
+     "r1m_pct": -5.7
     }
    ],
    "rank": 7,
-   "mentions_7d": 14,
-   "reports_up_7d": 0,
-   "reports_down_7d": 2
+   "mentions_7d": 52,
+   "reports_up_7d": 1,
+   "reports_down_7d": 4
   },
   {
-   "group": "전자부품/장비",
-   "score": 70,
-   "n": 11,
-   "rel1m_pct": 3.0,
-   "rel1w_pct": 7.4,
-   "breadth_pct": 45,
-   "newhigh_pct": 9,
-   "money_x": 0.72,
+   "group": "생활용품",
+   "score": 68,
+   "n": 5,
+   "rel1m_pct": 7.6,
+   "rel1w_pct": 1.2,
+   "breadth_pct": 100,
+   "newhigh_pct": 0,
+   "money_x": 0.89,
    "leaders": [
     {
-     "name": "에스텍",
-     "code": "069510",
-     "r1m_pct": 74.6
+     "name": "쿠쿠홀딩스",
+     "code": "192400",
+     "r1m_pct": 3.9
     },
     {
-     "name": "에스에이엠티",
-     "code": "031330",
-     "r1m_pct": 12.8
+     "name": "경동나비엔",
+     "code": "009450",
+     "r1m_pct": -2.1
     },
     {
-     "name": "파이버프로",
-     "code": "368770",
-     "r1m_pct": 5.0
+     "name": "쿠쿠홈시스",
+     "code": "284740",
+     "r1m_pct": -2.3
     },
     {
-     "name": "슈프리마",
-     "code": "236200",
-     "r1m_pct": 2.6
+     "name": "신성델타테크",
+     "code": "065350",
+     "r1m_pct": -2.8
     }
    ],
    "rank": 8,
-   "mentions_7d": 10,
+   "mentions_7d": 0,
    "reports_up_7d": 0,
    "reports_down_7d": 0
   },
   {
-   "group": "미디어/엔터",
-   "score": 67,
-   "n": 7,
-   "rel1m_pct": 8.0,
-   "rel1w_pct": -4.9,
-   "breadth_pct": 29,
-   "newhigh_pct": 14,
-   "money_x": 1.49,
+   "group": "포장재",
+   "score": 66,
+   "n": 6,
+   "rel1m_pct": 7.7,
+   "rel1w_pct": 0.0,
+   "breadth_pct": 50,
+   "newhigh_pct": 0,
+   "money_x": 1.24,
    "leaders": [
     {
-     "name": "YG PLUS",
-     "code": "037270",
-     "r1m_pct": 12.6
+     "name": "신대양제지",
+     "code": "016590",
+     "r1m_pct": 8.6
     },
     {
-     "name": "SBS",
-     "code": "034120",
-     "r1m_pct": 8.8
+     "name": "펌텍코리아",
+     "code": "251970",
+     "r1m_pct": 5.2
     },
     {
-     "name": "스튜디오드래곤",
-     "code": "253450",
-     "r1m_pct": 6.2
+     "name": "에스엠국일",
+     "code": "078130",
+     "r1m_pct": 0.7
     },
     {
-     "name": "CJ CGV",
-     "code": "079160",
-     "r1m_pct": 4.2
+     "name": "아세아제지",
+     "code": "002310",
+     "r1m_pct": -5.2
     }
    ],
    "rank": 9
   },
   {
-   "group": "통신장비",
+   "group": "핸드셋/IT부품",
    "score": 66,
-   "n": 7,
-   "rel1m_pct": 9.2,
-   "rel1w_pct": 7.4,
-   "breadth_pct": 43,
-   "newhigh_pct": 0,
-   "money_x": 0.76,
+   "n": 12,
+   "rel1m_pct": -0.4,
+   "rel1w_pct": 6.2,
+   "breadth_pct": 25,
+   "newhigh_pct": 8,
+   "money_x": 0.93,
    "leaders": [
     {
-     "name": "LIG아큐버",
-     "code": "073490",
-     "r1m_pct": 17.1
+     "name": "나무가",
+     "code": "190510",
+     "r1m_pct": 34.6
     },
     {
-     "name": "한화비전",
-     "code": "489790",
-     "r1m_pct": 12.5
+     "name": "디케이티",
+     "code": "290550",
+     "r1m_pct": 30.6
     },
     {
-     "name": "쏠리드",
-     "code": "050890",
-     "r1m_pct": 8.7
+     "name": "KH바텍",
+     "code": "060720",
+     "r1m_pct": -5.5
     },
     {
-     "name": "삼지전자",
-     "code": "037460",
-     "r1m_pct": 5.4
+     "name": "엠씨넥스",
+     "code": "097520",
+     "r1m_pct": -5.9
     }
    ],
    "rank": 10
   },
   {
-   "group": "헬스케어",
+   "group": "전자부품/장비",
    "score": 65,
-   "n": 33,
-   "rel1m_pct": 3.1,
-   "rel1w_pct": -2.4,
-   "breadth_pct": 42,
-   "newhigh_pct": 6,
-   "money_x": 0.97,
+   "n": 11,
+   "rel1m_pct": -1.0,
+   "rel1w_pct": 3.4,
+   "breadth_pct": 36,
+   "newhigh_pct": 9,
+   "money_x": 0.78,
    "leaders": [
     {
-     "name": "루닛",
-     "code": "328130",
-     "r1m_pct": 40.8
+     "name": "에스텍",
+     "code": "069510",
+     "r1m_pct": 68.2
     },
     {
-     "name": "쓰리빌리언",
-     "code": "394800",
-     "r1m_pct": 31.4
+     "name": "신도리코",
+     "code": "029530",
+     "r1m_pct": -3.4
     },
     {
-     "name": "에스디바이오센서",
-     "code": "137310",
-     "r1m_pct": 10.0
+     "name": "슈프리마",
+     "code": "236200",
+     "r1m_pct": -4.4
     },
     {
-     "name": "인피니트헬스케어",
-     "code": "071200",
-     "r1m_pct": 9.8
+     "name": "에스에이엠티",
+     "code": "031330",
+     "r1m_pct": -6.2
     }
    ],
    "rank": 11
   },
   {
-   "group": "포장재",
+   "group": "건설",
    "score": 64,
-   "n": 6,
-   "rel1m_pct": 2.1,
-   "rel1w_pct": -0.7,
-   "breadth_pct": 67,
-   "newhigh_pct": 0,
-   "money_x": 1.19,
+   "n": 28,
+   "rel1m_pct": 5.3,
+   "rel1w_pct": 0.9,
+   "breadth_pct": 43,
+   "newhigh_pct": 7,
+   "money_x": 0.72,
    "leaders": [
     {
-     "name": "펌텍코리아",
-     "code": "251970",
-     "r1m_pct": 12.2
+     "name": "삼성E&A",
+     "code": "028050",
+     "r1m_pct": 57.1
     },
     {
-     "name": "신대양제지",
-     "code": "016590",
-     "r1m_pct": 11.1
+     "name": "계룡건설",
+     "code": "013580",
+     "r1m_pct": 18.1
     },
     {
-     "name": "아세아제지",
-     "code": "002310",
-     "r1m_pct": -1.0
+     "name": "IPARK현대산업개발",
+     "code": "294870",
+     "r1m_pct": 14.4
     },
     {
-     "name": "에스엠국일",
-     "code": "078130",
-     "r1m_pct": -2.3
+     "name": "GS건설",
+     "code": "006360",
+     "r1m_pct": 10.0
     }
    ],
    "rank": 12
   },
   {
-   "group": "바이오",
-   "score": 63,
-   "n": 79,
-   "rel1m_pct": 4.5,
-   "rel1w_pct": -1.5,
-   "breadth_pct": 39,
-   "newhigh_pct": 3,
-   "money_x": 0.98,
-   "leaders": [
-    {
-     "name": "프로티나",
-     "code": "468530",
-     "r1m_pct": 70.0
-    },
-    {
-     "name": "SK바이오팜",
-     "code": "326030",
-     "r1m_pct": 27.8
-    },
-    {
-     "name": "한올바이오파마",
-     "code": "009420",
-     "r1m_pct": 25.7
-    },
-    {
-     "name": "한미약품",
-     "code": "128940",
-     "r1m_pct": 22.4
-    }
-   ],
-   "rank": 13
-  },
-  {
-   "group": "핸드셋/IT부품",
-   "score": 62,
-   "n": 12,
-   "rel1m_pct": 0.2,
-   "rel1w_pct": 5.2,
-   "breadth_pct": 33,
-   "newhigh_pct": 8,
-   "money_x": 0.78,
-   "leaders": [
-    {
-     "name": "디케이티",
-     "code": "290550",
-     "r1m_pct": 37.4
-    },
-    {
-     "name": "PS일렉트로닉스",
-     "code": "332570",
-     "r1m_pct": 13.2
-    },
-    {
-     "name": "제이앤티씨",
-     "code": "204270",
-     "r1m_pct": 10.4
-    },
-    {
-     "name": "나무가",
-     "code": "190510",
-     "r1m_pct": 8.1
-    }
-   ],
-   "rank": 14
-  },
-  {
-   "group": "반도체 장비",
-   "score": 60,
-   "n": 30,
-   "rel1m_pct": -1.9,
-   "rel1w_pct": 19.2,
-   "breadth_pct": 50,
-   "newhigh_pct": 0,
-   "money_x": 0.91,
-   "leaders": [
-    {
-     "name": "원익홀딩스",
-     "code": "030530",
-     "r1m_pct": 49.4
-    },
-    {
-     "name": "뉴파워프라즈마",
-     "code": "144960",
-     "r1m_pct": 35.6
-    },
-    {
-     "name": "코세스",
-     "code": "089890",
-     "r1m_pct": 33.9
-    },
-    {
-     "name": "프로텍",
-     "code": "053610",
-     "r1m_pct": 12.5
-    }
-   ],
-   "rank": 15
-  },
-  {
-   "group": "생활용품",
-   "score": 60,
-   "n": 5,
-   "rel1m_pct": 2.9,
-   "rel1w_pct": -2.9,
-   "breadth_pct": 80,
-   "newhigh_pct": 0,
-   "money_x": 1.03,
-   "leaders": [
-    {
-     "name": "신성델타테크",
-     "code": "065350",
-     "r1m_pct": 8.5
-    },
-    {
-     "name": "쿠쿠홀딩스",
-     "code": "192400",
-     "r1m_pct": 3.4
-    },
-    {
-     "name": "쿠쿠홈시스",
-     "code": "284740",
-     "r1m_pct": -0.9
-    },
-    {
-     "name": "경동나비엔",
-     "code": "009450",
-     "r1m_pct": -2.6
-    }
-   ],
-   "rank": 16
-  },
-  {
-   "group": "반도체 소재·부품",
-   "score": 60,
-   "n": 23,
-   "rel1m_pct": -3.0,
-   "rel1w_pct": 15.7,
-   "breadth_pct": 43,
-   "newhigh_pct": 0,
-   "money_x": 0.84,
-   "leaders": [
-    {
-     "name": "샘씨엔에스",
-     "code": "252990",
-     "r1m_pct": 16.3
-    },
-    {
-     "name": "미코",
-     "code": "059090",
-     "r1m_pct": 12.3
-    },
-    {
-     "name": "원익QnC",
-     "code": "074600",
-     "r1m_pct": 10.7
-    },
-    {
-     "name": "이엔에프테크놀로지",
-     "code": "102710",
-     "r1m_pct": 5.5
-    }
-   ],
-   "rank": 17
-  },
-  {
-   "group": "유틸리티",
-   "score": 59,
-   "n": 8,
-   "rel1m_pct": -1.8,
-   "rel1w_pct": -0.7,
-   "breadth_pct": 38,
-   "newhigh_pct": 12,
-   "money_x": 0.89,
-   "leaders": [
-    {
-     "name": "서울가스",
-     "code": "017390",
-     "r1m_pct": 6.8
-    },
-    {
-     "name": "한국가스공사",
-     "code": "036460",
-     "r1m_pct": 3.5
-    },
-    {
-     "name": "삼천리",
-     "code": "004690",
-     "r1m_pct": 1.2
-    },
-    {
-     "name": "INVENI",
-     "code": "015360",
-     "r1m_pct": -5.5
-    }
-   ],
-   "rank": 18
-  },
-  {
-   "group": "기타자본재",
-   "score": 57,
-   "n": 12,
-   "rel1m_pct": 6.3,
-   "rel1w_pct": 3.0,
-   "breadth_pct": 50,
-   "newhigh_pct": 0,
-   "money_x": 0.41,
-   "leaders": [
-    {
-     "name": "나이스정보통신",
-     "code": "036800",
-     "r1m_pct": 8.2
-    },
-    {
-     "name": "NICE평가정보",
-     "code": "030190",
-     "r1m_pct": 6.8
-    },
-    {
-     "name": "리파인",
-     "code": "377450",
-     "r1m_pct": 3.1
-    },
-    {
-     "name": "에코아이",
-     "code": "448280",
-     "r1m_pct": 2.8
-    }
-   ],
-   "rank": 19
-  },
-  {
    "group": "은행",
-   "score": 56,
+   "score": 63,
    "n": 10,
-   "rel1m_pct": 4.0,
-   "rel1w_pct": -0.3,
+   "rel1m_pct": 11.0,
+   "rel1w_pct": 1.6,
    "breadth_pct": 90,
    "newhigh_pct": 0,
    "money_x": 0.77,
    "leaders": [
     {
+     "name": "우리금융지주",
+     "code": "316140",
+     "r1m_pct": 4.4
+    },
+    {
      "name": "케이뱅크",
      "code": "279570",
-     "r1m_pct": 3.7
+     "r1m_pct": 4.4
     },
     {
      "name": "카카오뱅크",
      "code": "323410",
-     "r1m_pct": 3.6
+     "r1m_pct": 3.7
     },
     {
-     "name": "우리금융지주",
-     "code": "316140",
-     "r1m_pct": 3.5
+     "name": "하나금융지주",
+     "code": "086790",
+     "r1m_pct": 2.6
+    }
+   ],
+   "rank": 13
+  },
+  {
+   "group": "반도체 설계·유통",
+   "score": 63,
+   "n": 15,
+   "rel1m_pct": -3.6,
+   "rel1w_pct": 4.7,
+   "breadth_pct": 40,
+   "newhigh_pct": 7,
+   "money_x": 0.81,
+   "leaders": [
+    {
+     "name": "유니퀘스트",
+     "code": "077500",
+     "r1m_pct": 35.0
     },
     {
-     "name": "JB금융지주",
-     "code": "175330",
-     "r1m_pct": 0.7
+     "name": "사피엔반도체",
+     "code": "452430",
+     "r1m_pct": 2.2
+    },
+    {
+     "name": "매커스",
+     "code": "093520",
+     "r1m_pct": -1.8
+    },
+    {
+     "name": "칩스앤미디어",
+     "code": "094360",
+     "r1m_pct": -3.1
+    }
+   ],
+   "rank": 14
+  },
+  {
+   "group": "반도체 기판·전자부품",
+   "score": 63,
+   "n": 11,
+   "rel1m_pct": -7.2,
+   "rel1w_pct": 11.6,
+   "breadth_pct": 27,
+   "newhigh_pct": 9,
+   "money_x": 0.86,
+   "leaders": [
+    {
+     "name": "심텍홀딩스",
+     "code": "036710",
+     "r1m_pct": 42.3
+    },
+    {
+     "name": "코리아써키트",
+     "code": "007810",
+     "r1m_pct": 39.6
+    },
+    {
+     "name": "대덕",
+     "code": "008060",
+     "r1m_pct": -2.8
+    },
+    {
+     "name": "티엘비",
+     "code": "356860",
+     "r1m_pct": -3.1
+    }
+   ],
+   "rank": 15
+  },
+  {
+   "group": "음식료",
+   "score": 62,
+   "n": 30,
+   "rel1m_pct": 7.8,
+   "rel1w_pct": -2.6,
+   "breadth_pct": 50,
+   "newhigh_pct": 0,
+   "money_x": 1.07,
+   "leaders": [
+    {
+     "name": "롯데웰푸드",
+     "code": "280360",
+     "r1m_pct": 11.1
+    },
+    {
+     "name": "메지온",
+     "code": "140410",
+     "r1m_pct": 8.2
+    },
+    {
+     "name": "롯데칠성",
+     "code": "005300",
+     "r1m_pct": 5.7
+    },
+    {
+     "name": "하이트진로",
+     "code": "000080",
+     "r1m_pct": 4.9
+    }
+   ],
+   "rank": 16
+  },
+  {
+   "group": "헬스케어",
+   "score": 60,
+   "n": 33,
+   "rel1m_pct": 2.6,
+   "rel1w_pct": -2.0,
+   "breadth_pct": 30,
+   "newhigh_pct": 6,
+   "money_x": 0.88,
+   "leaders": [
+    {
+     "name": "루닛",
+     "code": "328130",
+     "r1m_pct": 21.4
+    },
+    {
+     "name": "쓰리빌리언",
+     "code": "394800",
+     "r1m_pct": 13.2
+    },
+    {
+     "name": "에스디바이오센서",
+     "code": "137310",
+     "r1m_pct": 10.3
+    },
+    {
+     "name": "제이브이엠",
+     "code": "054950",
+     "r1m_pct": 6.9
+    }
+   ],
+   "rank": 17
+  },
+  {
+   "group": "호텔/레저",
+   "score": 58,
+   "n": 9,
+   "rel1m_pct": 1.7,
+   "rel1w_pct": -3.1,
+   "breadth_pct": 33,
+   "newhigh_pct": 11,
+   "money_x": 0.83,
+   "leaders": [
+    {
+     "name": "하나투어",
+     "code": "039130",
+     "r1m_pct": 4.5
+    },
+    {
+     "name": "파라다이스",
+     "code": "034230",
+     "r1m_pct": 1.8
+    },
+    {
+     "name": "골프존",
+     "code": "215000",
+     "r1m_pct": -1.7
+    },
+    {
+     "name": "강원랜드",
+     "code": "035250",
+     "r1m_pct": -1.9
+    }
+   ],
+   "rank": 18
+  },
+  {
+   "group": "유통",
+   "score": 57,
+   "n": 9,
+   "rel1m_pct": 3.4,
+   "rel1w_pct": -2.7,
+   "breadth_pct": 56,
+   "newhigh_pct": 0,
+   "money_x": 0.81,
+   "leaders": [
+    {
+     "name": "현대백화점",
+     "code": "069960",
+     "r1m_pct": 11.6
+    },
+    {
+     "name": "GS리테일",
+     "code": "007070",
+     "r1m_pct": 8.5
+    },
+    {
+     "name": "BGF리테일",
+     "code": "282330",
+     "r1m_pct": 4.0
+    },
+    {
+     "name": "광주신세계",
+     "code": "037710",
+     "r1m_pct": 3.8
+    }
+   ],
+   "rank": 19
+  },
+  {
+   "group": "바이오",
+   "score": 56,
+   "n": 79,
+   "rel1m_pct": 2.1,
+   "rel1w_pct": -1.9,
+   "breadth_pct": 33,
+   "newhigh_pct": 0,
+   "money_x": 0.83,
+   "leaders": [
+    {
+     "name": "프로티나",
+     "code": "468530",
+     "r1m_pct": 40.9
+    },
+    {
+     "name": "SK바이오팜",
+     "code": "326030",
+     "r1m_pct": 20.4
+    },
+    {
+     "name": "한올바이오파마",
+     "code": "009420",
+     "r1m_pct": 19.6
+    },
+    {
+     "name": "지아이이노베이션",
+     "code": "358570",
+     "r1m_pct": 16.0
     }
    ],
    "rank": 20
   },
   {
-   "group": "건설",
+   "group": "게임",
    "score": 54,
-   "n": 28,
-   "rel1m_pct": 2.6,
-   "rel1w_pct": -0.8,
-   "breadth_pct": 43,
-   "newhigh_pct": 4,
-   "money_x": 0.69,
+   "n": 13,
+   "rel1m_pct": -0.1,
+   "rel1w_pct": -11.2,
+   "breadth_pct": 31,
+   "newhigh_pct": 0,
+   "money_x": 1.17,
    "leaders": [
     {
-     "name": "삼성E&A",
-     "code": "028050",
-     "r1m_pct": 65.0
+     "name": "카카오게임즈",
+     "code": "293490",
+     "r1m_pct": 14.0
     },
     {
-     "name": "계룡건설",
-     "code": "013580",
-     "r1m_pct": 32.9
+     "name": "더블유게임즈",
+     "code": "192080",
+     "r1m_pct": 5.5
     },
     {
-     "name": "IPARK현대산업개발",
-     "code": "294870",
-     "r1m_pct": 16.6
+     "name": "크래프톤",
+     "code": "259960",
+     "r1m_pct": 2.2
     },
     {
-     "name": "금호건설",
-     "code": "002990",
-     "r1m_pct": 14.7
+     "name": "웹젠",
+     "code": "069080",
+     "r1m_pct": -0.3
     }
    ],
    "rank": 21
   },
   {
-   "group": "음식료",
-   "score": 53,
-   "n": 30,
-   "rel1m_pct": 2.7,
-   "rel1w_pct": -5.0,
-   "breadth_pct": 40,
-   "newhigh_pct": 0,
-   "money_x": 1.16,
-   "leaders": [
-    {
-     "name": "메지온",
-     "code": "140410",
-     "r1m_pct": 13.5
-    },
-    {
-     "name": "삼양식품",
-     "code": "003230",
-     "r1m_pct": 6.8
-    },
-    {
-     "name": "오리온",
-     "code": "271560",
-     "r1m_pct": 5.9
-    },
-    {
-     "name": "현대그린푸드",
-     "code": "453340",
-     "r1m_pct": 5.3
-    }
-   ],
-   "rank": 22
-  },
-  {
-   "group": "호텔/레저",
-   "score": 52,
-   "n": 9,
-   "rel1m_pct": 0.2,
-   "rel1w_pct": -5.4,
-   "breadth_pct": 33,
-   "newhigh_pct": 11,
-   "money_x": 0.85,
-   "leaders": [
-    {
-     "name": "파라다이스",
-     "code": "034230",
-     "r1m_pct": 7.5
-    },
-    {
-     "name": "하나투어",
-     "code": "039130",
-     "r1m_pct": 6.5
-    },
-    {
-     "name": "골프존",
-     "code": "215000",
-     "r1m_pct": 2.3
-    },
-    {
-     "name": "강원랜드",
-     "code": "035250",
-     "r1m_pct": -2.2
-    }
-   ],
-   "rank": 23
-  },
-  {
-   "group": "의류/패션",
-   "score": 48,
-   "n": 18,
-   "rel1m_pct": -0.8,
-   "rel1w_pct": -3.5,
-   "breadth_pct": 22,
-   "newhigh_pct": 6,
-   "money_x": 0.96,
-   "leaders": [
-    {
-     "name": "효성티앤씨",
-     "code": "298020",
-     "r1m_pct": 12.2
-    },
-    {
-     "name": "조광피혁",
-     "code": "004700",
-     "r1m_pct": 5.5
-    },
-    {
-     "name": "감성코퍼레이션",
-     "code": "036620",
-     "r1m_pct": 1.9
-    },
-    {
-     "name": "경방",
-     "code": "000050",
-     "r1m_pct": 1.3
-    }
-   ],
-   "rank": 24
-  },
-  {
    "group": "보험",
-   "score": 45,
+   "score": 52,
    "n": 12,
-   "rel1m_pct": 0.3,
-   "rel1w_pct": -6.0,
+   "rel1m_pct": 4.4,
+   "rel1w_pct": -4.1,
    "breadth_pct": 25,
    "newhigh_pct": 0,
    "money_x": 1.07,
    "leaders": [
     {
-     "name": "삼성생명",
-     "code": "032830",
-     "r1m_pct": 12.7
-    },
-    {
      "name": "인카금융서비스",
      "code": "211050",
-     "r1m_pct": 6.2
+     "r1m_pct": 8.7
     },
     {
-     "name": "서울보증보험",
-     "code": "031210",
-     "r1m_pct": 1.8
+     "name": "삼성생명",
+     "code": "032830",
+     "r1m_pct": 6.1
+    },
+    {
+     "name": "롯데손해보험",
+     "code": "000400",
+     "r1m_pct": -0.6
     },
     {
      "name": "미래에셋생명",
      "code": "085620",
-     "r1m_pct": 1.6
+     "r1m_pct": -2.6
+    }
+   ],
+   "rank": 22
+  },
+  {
+   "group": "반도체 소재·부품",
+   "score": 50,
+   "n": 23,
+   "rel1m_pct": -7.1,
+   "rel1w_pct": 9.2,
+   "breadth_pct": 9,
+   "newhigh_pct": 0,
+   "money_x": 0.86,
+   "leaders": [
+    {
+     "name": "월덱스",
+     "code": "101160",
+     "r1m_pct": -4.1
+    },
+    {
+     "name": "미코",
+     "code": "059090",
+     "r1m_pct": -6.7
+    },
+    {
+     "name": "원익QnC",
+     "code": "074600",
+     "r1m_pct": -7.0
+    },
+    {
+     "name": "이엔에프테크놀로지",
+     "code": "102710",
+     "r1m_pct": -7.6
+    }
+   ],
+   "rank": 23
+  },
+  {
+   "group": "기타자본재",
+   "score": 49,
+   "n": 12,
+   "rel1m_pct": 6.1,
+   "rel1w_pct": -0.7,
+   "breadth_pct": 33,
+   "newhigh_pct": 0,
+   "money_x": 0.42,
+   "leaders": [
+    {
+     "name": "에스원",
+     "code": "012750",
+     "r1m_pct": 4.6
+    },
+    {
+     "name": "리파인",
+     "code": "377450",
+     "r1m_pct": 2.6
+    },
+    {
+     "name": "아이마켓코리아",
+     "code": "122900",
+     "r1m_pct": 0.2
+    },
+    {
+     "name": "NICE평가정보",
+     "code": "030190",
+     "r1m_pct": 0.0
+    }
+   ],
+   "rank": 24
+  },
+  {
+   "group": "화학",
+   "score": 47,
+   "n": 30,
+   "rel1m_pct": -1.6,
+   "rel1w_pct": -1.4,
+   "breadth_pct": 27,
+   "newhigh_pct": 3,
+   "money_x": 0.73,
+   "leaders": [
+    {
+     "name": "미원화학",
+     "code": "134380",
+     "r1m_pct": 10.7
+    },
+    {
+     "name": "HS효성첨단소재",
+     "code": "298050",
+     "r1m_pct": 5.2
+    },
+    {
+     "name": "대한유화",
+     "code": "006650",
+     "r1m_pct": 3.3
+    },
+    {
+     "name": "태광산업",
+     "code": "003240",
+     "r1m_pct": 0.9
     }
    ],
    "rank": 25
   },
   {
-   "group": "광통신",
-   "score": 43,
-   "n": 9,
-   "rel1m_pct": -2.3,
-   "rel1w_pct": 13.1,
-   "breadth_pct": 33,
+   "group": "벤처캐피탈",
+   "score": 45,
+   "n": 4,
+   "rel1m_pct": 11.8,
+   "rel1w_pct": -2.2,
+   "breadth_pct": 50,
    "newhigh_pct": 0,
-   "money_x": 0.47,
+   "money_x": 0.56,
    "leaders": [
     {
-     "name": "RFHIC",
-     "code": "218410",
-     "r1m_pct": 21.3
+     "name": "DSC인베스트먼트",
+     "code": "241520",
+     "r1m_pct": 5.3
     },
     {
-     "name": "케이엠더블유",
-     "code": "032500",
-     "r1m_pct": 11.2
+     "name": "에이플러스에셋",
+     "code": "244920",
+     "r1m_pct": 2.3
     },
     {
-     "name": "대한광통신",
-     "code": "010170",
-     "r1m_pct": 7.0
+     "name": "스틱인베스트먼트",
+     "code": "026890",
+     "r1m_pct": 1.4
     },
     {
-     "name": "광전자",
-     "code": "017900",
-     "r1m_pct": 0.7
+     "name": "우리기술투자",
+     "code": "041190",
+     "r1m_pct": -14.4
     }
    ],
    "rank": 26
   },
   {
-   "group": "우주/방산",
-   "score": 43,
-   "n": 12,
-   "rel1m_pct": -11.1,
-   "rel1w_pct": 3.4,
-   "breadth_pct": 25,
+   "group": "반도체 장비",
+   "score": 45,
+   "n": 30,
+   "rel1m_pct": -10.1,
+   "rel1w_pct": 11.5,
+   "breadth_pct": 13,
    "newhigh_pct": 0,
-   "money_x": 0.76,
+   "money_x": 0.92,
    "leaders": [
     {
-     "name": "이노스페이스",
-     "code": "462350",
-     "r1m_pct": 27.2
+     "name": "원익홀딩스",
+     "code": "030530",
+     "r1m_pct": 36.2
     },
     {
-     "name": "쎄트렉아이",
-     "code": "099320",
-     "r1m_pct": 16.8
+     "name": "코세스",
+     "code": "089890",
+     "r1m_pct": 7.2
     },
     {
-     "name": "한국항공우주",
-     "code": "047810",
-     "r1m_pct": 0.2
+     "name": "케이씨",
+     "code": "029460",
+     "r1m_pct": 6.2
     },
     {
-     "name": "비츠로넥스텍",
-     "code": "488900",
-     "r1m_pct": -3.3
+     "name": "뉴파워프라즈마",
+     "code": "144960",
+     "r1m_pct": 0.9
     }
    ],
    "rank": 27
   },
   {
-   "group": "게임",
-   "score": 43,
-   "n": 13,
-   "rel1m_pct": -3.5,
-   "rel1w_pct": -10.5,
-   "breadth_pct": 31,
-   "newhigh_pct": 0,
-   "money_x": 1.16,
+   "group": "화장품",
+   "score": 45,
+   "n": 21,
+   "rel1m_pct": -1.2,
+   "rel1w_pct": -2.3,
+   "breadth_pct": 29,
+   "newhigh_pct": 5,
+   "money_x": 0.67,
    "leaders": [
     {
-     "name": "카카오게임즈",
-     "code": "293490",
-     "r1m_pct": 18.5
+     "name": "바이오비쥬",
+     "code": "489460",
+     "r1m_pct": 16.3
     },
     {
-     "name": "더블유게임즈",
-     "code": "192080",
+     "name": "아모레퍼시픽홀딩스",
+     "code": "002790",
      "r1m_pct": 5.7
     },
     {
-     "name": "크래프톤",
-     "code": "259960",
-     "r1m_pct": 3.3
+     "name": "현대퓨처넷",
+     "code": "126560",
+     "r1m_pct": -3.2
     },
     {
-     "name": "위메이드",
-     "code": "112040",
-     "r1m_pct": 2.1
+     "name": "현대바이오",
+     "code": "048410",
+     "r1m_pct": -3.4
     }
    ],
    "rank": 28
   },
   {
-   "group": "벤처캐피탈",
-   "score": 42,
-   "n": 4,
-   "rel1m_pct": 10.3,
-   "rel1w_pct": -2.3,
-   "breadth_pct": 50,
+   "group": "우주/방산",
+   "score": 45,
+   "n": 12,
+   "rel1m_pct": -16.2,
+   "rel1w_pct": 4.7,
+   "breadth_pct": 25,
    "newhigh_pct": 0,
-   "money_x": 0.44,
+   "money_x": 0.73,
    "leaders": [
     {
-     "name": "DSC인베스트먼트",
-     "code": "241520",
-     "r1m_pct": 27.5
+     "name": "이노스페이스",
+     "code": "462350",
+     "r1m_pct": 11.9
     },
     {
-     "name": "스틱인베스트먼트",
-     "code": "026890",
-     "r1m_pct": 12.4
+     "name": "쎄트렉아이",
+     "code": "099320",
+     "r1m_pct": 9.2
     },
     {
-     "name": "에이플러스에셋",
-     "code": "244920",
-     "r1m_pct": 0.6
+     "name": "한국항공우주",
+     "code": "047810",
+     "r1m_pct": -0.6
     },
     {
-     "name": "우리기술투자",
-     "code": "041190",
-     "r1m_pct": -5.7
+     "name": "비츠로넥스텍",
+     "code": "488900",
+     "r1m_pct": -8.3
     }
    ],
    "rank": 29
   },
   {
-   "group": "로봇",
-   "score": 42,
-   "n": 28,
-   "rel1m_pct": -0.3,
-   "rel1w_pct": 1.4,
-   "breadth_pct": 25,
+   "group": "자동차",
+   "score": 43,
+   "n": 30,
+   "rel1m_pct": 0.6,
+   "rel1w_pct": -0.9,
+   "breadth_pct": 33,
    "newhigh_pct": 0,
-   "money_x": 0.78,
+   "money_x": 0.63,
    "leaders": [
     {
-     "name": "삼현",
-     "code": "437730",
-     "r1m_pct": 30.0
+     "name": "SNT다이내믹스",
+     "code": "003570",
+     "r1m_pct": 10.6
     },
     {
-     "name": "LG씨엔에스",
-     "code": "064400",
-     "r1m_pct": 28.4
+     "name": "SNT모티브",
+     "code": "064960",
+     "r1m_pct": 7.6
     },
     {
-     "name": "삼성에스디에스",
-     "code": "018260",
-     "r1m_pct": 22.8
+     "name": "대원산업",
+     "code": "005710",
+     "r1m_pct": 4.7
     },
     {
-     "name": "로보티즈",
-     "code": "108490",
-     "r1m_pct": 16.8
+     "name": "현대위아",
+     "code": "011210",
+     "r1m_pct": 2.9
     }
    ],
    "rank": 30
   },
   {
-   "group": "자동차",
-   "score": 42,
-   "n": 30,
-   "rel1m_pct": 2.0,
-   "rel1w_pct": -0.9,
-   "breadth_pct": 40,
+   "group": "의류/패션",
+   "score": 43,
+   "n": 18,
+   "rel1m_pct": 0.1,
+   "rel1w_pct": -3.1,
+   "breadth_pct": 11,
    "newhigh_pct": 0,
-   "money_x": 0.62,
+   "money_x": 0.98,
    "leaders": [
     {
-     "name": "대원산업",
-     "code": "005710",
-     "r1m_pct": 9.6
+     "name": "효성티앤씨",
+     "code": "298020",
+     "r1m_pct": 10.4
     },
     {
-     "name": "SNT다이내믹스",
-     "code": "003570",
-     "r1m_pct": 6.1
+     "name": "조광피혁",
+     "code": "004700",
+     "r1m_pct": 4.2
     },
     {
-     "name": "SNT모티브",
-     "code": "064960",
-     "r1m_pct": 6.0
+     "name": "감성코퍼레이션",
+     "code": "036620",
+     "r1m_pct": -0.4
     },
     {
-     "name": "현대위아",
-     "code": "011210",
-     "r1m_pct": 5.0
+     "name": "영원무역홀딩스",
+     "code": "009970",
+     "r1m_pct": -3.5
     }
    ],
    "rank": 31
   },
   {
-   "group": "화학",
-   "score": 41,
-   "n": 30,
-   "rel1m_pct": -5.6,
-   "rel1w_pct": -0.8,
-   "breadth_pct": 33,
-   "newhigh_pct": 3,
-   "money_x": 0.72,
+   "group": "광통신",
+   "score": 43,
+   "n": 9,
+   "rel1m_pct": -5.5,
+   "rel1w_pct": 11.7,
+   "breadth_pct": 22,
+   "newhigh_pct": 0,
+   "money_x": 0.49,
    "leaders": [
     {
-     "name": "미원화학",
-     "code": "134380",
-     "r1m_pct": 13.6
+     "name": "케이엠더블유",
+     "code": "032500",
+     "r1m_pct": 11.5
     },
     {
-     "name": "HS효성첨단소재",
-     "code": "298050",
-     "r1m_pct": 9.8
+     "name": "RFHIC",
+     "code": "218410",
+     "r1m_pct": 8.2
     },
     {
-     "name": "대한유화",
-     "code": "006650",
-     "r1m_pct": 5.8
+     "name": "대한광통신",
+     "code": "010170",
+     "r1m_pct": -4.4
     },
     {
-     "name": "한국알콜",
-     "code": "017890",
-     "r1m_pct": 1.3
+     "name": "광전자",
+     "code": "017900",
+     "r1m_pct": -12.7
     }
    ],
    "rank": 32
   },
   {
-   "group": "유통",
-   "score": 40,
-   "n": 9,
-   "rel1m_pct": -1.2,
-   "rel1w_pct": -5.5,
-   "breadth_pct": 33,
+   "group": "철강/비철금속",
+   "score": 43,
+   "n": 23,
+   "rel1m_pct": -0.3,
+   "rel1w_pct": -0.1,
+   "breadth_pct": 26,
    "newhigh_pct": 0,
-   "money_x": 0.82,
+   "money_x": 0.61,
    "leaders": [
     {
-     "name": "현대백화점",
-     "code": "069960",
-     "r1m_pct": 12.0
+     "name": "한국철강",
+     "code": "104700",
+     "r1m_pct": 34.2
     },
     {
-     "name": "GS리테일",
-     "code": "007070",
-     "r1m_pct": 7.1
+     "name": "SIMPAC",
+     "code": "009160",
+     "r1m_pct": 10.5
     },
     {
-     "name": "광주신세계",
-     "code": "037710",
-     "r1m_pct": 6.2
+     "name": "KISCO홀딩스",
+     "code": "001940",
+     "r1m_pct": 9.1
     },
     {
-     "name": "BGF리테일",
-     "code": "282330",
-     "r1m_pct": 3.3
+     "name": "현대제철",
+     "code": "004020",
+     "r1m_pct": 1.2
     }
    ],
    "rank": 33
   },
   {
    "group": "전력기기",
-   "score": 39,
+   "score": 43,
    "n": 17,
-   "rel1m_pct": -5.7,
-   "rel1w_pct": 6.1,
-   "breadth_pct": 24,
+   "rel1m_pct": -8.5,
+   "rel1w_pct": 8.2,
+   "breadth_pct": 18,
    "newhigh_pct": 0,
-   "money_x": 0.7,
+   "money_x": 0.68,
    "leaders": [
+    {
+     "name": "일진홀딩스",
+     "code": "015860",
+     "r1m_pct": 3.4
+    },
     {
      "name": "비나텍",
      "code": "126340",
-     "r1m_pct": 23.3
+     "r1m_pct": 3.0
     },
     {
      "name": "한중엔시에스",
      "code": "107640",
-     "r1m_pct": 5.5
+     "r1m_pct": 0.5
     },
     {
      "name": "효성중공업",
      "code": "298040",
-     "r1m_pct": 1.3
-    },
-    {
-     "name": "일진홀딩스",
-     "code": "015860",
-     "r1m_pct": -0.3
+     "r1m_pct": -10.1
     }
    ],
    "rank": 34
   },
   {
-   "group": "신재생에너지",
-   "score": 39,
-   "n": 6,
-   "rel1m_pct": -7.3,
-   "rel1w_pct": -6.5,
-   "breadth_pct": 33,
+   "group": "로봇",
+   "score": 42,
+   "n": 28,
+   "rel1m_pct": -2.1,
+   "rel1w_pct": 2.3,
+   "breadth_pct": 18,
    "newhigh_pct": 0,
-   "money_x": 0.97,
+   "money_x": 0.77,
    "leaders": [
     {
-     "name": "OCI홀딩스",
-     "code": "010060",
-     "r1m_pct": 7.4
+     "name": "삼현",
+     "code": "437730",
+     "r1m_pct": 23.7
     },
     {
-     "name": "씨에스윈드",
-     "code": "112610",
-     "r1m_pct": -7.2
+     "name": "LG씨엔에스",
+     "code": "064400",
+     "r1m_pct": 18.9
     },
     {
-     "name": "SK오션플랜트",
-     "code": "100090",
-     "r1m_pct": -7.8
+     "name": "삼성에스디에스",
+     "code": "018260",
+     "r1m_pct": 14.7
     },
     {
-     "name": "OCI",
-     "code": "456040",
-     "r1m_pct": -14.4
+     "name": "레인보우로보틱스",
+     "code": "277810",
+     "r1m_pct": 1.5
     }
    ],
    "rank": 35
   },
   {
-   "group": "철강/비철금속",
-   "score": 36,
+   "group": "증권",
+   "score": 38,
    "n": 23,
-   "rel1m_pct": -0.9,
-   "rel1w_pct": -1.5,
-   "breadth_pct": 26,
+   "rel1m_pct": -0.1,
+   "rel1w_pct": -0.6,
+   "breadth_pct": 9,
    "newhigh_pct": 0,
-   "money_x": 0.63,
+   "money_x": 0.93,
    "leaders": [
     {
-     "name": "한국철강",
-     "code": "104700",
-     "r1m_pct": 31.9
+     "name": "현대차증권",
+     "code": "001500",
+     "r1m_pct": 2.7
     },
     {
-     "name": "KISCO홀딩스",
-     "code": "001940",
-     "r1m_pct": 11.0
+     "name": "미래에셋벤처투자",
+     "code": "100790",
+     "r1m_pct": 0.8
     },
     {
-     "name": "SIMPAC",
-     "code": "009160",
-     "r1m_pct": 10.2
+     "name": "한양증권",
+     "code": "001750",
+     "r1m_pct": -2.7
     },
     {
-     "name": "현대제철",
-     "code": "004020",
-     "r1m_pct": 7.8
+     "name": "LS증권",
+     "code": "078020",
+     "r1m_pct": -4.8
     }
    ],
    "rank": 36
   },
   {
-   "group": "반도체(메모리·대형)",
-   "score": 36,
-   "n": 4,
-   "rel1m_pct": -3.8,
-   "rel1w_pct": -0.3,
-   "breadth_pct": 0,
+   "group": "2차전지",
+   "score": 38,
+   "n": 26,
+   "rel1m_pct": -8.2,
+   "rel1w_pct": 6.5,
+   "breadth_pct": 15,
    "newhigh_pct": 0,
-   "money_x": 0.74,
+   "money_x": 0.76,
    "leaders": [
     {
-     "name": "삼성전자",
-     "code": "005930",
-     "r1m_pct": -0.2
+     "name": "나노신소재",
+     "code": "121600",
+     "r1m_pct": 17.1
     },
     {
-     "name": "SK하이닉스",
-     "code": "000660",
+     "name": "솔루스첨단소재",
+     "code": "336370",
+     "r1m_pct": 1.8
+    },
+    {
+     "name": "포스코퓨처엠",
+     "code": "003670",
      "r1m_pct": -1.1
     },
     {
-     "name": "한양디지텍",
-     "code": "078350",
-     "r1m_pct": -14.1
-    },
-    {
-     "name": "DB하이텍",
-     "code": "000990",
-     "r1m_pct": -17.6
+     "name": "LG화학",
+     "code": "051910",
+     "r1m_pct": -10.8
     }
    ],
    "rank": 37
   },
   {
-   "group": "디스플레이",
-   "score": 35,
-   "n": 8,
-   "rel1m_pct": -1.5,
-   "rel1w_pct": 5.6,
-   "breadth_pct": 25,
+   "group": "통신장비",
+   "score": 33,
+   "n": 7,
+   "rel1m_pct": -1.4,
+   "rel1w_pct": -2.5,
+   "breadth_pct": 14,
    "newhigh_pct": 0,
-   "money_x": 0.6,
+   "money_x": 0.72,
    "leaders": [
     {
-     "name": "선익시스템",
-     "code": "171090",
-     "r1m_pct": 10.8
+     "name": "LIG아큐버",
+     "code": "073490",
+     "r1m_pct": 9.2
     },
     {
-     "name": "넥사다이내믹스",
-     "code": "351320",
+     "name": "한화비전",
+     "code": "489790",
      "r1m_pct": -1.0
     },
     {
-     "name": "AP시스템",
-     "code": "265520",
-     "r1m_pct": -2.9
+     "name": "쏠리드",
+     "code": "050890",
+     "r1m_pct": -6.9
     },
     {
-     "name": "LG디스플레이",
-     "code": "034220",
-     "r1m_pct": -3.6
+     "name": "삼지전자",
+     "code": "037460",
+     "r1m_pct": -11.3
     }
    ],
    "rank": 38
   },
   {
-   "group": "증권",
-   "score": 34,
-   "n": 23,
-   "rel1m_pct": -0.8,
-   "rel1w_pct": -0.7,
-   "breadth_pct": 22,
+   "group": "지주사",
+   "score": 32,
+   "n": 17,
+   "rel1m_pct": -0.1,
+   "rel1w_pct": -3.0,
+   "breadth_pct": 12,
    "newhigh_pct": 0,
-   "money_x": 0.84,
+   "money_x": 0.86,
    "leaders": [
     {
-     "name": "현대차증권",
-     "code": "001500",
-     "r1m_pct": 6.6
+     "name": "SK",
+     "code": "034730",
+     "r1m_pct": 5.9
     },
     {
-     "name": "LS증권",
-     "code": "078020",
-     "r1m_pct": 3.8
-    },
-    {
-     "name": "유안타증권",
-     "code": "003470",
+     "name": "DB",
+     "code": "012030",
      "r1m_pct": 1.8
     },
     {
-     "name": "유진투자증권",
-     "code": "001200",
-     "r1m_pct": 0.3
+     "name": "롯데지주",
+     "code": "004990",
+     "r1m_pct": -0.2
+    },
+    {
+     "name": "삼성물산",
+     "code": "028260",
+     "r1m_pct": -3.0
     }
    ],
    "rank": 39
   },
   {
-   "group": "2차전지",
-   "score": 33,
-   "n": 26,
-   "rel1m_pct": -7.4,
-   "rel1w_pct": 1.8,
-   "breadth_pct": 15,
+   "group": "조선",
+   "score": 32,
+   "n": 19,
+   "rel1m_pct": -8.8,
+   "rel1w_pct": 1.5,
+   "breadth_pct": 21,
    "newhigh_pct": 0,
-   "money_x": 0.84,
+   "money_x": 0.74,
    "leaders": [
     {
-     "name": "나노신소재",
-     "code": "121600",
-     "r1m_pct": 31.0
+     "name": "인화정공",
+     "code": "101930",
+     "r1m_pct": 14.3
     },
     {
-     "name": "포스코퓨처엠",
-     "code": "003670",
-     "r1m_pct": 2.1
+     "name": "HD현대마린엔진",
+     "code": "071970",
+     "r1m_pct": -6.9
     },
     {
-     "name": "상신이디피",
-     "code": "091580",
-     "r1m_pct": 1.3
+     "name": "HD한국조선해양",
+     "code": "009540",
+     "r1m_pct": -9.5
     },
     {
-     "name": "레이크머티리얼즈",
-     "code": "281740",
-     "r1m_pct": -5.4
+     "name": "삼성중공업",
+     "code": "010140",
+     "r1m_pct": -9.6
     }
    ],
    "rank": 40
   },
   {
-   "group": "에너지",
-   "score": 31,
-   "n": 11,
-   "rel1m_pct": -4.8,
-   "rel1w_pct": -0.3,
-   "breadth_pct": 36,
+   "group": "신재생에너지",
+   "score": 32,
+   "n": 6,
+   "rel1m_pct": -8.5,
+   "rel1w_pct": -4.4,
+   "breadth_pct": 0,
    "newhigh_pct": 0,
-   "money_x": 0.57,
+   "money_x": 0.92,
    "leaders": [
     {
-     "name": "대명에너지",
-     "code": "389260",
-     "r1m_pct": 27.3
+     "name": "OCI홀딩스",
+     "code": "010060",
+     "r1m_pct": -5.9
     },
     {
-     "name": "SK디스커버리",
-     "code": "006120",
-     "r1m_pct": 14.0
+     "name": "SK오션플랜트",
+     "code": "100090",
+     "r1m_pct": -15.7
     },
     {
-     "name": "SNT에너지",
-     "code": "100840",
-     "r1m_pct": 3.2
+     "name": "씨에스윈드",
+     "code": "112610",
+     "r1m_pct": -18.3
     },
     {
-     "name": "강원에너지",
-     "code": "114190",
-     "r1m_pct": -1.3
+     "name": "OCI",
+     "code": "456040",
+     "r1m_pct": -18.7
     }
    ],
    "rank": 41
   },
   {
-   "group": "지주사",
+   "group": "기타금융",
    "score": 30,
-   "n": 17,
-   "rel1m_pct": -2.0,
-   "rel1w_pct": -3.6,
-   "breadth_pct": 24,
+   "n": 6,
+   "rel1m_pct": 2.4,
+   "rel1w_pct": -2.4,
+   "breadth_pct": 17,
    "newhigh_pct": 0,
-   "money_x": 0.89,
+   "money_x": 0.67,
    "leaders": [
     {
-     "name": "SK",
-     "code": "034730",
-     "r1m_pct": 16.3
+     "name": "한국캐피탈",
+     "code": "023760",
+     "r1m_pct": -1.0
     },
     {
-     "name": "삼성물산",
-     "code": "028260",
-     "r1m_pct": 8.5
+     "name": "삼성카드",
+     "code": "029780",
+     "r1m_pct": -3.0
     },
     {
-     "name": "SK네트웍스",
-     "code": "001740",
-     "r1m_pct": 3.5
+     "name": "한국자산신탁",
+     "code": "123890",
+     "r1m_pct": -7.3
     },
     {
-     "name": "효성",
-     "code": "004800",
-     "r1m_pct": 3.0
+     "name": "글로벌텍스프리",
+     "code": "204620",
+     "r1m_pct": -7.8
     }
    ],
    "rank": 42
   },
   {
    "group": "전기제품",
-   "score": 29,
+   "score": 30,
    "n": 8,
-   "rel1m_pct": -8.8,
-   "rel1w_pct": 3.9,
+   "rel1m_pct": -8.6,
+   "rel1w_pct": 3.3,
    "breadth_pct": 0,
    "newhigh_pct": 0,
-   "money_x": 0.38,
+   "money_x": 0.39,
    "leaders": [
     {
      "name": "삼영전자",
      "code": "005680",
-     "r1m_pct": -4.1
+     "r1m_pct": -6.9
     },
     {
      "name": "신성에스티",
      "code": "416180",
-     "r1m_pct": -4.4
+     "r1m_pct": -13.8
     },
     {
      "name": "SFA넥셀",
      "code": "222080",
-     "r1m_pct": -6.4
+     "r1m_pct": -15.6
     },
     {
      "name": "필에너지",
      "code": "378340",
-     "r1m_pct": -12.1
+     "r1m_pct": -18.1
     }
    ],
    "rank": 43
   },
   {
-   "group": "조선",
+   "group": "디스플레이",
    "score": 27,
-   "n": 19,
-   "rel1m_pct": -12.4,
-   "rel1w_pct": 0.7,
-   "breadth_pct": 11,
+   "n": 8,
+   "rel1m_pct": -6.6,
+   "rel1w_pct": 1.0,
+   "breadth_pct": 12,
    "newhigh_pct": 0,
-   "money_x": 0.79,
+   "money_x": 0.62,
    "leaders": [
     {
-     "name": "인화정공",
-     "code": "101930",
-     "r1m_pct": 23.0
+     "name": "선익시스템",
+     "code": "171090",
+     "r1m_pct": -3.1
     },
     {
-     "name": "HJ중공업",
-     "code": "097230",
-     "r1m_pct": -3.6
+     "name": "LG디스플레이",
+     "code": "034220",
+     "r1m_pct": -6.0
     },
     {
-     "name": "HD현대마린엔진",
-     "code": "071970",
-     "r1m_pct": -4.1
+     "name": "AP시스템",
+     "code": "265520",
+     "r1m_pct": -11.8
     },
     {
-     "name": "대한조선",
-     "code": "439260",
-     "r1m_pct": -7.5
+     "name": "넥사다이내믹스",
+     "code": "351320",
+     "r1m_pct": -15.1
     }
    ],
    "rank": 44
   },
   {
-   "group": "화장품",
-   "score": 27,
-   "n": 21,
-   "rel1m_pct": -4.0,
-   "rel1w_pct": -6.1,
-   "breadth_pct": 19,
-   "newhigh_pct": 5,
-   "money_x": 0.69,
+   "group": "상사",
+   "score": 25,
+   "n": 5,
+   "rel1m_pct": -2.6,
+   "rel1w_pct": -0.3,
+   "breadth_pct": 0,
+   "newhigh_pct": 0,
+   "money_x": 0.36,
    "leaders": [
     {
-     "name": "바이오비쥬",
-     "code": "489460",
-     "r1m_pct": 18.9
+     "name": "현대코퍼레이션",
+     "code": "011760",
+     "r1m_pct": -8.1
     },
     {
-     "name": "아모레퍼시픽홀딩스",
-     "code": "002790",
-     "r1m_pct": 7.1
+     "name": "LX홀딩스",
+     "code": "383800",
+     "r1m_pct": -9.9
     },
     {
-     "name": "현대바이오",
-     "code": "048410",
-     "r1m_pct": 5.4
+     "name": "포스코인터내셔널",
+     "code": "047050",
+     "r1m_pct": -12.6
     },
     {
-     "name": "코스맥스",
-     "code": "192820",
-     "r1m_pct": -0.7
+     "name": "GS글로벌",
+     "code": "001250",
+     "r1m_pct": -18.1
     }
    ],
    "rank": 45
   },
   {
-   "group": "상사",
-   "score": 24,
-   "n": 5,
-   "rel1m_pct": -3.3,
-   "rel1w_pct": -0.4,
+   "group": "반도체(메모리·대형)",
+   "score": 23,
+   "n": 4,
+   "rel1m_pct": -10.7,
+   "rel1w_pct": -5.9,
    "breadth_pct": 0,
    "newhigh_pct": 0,
-   "money_x": 0.37,
+   "money_x": 0.73,
    "leaders": [
     {
-     "name": "현대코퍼레이션",
-     "code": "011760",
-     "r1m_pct": -3.7
+     "name": "삼성전자",
+     "code": "005930",
+     "r1m_pct": -9.3
     },
     {
-     "name": "GS글로벌",
-     "code": "001250",
-     "r1m_pct": -6.6
+     "name": "SK하이닉스",
+     "code": "000660",
+     "r1m_pct": -11.1
     },
     {
-     "name": "LX홀딩스",
-     "code": "383800",
-     "r1m_pct": -7.1
+     "name": "DB하이텍",
+     "code": "000990",
+     "r1m_pct": -30.1
     },
     {
-     "name": "포스코인터내셔널",
-     "code": "047050",
-     "r1m_pct": -8.1
+     "name": "한양디지텍",
+     "code": "078350",
+     "r1m_pct": -35.2
     }
    ],
    "rank": 46
   },
   {
-   "group": "기타금융",
-   "score": 23,
-   "n": 6,
-   "rel1m_pct": 0.2,
-   "rel1w_pct": -0.9,
-   "breadth_pct": 17,
+   "group": "에너지",
+   "score": 21,
+   "n": 11,
+   "rel1m_pct": -7.4,
+   "rel1w_pct": -3.6,
+   "breadth_pct": 27,
    "newhigh_pct": 0,
-   "money_x": 0.42,
+   "money_x": 0.55,
    "leaders": [
     {
-     "name": "한국캐피탈",
-     "code": "023760",
-     "r1m_pct": 1.7
+     "name": "대명에너지",
+     "code": "389260",
+     "r1m_pct": 13.8
     },
     {
-     "name": "한국자산신탁",
-     "code": "123890",
-     "r1m_pct": -3.0
+     "name": "SK디스커버리",
+     "code": "006120",
+     "r1m_pct": 6.6
     },
     {
-     "name": "삼성카드",
-     "code": "029780",
-     "r1m_pct": -3.1
+     "name": "수산인더스트리",
+     "code": "126720",
+     "r1m_pct": -6.3
     },
     {
-     "name": "아주IB투자",
-     "code": "027360",
-     "r1m_pct": -4.1
+     "name": "SNT에너지",
+     "code": "100840",
+     "r1m_pct": -7.0
     }
    ],
    "rank": 47
   },
   {
    "group": "스테이블코인",
-   "score": 16,
+   "score": 15,
    "n": 7,
-   "rel1m_pct": -3.6,
-   "rel1w_pct": -2.9,
+   "rel1m_pct": -6.2,
+   "rel1w_pct": -3.6,
    "breadth_pct": 0,
    "newhigh_pct": 0,
    "money_x": 0.31,
    "leaders": [
     {
-     "name": "NHN KCP",
-     "code": "060250",
-     "r1m_pct": -3.4
-    },
-    {
      "name": "카카오페이",
      "code": "377300",
-     "r1m_pct": -4.0
+     "r1m_pct": -9.1
     },
     {
      "name": "다날",
      "code": "064260",
-     "r1m_pct": -4.6
+     "r1m_pct": -13.8
     },
     {
-     "name": "쿠콘",
-     "code": "294570",
-     "r1m_pct": -7.3
+     "name": "NHN KCP",
+     "code": "060250",
+     "r1m_pct": -13.9
+    },
+    {
+     "name": "코나아이",
+     "code": "052400",
+     "r1m_pct": -16.1
     }
    ],
    "rank": 48
   },
   {
    "group": "원전",
-   "score": 12,
+   "score": 11,
    "n": 4,
-   "rel1m_pct": -15.2,
-   "rel1w_pct": -8.9,
+   "rel1m_pct": -13.3,
+   "rel1w_pct": -9.0,
    "breadth_pct": 0,
    "newhigh_pct": 0,
-   "money_x": 0.73,
+   "money_x": 0.69,
    "leaders": [
     {
      "name": "한국전력",
      "code": "015760",
-     "r1m_pct": -2.1
+     "r1m_pct": -7.2
     },
     {
      "name": "한전KPS",
      "code": "051600",
-     "r1m_pct": -14.6
+     "r1m_pct": -16.0
     },
     {
      "name": "두산에너빌리티",
      "code": "034020",
-     "r1m_pct": -23.5
+     "r1m_pct": -30.5
     },
     {
      "name": "한전기술",
      "code": "052690",
-     "r1m_pct": -25.4
+     "r1m_pct": -31.7
     }
    ],
    "rank": 49
   }
  ],
  "history": [
-  {
-   "date": "20260821",
-   "top": [
-    {
-     "group": "보험",
-     "score": 94
-    },
-    {
-     "group": "스테이블코인",
-     "score": 88
-    },
-    {
-     "group": "화장품",
-     "score": 81
-    },
-    {
-     "group": "벤처캐피탈",
-     "score": 77
-    },
-    {
-     "group": "건설",
-     "score": 77
-    }
-   ],
-   "ranks": {
-    "보험": 1,
-    "스테이블코인": 2,
-    "화장품": 3,
-    "벤처캐피탈": 4,
-    "건설": 5,
-    "포장재": 6,
-    "음식료": 7,
-    "생활용품": 8,
-    "기타자본재": 9,
-    "유틸리티": 10,
-    "신재생에너지": 11,
-    "반도체 테스트·후공정": 12,
-    "운송/물류": 13,
-    "화학": 14,
-    "바이오": 15,
-    "철강/비철금속": 16,
-    "반도체(메모리·대형)": 17,
-    "호텔/레저": 18,
-    "헬스케어": 19,
-    "상사": 20,
-    "게임": 21,
-    "증권": 22,
-    "의류/패션": 23,
-    "에너지": 24,
-    "핸드셋/IT부품": 25,
-    "미디어/엔터": 26,
-    "자동차": 27,
-    "로봇": 28,
-    "IT/소프트웨어": 29,
-    "반도체 기판·전자부품": 30,
-    "통신장비": 31,
-    "반도체 소재·부품": 32,
-    "2차전지": 33,
-    "기타금융": 34,
-    "전자부품/장비": 35,
-    "지주사": 36,
-    "광통신": 37,
-    "반도체 설계·유통": 38,
-    "전력기기": 39,
-    "전기제품": 40,
-    "반도체 장비": 41,
-    "우주/방산": 42,
-    "은행": 43,
-    "K-엔터": 44,
-    "디스플레이": 45,
-    "건설기계": 46,
-    "원전": 47,
-    "유통": 48,
-    "조선": 49
-   }
-  },
   {
    "date": "20260828",
    "top": [
@@ -2562,73 +2486,149 @@
    "top": [
     {
      "group": "운송/물류",
-     "score": 89
+     "score": 88
+    },
+    {
+     "group": "건설기계",
+     "score": 88
     },
     {
      "group": "K-엔터",
      "score": 88
     },
     {
-     "group": "건설기계",
-     "score": 87
-    },
-    {
-     "group": "IT/소프트웨어",
-     "score": 82
+     "group": "반도체 테스트·후공정",
+     "score": 83
     },
     {
      "group": "반도체 기판·전자부품",
-     "score": 80
+     "score": 81
     }
    ],
    "ranks": {
     "운송/물류": 1,
-    "K-엔터": 2,
-    "건설기계": 3,
-    "IT/소프트웨어": 4,
+    "건설기계": 2,
+    "K-엔터": 3,
+    "반도체 테스트·후공정": 4,
     "반도체 기판·전자부품": 5,
-    "반도체 테스트·후공정": 6,
-    "반도체 설계·유통": 7,
-    "전자부품/장비": 8,
-    "미디어/엔터": 9,
-    "통신장비": 10,
-    "헬스케어": 11,
-    "포장재": 12,
-    "바이오": 13,
-    "핸드셋/IT부품": 14,
+    "IT/소프트웨어": 6,
+    "미디어/엔터": 7,
+    "반도체 설계·유통": 8,
+    "전자부품/장비": 9,
+    "헬스케어": 10,
+    "통신장비": 11,
+    "바이오": 12,
+    "포장재": 13,
+    "반도체 소재·부품": 14,
     "반도체 장비": 15,
     "생활용품": 16,
-    "반도체 소재·부품": 17,
-    "유틸리티": 18,
+    "유틸리티": 17,
+    "핸드셋/IT부품": 18,
     "기타자본재": 19,
     "은행": 20,
     "건설": 21,
-    "음식료": 22,
-    "호텔/레저": 23,
-    "의류/패션": 24,
-    "보험": 25,
-    "광통신": 26,
-    "우주/방산": 27,
-    "게임": 28,
-    "벤처캐피탈": 29,
-    "로봇": 30,
-    "자동차": 31,
-    "화학": 32,
-    "유통": 33,
-    "전력기기": 34,
-    "신재생에너지": 35,
-    "철강/비철금속": 36,
-    "반도체(메모리·대형)": 37,
-    "디스플레이": 38,
-    "증권": 39,
+    "의류/패션": 22,
+    "음식료": 23,
+    "호텔/레저": 24,
+    "로봇": 25,
+    "보험": 26,
+    "광통신": 27,
+    "우주/방산": 28,
+    "게임": 29,
+    "벤처캐피탈": 30,
+    "유통": 31,
+    "전력기기": 32,
+    "자동차": 33,
+    "신재생에너지": 34,
+    "화학": 35,
+    "반도체(메모리·대형)": 36,
+    "철강/비철금속": 37,
+    "증권": 38,
+    "에너지": 39,
     "2차전지": 40,
-    "에너지": 41,
-    "지주사": 42,
+    "지주사": 41,
+    "디스플레이": 42,
     "전기제품": 43,
-    "조선": 44,
-    "화장품": 45,
-    "상사": 46,
-    "기타금융": 47,
+    "기타금융": 44,
+    "조선": 45,
+    "화장품": 46,
+    "상사": 47,
+    "스테이블코인": 48,
+    "원전": 49
+   }
+  },
+  {
+   "date": "20261116",
+   "top": [
+    {
+     "group": "운송/물류",
+     "score": 91
+    },
+    {
+     "group": "건설기계",
+     "score": 88
+    },
+    {
+     "group": "K-엔터",
+     "score": 88
+    },
+    {
+     "group": "IT/소프트웨어",
+     "score": 83
+    },
+    {
+     "group": "미디어/엔터",
+     "score": 72
+    }
+   ],
+   "ranks": {
+    "운송/물류": 1,
+    "건설기계": 2,
+    "K-엔터": 3,
+    "IT/소프트웨어": 4,
+    "미디어/엔터": 5,
+    "유틸리티": 6,
+    "반도체 테스트·후공정": 7,
+    "생활용품": 8,
+    "포장재": 9,
+    "핸드셋/IT부품": 10,
+    "전자부품/장비": 11,
+    "건설": 12,
+    "은행": 13,
+    "반도체 설계·유통": 14,
+    "반도체 기판·전자부품": 15,
+    "음식료": 16,
+    "헬스케어": 17,
+    "호텔/레저": 18,
+    "유통": 19,
+    "바이오": 20,
+    "게임": 21,
+    "보험": 22,
+    "반도체 소재·부품": 23,
+    "기타자본재": 24,
+    "화학": 25,
+    "벤처캐피탈": 26,
+    "반도체 장비": 27,
+    "화장품": 28,
+    "우주/방산": 29,
+    "자동차": 30,
+    "의류/패션": 31,
+    "광통신": 32,
+    "철강/비철금속": 33,
+    "전력기기": 34,
+    "로봇": 35,
+    "증권": 36,
+    "2차전지": 37,
+    "통신장비": 38,
+    "지주사": 39,
+    "조선": 40,
+    "신재생에너지": 41,
+    "기타금융": 42,
+    "전기제품": 43,
+    "디스플레이": 44,
+    "상사": 45,
+    "반도체(메모리·대형)": 46,
+    "에너지": 47,
     "스테이블코인": 48,
     "원전": 49
    }
