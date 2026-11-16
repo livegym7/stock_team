@@ -682,7 +682,7 @@ html body .view table.invh{width:100%;table-layout:fixed}html body .view .invh t
 html body .view .invh td.num,html body .view .invh th{text-align:right}
 table.sortt th{cursor:pointer;user-select:none} table.sortt th:hover{color:var(--accent)} table.sortt th[data-so=desc]::after{content:" ▼";font-size:9px} table.sortt th[data-so=asc]::after{content:" ▲";font-size:9px}
 .pgt tbody.hid{display:none} .pgt tr.pgd{display:none} .pgt tbody.open tr.pgd{display:table-row} .pgt tbody.open .pgc{display:inline-block;transform:rotate(90deg)} .pgt tr.pgd td{background:var(--bg);padding-top:3px;padding-bottom:3px}
-.brk{border-bottom:1px dotted var(--muted);cursor:help}
+.brk{border-bottom:1px dotted var(--muted);cursor:help} .pill.sm{font-size:10.5px;padding:0 5px;color:var(--muted)}
 .corebx .cbr{display:grid;grid-template-columns:auto 1fr auto auto auto;gap:4px 8px;align-items:center;padding:5px 12px;border-top:1px solid var(--line);font-size:12.5px}
 .corebx .cbr small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.corebx .cbd{font-size:10.5px;color:var(--accent);letter-spacing:-1px;white-space:nowrap}.corebx .cbd i{font-style:normal;color:var(--faint);letter-spacing:0;margin-right:4px}
 /* 2026-11-14 2차: ⚙ · 국면 추적판 · 셋업 보드 · 휴대폰 카드 표 */
@@ -2104,10 +2104,10 @@ function vtopTab(){
   return `<!--bar--><div class="chips">${F.map(([k,n])=>`<button class="chip ${f==k?"on":""}" data-vf="${k}">${n}</button>`).join("")}</div><!--/bar-->
   <div class="sub" style="margin-top:-4px">${live?`<b>장중 ${esc(String(L.made_at).slice(11))}</b> 1분마다 갱신`:`<b>${esc(B.made_at||"")}</b> 기준 (장중엔 웹이 1분마다 새로 받습니다)`} · ${esc(B.rule||"코스피·코스닥 합산 · ETF·ETN·스팩·우선주·리츠 제외")} · ${R.length}종목</div>
   <div class="tw"><table class="slist"><tr>${th("rank","#")}${th("name","종목",1)}${th("price","현재가")}${th("chg","오늘")}${th("value_eok","거래대금(억)")}${th("cap_eok","시총(억)")}${th("rs","RS")}<th>20·60일선</th>${th("rng","52주 위치")}${th("off","고점 대비")}<th>수급</th></tr>
-  ${R.map(r=>`<tr class="click" data-go-s="${r.code}"><td class="num muted">${r.rank}</td><td class="l"><b class="stk">${esc(r.name)}</b> ${pos.has(r.code)?"⭐":""}${pool.has(r.code)?"🎯":""}${H.has(r.code)?"🏔":""}<br><small class="muted">${esc(r.grp||r.market)}</small></td>
+  ${R.map(r=>`<tr class="click" data-go-s="${r.code}"><td class="num muted">${r.rank}</td><td class="l"><b class="stk">${esc(r.name)}</b> ${pos.has(r.code)?"⭐":""}${pool.has(r.code)?"🎯":""}${H.has(r.code)?"🏔":""}${(r.cap_eok!=null&&r.cap_eok<2000)||!r.grp?' <span class="pill sm" title="시총 2천억 미만이라 관리 대상(관문) 밖 — RS·이평선·수급 같은 계산값이 없고 매매 규칙상 진입 대상도 아님">소형</span>':""}<br><small class="muted">${esc(r.grp||((r.market||"")+(r.cap_eok?" · 시총 "+w(r.cap_eok)+"억":"")))}</small></td>
    <td class="num"><b>${w(r.price)}</b></td><td class="num ${cls(r.chg)}">${pc(r.chg,2)}</td><td class="num"><b>${w(r.value_eok)}</b></td><td class="num">${w(r.cap_eok)}</td><td class="num">${r.rs??"-"}</td>
    <td>${ma(r.a20)} · ${ma(r.a60)}</td><td>${bar(r)}</td><td class="num">${pc(r.off)}</td><td>${flowTag(r.code)||"-"}</td></tr>`).join("")}</table></div>
-  ${src("52주 위치 = 1년 저가(왼쪽)~고가(오른쪽) 사이 지금 가격 · 20·60일선 = 마지막 일봉 기준 이동평균 위/아래 · ⭐ 보유 🎯 관찰 풀 🏔 오늘 신고가 · 종목에 마우스를 올리면 차트, 누르면 종목 페이지 · 출처: 네이버 거래대금 상위(비공식)")}`}
+  ${src("소형 = 시총 2천억 미만(관리 대상 밖이라 RS·이평선·수급 칸이 비어 있음, 매매 규칙상 진입 대상 아님) · 52주 위치 = 1년 저가(왼쪽)~고가(오른쪽) 사이 지금 가격 · 20·60일선 = 마지막 일봉 기준 이동평균 위/아래 · ⭐ 보유 🎯 관찰 풀 🏔 오늘 신고가 · 종목에 마우스를 올리면 차트, 누르면 종목 페이지 · 출처: 네이버 거래대금 상위(비공식)")}`}
 /* ---------- 신고가 모아보기 (2026-11-13): 60·200일, 고가 기준, 시총 2천억↑ · 마감 확정 + 장중 20분 참고 ---------- */
 function highsData(){const E=D.highs,L=D.highsLive,today=kstNow().toISOString().slice(0,10);
   const liveOk=L&&String(L.made_at||"").slice(0,10)==today&&(!E||E.as_of!=today.replace(/-/g,""));
