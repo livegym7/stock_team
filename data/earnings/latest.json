@@ -1,6 +1,30 @@
 {
  "rows": [
   {
+   "name": "유니셈",
+   "code": "036200",
+   "period": "2026.3Q",
+   "sales": 908.0,
+   "op": 128.0,
+   "net": 57.0,
+   "verdict": null,
+   "time": "2026-11-16 10:46",
+   "channel": "maddingStock",
+   "url": "https://t.me/maddingStock/19497"
+  },
+  {
+   "name": "뉴파워프라즈마",
+   "code": "144960",
+   "period": "2026.3Q",
+   "sales": 2180.0,
+   "op": 367.0,
+   "net": 108.0,
+   "verdict": null,
+   "time": "2026-11-16 10:32",
+   "channel": "maddingStock",
+   "url": "https://t.me/maddingStock/19496"
+  },
+  {
    "name": "네오셈",
    "code": "253590",
    "period": "2026.3Q",
