@@ -1,6 +1,30 @@
 {
  "rows": [
   {
+   "name": "KCC건설",
+   "code": "021320",
+   "period": "2026.3Q",
+   "sales": 4072.0,
+   "op": 533.0,
+   "net": 119.0,
+   "verdict": null,
+   "time": "2026-11-16 16:31",
+   "channel": "maddingStock",
+   "url": "https://t.me/maddingStock/19534"
+  },
+  {
+   "name": "HPSP",
+   "code": "403870",
+   "period": "2026.3Q",
+   "sales": 516.0,
+   "op": 278.0,
+   "net": 165.0,
+   "verdict": null,
+   "time": "2026-11-16 16:21",
+   "channel": "maddingStock",
+   "url": "https://t.me/maddingStock/19533"
+  },
+  {
    "name": "이수페타시스",
    "code": "007660",
    "period": "2026.3Q",
