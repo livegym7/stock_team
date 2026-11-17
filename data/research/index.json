@@ -1037,6 +1037,42 @@
    "drive_modified": null,
    "analyzed_at": "2026-11-16 19:16",
    "depth": "full"
+  },
+  "naver_industry_47039": {
+   "title": "PCB 산업, 견조한 BB Ratio, 차오르는 가동률, 개선되는 단가 (iM증권, 11/17)",
+   "broker": "iM증권",
+   "date": "2026-11-17",
+   "kind": "산업",
+   "subject": "반도체 기판·전자부품 · PCB (리더 업종 칸)",
+   "one_line": "국내 PCB 4사의 수주·단가·가동률 지표가 모두 좋아졌는데도 데이터센터 지연 우려로 멀티플이 크게 줄어, 외생 변수 완화 때 재평가 속도가 가장 빠를 수 있다는 Overweight 코멘트입니다.",
+   "url": "https://stock.naver.com/research/industry/47039",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-17 19:15",
+   "depth": "full"
+  },
+  "naver_invest_40844": {
+   "title": "11/17, 5,000pt 위협의 갈림길에서 따져보는 손익비 (키움증권 시황)",
+   "broker": "키움증권",
+   "date": "2026-11-17",
+   "kind": "전략",
+   "subject": "국내 증시 전략 · 5,000pt 하회 국면 (반대 의견·비주류 고정 칸)",
+   "one_line": "코스피 5,000선 위협을 앞두고 선행 PBR 0.96배 등 하방은 제한적이라고 보면서도, 엔비디아 실적(수요일 새벽)과 앤스로픽 IPO(목요일) 결과를 분위기 반전의 일차 계기로 보는 시황 코멘트입니다.",
+   "url": "https://stock.naver.com/research/invest/40844",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-17 19:15",
+   "depth": "full"
+  },
+  "naver_industry_47017": {
+   "title": "반도체 · 소부장, 캐파의 시간 (유안타증권 Corporate Day 중간 점검, 11/16)",
+   "broker": "유안타증권",
+   "date": "2026-11-16",
+   "kind": "산업",
+   "subject": "반도체 소부장 · 테스트 소켓·후공정 (보충 칸)",
+   "one_line": "콥데이 1주차 4개사(ISC·에이팩트·샘씨엔에스·유니셈) 미팅에서 2027년 성장 가시성을 확인했고, 실적은 수요가 아니라 증설·자동화 일정이 결정하는 구간이라는 중간 점검입니다.",
+   "url": "https://stock.naver.com/research/industry/47017",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-17 19:15",
+   "depth": "full"
   }
  },
  "skipped": {
