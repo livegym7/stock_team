@@ -682,7 +682,7 @@ html body .view table.invh{width:100%;table-layout:fixed}html body .view .invh t
 html body .view .invh td.num,html body .view .invh th{text-align:right}
 table.sortt th{cursor:pointer;user-select:none} table.sortt th:hover{color:var(--accent)} table.sortt th[data-so=desc]::after{content:" ▼";font-size:9px} table.sortt th[data-so=asc]::after{content:" ▲";font-size:9px}
 .pgt tbody.hid{display:none} .pgt tr.pgd{display:none} .pgt tbody.open tr.pgd{display:table-row} .pgt tbody.open .pgc{display:inline-block;transform:rotate(90deg)} .pgt tr.pgd td{background:var(--bg);padding-top:3px;padding-bottom:3px}
-.brk{border-bottom:1px dotted var(--muted);cursor:help} .rday{padding:6px 12px;font-size:11.5px;font-weight:600;color:var(--muted);background:var(--bg);border-top:1px solid var(--line)} .rsec{display:inline-block;font-size:10.5px;color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:0 4px;margin-right:4px} .rnew{font-size:11px;margin-right:3px} .dtabs{display:flex;gap:6px;overflow-x:auto;padding:8px 0 4px;scrollbar-width:thin} .dtab{flex:0 0 auto;white-space:nowrap;text-align:left;border:1px solid var(--rule);background:var(--panel);color:inherit;border-radius:999px;padding:4px 11px;cursor:pointer;font-size:12.5px;line-height:1.4} .dtab:hover{border-color:var(--accent)} .dtab.on{border-color:var(--accent);background:var(--accent);color:#fff} .dtab.on small{color:#fff;opacity:.85} .sigstrip{border:1px solid var(--accent);background:var(--accent-bg,rgba(47,111,222,.06));border-radius:10px;padding:8px 12px;margin:0 0 10px;font-size:13px;display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center} .sigstrip.none{border-color:var(--rule);background:transparent;color:var(--muted)} .sigc{white-space:nowrap} .pill.sm{font-size:10.5px;padding:0 5px;color:var(--muted)}
+.brk{border-bottom:1px dotted var(--muted);cursor:help} .pill.nvb{font-size:11px;padding:0 6px;text-decoration:none;white-space:nowrap} .pill.nvw{font-size:10.5px;padding:0 5px;margin-left:3px;color:var(--muted);white-space:nowrap} .rday{padding:6px 12px;font-size:11.5px;font-weight:600;color:var(--muted);background:var(--bg);border-top:1px solid var(--line)} .rsec{display:inline-block;font-size:10.5px;color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:0 4px;margin-right:4px} .rnew{font-size:11px;margin-right:3px} .dtabs{display:flex;gap:6px;overflow-x:auto;padding:8px 0 4px;scrollbar-width:thin} .dtab{flex:0 0 auto;white-space:nowrap;text-align:left;border:1px solid var(--rule);background:var(--panel);color:inherit;border-radius:999px;padding:4px 11px;cursor:pointer;font-size:12.5px;line-height:1.4} .dtab:hover{border-color:var(--accent)} .dtab.on{border-color:var(--accent);background:var(--accent);color:#fff} .dtab.on small{color:#fff;opacity:.85} .sigstrip{border:1px solid var(--accent);background:var(--accent-bg,rgba(47,111,222,.06));border-radius:10px;padding:8px 12px;margin:0 0 10px;font-size:13px;display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center} .sigstrip.none{border-color:var(--rule);background:transparent;color:var(--muted)} .sigc{white-space:nowrap} .pill.sm{font-size:10.5px;padding:0 5px;color:var(--muted)}
 .corebx .cbr{display:grid;grid-template-columns:auto 1fr auto auto auto;gap:4px 8px;align-items:center;padding:5px 12px;border-top:1px solid var(--line);font-size:12.5px}
 .corebx .cbr small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.corebx .cbd{font-size:10.5px;color:var(--accent);letter-spacing:-1px;white-space:nowrap}.corebx .cbd i{font-style:normal;color:var(--faint);letter-spacing:0;margin-right:4px}
 /* 2026-11-14 2차: ⚙ · 국면 추적판 · 셋업 보드 · 휴대폰 카드 표 */
@@ -735,7 +735,7 @@ try{const c=JSON.parse(localStorage.getItem("tr-data")||"null");if(c&&D&&c.built
 /* 메뉴 5개 (2026-11-10 다시 설계): 질문 하나에 메뉴 하나 — 오늘(지금 장은?) · 흐름(무슨 얘기·리포트?) · 전략(어디서 싸우나?) · 내 매매(내 돈·규칙·복기) · 더보기(일정·설정) */
 const MENU=[["home","오늘","◎"],["flow","시장","≡"],["news","소식","✉"],["stock","종목","◇"],["strategy","전략","◐"],["trade","내 매매","₩"],["more","더보기","⚙"]];   // 2026-11-14 2차: 탑다운 순서(오늘·시장·종목·전략·내 매매), 더보기는 ⚙   // 2026-11-12 Balance Lab 2.0: 종목 메뉴 신설, 흐름 → 시장
 // 옛 메뉴 id → 새 메뉴 + 탭 (기존 링크·data-go 호환)
-const ALIAS={briefs:["news",null,"digest"],channels:["news",null,"channels"],reports:["news",null,"reports"],portfolio:["trade",null],companies:["stock","list"],research:["strategy","research"],watch:["stock","setup"],sectors:["flow","sectors"],lab:["stock","setup"],config:["more",null]};
+const ALIAS={briefs:["news",null,"digest"],channels:["news",null,"channels"],reports:["strategy","research"],portfolio:["trade",null],companies:["stock","list"],research:["strategy","research"],watch:["stock","setup"],sectors:["flow","sectors"],lab:["stock","setup"],config:["more",null]};
 const STOCK_TABS=[["setup","셋업 보드"],["highs","신고가"],["vtop","거래대금"],["earn","실적"],["etf","ETF"],["list","전체 목록"]];
 const MKT_TABS=[["macro","매크로"],["regime","국면·시장 폭"],["flows","수급"],["sectors","업종 지도"]];   // 소식은 메뉴로 분리 (2026-11-15 A안)
 const GROUPS_ALL=[["메뉴","analysis",["home","flow","news","stock","strategy","trade","more"]]];
@@ -779,6 +779,7 @@ function nav(){
 function route(){let h=location.hash.slice(1);
   if(/^s\d{6}$/.test(h)){ui.sc=h.slice(1);return "stock"}   // 종목 페이지 #s000660
   if(h=="stock"){ui.sc=null;if(!ui.kt)ui.kt="setup"}
+  if(h=="reports"){ui.rt="corp"}
   if(ALIAS[h]){const [pg,tab,sub]=ALIAS[h];if(tab){if(pg=="flow")ui.ft=tab;if(pg=="strategy")ui.st=tab;if(pg=="stock"){ui.kt=tab;ui.sc=null}}if(sub)ui.nt=sub;if(tab||sub)save();h=pg}
   return MENU.some(m=>m[0]==h)?h:"home"}
 const stripH1=h=>h.replace(/<h1[^>]*>[\s\S]*?<\/h1>/,"").replace(/^(\s*<div class="sub"[^>]*>[\s\S]*?<\/div>)/,"");
@@ -1373,7 +1374,9 @@ function viewResearch(){
   const how=`<div class="panel howto"><b>리포트 추가하는 법</b><br>① 구글 드라이브 <b>${esc((R.folders||["리포트"]).join("”, “"))}</b> 폴더에 리포트 PDF를 올립니다<br>② Claude 대화에서 <b>"딥리서치 해줘"</b>라고 말합니다 → 새 파일을 읽고 분석·종합해 이 화면에 올립니다<br><small class="muted">원문은 드라이브에만 두고, 여기에는 요약·분석과 원문 링크만 저장합니다</small></div>`;
   if(!docs.length&&!(R.cards||[]).length)return `<h1>자료실</h1><div class="sub">리포트 원문을 1건씩 읽고 요약·핵심 숫자·논리·반대 근거를 저장하는 재료 창고 · 종합은 전략 보고서에서</div>${how}`;
   const head=`<h1>자료실</h1><div class="sub">리포트 원문 ${docs.length}개 분석 · 종합 ${esc(S?S.updated_at:"없음")} · 출처: 증권사 리포트 원문(드라이브) + 시장 확인 네이버 일봉(비공식) · 판단은 본인이</div>
-  <div class="chips"><button class="chip ${tab=="docs"?"on":""}" data-rt="docs">📄 문서 ${docs.length}</button><button class="chip ${tab=="cards"?"on":""}" data-rt="cards">🗂️ 리포트 카드 ${(R.cards||[]).length}</button><button class="chip ${tab=="score"?"on":""}" data-rt="score">📈 성적표</button><button class="chip ${tab=="rev"?"on":""}" data-rt="rev">🔺 목표가 흐름</button><button class="chip ${tab=="how"?"on":""}" data-rt="how">➕ 추가하는 법</button></div>`;
+  <div class="chips">${[["corp","🏢 기업 리포트"],["cards",`🗂️ 산업·전략 리포트 ${(R.cards||[]).length}`],["docs",`📖 깊이 읽기 ${docs.length}`],["score","📈 성적표"],["how","➕ 추가하는 법"]].map(([k,n])=>`<button class="chip ${tab==k?"on":""}" data-rt="${k}">${n}</button>`).join("")}</div>`;   // 2026-11-17 사용자 확정: 소식 › 리포트 → 기업 리포트, 리포트 카드 → 산업·전략 리포트, 문서 → 깊이 읽기, 목표가 흐름은 기업 리포트 안으로
+  if(tab=="rev")tab="corp";
+  if(tab=="corp"){let body=reportFlowTab(),bar="";body=body.replace(/<!--bar-->([\s\S]*?)<!--\/bar-->/,(m,x)=>{bar=x;return ""});return head+`<div class="sub" style="margin:-4px 0 8px">종목 리포트 목표가·의견 · 텔레그램 채널 요약(2차) + 📰 네이버 리서치 원본(1차) · 시간대별 흐름 글은 소식 › 정리의 장중 정리·리포트</div>${bar?`<div class="flowbar" style="margin-bottom:8px">${bar}</div>`:""}`+body}
   if(tab=="how")return head+how;
   if(tab=="cards")return head+researchCards(R);
   if(tab=="docs")return head+researchDocs(docs);
@@ -1532,7 +1535,7 @@ function researchCards(R){
   const groups=[];shown.forEach(c=>{const k=gk(c);if(!groups.length||groups[groups.length-1][0]!=k)groups.push([k,[]]);groups[groups.length-1][1].push(c)});
   const NV={};(((R.naver||{}).candidates)||[]).forEach(x=>NV[x.cat+":"+x.nid]=x);const PK=new Set((((R.naver||{}).picked)||[]).map(p=>p.id));const DOCS=new Set((R.docs||[]).map(d=>d.file_id));
   const row=c=>{const st=c.stance||c.stance_hint, draft=c.status=="draft", nv=NV[c.cat+":"+c.nid], did="naver_"+c.cat+"_"+c.nid;
-    return `<div class="rcard ${draft?"draft":""}"><div class="rch"><span class="pill ${STANCE[st]||""}">${esc(st||"-")}</span><span class="pill">${esc(c.sector)}</span>${c.status=="deep"?'<span class="pill ok">깊이 읽음</span>':draft?'<span class="pill" title="Haiku 카드 전, 규칙만으로 만든 초안">자동 초안</span>':""}${c.contrarian?'<span class="pill warn">반대 의견</span>':""}${nv?`<span class="pill" title="오늘의 후보 규칙 점수 (Claude 없이 계산): ${esc((nv.why||[]).join(" · "))}">후보 ${nv.score}점</span>`:""}${PK.has(c.cat+":"+c.nid)?'<span class="pill ok">✅ 오늘 고름</span>':""}${DOCS.has(did)?`<button class="pill linkb" data-rd="${esc(did)}" style="cursor:pointer">분석 보기 ›</button>`:""}${c.depth_value?`<span class="pill">가치 ${esc(c.depth_value)}</span>`:""}<small class="muted">${esc(c.broker)} · ${esc(c.cat=="invest"?"전략":"산업")}${c.industry?" · "+esc(c.industry):""} · 신규성 ${c.novelty??"-"}</small></div>
+    return `<div class="rcard ${draft?"draft":""}"><div class="rch"><span class="pill ${STANCE[st]||""}">${esc(st||"-")}</span><span class="pill">${esc(c.sector)}</span>${c.status=="deep"?'<span class="pill ok">깊이 읽음</span>':draft?'<span class="pill" title="Haiku 카드 전, 규칙만으로 만든 초안">자동 초안</span>':""}${c.contrarian?'<span class="pill warn">반대 의견</span>':""}${nv?(nv.why||[]).slice(0,2).map(t=>`<span class="pill nvw" title="깊이 읽기 후보로 눈여겨본 이유 (규칙 계산)">👀 ${esc(t)}</span>`).join(""):""}${PK.has(c.cat+":"+c.nid)?'<span class="pill ok">✅ 오늘 고름</span>':""}${DOCS.has(did)?`<button class="pill linkb" data-rd="${esc(did)}" style="cursor:pointer">분석 보기 ›</button>`:""}${c.depth_value?`<span class="pill">가치 ${esc(c.depth_value)}</span>`:""}<small class="muted">${esc(c.broker)} · ${esc(c.cat=="invest"?"전략":"산업")}${c.industry?" · "+esc(c.industry):""} · 신규성 ${c.novelty??"-"}</small></div>
      <a href="${esc(c.url)}" target="_blank" rel="noopener"><b>${esc(c.title)}</b></a>
      ${c.thesis?`<div class="rct">${tint(c.thesis)}</div>`:`<div class="rct muted">${esc((c.summary||"").slice(0,180))}</div>`}
      ${(c.numbers3||[]).length?`<div class="rcn num">${c.numbers3.map(x=>`<span>${esc(x)}</span>`).join("")}</div>`:""}
@@ -1941,7 +1944,7 @@ function dayTabs(day,fd){
   G.sort((a,b)=>a.time.localeCompare(b.time));
   const sel=(ui.dsel||{})[fd],cur=G.find(g=>g.key==sel)||G[G.length-1];
   const btn=g=>{const b=g.L[0],v=(b.versions||[]).length;return `<button class="dtab ${g===cur?"on":""}" data-dsel="${esc(g.key)}" data-dd="${esc(fd)}" title="${esc(briefLine(b))}"><span class="num">${esc(g.time)}</span> <b>${esc(g.name)}</b>${g.L.length>1?` <small>${g.L.length}</small>`:""}${v>1?` <small class="muted">${v}회째</small>`:""}</button>`};
-  const body=cur&&cur.name=="자료"?cur.L.map(b=>{const lines=String(b.text||"").split("\n").filter(x=>/^(#|💡|- )/.test(x.trim())).slice(0,6).join("\n");return `<article class="panel brief br2" style="margin:8px 0 0">${briefHtml(lines)}<div style="margin-top:8px"><a class="chip on" href="#strategy" data-rsgo="1">자료실에서 전문 보기 ›</a></div></article>`}).join(""):cur?cur.L.map(b=>`<article class="panel brief br2" style="margin:8px 0 0">${cur.L.length>1?`<div class="muted" style="font-size:12px;margin-bottom:4px">${esc(b.time||"")} · ${esc(SECN[b.kind]||b.kind_name)}</div>`:""}${(b.versions||[]).length>1?`<div class="muted" style="font-size:12px;margin-bottom:4px">${b.versions.length}회째 갱신 · 첫 ${esc(b.versions[b.versions.length-1])} · 최신 ${esc(b.time||"")}</div>`:""}${briefHtml(b.text)}</article>`).join(""):"";
+  const body=cur&&cur.name=="자료"?cur.L.map(b=>{const lines=String(b.text||"").split("\n").filter(x=>/^(#|💡|- )/.test(x.trim())).slice(0,6).join("\n");return `<article class="panel brief br2" style="margin:8px 0 0">${briefHtml(lines)}<div style="margin-top:8px"><a class="chip on" href="#strategy" data-rsgo="1">자료실 › 깊이 읽기에서 전문 보기 ›</a></div></article>`}).join(""):cur?cur.L.map(b=>`<article class="panel brief br2" style="margin:8px 0 0">${cur.L.length>1?`<div class="muted" style="font-size:12px;margin-bottom:4px">${esc(b.time||"")} · ${esc(SECN[b.kind]||b.kind_name)}</div>`:""}${(b.versions||[]).length>1?`<div class="muted" style="font-size:12px;margin-bottom:4px">${b.versions.length}회째 갱신 · 첫 ${esc(b.versions[b.versions.length-1])} · 최신 ${esc(b.time||"")}</div>`:""}${briefHtml(b.text)}${/^report/.test(b.kind)?`<div style="margin-top:8px"><a class="chip on" href="#strategy" data-corpgo="1">전체 목록 → 자료실 › 기업 리포트 ›</a></div>`:""}</article>`).join(""):"";
   return `<div class="dtabs">${G.map(btn).join("")}</div>${body}`}
 function tapeState(){const t=$("#tape"),b=$("#tapebtn");if(!t||!b)return;t.classList.toggle("stop",!!ui.tapeStop);b.textContent=ui.tapeStop?"▶":"⏸";b.title=ui.tapeStop?"흐르는 띠 재생":"흐르는 띠 멈춤"}
 document.addEventListener("click",e=>{if(e.target.closest("#tapebtn")){ui.tapeStop=!ui.tapeStop;save();tapeState()}});
@@ -1973,12 +1976,19 @@ function naverDay(){const N=(D.research||{}).naver||{},C=(N.candidates||[]).filt
    <div class="src">출처: 네이버 리서치(1차 자료) · 점수는 Claude 없이 계산(보유·관심, 목표가·의견 변화, 같은 날 여러 증권사, 실적 서프라이즈, 강한 업종, 조회수) · 아래 '이 날 나온 리포트'는 텔레그램 채널 요약(2차 자료)</div></div>`}
 function dayReports(){
   const R=[];(D.companies||[]).forEach(c=>(c.reports||[]).forEach(r=>R.push({...r,name:c.name,code:c.code,detail:c.detail||c.group||""})));
-  const {d}=fdPick(R.map(r=>(r.time||"").slice(0,10)).filter(Boolean)),L0=R.filter(r=>(r.time||"").startsWith(d)).sort((a,b)=>(b.time||"").localeCompare(a.time||""));
-  const rd=ui.rdir||"all",L=L0.filter(r=>rd=="all"||(rd=="new"?!["상향","하향"].includes(r.direction):r.direction==rd)),N=moreN("rp"+d+rd,20);
+  const {d}=fdPick(R.map(r=>(r.time||"").slice(0,10)).filter(Boolean)),L1=R.filter(r=>(r.time||"").startsWith(d)).sort((a,b)=>(b.time||"").localeCompare(a.time||""));
+  /* 네이버 원본과 합치기 (2026-11-17 시안): 같은 날·같은 종목·같은 증권사면 채널 줄에 📰 배지, 네이버에만 있으면 끼워 넣음 */
+  const NV=(((D.research||{}).naver||{}).date==d?(((D.research||{}).naver||{}).candidates||[]):[]).filter(x=>x.cat=="company"&&x.name);
+  const bk=b=>String(b||"").replace(/증권|투자|금융/g,"").trim().slice(0,2);
+  const used=new Set();L1.forEach(r=>{const i=NV.findIndex((x,j)=>!used.has(j)&&x.name==r.name&&bk(x.broker)==bk(r.broker));if(i>=0){used.add(i);r.nv=NV[i]}});
+  const only=NV.filter((x,j)=>!used.has(j)).map(x=>({name:x.name,code:x.code,broker:x.broker,after:x.target,direction:"",points:[x.title],nv:x,nvOnly:1,detail:(stockByCode(x.code)||{}).group||"",time:""}));
+  const L0=L1.concat(only);
+  const rd=ui.rdir||"all",L=L0.filter(r=>rd=="all"||(rd=="nv"?!!r.nv:rd=="new"?!["상향","하향"].includes(r.direction):r.direction==rd)).sort((a,b)=>rd=="nv"?(b.nv.score-a.nv.score):0),N=moreN("rp"+d+rd,20);
+  const nvb=x=>`<a class="pill nvb" href="https://stock.naver.com/research/${x.cat}/${x.nid}" target="_blank" rel="noopener" title="네이버 리서치 원문(1차 자료)">📰 원문</a>${(x.why||[]).slice(0,3).map(t=>`<span class="pill nvw">${esc(t)}</span>`).join("")}`;   // 점수 숫자 대신 이유 태그 (2026-11-17)
   return `<!--bar-->${datePicker(R.map(r=>(r.time||"").slice(0,10)).filter(Boolean),"")}<!--/bar-->
-  <div class="panel" style="margin-bottom:12px"><h3>이 날 나온 리포트 <small class="muted">${L0.length}건 · 텔레그램 채널 요약(2차 자료)</small></h3>
-  <div class="chips" style="margin-bottom:8px">${[["all",`전체 ${L0.length}`],["상향",`🔺 상향 ${L0.filter(r=>r.direction=="상향").length}`],["하향",`🔽 하향 ${L0.filter(r=>r.direction=="하향").length}`],["new",`🆕 신규·유지 ${L0.filter(r=>!["상향","하향"].includes(r.direction)).length}`]].map(([k,n])=>`<button class="chip ${rd==k?"on":""}" data-rdir="${k}">${n}</button>`).join("")}</div>
-  ${L.length?`<div class="tw"><table class="wraptbl slist"><tr><th class="l">시각</th><th class="l">종목</th><th class="l">증권사</th><th>목표가</th><th class="l">핵심</th></tr>${L.slice(0,N).map(r=>`<tr class="click" data-cq="${esc(r.name)}"><td class="l num">${esc((r.time||"").slice(11,16))}</td><td class="l"><b class="stk">${esc(r.name)}</b><br><small class="muted">${esc(r.detail)}</small></td><td class="l">${esc(r.broker||"")}</td><td class="num">${r.before?w(r.before)+" → ":""}<b>${w(r.after)}</b> ${r.direction=="상향"?"🔺":r.direction=="하향"?"🔽":"🆕"}</td><td class="l"><small>${esc((r.points||[])[0]||"")}</small></td></tr>`).join("")}</table></div>${moreBtn("rp"+d+rd,N,L.length,20)}`:`<div class="empty">이 날 리포트 요약 없음</div>`}</div>`}
+  <div class="panel" style="margin-bottom:12px"><h3>이 날 나온 리포트 <small class="muted">${L0.length}건 · 채널 요약(2차) + 📰 네이버 원본(1차) 눈여겨볼 ${NV.length}건 중 겹침 ${used.size} · 네이버에만 ${only.length}</small></h3>
+  <div class="chips" style="margin-bottom:8px">${[["all",`전체 ${L0.length}`],["상향",`🔺 상향 ${L0.filter(r=>r.direction=="상향").length}`],["하향",`🔽 하향 ${L0.filter(r=>r.direction=="하향").length}`],["new",`🆕 신규·유지 ${L0.filter(r=>!["상향","하향"].includes(r.direction)).length}`],["nv",`📰 눈여겨볼 리포트 ${NV.length}`]].map(([k,n])=>`<button class="chip ${rd==k?"on":""}" data-rdir="${k}">${n}</button>`).join("")}</div>
+  ${L.length?`<div class="tw"><table class="wraptbl slist"><tr><th class="l">시각</th><th class="l">종목</th><th class="l">증권사</th><th>목표가</th><th class="l">핵심</th></tr>${L.slice(0,N).map(r=>`<tr class="click" data-cq="${esc(r.name)}"><td class="l num">${esc((r.time||"").slice(11,16))||'<small class="muted">-</small>'}</td><td class="l"><b class="stk">${esc(r.name)}</b><br><small class="muted">${esc(r.detail)}</small></td><td class="l">${esc(r.broker||"")}${r.nvOnly?'<br><small class="muted">네이버에만</small>':""}</td><td class="num">${r.before?w(r.before)+" → ":""}<b>${w(r.after)}</b> ${r.nvOnly?(r.nv.opinion?`<small class="muted">${esc(r.nv.opinion)}</small>`:""):r.direction=="상향"?"🔺":r.direction=="하향"?"🔽":"🆕"}</td><td class="l">${r.nv?nvb(r.nv)+" ":""}<small>${esc((r.points||[])[0]||"")}</small></td></tr>`).join("")}</table></div>${moreBtn("rp"+d+rd,N,L.length,20)}`:`<div class="empty">이 날 리포트 요약 없음</div>`}</div>`}
 function reportFlowTab(){
   const F=D.report_flow||[];
   const tot=F.reduce((a,s)=>({up:a.up+(s.up||0),down:a.down+(s.down||0),nw:a.nw+(s.new||0)}),{up:0,down:0,nw:0});
@@ -1988,7 +1998,7 @@ function reportFlowTab(){
      <div class="rfb2" title="상향 ${s.up||0} · 신규 ${s.new||0} · 하향 ${s.down||0} (모두 ${n}건)"><div class="rft" style="width:${n/mx*100}%"><i style="flex:${s.up||0};background:var(--up)"></i><i style="flex:${s.new||0};background:var(--faint)"></i><i style="flex:${s.down||0};background:var(--down)"></i></div></div>
      <span class="num rfc up">${s.up||0}</span><span class="num rfc down">${s.down||0}</span><span class="num rfc muted">${s.new||0}</span>
      <span class="num rfc ${net>0?"up":net<0?"down":""}">${net>0?"+":""}${net}</span><span class="num rfc ${cls(s.avg_change_pct)}">${s.avg_change_pct!=null?pc(s.avg_change_pct):"-"}</span></div>`};
-  return `${naverDay()}${dayReports()}<details class="fold" data-fold="rfOpen" ${ui.rfOpen?"open":""}><summary class="foldh">📊 31일 리포트 흐름 · 목표가 상향·하향이 몰리는 종목 <small class="muted">눌러서 펼치기</small></summary><div class="panel rflow" style="margin-bottom:12px"><div class="rfhead"><h3>31일 리포트 흐름 <small class="muted">업종별 목표가 변경 · 채널 리포트 요약(2차) · ${esc((D.parts&&D.parts.channels)||D.built_at)}</small></h3>
+  return `${dayReports()}<details class="fold" data-fold="rfOpen" ${ui.rfOpen?"open":""}><summary class="foldh">📊 31일 리포트 흐름 · 목표가 상향·하향이 몰리는 종목 <small class="muted">눌러서 펼치기</small></summary><div class="panel rflow" style="margin-bottom:12px"><div class="rfhead"><h3>31일 리포트 흐름 <small class="muted">업종별 목표가 변경 · 채널 리포트 요약(2차) · ${esc((D.parts&&D.parts.channels)||D.built_at)}</small></h3>
    <div class="rfsum num"><span><i style="background:var(--up)"></i>상향 <b>${tot.up}</b></span><span><i style="background:var(--down)"></i>하향 <b>${tot.down}</b></span><span><i style="background:var(--faint)"></i>신규 <b>${tot.nw}</b></span><span>하향 비율 <b>${tot.up+tot.down?Math.round(tot.down/(tot.up+tot.down)*100):0}%</b></span></div></div>
    <div class="rfr rfh"><span>업종 <small>(대표 종목)</small></span><span>건수 (상향 · 신규 · 하향)</span><span class="rfc">상향</span><span class="rfc">하향</span><span class="rfc">신규</span><span class="rfc">순증</span><span class="rfc">평균 변경</span></div>
    ${F.slice(0,20).map(row).join("")}
@@ -2081,12 +2091,13 @@ function tfMarket(k){   // 매일 숫자·그림 (strategy_tf.market_fragments, 
   const T=D.tf_market;if(!T||!T.html||!T.html[k])return `<div class="empty">아직 데이터가 없습니다 (다음 웹 갱신 때 생깁니다)</div>`;
   return `<style>${T.css||""}</style><div class="tfr"><div class="page">${T.html[k]}<div class="src" style="margin-top:8px">숫자 ${esc(T.made_at||"")} · 해석은 <a href="#strategy" data-st="report">전략 › 주간 보고서</a></div></div></div>`}
 function newsTab(){
-  const nt=["digest","reports","channels"].includes(ui.nt)?ui.nt:"digest";
+  if(ui.nt=="reports"){ui.nt="digest";ui.st="research";ui.rt="corp";save();setTimeout(()=>{location.hash="strategy"},0)}   // 소식 › 리포트는 전략 › 자료실 › 기업 리포트로 옮김 (2026-11-17)
+  const nt=["digest","channels"].includes(ui.nt)?ui.nt:"digest";
   const M=D.brief_missed||[];
   const miss=nt=="digest"&&M.length?`<details class="fold missb"><summary class="foldh">⚠ 오늘 정리에 없는 관련 글 ${M.length}개 <small class="muted">보유·관찰 풀·핵심 후보 언급 · 다음 정리 때 반영 확인</small></summary>${M.slice(-20).reverse().map(m=>`<div class="insrow"><span class="num muted">${esc(m.time)}</span> <b>${esc(m.names.join(", "))}</b> <small class="muted">${esc(m.channel)}</small><br><small>${esc(m.text)}</small>${m.url?` <a href="${esc(m.url)}" target="_blank" rel="noopener">원문</a>`:""}</div>`).join("")}</details>`:"";
   let body=nt=="digest"?miss+flowTimeline():nt=="reports"?reportFlowTab():stripH1(viewChannels()),bar="";
   body=body.replace(/<!--bar-->([\s\S]*?)<!--\/bar-->/,(m,x)=>{bar=x;return ""});
-  return `<div class="flowbar"><div class="chips">${[["digest","정리"],["reports","리포트"],["channels","채널 원문"]].map(([v,n])=>`<button class="chip ${nt==v?"on":""}" data-nt="${v}">${n}</button>`).join("")}</div>${bar}</div>${body}`}
+  return `<div class="flowbar"><div class="chips">${[["digest","정리"],["channels","채널 원문"]].map(([v,n])=>`<button class="chip ${nt==v?"on":""}" data-nt="${v}">${n}</button>`).join("")}</div>${bar}</div>${body}`}
 function viewFlow(){   // 2026-11-14 2차: 시장 = 매일 보는 탑다운(매크로 → 국면·시장 폭 → 수급 → 업종 지도) + 소식
   let t=ui.ft||"macro";
   if(["digest","reports","channels","news"].includes(t)){if(t!="news")ui.nt=t;ui.ft="macro";save();setTimeout(()=>{location.hash="news"},0);t="macro"}
@@ -2317,7 +2328,7 @@ function viewMore(){
 }
 
 /* ---------- 라우터 ---------- */
-function viewNews(){return `<h1>소식</h1><div class="sub">정리(체크포인트·장중 정리·마감) · 리포트 · 채널 원문 — 채널 글은 2차 자료, 판단은 본인</div>${newsTab()}`}
+function viewNews(){return `<h1>소식</h1><div class="sub">정리(체크포인트·장중 정리·마감) · 채널 원문 — 채널 글은 2차 자료, 판단은 본인 · 리포트 목록은 전략 › 자료실</div>${newsTab()}`}
 const VIEWS={home:viewHome2,flow:viewFlow,news:viewNews,strategy:viewStrategy2,stock:viewStock,trade:viewTrade,more:viewMore};
 
 /* ---------- 기업 검색 (2026-11-12 사용자 요청) ---------- */
@@ -2841,6 +2852,7 @@ document.addEventListener("click",e=>{
   const stb=e.target.closest("[data-st]"); if(stb){ui.st=stb.dataset.st;save();if(stb.tagName=="A"){return}render();return}
   const rcf=e.target.closest("[data-rcf]"); if(rcf){ui.rcf=rcf.dataset.rcf;save();render();return}
   const rcs=e.target.closest("[data-rcs]"); if(rcs){ui.rcs=rcs.dataset.rcs;save();render();return}
+  if(e.target.closest("[data-corpgo]")){ui.st="research";ui.rt="corp";save();return}
   if(e.target.closest("[data-rsgo]")){ui.st="research";ui.rt="docs";ui.rv="new";save();return}   // 소식 자료 → 자료실 문서(최신순)
   const rt=e.target.closest("[data-rt]"); if(rt){ui.rt=rt.dataset.rt;save();render();return}
   const rk=e.target.closest("[data-rk]"); if(rk){ui.rk=rk.dataset.rk;ui.rd=null;save();render();return}
