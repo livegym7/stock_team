@@ -2379,11 +2379,11 @@ function setupTab(){   // 셋업 보드 = 감시 목록 × 펀더·기술 점수
   const dots=k=>`<span class="sdots">${"●".repeat(k)}${"○".repeat(3-k)}</span>`;
   const rows=L.map(x=>{const q=liveQuote(x.code),px=(q&&q.price)||x.close,d=x.breakout&&px?(x.breakout/px-1)*100:x.dist;
     const cat=x.core?["핵심 후보","ok"]:x.fp>=2?["펀더 OK·기술 대기",""]:x.tech>=2?["기술만 · 펀더 미확인","warn"]:["제외",""];
-    return `<tr class="${x.core?"rdy":""}" data-go-s="${x.code}"><td class="l"><b class="stk">${esc(x.name)}</b>${x.pool?" 🎯":""}<br><small class="muted">${esc(x.group)}</small></td><td><span class="pill ${cat[1]}">${cat[0]}</span></td>
+    return `<tr class="${x.core?"rdy":""}" data-go-s="${x.code}"><td class="l"><b data-pop="${esc(x.name)}" class="stk">${esc(x.name)}</b>${x.pool?" 🎯":""}<br><small class="muted">${esc(x.group)}</small></td><td><span class="pill ${cat[1]}">${cat[0]}</span></td>${pxCells(x.code)}
      <td title="${esc((x.why||[]).join(" · "))}">${dots(x.fp)}</td><td>${dots(x.tech)}</td><td class="num">${x.rs??"-"}</td><td class="num"><b>${w(x.breakout)}</b></td><td class="num ${d!=null&&d<=3?"up":""}">${d==null?"-":(d<=0?"돌파 ":"")+Math.abs(d).toFixed(1)+"%"}</td>
      <td class="num">${w(x.stop)}</td><td class="num">${x.breakout&&x.stop&&x.breakout>x.stop?Math.floor(300000/(x.breakout-x.stop))+"주":"-"}</td><td class="${x.ia?"up":"down"}">${x.ia?"동행":"나 홀로"}</td><td class="l"><small class="muted">${esc(x.note||"")}</small></td></tr>`}).join("");
   return `<div class="sub" style="margin-top:-4px">감시 목록(${esc(fmtYmd(C.as_of||""))} 16:07) × 펀더·기술 점수 · 핵심 ${C.n_core||0}종목 · ${esc(C.rule||"")} · 장중엔 현재가로 거리 · 종목을 누르면 종목 페이지</div>
-   ${L.length?`<div class="tw"><table class="slist"><tr><th class="l">종목</th><th>분류</th><th>펀더</th><th>기술</th><th>RS</th><th>기준가</th><th>거리</th><th>손절가(−8%)</th><th>1R 수량</th><th>업종</th><th class="l">메모</th></tr>${rows}</table></div>`:`<div class="empty">감시 목록이 아직 없습니다</div>`}
+   ${L.length?`<div class="tw"><table class="slist"><tr><th class="l">종목</th><th>분류</th><th>현재가</th><th>오늘</th><th>펀더</th><th>기술</th><th>RS</th><th>기준가</th><th>거리</th><th>손절가(−8%)</th><th>1R 수량</th><th>업종</th><th class="l">메모</th></tr>${rows}</table></div>`:`<div class="empty">감시 목록이 아직 없습니다</div>`}
    <details class="fold" data-fold="oldWatch" ${ui.oldWatch?"open":""}><summary class="foldh">📋 감시 목록 원래 화면 (셋업·관문·기준가 자세히) <small class="muted">눌러서 펼치기</small></summary>${stripH1(viewWatch())}</details>
    ${src("1R 수량 = 30만 원 ÷ (기준가 − 손절가) · 펀더 점수는 순서를 정하는 참고이고 매매 규칙(docs/rules.md)은 2027-01-31까지 고정 · 출처: 감시 목록(screener.py), 네이버 재무·컨센서스(비공식)")}`}
 function viewStock(){
