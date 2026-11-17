@@ -1373,12 +1373,12 @@ function viewResearch(){
   const how=`<div class="panel howto"><b>리포트 추가하는 법</b><br>① 구글 드라이브 <b>${esc((R.folders||["리포트"]).join("”, “"))}</b> 폴더에 리포트 PDF를 올립니다<br>② Claude 대화에서 <b>"딥리서치 해줘"</b>라고 말합니다 → 새 파일을 읽고 분석·종합해 이 화면에 올립니다<br><small class="muted">원문은 드라이브에만 두고, 여기에는 요약·분석과 원문 링크만 저장합니다</small></div>`;
   if(!docs.length&&!(R.cards||[]).length)return `<h1>자료실</h1><div class="sub">리포트 원문을 1건씩 읽고 요약·핵심 숫자·논리·반대 근거를 저장하는 재료 창고 · 종합은 전략 보고서에서</div>${how}`;
   const head=`<h1>자료실</h1><div class="sub">리포트 원문 ${docs.length}개 분석 · 종합 ${esc(S?S.updated_at:"없음")} · 출처: 증권사 리포트 원문(드라이브) + 시장 확인 네이버 일봉(비공식) · 판단은 본인이</div>
-  <div class="chips"><button class="chip ${tab=="docs"?"on":""}" data-rt="docs">📄 문서 ${docs.length}</button><button class="chip ${tab=="cards"?"on":""}" data-rt="cards">🗂️ 리포트 카드 ${(R.cards||[]).length}</button><button class="chip ${tab=="nv"?"on":""}" data-rt="nv">📰 오늘의 리포트</button><button class="chip ${tab=="score"?"on":""}" data-rt="score">📈 성적표</button><button class="chip ${tab=="rev"?"on":""}" data-rt="rev">🔺 목표가 흐름</button><button class="chip ${tab=="how"?"on":""}" data-rt="how">➕ 추가하는 법</button></div>`;
+  <div class="chips"><button class="chip ${tab=="docs"?"on":""}" data-rt="docs">📄 문서 ${docs.length}</button><button class="chip ${tab=="cards"?"on":""}" data-rt="cards">🗂️ 리포트 카드 ${(R.cards||[]).length}</button><button class="chip ${tab=="score"?"on":""}" data-rt="score">📈 성적표</button><button class="chip ${tab=="rev"?"on":""}" data-rt="rev">🔺 목표가 흐름</button><button class="chip ${tab=="how"?"on":""}" data-rt="how">➕ 추가하는 법</button></div>`;
   if(tab=="how")return head+how;
   if(tab=="cards")return head+researchCards(R);
   if(tab=="docs")return head+researchDocs(docs);
   if(tab=="score")return head+researchScore(R);
-  if(tab=="nv")return head+naverPicks(R);
+  if(tab=="nv")return head+researchCards(R);   // 2026-11-17: 오늘의 리포트 탭 없앰 → 종목 리포트는 소식 › 리포트, 산업·전략 점수는 카드 배지
   if(tab=="rev")return head+revFlow();
   if(!S)return head+`<div class="empty">아직 종합 분석이 없습니다. "딥리서치 해줘"라고 하면 만듭니다</div>`;
   const conf={"높음":"ok","중간":"","낮음":"warn"};
@@ -1530,8 +1530,9 @@ function researchCards(R){
   const gk=c=>view=="new"?c.date:c.sector, gc={};list.forEach(c=>gc[gk(c)]=(gc[gk(c)]||0)+1), rcm=ui.rcm||{};
   const shown=view=="new"?ordered.slice(0,lim):ordered.filter((c,i,A)=>rcm[c.sector]||A.slice(0,i).filter(x=>x.sector==c.sector).length<5);   // 섹터별은 업종마다 5개 + '이 업종 더 보기'
   const groups=[];shown.forEach(c=>{const k=gk(c);if(!groups.length||groups[groups.length-1][0]!=k)groups.push([k,[]]);groups[groups.length-1][1].push(c)});
-  const row=c=>{const st=c.stance||c.stance_hint, draft=c.status=="draft";
-    return `<div class="rcard ${draft?"draft":""}"><div class="rch"><span class="pill ${STANCE[st]||""}">${esc(st||"-")}</span><span class="pill">${esc(c.sector)}</span>${c.status=="deep"?'<span class="pill ok">깊이 읽음</span>':draft?'<span class="pill" title="Haiku 카드 전, 규칙만으로 만든 초안">자동 초안</span>':""}${c.contrarian?'<span class="pill warn">반대 의견</span>':""}${c.depth_value?`<span class="pill">가치 ${esc(c.depth_value)}</span>`:""}<small class="muted">${esc(c.broker)} · ${esc(c.cat=="invest"?"전략":"산업")}${c.industry?" · "+esc(c.industry):""} · 신규성 ${c.novelty??"-"}</small></div>
+  const NV={};(((R.naver||{}).candidates)||[]).forEach(x=>NV[x.cat+":"+x.nid]=x);const PK=new Set((((R.naver||{}).picked)||[]).map(p=>p.id));const DOCS=new Set((R.docs||[]).map(d=>d.file_id));
+  const row=c=>{const st=c.stance||c.stance_hint, draft=c.status=="draft", nv=NV[c.cat+":"+c.nid], did="naver_"+c.cat+"_"+c.nid;
+    return `<div class="rcard ${draft?"draft":""}"><div class="rch"><span class="pill ${STANCE[st]||""}">${esc(st||"-")}</span><span class="pill">${esc(c.sector)}</span>${c.status=="deep"?'<span class="pill ok">깊이 읽음</span>':draft?'<span class="pill" title="Haiku 카드 전, 규칙만으로 만든 초안">자동 초안</span>':""}${c.contrarian?'<span class="pill warn">반대 의견</span>':""}${nv?`<span class="pill" title="오늘의 후보 규칙 점수 (Claude 없이 계산): ${esc((nv.why||[]).join(" · "))}">후보 ${nv.score}점</span>`:""}${PK.has(c.cat+":"+c.nid)?'<span class="pill ok">✅ 오늘 고름</span>':""}${DOCS.has(did)?`<button class="pill linkb" data-rd="${esc(did)}" style="cursor:pointer">분석 보기 ›</button>`:""}${c.depth_value?`<span class="pill">가치 ${esc(c.depth_value)}</span>`:""}<small class="muted">${esc(c.broker)} · ${esc(c.cat=="invest"?"전략":"산업")}${c.industry?" · "+esc(c.industry):""} · 신규성 ${c.novelty??"-"}</small></div>
      <a href="${esc(c.url)}" target="_blank" rel="noopener"><b>${esc(c.title)}</b></a>
      ${c.thesis?`<div class="rct">${tint(c.thesis)}</div>`:`<div class="rct muted">${esc((c.summary||"").slice(0,180))}</div>`}
      ${(c.numbers3||[]).length?`<div class="rcn num">${c.numbers3.map(x=>`<span>${esc(x)}</span>`).join("")}</div>`:""}
@@ -1940,7 +1941,7 @@ function dayTabs(day,fd){
   G.sort((a,b)=>a.time.localeCompare(b.time));
   const sel=(ui.dsel||{})[fd],cur=G.find(g=>g.key==sel)||G[G.length-1];
   const btn=g=>{const b=g.L[0],v=(b.versions||[]).length;return `<button class="dtab ${g===cur?"on":""}" data-dsel="${esc(g.key)}" data-dd="${esc(fd)}" title="${esc(briefLine(b))}"><span class="num">${esc(g.time)}</span> <b>${esc(g.name)}</b>${g.L.length>1?` <small>${g.L.length}</small>`:""}${v>1?` <small class="muted">${v}회째</small>`:""}</button>`};
-  const body=cur?cur.L.map(b=>`<article class="panel brief br2" style="margin:8px 0 0">${cur.L.length>1?`<div class="muted" style="font-size:12px;margin-bottom:4px">${esc(b.time||"")} · ${esc(SECN[b.kind]||b.kind_name)}</div>`:""}${(b.versions||[]).length>1?`<div class="muted" style="font-size:12px;margin-bottom:4px">${b.versions.length}회째 갱신 · 첫 ${esc(b.versions[b.versions.length-1])} · 최신 ${esc(b.time||"")}</div>`:""}${briefHtml(b.text)}</article>`).join(""):"";
+  const body=cur&&cur.name=="자료"?cur.L.map(b=>{const lines=String(b.text||"").split("\n").filter(x=>/^(#|💡|- )/.test(x.trim())).slice(0,6).join("\n");return `<article class="panel brief br2" style="margin:8px 0 0">${briefHtml(lines)}<div style="margin-top:8px"><a class="chip on" href="#strategy" data-rsgo="1">자료실에서 전문 보기 ›</a></div></article>`}).join(""):cur?cur.L.map(b=>`<article class="panel brief br2" style="margin:8px 0 0">${cur.L.length>1?`<div class="muted" style="font-size:12px;margin-bottom:4px">${esc(b.time||"")} · ${esc(SECN[b.kind]||b.kind_name)}</div>`:""}${(b.versions||[]).length>1?`<div class="muted" style="font-size:12px;margin-bottom:4px">${b.versions.length}회째 갱신 · 첫 ${esc(b.versions[b.versions.length-1])} · 최신 ${esc(b.time||"")}</div>`:""}${briefHtml(b.text)}</article>`).join(""):"";
   return `<div class="dtabs">${G.map(btn).join("")}</div>${body}`}
 function tapeState(){const t=$("#tape"),b=$("#tapebtn");if(!t||!b)return;t.classList.toggle("stop",!!ui.tapeStop);b.textContent=ui.tapeStop?"▶":"⏸";b.title=ui.tapeStop?"흐르는 띠 재생":"흐르는 띠 멈춤"}
 document.addEventListener("click",e=>{if(e.target.closest("#tapebtn")){ui.tapeStop=!ui.tapeStop;save();tapeState()}});
@@ -1964,12 +1965,18 @@ function flowTimeline(){
   ${src("하루에 나온 글은 한 장에 시각순 버튼으로 모입니다(누르면 그 글만 아래에, 처음엔 최신 글) · 체크포인트 07:00·12:30·18:30(18:30은 마감 리뷰 겸함) · 장중 정리 08·10·12·14·16시 · 주간(금) · 전략(토) · 자료 = 그날 딥리서치 깊이 읽기 묶음")}`;
 }
 const TODAY_NM={G:["포켓피봇","G = 포켓피봇: 조정 중 상승한 날 거래량이 직전 10일 하락일 최대 거래량보다 큰 날 (신호, 셋업 아님)"],H:["H 이벤트","H = 하루 +5%↑ 거래량 50일 평균 2배↑ (신호, 셋업 아님)"]};
+/* 네이버 원본 종목 리포트 (2026-11-17 시안): 자료실 '오늘의 리포트' 탭을 소식 › 리포트로 옮김 · 1차 자료 · 규칙 점수 */
+function naverDay(){const N=(D.research||{}).naver||{},C=(N.candidates||[]).filter(x=>x.cat=="company");if(!C.length)return "";
+  return `<div class="panel" style="margin-bottom:12px"><h3>📰 네이버 리서치 원본 · 종목 리포트 <small class="muted">${esc(N.date||"")} · ${C.length}건 · 규칙 점수 높은 순 · 1차 자료</small></h3>
+   <div class="tw"><table class="wraptbl slist sortt" data-sid="nvday"><tr><th>점수</th><th class="l">종목</th><th class="l">증권사</th><th>목표가</th><th class="l">리포트</th><th class="l">왜 눈여겨보나</th></tr>
+   ${C.map(x=>`<tr><td class="num"><b>${x.score}</b></td><td class="l">${x.name?`<b class="stk" data-pop="${esc(x.name)}">${esc(x.name)}</b>`:"-"}</td><td class="l">${esc(x.broker||"")}</td><td class="num">${x.target?w(x.target):"-"}${x.target_chg!=null?`<br><small class="${cls(x.target_chg)}">${pc(x.target_chg)}</small>`:""}${x.opinion?`<br><small class="muted">${esc(x.opinion)}</small>`:""}</td><td class="l" style="min-width:200px"><a href="https://stock.naver.com/research/${x.cat}/${x.nid}" target="_blank" rel="noopener">${esc(x.title)}</a></td><td class="l"><small class="muted">${esc((x.why||[]).join(" · "))}</small></td></tr>`).join("")}</table></div>
+   <div class="src">출처: 네이버 리서치(1차 자료) · 점수는 Claude 없이 계산(보유·관심, 목표가·의견 변화, 같은 날 여러 증권사, 실적 서프라이즈, 강한 업종, 조회수) · 아래 '이 날 나온 리포트'는 텔레그램 채널 요약(2차 자료)</div></div>`}
 function dayReports(){
   const R=[];(D.companies||[]).forEach(c=>(c.reports||[]).forEach(r=>R.push({...r,name:c.name,code:c.code,detail:c.detail||c.group||""})));
   const {d}=fdPick(R.map(r=>(r.time||"").slice(0,10)).filter(Boolean)),L0=R.filter(r=>(r.time||"").startsWith(d)).sort((a,b)=>(b.time||"").localeCompare(a.time||""));
   const rd=ui.rdir||"all",L=L0.filter(r=>rd=="all"||(rd=="new"?!["상향","하향"].includes(r.direction):r.direction==rd)),N=moreN("rp"+d+rd,20);
   return `<!--bar-->${datePicker(R.map(r=>(r.time||"").slice(0,10)).filter(Boolean),"")}<!--/bar-->
-  <div class="panel" style="margin-bottom:12px"><h3>이 날 나온 리포트 <small class="muted">${L0.length}건</small></h3>
+  <div class="panel" style="margin-bottom:12px"><h3>이 날 나온 리포트 <small class="muted">${L0.length}건 · 텔레그램 채널 요약(2차 자료)</small></h3>
   <div class="chips" style="margin-bottom:8px">${[["all",`전체 ${L0.length}`],["상향",`🔺 상향 ${L0.filter(r=>r.direction=="상향").length}`],["하향",`🔽 하향 ${L0.filter(r=>r.direction=="하향").length}`],["new",`🆕 신규·유지 ${L0.filter(r=>!["상향","하향"].includes(r.direction)).length}`]].map(([k,n])=>`<button class="chip ${rd==k?"on":""}" data-rdir="${k}">${n}</button>`).join("")}</div>
   ${L.length?`<div class="tw"><table class="wraptbl slist"><tr><th class="l">시각</th><th class="l">종목</th><th class="l">증권사</th><th>목표가</th><th class="l">핵심</th></tr>${L.slice(0,N).map(r=>`<tr class="click" data-cq="${esc(r.name)}"><td class="l num">${esc((r.time||"").slice(11,16))}</td><td class="l"><b class="stk">${esc(r.name)}</b><br><small class="muted">${esc(r.detail)}</small></td><td class="l">${esc(r.broker||"")}</td><td class="num">${r.before?w(r.before)+" → ":""}<b>${w(r.after)}</b> ${r.direction=="상향"?"🔺":r.direction=="하향"?"🔽":"🆕"}</td><td class="l"><small>${esc((r.points||[])[0]||"")}</small></td></tr>`).join("")}</table></div>${moreBtn("rp"+d+rd,N,L.length,20)}`:`<div class="empty">이 날 리포트 요약 없음</div>`}</div>`}
 function reportFlowTab(){
@@ -1981,7 +1988,7 @@ function reportFlowTab(){
      <div class="rfb2" title="상향 ${s.up||0} · 신규 ${s.new||0} · 하향 ${s.down||0} (모두 ${n}건)"><div class="rft" style="width:${n/mx*100}%"><i style="flex:${s.up||0};background:var(--up)"></i><i style="flex:${s.new||0};background:var(--faint)"></i><i style="flex:${s.down||0};background:var(--down)"></i></div></div>
      <span class="num rfc up">${s.up||0}</span><span class="num rfc down">${s.down||0}</span><span class="num rfc muted">${s.new||0}</span>
      <span class="num rfc ${net>0?"up":net<0?"down":""}">${net>0?"+":""}${net}</span><span class="num rfc ${cls(s.avg_change_pct)}">${s.avg_change_pct!=null?pc(s.avg_change_pct):"-"}</span></div>`};
-  return `${dayReports()}<details class="fold" data-fold="rfOpen" ${ui.rfOpen?"open":""}><summary class="foldh">📊 31일 리포트 흐름 · 목표가 상향·하향이 몰리는 종목 <small class="muted">눌러서 펼치기</small></summary><div class="panel rflow" style="margin-bottom:12px"><div class="rfhead"><h3>31일 리포트 흐름 <small class="muted">업종별 목표가 변경 · 채널 리포트 요약(2차) · ${esc((D.parts&&D.parts.channels)||D.built_at)}</small></h3>
+  return `${naverDay()}${dayReports()}<details class="fold" data-fold="rfOpen" ${ui.rfOpen?"open":""}><summary class="foldh">📊 31일 리포트 흐름 · 목표가 상향·하향이 몰리는 종목 <small class="muted">눌러서 펼치기</small></summary><div class="panel rflow" style="margin-bottom:12px"><div class="rfhead"><h3>31일 리포트 흐름 <small class="muted">업종별 목표가 변경 · 채널 리포트 요약(2차) · ${esc((D.parts&&D.parts.channels)||D.built_at)}</small></h3>
    <div class="rfsum num"><span><i style="background:var(--up)"></i>상향 <b>${tot.up}</b></span><span><i style="background:var(--down)"></i>하향 <b>${tot.down}</b></span><span><i style="background:var(--faint)"></i>신규 <b>${tot.nw}</b></span><span>하향 비율 <b>${tot.up+tot.down?Math.round(tot.down/(tot.up+tot.down)*100):0}%</b></span></div></div>
    <div class="rfr rfh"><span>업종 <small>(대표 종목)</small></span><span>건수 (상향 · 신규 · 하향)</span><span class="rfc">상향</span><span class="rfc">하향</span><span class="rfc">신규</span><span class="rfc">순증</span><span class="rfc">평균 변경</span></div>
    ${F.slice(0,20).map(row).join("")}
@@ -2834,6 +2841,7 @@ document.addEventListener("click",e=>{
   const stb=e.target.closest("[data-st]"); if(stb){ui.st=stb.dataset.st;save();if(stb.tagName=="A"){return}render();return}
   const rcf=e.target.closest("[data-rcf]"); if(rcf){ui.rcf=rcf.dataset.rcf;save();render();return}
   const rcs=e.target.closest("[data-rcs]"); if(rcs){ui.rcs=rcs.dataset.rcs;save();render();return}
+  if(e.target.closest("[data-rsgo]")){ui.st="research";ui.rt="docs";ui.rv="new";save();return}   // 소식 자료 → 자료실 문서(최신순)
   const rt=e.target.closest("[data-rt]"); if(rt){ui.rt=rt.dataset.rt;save();render();return}
   const rk=e.target.closest("[data-rk]"); if(rk){ui.rk=rk.dataset.rk;ui.rd=null;save();render();return}
   const rp=e.target.closest("[data-rp]"); if(rp){ui.rp=rp.dataset.rp;save();render();return}
