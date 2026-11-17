@@ -682,7 +682,7 @@ html body .view table.invh{width:100%;table-layout:fixed}html body .view .invh t
 html body .view .invh td.num,html body .view .invh th{text-align:right}
 table.sortt th{cursor:pointer;user-select:none} table.sortt th:hover{color:var(--accent)} table.sortt th[data-so=desc]::after{content:" ▼";font-size:9px} table.sortt th[data-so=asc]::after{content:" ▲";font-size:9px}
 .pgt tbody.hid{display:none} .pgt tr.pgd{display:none} .pgt tbody.open tr.pgd{display:table-row} .pgt tbody.open .pgc{display:inline-block;transform:rotate(90deg)} .pgt tr.pgd td{background:var(--bg);padding-top:3px;padding-bottom:3px}
-.brk{border-bottom:1px dotted var(--muted);cursor:help} .sigstrip{border:1px solid var(--accent);background:var(--accent-bg,rgba(47,111,222,.06));border-radius:10px;padding:8px 12px;margin:0 0 10px;font-size:13px;display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center} .sigstrip.none{border-color:var(--rule);background:transparent;color:var(--muted)} .sigc{white-space:nowrap} .pill.sm{font-size:10.5px;padding:0 5px;color:var(--muted)}
+.brk{border-bottom:1px dotted var(--muted);cursor:help} .dtabs{display:flex;gap:6px;overflow-x:auto;padding:8px 0 4px;scrollbar-width:thin} .dtab{flex:0 0 auto;white-space:nowrap;text-align:left;border:1px solid var(--rule);background:var(--panel);color:inherit;border-radius:999px;padding:4px 11px;cursor:pointer;font-size:12.5px;line-height:1.4} .dtab:hover{border-color:var(--accent)} .dtab.on{border-color:var(--accent);background:var(--accent);color:#fff} .dtab.on small{color:#fff;opacity:.85} .sigstrip{border:1px solid var(--accent);background:var(--accent-bg,rgba(47,111,222,.06));border-radius:10px;padding:8px 12px;margin:0 0 10px;font-size:13px;display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center} .sigstrip.none{border-color:var(--rule);background:transparent;color:var(--muted)} .sigc{white-space:nowrap} .pill.sm{font-size:10.5px;padding:0 5px;color:var(--muted)}
 .corebx .cbr{display:grid;grid-template-columns:auto 1fr auto auto auto;gap:4px 8px;align-items:center;padding:5px 12px;border-top:1px solid var(--line);font-size:12.5px}
 .corebx .cbr small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.corebx .cbd{font-size:10.5px;color:var(--accent);letter-spacing:-1px;white-space:nowrap}.corebx .cbd i{font-style:normal;color:var(--faint);letter-spacing:0;margin-right:4px}
 /* 2026-11-14 2차: ⚙ · 국면 추적판 · 셋업 보드 · 휴대폰 카드 표 */
@@ -1921,6 +1921,17 @@ function briefLine(b){   // 카드 요약 한 줄: 💡 의견 첫 줄
   return line.replace(/^[-•]\s*/,"").replace(/^\*\*?(핵심|핵심:)\*?\*?\s*:?\s*/,"").replace(/^(핵심|핵심:)\s*/,"").replace(/^[:：]\s*/,"").slice(0,140)}
 const SECN={checkpoint:"체크포인트",channels:"장중 정리 · 채널",report_live:"장중 정리 · 리포트",close:"마감 리뷰",morning:"아침 브리핑",
   report_brief_am:"리포트 브리핑",report_brief_pm:"리포트 브리핑",weekly:"주간 리뷰",strategy:"전략 보고서",deep_research:"딥리서치"};
+/* 소식 하루 카드: 띠 펼치기 대신 위쪽 버튼 줄 → 고른 글 하나만 아래에 (2026-11-17 시안) · 자료(딥리서치)는 버튼 하나로 묶음 */
+function dayTabs(day,fd){
+  const res=day.filter(b=>fam(b.kind)=="research"),oth=day.filter(b=>fam(b.kind)!="research");
+  const G=oth.map(b=>({key:b.file,time:b.time||"",name:SECN[b.kind]||b.kind_name,L:[b]}));
+  if(res.length)G.push({key:"res:"+fd,time:res[res.length-1].time||"",name:"자료",L:res});
+  G.sort((a,b)=>a.time.localeCompare(b.time));
+  const sel=(ui.dsel||{})[fd],cur=G.find(g=>g.key==sel)||G[G.length-1];
+  const btn=g=>{const b=g.L[0],v=(b.versions||[]).length;return `<button class="dtab ${g===cur?"on":""}" data-dsel="${esc(g.key)}" data-dd="${esc(fd)}" title="${esc(briefLine(b))}"><span class="num">${esc(g.time)}</span> <b>${esc(g.name)}</b>${g.L.length>1?` <small>${g.L.length}</small>`:""}${v>1?` <small class="muted">${v}회째</small>`:""}</button>`};
+  const body=cur?cur.L.map(b=>`<article class="panel brief br2" style="margin:8px 0 0">${cur.L.length>1?`<div class="muted" style="font-size:12px;margin-bottom:4px">${esc(b.time||"")} · ${esc(SECN[b.kind]||b.kind_name)}</div>`:""}${(b.versions||[]).length>1?`<div class="muted" style="font-size:12px;margin-bottom:4px">${b.versions.length}회째 갱신 · 첫 ${esc(b.versions[b.versions.length-1])} · 최신 ${esc(b.time||"")}</div>`:""}${briefHtml(b.text)}</article>`).join(""):"";
+  return `<div class="dtabs">${G.map(btn).join("")}</div>${body}`}
+document.addEventListener("click",e=>{const t=e.target.closest("[data-dsel]");if(t){ui.dsel=ui.dsel||{};ui.dsel[t.dataset.dd]=t.dataset.dsel;save();const y=scrollY;render();scrollTo(0,y)}});
 function flowTimeline(){
   const F=[["all","전체"],["today","오늘"],["weekly","주간"],["strategy","전략"],["research","자료"]];
   const k=F.some(([v])=>v==ui.bk)?ui.bk:"all", list=(D.briefs||[]).filter(b=>k=="all"||fam(b.kind)==k);
@@ -1932,12 +1943,12 @@ function flowTimeline(){
   const sec=(b,open)=>`<details class="dsec" ${open?"open":""} data-bf="${esc(b.file)}"><summary><span class="num">${esc(b.time||"")}</span><span class="pill">${esc(SECN[b.kind]||b.kind_name)}</span>${(b.versions||[]).length>1?`<small class="muted">${b.versions.length}회째 · 첫 ${esc(b.versions[b.versions.length-1])}</small>`:""}<span class="dsl">${esc(briefLine(b))}</span></summary><article class="panel brief br2" style="margin:8px 0 0">${briefHtml(b.text)}</article></details>`;
   const cards=[];   // [최신 시각, html] → 최신이 위로
   if(day.length)cards.push([day[day.length-1].time||"",`<section class="daycard"><div class="dch"><b class="num">${esc(fd.slice(5).replace("-","/"))}(${wd})</b> <span class="dct">${esc(last?briefLine(last):"")}</span> <small class="muted">${day.length}개 · 최신 ${esc(day[day.length-1].time||"")}</small></div>
-   ${day.slice().reverse().map((b,i)=>sec(b,i==0)).join("")}</section>`]);
+   ${dayTabs(day,fd)}</section>`]);
   rest.forEach(b=>cards.push([b.time||"",`<section class="daycard"><div class="dch"><b class="num">${esc(fd.slice(5).replace("-","/"))}(${wd})</b> <span class="pill">${esc(FAMN[fam(b.kind)])}</span> <span class="dct">${esc(briefLine(b))}</span></div>${sec(b,rest.length==1&&!day.length)}</section>`]));
   cards.sort((a,b)=>String(b[0]).localeCompare(String(a[0])));
   return `<!--bar--><div class="chips">${F.map(([v,n])=>`<button class="chip ${k==v?"on":""}" data-bk="${v}">${n}</button>`).join("")}</div>${datePicker(Object.keys(byDay),"")}<!--/bar-->
   ${cards.map(c=>c[1]).join("")||`<div class="empty">이 날 글이 없습니다</div>`}
-  ${src("하루에 나온 글은 한 장으로 묶여 최신 글이 맨 위에 옵니다 · 체크포인트 07:00·12:30·18:30(18:30은 마감 리뷰 겸함) · 장중 정리 08·10·12·14·16시 · 주간(금) · 전략(토) · 접힌 칸을 누르면 전문이 열립니다")}`;
+  ${src("하루에 나온 글은 한 장에 시각순 버튼으로 모입니다(누르면 그 글만 아래에, 처음엔 최신 글) · 체크포인트 07:00·12:30·18:30(18:30은 마감 리뷰 겸함) · 장중 정리 08·10·12·14·16시 · 주간(금) · 전략(토) · 자료 = 그날 딥리서치 깊이 읽기 묶음")}`;
 }
 const TODAY_NM={G:["포켓피봇","G = 포켓피봇: 조정 중 상승한 날 거래량이 직전 10일 하락일 최대 거래량보다 큰 날 (신호, 셋업 아님)"],H:["H 이벤트","H = 하루 +5%↑ 거래량 50일 평균 2배↑ (신호, 셋업 아님)"]};
 function dayReports(){
@@ -2759,7 +2770,7 @@ function render(){
       bar.innerHTML=hs.map((h,i)=>{if(h.dataset.tl)return `<button class="chip" data-toc="rptsec${i}">${esc(h.dataset.tl)}</button>`;const x=h.cloneNode(true);x.querySelectorAll("small").forEach(s=>s.remove());return `<button class="chip" data-toc="rptsec${i}">${esc((t=>{const c=t.replace(/\s+[·(].*$/,"");return (c.replace(/^\S+\s*/,"").length<5?t.replace(/\s+·\s+/,"·").replace(/\s+[·(].*$/,""):c).slice(0,20)})(x.textContent.trim().replace(/\s+/g," ")))}</button>`}).join("");   // 2026-11-14: 설명(작은 글씨)·날짜 빼고 짧게
       const first=TFR||document.querySelector(".view section.rpt");first&&first.parentNode.insertBefore(bar,first)}}
   if(r=="trade")calc();
-  slistCards();applySorts();
+  slistCards();applySorts();document.querySelectorAll(".dtabs .dtab.on").forEach(b=>{const r=b.parentNode;r.scrollLeft=Math.max(0,b.offsetLeft-r.offsetLeft-(r.clientWidth-b.offsetWidth)+8)});   // 소식 버튼 줄: 고른 버튼이 보이게 (휴대폰)
 }
 function slistCards(){
   document.querySelectorAll(".view table.slist").forEach(t=>{   // 휴대폰 카드 표 (2026-11-14 2차): 머리글 이름을 칸마다 붙여 600px 아래에서 카드로
