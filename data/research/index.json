@@ -1073,6 +1073,42 @@
    "drive_modified": null,
    "analyzed_at": "2026-11-17 19:15",
    "depth": "full"
+  },
+  "naver_company_98327": {
+   "title": "오킨스전자 · 성장에 대한 확신 (신한투자증권, 3Q26 Review)",
+   "broker": "신한투자증권",
+   "date": "2026-11-18",
+   "kind": "기업",
+   "subject": "오킨스전자 · 반도체 테스트 소켓 (핵심 후보 칸)",
+   "one_line": "3분기 마진은 기대보다 낮았지만 증설 비용의 선반영이고 2027년 외형 성장 가시성은 더 높아졌다는 평가입니다. 투자의견은 Not Rated이고 목표가는 없습니다.",
+   "url": "https://stock.naver.com/research/company/98327",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-18 19:16",
+   "depth": "light"
+  },
+  "naver_industry_46977": {
+   "title": "반도체 · AI 수요대비 부족한 공급 능력 (하나증권, 11/12)",
+   "broker": "하나증권",
+   "date": "2026-11-12",
+   "kind": "산업",
+   "subject": "반도체 · 메모리 CAPA·Capex와 장비 (리더 업종 칸)",
+   "one_line": "AI 투자 우려로 반도체 공급망 주가가 크게 빠졌지만 DRAM 업체들의 신규 Fab 투자가 2027년에도 이어져 장비 투자 아이디어는 유효하다는 산업 리포트입니다.",
+   "url": "https://stock.naver.com/research/industry/46977",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-18 19:16",
+   "depth": "light"
+  },
+  "naver_invest_40865": {
+   "title": "최근 방어주 아웃퍼폼에 대한 단상 (신한투자증권, 글로벌 주식전략, 11/18)",
+   "broker": "신한투자증권",
+   "date": "2026-11-18",
+   "kind": "전략",
+   "subject": "미국 방어주(필수소비재·헬스케어) 강세의 해석 (반대 의견 칸)",
+   "one_line": "미국 방어주 강세는 펀더멘털이 아니라 급한 포지션 조정의 결과이고, 지금 방어주를 사서 이기려면 많은 요행이 필요하다는 약세 의견입니다.",
+   "url": "https://stock.naver.com/research/invest/40865",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-18 19:16",
+   "depth": "light"
   }
  },
  "skipped": {
