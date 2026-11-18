@@ -112,6 +112,7 @@ python3 tools/telegram_send.py --file reports/날짜/파일.md
 - 시장 기준은 **코스피 지수** (신호등·수익률 비교, 2026-11-05 KODEX 200에서 변경)
 - 사용량 줄이기 (2026-11-05): 채널·리포트 정리 2시간 간격, 웹 전체 갱신 07:32·16:32만, 텔레그램 리포트 브리핑 14:53 하루 1번. (2026-11-10) 글쓰기 예약은 Sonnet, 주 1회 종합만 Opus, 스크립트는 Haiku · 자료실 2건
 - **단순화 1차 (2026-11-19 사용자 확정, 기능 지도 https://claude.ai/artifact/21rRBvSKN5Y52TiPkX4dGd)**: 멈춘 것 지움(스킬 morning·report·close·channel-brief, tools kis_quote·toss_quote, web-data.yml, Artifact · insight.py는 checkpoint.py가 형식 검사에 써서 남김, 인사이트 글은 안 씀) · Claude 글쓰기 평일 8회 → 3회(정리를 체크포인트 회차에) · 웹 갱신은 깃허브 배포 하나로
+- **단순화 2차 (2026-11-19 사용자 확정)**: 셋업 보드 신호 줄 하나(`signalStrip`: 장중 돌파 + 마감 확정, 딱지 = 기준가 돌파·매물대 돌파·포켓피봇, 셋업은 이름으로) · 셋업 보드는 기준가 있는 종목만 · 아래 3탭(후보·1stage·아깝게 빠짐)은 '⏳ 대기 목록' 표 하나(`watchExtra`, 구분·왜 대기인가). 메뉴 탭은 그대로(사용자 결정)
 - 자동 작업 목록은 `config/automation.toml` (웹 규칙·일정 > 자동 작업 현황). 예약을 만들거나 끄면 여기도 고친다
 - 보유 종목은 `config/positions.toml`(initial_stop = 처음 손절가·1R 기준, stop = 지금 손절가), 계좌·리스크 규칙은 `config/account.toml`
 - **계좌 금액은 고정이 아님 (2026-11-18 사용자 확정)**: 1,500만 원(account.toml capital)에서 `capital_start_at` 이후 거래의 실현 손익 − 세금·수수료(사고 파는 한 번에 0.23% → 매도 금액의 0.23%, cost_rate)만큼 늘고 줄어듦 (`common.account_state()`). 1R(2%)·CR·E는 이 '지금 계좌' 기준, 총자산 = 지금 계좌 + 평가 손익. trades.py가 거래마다 fee_won을 남김
