@@ -682,7 +682,14 @@ html body .view table.invh{width:100%;table-layout:fixed}html body .view .invh t
 html body .view .invh td.num,html body .view .invh th{text-align:right}
 table.sortt th{cursor:pointer;user-select:none} table.sortt th:hover{color:var(--accent)} table.sortt th[data-so=desc]::after{content:" ▼";font-size:9px} table.sortt th[data-so=asc]::after{content:" ▲";font-size:9px}
 .pgt tbody.hid{display:none} .pgt tr.pgd{display:none} .pgt tbody.open tr.pgd{display:table-row} .pgt tbody.open .pgc{display:inline-block;transform:rotate(90deg)} .pgt tr.pgd td{background:var(--bg);padding-top:3px;padding-bottom:3px}
-.brk{border-bottom:1px dotted var(--muted);cursor:help} .pill.brkt{background:var(--up);color:#fff;font-weight:700;font-size:11px;padding:0 6px} .pill.nvb{font-size:11px;padding:0 6px;text-decoration:none;white-space:nowrap} .pill.nvw{font-size:10.5px;padding:0 5px;margin-left:3px;color:var(--muted);white-space:nowrap} .rday{padding:6px 12px;font-size:11.5px;font-weight:600;color:var(--muted);background:var(--bg);border-top:1px solid var(--line)} .rsec{display:inline-block;font-size:10.5px;color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:0 4px;margin-right:4px} .rnew{font-size:11px;margin-right:3px} .dtabs{display:flex;gap:6px;overflow-x:auto;padding:8px 0 4px;scrollbar-width:thin} .dtab{flex:0 0 auto;white-space:nowrap;text-align:left;border:1px solid var(--rule);background:var(--panel);color:inherit;border-radius:999px;padding:4px 11px;cursor:pointer;font-size:12.5px;line-height:1.4} .dtab:hover{border-color:var(--accent)} .dtab.on{border-color:var(--accent);background:var(--accent);color:#fff} .dtab.on small{color:#fff;opacity:.85} .sigstrip{border:1px solid var(--accent);background:var(--accent-bg,rgba(47,111,222,.06));border-radius:10px;padding:8px 12px;margin:0 0 10px;font-size:13px;display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center} .sigstrip.none{border-color:var(--rule);background:transparent;color:var(--muted)} .sigc{white-space:nowrap} .pill.sm{font-size:10.5px;padding:0 5px;color:var(--muted)}
+.brk{border-bottom:1px dotted var(--muted);cursor:help} .adban{border-radius:14px;padding:14px 16px;margin:4px 0 12px;border:1px solid var(--line)} .adban.go{background:color-mix(in srgb,var(--up) 10%,transparent);border-color:var(--up)} .adban.off{background:var(--soft,rgba(127,127,127,.06))} .adban.wait{background:color-mix(in srgb,var(--accent) 7%,transparent);border-color:var(--accent)}
+ .adt{font-size:19px;font-weight:800} .adst{margin-top:4px} .adtm{font-size:11.5px;margin-top:6px}
+ .adgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px} .adc{border:1px solid var(--line);border-radius:12px;padding:10px 12px} .adc.ok{border-color:var(--up)} .adk{font-weight:700;font-size:12.5px} .adv{font-size:15px;font-weight:700;margin:4px 0 2px} .ads{font-size:11.5px;color:var(--muted)}
+ .ibsbar{position:relative;height:10px;border-radius:5px;background:linear-gradient(90deg,color-mix(in srgb,var(--up) 35%,transparent) 0 20%,var(--line) 20% 100%)} .ibsbar .th{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--up)} .ibsbar b{position:absolute;top:-3px;width:12px;height:16px;margin-left:-6px;border-radius:4px;background:var(--text,#222)}
+ .ibsl{display:flex;justify-content:space-between;font-size:10.5px;color:var(--muted);margin-top:3px}
+ .adflow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:12px} .adflow div{border:1px solid var(--line);border-radius:10px;padding:6px 10px;display:flex;flex-direction:column} .adflow b{font-size:12.5px} .adflow span{font-size:11.5px;color:var(--muted)} .adflow i{color:var(--muted);font-style:normal}
+ @media(max-width:600px){.adgrid{grid-template-columns:1fr 1fr} html body .view table.slist td.ibscell{grid-column:1/-1;min-width:0!important;padding:2px 0 4px!important} .adflow i{display:none} .adt{font-size:16px}}
+ .pill.brkt{background:var(--up);color:#fff;font-weight:700;font-size:11px;padding:0 6px} .pill.nvb{font-size:11px;padding:0 6px;text-decoration:none;white-space:nowrap} .pill.nvw{font-size:10.5px;padding:0 5px;margin-left:3px;color:var(--muted);white-space:nowrap} .rday{padding:6px 12px;font-size:11.5px;font-weight:600;color:var(--muted);background:var(--bg);border-top:1px solid var(--line)} .rsec{display:inline-block;font-size:10.5px;color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:0 4px;margin-right:4px} .rnew{font-size:11px;margin-right:3px} .dtabs{display:flex;gap:6px;overflow-x:auto;padding:8px 0 4px;scrollbar-width:thin} .dtab{flex:0 0 auto;white-space:nowrap;text-align:left;border:1px solid var(--rule);background:var(--panel);color:inherit;border-radius:999px;padding:4px 11px;cursor:pointer;font-size:12.5px;line-height:1.4} .dtab:hover{border-color:var(--accent)} .dtab.on{border-color:var(--accent);background:var(--accent);color:#fff} .dtab.on small{color:#fff;opacity:.85} .sigstrip{border:1px solid var(--accent);background:var(--accent-bg,rgba(47,111,222,.06));border-radius:10px;padding:8px 12px;margin:0 0 10px;font-size:13px;display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center} .sigstrip.none{border-color:var(--rule);background:transparent;color:var(--muted)} .sigc{white-space:nowrap} .pill.sm{font-size:10.5px;padding:0 5px;color:var(--muted)}
 .corebx .cbr{display:grid;grid-template-columns:auto 1fr auto auto auto;gap:4px 8px;align-items:center;padding:5px 12px;border-top:1px solid var(--line);font-size:12.5px}
 .corebx .cbr small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.corebx .cbd{font-size:10.5px;color:var(--accent);letter-spacing:-1px;white-space:nowrap}.corebx .cbd i{font-style:normal;color:var(--faint);letter-spacing:0;margin-right:4px}
 /* 2026-11-14 2차: ⚙ · 국면 추적판 · 셋업 보드 · 휴대폰 카드 표 */
@@ -2240,10 +2247,50 @@ function tfReport(){   // 테크노펀더멘탈 · 탑다운 주간 보고서(20
   const T=D.strategy_tf; if(!T||!T.html)return issueBar()+stripH1(viewStrategy());
   return `${issueBar()}<style>${T.css||""}</style>${T.html}
    <details class="fold" data-fold="oldRpt" ${ui.oldRpt?"open":""}><summary class="foldh">📄 지난 형식(애널리스트 v3) 보고서 · 관찰 풀·가설 성적표 원본 <small class="muted">눌러서 펼치기</small></summary>${stripH1(viewStrategy())}</details>`}
+/* ---------- 부록 · 지수 되돌림 현황판 (2026-11-18 시안): 깡토 '지수이지' 재구성, 검증실 backtest_ibs.py · 본 매매 규칙과 별개(표시만) ----------
+   조건 = 코스피 20일선 아래(🔴) + ETF IBS < 0.2 (그날 범위 하위 20%에서 끝남) + 흔들림(ATR 14일, 종가 대비) 지난 250일 중 상위 30% → 15:00~15:20 매수, 다음 날 종가 매도 */
+function ibsNow(e){const q=liveQuote(e.code),today=kstNow().toISOString().slice(0,10).replace(/-/g,""),live=q&&q.price&&q.high&&q.low&&String(q.at||"").replace(/-/g,"").slice(0,8)==today;
+  const H=live?q.high:e.high,L=live?q.low:e.low,C=live?q.price:e.prev_close,pc=live?e.prev_close:null;
+  const rng=H-L,ibs=rng>0?(C-L)/rng:null;
+  let rank=e.atr_rank;if(live){const tr=Math.max(H,pc)-Math.min(L,pc),a=(e.tr13.reduce((x,y)=>x+y,0)+tr)/14/C;rank=Math.round(e.atr_hist.filter(x=>x<=a).length/(e.atr_hist.length+1)*100)}
+  const P=(D.ibs_board||{}).params||{ibs:.2,atr:70};
+  return {live,H,L,C,ibs,rank,chg:live&&pc?(C/pc-1)*100:null,line:L+P.ibs*rng,okI:ibs!=null&&ibs<P.ibs,okA:rank>=P.atr}}
+function kospiNow(){const B=D.ibs_board||{},K=B.kospi||{},m=((D.live||{}).markets||[]).find(x=>x.market=="KOSPI"),live=m&&m.price&&String(m.at||"").replace(/-/g,"").slice(0,8)==kstNow().toISOString().slice(0,10).replace(/-/g,"");
+  const p=live?m.price:K.close,ma20=live?(K.sum19+p)/20:K.ma20;return {live,p,ma20,gap:p&&ma20?(p/ma20-1)*100:null,red:p<ma20,rev:p<ma20&&K.ma20<K.ma60&&K.ma60<K.ma120,ma60:K.ma60,ma120:K.ma120}}
+function addonSignals(){const B=D.ibs_board;if(!B)return [];const K=kospiNow();if(!K.red)return [];return B.etfs.map(e=>({...e,...ibsNow(e)})).filter(e=>e.okI&&e.okA)}
+function addonTab(){const B=D.ibs_board;if(!B)return `<div class="empty">부록 데이터가 아직 없습니다 (backtest_ibs.py board)</div>`;
+  const P=B.params,K=kospiNow(),E=B.etfs.map(e=>({...e,...ibsNow(e)})),sig=K.red?E.filter(e=>e.okI&&e.okA):[];
+  const k=kstNow(),hm=k.getUTCHours()*100+k.getUTCMinutes(),wd=k.getUTCDay(),mkt=wd>0&&wd<6&&hm>=900&&hm<=1530,win=mkt&&hm>=1500&&hm<1520;
+  const cap=((D.risk||{}).capital||(D.account||{}).capital||15000000),pot=cap*P.frac,each=sig.length?pot/sig.length:0;
+  const verdict=!K.red?["off","⛔ 쉬는 구간",`코스피가 20일선 위입니다 (${pc(K.gap,1)}). 백테스트에서 이 구간은 손실(번 돈÷잃은 돈 0.69)이라 매매하지 않습니다`]
+    :sig.length?["go",`🟢 진입 조건 충족 · ${sig.map(e=>e.name).join(" · ")}`,win?"지금이 매수 시간(15:00~15:20)입니다. 동시호가 전 확인 후 판단은 본인":mkt?"장중 판정입니다. 15:00~15:20에 다시 확인해 그때도 조건이면 매수 후보":"마감 기준 판정입니다"]
+    :["wait","⚪ 대기 · 조건 미충족","코스피는 20일선 아래(🔴, 매매 가능 구간)지만 아직 바닥 근처에서 끝나는 ETF가 없습니다"];
+  const cond=(ok,t,v,s)=>`<div class="adc ${ok?"ok":"no"}"><div class="adk">${ok?"✅":"⬜"} ${t}</div><div class="adv num">${v}</div><div class="ads">${s}</div></div>`;
+  const bar=e=>{const x=e.ibs==null?null:Math.max(0,Math.min(1,e.ibs));return `<div class="ibsbar" title="IBS = (현재가−저가)÷(고가−저가)"><i class="th" style="left:${P.ibs*100}%"></i>${x==null?"":`<b style="left:${x*100}%"></b>`}</div><div class="ibsl num"><span>저가 ${w(e.L)}</span><span>고가 ${w(e.H)}</span></div>`};
+  const rows=E.map(e=>{const on=K.red&&e.okI&&e.okA,q=on?Math.floor(each/e.C):0;
+    return `<tr class="${on?"rdy":""}"><td class="l"><b>${esc(e.name)}</b><br><small class="muted">${e.code}</small></td><td class="num"><b>${w(e.C)}</b><br><small class="${cls(e.chg)}">${e.chg!=null?pc(e.chg,2):"마감"}</small></td>
+     <td class="ibscell" style="min-width:170px">${bar(e)}</td><td class="num ${e.okI?"up":""}"><b>${e.ibs==null?"-":e.ibs.toFixed(2)}</b><br><small class="muted">기준 ${P.ibs} 미만</small></td>
+     <td class="num ${e.okA?"up":""}"><b>상위 ${100-e.rank}%</b><br><small class="muted">기준 상위 ${100-P.atr}% 안</small></td>
+     <td class="num">${e.okI?`<span class="up">이미 아래</span>`:`<b>${w(e.line)}</b><br><small class="muted">${pc((e.line/e.C-1)*100,1)}</small>`}</td>
+     <td>${on?`<span class="pill brkt">신호</span><br><small class="num">${q}주 · ${w(q*e.C)}원</small>`:!K.red?'<span class="pill">쉬는 구간</span>':`<span class="pill">${!e.okA?"흔들림 부족":"위치 높음"}</span>`}</td></tr>`}).join("");
+  const S=B.stats||{},s30=S["4종 · 🔴 · 계좌 30%만"]||{},sR=S["4종 · 🔴"]||{};
+  const rec=(B.recent||[]).map(x=>`<tr><td class="l num">${esc(x.date.slice(2,4)+"/"+x.date.slice(4,6)+"/"+x.date.slice(6))}</td><td class="l">${esc(x.name)}</td><td class="num">${x.ibs}</td><td class="num">상위 ${100-x.atr_rank}%</td><td>${x.red?'<span class="pill warn">🔴 매매</span>':'<span class="pill">20일선 위 · 안 함</span>'}</td><td class="num ${cls(x.next_pct)}"><b>${pc(x.next_pct,2)}</b></td></tr>`).join("");
+  return `<div class="adban ${verdict[0]}"><div class="adt">${verdict[1]}</div><div class="adst">${verdict[2]}</div><div class="adtm muted">${K.live?"장중 1분 시세":"어제 마감"} 기준 · ${esc(((D.live||{}).at||B.made_at||"").slice(5,16))} · 판단은 본인 · 본 매매 규칙(돌파)과 별개</div></div>
+   <div class="adgrid">${cond(K.red,"① 시장 국면",`코스피 ${w(K.p)} · 20일선 ${w(K.ma20)}`,`${pc(K.gap,1)} ${K.red?"→ 20일선 아래, 매매 구간":"→ 20일선 위, 쉬는 구간"}${K.rev?" · 역배열":""}`)}
+    ${cond(E.some(e=>e.okA),"② 흔들림 (ATR)",E.filter(e=>e.okA).length+"/4 종목 충족",`지난 1년 중 상위 ${100-P.atr}% 안이어야 함 · 흔들릴수록 막판 투매·되돌림이 큼`)}
+    ${cond(E.some(e=>e.okI),"③ 끝나는 위치 (IBS)",E.filter(e=>e.okI).length+"/4 종목 충족",`그날 범위 하위 ${P.ibs*100}% 안에서 끝나야 함 · 15:00~15:20 가격으로 판단`)}
+    <div class="adc"><div class="adk">💰 부록 몫</div><div class="adv num">${w(pot)}원</div><div class="ads">계좌의 ${P.frac*100}% · ${sig.length?`신호 ${sig.length}개 → ${w(each)}원씩`:"신호가 여러 개면 나눠 담음"} · 다음 날 종가 매도</div></div></div>
+   <div class="panel"><h3>ETF 4종 지금 위치 <small class="muted">'신호 가격' = 이 가격 아래로 끝나면 IBS 조건 충족</small></h3>
+    <div class="tw"><table class="slist"><tr><th class="l">ETF</th><th>현재가</th><th>오늘 범위 안 위치</th><th>IBS</th><th>흔들림 순위</th><th>신호 가격</th><th>판정</th></tr>${rows}</table></div></div>
+   <div class="adflow"><div><b>15:00</b><span>조건 확인</span></div><i>→</i><div><b>15:00~15:20</b><span>동시호가 전 매수</span></div><i>→</i><div><b>다음 날</b><span>종가에 매도 (최대 하루)</span></div><i>→</i><div><b>기록</b><span>"부록 OO 샀어"라고 말하기</span></div></div>
+   <div class="grid g4" style="margin-top:12px"><div class="tile"><span>🔴 구간 승률</span><b>${sR.win_rate??"-"}%</b><small class="muted">${sR.n??"-"}건 · 2017-10~</small></div><div class="tile"><span>1건 평균</span><b class="up">${pc(sR.avg_pct,2)}</b><small class="muted">비용 0.1% 뺀 값</small></div>
+    <div class="tile"><span>계좌 30%만 쓸 때 최대 낙폭</span><b class="down">${pc(s30.mdd_pct,1)}</b><small class="muted">가장 나쁜 날 ${pc(s30.worst_day_pct,1)}</small></div><div class="tile"><span>번 돈 ÷ 잃은 돈</span><b>${sR.pf??"-"}</b><small class="muted">20일선 위에선 0.69(손실)</small></div></div>
+   <div class="panel" style="margin-top:12px"><h3>최근 신호 ${(B.recent||[]).length}건 <small class="muted">백테스트 규칙으로 찾은 날 · 다음 날 종가 결과(비용 전)</small></h3><div class="tw"><table class="slist"><tr><th class="l">날짜</th><th class="l">ETF</th><th>IBS</th><th>흔들림</th><th>국면</th><th>다음 날</th></tr>${rec}</table></div></div>
+   ${src("검증실 부록(tools/backtest_ibs.py) · 깡토 '지수이지' 공개 설명을 재구성(조건 숫자 비공개라 IBS 0.2·ATR 상위 30%로 고정) · 백테스트는 종가 진입이라 실제(15:00~15:20)보다 조금 좋게 나옴 · 수익이 2026년에 쏠림(2026 제외 +288%) · 레버리지라 하루 손실이 큼 · 본 매매 규칙과 별개, 표시만 · 출처: 네이버 일봉·현재가(비공식)")}`}
 function viewStrategy2(){
-  const tabs=[["report","보고서"],["pool","관찰 풀"],["research","자료실"]];   // 감시 목록은 종목 › 셋업 보드로 옮김 (2026-11-14 2차)
+  const tabs=[["report","보고서"],["pool","관찰 풀"],["research","자료실"],["addon","🧩 부록 · 지수 되돌림"]];   // 감시 목록은 종목 › 셋업 보드로 옮김 (2026-11-14 2차)
   let t=ui.st||"report"; if(!tabs.some(([v])=>v==t))t="report";
-  const body=t=="report"?tfReport():t=="pool"?poolTab():t=="research"?stripH1(viewResearch()):t=="companies"?stripH1(viewCompanies()):stripH1(viewWatch());
+  const body=t=="addon"?addonTab():t=="report"?tfReport():t=="pool"?poolTab():t=="research"?stripH1(viewResearch()):t=="companies"?stripH1(viewCompanies()):stripH1(viewWatch());
   return `<h1>전략</h1><div class="sub">어디서 추세추종을 할 것인가 — 주 1회(토 09:07) 전략 보고서 → 관찰 풀 → 감시 목록 · 자료실은 리포트 원문 요약 창고 · 행동은 관찰/준비/회피(매수·매도 권유 아님)</div>
   <div class="chips tabs">${tabs.map(([v,n])=>`<button class="chip ${t==v?"on":""}" data-st="${v}">${n}</button>`).join("")}</div>${body}`;
 }
@@ -2513,6 +2560,7 @@ function todoItems(){
     if(p.alert)out.push({lv:"m",code:p.code,t:`${p.name} · ${p.alert}`,s:""})});
   const pool=new Set(((D.watch_pool||{}).themes||[]).flatMap(th=>(th.stocks||[]).map(s=>s.code)));
   const W=D.watch||{};["signals","candidates","watch"].forEach(k=>(W[k]||[]).forEach(x=>{const d=(x.levels||{}).distance_pct;if(pool.has(x.code)&&d!=null&&Math.abs(d)<=2)out.push({lv:k=="signals"?"h":"l",code:x.code,t:`${x.stock} 기준가 ${w((x.levels||{}).breakout)}까지 ${pc(d)}`,s:`관찰 풀 · ${k=="signals"?"✅ 신호":"근접"} · 돌파 + 인더스트리 액션 확인`})}));
+  addonSignals().forEach(e=>out.unshift({lv:"h",t:`🧩 부록 신호 · ${e.name} ${w(e.C)} (IBS ${e.ibs.toFixed(2)})`,s:`지수 되돌림 · 15:00~15:20 매수 후보 · 다음 날 종가 매도 · 계좌 30% 몫 · 본 규칙과 별개, 판단은 본인`,go:"addon"}));   // 2026-11-18
   liveSigs().forEach(g=>out.unshift({lv:g.rule?"h":"m",code:g.x.code,t:`${g.x.name} ${[g.bo?"기준가 "+w(g.x.breakout):"",g.zb?"매물대 "+w(g.x.zone_top):""].filter(Boolean).join(" · ")} 돌파 (장중 ${w(g.px)})`,s:`${g.rule?"✅ 규칙 충족(장중)":"확인 필요"} · 예상 거래량 ${g.vr!=null?g.vr.toFixed(1)+"배":"-"}${g.vr>=1.5?" ✓":" (1.5배 필요)"} · 업종 ${g.ia?(g.ia.ok?"동행 ✓":"나 홀로"):"확인 불가"} · 종가로 확정`}));   // 2026-11-18 장중 돌파
   const held=new Set(ps.map(p=>p.code));
   calEvents().filter(e=>e.days==0&&(e.mine=="held"||e.mine=="watch")).slice(0,3).forEach(e=>out.push({lv:"l",t:`${e.time||"종일"} ${e.name}`,s:e.mine=="held"?"보유 종목 일정":"관찰 종목 일정"}));
@@ -2534,7 +2582,7 @@ function statusBoard(){
    ${row("남은 일정",ev.length?ev.map(e=>`${esc(e.time||"종일")} ${esc(e.name)}`).join(" · "):"<span class='muted'>오늘 남은 일정 없음</span>")}
    ${row("다음까지 볼 것",nx.length?nx.map(esc).join("<br>"):"<span class='muted'>체크포인트 대기</span>")}
    <div class="bh" style="padding-top:12px">할 일 <em>규칙 계산 · 판단은 본인</em></div>
-   ${T.length?T.map(x=>`<a class="todo ${x.lv}" ${x.code?`href="#s${x.code}"`:'href="#more"'}><b>${esc(x.t)}</b>${x.s?`<small>${esc(x.s)}</small>`:""}</a>`).join(""):`<div class="muted" style="padding:6px 16px 12px;font-size:13px">오늘 확인할 것 없음</div>`}
+   ${T.length?T.map(x=>`<a class="todo ${x.lv}" ${x.go=="addon"?'href="#strategy" data-st="addon"':x.code?`href="#s${x.code}"`:'href="#more"'}><b>${esc(x.t)}</b>${x.s?`<small>${esc(x.s)}</small>`:""}</a>`).join(""):`<div class="muted" style="padding:6px 16px 12px;font-size:13px">오늘 확인할 것 없음</div>`}
   </div>`;
 }
 
@@ -2787,7 +2835,8 @@ function quoteCodes(){const s=new Set(((D.risk||{}).positions||[]).map(p=>p.code
   if(route()=="stock"&&!ui.sc&&(!ui.kt||ui.kt=="list"))LIST_CODES.forEach(c=>s.add(c));
   if(route()=="stock"&&ui.kt=="etf")((D.etfb||{}).items||[]).forEach(x=>s.add(x.code));
   if(route()=="stock"&&ui.kt=="setup")((D.tf_core||{}).items||[]).forEach(x=>s.add(x.code));   // ETF 시세판을 보고 있으면 ETF도 (2026-11-13)   // 종목 목록을 보고 있으면 목록 위쪽 종목도 (2026-11-13)
-  ((D.tf_core||{}).items||[]).slice(0,12).forEach(x=>(x.peers||[]).forEach(c=>s.add(c)));   // 장중 업종 동행 판정용 같은 업종 종목 (2026-11-18)
+  ((D.tf_core||{}).items||[]).slice(0,12).forEach(x=>(x.peers||[]).forEach(c=>s.add(c)));
+  ((D.ibs_board||{}).etfs||[]).forEach(e=>s.add(e.code));   // 부록 · 지수 되돌림 ETF 4종 (2026-11-18)   // 장중 업종 동행 판정용 같은 업종 종목 (2026-11-18)
   return [...s].filter(Boolean).slice(0,400)}
 function busy(){const a=document.activeElement;return (a&&/INPUT|SELECT|TEXTAREA/.test(a.tagName))||popFor}
 function applyQuote(j){

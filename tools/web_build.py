@@ -1355,6 +1355,8 @@ def write_html(data):
     data["index_daily"] = safe(index_daily, {})
     import strategy_tf   # 핵심 후보 매일 갱신(2026-11-14 1차): 감시 목록 × 실적 → D.tf_core + web/core.json(장중 알림이 읽음)
     data["tf_core"] = safe(strategy_tf.core_list)
+    import backtest_ibs   # 부록 · 지수 되돌림 현황판 재료 (2026-11-18, 토큰 0)
+    data["ibs_board"] = safe(backtest_ibs.board)
     data["tf_market"] = safe(lambda: strategy_tf.market_fragments(strategy_tf.daily_market()))   # 시장(탑다운) 탭·오늘 국면 추적판 (2026-11-14 2차, 약 10초)
     if data.get("tf_core"):
         safe(lambda: (WEB / "core.json").write_text(json.dumps(data["tf_core"], ensure_ascii=False), encoding="utf-8"))

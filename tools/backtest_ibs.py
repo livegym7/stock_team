@@ -118,6 +118,42 @@ def run(F, ibs, atr, cost, days=None):
             "by_year": {y: round((v - 1) * 100, 1) for y, v in sorted(by_year.items())}}
 
 
+def board(n_recent=15):
+    """부록 현황판 데이터 (2026-11-18, 토큰 0): 웹이 1분 시세로 오늘 IBS·ATR 순위·코스피 20일선을 다시 계산할 재료.
+    어제까지 확정된 일봉만 넣는다(오늘 봉은 웹이 현재가로 만듦)."""
+    today = datetime.now(KST).strftime("%Y%m%d")
+    out = {"made_at": datetime.now(KST).strftime("%Y-%m-%d %H:%M"), "params": {"ibs": 0.2, "atr": 70, "frac": 0.3, "cost": 0.001}, "etfs": [], "recent": []}
+    kos = [r for r in fetch("KOSPI") if r["date"] < today]
+    kc = [r["close"] for r in kos]
+    out["kospi"] = {"date": kos[-1]["date"], "close": kc[-1], "sum19": sum(kc[-19:]), "ma20": sum(kc[-20:]) / 20, "ma60": sum(kc[-60:]) / 60, "ma120": sum(kc[-120:]) / 120}
+    rev, red = regime(kos)
+    for code, name in ETF.items():
+        rows = [r for r in fetch(code) if r["date"] < today]
+        tr = []
+        for i, r in enumerate(rows):
+            pc = rows[i - 1]["close"] if i else r["close"]
+            tr.append(max(r["high"], pc) - min(r["low"], pc))
+        hist = [sum(tr[k - 13:k + 1]) / 14 / rows[k]["close"] for k in range(len(rows) - 249, len(rows))]
+        last = rows[-1]; rng = last["high"] - last["low"]
+        out["etfs"].append({"code": code, "name": name, "date": last["date"], "prev_close": last["close"], "high": last["high"], "low": last["low"],
+                            "tr13": [round(x, 2) for x in tr[-13:]], "atr_hist": sorted(round(x, 6) for x in hist),
+                            "ibs": round((last["close"] - last["low"]) / rng, 3) if rng > 0 else None,
+                            "atr_rank": round(sum(1 for x in hist if x <= hist[-1]) / len(hist) * 100)})
+    F = {c: features(fetch(c)) for c in ETF}
+    sig = []
+    for c, f in F.items():
+        for d, v in f.items():
+            if v["ibs"] < 0.2 and v["atr_rank"] >= 70:
+                sig.append({"date": d, "code": c, "name": ETF[c], "ibs": round(v["ibs"], 2), "atr_rank": round(v["atr_rank"]),
+                            "red": d in red, "next_pct": round(v["next"] * 100, 2), "exit_date": v["next_date"]})
+    out["recent"] = sorted(sig, key=lambda x: x["date"], reverse=True)[:n_recent]
+    try:
+        out["stats"] = json.loads((OUT / "ibs.json").read_text(encoding="utf-8")).get("appendix")
+    except Exception:
+        out["stats"] = None
+    return out
+
+
 def main():
     t0 = time.time()
     F = {code: features(fetch(code)) for code in ETF}
@@ -160,4 +196,7 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    if sys.argv[1:2] == ["board"]:
+        print(json.dumps(board(), ensure_ascii=False)[:2000])
+    else:
+        main()

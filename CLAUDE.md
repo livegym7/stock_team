@@ -61,7 +61,7 @@ python3 tools/fundamentals.py update [--budget 150]|show --stock 코드   # 실�
 python3 tools/stock_cards.py queue|save            # 깊은 카드(2026-11-13 확정): 조건(보유·관찰 풀 / 200일 신고가+RS80 / 7일 리포트2·채널3) 종목만 하루 10개, 18:40 /research-cards 마지막 단계(Haiku) → data/companies.json
 python3 tools/sector_map.py check                     # 업종 분류표(사용자 custom 53개) 빠진 종목·확인 필요 점검 / set --code --custom 로 채우기
 python3 tools/backtest.py                              # 검증실: 돌파 규칙 백테스트(3년 일봉, 약 1분·캐시) + 감시 목록 성적표 → data/backtest/
-python3 tools/backtest_ibs.py                          # 검증실 부록: 지수 ETF 하루 되돌림(깡토 '지수이지' 재구성, IBS·ATR 격자, 레버리지·인버스 4종, 종가 진입→다음 날 종가) → data/backtest/ibs.json. 비교 자료, 매매 규칙 아님 (2026-11-18)
+python3 tools/backtest_ibs.py                          # 검증실 부록: 지수 ETF 하루 되돌림(깡토 '지수이지' 재구성, IBS·ATR 격자, 레버리지·인버스 4종, 종가 진입→다음 날 종가) → data/backtest/ibs.json. 비교 자료, 매매 규칙 아님 (2026-11-18) · board = 웹 '전략 › 🧩 부록 · 지수 되돌림' 현황판 재료(web_build가 매번), 1분 시세로 코스피 20일선·IBS·ATR 순위 재계산, 신호면 오늘 '할 일'에도
 python3 tools/research.py status                       # 딥리서치: 분석한 드라이브 문서 / save·skip·context·save-synthesis (.claude/skills/deep-research)
 python3 tools/naver_research.py collect                # 네이버 리서치(국내종목·산업분석·투자전략) 목록·목표가·의견·요약 (1차 자료) / candidates(규칙 점수 후보, 토큰 0) / pdf --cat --nid(전문 글자, 원문 저장 안 함) / pick
 python3 tools/research_cards.py build|queue|save|pick-deep|questions|excerpt|mark-deep|weekly   # 네이버 산업·전략 리포트 깔때기(docs/naver-research-plan.md): Tier0 카드 초안(토큰 0, 본문은 data/cache만) → Tier1 Haiku 카드 18:40(/research-cards) → Tier2 Sonnet 깊이 3건·반대 1건·질문 주도 19:13 → Tier3 weekly 집계(전략 보고서 재료)·업종 지식 노트 data/research/notes/
