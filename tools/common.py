@@ -22,6 +22,30 @@ def load_toml(name):
         return tomllib.load(f)
 
 
+def account_state():
+    """계좌 금액 (2026-11-18 사용자 확정): 시작 금액(account.toml capital) + capital_start_at 이후 거래의 실현 손익 − 비용.
+    비용 = 매수·매도마다 거래 금액 × cost_rate(0.23%). 평가 손익(아직 안 판 것)은 넣지 않음 → risk.py가 총자산에 따로 더함."""
+    a = load_toml("account.toml")
+    start, since, rate = a["capital"], a.get("capital_start_at") or "", a.get("cost_rate", 0.0)
+    log = ROOT / "data" / "trades" / "trades.jsonl"
+    realized = fees = 0.0
+    n = 0
+    if log.exists():
+        for line in log.read_text(encoding="utf-8").splitlines():
+            if not line.strip():
+                continue
+            e = json.loads(line)
+            if e.get("type") not in ("buy", "sell") or (e.get("at") or "") < since:
+                continue
+            fee = e.get("fee_won")
+            fee = round(e["qty"] * e["price"] * rate) if fee is None else fee
+            fees += fee; n += 1
+            if e["type"] == "sell":
+                realized += e.get("pnl_won") or 0
+    return {"start_capital": start, "since": since, "cost_rate": rate, "realized_won": round(realized), "fees_won": round(fees),
+            "trades_counted": n, "capital": round(start + realized - fees)}
+
+
 def positions():
     """보유 종목 (config/positions.toml). 파일이 없으면 빈 목록."""
     try:

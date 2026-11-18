@@ -815,8 +815,17 @@ function riskKpis(r){
    <div class="panel kpi"><span>E 노출도</span><b>${r.E_pct}%</b><small class="muted">투자 ${w(r.invested_won)} · 현금 ${w(r.capital-r.invested_won)}</small></div>
    <div class="panel kpi"><span>CR 현재 위험 (매수가 기준)</span><b>${w(r.CR_won)}</b><small class="muted">${r.CR_pct}% · ${r.CR_in_R}R / 한도 ${r.CR_limit_pct}%</small><div class="gauge ${use>80?"hot":""}"><i style="width:${Math.min(100,use)}%"></i></div></div>
    <div class="panel kpi"><span>새로 걸 수 있는 위험</span><b>${w(r.room_for_new_risk_won)}</b><small class="muted">약 ${(r.room_for_new_risk_won/r.one_r_account_won).toFixed(1)}R (1R = ${w(r.one_r_account_won)})</small></div>
-   <div class="panel kpi"><span>평가손익</span><b class="${cls(pnl)}">${w(pnl)}</b><small class="muted">보유 ${(r.positions||[]).length}종목</small></div></div>`;
+   <div class="panel kpi"><span>평가손익</span><b class="${cls(pnl)}">${w(pnl)}</b><small class="muted">보유 ${(r.positions||[]).length}종목</small></div></div>
+   ${acctMoney(r)}`;
 }
+/* 계좌 금액 (2026-11-18 사용자 확정): 시작 1,500만 원 + 이후 거래 실현 손익 − 세금·수수료(거래마다 0.23%) = 지금 계좌, + 평가 손익 = 총자산. 1R·CR·E는 지금 계좌 기준 */
+function totAsset(r){return (r.capital||0)+(r.positions||[]).reduce((a,p)=>a+(p.pnl_won||0),0)}   // 1분 시세로 평가 손익이 바뀌면 같이 바뀜
+function acctMoney(r){if(r.start_capital==null)return "";const tot=totAsset(r),g=tot-r.start_capital;
+  return `<div class="grid g4" style="margin-top:8px"><div class="panel kpi"><span>총자산</span><b>${w(tot)}</b><small class="${cls(g)}">${g>=0?"+":""}${w(g)} (${pc(g/r.start_capital*100,2)}) · 시작 대비</small></div>
+   <div class="panel kpi"><span>지금 계좌 (실현 반영)</span><b>${w(r.capital)}</b><small class="muted">1R·CR·E 계산 기준</small></div>
+   <div class="panel kpi"><span>실현 손익</span><b class="${cls(r.realized_won)}">${w(r.realized_won)}</b><small class="muted">${esc((r.capital_since||"").slice(5).replace("-","/"))}부터</small></div>
+   <div class="panel kpi"><span>세금·수수료</span><b class="${r.fees_won?"down":""}">${r.fees_won?"−"+w(r.fees_won):"0"}</b><small class="muted">매수·매도마다 0.23%</small></div></div>
+   <div class="src">시작 ${w(r.start_capital)}원(${esc(r.capital_since||"")}) + 그 뒤 거래의 실현 손익 − 세금·수수료 = 지금 계좌 · 총자산 = 지금 계좌 + 보유 종목 평가 손익 · 1R = 지금 계좌의 2%</div>`}
 function alerts(r){
   if(!r||r.error)return "";
   let a=(r.positions||[]).filter(p=>p.alert).map(p=>`⚠️ ${esc(p.name)} — ${esc(p.alert)}`);
@@ -968,8 +977,8 @@ function acctBox(){
   (r.positions||[]).forEach(p=>{const k=p.sector||"기타";by[k]=(by[k]||0)+(p.value_won||0)});
   const secs=Object.entries(by).sort((a,b)=>b[1]-a[1]), cash=Math.max(0,r.capital-r.invested_won), pct=v=>v/r.capital*100;
   const gap=last&&last.bench!=null?last.ret-last.bench:null;
-  return `<div class="bx"><div class="bh"><a href="#portfolio">내 계좌</a><em>원금 ${man(r.capital)} · ${ageTag(r.at,"계좌 계산")}</em></div>
-   ${last?`<div class="ret"><div><small>계좌 수익률 · ${esc(P[0].date.slice(5).replace("-","/"))}부터</small><b class="num ${cls(last.ret)}">${pc(last.ret,2)}</b><span class="vs num">코스피 ${pc(last.bench,2)}${gap!=null?` · <span class="${cls(gap)}">시장 대비 ${gap>0?"+":""}${gap.toFixed(2)}%p</span>`:""}</span></div>${eq}</div>`:""}
+  return `<div class="bx"><div class="bh"><a href="#portfolio">내 계좌</a><em>총자산 ${man(totAsset(r))} · 시작 ${man(r.start_capital||r.capital)}${r.capital_since?`(${esc(r.capital_since.slice(5).replace("-","/"))})`:""} · ${ageTag(r.at,"계좌 계산")}</em></div>
+   ${last?`<div class="ret"><div><small>계좌 수익률 · ${esc(((D.equity||{}).since||P[0].date).slice(5).replace("-","/"))}부터</small><b class="num ${cls(last.ret)}">${pc(last.ret,2)}</b><span class="vs num">코스피 ${pc(last.bench,2)}${gap!=null?` · <span class="${cls(gap)}">시장 대비 ${gap>0?"+":""}${gap.toFixed(2)}%p</span>`:""}</span></div>${eq}</div>`:""}
    <div class="kp3 num"><div><small>총 위험 CR</small><b>${r.CR_pct}%</b><span class="g ${use>80?"hot":""}"><i style="width:${Math.min(100,use)}%"></i></span><em>한도 ${r.CR_limit_pct}%</em></div>
     <div><small>투자 비중</small><b>${r.E_pct}%</b><span class="g"><i style="width:${Math.min(100,r.E_pct)}%"></i></span><em>${man(r.invested_won)} 원</em></div>
     <div><small>새 위험 여유</small><b>${man(r.room_for_new_risk_won)}</b><em>약 ${(r.room_for_new_risk_won/r.one_r_account_won).toFixed(1)}R</em></div></div>
@@ -1080,7 +1089,7 @@ function equityChart(){
   const x=i=>(L+i/(n-1)*(W-L-R)).toFixed(1), y=v=>(T+(hi-v)/(hi-lo)*(H-T-B)).toFixed(1);
   const path=k=>P.map((p,i)=>p[k]==null?"":(i&&P[i-1][k]!=null?"L":"M")+x(i)+" "+y(p[k])).join("");
   const last=P[n-1], ticks=[hi-0.5,(hi+lo)/2,lo+0.5].map(v=>Math.round(v*10)/10), dl=[0,Math.floor((n-1)/2),n-1];
-  return `<div class="panel" style="margin-top:12px"><h3>📈 계좌 수익률 <small class="muted">${esc(P[0].date)}부터 · 계좌 ${w(E.capital)}원 대비</small></h3>
+  return `<div class="panel" style="margin-top:12px"><h3>📈 계좌 수익률 <small class="muted">${esc(E.since||P[0].date)}부터 · 시작 ${w(E.capital)}원 대비</small></h3>
   <div class="grid g4" style="margin-bottom:8px"><div class="tile"><span>계좌 수익률</span><b class="${cls(last.ret)}">${pc(last.ret,2)}</b></div><div class="tile"><span>코스피 (시장)</span><b class="${cls(last.bench)}">${pc(last.bench,2)}</b></div>
    <div class="tile"><span>시장 대비</span><b class="${cls(last.ret-last.bench)}">${pc(last.ret-(last.bench||0),2)}</b></div><div class="tile"><span>실현 · 평가 손익</span><b style="font-size:15px"><span class="${cls(last.realized)}">${w(last.realized)}</span> · <span class="${cls(last.unreal)}">${w(last.unreal)}</span></b></div></div>
   <svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="계좌 수익률과 시장 비교">
@@ -1090,7 +1099,7 @@ function equityChart(){
    <path d="${path("bench")}" fill="none" stroke="var(--muted)" stroke-width="1.4" stroke-dasharray="5 3"/>
    <path d="${path("ret")}" fill="none" stroke="var(--accent)" stroke-width="2.2"/>
    <circle cx="${x(n-1)}" cy="${y(last.ret)}" r="3" fill="var(--accent)"/></svg>
-  <div class="src"><span style="color:var(--accent)">━ 계좌 수익률</span> = (실현 손익 + 평가 손익) ÷ 계좌 원금 · <span class="muted">┄ 코스피</span> = 같은 기간 코스피 지수 · 매매 일지 기록과 네이버 일봉 종가로 계산 (오늘은 현재가) · 입출금은 반영 안 됨</div></div>`;
+  <div class="src"><span style="color:var(--accent)">━ 계좌 수익률</span> = (새 시작 뒤 실현 손익 − 세금·수수료 + 평가 손익) ÷ 시작 금액 · <span class="muted">┄ 코스피</span> = 같은 기간 코스피 지수 · 매매 일지 기록과 네이버 일봉 종가로 계산 (오늘은 현재가) · 입출금은 반영 안 됨</div></div>`;
 }
 function journal(){
   const T=D.trades; if(!T)return "";
@@ -1131,7 +1140,7 @@ function viewPortfolio(){
     <div class="res" id="cRes"></div>
     <div class="src">1R ${w(r.one_r_account_won)}원과 CR 여유 ${w(r.room_for_new_risk_won)}원 중 작은 쪽으로 계산 · 주문 기능 없음</div></div>
   </div>
-  <div class="panel" style="margin-top:12px"><h2>규칙</h2><small>자본 ${w(acc.capital)}원 · 1R = 계좌 ${(acc.risk_per_trade*100)}% · 처음 손절 −${acc.stop_pct*100}% · ${acc.breakeven_at_r}R 도달 시 ${Math.round((acc.take_profit_at_3r||0)*100)}% 익절 + 남은 물량 손절가 본전(CR 0) · 이후 ${acc.trail_ma||20}일선 종가 이탈 시 나머지 매도 · CR 한도 ${acc.max_open_risk*100}%</small></div>`;
+  <div class="panel" style="margin-top:12px"><h2>규칙</h2><small>지금 계좌 ${w(acc.capital)}원(시작 ${w(acc.start_capital||acc.capital)} + 실현 − 비용 0.23%) · 1R = 계좌 ${(acc.risk_per_trade*100)}% · 처음 손절 −${acc.stop_pct*100}% · ${acc.breakeven_at_r}R 도달 시 ${Math.round((acc.take_profit_at_3r||0)*100)}% 익절 + 남은 물량 손절가 본전(CR 0) · 이후 ${acc.trail_ma||20}일선 종가 이탈 시 나머지 매도 · CR 한도 ${acc.max_open_risk*100}%</small></div>`;
 }
 function levels(p){
   const a=D.account||{}, unit=p.avg_price-p.initial_stop, be=a.breakeven_at_r||3, take=a.take_profit_at_3r;
@@ -1764,7 +1773,7 @@ function viewConfig(){
    </div>
    <div class="src">근거: 백테스트 999건 · 승률 33% · 거래당 +0.44R (검증실). 세부 판정(셋업 A~F 등)은 Claude가 대신 함 · 원문 docs/rules.md</div></div>
   <div class="grid g2" style="margin-top:12px">
-  <div class="panel"><h2>계좌·리스크 규칙</h2><table><tr><td class="l">자본</td><td class="num">${w(a.capital)}원</td></tr><tr><td class="l">1R (1회 손실 한도)</td><td class="num">${a.risk_per_trade*100}% = ${w(a.capital*a.risk_per_trade)}원</td></tr><tr><td class="l">처음 손절</td><td class="num">−${a.stop_pct*100}%</td></tr><tr><td class="l">본전 손절로 올리는 시점</td><td class="num">${a.breakeven_at_r}R</td></tr><tr><td class="l">${a.breakeven_at_r}R 익절</td><td class="num">${Math.round((a.take_profit_at_3r||0)*100)}%</td></tr><tr><td class="l">3R 이후 매도</td><td class="num">${a.trail_ma||20}일선 종가 이탈</td></tr><tr><td class="l">CR 한도 (동시 손절 최대)</td><td class="num">${a.max_open_risk*100}% = ${w(a.capital*a.max_open_risk)}원</td></tr><tr><td class="l">펀더멘털</td><td class="num">점수로만 표시</td></tr></table></div>
+  <div class="panel"><h2>계좌·리스크 규칙</h2><table><tr><td class="l">지금 계좌</td><td class="num">${w(a.capital)}원<br><small class="muted">시작 ${w(a.start_capital||a.capital)} + 실현 − 비용</small></td></tr><tr><td class="l">1R (1회 손실 한도)</td><td class="num">${a.risk_per_trade*100}% = ${w(a.capital*a.risk_per_trade)}원</td></tr><tr><td class="l">처음 손절</td><td class="num">−${a.stop_pct*100}%</td></tr><tr><td class="l">본전 손절로 올리는 시점</td><td class="num">${a.breakeven_at_r}R</td></tr><tr><td class="l">${a.breakeven_at_r}R 익절</td><td class="num">${Math.round((a.take_profit_at_3r||0)*100)}%</td></tr><tr><td class="l">3R 이후 매도</td><td class="num">${a.trail_ma||20}일선 종가 이탈</td></tr><tr><td class="l">CR 한도 (동시 손절 최대)</td><td class="num">${a.max_open_risk*100}% = ${w(a.capital*a.max_open_risk)}원</td></tr><tr><td class="l">펀더멘털</td><td class="num">점수로만 표시</td></tr></table></div>
   <div class="panel"><h2>자동 일정 (평일)</h2><div class="tl">${(D.schedule||[]).map(s=>`<a href="#${s.kind=="watchlist"?"watch":"briefs"}"><span class="num">${s.time}</span><span>${esc(s.name)}</span><span class="pill ${s.done?"ok":""}">${esc(s.state)}</span></a>`).join("")}</div><div class="src">Claude 예약 작업 · 결과는 텔레그램과 이 화면에 같이 남음</div></div>
   <div class="panel"><h2>데이터 출처</h2><small>국내 시세·일봉: 네이버 증권(비공식) · 해외: Yahoo Finance(비공식) · 리포트·뉴스: 텔레그램 채널 요약(2차 자료) · 기업 사업 한 줄: Claude가 공개 정보로 작성</small></div>
   <div class="panel"><h2>지키는 선</h2><small>주문 기능 없음 · 매수·매도 단정 없음(근거와 반대 근거) · 숫자에 출처와 시각 · 증권사 PDF 원본 저장 안 함</small></div></div>
@@ -1829,7 +1838,7 @@ function acctLine(){
   const r=D.risk||{}, ps=r.positions||[], rv=D.trade_review;
   if(ps.length)return acctBox()+holdBox();
   return `<div class="bx"><div class="bh"><a href="#trade">내 계좌</a><em>보유 없음 · ${esc((r.at||"").slice(5,16))}</em></div>
-   <div class="acct2">보유 종목이 없습니다. 원금 ${man(r.capital)}원 · 새 위험 여유 ${man(r.room_for_new_risk_won)}원 (약 ${r.one_r_account_won?(r.room_for_new_risk_won/r.one_r_account_won).toFixed(1):"-"}R).
+   <div class="acct2">보유 종목이 없습니다. 계좌 ${man(r.capital)}원 · 새 위험 여유 ${man(r.room_for_new_risk_won)}원 (약 ${r.one_r_account_won?(r.room_for_new_risk_won/r.one_r_account_won).toFixed(1):"-"}R).
    ${rv&&rv.n?`<br>최근 매매 ${rv.n}건 · 합계 ${rv.sum_r>0?"+":""}${rv.sum_r}R · 연속 손절 ${rv.current_loss_streak}건 → <a href="#trade">내 매매에서 복기 ›</a>`:""}</div></div>`;
 }
 function upcomingBox(){
@@ -2305,7 +2314,7 @@ function viewTrade(){
     <div class="calc"><label for="cEntry">매수 예정가<input id="cEntry" inputmode="numeric" value="${ui.cEntry||50000}"></label><label for="cStop">손절가<input id="cStop" inputmode="numeric" value="${ui.cStop||46000}"></label><label for="cPct">손절 %로 넣기<input id="cPct" inputmode="decimal" value="${ui.cPct||8}"></label></div>
     <div class="res" id="cRes"></div>
     <div class="src">1R ${w(r.one_r_account_won)}원과 CR 여유 ${w(r.room_for_new_risk_won)}원 중 작은 쪽으로 계산 · 주문 기능 없음</div></div>
-   <div class="panel"><h2>계좌·리스크 규칙</h2><table><tr><td class="l">자본</td><td class="num">${w(acc.capital)}원</td></tr><tr><td class="l">1R (1회 손실 한도)</td><td class="num">${(acc.risk_per_trade||0)*100}% = ${w((acc.capital||0)*(acc.risk_per_trade||0))}원</td></tr><tr><td class="l">처음 손절</td><td class="num">−${(acc.stop_pct||0)*100}%</td></tr><tr><td class="l">본전 손절로 올리는 때</td><td class="num">${acc.breakeven_at_r}R</td></tr><tr><td class="l">총 위험(CR) 한도</td><td class="num">${r.CR_limit_pct??"-"}%</td></tr></table></div>
+   <div class="panel"><h2>계좌·리스크 규칙</h2><table><tr><td class="l">지금 계좌</td><td class="num">${w(acc.capital)}원<br><small class="muted">시작 ${w(acc.start_capital||acc.capital)} + 실현 − 비용</small></td></tr><tr><td class="l">1R (1회 손실 한도)</td><td class="num">${(acc.risk_per_trade||0)*100}% = ${w((acc.capital||0)*(acc.risk_per_trade||0))}원</td></tr><tr><td class="l">처음 손절</td><td class="num">−${(acc.stop_pct||0)*100}%</td></tr><tr><td class="l">본전 손절로 올리는 때</td><td class="num">${acc.breakeven_at_r}R</td></tr><tr><td class="l">총 위험(CR) 한도</td><td class="num">${r.CR_limit_pct??"-"}%</td></tr></table></div>
   </div>
   ${rulesCard()}`;
 }

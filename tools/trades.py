@@ -23,7 +23,8 @@ POS = ROOT / "config" / "positions.toml"
 
 def rules():
     a = load_toml("account.toml")
-    return {"stop_pct": a.get("stop_pct", 0.08), "be_r": a.get("breakeven_at_r", 3), "capital": a.get("capital"),
+    from common import account_state
+    return {"stop_pct": a.get("stop_pct", 0.08), "be_r": a.get("breakeven_at_r", 3), "capital": account_state()["capital"], "cost_rate": a.get("cost_rate", 0.0),
             "risk": a.get("risk_per_trade", 0.02)}
 
 
@@ -76,7 +77,8 @@ def buy(a):
         pos.append({"name": a.name, "code": code, "qty": a.qty, "avg_price": a.price, "initial_stop": stop, "stop": stop})
     write_positions(pos)
     ev = {"type": "buy", "date": a.date, "name": a.name, "code": code, "qty": a.qty, "price": a.price, "stop": stop,
-          "setup": a.setup, "note": a.note, "at": datetime.now(KST).isoformat(timespec="seconds")}
+          "setup": a.setup, "note": a.note, "at": datetime.now(KST).isoformat(timespec="seconds"),
+          "fee_won": round(a.qty * a.price * r["cost_rate"])}   # 세금+수수료 0.23% (2026-11-18)
     # 결정 로그 (Balance Lab 2.0 TR-01, 2026-11-12): 어느 띔 · 가설 한 줄 · 깨지는 조건. 비면 '근거 없음' 꼬리표(강제 아님)
     ev["decision"] = {"theme": a.theme, "thesis": a.thesis, "invalid": a.invalid}
     tags = []
@@ -117,6 +119,7 @@ def buy(a):
 
 def sell(a):
     code = a.code or code_of(a.name)
+    rate = rules()["cost_rate"]
     pos = load_pos()
     p = next((x for x in pos if x["code"] == code), None)
     if not p:
@@ -127,7 +130,8 @@ def sell(a):
     r_mult = round((a.price - p["avg_price"]) / risk_per_share, 2) if risk_per_share > 0 else None
     ev = {"type": "sell", "date": a.date, "name": p["name"], "code": code, "qty": a.qty, "price": a.price, "reason": a.reason,
           "avg_price": p["avg_price"], "initial_stop": p["initial_stop"], "stop_then": p["stop"], "r": r_mult,
-          "pnl_won": round((a.price - p["avg_price"]) * a.qty), "at": datetime.now(KST).isoformat(timespec="seconds")}
+          "pnl_won": round((a.price - p["avg_price"]) * a.qty), "at": datetime.now(KST).isoformat(timespec="seconds"),
+          "fee_won": round(a.qty * a.price * rate)}   # 세금+수수료 0.23% (2026-11-18), 계좌 금액에서 뺌
     # 규칙 점검: 손절가 아래에서 늦게 판 것인지(−1R보다 더 잃음), 3R 전에 판 이유
     ev["checks"] = {"손절가 지킴(−1.1R보다 덜 잃음)": r_mult is None or r_mult >= -1.1}
     p["qty"] -= a.qty

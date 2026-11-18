@@ -27,7 +27,9 @@ from report_digest import live_prices
 
 def rules():
     a = load_toml("account.toml")
-    return {"capital": a["capital"], "risk_per_trade": a["risk_per_trade"], "stop_pct": a["stop_pct"],
+    from common import account_state
+    st = account_state()   # 2026-11-18: 계좌 = 시작 1,500만 + 이후 실현 손익 − 비용 (고정 금액 아님)
+    return {"capital": st["capital"], "account": st, "risk_per_trade": a["risk_per_trade"], "stop_pct": a["stop_pct"],
             "breakeven_at_r": a.get("breakeven_at_r", 3), "max_open_risk": a.get("max_open_risk", 0.06),
             "take_profit_at_3r": a.get("take_profit_at_3r"), "trail_ma": a.get("trail_ma", 20)}
 
@@ -86,6 +88,9 @@ def evaluate(pos=None, prices=None):
     out = {
         "at": datetime.now(KST).strftime("%Y-%m-%d %H:%M"), "source": "현재가 네이버(표시값), 계산 Claude",
         "capital": r["capital"], "one_r_account_won": round(one_r_acct),
+        "start_capital": r["account"]["start_capital"], "realized_won": r["account"]["realized_won"], "fees_won": r["account"]["fees_won"],
+        "capital_since": r["account"]["since"][:10],
+        "total_asset_won": round(r["capital"] + sum((x["pnl_won"] or 0) for x in rows)),   # 총자산 = 계좌(실현 반영) + 평가 손익
         "E_pct": round(total_value / r["capital"] * 100, 1), "invested_won": round(total_value),
         "CR_won": round(total_cr), "CR_pct": round(total_cr / r["capital"] * 100, 2),
         "CR_in_R": round(total_cr / one_r_acct, 2),

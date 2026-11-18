@@ -899,7 +899,8 @@ def equity(risk_now):
     log = sorted(TR.read_log(), key=lambda e: (e["date"], e.get("at", "")))
     if not log:
         return None
-    cap = (load_toml("account.toml") or {}).get("capital") or 1
+    acc = load_toml("account.toml") or {}
+    cap, since, rate = acc.get("capital") or 1, acc.get("capital_start_at") or "9999", acc.get("cost_rate", 0.0)
     start = log[0]["date"].replace("-", "")
     bench = [r for r in S.fetch_daily("KOSPI") if r["date"] >= start]   # 시장 비교 = 코스피 지수 (2026-11-05)
     if not bench:
@@ -910,16 +911,21 @@ def equity(risk_now):
     pts, b0 = [], None
     for br in bench:
         d = br["date"]
-        qty, cost, realized = defaultdict(int), defaultdict(float), 0.0
+        qty, cost, realized, ra = defaultdict(int), defaultdict(float), 0.0, 0.0   # ra = 계좌 새 시작(since) 이후 실현 − 비용
         for e in log:
             if e["date"].replace("-", "") > d:
                 break
             c = e["code"]
+            after = e["type"] in ("buy", "sell") and (e.get("at") or "") >= since
+            if after:   # 2026-11-18부터 거래 비용 0.23% 반영
+                ra -= e.get("fee_won") if e.get("fee_won") is not None else e["qty"] * e["price"] * rate
             if e["type"] == "buy":
                 qty[c] += e["qty"]; cost[c] += e["qty"] * e["price"]
             elif e["type"] == "sell" and qty[c]:
                 avg = cost[c] / qty[c]
                 realized += (e["price"] - avg) * e["qty"]
+                if after:
+                    ra += (e["price"] - avg) * e["qty"]
                 cost[c] -= avg * e["qty"]; qty[c] -= e["qty"]
         unreal = 0.0
         for c, q in qty.items():
@@ -931,8 +937,18 @@ def equity(risk_now):
                 unreal += px * q - cost[c]
         b0 = b0 or br["close"]
         pts.append({"date": f"{d[:4]}-{d[4:6]}-{d[6:]}", "ret": round((realized + unreal) / cap * 100, 3),
-                    "bench": round((br["close"] / b0 - 1) * 100, 3), "realized": round(realized), "unreal": round(unreal)})
-    return {"capital": cap, "points": pts}
+                    "bench": round((br["close"] / b0 - 1) * 100, 3), "realized": round(realized), "unreal": round(unreal), "ra": round(ra)})
+    # 2026-11-18 사용자 확정: 계좌는 capital_start_at 시점에 1,500만 원으로 새로 시작 → 그 뒤 날짜만, 수익률 = (새 시작 뒤 실현 − 비용 + 지금 평가 손익) ÷ 1,500만
+    #   시작 전날을 0으로 두고 코스피도 그 전날 종가 기준. 평가 손익은 시작 전부터 들고 있던 종목(예: JYP)의 매수가 기준 손익도 포함
+    sd = since[:10]
+    if sd < "9999":
+        base = [p for p in pts if p["date"] < sd]
+        if base:
+            b = base[-1]; bb = 1 + b["bench"] / 100
+            pts = [dict(b, ret=0.0, bench=0.0, realized=0)] + [
+                {**p, "ret": round((p["ra"] + p["unreal"]) / cap * 100, 3), "bench": round(((1 + p["bench"] / 100) / bb - 1) * 100, 3), "realized": p["ra"]}
+                for p in pts if p["date"] >= sd]
+    return {"capital": cap, "since": sd, "points": pts}
 
 
 def automation(now, data, allp):
@@ -1163,7 +1179,7 @@ def main():
         "trade_review": safe(lambda: __import__("trades").review()),   # 매매 복기 (2026-11-10)
         "watch_pool": load_toml("watch_pool.toml"),                    # 관찰 풀 (전략 보고서가 고른 종목)
         "equity": safe(lambda: equity(risk_now)),
-        "account": load_toml("account.toml"),
+        "account": {**load_toml("account.toml"), **__import__("common").account_state()},   # capital = 지금 계좌(시작 + 실현 손익 − 비용, 2026-11-18)
         "schedule": schedule(now, brief_rows),
         "briefs": brief_rows,
         "watch": watch(),   # 감시 목록 파일만 읽음 (계산은 모니터링 새로고침·16:07 예약)
