@@ -11,6 +11,7 @@
   Z5 전부        : Z3 + Z4
   (참고) 기존 돌파를 '큰 매물대도 함께 뚫은 것 / 아닌 것', '1년 최대 매물대를 뚫음 / 이미 위 / 아래'로 나눠 본 성적
   P1 1년 최대 매물대 돌파(단독): 어제 종가 ≤ 최대 매물대 상단 < 오늘 종가, 거래량 1.5배↑ (2026-11-18 추가)
+  P2 차트 빨간 막대 돌파(단독): 웹 차트 매물대(200봉·10칸·거래량을 종가 칸에)의 최대 칸 상단을 거래량 1.5배로 넘음 (2026-11-18, 셋업 보드 표시 기준)
 
 python3 tools/backtest_zone.py   # → data/backtest/zone.json
 """
@@ -123,6 +124,13 @@ def main(workers=4):
                     cand["P1 1년 최대 매물대 돌파(단독)"] = (True, 0)
                 if brk:
                     cand["기존 돌파 · 1년 최대 매물대도 뚫음" if poc_brk else ("기존 돌파 · 이미 최대 매물대 위" if c[i - 1] > pz[1] else "기존 돌파 · 최대 매물대 아래")] = (True, 0)
+            mz = S.max_zone(hist[-201:-1])   # 웹 차트 빨간 막대 = 최대 매물대 (2026-11-18 사용자 요청)
+            if mz:
+                mt = mz["top"]; m_brk = c[i - 1] <= mt < c[i]
+                if m_brk and vr >= 1.5:
+                    cand["P2 차트 빨간 막대 돌파(단독)"] = (True, 0)
+                if brk:
+                    cand["기존 돌파 · 차트 빨간 막대도 뚫음" if m_brk else ("기존 돌파 · 이미 차트 빨간 막대 위" if c[i - 1] > mt else "기존 돌파 · 차트 빨간 막대 아래")] = (True, 0)
             if brk:
                 cand["기존 돌파"] = (True, 0)
                 cand["기존 돌파 · 큰 매물대도 뚫음" if big else "기존 돌파 · 매물대 없음"] = (True, 0)
@@ -133,7 +141,7 @@ def main(workers=4):
                 res = simulate(rows, j, R)
                 T[name].append({"code": s["code"], "date": rows[j]["date"], **res})
                 busy[name][s["code"]] = j + res["days"]
-    order = ["기존 돌파", "기존 돌파 · 1년 최대 매물대도 뚫음", "기존 돌파 · 이미 최대 매물대 위", "기존 돌파 · 최대 매물대 아래", "P1 1년 최대 매물대 돌파(단독)", "기존 돌파 · 큰 매물대도 뚫음", "기존 돌파 · 매물대 없음", "Z1 단순", "Z2 큰 매물대", "Z3 위가 비어 있음", "Z4 확인 2일", "Z5 전부"]
+    order = ["기존 돌파", "기존 돌파 · 차트 빨간 막대도 뚫음", "기존 돌파 · 이미 차트 빨간 막대 위", "기존 돌파 · 차트 빨간 막대 아래", "P2 차트 빨간 막대 돌파(단독)", "기존 돌파 · 1년 최대 매물대도 뚫음", "기존 돌파 · 이미 최대 매물대 위", "기존 돌파 · 최대 매물대 아래", "P1 1년 최대 매물대 돌파(단독)", "기존 돌파 · 큰 매물대도 뚫음", "기존 돌파 · 매물대 없음", "Z1 단순", "Z2 큰 매물대", "Z3 위가 비어 있음", "Z4 확인 2일", "Z5 전부"]
     out = {"made_at": datetime.now(KST).strftime("%Y-%m-%d %H:%M"), "universe": len(data), "seconds": round(time.time() - t0), "rows": []}
     for name in order:
         closed = [t for t in T[name] if t["exit"]]

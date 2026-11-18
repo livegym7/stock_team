@@ -1,7 +1,7 @@
 {
- "made_at": "2026-11-18 10:09",
+ "made_at": "2026-11-18 10:28",
  "universe": 753,
- "seconds": 13,
+ "seconds": 19,
  "rows": [
   {
    "variant": "기존 돌파",
@@ -61,6 +61,236 @@
      "avg_days": 11.6,
      "max_dd_r": -21.1,
      "max_loss_streak": 12
+    }
+   }
+  },
+  {
+   "variant": "기존 돌파 · 차트 빨간 막대도 뚫음",
+   "all": {
+    "n": 51,
+    "win_rate": 37.3,
+    "avg_r": 0.85,
+    "avg_win": 3.97,
+    "avg_loss": -1.01,
+    "payoff": 3.95,
+    "profit_factor": 2.34,
+    "total_r": 43.2,
+    "reach_3r_pct": 37.3,
+    "avg_days": 17.3,
+    "max_dd_r": -7.2,
+    "max_loss_streak": 7
+   },
+   "by_year": {
+    "2024": {
+     "n": 3,
+     "win_rate": 33.3,
+     "avg_r": 0.64,
+     "avg_win": 3.91,
+     "avg_loss": -1.0,
+     "payoff": 3.91,
+     "profit_factor": 1.96,
+     "total_r": 1.9,
+     "reach_3r_pct": 33.3,
+     "avg_days": 74.7,
+     "max_dd_r": -2.0,
+     "max_loss_streak": 2
+    },
+    "2025": {
+     "n": 21,
+     "win_rate": 42.9,
+     "avg_r": 0.73,
+     "avg_win": 3.05,
+     "avg_loss": -1.01,
+     "payoff": 3.0,
+     "profit_factor": 2.25,
+     "total_r": 15.3,
+     "reach_3r_pct": 42.9,
+     "avg_days": 17.8,
+     "max_dd_r": -7.2,
+     "max_loss_streak": 7
+    },
+    "2026": {
+     "n": 27,
+     "win_rate": 33.3,
+     "avg_r": 0.96,
+     "avg_win": 4.89,
+     "avg_loss": -1.0,
+     "payoff": 4.89,
+     "profit_factor": 2.45,
+     "total_r": 26.0,
+     "reach_3r_pct": 33.3,
+     "avg_days": 10.6,
+     "max_dd_r": -6.6,
+     "max_loss_streak": 5
+    }
+   }
+  },
+  {
+   "variant": "기존 돌파 · 이미 차트 빨간 막대 위",
+   "all": {
+    "n": 398,
+    "win_rate": 35.4,
+    "avg_r": 0.5,
+    "avg_win": 3.27,
+    "avg_loss": -1.02,
+    "payoff": 3.2,
+    "profit_factor": 1.76,
+    "total_r": 198.7,
+    "reach_3r_pct": 35.4,
+    "avg_days": 15.7,
+    "max_dd_r": -29.1,
+    "max_loss_streak": 22
+   },
+   "by_year": {
+    "2024": {
+     "n": 22,
+     "win_rate": 13.6,
+     "avg_r": -0.47,
+     "avg_win": 2.91,
+     "avg_loss": -1.0,
+     "payoff": 2.91,
+     "profit_factor": 0.46,
+     "total_r": -10.3,
+     "reach_3r_pct": 13.6,
+     "avg_days": 20.7,
+     "max_dd_r": -15.0,
+     "max_loss_streak": 12
+    },
+    "2025": {
+     "n": 165,
+     "win_rate": 34.5,
+     "avg_r": 0.63,
+     "avg_win": 3.75,
+     "avg_loss": -1.02,
+     "payoff": 3.67,
+     "profit_factor": 1.94,
+     "total_r": 103.4,
+     "reach_3r_pct": 34.5,
+     "avg_days": 20.3,
+     "max_dd_r": -29.1,
+     "max_loss_streak": 22
+    },
+    "2026": {
+     "n": 211,
+     "win_rate": 38.4,
+     "avg_r": 0.5,
+     "avg_win": 2.95,
+     "avg_loss": -1.02,
+     "payoff": 2.88,
+     "profit_factor": 1.79,
+     "total_r": 105.5,
+     "reach_3r_pct": 38.4,
+     "avg_days": 11.5,
+     "max_dd_r": -19.1,
+     "max_loss_streak": 12
+    }
+   }
+  },
+  {
+   "variant": "기존 돌파 · 차트 빨간 막대 아래",
+   "all": {
+    "n": 3,
+    "win_rate": 33.3,
+    "avg_r": -0.17,
+    "avg_win": 1.5,
+    "avg_loss": -1.0,
+    "payoff": 1.5,
+    "profit_factor": 0.75,
+    "total_r": -0.5,
+    "reach_3r_pct": 33.3,
+    "avg_days": 22,
+    "max_dd_r": -1.0,
+    "max_loss_streak": 1
+   },
+   "by_year": {
+    "2024": {
+     "n": 2,
+     "win_rate": 50.0,
+     "avg_r": 0.25,
+     "avg_win": 1.5,
+     "avg_loss": -1.0,
+     "payoff": 1.5,
+     "profit_factor": 1.5,
+     "total_r": 0.5,
+     "reach_3r_pct": 50.0,
+     "avg_days": 11.5,
+     "max_dd_r": -1.0,
+     "max_loss_streak": 1
+    },
+    "2025": {
+     "n": 1,
+     "win_rate": 0.0,
+     "avg_r": -1.0,
+     "avg_win": 0,
+     "avg_loss": -1.0,
+     "payoff": null,
+     "profit_factor": 0.0,
+     "total_r": -1.0,
+     "reach_3r_pct": 0.0,
+     "avg_days": 43,
+     "max_dd_r": -1.0,
+     "max_loss_streak": 1
+    }
+   }
+  },
+  {
+   "variant": "P2 차트 빨간 막대 돌파(단독)",
+   "all": {
+    "n": 130,
+    "win_rate": 34.6,
+    "avg_r": 0.7,
+    "avg_win": 3.93,
+    "avg_loss": -1.01,
+    "payoff": 3.89,
+    "profit_factor": 2.06,
+    "total_r": 90.9,
+    "reach_3r_pct": 34.6,
+    "avg_days": 15.4,
+    "max_dd_r": -17.4,
+    "max_loss_streak": 17
+   },
+   "by_year": {
+    "2024": {
+     "n": 8,
+     "win_rate": 37.5,
+     "avg_r": 1.11,
+     "avg_win": 4.64,
+     "avg_loss": -1.0,
+     "payoff": 4.64,
+     "profit_factor": 2.78,
+     "total_r": 8.9,
+     "reach_3r_pct": 37.5,
+     "avg_days": 40.2,
+     "max_dd_r": -5.0,
+     "max_loss_streak": 5
+    },
+    "2025": {
+     "n": 52,
+     "win_rate": 38.5,
+     "avg_r": 0.72,
+     "avg_win": 3.5,
+     "avg_loss": -1.01,
+     "payoff": 3.46,
+     "profit_factor": 2.16,
+     "total_r": 37.6,
+     "reach_3r_pct": 38.5,
+     "avg_days": 17.2,
+     "max_dd_r": -17.4,
+     "max_loss_streak": 17
+    },
+    "2026": {
+     "n": 70,
+     "win_rate": 31.4,
+     "avg_r": 0.63,
+     "avg_win": 4.22,
+     "avg_loss": -1.01,
+     "payoff": 4.18,
+     "profit_factor": 1.92,
+     "total_r": 44.4,
+     "reach_3r_pct": 31.4,
+     "avg_days": 11.3,
+     "max_dd_r": -10.0,
+     "max_loss_streak": 10
     }
    }
   },

@@ -142,6 +142,24 @@ def volume_zones(rows, nb=40):
     return [(round(lo + a * step), round(lo + (z + 1) * step)) for a, z in zones]
 
 
+def max_zone(rows, nb=10):
+    """최대 매물대 = 웹 차트(app.html candleChart의 매물대, 키움 MTS 방식)와 같은 계산:
+    최근 200봉 · 저가~고가 10칸 · 거래량을 종가 칸에 · 가장 큰 칸(차트의 빨간 막대)의 상단 가격과 비중%.
+    (2026-11-18 사용자 요청: 차트 빨간 막대 상단 기준 · 표시만, 매매 규칙 아님)"""
+    rows = rows[-200:]
+    if len(rows) < 60:
+        return None
+    lo, hi = min(r["low"] for r in rows), max(r["high"] for r in rows)
+    if hi <= lo:
+        return None
+    bs = (hi - lo) / nb
+    b = [0.0] * nb
+    for r in rows:
+        b[min(nb - 1, max(0, int((r["close"] - lo) / bs)))] += r["volume"]
+    k = b.index(max(b))
+    return {"top": round(lo + (k + 1) * bs), "pct": round(b[k] / (sum(b) or 1) * 100)}
+
+
 def swing_pullbacks(h, l, start, k=3):
     """start(피벗) 이후 고점→저점 되돌림 폭(%)들을 순서대로. 고점·저점은 앞뒤 k일 안 최고·최저."""
     n = len(h)
@@ -351,6 +369,9 @@ def run(codes_info, workers=4):
                 item["levels"]["low_cheat_trigger"] = a["low_cheat_trigger"]
             above = [z for z in volume_zones(rows[-250:]) if z[1] > rows[-1]["close"]]
             item["overhead_zone"] = above[0] if above else None
+        pz = max_zone(rows)
+        if pz:
+            item["max_zone"] = pz   # 차트 빨간 막대(200봉·10칸 최대 매물대) 상단·비중 (2026-11-18 표시만, 규칙 아님)
         results.append(item)
     return results
 

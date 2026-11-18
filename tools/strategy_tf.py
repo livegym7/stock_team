@@ -255,7 +255,14 @@ def core_list():
         tech = (1 if (r["rs"] or 0) >= 80 else 0) + (1 if dist is not None and dist <= 10 and not r["missing"] else 0) + (1 if r["ia"] == "동반 상승" else 0)
         fp = (f or {}).get("pts", 0)
         note = "베이스 짧고 얕음(확인 필요)" if (b.get("days") or 99) < 10 and (b.get("depth_pct") or 99) < 3 else ""
-        items.append({"code": r["code"], "name": r["stock"], "group": r["group"], "rs": r["rs"], "close": r["close"], "breakout": lv.get("breakout"),
+        mz = r.get("max_zone")
+        if not mz:   # 감시 목록이 아직 옛 형식이면 일봉 캐시로 계산 (있을 때만)
+            try:
+                from screener import max_zone
+                mz = max_zone(json.loads((CACHE / "daily" / f"{r['code']}.json").read_text())["rows"])
+            except Exception:
+                mz = None
+        items.append({"code": r["code"], "name": r["stock"], "zone_top": (mz or {}).get("top"), "zone_pct": (mz or {}).get("pct"), "group": r["group"], "rs": r["rs"], "close": r["close"], "breakout": lv.get("breakout"),
                       "stop": lv.get("stop_1r"), "dist": dist, "fp": fp, "tech": tech, "why": (f or {}).get("why") or [], "ia": r["ia"] == "동반 상승",
                       "pool": r["pool"], "core": fp >= 2 and tech >= 2, "note": note})
     items.sort(key=lambda x: (not x["core"], -x["fp"], x["dist"] if x["dist"] is not None else 99))
