@@ -247,6 +247,29 @@ def core_list():
     if len(fund) < 100:   # 실적 캐시가 없는 곳(예약 대화 컨테이너): 커밋된 지난 주간 지면의 펀더 점수로 대신
         pf = sorted(TF.glob("prep_*.json"))
         prevfs = {b["code"]: b.get("fs") for b in ((_j(pf[-1], {}) or {}).get("board") or [])} if pf else {}
+    # 장중 인더스트리 액션 재료 (2026-11-18 사용자 요청): 같은 업종 종목(시총 2천억↑, 큰 순 30개)과 50일 평균 거래량
+    #   → 웹이 1분 시세로 '동행/나 홀로'와 거래량 배수를 장중에 다시 계산 (판정 규칙은 screener.industry_action과 같음)
+    peers_of, grp_of = {}, {}
+    try:
+        from universe import load as _uni
+        from sector_map import custom_map
+        from screener import RULES as _R
+        cmap = custom_map()
+        U = [u for u in _uni()["stocks"] if (u.get("market_cap_eok") or 0) >= _R["min_mcap_eok"] and u.get("market") not in ("KONEX", "2")]
+        for u in sorted(U, key=lambda u: -(u.get("market_cap_eok") or 0)):
+            g = cmap.get(u["code"]) or "네이버:" + (u.get("industry") or "")
+            grp_of[u["code"]] = g
+            peers_of.setdefault(g, []).append(u["code"])
+    except Exception:
+        pass
+
+    def _vol50(code):
+        try:
+            rows = json.loads((CACHE / "daily" / f"{code}.json").read_text())["rows"]
+            v = [x["volume"] for x in rows[-50:]]
+            return round(sum(v) / len(v)) if v else None
+        except Exception:
+            return None
     items = []
     for r in sc.get("watch", []):
         lv, b = r.get("levels") or {}, r.get("base") or {}
@@ -262,7 +285,8 @@ def core_list():
                 mz = max_zone(json.loads((CACHE / "daily" / f"{r['code']}.json").read_text())["rows"])
             except Exception:
                 mz = None
-        items.append({"code": r["code"], "name": r["stock"], "zone_top": (mz or {}).get("top"), "zone_pct": (mz or {}).get("pct"), "group": r["group"], "rs": r["rs"], "close": r["close"], "breakout": lv.get("breakout"),
+        g = grp_of.get(r["code"])
+        items.append({"code": r["code"], "peers": [c for c in peers_of.get(g, []) if c != r["code"]][:30], "vol50": _vol50(r["code"]), "name": r["stock"], "zone_top": (mz or {}).get("top"), "zone_pct": (mz or {}).get("pct"), "group": r["group"], "rs": r["rs"], "close": r["close"], "breakout": lv.get("breakout"),
                       "stop": lv.get("stop_1r"), "dist": dist, "fp": fp, "tech": tech, "why": (f or {}).get("why") or [], "ia": r["ia"] == "동반 상승",
                       "pool": r["pool"], "core": fp >= 2 and tech >= 2, "note": note})
     items.sort(key=lambda x: (not x["core"], -x["fp"], x["dist"] if x["dist"] is not None else 99))

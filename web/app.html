@@ -2417,7 +2417,10 @@ function stockWhere(c){
 }
 function stockTabsBar(t){return `<div class="chips tabs" style="margin-bottom:10px">${STOCK_TABS.map(([v,n])=>`<button class="chip ${t==v?"on":""}" data-kt="${v}">${n}</button>`).join("")}</div>`}
 /* 셋업 보드 정리 (2026-11-17 시안): 옛 '감시 목록 원래 화면' 대신 ✅ 오늘 신호 줄 + 👀 후보·1stage·아깝게 빠짐 접힌 칸 + 📖 용어 */
-function signalStrip(){const W=D.watch||{},S=W.signals||[];
+function signalStrip(){return liveStrip()+signalStrip0()}
+function liveStrip(){const G=liveSigs();if(!G.length)return liveOn()?`<div class="sigstrip none">🔔 장중 돌파 없음 <small class="muted">(셋업 보드 종목 · 1분 시세 · 기준가 또는 차트 빨간 막대 상단을 오늘 넘은 종목)</small></div>`:"";
+  return `<div class="sigstrip">🔔 <b>장중 돌파 ${G.length}</b>${G.filter(g=>g.rule).length?` · 규칙 충족 ${G.filter(g=>g.rule).length}`:""} ${G.map(g=>`<span class="sigc">${g.rule?"✅ ":""}<b data-pop="${esc(g.x.name)}">${esc(g.x.name)}</b> <span class="num">${w(g.px)}</span> ${sigBits(g)}</span>`).join("")} <small class="muted">· 장중 판정, 신호는 종가로 확정 · 규칙 충족 = 기준가 돌파 + 거래량 1.5배 + 업종 동행 · 판단은 본인</small></div>`}
+function signalStrip0(){const W=D.watch||{},S=W.signals||[];
   if(!S.length)return `<div class="sigstrip none">✅ 오늘 규칙 신호 없음 <small class="muted">(감시 목록 ${esc(fmtYmd(W.as_of||""))} 종가 기준 · 신호 = 기준가 종가 돌파 + 거래량 1.5배 + 업종 동행)</small></div>`;
   return `<div class="sigstrip">✅ <b>오늘 규칙 신호 ${S.length}</b> ${S.map(x=>{const n=nowPx(x.code);return `<span class="sigc"><b data-pop="${esc(x.stock)}">${esc(x.stock)}</b> <small>${esc((x.today||[]).join("·")||"돌파")} ${esc((x.setups||[]).join(","))}</small> <span class="num">${n.p?w(n.p):""}</span> <small class="${cls(n.chg)}">${n.chg!=null?pc(n.chg,2):""}</small></span>`}).join("")} <small class="muted">· 신호 = 종가 확정 기준, 판단은 본인</small></div>`}
 function watchExtra(){const W=D.watch||{},C=W.candidates||[],R=W.running||[],N=W.near_miss||[];if(!C.length&&!R.length&&!N.length)return "";
@@ -2435,6 +2438,20 @@ function watchExtra(){const W=D.watch||{},C=W.candidates||[],R=W.running||[],N=W
   </details>
   <details class="fold" data-fold="glOpen" ${ui.glOpen?"open":""}><summary class="foldh">📖 용어 <small class="muted">신호·셋업 A~G·관문 7개·RS·기준가</small></summary>${glossary(true)}</details>`}
 document.addEventListener("click",e=>{const b=e.target.closest("[data-wx]");if(b){ui.wx=b.dataset.wx;ui.wxOpen=true;save();render()}});
+/* 장중 규칙 확인 (2026-11-18 사용자 요청): 오늘 오르는데 어제 업종 판정을 쓰면 안 맞음 → 1분 시세로 다시 계산
+   업종 동행 = 같은 업종(시총 2천억↑) 40%↑가 +2%↑ 또는 중앙값 +1.5%↑ (screener.industry_action과 같은 규칙), 3종목 미만이면 판정 불가
+   돌파 = 어제 종가 ≤ 기준가 < 현재가 · 매물대 돌파 = 어제 종가 ≤ 차트 빨간 막대 상단 < 현재가 · 거래량 = 오늘 누적 ÷ 50일 평균 */
+function liveIA(x){const Q=(D.live||{}).quotes||{},ch=(x.peers||[]).map(c=>Q[c]&&Q[c].change_pct).filter(v=>v!=null);
+  if(!liveOn()||ch.length<3)return null;
+  const s=[...ch].sort((a,b)=>a-b),m=s.length%2?s[(s.length-1)/2]:(s[s.length/2-1]+s[s.length/2])/2,share=Math.round(ch.filter(v=>v>=2).length/ch.length*100);
+  return {ok:share>=40||m>=1.5,share,med:Math.round(m*10)/10,n:ch.length}}
+function liveOn(){const Q=(D.live||{}).quotes||{},a=((D.live||{}).at||"").slice(0,10).replace(/-/g,""),t=((D.tf_core||{}).as_of||"");return !!a&&a>t}   // 오늘 시세가 감시 목록 날짜보다 새것일 때만 (마감 뒤 재계산하면 꺼짐)
+function liveSig(x){const q=liveQuote(x.code);if(!liveOn()||!q||!q.price||!x.close)return null;const px=q.price;
+  const bo=!!x.breakout&&x.close<=x.breakout&&px>x.breakout,zb=!!x.zone_top&&x.close<=x.zone_top&&px>x.zone_top;
+  if(!bo&&!zb)return null;const vr=q.vol&&x.vol50?q.vol/x.vol50:null,ia=liveIA(x);
+  return {x,px,bo,zb,vr,ia,rule:bo&&vr!=null&&vr>=1.5&&ia&&ia.ok}}
+function liveSigs(){return ((D.tf_core||{}).items||[]).map(liveSig).filter(Boolean).sort((a,b)=>(b.rule-a.rule)||((b.bo&&b.zb)-(a.bo&&a.zb)))}
+function sigBits(g){return `${g.bo?'<span class="pill brkt">기준가 돌파</span>':""}${g.zb?'<span class="pill brkt">매물대 돌파</span>':""} <small class="${g.vr>=1.5?"up":"muted"}">거래량 ${g.vr!=null?g.vr.toFixed(1)+"배"+(g.vr>=1.5?" ✓":""):"-"}</small> <small class="${g.ia&&g.ia.ok?"up":"down"}">업종 ${g.ia?(g.ia.ok?"동행 ✓":"나 홀로")+" "+g.ia.share+"%":"확인 불가"}</small>`}
 /* 최대 매물대 = 종목 차트 빨간 막대 상단 (2026-11-18 사용자 확정, 표시만): 기준가 거리와 같은 방식
    아래면 상단까지 남은 % · 넘었으면 상단보다 몇 % 위인지 빨간 +% */
 function zoneCells(x,px){const t=x.zone_top;if(!t||!px)return `<td class="num">-</td><td class="num">-</td>`;
@@ -2447,7 +2464,7 @@ function setupTab(){   // 셋업 보드 = 감시 목록 × 펀더·기술 점수
     const cat=x.core?["핵심 후보","ok"]:x.fp>=2?["펀더 OK·기술 대기",""]:x.tech>=2?["기술만 · 펀더 미확인","warn"]:["제외",""];
     return `<tr class="${x.core?"rdy":""}" data-go-s="${x.code}"><td class="l"><b data-pop="${esc(x.name)}" class="stk">${esc(x.name)}</b>${x.pool?" 🎯":""}${x.breakout&&x.zone_top&&px>x.breakout&&px>x.zone_top?' <span class="pill brkt" title="기준가와 최대 매물대(차트 빨간 막대 상단)를 모두 넘음">돌파</span>':""}<br><small class="muted">${esc(x.group)}</small></td><td><span class="pill ${cat[1]}">${cat[0]}</span></td>${pxCells(x.code)}
      <td title="${esc((x.why||[]).join(" · "))}">${dots(x.fp)}</td><td>${dots(x.tech)}</td><td class="num">${x.rs??"-"}</td><td class="num"><b>${w(x.breakout)}</b></td><td class="num ${d!=null&&d<=3?"up":""}">${d==null?"-":(d<=0?"돌파 ":"")+Math.abs(d).toFixed(1)+"%"}</td>
-     ${zoneCells(x,px)}<td class="num">${w(x.stop)}</td><td class="num">${x.breakout&&x.stop&&x.breakout>x.stop?Math.floor(300000/(x.breakout-x.stop))+"주":"-"}</td><td class="${x.ia?"up":"down"}">${x.ia?"동행":"나 홀로"}</td><td class="l"><small class="muted">${esc(x.note||"")}</small></td></tr>`}).join("");
+     ${zoneCells(x,px)}<td class="num">${w(x.stop)}</td><td class="num">${x.breakout&&x.stop&&x.breakout>x.stop?Math.floor(300000/(x.breakout-x.stop))+"주":"-"}</td>${(()=>{const L=liveIA(x);return L?`<td class="${L.ok?"up":"down"}" title="장중 1분 시세 · 같은 업종 ${L.n}종목 중 +2%↑ ${L.share}% · 중앙값 ${L.med}%">${L.ok?"동행":"나 홀로"}<br><small class="muted">장중 ${L.share}%</small></td>`:`<td class="${x.ia?"up":"down"}" title="어제 마감 기준">${x.ia?"동행":"나 홀로"}<br><small class="muted">어제</small></td>`})()}<td class="l"><small class="muted">${esc(x.note||"")}</small></td></tr>`}).join("");
   return `<div class="sub" style="margin-top:-4px">감시 목록(${esc(fmtYmd(C.as_of||""))} 16:07) × 펀더·기술 점수 · 핵심 ${C.n_core||0}종목 · ${esc(C.rule||"")} · 장중엔 현재가로 거리 · 종목을 누르면 종목 페이지</div>
    ${signalStrip()}
    ${L.length?`<div class="tw"><table class="slist"><tr><th class="l">종목</th><th>분류</th><th>현재가</th><th>오늘</th><th>펀더</th><th>기술</th><th>RS</th><th>기준가</th><th>거리</th><th title="종목 차트 매물대의 빨간 막대(최근 200봉 최대 매물대) 상단">최대 매물대</th><th>매물대까지</th><th>손절가(−8%)</th><th>1R 수량</th><th>업종</th><th class="l">메모</th></tr>${rows}</table></div>`:`<div class="empty">감시 목록이 아직 없습니다</div>`}
@@ -2487,6 +2504,7 @@ function todoItems(){
     if(p.alert)out.push({lv:"m",code:p.code,t:`${p.name} · ${p.alert}`,s:""})});
   const pool=new Set(((D.watch_pool||{}).themes||[]).flatMap(th=>(th.stocks||[]).map(s=>s.code)));
   const W=D.watch||{};["signals","candidates","watch"].forEach(k=>(W[k]||[]).forEach(x=>{const d=(x.levels||{}).distance_pct;if(pool.has(x.code)&&d!=null&&Math.abs(d)<=2)out.push({lv:k=="signals"?"h":"l",code:x.code,t:`${x.stock} 기준가 ${w((x.levels||{}).breakout)}까지 ${pc(d)}`,s:`관찰 풀 · ${k=="signals"?"✅ 신호":"근접"} · 돌파 + 인더스트리 액션 확인`})}));
+  liveSigs().forEach(g=>out.unshift({lv:g.rule?"h":"m",code:g.x.code,t:`${g.x.name} ${[g.bo?"기준가 "+w(g.x.breakout):"",g.zb?"매물대 "+w(g.x.zone_top):""].filter(Boolean).join(" · ")} 돌파 (장중 ${w(g.px)})`,s:`${g.rule?"✅ 규칙 충족(장중)":"확인 필요"} · 거래량 ${g.vr!=null?g.vr.toFixed(1)+"배":"-"}${g.vr>=1.5?" ✓":" (1.5배 필요)"} · 업종 ${g.ia?(g.ia.ok?"동행 ✓":"나 홀로"):"확인 불가"} · 종가로 확정`}));   // 2026-11-18 장중 돌파
   const held=new Set(ps.map(p=>p.code));
   calEvents().filter(e=>e.days==0&&(e.mine=="held"||e.mine=="watch")).slice(0,3).forEach(e=>out.push({lv:"l",t:`${e.time||"종일"} ${e.name}`,s:e.mine=="held"?"보유 종목 일정":"관찰 종목 일정"}));
   return out.slice(0,6);
@@ -2760,7 +2778,8 @@ function quoteCodes(){const s=new Set(((D.risk||{}).positions||[]).map(p=>p.code
   if(route()=="stock"&&!ui.sc&&(!ui.kt||ui.kt=="list"))LIST_CODES.forEach(c=>s.add(c));
   if(route()=="stock"&&ui.kt=="etf")((D.etfb||{}).items||[]).forEach(x=>s.add(x.code));
   if(route()=="stock"&&ui.kt=="setup")((D.tf_core||{}).items||[]).forEach(x=>s.add(x.code));   // ETF 시세판을 보고 있으면 ETF도 (2026-11-13)   // 종목 목록을 보고 있으면 목록 위쪽 종목도 (2026-11-13)
-  return [...s].filter(Boolean).slice(0,200)}
+  ((D.tf_core||{}).items||[]).slice(0,12).forEach(x=>(x.peers||[]).forEach(c=>s.add(c)));   // 장중 업종 동행 판정용 같은 업종 종목 (2026-11-18)
+  return [...s].filter(Boolean).slice(0,400)}
 function busy(){const a=document.activeElement;return (a&&/INPUT|SELECT|TEXTAREA/.test(a.tagName))||popFor}
 function applyQuote(j){
   const pos=((D.risk||{}).positions||[]).map(p=>{const q=j.quotes[p.code];if(!q||!q.price)return {code:p.code};const risk=p.avg_price-(p.initial_stop??p.stop);
