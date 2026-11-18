@@ -6,6 +6,7 @@
   - 3R 이후 20일선 아래 (종가로 확인 필요)
   - 하루 등락 -5% 이하 / +7% 이상
   - 감시 목록(전날 16:07) 종목의 기준가 근접(−2% 이내)·장중 돌파 (예상 거래량 배수 포함) · 핵심 후보(펀더+기술, core.json)는 🎯로 먼저 (2026-11-14)
+  - 최대 매물대(차트 빨간 막대 상단) 장중 돌파 + 장중 업종 동행(같은 업종 종목 1분 전 시세) · 기준가 돌파+거래량+업종 동행이면 ✅ 규칙 충족 (2026-11-18)
   - 보유 종목이 주인공인 채널 새 글 (기업·실적·리포트·정책 글, 중복·잡담·시황 나열 제외, 지난 확인 이후)
 판단만 알린다. 매수·매도를 대신하지 않는다 (절대 규칙 1·4).
 
@@ -65,6 +66,8 @@ def breakout_watch(now, sent, limit=40):
     if not items:
         return []
     codes = [x["code"] for _, x in items]
+    # 장중 업종 동행용 같은 업종 종목 (core.json의 peers, 2026-11-18)
+    codes += sorted({pc for _, x in items for pc in ((core.get(x["code"]) or {}).get("peers") or [])} - set(codes))
     q = {}
     for i in range(0, len(codes), 40):
         raw = json.loads(http_get("https://polling.finance.naver.com/api/realtime/domestic/stock/" + ",".join(codes[i:i + 40])))
@@ -90,9 +93,31 @@ def breakout_watch(now, sent, limit=40):
             grade = grade + "(펀더 미확인) "
         note = f"{grade}{tier} {x['stock']} {px:,.0f}원 ({r.get('chg') or 0:+.2f}%) · 기준가 {piv:,}"
         miss = f" · 부족: {', '.join(x.get('missing') or [])}" if x.get("missing") else ""
-        if px > piv:
-            ok = vr is not None and vr >= 1.5
-            out.append((f"brk:{c}", f"🔔 {note} 돌파 중{vtxt}{' ✓' if ok else ''} — 종가 유지·거래량 1.5배·업종 동반 확인 필요{miss}"))
+        # 장중 업종 동행 (screener.industry_action과 같은 규칙: 같은 업종 40%↑가 +2%↑ 또는 중앙값 +1.5%↑, 2026-11-18)
+        ch = [q[pc]["chg"] for pc in (cx.get("peers") or []) if (q.get(pc) or {}).get("chg") is not None]
+        ia = None
+        if len(ch) >= 3:
+            import statistics
+            share, med = round(sum(1 for v in ch if v >= 2) / len(ch) * 100), statistics.median(ch)
+            ia = (share >= 40 or med >= 1.5, share)
+        iatxt = " · 업종 " + (("동행 ✓" if ia[0] else "나 홀로") + f" {ia[1]}%" if ia else "확인 불가")
+        # 매물대 돌파: 어제 종가 ≤ 최대 매물대(차트 빨간 막대 상단) < 현재가 (2026-11-18 사용자 요청)
+        zt = cx.get("zone_top") or (x.get("max_zone") or {}).get("top")
+        yc = x.get("close")
+        zb = bool(zt and yc and yc <= zt < px)
+        bo = px > piv
+        vok = vr is not None and vr >= 1.5
+        rule = bo and vok and bool(ia and ia[0])
+        if bo or zb:
+            what = " + ".join(([f"기준가 {piv:,}"] if bo else []) + ([f"매물대 {zt:,}"] if zb else []))
+            head = f"🔔 {grade}{tier} {x['stock']} {px:,.0f}원 ({r.get('chg') or 0:+.2f}%) · {what} 돌파{vtxt}{' ✓' if vok else ''}{iatxt}"
+            tail = " — ✅ 규칙 충족(장중), 종가로 확정" if rule else (" — 매물대만 돌파(참고)" if not bo else " — 종가 유지·거래량 1.5배·업종 동행 확인 필요")
+            if bo:
+                out.append((f"brk:{c}", head + tail + miss))
+            if zb:
+                out.append((f"zb:{c}", head + tail + miss))
+            if rule:   # 처음엔 업종이 안 따라왔다가 나중에 규칙을 채우면 한 번 더
+                out.append((f"rule:{c}", head + tail + miss))
         elif px >= alert_px:
             out.append((f"near:{c}", f"👀 {note}까지 {(piv / px - 1) * 100:.1f}% 남음{vtxt}{miss}"))
     return out
@@ -134,7 +159,10 @@ def check(state, now):
         from common import load_toml
         out_b = breakout_watch(now, sent) if (load_toml("features.toml") or {}).get("monitoring", True) else []   # 모니터링 중단 중엔 돌파 알림 끔
         for key, text in out_b:
-            add(key, text)
+            if key not in sent and text in out:   # 같은 줄(기준가·매물대·규칙 충족 동시)은 한 번만
+                sent.add(key)
+            else:
+                add(key, text)
     except Exception as e:
         out.append(f"(감시 목록 확인 실패: {type(e).__name__})")
 
