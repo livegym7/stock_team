@@ -57,8 +57,9 @@ def evaluate(pos=None, prices=None):
         unit = avg - init_stop                      # 주당 1R
         cur = prices.get(p["code"], {}).get("price")
         value = cur * qty if cur else avg * qty
-        cr = max(0, avg - stop) * qty
-        r_mult = round((cur - avg) / unit, 2) if cur and unit > 0 else None
+        addon = p.get("book") == "addon"   # 부록 · 지수 되돌림 (2026-11-18): 손절가·CR·R 계산 안 함, 다음 날 종가 매도
+        cr = 0 if addon else max(0, avg - stop) * qty
+        r_mult = None if addon else (round((cur - avg) / unit, 2) if cur and unit > 0 else None)
         target = avg + r["breakeven_at_r"] * unit   # 3R 가격
         row = {"name": p["name"], "code": p["code"], "qty": qty, "avg_price": avg, "price": cur,
                "price_at": prices.get(p["code"], {}).get("at"), "initial_stop": init_stop, "stop": stop,
@@ -82,6 +83,10 @@ def evaluate(pos=None, prices=None):
             row["note"] = "손절가 본전 이상 → 이 종목 CR 0"
             if m and cur and cur < m:
                 row["alert"] = f"{r['trail_ma']}일선({m:,}원) 아래 → 종가로도 이탈하면 나머지 전략 매도"
+        if addon:
+            row.update(book="addon", bought=p.get("bought"), phase="🧩 부록 · 다음 날 종가 매도", alert=None, cr_won=0, one_r_won=0, one_r_vs_account=0,
+                       ret_pct=round((cur / avg - 1) * 100, 2) if cur else None)
+            row.pop("note", None)
         rows.append(row)
         total_value += value
         total_cr += cr

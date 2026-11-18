@@ -36,10 +36,12 @@ def code_of(name):
     raise SystemExit(f"종목 이름을 찾을 수 없습니다: {name}")
 
 
-def read_log():
+def read_log(book="main"):
+    """book = "main"(본 매매, 기본) · "addon"(부록 · 지수 되돌림, 2026-11-18) · "all"."""
     if not LOG.exists():
         return []
-    return [json.loads(l) for l in LOG.read_text(encoding="utf-8").splitlines() if l.strip()]
+    xs = [json.loads(l) for l in LOG.read_text(encoding="utf-8").splitlines() if l.strip()]
+    return xs if book == "all" else [x for x in xs if (x.get("book") or "main") == book]
 
 
 def append(ev):
@@ -54,7 +56,7 @@ def write_positions(pos):
     for p in pos:
         out += ["[[positions]]", f'name = "{p["name"]}"', f'code = "{p["code"]}"', f"qty = {int(p['qty'])}",
                 f"avg_price = {round(p['avg_price'])}", f"initial_stop = {round(p['initial_stop'])}   # 처음 손절가 = 1R 기준",
-                f"stop = {round(p['stop'])}", ""]
+                f"stop = {round(p['stop'])}"] + ([f'book = "addon"   # 부록 · 지수 되돌림: 다음 날 종가 매도, 손절가·CR 계산 안 함', f'bought = "{p.get("bought", "")}"'] if p.get("book") == "addon" else []) + [""]
     POS.write_text("\n".join(out), encoding="utf-8")
 
 
@@ -74,13 +76,18 @@ def buy(a):
         p.update(qty=tot, avg_price=round(avg), initial_stop=round(min(p["initial_stop"], avg * (1 - r["stop_pct"]))),
                  stop=max(p["stop"], round(min(p["initial_stop"], avg * (1 - r["stop_pct"])))))
     else:
-        pos.append({"name": a.name, "code": code, "qty": a.qty, "avg_price": a.price, "initial_stop": stop, "stop": stop})
+        pos.append({"name": a.name, "code": code, "qty": a.qty, "avg_price": a.price, "initial_stop": stop, "stop": stop,
+                    **({"book": "addon", "bought": a.date} if getattr(a, "addon", False) else {})})
     write_positions(pos)
     ev = {"type": "buy", "date": a.date, "name": a.name, "code": code, "qty": a.qty, "price": a.price, "stop": stop,
           "setup": a.setup, "note": a.note, "at": datetime.now(KST).isoformat(timespec="seconds"),
           "fee_won": 0}   # 세금+수수료는 왕복 0.23%를 매도 때 한 번에 뺌 (2026-11-18)
     # 결정 로그 (Balance Lab 2.0 TR-01, 2026-11-12): 어느 띔 · 가설 한 줄 · 깨지는 조건. 비면 '근거 없음' 꼬리표(강제 아님)
     ev["decision"] = {"theme": a.theme, "thesis": a.thesis, "invalid": a.invalid}
+    if getattr(a, "addon", False):   # 부록 · 지수 되돌림 (2026-11-18): 본 매매 일지·복기와 따로, 세 질문·규칙 점검 없음
+        ev.update(book="addon", decision=None, tags=["🧩 부록"], note=a.note or "지수 되돌림 · 다음 날 종가 매도")
+        append(ev)
+        return ev
     tags = []
     if not (a.theme and a.thesis and a.invalid):
         tags.append("근거 없음")
@@ -134,6 +141,8 @@ def sell(a):
           "fee_won": round(a.qty * a.price * rate)}   # 세금+수수료: 사고 파는 한 번에 0.23% → 매도 금액의 0.23% (2026-11-18), 계좌 금액에서 뺌
     # 규칙 점검: 손절가 아래에서 늦게 판 것인지(−1R보다 더 잃음), 3R 전에 판 이유
     ev["checks"] = {"손절가 지킴(−1.1R보다 덜 잃음)": r_mult is None or r_mult >= -1.1}
+    if p.get("book") == "addon":   # 부록: R·손절 점검 없음, 수익률만
+        ev.update(book="addon", r=None, checks={}, ret_pct=round((a.price / p["avg_price"] - 1) * 100, 2))
     p["qty"] -= a.qty
     pos = [x for x in pos if x["qty"] > 0]
     write_positions(pos)
@@ -153,6 +162,16 @@ def move_stop(a):
           "at": datetime.now(KST).isoformat(timespec="seconds")}
     append(ev)
     return ev
+
+
+def addon_summary():
+    """부록 · 지수 되돌림 성적 (2026-11-18): 끝난 거래별 수익률·손익(세금·수수료 뺀 것)."""
+    ts = [e for e in read_log("addon") if e["type"] == "sell"]
+    rows = [{"name": e["name"], "date": e["date"], "qty": e["qty"], "buy": e["avg_price"], "sell": e["price"], "ret_pct": e.get("ret_pct"),
+             "pnl_won": e["pnl_won"], "net_won": e["pnl_won"] - (e.get("fee_won") or 0)} for e in ts]
+    w = [r for r in rows if r["net_won"] > 0]
+    return {"n": len(rows), "win": len(w), "net_won": sum(r["net_won"] for r in rows),
+            "avg_ret_pct": round(sum(r["ret_pct"] or 0 for r in rows) / len(rows), 2) if rows else None, "trades": rows[::-1][:30]}
 
 
 def summary():
@@ -279,6 +298,7 @@ def main():
         s.add_argument("--date", default=today)
         if c == "buy":
             s.add_argument("--stop", type=float); s.add_argument("--setup"); s.add_argument("--note")
+            s.add_argument("--addon", action="store_true", help="부록 · 지수 되돌림 매수 (본 매매와 따로 기록, 다음 날 종가 매도)")
             s.add_argument("--theme", help="어느 띔 (예: T2 유가 하락 → 항공)"); s.add_argument("--thesis", help="가설 한 줄")
             s.add_argument("--invalid", help="깨지는 조건 (예: WTI 주간 +8%%)")
         else:

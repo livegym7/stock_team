@@ -1108,6 +1108,10 @@ function equityChart(){
    <circle cx="${x(n-1)}" cy="${y(last.ret)}" r="3" fill="var(--accent)"/></svg>
   <div class="src"><span style="color:var(--accent)">━ 계좌 수익률</span> = (새 시작 뒤 실현 손익 − 세금·수수료 + 평가 손익) ÷ 시작 금액 · <span class="muted">┄ 코스피</span> = 같은 기간 코스피 지수 · 매매 일지 기록과 네이버 일봉 종가로 계산 (오늘은 현재가) · 입출금은 반영 안 됨</div></div>`;
 }
+function addonJournal(){const A=D.addon_trades;if(!A||!A.n)return `<div class="src" style="margin-top:6px">🧩 부록 · 지수 되돌림 기록 없음 — "부록 OO 몇 주 얼마에 샀어"라고 말하면 본 매매와 따로 기록합니다 (손절가·CR 계산 안 함, 다음 날 종가 매도)</div>`;
+  return `<div class="panel" style="margin-top:10px"><h3>🧩 부록 · 지수 되돌림 성적 <small class="muted">본 매매 일지·R과 따로 · 세금·수수료 뺀 손익</small></h3>
+   <div class="grid g4"><div class="tile"><span>끝난 거래</span><b>${A.n}건</b></div><div class="tile"><span>승률</span><b>${Math.round(A.win/A.n*100)}%</b></div><div class="tile"><span>평균 수익률</span><b class="${cls(A.avg_ret_pct)}">${pc(A.avg_ret_pct,2)}</b></div><div class="tile"><span>순손익</span><b class="${cls(A.net_won)}">${w(A.net_won)}</b></div></div>
+   <div class="tw"><table class="slist"><tr><th class="l">ETF</th><th>날짜</th><th>수량</th><th>매수→매도</th><th>수익률</th><th>순손익</th></tr>${A.trades.map(t=>`<tr><td class="l">${esc(t.name)}</td><td class="num">${esc(t.date.slice(5))}</td><td class="num">${w(t.qty)}</td><td class="num">${w(t.buy)} → ${w(t.sell)}</td><td class="num ${cls(t.ret_pct)}">${pc(t.ret_pct,2)}</td><td class="num ${cls(t.net_won)}">${w(t.net_won)}</td></tr>`).join("")}</table></div></div>`}
 function journal(){
   const T=D.trades; if(!T)return "";
   const S=T.stats||{}, ty={buy:"🟥 매수",sell:"🟦 매도",stop:"🛡️ 손절가"};
@@ -1138,7 +1142,7 @@ function viewPortfolio(){
   <div class="acts">${ps.map(p=>actionCard(p)).join("")}</div>
   ${src("규칙: 처음 손절 −8%(1R) → 3R 도달 시 50% 익절 + 남은 물량 손절가 본전(CR 0) → 이후 20일선 종가 이탈 시 나머지 매도 · 실제 주문은 증권사 앱에서 직접")}
   ${equityChart()}
-  ${journal()}
+  ${journal()}${addonJournal()}
   <div class="grid g2" style="margin-top:16px">
    <div class="panel"><h2>업종 쏠림</h2><div class="bars">${Object.entries(bySec).sort((a,b)=>b[1]-a[1]).map(([s,v])=>`<div class="bar"><span>${esc(s)}</span><div class="track"><i class="n" style="width:${v/tot*100}%;background:var(--accent)"></i></div><span class="num">${(v/tot*100).toFixed(0)}%</span></div>`).join("")}</div>
     <div class="src">보유 평가금액 기준. 한 업종에 몰려 있으면 나쁜 날 같이 빠집니다(CR이 한 번에 현실이 됨)</div></div>
@@ -2355,7 +2359,7 @@ function viewTrade(){
   ${perfBox()}
   ${reviewBox()}
   ${equityChart()}
-  ${journal()}
+  ${journal()}${addonJournal()}
   <div class="grid g2" style="margin-top:16px">
    <div class="panel"><h2>살 수 있는 수량 계산</h2>
     <div class="calc"><label for="cEntry">매수 예정가<input id="cEntry" inputmode="numeric" value="${ui.cEntry||50000}"></label><label for="cStop">손절가<input id="cStop" inputmode="numeric" value="${ui.cStop||46000}"></label><label for="cPct">손절 %로 넣기<input id="cPct" inputmode="decimal" value="${ui.cPct||8}"></label></div>

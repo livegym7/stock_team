@@ -123,6 +123,47 @@ def breakout_watch(now, sent, limit=40):
     return out
 
 
+def addon_signals():
+    """부록 · 지수 되돌림: 코스피 20일선 아래 + ETF IBS < 0.2 + 흔들림(ATR 14일) 지난 250일 중 상위 30% → 15:00~15:20 매수 후보.
+    웹 '전략 › 부록' 현황판(ibsNow·kospiNow)과 같은 계산. 매수 권유가 아니라 조건 알림."""
+    import backtest_ibs as B
+    from common import http_get
+    bd = B.board(n_recent=0)
+    P, K = bd["params"], bd["kospi"]
+    num = lambda v: float(str(v).replace(",", "")) if str(v or "").replace(",", "").replace(".", "").isdigit() else None
+    ix = json.loads(http_get("https://polling.finance.naver.com/api/realtime/domestic/index/KOSPI"))
+    kp = num(ix["datas"][0]["closePrice"])
+    ma20 = (K["sum19"] + kp) / 20
+    if not kp or kp >= ma20:
+        return []
+    raw = json.loads(http_get("https://polling.finance.naver.com/api/realtime/domestic/stock/" + ",".join(e["code"] for e in bd["etfs"])))
+    q = {r["itemCode"]: r for r in raw.get("datas", [])}
+    try:
+        from common import account_state
+        pot = account_state()["capital"] * P["frac"]
+    except Exception:
+        pot = None
+    hits = []
+    for e in bd["etfs"]:
+        r = q.get(e["code"]) or {}
+        H, L, C = num(r.get("highPrice")), num(r.get("lowPrice")), num(r.get("closePrice"))
+        if not (H and L and C) or H <= L:
+            continue
+        ibs = (C - L) / (H - L)
+        tr = max(H, e["prev_close"]) - min(L, e["prev_close"])
+        atr = (sum(e["tr13"]) + tr) / 14 / C
+        rank = sum(1 for x in e["atr_hist"] if x <= atr) / (len(e["atr_hist"]) + 1) * 100
+        if ibs < P["ibs"] and rank >= P["atr"]:
+            hits.append((e, C, ibs, rank))
+    out = []
+    for e, C, ibs, rank in hits:
+        each = pot / len(hits) if pot else None
+        qty = f" · 부록 몫 {each:,.0f}원이면 {int(each // C):,}주" if each else ""
+        out.append((f"ibs:{e['code']}", f"🧩 부록 신호 · {e['name']} {C:,.0f}원 · IBS {ibs:.2f}(범위 하위 {ibs * 100:.0f}%) · 흔들림 상위 {100 - rank:.0f}% · 코스피 20일선 {(kp / ma20 - 1) * 100:+.1f}%"
+                    f" — 15:00~15:20 매수 후보, 다음 날 종가 매도{qty} (본 규칙과 별개, 판단은 본인)"))
+    return out
+
+
 def check(state, now):
     import risk
     from report_digest import live_prices
@@ -139,6 +180,10 @@ def check(state, now):
 
     for p in ev["positions"]:
         if p.get("price") is None:
+            continue
+        if p.get("book") == "addon":   # 부록 · 지수 되돌림 보유: 손절 알림 대신 '오늘 종가 매도 차례' (2026-11-18)
+            if (p.get("bought") or today) < today and now.strftime("%H:%M") >= "14:50":
+                add(f"{p['code']}:addon_exit", f"🧩 부록 {p['name']} {p['price']:,.0f}원 ({p.get('ret_pct') or 0:+.2f}%) — 오늘 종가 매도 차례 (최대 하루 보유 규칙)")
             continue
         name, q = p["name"], quotes.get(p["code"], {})
         chg = q.get("change_pct")
@@ -165,6 +210,14 @@ def check(state, now):
                 add(key, text)
     except Exception as e:
         out.append(f"(감시 목록 확인 실패: {type(e).__name__})")
+
+    # 부록 · 지수 되돌림 신호 (2026-11-18 사용자 요청): 14:50~15:25에 조건 3개가 모두 맞으면 (웹 현황판과 같은 계산)
+    if "14:50" <= now.strftime("%H:%M") <= "15:25":
+        try:
+            for key, text in addon_signals():
+                add(key, text)
+        except Exception as e:
+            out.append(f"(부록 신호 확인 실패: {type(e).__name__})")
 
     # 채널 새 글 (보유 종목 언급)
     last = state.get("last_post_time") or (now - timedelta(hours=2)).isoformat(timespec="seconds")

@@ -896,7 +896,7 @@ def equity(risk_now):
     """계좌 수익률 곡선: 매매 일지(data/trades) + 네이버 일봉 종가. 날마다 (실현 + 평가 손익) ÷ 계좌 원금, 코스피 지수와 비교."""
     import screener as S
     import trades as TR
-    log = sorted(TR.read_log(), key=lambda e: (e["date"], e.get("at", "")))
+    log = sorted(TR.read_log("all"), key=lambda e: (e["date"], e.get("at", "")))
     if not log:
         return None
     acc = load_toml("account.toml") or {}
@@ -1177,6 +1177,7 @@ def main():
         "risk": risk_now,
         "trades": safe(lambda: __import__("trades").summary()),
         "trade_review": safe(lambda: __import__("trades").review()),   # 매매 복기 (2026-11-10)
+        "addon_trades": safe(lambda: __import__("trades").addon_summary()),   # 부록 · 지수 되돌림 성적 (2026-11-18)
         "watch_pool": load_toml("watch_pool.toml"),                    # 관찰 풀 (전략 보고서가 고른 종목)
         "equity": safe(lambda: equity(risk_now)),
         "account": {**load_toml("account.toml"), **__import__("common").account_state()},   # capital = 지금 계좌(시작 + 실현 손익 − 비용, 2026-11-18)
