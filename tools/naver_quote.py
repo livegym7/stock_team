@@ -10,7 +10,7 @@
     python3 tools/naver_quote.py daily --stock 005930 --days 120   # 일봉 (수정주가)
     python3 tools/naver_quote.py index                       # 코스피·코스닥 지수
 
-출력 형식은 tools/kis_quote.py와 같다 (source, fetched_at, results).
+출력 형식: source, fetched_at, results.
 """
 import argparse
 import ast

@@ -2592,7 +2592,7 @@ function viewStock(){
 const SLOTN={"07":"07:00 출근 전","12":"12:30 점심","18":"18:30 퇴근 후"};
 function checkpointBox(op){
   const K=D.checkpoint, age=K&&K.made_at?(Date.now()-new Date(K.made_at.replace(" ","T")+":00+09:00"))/36e5:1e9;
-  if(!K||age>20)return insightBox(op);
+  if(!K)return insightBox(op);   // 2026-11-19: 주말처럼 오래돼도 옛 인사이트(11/12 중단) 대신 마지막 체크포인트를 보여 줌
   const M={"맞음":"✅","틀림":"❌","진행":"⏳"};
   const sec=(k,n)=>(K[k]||[]).length?`<div class="opr ins-${k} cpk"><div class="k">${n}</div><div class="t">${K[k].map(x=>`<div class="ili">${sentLines(x)}</div>`).join("")}</div></div>`:"";   // 2026-11-13: 사용자 요청으로 문장마다 줄바꿈 복구, 이름 칸은 넓혀 한 줄
   return `<div class="bx insight"><div class="bh">🧭 체크포인트 · ${esc(SLOTN[K.slot]||"")}<em>${ageTag(K.made_at,"체크포인트 작성")} · 하루 3회 (07:00·12:30·18:30) · 텔레그램 발송</em></div>

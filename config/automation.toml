@@ -10,46 +10,17 @@ when = "평일 06:47 · 12:17 · 18:17 시작"
 due = "06:47"
 runner = "claude"
 model = "Sonnet"
-tokens = "보통 (하루 3회, 아침 브리핑·인사이트·리포트 브리핑 대신)"
+tokens = "보통 (하루 3회 · 같은 회차에 채널·리포트 정리까지)"
 check = "checkpoint"
 
 [[tasks]]
-name = "아침 브리핑 — 중단 (2026-11-12, 07:00 체크포인트로 대체)"
-when = "평일 06:55 — 중단"
-due = "06:55"
-runner = "claude"
-tokens = "0"
-check = "report:morning"
-paused = true
-
-[[tasks]]
-name = "채널·리포트 정리 (플로우 데스크, 웹 · 인사이트는 체크포인트로 대체)"
-when = "평일 08·10·12·14·16시 12분 · 토·일 12·20시 12분(주말, 2026-11-15)"
-due = "08:12"
+name = "채널·리포트 정리 (체크포인트 회차에 함께 씀, 2026-11-19 합침 · 주말은 따로)"
+when = "평일 07:00·12:30·18:30 체크포인트 직후 · 토·일 12·20시 12분"
+due = "06:47"
 runner = "claude"
 model = "Sonnet"
-tokens = "중간 (첫 회 많고, 이후는 새 글만)"
+tokens = "중간 (하루 5회 → 3회로 줄임)"
 check = "live"
-
-[[tasks]]
-name = "리포트 브리핑 오후 — 중단 (2026-11-12, 18:30 체크포인트로 합침)"
-when = "평일 14:53 — 중단"
-due = "14:53"
-runner = "claude"
-model = "Sonnet"
-tokens = "보통"
-check = "report:report_brief_pm"
-paused = true
-
-[[tasks]]
-name = "마감 리뷰 — 중단 (2026-11-13, 18:30 체크포인트로 합침)"
-when = "평일 15:47"
-due = "15:47"
-runner = "claude"
-model = "Sonnet"
-tokens = "0"
-check = "report:close"
-paused = true
 
 [[tasks]]
 name = "감시 목록 (관찰 풀 + RS 70↑ 한정)"
@@ -59,15 +30,6 @@ runner = "claude"
 model = "Haiku"
 tokens = "적음 (스크립트만)"
 check = "bus"
-
-[[tasks]]
-name = "웹 트레이딩룸 갱신"
-when = "평일 07:32·16:32 (전체)"
-due = "07:32"
-runner = "claude"
-model = "Haiku"
-tokens = "적음"
-check = "web"
 
 [[tasks]]
 name = "리포트 카드 (네이버 산업·전략 10~15건, 핵심 구간만) + 종목 깊은 카드 (조건 종목 최대 10개)"
@@ -147,11 +109,3 @@ runner = "build"
 tokens = "0"
 check = "channels"
 
-[[tasks]]
-name = "리포트 브리핑 오전 — 중단 (2026-11-05, 오후 1회로 줄임)"
-when = "평일 09:53 — 중단"
-due = "09:53"
-runner = "claude"
-tokens = "보통"
-check = "report:report_brief_am"
-paused = true

@@ -90,7 +90,7 @@ python3 tools/research.py context    # 전체 문서 요약 + 언급 종목 RS·
 ```bash
 python3 tools/web_build.py --only analysis     # 딥리서치 메뉴 갱신
 ```
-그다음 Artifact로 https://claude.ai/artifact/C8B5Dd1zwtyyqP3c4e3ric 를 read → 같은 url로 publish.
+(Artifact 갱신은 2026-11-19 없앰 — 웹은 푸시하면 자동 배포)
 ```bash
 git add data/research config/research.toml && git commit -m "딥리서치: 문서 n개 분석" && git push -u origin main
 ```

@@ -42,7 +42,8 @@ description: 체크포인트 (Balance Lab 2.0, 평일 07:00·12:30·18:30 예약
 - 새로 나온 것: 처음 보는 키워드·논리 (있으면)
 - 반대 신호: 띔과 어긋난 움직임
 ```
-7. `python3 tools/web_build.py --only channels` → `git add data/checkpoint data/strategy/memos reports && git commit -m "체크포인트 HH:MM" && git push -u origin main` (웹은 푸시하면 자동 배포). Artifact는 11/19까지만: https://claude.ai/artifact/C8B5Dd1zwtyyqP3c4e3ric 를 read 후 같은 url로 publish(icon 없이).
+7. `python3 tools/web_build.py --only channels` → `git add data/checkpoint data/strategy/memos reports && git commit -m "체크포인트 HH:MM" && git push -u origin main` (웹은 푸시하면 자동 배포). 텔레그램이 제시간에 가도록 여기까지를 먼저 끝낸다.
+7-1. **채널·리포트 정리도 이 회차에 이어서 쓴다 (2026-11-19 사용자 확정: 2시간 정리 예약 5회를 없애고 체크포인트 3회에 합침).** `.claude/skills/live-brief/SKILL.md`의 2~8단계를 그대로 한다(`live_brief.py prep` 재료 → 채널 정리·리포트 정리 저장 → 커밋·푸시). 새 글이 없으면(channels_new·report_new 모두 0) 건너뛴다. 정리는 텔레그램으로 보내지 않는다.
 8. 실패하면 실패 단계·오류(키 값 없이)를 `python3 tools/telegram_send.py "체크포인트 실패: …"`로.
 
 ## 지키는 선
