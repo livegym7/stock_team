@@ -1,5 +1,5 @@
 {
- "fetched_at": "2026-11-18 06:55",
+ "fetched_at": "2026-11-19 06:54",
  "errors": [],
  "events": [
   {
@@ -5133,6 +5133,28 @@
   },
   {
    "date": "2026-11-18",
+   "time": "",
+   "kind": "earnings_kr",
+   "name": "샘씨엔에스 기업설명회(IR)",
+   "detail": "",
+   "source": "DART 공시",
+   "code": "252990",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261118900119",
+   "id": "ir:252990:2026-11-18"
+  },
+  {
+   "date": "2026-11-18",
+   "time": "",
+   "kind": "earnings_kr",
+   "name": "성광벤드 기업설명회(IR)",
+   "detail": "",
+   "source": "DART 공시",
+   "code": "014620",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261118900050",
+   "id": "ir:014620:2026-11-18"
+  },
+  {
+   "date": "2026-11-18",
    "time": "09:00",
    "kind": "earnings_kr",
    "name": "삼성에스디에스 기업설명회(IR)",
@@ -5342,6 +5364,50 @@
   },
   {
    "date": "2026-11-19",
+   "time": "",
+   "kind": "earnings_kr",
+   "name": "이엔에프테크놀로지 기업설명회(IR)",
+   "detail": "",
+   "source": "DART 공시",
+   "code": "102710",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261118900491",
+   "id": "ir:102710:2026-11-19"
+  },
+  {
+   "date": "2026-11-19",
+   "time": "",
+   "kind": "earnings_kr",
+   "name": "한국알콜 기업설명회(IR)",
+   "detail": "",
+   "source": "DART 공시",
+   "code": "017890",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261118900434",
+   "id": "ir:017890:2026-11-19"
+  },
+  {
+   "date": "2026-11-19",
+   "time": "",
+   "kind": "earnings_kr",
+   "name": "태광 기업설명회(IR)",
+   "detail": "",
+   "source": "DART 공시",
+   "code": "023160",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261118900170",
+   "id": "ir:023160:2026-11-19"
+  },
+  {
+   "date": "2026-11-19",
+   "time": "",
+   "kind": "earnings_kr",
+   "name": "서진시스템 기업설명회(IR)",
+   "detail": "",
+   "source": "DART 공시",
+   "code": "178320",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261118900145",
+   "id": "ir:178320:2026-11-19"
+  },
+  {
+   "date": "2026-11-19",
    "time": "04:00",
    "kind": "policy",
    "name": "미국 FOMC 의사록",
@@ -5382,6 +5448,17 @@
    "code": "489790",
    "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261112800503",
    "id": "ir:489790:2026-11-19"
+  },
+  {
+   "date": "2026-11-19",
+   "time": "14:00",
+   "kind": "earnings_kr",
+   "name": "현대모비스 기업설명회(IR)",
+   "detail": "최근 경영현황 및 전략, 주요 관심사항 등",
+   "source": "DART 공시",
+   "code": "012330",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261118800292",
+   "id": "ir:012330:2026-11-19"
   },
   {
    "date": "2026-11-20",
@@ -5517,6 +5594,50 @@
   },
   {
    "date": "2026-11-24",
+   "time": "",
+   "kind": "earnings_kr",
+   "name": "티씨케이 기업설명회(IR)",
+   "detail": "",
+   "source": "DART 공시",
+   "code": "064760",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261118900426",
+   "id": "ir:064760:2026-11-24"
+  },
+  {
+   "date": "2026-11-24",
+   "time": "",
+   "kind": "earnings_kr",
+   "name": "한미반도체 기업설명회(IR)",
+   "detail": "",
+   "source": "DART 공시",
+   "code": "042700",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261118800273",
+   "id": "ir:042700:2026-11-24"
+  },
+  {
+   "date": "2026-11-24",
+   "time": "",
+   "kind": "earnings_kr",
+   "name": "하나금융지주 기업설명회(IR)",
+   "detail": "주요 경영실적 및 관심사",
+   "source": "DART 공시",
+   "code": "086790",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261118800225",
+   "id": "ir:086790:2026-11-24"
+  },
+  {
+   "date": "2026-11-24",
+   "time": "",
+   "kind": "earnings_kr",
+   "name": "메디포스트 기업설명회(IR)",
+   "detail": "",
+   "source": "DART 공시",
+   "code": "078160",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261118900099",
+   "id": "ir:078160:2026-11-24"
+  },
+  {
+   "date": "2026-11-24",
    "time": "09:00",
    "kind": "earnings_kr",
    "name": "현대건설 기업설명회(IR)",
@@ -5580,6 +5701,39 @@
    "code": "036460",
    "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261112800439",
    "id": "ir:036460:2026-11-25"
+  },
+  {
+   "date": "2026-11-25",
+   "time": "15:00",
+   "kind": "earnings_kr",
+   "name": "대한항공 기업설명회(IR)",
+   "detail": "에어서울㈜ 등 종속회사 간 합병 관련 주주영향평가 및 주주보호방안 등에 관한 사항",
+   "source": "DART 공시",
+   "code": "003490",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261118800330",
+   "id": "ir:003490:2026-11-25"
+  },
+  {
+   "date": "2026-11-25",
+   "time": "15:05",
+   "kind": "earnings_kr",
+   "name": "현대백화점 기업설명회(IR)",
+   "detail": "최근 경영현황 및 전략, 주요 관심사항에 대한 Q&amp;A 진행",
+   "source": "DART 공시",
+   "code": "069960",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261118800187",
+   "id": "ir:069960:2026-11-25"
+  },
+  {
+   "date": "2026-11-25",
+   "time": "16:00",
+   "kind": "earnings_kr",
+   "name": "아시아나항공 기업설명회(IR)",
+   "detail": "에어서울(주) 등 종속회사 간 합병 관련 주주영향평가 및 주주보호방안 등에 관한 사항",
+   "source": "DART 공시",
+   "code": "020560",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261118800357",
+   "id": "ir:020560:2026-11-25"
   },
   {
    "date": "2026-11-26",
@@ -5651,6 +5805,36 @@
    "source": "Nasdaq 실적 캘린더",
    "symbol": "SNOW",
    "id": "us:SNOW:2026-12-02"
+  },
+  {
+   "date": "2026-12-09",
+   "time": "",
+   "kind": "earnings_us",
+   "name": "ORCL 실적 (Oracle Corporation)",
+   "detail": "미국 2026-12-09  발표 → 한국시간 당일 밤 · 분기 Nov/2026 · EPS 예상 $1.56",
+   "source": "Nasdaq 실적 캘린더",
+   "symbol": "ORCL",
+   "id": "us:ORCL:2026-12-09"
+  },
+  {
+   "date": "2026-12-10",
+   "time": "",
+   "kind": "earnings_us",
+   "name": "AVGO 실적 (Broadcom Inc.)",
+   "detail": "미국 2026-12-09 장마감 후 발표 → 한국시간 다음 날 아침 · 분기 Oct/2026 · EPS 예상 $3.45",
+   "source": "Nasdaq 실적 캘린더",
+   "symbol": "AVGO",
+   "id": "us:AVGO:2026-12-09"
+  },
+  {
+   "date": "2026-12-10",
+   "time": "",
+   "kind": "earnings_us",
+   "name": "ADBE 실적 (Adobe Inc.)",
+   "detail": "미국 2026-12-09 장마감 후 발표 → 한국시간 다음 날 아침 · 분기 Nov/2026 · EPS 예상 $5.11",
+   "source": "Nasdaq 실적 캘린더",
+   "symbol": "ADBE",
+   "id": "us:ADBE:2026-12-09"
   },
   {
    "date": "2026-12-10",
