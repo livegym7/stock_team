@@ -47,6 +47,7 @@ def ma(code, n):
 def evaluate(pos=None, prices=None):
     r = rules()
     pos = positions() if pos is None else pos
+    pos = [p for p in pos if p.get("book") != "addon"]   # 부록 · 지수 되돌림은 부록 계좌로 따로 (2026-11-18 사용자 요청: 섞이지 않게)
     prices = live_prices([p["code"] for p in pos]) if prices is None else prices
     one_r_acct = r["capital"] * r["risk_per_trade"]
     rows, total_value, total_cr = [], 0, 0

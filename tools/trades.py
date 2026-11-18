@@ -164,14 +164,36 @@ def move_stop(a):
     return ev
 
 
-def addon_summary():
-    """부록 · 지수 되돌림 성적 (2026-11-18): 끝난 거래별 수익률·손익(세금·수수료 뺀 것)."""
-    ts = [e for e in read_log("addon") if e["type"] == "sell"]
+def addon_summary(prices=None):
+    """부록 · 지수 되돌림 전용 계좌 (2026-11-18 사용자 확정): 300만 원(account.toml addon_capital)에서 시작,
+    addon_start_at 이후 부록 거래의 실현 손익 − 세금·수수료(왕복 0.23%, 매도 때)만큼 늘고 줄어듦. 본 계좌·본 매매 일지와 섞지 않음."""
+    a = load_toml("account.toml")
+    start, since = a.get("addon_capital", 3000000), a.get("addon_start_at") or ""
+    ts = [e for e in read_log("addon") if e["type"] == "sell" and (e.get("at") or "") >= since]
     rows = [{"name": e["name"], "date": e["date"], "qty": e["qty"], "buy": e["avg_price"], "sell": e["price"], "ret_pct": e.get("ret_pct"),
-             "pnl_won": e["pnl_won"], "net_won": e["pnl_won"] - (e.get("fee_won") or 0)} for e in ts]
+             "pnl_won": e["pnl_won"], "fee_won": e.get("fee_won") or 0, "net_won": e["pnl_won"] - (e.get("fee_won") or 0)} for e in ts]
     w = [r for r in rows if r["net_won"] > 0]
-    return {"n": len(rows), "win": len(w), "net_won": sum(r["net_won"] for r in rows),
-            "avg_ret_pct": round(sum(r["ret_pct"] or 0 for r in rows) / len(rows), 2) if rows else None, "trades": rows[::-1][:30]}
+    bal, curve = start, [{"date": since[:10], "bal": start}]
+    for r in rows:
+        bal += r["net_won"]; curve.append({"date": r["date"], "bal": bal})
+    peak, mdd = start, 0.0
+    for c in curve:
+        peak = max(peak, c["bal"]); mdd = min(mdd, c["bal"] / peak - 1)
+    opn = [dict(p) for p in load_pos() if p.get("book") == "addon"]
+    if opn and prices is None:
+        try:
+            from report_digest import live_prices
+            prices = live_prices([p["code"] for p in opn])
+        except Exception:
+            prices = {}
+    for p in opn:
+        cur = (prices or {}).get(p["code"], {}).get("price")
+        p.update(price=cur, pnl_won=round((cur - p["avg_price"]) * p["qty"]) if cur else None, ret_pct=round((cur / p["avg_price"] - 1) * 100, 2) if cur else None,
+                 emergency_stop=round(p["avg_price"] * 0.92))
+    return {"start_capital": start, "since": since, "capital": bal, "realized_won": sum(r["pnl_won"] for r in rows), "fees_won": sum(r["fee_won"] for r in rows),
+            "n": len(rows), "win": len(w), "net_won": sum(r["net_won"] for r in rows), "mdd_pct": round(mdd * 100, 2),
+            "avg_ret_pct": round(sum(r["ret_pct"] or 0 for r in rows) / len(rows), 2) if rows else None,
+            "open": opn, "curve": curve, "trades": rows[::-1][:50]}
 
 
 def summary():

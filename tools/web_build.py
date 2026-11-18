@@ -896,7 +896,7 @@ def equity(risk_now):
     """계좌 수익률 곡선: 매매 일지(data/trades) + 네이버 일봉 종가. 날마다 (실현 + 평가 손익) ÷ 계좌 원금, 코스피 지수와 비교."""
     import screener as S
     import trades as TR
-    log = sorted(TR.read_log("all"), key=lambda e: (e["date"], e.get("at", "")))
+    log = sorted(TR.read_log("main"), key=lambda e: (e["date"], e.get("at", "")))
     if not log:
         return None
     acc = load_toml("account.toml") or {}

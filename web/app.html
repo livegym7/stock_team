@@ -682,7 +682,11 @@ html body .view table.invh{width:100%;table-layout:fixed}html body .view .invh t
 html body .view .invh td.num,html body .view .invh th{text-align:right}
 table.sortt th{cursor:pointer;user-select:none} table.sortt th:hover{color:var(--accent)} table.sortt th[data-so=desc]::after{content:" ▼";font-size:9px} table.sortt th[data-so=asc]::after{content:" ▲";font-size:9px}
 .pgt tbody.hid{display:none} .pgt tr.pgd{display:none} .pgt tbody.open tr.pgd{display:table-row} .pgt tbody.open .pgc{display:inline-block;transform:rotate(90deg)} .pgt tr.pgd td{background:var(--bg);padding-top:3px;padding-bottom:3px}
-.brk{border-bottom:1px dotted var(--muted);cursor:help} .adban{border-radius:14px;padding:14px 16px;margin:4px 0 12px;border:1px solid var(--line)} .adban.go{background:color-mix(in srgb,var(--up) 10%,transparent);border-color:var(--up)} .adban.off{background:var(--soft,rgba(127,127,127,.06))} .adban.wait{background:color-mix(in srgb,var(--accent) 7%,transparent);border-color:var(--accent)}
+.brk{border-bottom:1px dotted var(--muted);cursor:help} .sumg{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:10px;margin-bottom:8px} .sumc{display:block;border:1px solid var(--line);border-radius:12px;padding:10px 12px;color:inherit;text-decoration:none} .sumc.all{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 6%,transparent)}
+ .sk{font-size:12px;font-weight:700;color:var(--muted)} .sv{font-size:20px;font-weight:800;margin:2px 0} .sv small{font-size:12px;font-weight:600;margin-left:2px} .sr{font-size:13px;font-weight:700} .sx{font-size:11.5px;color:var(--muted);margin-top:3px}
+ .sumlg{display:flex;gap:14px;font-size:11.5px;color:var(--muted);flex-wrap:wrap} .sumlg i{display:inline-block;width:14px;height:3px;border-radius:2px;margin-right:4px;vertical-align:middle} .sumlg i.dash{background:repeating-linear-gradient(90deg,var(--muted) 0 4px,transparent 4px 7px)}
+ @media(max-width:600px){.sumg{grid-template-columns:1fr} .sumt{font-size:12px} .ibsl span:nth-child(2){display:none}}
+ .adban{border-radius:14px;padding:14px 16px;margin:4px 0 12px;border:1px solid var(--line)} .adban.go{background:color-mix(in srgb,var(--up) 10%,transparent);border-color:var(--up)} .adban.off{background:var(--soft,rgba(127,127,127,.06))} .adban.wait{background:color-mix(in srgb,var(--accent) 7%,transparent);border-color:var(--accent)}
  .adt{font-size:19px;font-weight:800} .adst{margin-top:4px} .adtm{font-size:11.5px;margin-top:6px}
  .adgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px} .adc{border:1px solid var(--line);border-radius:12px;padding:10px 12px} .adc.ok{border-color:var(--up)} .adk{font-weight:700;font-size:12.5px} .adv{font-size:15px;font-weight:700;margin:4px 0 2px} .ads{font-size:11.5px;color:var(--muted)}
  .ibsbar{position:relative;height:10px;border-radius:5px;background:linear-gradient(90deg,color-mix(in srgb,var(--up) 35%,transparent) 0 20%,var(--line) 20% 100%)} .ibsbar .th{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--up)} .ibsbar b{position:absolute;top:-3px;width:12px;height:16px;margin-left:-6px;border-radius:4px;background:var(--text,#222)}
@@ -827,6 +831,35 @@ function riskKpis(r){
 }
 /* 계좌 금액 (2026-11-18 사용자 확정): 시작 1,500만 원 + 이후 거래 실현 손익 − 세금·수수료(사고 파는 한 번에 0.23%, 매도 때) = 지금 계좌, + 평가 손익 = 총자산. 1R·CR·E는 지금 계좌 기준 */
 function totAsset(r){return (r.capital||0)+(r.positions||[]).reduce((a,p)=>a+(p.pnl_won||0),0)}   // 1분 시세로 평가 손익이 바뀌면 같이 바뀜
+/* 계좌 요약 (2026-11-18 사용자 요청): 전체 = 본 전략(돌파, 1,500만) + 부록(지수 되돌림, 300만, 별도 돈). 두 계좌는 섞지 않고 합계만 보여 줌
+   기여도 %p = 전략 손익 ÷ 전체 시작 금액 · 그래프: 본 = 계좌 수익률 곡선(실현+평가), 부록 = 거래 마감 잔고(마지막 점만 평가 포함) */
+function addonTotal(){const A=D.addon_trades;if(!A)return null;const u=(A.open||[]).reduce((a,p)=>{const q=liveQuote(p.code),px=(q&&q.price)||p.price;return a+(px?(px-p.avg_price)*p.qty:0)},0);return {start:A.start_capital,tot:A.capital+u,real:A.net_won,unreal:u,mdd:A.mdd_pct,n:A.n,win:A.win,avg:A.avg_ret_pct,fees:A.fees_won}}
+function acctSummary(){const r=D.risk||{},A=addonTotal();if(r.start_capital==null||!A)return "";
+  const mS=r.start_capital,mT=totAsset(r),mU=(r.positions||[]).reduce((a,p)=>a+(p.pnl_won||0),0),S=mS+A.start,T=mT+A.tot;
+  const E=D.equity||{},P=E.points||[],C=(D.addon_trades||{}).curve||[];
+  const pts=P.map((p,i)=>{const m=p.ret/100*mS,ab=i==P.length-1?A.tot:(C.filter(c=>c.date<=p.date).pop()||{bal:A.start}).bal,a=ab-A.start;return {date:p.date,m:p.ret,a:a/A.start*100,t:(m+a)/S*100,b:p.bench}});
+  const last=pts[pts.length-1]||{t:(T-S)/S*100,b:null},bench=last.b;
+  const card=(k,name,tot,st,href,extra)=>{const g=tot-st;return `<a class="sumc ${k}" ${href}><div class="sk">${name}</div><div class="sv num">${w(tot)}<small>원</small></div><div class="sr num ${cls(g)}">${g>=0?"+":""}${w(g)} · ${pc(g/st*100,2)}</div><div class="sx">${extra}</div></a>`};
+  let chart="";if(pts.length>1){const W=720,H=180,L=40,Rr=10,Tt=10,B=22,vals=pts.flatMap(p=>[p.m,p.a,p.t,p.b].filter(v=>v!=null)).concat(0),lo=Math.min(...vals)-.3,hi=Math.max(...vals)+.3,x=i=>(L+i/(pts.length-1)*(W-L-Rr)).toFixed(1),y=v=>(Tt+(hi-v)/(hi-lo)*(H-Tt-B)).toFixed(1),ln=k=>pts.map((p,i)=>p[k]==null?"":(i?"L":"M")+x(i)+" "+y(p[k])).join("");
+    const ns='vector-effect="non-scaling-stroke"';
+    chart=`<svg viewBox="0 0 ${W} ${H}" width="100%" height="170" preserveAspectRatio="none" role="img" aria-label="전체·전략별 수익률"><line x1="${L}" x2="${W-Rr}" y1="${y(0)}" y2="${y(0)}" stroke="var(--line)" stroke-dasharray="3 3" ${ns}/>
+     <path d="${ln("b")}" fill="none" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="5 3" ${ns}/><path d="${ln("a")}" fill="none" stroke="#8b7cf6" stroke-width="1.6" ${ns}/><path d="${ln("m")}" fill="none" stroke="#2bb3a3" stroke-width="1.6" ${ns}/><path d="${ln("t")}" fill="none" stroke="var(--accent)" stroke-width="2.6" ${ns}/></svg>
+     <div class="ibsl num"><span>${esc(pts[0].date.slice(5))} (0%)</span><span>점선 = 0% · 위 ${pc(hi-.3,1)} · 아래 ${pc(lo+.3,1)}</span><span>${esc(pts[pts.length-1].date.slice(5))}</span></div>
+     <div class="sumlg"><span><i style="background:var(--accent)"></i>전체 <b class="${cls(last.t)}">${pc(last.t,2)}</b></span><span><i style="background:#2bb3a3"></i>본 전략 <b class="${cls(last.m)}">${pc(last.m,2)}</b></span><span><i style="background:#8b7cf6"></i>부록 <b class="${cls(last.a)}">${pc(last.a,2)}</b></span>${bench!=null?`<span><i class="dash"></i>코스피 ${pc(bench,2)}</span>`:""}</div>`}
+  const row=(n,a,b)=>`<tr><td class="l">${n}</td><td class="num">${a}</td><td class="num">${b}</td></tr>`;
+  const TR=D.trades&&D.trades.stats||{};
+  return `<div class="panel sumbox"><h2 style="margin:0 0 8px">📊 계좌 요약 <small class="muted">전체 = 본 전략 + 부록 · ${esc(String(r.capital_since||"").slice(5).replace("-","/"))}부터 · 두 계좌는 따로 계산하고 합계만 보여 줍니다</small></h2>
+   <div class="sumg">${card("all","전체",T,S,"",`시작 ${w(S)} · ${bench!=null?`코스피 ${pc(bench,2)} · <span class="${cls(last.t-bench)}">시장 대비 ${pc(last.t-bench,2).replace("%","%p")}</span>`:""}`)}
+    ${card("main","본 전략 · 돌파",mT,mS,'href="#trade"',`시작 ${w(mS)} · 기여 <b class="${cls(mT-mS)}">${pc((mT-mS)/S*100,2).replace("%","%p")}</b>`)}
+    ${card("addon","부록 · 지수 되돌림",A.tot,A.start,'href="#strategy" data-st="addon"',`시작 ${w(A.start)} · 기여 <b class="${cls(A.tot-A.start)}">${pc((A.tot-A.start)/S*100,2).replace("%","%p")}</b>`)}</div>
+   ${chart}
+   <details class="fold" style="margin-top:6px"><summary class="foldh">전략별 비교표</summary><div class="tw"><table class="sumt"><tr><th class="l">항목</th><th>본 전략</th><th>부록</th></tr>
+    ${row("수익률",`<span class="${cls(mT-mS)}">${pc((mT-mS)/mS*100,2)}</span>`,`<span class="${cls(A.tot-A.start)}">${pc((A.tot-A.start)/A.start*100,2)}</span>`)}
+    ${row("실현 손익 (비용 뺀 것)",w((r.realized_won||0)-(r.fees_won||0)),w(A.real))}
+    ${row("평가 손익 (보유 중)",w(mU),w(A.unreal))}
+    ${row("세금·수수료",w(r.fees_won||0),w(A.fees||0))}
+    ${row("최대 낙폭",pc(Math.min(0,...P.map(p=>p.ret)),2),pc(A.mdd,2))}
+    ${row("성적 기준","R (1R=2%)","% (하루 보유)")}</table></div></details></div>`}
 function acctMoney(r){if(r.start_capital==null)return "";const tot=totAsset(r),g=tot-r.start_capital;
   return `<div class="grid g4" style="margin-top:8px"><div class="panel kpi"><span>총자산</span><b>${w(tot)}</b><small class="${cls(g)}">${g>=0?"+":""}${w(g)} (${pc(g/r.start_capital*100,2)}) · 시작 대비</small></div>
    <div class="panel kpi"><span>지금 계좌 (실현 반영)</span><b>${w(r.capital)}</b><small class="muted">1R·CR·E 계산 기준</small></div>
@@ -1108,10 +1141,7 @@ function equityChart(){
    <circle cx="${x(n-1)}" cy="${y(last.ret)}" r="3" fill="var(--accent)"/></svg>
   <div class="src"><span style="color:var(--accent)">━ 계좌 수익률</span> = (새 시작 뒤 실현 손익 − 세금·수수료 + 평가 손익) ÷ 시작 금액 · <span class="muted">┄ 코스피</span> = 같은 기간 코스피 지수 · 매매 일지 기록과 네이버 일봉 종가로 계산 (오늘은 현재가) · 입출금은 반영 안 됨</div></div>`;
 }
-function addonJournal(){const A=D.addon_trades;if(!A||!A.n)return `<div class="src" style="margin-top:6px">🧩 부록 · 지수 되돌림 기록 없음 — "부록 OO 몇 주 얼마에 샀어"라고 말하면 본 매매와 따로 기록합니다 (손절가·CR 계산 안 함, 다음 날 종가 매도)</div>`;
-  return `<div class="panel" style="margin-top:10px"><h3>🧩 부록 · 지수 되돌림 성적 <small class="muted">본 매매 일지·R과 따로 · 세금·수수료 뺀 손익</small></h3>
-   <div class="grid g4"><div class="tile"><span>끝난 거래</span><b>${A.n}건</b></div><div class="tile"><span>승률</span><b>${Math.round(A.win/A.n*100)}%</b></div><div class="tile"><span>평균 수익률</span><b class="${cls(A.avg_ret_pct)}">${pc(A.avg_ret_pct,2)}</b></div><div class="tile"><span>순손익</span><b class="${cls(A.net_won)}">${w(A.net_won)}</b></div></div>
-   <div class="tw"><table class="slist"><tr><th class="l">ETF</th><th>날짜</th><th>수량</th><th>매수→매도</th><th>수익률</th><th>순손익</th></tr>${A.trades.map(t=>`<tr><td class="l">${esc(t.name)}</td><td class="num">${esc(t.date.slice(5))}</td><td class="num">${w(t.qty)}</td><td class="num">${w(t.buy)} → ${w(t.sell)}</td><td class="num ${cls(t.ret_pct)}">${pc(t.ret_pct,2)}</td><td class="num ${cls(t.net_won)}">${w(t.net_won)}</td></tr>`).join("")}</table></div></div>`}
+function addonJournal(){return `<div class="src" style="margin-top:6px">🧩 부록 · 지수 되돌림 거래는 본 계좌와 따로 관리합니다 → <a href="#strategy" data-st="addon">전략 › 부록 계좌 ›</a></div>`}
 function journal(){
   const T=D.trades; if(!T)return "";
   const S=T.stats||{}, ty={buy:"🟥 매수",sell:"🟦 매도",stop:"🛡️ 손절가"};
@@ -1129,7 +1159,7 @@ function viewPortfolio(){
   const tot=ps.reduce((a,p)=>a+p.value_won,0)||1;
   const acc=D.account||{};
   return `<h1>내 포트폴리오</h1><div class="sub">${esc(r.at||"")} · ${esc(r.source||"")}</div>
-  ${alerts(r)}${riskKpis(r)}
+  ${acctSummary()}${alerts(r)}${riskKpis(r)}
   <h2 style="margin-top:18px">보유 종목</h2>
   <div class="tw"><table class="slist"><tr><th class="l">종목</th><th>수량</th><th>평균가</th><th>현재가</th><th>오늘</th><th>평가손익</th><th>평가금액·비중</th><th>손절가·거리</th><th>1R</th><th>진행 R</th><th>3R 가격</th><th>CR</th></tr>
   ${ps.map(p=>{const pct=p.price?(p.price/p.avg_price-1)*100:null, bar=Math.max(0,Math.min(100,((p.r_multiple||0)+1)/4*100));
@@ -2261,11 +2291,25 @@ function ibsNow(e){const q=liveQuote(e.code),today=kstNow().toISOString().slice(
   return {live,H,L,C,ibs,rank,chg:live&&pc?(C/pc-1)*100:null,line:L+P.ibs*rng,okI:ibs!=null&&ibs<P.ibs,okA:rank>=P.atr}}
 function kospiNow(){const B=D.ibs_board||{},K=B.kospi||{},m=((D.live||{}).markets||[]).find(x=>x.market=="KOSPI"),live=m&&m.price&&String(m.at||"").replace(/-/g,"").slice(0,8)==kstNow().toISOString().slice(0,10).replace(/-/g,"");
   const p=live?m.price:K.close,ma20=live?(K.sum19+p)/20:K.ma20;return {live,p,ma20,gap:p&&ma20?(p/ma20-1)*100:null,red:p<ma20,rev:p<ma20&&K.ma20<K.ma60&&K.ma60<K.ma120,ma60:K.ma60,ma120:K.ma120}}
+/* 부록 계좌 (2026-11-18 사용자 요청): 300만 원 시작 · 부록 거래 손익(세금·수수료 뺀 것)만큼 변동 · 본 계좌·본 매매 일지와 섞지 않음 */
+function addonBook(){const A=D.addon_trades;if(!A)return "";
+  const O=(A.open||[]).map(p=>{const q=liveQuote(p.code),px=(q&&q.price)||p.price;return {...p,px,pnl:px?(px-p.avg_price)*p.qty:null,ret:px?(px/p.avg_price-1)*100:null}});
+  const unreal=O.reduce((a,p)=>a+(p.pnl||0),0),tot=A.capital+unreal,g=tot-A.start_capital;
+  const C=A.curve||[],W=640,H=120,mn=Math.min(...C.map(c=>c.bal),A.start_capital),mx=Math.max(...C.map(c=>c.bal),A.start_capital),y=v=>(H-8-(v-mn)/((mx-mn)||1)*(H-16)).toFixed(1),x=i=>(8+i/Math.max(1,C.length-1)*(W-16)).toFixed(1);
+  const curve=C.length>1?`<svg viewBox="0 0 ${W} ${H}" width="100%" height="${H}" preserveAspectRatio="none" role="img" aria-label="부록 계좌 잔고 흐름"><line x1="8" x2="${W-8}" y1="${y(A.start_capital)}" y2="${y(A.start_capital)}" stroke="var(--muted)" stroke-dasharray="3 3" stroke-width="1" vector-effect="non-scaling-stroke"/><path d="${C.map((c,i)=>(i?"L":"M")+x(i)+" "+y(c.bal)).join("")}" fill="none" stroke="var(--accent)" stroke-width="2" vector-effect="non-scaling-stroke"/></svg><div class="ibsl num"><span>${esc(C[0].date.slice(5))} 시작 ${w(A.start_capital)}</span><span>${esc(C[C.length-1].date.slice(5))} ${w(C[C.length-1].bal)}</span></div>`:`<div class="muted" style="font-size:12.5px;padding:10px 0">거래가 끝나면 잔고 흐름 그래프가 그려집니다</div>`;
+  return `<div class="panel" style="margin-top:14px"><h2 style="margin:0 0 8px">🧩 부록 계좌 <small class="muted">시작 ${w(A.start_capital)}원 · ${esc((A.since||"").slice(0,10))}부터 · 본 계좌(내 매매)와 따로</small></h2>
+   <div class="grid g4"><div class="tile"><span>총액 (평가 포함)</span><b>${w(tot)}</b><small class="${cls(g)}">${g>=0?"+":""}${w(g)} (${pc(g/A.start_capital*100,2)})</small></div>
+    <div class="tile"><span>실현 손익 − 세금·수수료</span><b class="${cls(A.net_won)}">${w(A.net_won)}</b><small class="muted">수수료 ${w(A.fees_won)} (왕복 0.23%)</small></div>
+    <div class="tile"><span>끝난 거래 · 승률</span><b>${A.n}건 · ${A.n?Math.round(A.win/A.n*100)+"%":"-"}</b><small class="muted">평균 ${pc(A.avg_ret_pct,2)}</small></div>
+    <div class="tile"><span>최대 낙폭 (잔고 기준)</span><b class="${A.mdd_pct<0?"down":""}">${pc(A.mdd_pct,1)}</b><small class="muted">거래 마감 기준</small></div></div>
+   ${O.length?`<h3 style="margin-top:12px">보유 중</h3><div class="tw"><table class="slist"><tr><th class="l">ETF</th><th>수량</th><th>매수가</th><th>현재가</th><th>수익률</th><th>평가손익</th><th>비상 손절(−8%)</th><th class="l">매도</th></tr>${O.map(p=>`<tr><td class="l"><b>${esc(p.name)}</b><br><small class="muted">${esc(p.bought||"")} 매수</small></td><td class="num">${w(p.qty)}</td><td class="num">${w(p.avg_price)}</td><td class="num"><b>${w(p.px)}</b></td><td class="num ${cls(p.ret)}">${pc(p.ret,2)}</td><td class="num ${cls(p.pnl)}">${w(p.pnl)}</td><td class="num">${w(p.emergency_stop)}</td><td class="l"><small>${p.bought&&p.bought<kstNow().toISOString().slice(0,10)?'<b class="up">오늘 종가 매도 차례</b>':"다음 날 종가"}</small></td></tr>`).join("")}</table></div>`:""}
+   <h3 style="margin-top:12px">잔고 흐름</h3>${curve}
+   ${(A.trades||[]).length?`<h3 style="margin-top:8px">거래 기록</h3><div class="tw"><table class="slist"><tr><th class="l">ETF</th><th>매도일</th><th>수량</th><th>매수→매도</th><th>수익률</th><th>순손익</th></tr>${A.trades.map(t=>`<tr><td class="l">${esc(t.name)}</td><td class="num">${esc(t.date.slice(5))}</td><td class="num">${w(t.qty)}</td><td class="num">${w(t.buy)} → ${w(t.sell)}</td><td class="num ${cls(t.ret_pct)}">${pc(t.ret_pct,2)}</td><td class="num ${cls(t.net_won)}">${w(t.net_won)}</td></tr>`).join("")}</table></div>`:`<div class="src">기록은 "부록 OO 몇 주 얼마에 샀어 / 팔았어"라고 말하면 됩니다 · 본 매매 일지·R·CR과 따로 관리</div>`}</div>`}
 function addonSignals(){const B=D.ibs_board;if(!B)return [];const K=kospiNow();if(!K.red)return [];return B.etfs.map(e=>({...e,...ibsNow(e)})).filter(e=>e.okI&&e.okA)}
 function addonTab(){const B=D.ibs_board;if(!B)return `<div class="empty">부록 데이터가 아직 없습니다 (backtest_ibs.py board)</div>`;
   const P=B.params,K=kospiNow(),E=B.etfs.map(e=>({...e,...ibsNow(e)})),sig=K.red?E.filter(e=>e.okI&&e.okA):[];
   const k=kstNow(),hm=k.getUTCHours()*100+k.getUTCMinutes(),wd=k.getUTCDay(),mkt=wd>0&&wd<6&&hm>=900&&hm<=1530,win=mkt&&hm>=1500&&hm<1520;
-  const cap=((D.risk||{}).capital||(D.account||{}).capital||15000000),pot=cap*P.frac,each=sig.length?pot/sig.length:0;
+  const AB=D.addon_trades||{},pot=AB.capital??3000000,each=sig.length?pot/sig.length:0;   // 부록 계좌 전액 (2026-11-18: 300만 원 시작, 본 계좌와 따로)
   const verdict=!K.red?["off","⛔ 쉬는 구간",`코스피가 20일선 위입니다 (${pc(K.gap,1)}). 백테스트에서 이 구간은 손실(번 돈÷잃은 돈 0.69)이라 매매하지 않습니다`]
     :sig.length?["go",`🟢 진입 조건 충족 · ${sig.map(e=>e.name).join(" · ")}`,win?"지금이 매수 시간(15:00~15:20)입니다. 동시호가 전 확인 후 판단은 본인":mkt?"장중 판정입니다. 15:00~15:20에 다시 확인해 그때도 조건이면 매수 후보":"마감 기준 판정입니다"]
     :["wait","⚪ 대기 · 조건 미충족","코스피는 20일선 아래(🔴, 매매 가능 구간)지만 아직 바닥 근처에서 끝나는 ETF가 없습니다"];
@@ -2283,13 +2327,14 @@ function addonTab(){const B=D.ibs_board;if(!B)return `<div class="empty">부록 
    <div class="adgrid">${cond(K.red,"① 시장 국면",`코스피 ${w(K.p)} · 20일선 ${w(K.ma20)}`,`${pc(K.gap,1)} ${K.red?"→ 20일선 아래, 매매 구간":"→ 20일선 위, 쉬는 구간"}${K.rev?" · 역배열":""}`)}
     ${cond(E.some(e=>e.okA),"② 흔들림 (ATR)",E.filter(e=>e.okA).length+"/4 종목 충족",`지난 1년 중 상위 ${100-P.atr}% 안이어야 함 · 흔들릴수록 막판 투매·되돌림이 큼`)}
     ${cond(E.some(e=>e.okI),"③ 끝나는 위치 (IBS)",E.filter(e=>e.okI).length+"/4 종목 충족",`그날 범위 하위 ${P.ibs*100}% 안에서 끝나야 함 · 15:00~15:20 가격으로 판단`)}
-    <div class="adc"><div class="adk">💰 부록 몫</div><div class="adv num">${w(pot)}원</div><div class="ads">계좌의 ${P.frac*100}% · ${sig.length?`신호 ${sig.length}개 → ${w(each)}원씩`:"신호가 여러 개면 나눠 담음"} · 다음 날 종가 매도</div></div></div>
+    <div class="adc"><div class="adk">💰 부록 계좌</div><div class="adv num">${w(pot)}원</div><div class="ads">본 계좌와 따로 · ${sig.length?`신호 ${sig.length}개 → ${w(each)}원씩`:"신호가 여러 개면 나눠 담음"} · 다음 날 종가 매도</div></div></div>
    <div class="panel"><h3>ETF 4종 지금 위치 <small class="muted">'신호 가격' = 이 가격 아래로 끝나면 IBS 조건 충족</small></h3>
     <div class="tw"><table class="slist"><tr><th class="l">ETF</th><th>현재가</th><th>오늘 범위 안 위치</th><th>IBS</th><th>흔들림 순위</th><th>신호 가격</th><th>판정</th></tr>${rows}</table></div></div>
    <div class="adflow"><div><b>15:00</b><span>조건 확인</span></div><i>→</i><div><b>15:00~15:20</b><span>동시호가 전 매수</span></div><i>→</i><div><b>다음 날</b><span>종가에 매도 (최대 하루)</span></div><i>→</i><div><b>기록</b><span>"부록 OO 샀어"라고 말하기</span></div></div>
    <div class="grid g4" style="margin-top:12px"><div class="tile"><span>🔴 구간 승률</span><b>${sR.win_rate??"-"}%</b><small class="muted">${sR.n??"-"}건 · 2017-10~</small></div><div class="tile"><span>1건 평균</span><b class="up">${pc(sR.avg_pct,2)}</b><small class="muted">비용 0.1% 뺀 값</small></div>
-    <div class="tile"><span>계좌 30%만 쓸 때 최대 낙폭</span><b class="down">${pc(s30.mdd_pct,1)}</b><small class="muted">가장 나쁜 날 ${pc(s30.worst_day_pct,1)}</small></div><div class="tile"><span>번 돈 ÷ 잃은 돈</span><b>${sR.pf??"-"}</b><small class="muted">20일선 위에선 0.69(손실)</small></div></div>
+    <div class="tile"><span>최대 낙폭 (부록 계좌 기준)</span><b class="down">${pc(sR.mdd_pct,1)}</b><small class="muted">가장 나쁜 날 ${pc(sR.worst_day_pct,1)}</small></div><div class="tile"><span>번 돈 ÷ 잃은 돈</span><b>${sR.pf??"-"}</b><small class="muted">20일선 위에선 0.69(손실)</small></div></div>
    <div class="panel" style="margin-top:12px"><h3>최근 신호 ${(B.recent||[]).length}건 <small class="muted">백테스트 규칙으로 찾은 날 · 다음 날 종가 결과(비용 전)</small></h3><div class="tw"><table class="slist"><tr><th class="l">날짜</th><th class="l">ETF</th><th>IBS</th><th>흔들림</th><th>국면</th><th>다음 날</th></tr>${rec}</table></div></div>
+   ${addonBook()}
    ${src("검증실 부록(tools/backtest_ibs.py) · 깡토 '지수이지' 공개 설명을 재구성(조건 숫자 비공개라 IBS 0.2·ATR 상위 30%로 고정) · 백테스트는 종가 진입이라 실제(15:00~15:20)보다 조금 좋게 나옴 · 수익이 2026년에 쏠림(2026 제외 +288%) · 레버리지라 하루 손실이 큼 · 본 매매 규칙과 별개, 표시만 · 출처: 네이버 일봉·현재가(비공식)")}`}
 function viewStrategy2(){
   const tabs=[["report","보고서"],["pool","관찰 풀"],["research","자료실"],["addon","🧩 부록 · 지수 되돌림"]];   // 감시 목록은 종목 › 셋업 보드로 옮김 (2026-11-14 2차)
@@ -2345,7 +2390,7 @@ function rulesCard(){
 function viewTrade(){
   const r=D.risk||{}, ps=r.positions||[], comp=Object.fromEntries((D.companies||[]).map(c=>[c.code,c])), acc=D.account||{};
   return `<h1>내 매매</h1><div class="sub">${esc(r.at||"")} · ${esc(r.source||"")} · 기록만 하는 화면, 주문은 증권사 앱에서 직접</div>
-  ${alerts(r)}${riskKpis(r)}
+  ${acctSummary()}${alerts(r)}${riskKpis(r)}
   ${ps.length?`<h2 style="margin-top:18px">보유 종목</h2>
   <div class="tw"><table><tr><th class="l">종목</th><th>수량</th><th>평균가</th><th>현재가</th><th>오늘</th><th>평가손익</th><th>평가금액·비중</th><th>손절가·거리</th><th>1R</th><th>진행 R</th><th>3R 가격</th><th>CR</th></tr>
   ${ps.map(p=>{const pct=p.price?(p.price/p.avg_price-1)*100:null, bar=Math.max(0,Math.min(100,((p.r_multiple||0)+1)/4*100));
@@ -2564,7 +2609,7 @@ function todoItems(){
     if(p.alert)out.push({lv:"m",code:p.code,t:`${p.name} · ${p.alert}`,s:""})});
   const pool=new Set(((D.watch_pool||{}).themes||[]).flatMap(th=>(th.stocks||[]).map(s=>s.code)));
   const W=D.watch||{};["signals","candidates","watch"].forEach(k=>(W[k]||[]).forEach(x=>{const d=(x.levels||{}).distance_pct;if(pool.has(x.code)&&d!=null&&Math.abs(d)<=2)out.push({lv:k=="signals"?"h":"l",code:x.code,t:`${x.stock} 기준가 ${w((x.levels||{}).breakout)}까지 ${pc(d)}`,s:`관찰 풀 · ${k=="signals"?"✅ 신호":"근접"} · 돌파 + 인더스트리 액션 확인`})}));
-  addonSignals().forEach(e=>out.unshift({lv:"h",t:`🧩 부록 신호 · ${e.name} ${w(e.C)} (IBS ${e.ibs.toFixed(2)})`,s:`지수 되돌림 · 15:00~15:20 매수 후보 · 다음 날 종가 매도 · 계좌 30% 몫 · 본 규칙과 별개, 판단은 본인`,go:"addon"}));   // 2026-11-18
+  addonSignals().forEach(e=>out.unshift({lv:"h",t:`🧩 부록 신호 · ${e.name} ${w(e.C)} (IBS ${e.ibs.toFixed(2)})`,s:`지수 되돌림 · 15:00~15:20 매수 후보 · 다음 날 종가 매도 · 부록 계좌 · 본 규칙과 별개, 판단은 본인`,go:"addon"}));   // 2026-11-18
   liveSigs().forEach(g=>out.unshift({lv:g.rule?"h":"m",code:g.x.code,t:`${g.x.name} ${[g.bo?"기준가 "+w(g.x.breakout):"",g.zb?"매물대 "+w(g.x.zone_top):""].filter(Boolean).join(" · ")} 돌파 (장중 ${w(g.px)})`,s:`${g.rule?"✅ 규칙 충족(장중)":"확인 필요"} · 예상 거래량 ${g.vr!=null?g.vr.toFixed(1)+"배":"-"}${g.vr>=1.5?" ✓":" (1.5배 필요)"} · 업종 ${g.ia?(g.ia.ok?"동행 ✓":"나 홀로"):"확인 불가"} · 종가로 확정`}));   // 2026-11-18 장중 돌파
   const held=new Set(ps.map(p=>p.code));
   calEvents().filter(e=>e.days==0&&(e.mine=="held"||e.mine=="watch")).slice(0,3).forEach(e=>out.push({lv:"l",t:`${e.time||"종일"} ${e.name}`,s:e.mine=="held"?"보유 종목 일정":"관찰 종목 일정"}));

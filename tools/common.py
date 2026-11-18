@@ -35,7 +35,7 @@ def account_state():
             if not line.strip():
                 continue
             e = json.loads(line)
-            if e.get("type") not in ("buy", "sell") or (e.get("at") or "") < since:
+            if e.get("type") not in ("buy", "sell") or (e.get("at") or "") < since or e.get("book") == "addon":   # 부록 거래는 부록 계좌로 (2026-11-18)
                 continue
             fee = e.get("fee_won")
             fee = (round(e["qty"] * e["price"] * rate) if e["type"] == "sell" else 0) if fee is None else fee

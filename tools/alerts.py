@@ -139,8 +139,8 @@ def addon_signals():
     raw = json.loads(http_get("https://polling.finance.naver.com/api/realtime/domestic/stock/" + ",".join(e["code"] for e in bd["etfs"])))
     q = {r["itemCode"]: r for r in raw.get("datas", [])}
     try:
-        from common import account_state
-        pot = account_state()["capital"] * P["frac"]
+        import trades as _tr
+        pot = _tr.addon_summary(prices={})["capital"]   # 부록 계좌 전액 (2026-11-18: 300만 원에서 시작, 본 계좌와 따로)
     except Exception:
         pot = None
     hits = []
@@ -181,10 +181,6 @@ def check(state, now):
     for p in ev["positions"]:
         if p.get("price") is None:
             continue
-        if p.get("book") == "addon":   # 부록 · 지수 되돌림 보유: 손절 알림 대신 '오늘 종가 매도 차례' (2026-11-18)
-            if (p.get("bought") or today) < today and now.strftime("%H:%M") >= "14:50":
-                add(f"{p['code']}:addon_exit", f"🧩 부록 {p['name']} {p['price']:,.0f}원 ({p.get('ret_pct') or 0:+.2f}%) — 오늘 종가 매도 차례 (최대 하루 보유 규칙)")
-            continue
         name, q = p["name"], quotes.get(p["code"], {})
         chg = q.get("change_pct")
         head = f"{name} {p['price']:,.0f}원" + (f" ({chg:+.2f}%)" if chg is not None else "")
@@ -210,6 +206,13 @@ def check(state, now):
                 add(key, text)
     except Exception as e:
         out.append(f"(감시 목록 확인 실패: {type(e).__name__})")
+
+    for p in pos:   # 부록 · 지수 되돌림 보유 (본 계좌 계산엔 안 들어감): 다음 날 '오늘 종가 매도 차례' (2026-11-18)
+        if p.get("book") != "addon":
+            continue
+        px = (quotes.get(p["code"]) or {}).get("price")
+        if px and (p.get("bought") or today) < today and now.strftime("%H:%M") >= "14:50":
+            add(f"{p['code']}:addon_exit", f"🧩 부록 {p['name']} {px:,.0f}원 ({(px / p['avg_price'] - 1) * 100:+.2f}%) — 오늘 종가 매도 차례 (최대 하루 보유 규칙)")
 
     # 부록 · 지수 되돌림 신호 (2026-11-18 사용자 요청): 14:50~15:25에 조건 3개가 모두 맞으면 (웹 현황판과 같은 계산)
     if "14:50" <= now.strftime("%H:%M") <= "15:25":
