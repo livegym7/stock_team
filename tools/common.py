@@ -24,7 +24,7 @@ def load_toml(name):
 
 def account_state():
     """계좌 금액 (2026-11-18 사용자 확정): 시작 금액(account.toml capital) + capital_start_at 이후 거래의 실현 손익 − 비용.
-    비용 = 매수·매도마다 거래 금액 × cost_rate(0.23%). 평가 손익(아직 안 판 것)은 넣지 않음 → risk.py가 총자산에 따로 더함."""
+    비용 = 사고 파는 한 번(왕복)에 0.23% → 매도 금액 × cost_rate, 매수 때는 0. 평가 손익(아직 안 판 것)은 넣지 않음 → risk.py가 총자산에 따로 더함."""
     a = load_toml("account.toml")
     start, since, rate = a["capital"], a.get("capital_start_at") or "", a.get("cost_rate", 0.0)
     log = ROOT / "data" / "trades" / "trades.jsonl"
@@ -38,7 +38,7 @@ def account_state():
             if e.get("type") not in ("buy", "sell") or (e.get("at") or "") < since:
                 continue
             fee = e.get("fee_won")
-            fee = round(e["qty"] * e["price"] * rate) if fee is None else fee
+            fee = (round(e["qty"] * e["price"] * rate) if e["type"] == "sell" else 0) if fee is None else fee
             fees += fee; n += 1
             if e["type"] == "sell":
                 realized += e.get("pnl_won") or 0

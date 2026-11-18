@@ -918,7 +918,7 @@ def equity(risk_now):
             c = e["code"]
             after = e["type"] in ("buy", "sell") and (e.get("at") or "") >= since
             if after:   # 2026-11-18부터 거래 비용 0.23% 반영
-                ra -= e.get("fee_won") if e.get("fee_won") is not None else e["qty"] * e["price"] * rate
+                ra -= e.get("fee_won") if e.get("fee_won") is not None else (e["qty"] * e["price"] * rate if e["type"] == "sell" else 0)   # 왕복 0.23%는 매도 때
             if e["type"] == "buy":
                 qty[c] += e["qty"]; cost[c] += e["qty"] * e["price"]
             elif e["type"] == "sell" and qty[c]:

@@ -78,7 +78,7 @@ def buy(a):
     write_positions(pos)
     ev = {"type": "buy", "date": a.date, "name": a.name, "code": code, "qty": a.qty, "price": a.price, "stop": stop,
           "setup": a.setup, "note": a.note, "at": datetime.now(KST).isoformat(timespec="seconds"),
-          "fee_won": round(a.qty * a.price * r["cost_rate"])}   # 세금+수수료 0.23% (2026-11-18)
+          "fee_won": 0}   # 세금+수수료는 왕복 0.23%를 매도 때 한 번에 뺌 (2026-11-18)
     # 결정 로그 (Balance Lab 2.0 TR-01, 2026-11-12): 어느 띔 · 가설 한 줄 · 깨지는 조건. 비면 '근거 없음' 꼬리표(강제 아님)
     ev["decision"] = {"theme": a.theme, "thesis": a.thesis, "invalid": a.invalid}
     tags = []
@@ -131,7 +131,7 @@ def sell(a):
     ev = {"type": "sell", "date": a.date, "name": p["name"], "code": code, "qty": a.qty, "price": a.price, "reason": a.reason,
           "avg_price": p["avg_price"], "initial_stop": p["initial_stop"], "stop_then": p["stop"], "r": r_mult,
           "pnl_won": round((a.price - p["avg_price"]) * a.qty), "at": datetime.now(KST).isoformat(timespec="seconds"),
-          "fee_won": round(a.qty * a.price * rate)}   # 세금+수수료 0.23% (2026-11-18), 계좌 금액에서 뺌
+          "fee_won": round(a.qty * a.price * rate)}   # 세금+수수료: 사고 파는 한 번에 0.23% → 매도 금액의 0.23% (2026-11-18), 계좌 금액에서 뺌
     # 규칙 점검: 손절가 아래에서 늦게 판 것인지(−1R보다 더 잃음), 3R 전에 판 이유
     ev["checks"] = {"손절가 지킴(−1.1R보다 덜 잃음)": r_mult is None or r_mult >= -1.1}
     p["qty"] -= a.qty

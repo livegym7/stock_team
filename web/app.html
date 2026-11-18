@@ -818,13 +818,13 @@ function riskKpis(r){
    <div class="panel kpi"><span>평가손익</span><b class="${cls(pnl)}">${w(pnl)}</b><small class="muted">보유 ${(r.positions||[]).length}종목</small></div></div>
    ${acctMoney(r)}`;
 }
-/* 계좌 금액 (2026-11-18 사용자 확정): 시작 1,500만 원 + 이후 거래 실현 손익 − 세금·수수료(거래마다 0.23%) = 지금 계좌, + 평가 손익 = 총자산. 1R·CR·E는 지금 계좌 기준 */
+/* 계좌 금액 (2026-11-18 사용자 확정): 시작 1,500만 원 + 이후 거래 실현 손익 − 세금·수수료(사고 파는 한 번에 0.23%, 매도 때) = 지금 계좌, + 평가 손익 = 총자산. 1R·CR·E는 지금 계좌 기준 */
 function totAsset(r){return (r.capital||0)+(r.positions||[]).reduce((a,p)=>a+(p.pnl_won||0),0)}   // 1분 시세로 평가 손익이 바뀌면 같이 바뀜
 function acctMoney(r){if(r.start_capital==null)return "";const tot=totAsset(r),g=tot-r.start_capital;
   return `<div class="grid g4" style="margin-top:8px"><div class="panel kpi"><span>총자산</span><b>${w(tot)}</b><small class="${cls(g)}">${g>=0?"+":""}${w(g)} (${pc(g/r.start_capital*100,2)}) · 시작 대비</small></div>
    <div class="panel kpi"><span>지금 계좌 (실현 반영)</span><b>${w(r.capital)}</b><small class="muted">1R·CR·E 계산 기준</small></div>
    <div class="panel kpi"><span>실현 손익</span><b class="${cls(r.realized_won)}">${w(r.realized_won)}</b><small class="muted">${esc((r.capital_since||"").slice(5).replace("-","/"))}부터</small></div>
-   <div class="panel kpi"><span>세금·수수료</span><b class="${r.fees_won?"down":""}">${r.fees_won?"−"+w(r.fees_won):"0"}</b><small class="muted">매수·매도마다 0.23%</small></div></div>
+   <div class="panel kpi"><span>세금·수수료</span><b class="${r.fees_won?"down":""}">${r.fees_won?"−"+w(r.fees_won):"0"}</b><small class="muted">왕복 0.23% (매도 때)</small></div></div>
    <div class="src">시작 ${w(r.start_capital)}원(${esc(r.capital_since||"")}) + 그 뒤 거래의 실현 손익 − 세금·수수료 = 지금 계좌 · 총자산 = 지금 계좌 + 보유 종목 평가 손익 · 1R = 지금 계좌의 2%</div>`}
 function alerts(r){
   if(!r||r.error)return "";
@@ -1140,7 +1140,7 @@ function viewPortfolio(){
     <div class="res" id="cRes"></div>
     <div class="src">1R ${w(r.one_r_account_won)}원과 CR 여유 ${w(r.room_for_new_risk_won)}원 중 작은 쪽으로 계산 · 주문 기능 없음</div></div>
   </div>
-  <div class="panel" style="margin-top:12px"><h2>규칙</h2><small>지금 계좌 ${w(acc.capital)}원(시작 ${w(acc.start_capital||acc.capital)} + 실현 − 비용 0.23%) · 1R = 계좌 ${(acc.risk_per_trade*100)}% · 처음 손절 −${acc.stop_pct*100}% · ${acc.breakeven_at_r}R 도달 시 ${Math.round((acc.take_profit_at_3r||0)*100)}% 익절 + 남은 물량 손절가 본전(CR 0) · 이후 ${acc.trail_ma||20}일선 종가 이탈 시 나머지 매도 · CR 한도 ${acc.max_open_risk*100}%</small></div>`;
+  <div class="panel" style="margin-top:12px"><h2>규칙</h2><small>지금 계좌 ${w(acc.capital)}원(시작 ${w(acc.start_capital||acc.capital)} + 실현 − 비용 왕복 0.23%) · 1R = 계좌 ${(acc.risk_per_trade*100)}% · 처음 손절 −${acc.stop_pct*100}% · ${acc.breakeven_at_r}R 도달 시 ${Math.round((acc.take_profit_at_3r||0)*100)}% 익절 + 남은 물량 손절가 본전(CR 0) · 이후 ${acc.trail_ma||20}일선 종가 이탈 시 나머지 매도 · CR 한도 ${acc.max_open_risk*100}%</small></div>`;
 }
 function levels(p){
   const a=D.account||{}, unit=p.avg_price-p.initial_stop, be=a.breakeven_at_r||3, take=a.take_profit_at_3r;
