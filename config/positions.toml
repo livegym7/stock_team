@@ -10,3 +10,11 @@ qty = 22
 avg_price = 45050
 initial_stop = 41446   # 처음 손절가 = 1R 기준
 stop = 41446
+
+[[positions]]
+name = "원익홀딩스"
+code = "030530"
+qty = 28
+avg_price = 35300
+initial_stop = 32476   # 처음 손절가 = 1R 기준
+stop = 32476
