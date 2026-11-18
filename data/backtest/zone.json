@@ -1,0 +1,495 @@
+{
+ "made_at": "2026-11-18 10:01",
+ "universe": 753,
+ "seconds": 13,
+ "rows": [
+  {
+   "variant": "기존 돌파",
+   "all": {
+    "n": 441,
+    "win_rate": 36.3,
+    "avg_r": 0.57,
+    "avg_win": 3.35,
+    "avg_loss": -1.02,
+    "payoff": 3.29,
+    "profit_factor": 1.88,
+    "total_r": 250.1,
+    "reach_3r_pct": 36.3,
+    "avg_days": 15.9,
+    "max_dd_r": -33.3,
+    "max_loss_streak": 25
+   },
+   "by_year": {
+    "2024": {
+     "n": 25,
+     "win_rate": 20.0,
+     "avg_r": -0.23,
+     "avg_win": 2.83,
+     "avg_loss": -1.0,
+     "payoff": 2.83,
+     "profit_factor": 0.71,
+     "total_r": -5.9,
+     "reach_3r_pct": 20.0,
+     "avg_days": 23.2,
+     "max_dd_r": -17.0,
+     "max_loss_streak": 14
+    },
+    "2025": {
+     "n": 184,
+     "win_rate": 35.3,
+     "avg_r": 0.64,
+     "avg_win": 3.67,
+     "avg_loss": -1.01,
+     "payoff": 3.63,
+     "profit_factor": 1.98,
+     "total_r": 118.4,
+     "reach_3r_pct": 35.3,
+     "avg_days": 20.2,
+     "max_dd_r": -33.3,
+     "max_loss_streak": 25
+    },
+    "2026": {
+     "n": 232,
+     "win_rate": 38.8,
+     "avg_r": 0.59,
+     "avg_win": 3.14,
+     "avg_loss": -1.02,
+     "payoff": 3.07,
+     "profit_factor": 1.95,
+     "total_r": 137.5,
+     "reach_3r_pct": 38.8,
+     "avg_days": 11.6,
+     "max_dd_r": -21.1,
+     "max_loss_streak": 12
+    }
+   }
+  },
+  {
+   "variant": "기존 돌파 · 큰 매물대도 뚫음",
+   "all": {
+    "n": 126,
+    "win_rate": 33.3,
+    "avg_r": 0.61,
+    "avg_win": 3.85,
+    "avg_loss": -1.01,
+    "payoff": 3.79,
+    "profit_factor": 1.89,
+    "total_r": 76.2,
+    "reach_3r_pct": 33.3,
+    "avg_days": 14.5,
+    "max_dd_r": -14.3,
+    "max_loss_streak": 13
+   },
+   "by_year": {
+    "2024": {
+     "n": 10,
+     "win_rate": 20.0,
+     "avg_r": -0.26,
+     "avg_win": 2.71,
+     "avg_loss": -1.0,
+     "payoff": 2.71,
+     "profit_factor": 0.68,
+     "total_r": -2.6,
+     "reach_3r_pct": 20.0,
+     "avg_days": 29.5,
+     "max_dd_r": -8.0,
+     "max_loss_streak": 8
+    },
+    "2025": {
+     "n": 60,
+     "win_rate": 31.7,
+     "avg_r": 0.59,
+     "avg_win": 4.07,
+     "avg_loss": -1.02,
+     "payoff": 4.01,
+     "profit_factor": 1.86,
+     "total_r": 35.7,
+     "reach_3r_pct": 31.7,
+     "avg_days": 14.7,
+     "max_dd_r": -14.3,
+     "max_loss_streak": 13
+    },
+    "2026": {
+     "n": 56,
+     "win_rate": 37.5,
+     "avg_r": 0.77,
+     "avg_win": 3.75,
+     "avg_loss": -1.02,
+     "payoff": 3.69,
+     "profit_factor": 2.21,
+     "total_r": 43.1,
+     "reach_3r_pct": 37.5,
+     "avg_days": 11.6,
+     "max_dd_r": -8.4,
+     "max_loss_streak": 8
+    }
+   }
+  },
+  {
+   "variant": "기존 돌파 · 매물대 없음",
+   "all": {
+    "n": 335,
+    "win_rate": 36.1,
+    "avg_r": 0.49,
+    "avg_win": 3.16,
+    "avg_loss": -1.02,
+    "payoff": 3.09,
+    "profit_factor": 1.75,
+    "total_r": 163.4,
+    "reach_3r_pct": 36.1,
+    "avg_days": 16.3,
+    "max_dd_r": -31.9,
+    "max_loss_streak": 17
+   },
+   "by_year": {
+    "2024": {
+     "n": 17,
+     "win_rate": 17.6,
+     "avg_r": -0.31,
+     "avg_win": 2.91,
+     "avg_loss": -1.0,
+     "payoff": 2.91,
+     "profit_factor": 0.62,
+     "total_r": -5.3,
+     "reach_3r_pct": 17.6,
+     "avg_days": 23.9,
+     "max_dd_r": -10.0,
+     "max_loss_streak": 9
+    },
+    "2025": {
+     "n": 133,
+     "win_rate": 36.1,
+     "avg_r": 0.61,
+     "avg_win": 3.51,
+     "avg_loss": -1.02,
+     "payoff": 3.43,
+     "profit_factor": 1.94,
+     "total_r": 81.5,
+     "reach_3r_pct": 36.1,
+     "avg_days": 22.0,
+     "max_dd_r": -26.6,
+     "max_loss_streak": 17
+    },
+    "2026": {
+     "n": 185,
+     "win_rate": 37.8,
+     "avg_r": 0.47,
+     "avg_win": 2.93,
+     "avg_loss": -1.03,
+     "payoff": 2.86,
+     "profit_factor": 1.74,
+     "total_r": 87.2,
+     "reach_3r_pct": 37.8,
+     "avg_days": 11.4,
+     "max_dd_r": -14.7,
+     "max_loss_streak": 12
+    }
+   }
+  },
+  {
+   "variant": "Z1 단순",
+   "all": {
+    "n": 489,
+    "win_rate": 34.2,
+    "avg_r": 0.57,
+    "avg_win": 3.65,
+    "avg_loss": -1.03,
+    "payoff": 3.56,
+    "profit_factor": 1.85,
+    "total_r": 279.2,
+    "reach_3r_pct": 34.2,
+    "avg_days": 13.7,
+    "max_dd_r": -37.1,
+    "max_loss_streak": 26
+   },
+   "by_year": {
+    "2024": {
+     "n": 31,
+     "win_rate": 22.6,
+     "avg_r": 0.07,
+     "avg_win": 3.78,
+     "avg_loss": -1.02,
+     "payoff": 3.72,
+     "profit_factor": 1.08,
+     "total_r": 2.0,
+     "reach_3r_pct": 22.6,
+     "avg_days": 19.0,
+     "max_dd_r": -24.4,
+     "max_loss_streak": 24
+    },
+    "2025": {
+     "n": 198,
+     "win_rate": 37.4,
+     "avg_r": 0.82,
+     "avg_win": 3.9,
+     "avg_loss": -1.03,
+     "payoff": 3.81,
+     "profit_factor": 2.27,
+     "total_r": 161.8,
+     "reach_3r_pct": 37.4,
+     "avg_days": 17.8,
+     "max_dd_r": -26.4,
+     "max_loss_streak": 26
+    },
+    "2026": {
+     "n": 260,
+     "win_rate": 33.1,
+     "avg_r": 0.44,
+     "avg_win": 3.42,
+     "avg_loss": -1.03,
+     "payoff": 3.33,
+     "profit_factor": 1.65,
+     "total_r": 115.4,
+     "reach_3r_pct": 33.1,
+     "avg_days": 10.0,
+     "max_dd_r": -37.0,
+     "max_loss_streak": 20
+    }
+   }
+  },
+  {
+   "variant": "Z2 큰 매물대",
+   "all": {
+    "n": 283,
+    "win_rate": 31.8,
+    "avg_r": 0.49,
+    "avg_win": 3.75,
+    "avg_loss": -1.02,
+    "payoff": 3.66,
+    "profit_factor": 1.71,
+    "total_r": 139.6,
+    "reach_3r_pct": 31.8,
+    "avg_days": 11.6,
+    "max_dd_r": -24.4,
+    "max_loss_streak": 21
+   },
+   "by_year": {
+    "2024": {
+     "n": 12,
+     "win_rate": 25.0,
+     "avg_r": -0.06,
+     "avg_win": 2.77,
+     "avg_loss": -1.0,
+     "payoff": 2.77,
+     "profit_factor": 0.92,
+     "total_r": -0.7,
+     "reach_3r_pct": 25.0,
+     "avg_days": 14.8,
+     "max_dd_r": -9.0,
+     "max_loss_streak": 9
+    },
+    "2025": {
+     "n": 127,
+     "win_rate": 28.3,
+     "avg_r": 0.51,
+     "avg_win": 4.41,
+     "avg_loss": -1.03,
+     "payoff": 4.27,
+     "profit_factor": 1.69,
+     "total_r": 64.7,
+     "reach_3r_pct": 28.3,
+     "avg_days": 13.0,
+     "max_dd_r": -24.4,
+     "max_loss_streak": 21
+    },
+    "2026": {
+     "n": 144,
+     "win_rate": 35.4,
+     "avg_r": 0.52,
+     "avg_win": 3.34,
+     "avg_loss": -1.02,
+     "payoff": 3.28,
+     "profit_factor": 1.8,
+     "total_r": 75.6,
+     "reach_3r_pct": 35.4,
+     "avg_days": 10.1,
+     "max_dd_r": -18.0,
+     "max_loss_streak": 12
+    }
+   }
+  },
+  {
+   "variant": "Z3 위가 비어 있음",
+   "all": {
+    "n": 245,
+    "win_rate": 30.6,
+    "avg_r": 0.48,
+    "avg_win": 3.86,
+    "avg_loss": -1.02,
+    "payoff": 3.79,
+    "profit_factor": 1.67,
+    "total_r": 116.4,
+    "reach_3r_pct": 30.6,
+    "avg_days": 11.0,
+    "max_dd_r": -24.0,
+    "max_loss_streak": 22
+   },
+   "by_year": {
+    "2024": {
+     "n": 10,
+     "win_rate": 10.0,
+     "avg_r": -0.67,
+     "avg_win": 2.34,
+     "avg_loss": -1.0,
+     "payoff": 2.34,
+     "profit_factor": 0.26,
+     "total_r": -6.7,
+     "reach_3r_pct": 10.0,
+     "avg_days": 10.1,
+     "max_dd_r": -9.0,
+     "max_loss_streak": 9
+    },
+    "2025": {
+     "n": 106,
+     "win_rate": 26.4,
+     "avg_r": 0.52,
+     "avg_win": 4.81,
+     "avg_loss": -1.02,
+     "payoff": 4.72,
+     "profit_factor": 1.7,
+     "total_r": 55.3,
+     "reach_3r_pct": 26.4,
+     "avg_days": 12.2,
+     "max_dd_r": -24.0,
+     "max_loss_streak": 22
+    },
+    "2026": {
+     "n": 129,
+     "win_rate": 35.7,
+     "avg_r": 0.53,
+     "avg_win": 3.32,
+     "avg_loss": -1.02,
+     "payoff": 3.25,
+     "profit_factor": 1.8,
+     "total_r": 67.8,
+     "reach_3r_pct": 35.7,
+     "avg_days": 10.0,
+     "max_dd_r": -16.4,
+     "max_loss_streak": 10
+    }
+   }
+  },
+  {
+   "variant": "Z4 확인 2일",
+   "all": {
+    "n": 220,
+    "win_rate": 31.4,
+    "avg_r": 0.36,
+    "avg_win": 3.45,
+    "avg_loss": -1.04,
+    "payoff": 3.3,
+    "profit_factor": 1.51,
+    "total_r": 80.3,
+    "reach_3r_pct": 31.4,
+    "avg_days": 11.9,
+    "max_dd_r": -15.6,
+    "max_loss_streak": 14
+   },
+   "by_year": {
+    "2024": {
+     "n": 10,
+     "win_rate": 30.0,
+     "avg_r": -0.09,
+     "avg_win": 2.03,
+     "avg_loss": -1.0,
+     "payoff": 2.03,
+     "profit_factor": 0.87,
+     "total_r": -0.9,
+     "reach_3r_pct": 30.0,
+     "avg_days": 12.5,
+     "max_dd_r": -7.0,
+     "max_loss_streak": 7
+    },
+    "2025": {
+     "n": 97,
+     "win_rate": 30.9,
+     "avg_r": 0.57,
+     "avg_win": 4.2,
+     "avg_loss": -1.06,
+     "payoff": 3.98,
+     "profit_factor": 1.78,
+     "total_r": 55.3,
+     "reach_3r_pct": 30.9,
+     "avg_days": 14.3,
+     "max_dd_r": -14.3,
+     "max_loss_streak": 14
+    },
+    "2026": {
+     "n": 113,
+     "win_rate": 31.9,
+     "avg_r": 0.23,
+     "avg_win": 2.93,
+     "avg_loss": -1.04,
+     "payoff": 2.83,
+     "profit_factor": 1.32,
+     "total_r": 25.9,
+     "reach_3r_pct": 31.9,
+     "avg_days": 9.8,
+     "max_dd_r": -15.6,
+     "max_loss_streak": 13
+    }
+   }
+  },
+  {
+   "variant": "Z5 전부",
+   "all": {
+    "n": 193,
+    "win_rate": 30.6,
+    "avg_r": 0.37,
+    "avg_win": 3.57,
+    "avg_loss": -1.03,
+    "payoff": 3.45,
+    "profit_factor": 1.52,
+    "total_r": 71.9,
+    "reach_3r_pct": 30.6,
+    "avg_days": 11.9,
+    "max_dd_r": -15.6,
+    "max_loss_streak": 15
+   },
+   "by_year": {
+    "2024": {
+     "n": 8,
+     "win_rate": 12.5,
+     "avg_r": -0.59,
+     "avg_win": 2.29,
+     "avg_loss": -1.0,
+     "payoff": 2.29,
+     "profit_factor": 0.33,
+     "total_r": -4.7,
+     "reach_3r_pct": 12.5,
+     "avg_days": 10.4,
+     "max_dd_r": -7.0,
+     "max_loss_streak": 7
+    },
+    "2025": {
+     "n": 79,
+     "win_rate": 30.4,
+     "avg_r": 0.66,
+     "avg_win": 4.54,
+     "avg_loss": -1.04,
+     "payoff": 4.38,
+     "profit_factor": 1.91,
+     "total_r": 52.0,
+     "reach_3r_pct": 30.4,
+     "avg_days": 14.7,
+     "max_dd_r": -15.0,
+     "max_loss_streak": 15
+    },
+    "2026": {
+     "n": 106,
+     "win_rate": 32.1,
+     "avg_r": 0.23,
+     "avg_win": 2.92,
+     "avg_loss": -1.04,
+     "payoff": 2.82,
+     "profit_factor": 1.33,
+     "total_r": 24.6,
+     "reach_3r_pct": 32.1,
+     "avg_days": 9.9,
+     "max_dd_r": -15.6,
+     "max_loss_streak": 13
+    }
+   }
+  }
+ ]
+}
