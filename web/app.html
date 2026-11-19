@@ -826,7 +826,7 @@ function spark(d,W=54,H=30){
    <path d="${today}" fill="none" stroke="${col}" stroke-width="1.3"/>
    <circle cx="${x(n-1)}" cy="${y(last)}" r="1.6" fill="${col}"/></svg>`;
 }
-function riskKpis(r){
+function riskKpis(r,slim){
   if(!r||r.error)return `<div class="empty">리스크 계산 실패</div>`;
   const use=r.CR_pct/r.CR_limit_pct*100, pnl=(r.positions||[]).reduce((a,p)=>a+(p.pnl_won||0),0);
   return `<div class="grid g4">
@@ -834,14 +834,14 @@ function riskKpis(r){
    <div class="panel kpi"><span>CR 현재 위험 (매수가 기준)</span><b>${w(r.CR_won)}</b><small class="muted">${r.CR_pct}% · ${r.CR_in_R}R / 한도 ${r.CR_limit_pct}%</small><div class="gauge ${use>80?"hot":""}"><i style="width:${Math.min(100,use)}%"></i></div></div>
    <div class="panel kpi"><span>새로 걸 수 있는 위험</span><b>${w(r.room_for_new_risk_won)}</b><small class="muted">약 ${(r.room_for_new_risk_won/r.one_r_account_won).toFixed(1)}R (1R = ${w(r.one_r_account_won)})</small></div>
    <div class="panel kpi"><span>평가손익</span><b class="${cls(pnl)}">${w(pnl)}</b><small class="muted">보유 ${(r.positions||[]).length}종목</small></div></div>
-   ${acctMoney(r)}`;
+   ${slim?"":acctMoney(r)}`;
 }
 /* 계좌 금액 (2026-11-18 사용자 확정): 시작 1,500만 원 + 이후 거래 실현 손익 − 세금·수수료(사고 파는 한 번에 0.23%, 매도 때) = 지금 계좌, + 평가 손익 = 총자산. 1R·CR·E는 지금 계좌 기준 */
 function totAsset(r){return (r.capital||0)+(r.positions||[]).reduce((a,p)=>a+(p.pnl_won||0),0)}   // 1분 시세로 평가 손익이 바뀌면 같이 바뀜
 /* 계좌 요약 (2026-11-18 사용자 요청): 전체 = 본 전략(돌파, 1,500만) + 부록(지수 되돌림, 300만, 별도 돈). 두 계좌는 섞지 않고 합계만 보여 줌
    기여도 %p = 전략 손익 ÷ 전체 시작 금액 · 그래프: 본 = 계좌 수익률 곡선(실현+평가), 부록 = 거래 마감 잔고(마지막 점만 평가 포함) */
 function addonTotal(){const A=D.addon_trades;if(!A)return null;const u=(A.open||[]).reduce((a,p)=>{const q=liveQuote(p.code),px=(q&&q.price)||p.price;return a+(px?(px-p.avg_price)*p.qty:0)},0);return {start:A.start_capital,tot:A.capital+u,real:A.net_won,unreal:u,mdd:A.mdd_pct,n:A.n,win:A.win,avg:A.avg_ret_pct,fees:A.fees_won}}
-function acctSummary(){const r=D.risk||{},A=addonTotal();if(r.start_capital==null||!A)return "";
+function acctSummary(part){const r=D.risk||{},A=addonTotal();if(r.start_capital==null||!A)return "";   // part: "cards" = 금액 카드만 · "chart" = 수익률 그래프 + 비교표 (내 매매 탭 정리 2026-11-19 사용자 확정)
   const mS=r.start_capital,mT=totAsset(r),mU=(r.positions||[]).reduce((a,p)=>a+(p.pnl_won||0),0),S=mS+A.start,T=mT+A.tot;
   const E=D.equity||{},P=E.points||[],C=(D.addon_trades||{}).curve||[];
   const pts=P.map((p,i)=>{const m=p.ret/100*mS,ab=i==P.length-1?A.tot:(C.filter(c=>c.date<=p.date).pop()||{bal:A.start}).bal,a=ab-A.start;return {date:p.date,m:p.ret,a:a/A.start*100,t:(m+a)/S*100,b:p.bench}});
@@ -855,18 +855,23 @@ function acctSummary(){const r=D.risk||{},A=addonTotal();if(r.start_capital==nul
      <div class="sumlg"><span><i style="background:var(--accent)"></i>전체 <b class="${cls(last.t)}">${pc(last.t,2)}</b></span><span><i style="background:#2bb3a3"></i>본 전략 <b class="${cls(last.m)}">${pc(last.m,2)}</b></span><span><i style="background:#8b7cf6"></i>부록 <b class="${cls(last.a)}">${pc(last.a,2)}</b></span>${bench!=null?`<span><i class="dash"></i>코스피 ${pc(bench,2)}</span>`:""}</div>`}
   const row=(n,a,b)=>`<tr><td class="l">${n}</td><td class="num">${a}</td><td class="num">${b}</td></tr>`;
   const TR=D.trades&&D.trades.stats||{};
-  return `<div class="panel sumbox"><h2 style="margin:0 0 8px">📊 계좌 요약 <small class="muted">전체 = 본 전략 + 부록 · ${esc(String(r.capital_since||"").slice(5).replace("-","/"))}부터 · 두 계좌는 따로 계산하고 합계만 보여 줍니다</small></h2>
-   <div class="sumg">${card("all","전체",T,S,"",`시작 ${w(S)} · ${bench!=null?`코스피 ${pc(bench,2)} · <span class="${cls(last.t-bench)}">시장 대비 ${pc(last.t-bench,2).replace("%","%p")}</span>`:""}`)}
-    ${card("main","본 전략 · 돌파",mT,mS,'href="#trade"',`시작 ${w(mS)} · 기여 <b class="${cls(mT-mS)}">${pc((mT-mS)/S*100,2).replace("%","%p")}</b>`)}
-    ${card("addon","부록 · 지수 되돌림",A.tot,A.start,'href="#strategy" data-st="addon"',`시작 ${w(A.start)} · 기여 <b class="${cls(A.tot-A.start)}">${pc((A.tot-A.start)/S*100,2).replace("%","%p")}</b>`)}</div>
-   ${chart}
-   <details class="fold" style="margin-top:6px"><summary class="foldh">전략별 비교표</summary><div class="tw"><table class="sumt"><tr><th class="l">항목</th><th>본 전략</th><th>부록</th></tr>
+  const cmp=`<div class="tw"><table class="sumt"><tr><th class="l">항목</th><th>본 전략</th><th>부록</th></tr>
     ${row("수익률",`<span class="${cls(mT-mS)}">${pc((mT-mS)/mS*100,2)}</span>`,`<span class="${cls(A.tot-A.start)}">${pc((A.tot-A.start)/A.start*100,2)}</span>`)}
     ${row("실현 손익 (비용 뺀 것)",w((r.realized_won||0)-(r.fees_won||0)),w(A.real))}
     ${row("평가 손익 (보유 중)",w(mU),w(A.unreal))}
     ${row("세금·수수료",w(r.fees_won||0),w(A.fees||0))}
     ${row("최대 낙폭",pc(Math.min(0,...P.map(p=>p.ret)),2),pc(A.mdd,2))}
-    ${row("성적 기준","R (1R=2%)","% (하루 보유)")}</table></div></details></div>`}
+    ${row("성적 기준","R (1R=2%)","% (하루 보유)")}</table></div>`;
+  const cards=`<div class="sumg">${card("all","전체",T,S,"",`시작 ${w(S)} · ${bench!=null?`코스피 ${pc(bench,2)} · <span class="${cls(last.t-bench)}">시장 대비 ${pc(last.t-bench,2).replace("%","%p")}</span>`:""}`)}
+    ${card("main","본 전략 · 돌파",mT,mS,'href="#trade"',`시작 ${w(mS)} · 기여 <b class="${cls(mT-mS)}">${pc((mT-mS)/S*100,2).replace("%","%p")}</b>`)}
+    ${card("addon","부록 · 지수 되돌림",A.tot,A.start,'href="#strategy" data-st="addon"',`시작 ${w(A.start)} · 기여 <b class="${cls(A.tot-A.start)}">${pc((A.tot-A.start)/S*100,2).replace("%","%p")}</b>`)}</div>`;
+  if(part=="cards")return `<div class="panel sumbox"><h2 style="margin:0 0 8px">📊 계좌 <small class="muted">전체 = 본 전략 + 부록 · ${esc(String(r.capital_since||"").slice(5).replace("-","/"))}부터 · 실현 ${w((r.realized_won||0)+(A.real||0))} · 세금·수수료 ${w((r.fees_won||0)+(A.fees||0))} · 1R ${w(r.one_r_account_won)}</small></h2>${cards}</div>`;
+  if(part=="chart")return `<div class="panel sumbox"><h2 style="margin:0 0 8px">📈 수익률 <small class="muted">전체 · 본 전략 · 부록 · 코스피를 한 그림에 · ${esc(String(r.capital_since||"").slice(5).replace("-","/"))}부터</small></h2>${chart}<h3 style="margin:12px 0 4px">전략별 비교</h3>${cmp}</div>`;
+  return `<div class="panel sumbox"><h2 style="margin:0 0 8px">📊 계좌 요약 <small class="muted">전체 = 본 전략 + 부록 · ${esc(String(r.capital_since||"").slice(5).replace("-","/"))}부터 · 두 계좌는 따로 계산하고 합계만 보여 줍니다</small></h2>
+   ${cards}
+   ${chart}
+   <details class="fold" style="margin-top:6px"><summary class="foldh">전략별 비교표</summary>${cmp}</details></div>`;
+}
 function acctMoney(r){if(r.start_capital==null)return "";const tot=totAsset(r),g=tot-r.start_capital;
   return `<div class="grid g4" style="margin-top:8px"><div class="panel kpi"><span>총자산</span><b>${w(tot)}</b><small class="${cls(g)}">${g>=0?"+":""}${w(g)} (${pc(g/r.start_capital*100,2)}) · 시작 대비</small></div>
    <div class="panel kpi"><span>지금 계좌 (실현 반영)</span><b>${w(r.capital)}</b><small class="muted">1R·CR·E 계산 기준</small></div>
@@ -2509,8 +2514,14 @@ function rulesCard(){
 }
 function viewTrade(){
   const r=D.risk||{}, ps=r.positions||[], comp=Object.fromEntries((D.companies||[]).map(c=>[c.code,c])), acc=D.account||{};
-  return `<h1>내 매매</h1><div class="sub">${esc(r.at||"")} · ${esc(r.source||"")} · 기록만 하는 화면, 주문은 증권사 앱에서 직접</div>
-  ${acctSummary()}${alerts(r)}${riskKpis(r)}
+  const T=[["now","지금"],["perf","성적"],["log","기록"],["rule","규칙"]],t=T.some(([k])=>k==ui.tt)?ui.tt:"now",noT=h=>h.replace(/<div class="grid g4" style="margin-bottom:\d+px">(?:<div class="tile">[\s\S]*?<\/div>\s*)+<\/div>/,"");
+  const bar=`<h1>내 매매</h1><div class="sub">${esc(r.at||"")} · ${esc(r.source||"")} · 기록만 하는 화면, 주문은 증권사 앱에서 직접</div><div class="chips tabs" style="margin-bottom:10px">${T.map(([k,n])=>`<button class="chip ${t==k?"on":""}" data-tt="${k}">${n}</button>`).join("")}</div>`;
+  if(t=="perf")return bar+`${acctSummary("chart")}${tradeKpis()}${noT(perfBox())}${noT(reviewBox())}`;
+  if(t=="log")return bar+`${noT(journal())}${addonJournal()}`;
+  if(t=="rule")return bar+`<div class="grid g2">
+   <div class="panel"><h2>계좌·리스크 규칙</h2><table><tr><td class="l">지금 계좌</td><td class="num">${w(acc.capital)}원<br><small class="muted">시작 ${w(acc.start_capital||acc.capital)} + 실현 − 비용</small></td></tr><tr><td class="l">1R (1회 손실 한도)</td><td class="num">${(acc.risk_per_trade||0)*100}% = ${w((acc.capital||0)*(acc.risk_per_trade||0))}원</td></tr><tr><td class="l">처음 손절</td><td class="num">−${(acc.stop_pct||0)*100}%</td></tr><tr><td class="l">본전 손절로 올리는 때</td><td class="num">${acc.breakeven_at_r}R</td></tr><tr><td class="l">총 위험(CR) 한도</td><td class="num">${r.CR_limit_pct??"-"}%</td></tr></table></div>
+   <div class="panel"><h2>기록하는 법</h2><div class="insrow">"OO 10주 12,000에 샀어 / 팔았어"</div><div class="insrow">"OO 손절가 본전으로 올렸어"</div><div class="insrow">"부록 OO 샀어" (지수 되돌림)</div><div class="src">Claude에게 말하면 기록됩니다 · 기록만 하며 주문은 하지 않습니다</div></div></div>${rulesCard()}`;
+  return bar+`${acctSummary("cards")}${alerts(r)}<div style="margin-top:10px">${riskKpis(r,true)}</div>
   ${ps.length?`<h2 style="margin-top:18px">보유 종목</h2>
   <div class="tw"><table><tr><th class="l">종목</th><th>수량</th><th>평균가</th><th>현재가</th><th>오늘</th><th>평가손익</th><th>평가금액·비중</th><th>손절가·거리</th><th>1R</th><th>진행 R</th><th>3R 가격</th><th>CR</th></tr>
   ${ps.map(p=>{const pct=p.price?(p.price/p.avg_price-1)*100:null, bar=Math.max(0,Math.min(100,((p.r_multiple||0)+1)/4*100));
@@ -2521,19 +2532,18 @@ function viewTrade(){
    <td class="num">${w(p.breakeven_price_at_3r)}<br><small class="muted">${pc(p.to_3r_pct)}</small></td><td class="num">${w(p.cr_won)}</td></tr>`}).join("")}</table></div>
   <h2 style="margin-top:18px">다음 액션 · 가격별 규칙</h2><div class="acts">${ps.map(p=>actionCard(p)).join("")}</div>`
   :`<div class="panel" style="margin-top:12px"><b>보유 종목 없음.</b> 새 위험 여유 ${man(r.room_for_new_risk_won)}원 · 관찰 풀은 <a href="#strategy" data-st="pool">전략 › 관찰 풀</a>에서</div>`}
-  ${perfBox()}
-  ${reviewBox()}
-  ${equityChart()}
-  ${journal()}${addonJournal()}
-  <div class="grid g2" style="margin-top:16px">
+  <div style="margin-top:16px">
    <div class="panel"><h2>살 수 있는 수량 계산</h2>
     <div class="calc"><label for="cEntry">매수 예정가<input id="cEntry" inputmode="numeric" value="${ui.cEntry||50000}"></label><label for="cStop">손절가<input id="cStop" inputmode="numeric" value="${ui.cStop||46000}"></label><label for="cPct">손절 %로 넣기<input id="cPct" inputmode="decimal" value="${ui.cPct||8}"></label></div>
     <div class="res" id="cRes"></div>
     <div class="src">1R ${w(r.one_r_account_won)}원과 CR 여유 ${w(r.room_for_new_risk_won)}원 중 작은 쪽으로 계산 · 주문 기능 없음</div></div>
-   <div class="panel"><h2>계좌·리스크 규칙</h2><table><tr><td class="l">지금 계좌</td><td class="num">${w(acc.capital)}원<br><small class="muted">시작 ${w(acc.start_capital||acc.capital)} + 실현 − 비용</small></td></tr><tr><td class="l">1R (1회 손실 한도)</td><td class="num">${(acc.risk_per_trade||0)*100}% = ${w((acc.capital||0)*(acc.risk_per_trade||0))}원</td></tr><tr><td class="l">처음 손절</td><td class="num">−${(acc.stop_pct||0)*100}%</td></tr><tr><td class="l">본전 손절로 올리는 때</td><td class="num">${acc.breakeven_at_r}R</td></tr><tr><td class="l">총 위험(CR) 한도</td><td class="num">${r.CR_limit_pct??"-"}%</td></tr></table></div>
-  </div>
-  ${rulesCard()}`;
+  </div>`;
 }
+/* 성적 숫자 한 줄 (2026-11-19 사용자 확정): 성적 분석·매매 복기·매매 일지에 흩어져 겹치던 칸을 하나로 */
+function tradeKpis(){const R=D.trade_review||{},S=(D.trades||{}).stats||{};if(!R.n)return "";const sg=v=>v==null?"-":(v>0?"+":"")+v+"R";
+  const tl=(a,b,c,sub)=>`<div class="tile"><span>${a}</span><b class="${c||""}">${b}</b>${sub?`<small class="muted"> ${sub}</small>`:""}</div>`;
+  return `<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-top:12px">${tl("끝난 거래 · 승률",`${R.n}건 · ${R.win_rate==null?"-":R.win_rate+"%"}`)}${tl("거래당 평균 R",sg(R.expectancy_r),cls(R.expectancy_r),"합계 "+sg(R.sum_r))}${tl("실현 손익",w(S.pnl_won),cls(S.pnl_won))}${tl("3R↑ 큰 시세",(R.big_wins||0)+"건")}${tl("연속 손절 (최대 · 지금)",`${R.max_loss_streak} · ${R.current_loss_streak}`,R.current_loss_streak>=3?"down":"")}${tl("규칙 지킴",R.rule_ok_pct==null?"-":R.rule_ok_pct+"%","손절가보다 더 잃음 "+R.worse_than_stop+"건")}${tl("평균 보유",(R.avg_hold_days??"-")+"일")}</div>`}
+document.addEventListener("click",e=>{const a=e.target.closest("[data-tt]");if(a){ui.tt=a.dataset.tt;save();render();window.scrollTo(0,0)}});
 
 /* ---------- ⑤ 더보기: 달력 · 자동 작업 · 출처 · 채널 목록 · 화면 모드 ---------- */
 function viewMore(){
