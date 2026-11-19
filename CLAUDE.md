@@ -49,6 +49,7 @@ python3 tools/web_build.py --only analysis             # "분석 새로고침": 
 python3 tools/web_build.py --only monitoring           # "모니터링 새로고침": 감시 목록 다시 계산 + 섹터·검증실 (5~10분)
 python3 tools/live_brief.py prep|save              # 채널·리포트 정리 재료·저장 (/live-brief). 평일은 체크포인트 3회 회차가 이어서 씀(2026-11-19 합침, 2시간 예약 5회 없앰) · 주말 토·일 12·20시
 python3 tools/checkpoint.py prep|save|send           # 체크포인트(Balance Lab 2.0): 평일 07:00·12:30·18:30 한 장 → 웹 '오늘' 맨 위 + 텔레그램(정기 발송은 이것뿐). /checkpoint 스킬
+python3 tools/macro_board.py                           # 시장 › 매크로 재료(토큰 0): 해외 지수·피어·금리·환율·원자재·미국 산업 대표 종목 일봉(Yahoo, 전일 마감) + 유동성·레버리지(금융투자협회) → data/market/macro_board.json
 python3 tools/market_pulse.py pulse|flows|econ        # 시황(토큰 0): 온도계(투자자별 순매수·등락 종목 수·신고가)·업종/테마 등락·상승하락 상위 / 시총 상위 300 수급(저녁 확정) / 경제지표 실제 vs 예상(TradingView). web_build가 매번 부름 → 웹 '시황' 메뉴
 python3 tools/new_highs.py eod|base|live          # 신고가 모아보기(토큰 0): 60·200일 고가 기준·시총 2천억↑ → 웹 '시장 > 신고가' + '오늘' 한 줄. 마감 확정(web_build) + 장중 20분(alerts.yml, 09:20~15:45 참고). 텔레그램 없음 (2026-11-13)
 python3 tools/flow_osc.py update [--budget 240]|show --stock 코드   # 수급 오실레이터(토큰 0, 사용자 확정 후보 B 2026-11-13): (외국인+기관 순매수 ÷ 상장주식수) 6일−22일 평균 → 3일 평활, P = 최근 60개 중 위치. 보유·관찰 풀·기업 메뉴 약 440종목, 깃허브 배포 회차마다 4분 안에서 갱신 → 종목 페이지 그림·팝업·보유·관찰 풀 '수급 P'. 참고용(매매 규칙 아님)
@@ -113,6 +114,7 @@ python3 tools/telegram_send.py --file reports/날짜/파일.md
 - 사용량 줄이기 (2026-11-05): 채널·리포트 정리 2시간 간격, 웹 전체 갱신 07:32·16:32만, 텔레그램 리포트 브리핑 14:53 하루 1번. (2026-11-10) 글쓰기 예약은 Sonnet, 주 1회 종합만 Opus, 스크립트는 Haiku · 자료실 2건
 - **단순화 1차 (2026-11-19 사용자 확정, 기능 지도 https://claude.ai/artifact/21rRBvSKN5Y52TiPkX4dGd)**: 멈춘 것 지움(스킬 morning·report·close·channel-brief, tools kis_quote·toss_quote, web-data.yml, Artifact · insight.py는 checkpoint.py가 형식 검사에 써서 남김, 인사이트 글은 안 씀) · Claude 글쓰기 평일 8회 → 3회(정리를 체크포인트 회차에) · 웹 갱신은 깃허브 배포 하나로
 - **단순화 2차 (2026-11-19 사용자 확정)**: 셋업 보드 신호 줄 하나(`signalStrip`: 장중 돌파 + 마감 확정, 딱지 = 기준가 돌파·매물대 돌파·포켓피봇, 셋업은 이름으로) · 셋업 보드는 기준가 있는 종목만 · 아래 3탭(후보·1stage·아깝게 빠짐)은 '⏳ 대기 목록' 표 하나(`watchExtra`, 구분·왜 대기인가). 메뉴 탭은 그대로(사용자 결정)
+- **시장 › 매크로 개편 (2026-11-19 사용자 확정)**: 탭 3개 — 🇰🇷 한국(한 줄 결론 `macroVerdict` · 코스피·코스닥 큰 캔들 + 분산일 점 · 한국이 강한가 3개월 비교 · 피어그룹 캔들) / 🇺🇸 미국(주요 지수 캔들 · 미국 산업 지도 9개 산업 32종목 `config/us_sectors.toml`, 누르면 종목 캔들) / 💵 금리·유동성(금리·환율·원자재 캔들 · 예탁금·신용잔고·반대매매 금융투자협회 · 옛 매크로 표). 재료 `tools/macro_board.py`(Yahoo 일봉 전일 마감 + freesis, 토큰 0, web_build가 매번 → D.macro_board)
 - 자동 작업 목록은 `config/automation.toml` (웹 규칙·일정 > 자동 작업 현황). 예약을 만들거나 끄면 여기도 고친다
 - 보유 종목은 `config/positions.toml`(initial_stop = 처음 손절가·1R 기준, stop = 지금 손절가), 계좌·리스크 규칙은 `config/account.toml`
 - **계좌 금액은 고정이 아님 (2026-11-18 사용자 확정)**: 1,500만 원(account.toml capital)에서 `capital_start_at` 이후 거래의 실현 손익 − 세금·수수료(사고 파는 한 번에 0.23% → 매도 금액의 0.23%, cost_rate)만큼 늘고 줄어듦 (`common.account_state()`). 1R(2%)·CR·E는 이 '지금 계좌' 기준, 총자산 = 지금 계좌 + 평가 손익. trades.py가 거래마다 fee_won을 남김
