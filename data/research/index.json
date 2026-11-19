@@ -1109,6 +1109,42 @@
    "drive_modified": null,
    "analyzed_at": "2026-11-18 19:16",
    "depth": "light"
+  },
+  "naver_company_98033": {
+   "title": "코스맥스 · 3Q26 Review: 계절성 사라진 역대급 실적 (IBK투자증권 Spot Comment)",
+   "broker": "IBK투자증권",
+   "date": "2026-11-12",
+   "kind": "기업",
+   "subject": "코스맥스 · 화장품 ODM (핵심 후보 칸)",
+   "one_line": "3분기 연결 영업이익이 컨센서스를 웃돈 역대급 실적이고, 국내 법인과 미국 법인이 성장을 이끌었다는 스팟 코멘트입니다. 목표가와 투자의견은 이 발췌에 없습니다.",
+   "url": "https://stock.naver.com/research/company/98033",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-19 19:16",
+   "depth": "light"
+  },
+  "naver_industry_47073": {
+   "title": "반도체 · 투자는 이어질 것 (유진투자증권, 11/19)",
+   "broker": "유진투자증권",
+   "date": "2026-11-19",
+   "kind": "산업",
+   "subject": "반도체 장비 · 전공정·후공정 (리더 업종 칸)",
+   "one_line": "WFE 투자는 2027년과 2030년까지 이어지고, 최근 부진했던 전공정 장비주는 2028년 실적이 반영되며 매력이 커진다는 산업 리포트입니다.",
+   "url": "https://stock.naver.com/research/industry/47073",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-19 19:16",
+   "depth": "light"
+  },
+  "naver_industry_47075": {
+   "title": "은행 · 9월 연체율: 전 대출종에서 빨라진 연체 증가 속도 (한화투자증권, 11/18)",
+   "broker": "한화투자증권",
+   "date": "2026-11-18",
+   "kind": "산업",
+   "subject": "은행 · 연체율과 건전성 (반대 의견 칸)",
+   "one_line": "9월 은행 연체율이 0.59%로 올랐고 기업·가계 모두 연체 증가 속도가 빨라져, 2027년 대손비용률 상승이 예상된다는 업종 리포트입니다. 투자의견은 Positive입니다.",
+   "url": "https://stock.naver.com/research/industry/47075",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-19 19:16",
+   "depth": "light"
   }
  },
  "skipped": {
