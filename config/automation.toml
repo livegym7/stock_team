@@ -5,8 +5,8 @@
 # check: 실행됐는지 확인하는 방법 (report:파일이름 / bus / naver_pick / alerts / calendar / naver / channels / weekly / live / web / strategy)
 
 [[tasks]]
-name = "체크포인트 07:00 · 12:30 · 18:30 (텔레그램 정기 발송은 이것뿐, 18:30은 마감 리뷰 겸함)"
-when = "평일 06:47 · 12:17 · 18:17 시작"
+name = "체크포인트 07 · 10 · 12 · 15 · 18시 (텔레그램은 07·12·18시만, 18시는 마감 리뷰 겸함)"
+when = "평일 06:47 · 09:47 · 11:47 · 14:47 · 17:47 시작"
 due = "06:47"
 runner = "claude"
 model = "Sonnet"
@@ -15,7 +15,7 @@ check = "checkpoint"
 
 [[tasks]]
 name = "채널·리포트 정리 (체크포인트 회차에 함께 씀, 2026-11-19 합침 · 주말은 따로)"
-when = "평일 07:00·12:30·18:30 체크포인트 직후 · 토·일 12·20시 12분"
+when = "평일 07·10·12·15·18시 체크포인트 직후(웹에서는 체크포인트 아래 근거 칸) · 토·일 12·20시 12분"
 due = "06:47"
 runner = "claude"
 model = "Sonnet"

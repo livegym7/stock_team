@@ -1,17 +1,18 @@
 #!/usr/bin/env python3
-"""체크포인트 (Balance Lab 2.0 T-02, 2026-11-12 사용자 확정): 하루 세 번 07:00 · 12:30 · 18:30에 쓰는 한 장.
+"""체크포인트 (Balance Lab 2.0 T-02, 2026-11-12 사용자 확정): 하루 다섯 번 07 · 10 · 12 · 15 · 18시에 쓰는 한 장 (2026-11-19 사용자 확정: 3회 → 5회, 채널·리포트 정리는 같은 회차가 이어서 쓰고 웹에서 체크포인트 아래 '근거' 칸으로 붙음).
+  텔레그램은 07 · 12 · 18시 회차만 보낸다 (10 · 15시는 웹에만).
 
   "직전 체크포인트 이후 바뀐 것 → 지금 상태 → 다음까지 볼 것" 세 칸, 칸마다 1~3줄.
   지난 체크포인트의 '볼 것'을 맞음/틀림/진행으로 채점한다.
   이것이 아침 브리핑·인사이트·리포트 브리핑·마감 리뷰의 텔레그램 역할을 대신한다 (텔레그램은 체크포인트 3회 + 즉시 알림).
 
-  python3 tools/checkpoint.py prep [--slot 07|12|18]   # 재료(토큰 0): 국면·시세·수급·해외·채널 3일 흐름·보유 위험·관찰 풀 근접·일정·지난 체크포인트
+  python3 tools/checkpoint.py prep [--slot 07|10|12|15|18]   # 재료(토큰 0): 국면·시세·수급·해외·채널 3일 흐름·보유 위험·관찰 풀 근접·일정·지난 체크포인트
   python3 tools/checkpoint.py save --file x.json      # 형식 검사 → data/checkpoint/latest.json + history + reports/날짜/checkpoint_HHMM.md
   python3 tools/checkpoint.py send                    # 방금 저장한 체크포인트를 텔레그램으로 (features.toml이 허용하는 유일한 정기 브리핑)
 
-JSON 칸: made_at, slot("07"|"12"|"18"), title(32자 이내), changed, now, watch, graded[{watch, result: 맞음|틀림|진행, note}],
+JSON 칸: made_at, slot("07"|"10"|"12"|"15"|"18"), title(32자 이내), changed, now, watch, graded[{watch, result: 맞음|틀림|진행, note}],
          mine(보유·관찰 풀에 주는 뜻), sources(한 줄). 항목은 110자 이내, 문장은 "~입니다."로 맺는다. 매수·매도 단정 금지.
-         18:30 회차는 마감 리뷰를 겸한다 (2026-11-13 사용자 확정): market(지수 한 줄)·today(오늘 중요했던 것)를 더 쓰고 칸마다 최대 4개.
+         18시 회차는 마감 리뷰를 겸한다 (2026-11-13 사용자 확정): market(지수 한 줄)·today(오늘 중요했던 것)를 더 쓰고 칸마다 최대 4개.
 """
 import argparse, json, sys
 from datetime import datetime
@@ -22,14 +23,15 @@ from common import ROOT  # noqa: E402
 from strategy_prep import KST  # noqa: E402
 
 DATA = ROOT / "data" / "checkpoint"
-SLOTS = {"07": "07:00 출근 전", "12": "12:30 점심", "18": "18:30 퇴근 후"}
+SLOTS = {"07": "07:00 장 시작 전", "10": "10:00 장 초반", "12": "12:00 오전 마감", "15": "15:00 마감 직전", "18": "18:00 마감 리뷰"}
+TG_SLOTS = ("07", "12", "18")   # 텔레그램은 하루 3회 유지 (2026-11-19), 10·15시는 웹에만
 LISTS = ("changed", "now", "watch")
 # 18:30 회차는 마감 리뷰를 겸한다 (2026-11-13 사용자 확정): market 한 줄 + today(오늘 시장에서 중요했던 것)
 
 
 def slot_now(now=None):
     h = (now or datetime.now(KST)).hour
-    return "07" if h < 11 else "12" if h < 17 else "18"
+    return "07" if h < 9 else "10" if h < 11 else "12" if h < 14 else "15" if h < 17 else "18"
 
 
 def prep(slot):
@@ -149,7 +151,7 @@ def save(path):
         if not d.get(k):
             raise SystemExit(f"빠진 칸: {k}")
     if d["slot"] not in SLOTS:
-        raise SystemExit("slot은 07 / 12 / 18")
+        raise SystemExit("slot은 07 / 10 / 12 / 15 / 18")
     if len(d["title"]) > 32:
         raise SystemExit(f"title은 32자 이내: 지금 {len(d['title'])}자")
     cap = 4 if d["slot"] == "18" else 3   # 18:30은 마감 리뷰를 겸해 한 칸 더 (2026-11-13)
@@ -218,6 +220,8 @@ def main():
     else:
         d = json.loads((DATA / "latest.json").read_text(encoding="utf-8"))
         rep = ROOT / "reports" / d["made_at"][:10] / f"checkpoint_{d['made_at'][11:16].replace(':', '')}.md"
+        if d.get("slot") not in TG_SLOTS:
+            print(json.dumps({"sent": False, "why": f"{d.get('slot')}시 회차는 웹에만 올립니다 (텔레그램은 07·12·18시)"}, ensure_ascii=False)); return
         import subprocess
         subprocess.run([sys.executable, str(ROOT / "tools" / "telegram_send.py"), "--file", str(rep)], check=True)
 
