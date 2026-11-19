@@ -739,6 +739,22 @@ table.sortt th{cursor:pointer;user-select:none} table.sortt th:hover{color:var(-
 .issbar{display:flex;gap:6px;align-items:center;overflow-x:auto;padding:0 0 8px;margin-bottom:6px;scrollbar-width:none}.issbar::-webkit-scrollbar{display:none}.issbar>span{font-size:12px;white-space:nowrap;margin-right:2px}.issbar .chip{white-space:nowrap;flex:none}.issbar .chip small{opacity:.7}
 .issban{display:flex;gap:8px;align-items:center;flex-wrap:wrap;background:color-mix(in srgb,#e8a33d 14%,var(--panel));border:1px solid #e8a33d;border-radius:8px;padding:8px 12px;margin-bottom:10px;font-size:12.5px}.issban a{margin-left:auto;font-weight:600}
 .seckp{font-size:11.5px;color:var(--muted);margin-bottom:6px;line-height:1.6}.seckp b{color:var(--fg)}
+/* 휴대폰 다듬기 (2026-11-19 사용자 요청) */
+@media(max-width:820px){
+ /* ① 맨 위 심볼·지수 줄: 상태 표시줄 아래 흐려지는 구간을 피하도록 위 여백 */
+ .topbar{height:auto!important;min-height:44px;padding-top:calc(env(safe-area-inset-top,0px) + 14px);padding-bottom:6px}
+ /* ② 미국 산업 지도: 펼친 종목 캔들이 표와 함께 옆으로 밀리지 않게 화면 폭에 고정 */
+ .ust tr.usx td{padding:8px 0!important}.ust tr.usx .mcg{position:sticky;left:0;width:calc(100vw - 34px);max-width:calc(100vw - 34px);grid-template-columns:1fr!important}
+}
+@media(max-width:600px){
+ /* ③ 소식: 상자 안의 상자를 풀어 본문 폭 확보 */
+ .daycard{padding:10px 10px}.daycard article.panel{border:0!important;background:none!important;box-shadow:none!important;padding:8px 0!important;border-radius:0!important}
+ .evbox{border:0!important;background:none!important;padding:0!important;border-top:1px solid var(--line)!important;border-radius:0!important;margin-top:8px}
+ /* ④ 채널 원문: 펼치면 위 한 줄 제목은 숨김(아래 본문에 같은 글) */
+ .pfold[open]>summary .ph{display:none}
+ /* ⑤ 종목 목록 '전체 보기' 버튼 한 줄 */
+ .ctool .chip{white-space:nowrap;font-size:12px;padding:6px 10px;flex:none}
+}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="bl-icon" viewBox="0 0 1024 1024"><defs><linearGradient id="blbg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#52525b"/><stop offset="1" stop-color="#18181b"/></linearGradient><linearGradient id="blgl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".16"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/></linearGradient></defs><rect width="1024" height="1024" rx="232" fill="url(#blbg)"/><rect width="1024" height="1024" rx="232" fill="url(#blgl)"/><path d="M352 262 V762 M352 262 H528 A122 122 0 0 1 528 506 H352 M352 506 H574 A128 128 0 0 1 574 762 H352" fill="none" stroke="#fff" stroke-linejoin="round" stroke-linecap="round" stroke-width="104"/><circle cx="742" cy="290" r="44" fill="#6d7dff"/></symbol></svg>
