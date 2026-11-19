@@ -26,3 +26,13 @@ qty = 37
 avg_price = 26400
 initial_stop = 24288   # 처음 손절가 = 1R 기준
 stop = 24288
+
+[[positions]]
+name = "KODEX 코스닥150선물인버스"
+code = "251340"
+qty = 174
+avg_price = 2845
+initial_stop = 2617   # 처음 손절가 = 1R 기준
+stop = 2617
+book = "addon"   # 부록 · 지수 되돌림: 다음 날 종가 매도, 손절가·CR 계산 안 함
+bought = "2026-11-19"
