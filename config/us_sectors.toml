@@ -1,0 +1,47 @@
+# 미국 산업 지도 (시장 › 매크로 › 미국 탭, 2026-11-19 사용자 확정). 종목을 넣고 빼려면 Claude에게 말하면 됩니다.
+# symbol = 야후 티커 · kr = 같이 볼 한국 업종(설명용)
+
+[[sectors]]
+name = "반도체"
+kr = "반도체 장비·소재·후공정, 삼성전자·SK하이닉스"
+stocks = [["NVDA","엔비디아"],["MU","마이크론"],["AMD","AMD"],["AVGO","브로드컴"],["TSM","TSMC"],["ASML","ASML"]]
+
+[[sectors]]
+name = "빅테크"
+kr = "IT/소프트웨어, 인터넷"
+stocks = [["GOOGL","구글"],["AMZN","아마존"],["MSFT","마이크로소프트"],["AAPL","애플"],["META","메타"]]
+
+[[sectors]]
+name = "AI 인프라·전력"
+kr = "전력기기, 원전, 전선"
+stocks = [["VRT","버티브"],["ETN","이튼"],["GEV","GE 버노바"],["CEG","컨스텔레이션 에너지"]]
+
+[[sectors]]
+name = "전기차·배터리"
+kr = "2차전지 셀·소재, 자동차 부품"
+stocks = [["TSLA","테슬라"],["RIVN","리비안"],["ALB","앨버말"]]
+
+[[sectors]]
+name = "바이오·제약"
+kr = "바이오, 제약"
+stocks = [["LLY","일라이 릴리"],["NVO","노보 노디스크"],["AMGN","암젠"]]
+
+[[sectors]]
+name = "방산·우주"
+kr = "방산, 우주항공"
+stocks = [["LMT","록히드 마틴"],["RTX","RTX"],["PLTR","팔란티어"]]
+
+[[sectors]]
+name = "금융"
+kr = "은행, 증권"
+stocks = [["JPM","JP모건"],["GS","골드만삭스"]]
+
+[[sectors]]
+name = "소비·플랫폼"
+kr = "엔터·콘텐츠, 유통, 화장품"
+stocks = [["NFLX","넷플릭스"],["WMT","월마트"],["COST","코스트코"]]
+
+[[sectors]]
+name = "에너지·조선"
+kr = "정유, 조선(LNG선)"
+stocks = [["XOM","엑슨모빌"],["CVX","셰브론"],["LNG","셰니어 에너지"]]
