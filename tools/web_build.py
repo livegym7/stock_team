@@ -1360,6 +1360,8 @@ def write_html(data):
     data["ibs_board"] = safe(backtest_ibs.board)
     import macro_board   # 시장 › 매크로 재료: 해외 지수·피어·금리·미국 산업 대표 종목 일봉 + 유동성·레버리지 (2026-11-19, 토큰 0)
     data["macro_board"] = safe(macro_board.build)
+    import sector_track   # 업종 지도 발자취: 지난 60거래일 업종 강도 다시 계산 (2026-11-19, 토큰 0, 약 10초)
+    data["sector_track"] = safe(sector_track.build)
     data["tf_market"] = safe(lambda: strategy_tf.market_fragments(strategy_tf.daily_market()))   # 시장(탑다운) 탭·오늘 국면 추적판 (2026-11-14 2차, 약 10초)
     if data.get("tf_core"):
         safe(lambda: (WEB / "core.json").write_text(json.dumps(data["tf_core"], ensure_ascii=False), encoding="utf-8"))

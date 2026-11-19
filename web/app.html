@@ -686,6 +686,7 @@ table.sortt th{cursor:pointer;user-select:none} table.sortt th:hover{color:var(-
  .sk{font-size:12px;font-weight:700;color:var(--muted)} .sv{font-size:20px;font-weight:800;margin:2px 0} .sv small{font-size:12px;font-weight:600;margin-left:2px} .sr{font-size:13px;font-weight:700} .sx{font-size:11.5px;color:var(--muted);margin-top:3px}
  .sumlg{display:flex;gap:14px;font-size:11.5px;color:var(--muted);flex-wrap:wrap} .sumlg i{display:inline-block;width:14px;height:3px;border-radius:2px;margin-right:4px;vertical-align:middle} .sumlg i.dash{background:repeating-linear-gradient(90deg,var(--muted) 0 4px,transparent 4px 7px)}
  @media(max-width:600px){.sumg{grid-template-columns:1fr} .sumt{font-size:12px} .ibsl span:nth-child(2){display:none}}
+ .trkbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:4px} .trkbar input[type=range]{flex:1;min-width:140px;accent-color:var(--accent)} .trkc{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px} .trkt tr.click{cursor:pointer}
  .mcg{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px} .mcc{border:1px solid var(--line);border-radius:12px;padding:8px 10px;background:var(--panel);cursor:pointer;min-width:0} .mcc.big{grid-column:1/-1;border-color:var(--accent)}
  .mch{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap} .mch b{font-size:13.5px} .mch span{font-size:13px;font-weight:700} .mcs{display:flex;gap:4px 10px;flex-wrap:wrap;font-size:11px;color:var(--muted);margin:2px 0 4px} .mcn{font-size:11px;color:var(--muted);margin-top:2px}
  .mh3{margin:16px 0 8px;font-size:14.5px} .mvl{display:flex;gap:4px 14px;flex-wrap:wrap;margin-top:6px;font-size:13px}
@@ -2213,11 +2214,65 @@ function macroTab(){const M=D.macro_board;if(!M)return tfMarket("macro");const t
   return tabs+body+src(`해외 일봉: Yahoo Finance(비공식) 전일 마감 기준 · ${esc(M.made_at||"")} 수집 · 코스피·코스닥은 장중 1분 시세 · 출처·시각은 각 칸 참고`)}
 document.addEventListener("click",e=>{const a=e.target.closest("[data-mk]"),b=e.target.closest("[data-mkw]"),c=e.target.closest("[data-usx]"),d=e.target.closest("[data-mcz]");
   if(a){ui.mk=a.dataset.mk;save();render()}else if(b){ui.mkw=b.dataset.mkw;save();render()}else if(d){ui.mcz=ui.mcz==d.dataset.mcz?null:d.dataset.mcz;save();render()}else if(c){ui.usx=ui.usx==c.dataset.usx?null:c.dataset.usx;save();render()}});
+/* ---------- 업종 지도 발자취 (2026-11-19 사용자 확정): 궤적(꼬리) · 날짜 되감기 · 추이 표. 재료 tools/sector_track.py (지난 60거래일 강도 점수 다시 계산, 이익 증가율은 지금 값 고정) ---------- */
+const TRK_COL=["#2563eb","#e0323a","#16a34a","#9333ea","#ea580c"];
+function trkQuad(g,sc,K){const lead=g.opg!=null&&g.opg>=K.xq;return lead&&sc>=K.yq?"리더":sc>=K.yq?"모멘텀만":lead?"기다림":"회피"}
+function trkState(){const K=D.sector_track||{},n=(K.dates||[]).length;let i=ui.tdi==null?n-1:Math.min(n-1,Math.max(0,ui.tdi));return {K,n,i,per:ui.tper||20,sel:ui.tsel||[]}}
+function trkMap(){const {K,n,i,per,sel}=trkState();if(!n)return "";   // 지금 업종 지도(strategy_tf.chart_matrix)와 같은 모양 + 궤적·날짜 되감기 (2026-11-19 사용자 확정)
+  const W=640,H=360,L=48,Rr=20,T=16,B=38,cx=v=>L+(Math.max(-40,Math.min(200,v))+40)/240*(W-L-Rr),cy=v=>T+(100-Math.max(30,v))/70*(H-T-B),XQ=K.xq,YQ=K.yq;
+  const MT=K.groups.filter(G=>G.pts[i]&&G.opg!=null&&(G.n_fund||0)>=3).map(G=>({G,name:G.group,opg:G.opg,score:G.pts[i][0],rank:G.pts[i][1],n:G.n||3})).sort((p,q)=>p.rank-q.rank);
+  const quad=m=>m.opg>=XQ?(m.score>=YQ?"리더":"기다림"):(m.score>=YQ?"모멘텀만":"회피");
+  let g=`<rect x="${cx(XQ).toFixed(1)}" y="${T}" width="${(W-Rr-cx(XQ)).toFixed(1)}" height="${(cy(YQ)-T).toFixed(1)}" fill="var(--acc)" fill-opacity=".07"/><line x1="${cx(XQ).toFixed(1)}" x2="${cx(XQ).toFixed(1)}" y1="${T}" y2="${H-B}" class="basel"/><line x1="${L}" x2="${W-Rr}" y1="${cy(YQ).toFixed(1)}" y2="${cy(YQ).toFixed(1)}" class="basel"/>`;
+  g+=[0,50,100,150,200].map(v=>`<text x="${cx(v).toFixed(1)}" y="${H-B+14}" class="ax" text-anchor="middle">+${v}%${v==200?"↑":""}</text>`).join("").replace("+0%","+0%");
+  g+=[40,60,80,100].map(v=>`<text x="${L-6}" y="${(cy(v)+3).toFixed(1)}" class="ax" text-anchor="end">${v}</text>`).join("");
+  g+=`<text x="${W-Rr}" y="${H-4}" class="ax" text-anchor="end">펀더멘털: 올해 영업이익 증가율(컨센서스, 업종 합) →</text><text x="${L+4}" y="${T+10}" class="ax">↑ 기술적: 업종 강도 점수(0~100)</text>
+   <text x="${W-Rr-6}" y="${T+14}" class="quad" text-anchor="end">① 리더 — 이익 ↑ · 추세 ↑</text><text x="${W-Rr-6}" y="${(cy(YQ)+16).toFixed(1)}" class="quad" text-anchor="end">② 기다림 — 이익 ↑ · 추세 아직</text><text x="${L+6}" y="${T+28}" class="quad">③ 모멘텀만 — 추세 ↑ · 이익 약함</text><text x="${L+6}" y="${H-B-6}" class="quad">④ 회피</text>`;
+  const show=new Set(MT.slice(0,14).map(m=>m.name));MT.forEach(m=>{if(quad(m)=="기다림"&&m.rank<=25)show.add(m.name)});
+  const placed=[],dim=sel.length?' style="opacity:.3;cursor:pointer"':' style="cursor:pointer"';let dots="",labs="",trail="";
+  MT.forEach(m=>{const X=cx(m.opg),Y=cy(m.score),lead=quad(m)=="리더",k=sel.indexOf(m.name),on=k>=0,c=on?TRK_COL[k%5]:"";
+    dots+=`<circle data-tsel="${esc(m.name)}" cx="${X.toFixed(1)}" cy="${Y.toFixed(1)}" r="${(4+Math.min(10,m.n/3)).toFixed(1)}" class="${lead?"dot hot":"dot"}"${on?` style="fill:${c};stroke:${c};fill-opacity:.85;cursor:pointer"`:dim}><title>${esc(m.name)} · 강도 ${m.score}(${m.rank}위) · 올해 영업이익 ${m.opg>0?"+":""}${Math.round(m.opg)}%</title></circle>`;
+    if(show.has(m.name)||on){const left=X>W-Rr-110,txt=`${m.name} ${m.rank}위`,tw=txt.length*6.6;let ly=Y+3;const x0=left?X-8-tw:X+8,x1=left?X-8:X+8+tw;
+      for(let t=0;t<8;t++)if(placed.some(([a0,a1,py])=>Math.abs(ly-py)<12&&!(x1<a0||x0>a1)))ly+=12;
+      placed.push([x0,x1,ly]);
+      labs+=`<text data-tsel="${esc(m.name)}" x="${(left?X-8:X+8).toFixed(1)}" y="${ly.toFixed(1)}" class="lbl${lead&&!on?" hotl":""}" text-anchor="${left?"end":"start"}" style="cursor:pointer;${on?`fill:${c};font-weight:700`:sel.length?"opacity:.45":""}">${esc(txt)}</text>`}
+    if(on){const a=Math.max(0,i-per),P=[];for(let j=a;j<=i;j++)if(m.G.pts[j])P.push([X-(i-j)/Math.max(1,per)*Math.min(70,per*3.5),cy(m.G.pts[j][0]),j]);   // 가로(이익)는 고정 → 지난 날일수록 왼쪽으로 펼쳐 그림
+      if(P.length>1){trail+=`<path d="${P.map((q,z)=>(z?"L":"M")+q[0].toFixed(1)+" "+q[1].toFixed(1)).join("")}" fill="none" stroke="${c}" stroke-width="1.6" stroke-linejoin="round" opacity=".8"/>`;
+        P.slice(0,-1).forEach((q,z)=>{if(z%Math.max(1,Math.round(per/10))==0)trail+=`<circle cx="${q[0].toFixed(1)}" cy="${q[1].toFixed(1)}" r="2" fill="${c}" opacity="${(.3+.6*z/P.length).toFixed(2)}"><title>${esc(m.name)} ${fmtYmd(K.dates[q[2]])} · 강도 ${m.G.pts[q[2]][0]} · ${m.G.pts[q[2]][1]}위</title></circle>`});
+        const f=P[0];trail+=`<text x="${(f[0]-4).toFixed(1)}" y="${(f[1]+3).toFixed(1)}" class="ax" text-anchor="end" style="fill:${c}">${fmtYmd(K.dates[f[2]])} ${m.G.pts[f[2]][1]}위</text>`}}});
+  return `<svg id="trkmap" viewBox="0 0 ${W} ${H}" class="chart" role="img" aria-label="업종 테크노펀더멘탈 지도">${g}${dots}${trail}${labs}</svg>`}
+function trkTable(){const {K,n,i,sel}=trkState();if(!n)return "";const w1=Math.max(0,i-5),m1=Math.max(0,i-21);
+  const rows=K.groups.filter(G=>G.pts[i]).map(G=>{const now=G.pts[i],a=G.pts[w1],b=G.pts[m1],q=trkQuad(G,now[0],K);let chg="";for(let j=i;j>Math.max(0,i-30);j--){if(G.pts[j]&&G.pts[j-1]){const q1=trkQuad(G,G.pts[j][0],K),q0=trkQuad(G,G.pts[j-1][0],K);if(q1!=q0){chg=`${q0} → ${q1} (${fmtYmd(K.dates[j])})`;break}}}
+    return {G,now,q,r:now[1],d1:a?a[1]-now[1]:null,dm:b?b[1]-now[1]:null,a,b,chg}});
+  const S=ui.tsort||"dm";rows.sort((p,q)=>S=="r"?p.r-q.r:S=="d1"?(q.d1??-99)-(p.d1??-99):S=="dn"?(p.dm??99)-(q.dm??99):(q.dm??-99)-(p.dm??-99));
+  const sp=G=>{const a=Math.max(0,i-29),v=[];for(let j=a;j<=i;j++)v.push(G.pts[j]?G.pts[j][0]:null);const ok=v.filter(z=>z!=null);if(ok.length<3)return "";const W=90,H=22;return `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" aria-hidden="true"><line x1="0" x2="${W}" y1="${H-K.yq/100*H}" y2="${H-K.yq/100*H}" stroke="var(--line)" stroke-dasharray="2 2"/><path d="${v.map((z,m)=>z==null?"":(m&&v[m-1]!=null?"L":"M")+(m/(v.length-1)*W).toFixed(1)+" "+(H-z/100*H).toFixed(1)).join("")}" fill="none" stroke="${ok[ok.length-1]>=ok[0]?"var(--up)":"var(--down)"}" stroke-width="1.4"/></svg>`};
+  const mv=d=>d==null?"-":d>0?`<span class="up">▲${d}</span>`:d<0?`<span class="down">▼${-d}</span>`:"–",qc={"리더":"ok","모멘텀만":"warn","기다림":"","회피":""};
+  return `<div class="chips" style="margin:10px 0 6px">${[["dm","1개월 순위 많이 오른 순"],["dn","많이 내린 순"],["d1","1주 오른 순"],["r","지금 순위"]].map(([k,t])=>`<button class="chip ${S==k?"on":""}" data-tsort="${k}">${t}</button>`).join("")}</div>
+   <div class="tw"><table class="trkt"><tr><th class="l">업종</th><th>분면</th><th>순위</th><th>1주 변화</th><th>1개월 변화</th><th>점수</th><th class="l">점수 추이 (30일)</th><th>20일선 위</th><th class="l">최근 분면 변화</th></tr>
+   ${rows.map(z=>{const k=sel.indexOf(z.G.group);return `<tr class="click ${k>=0?"me":""}" data-tsel="${esc(z.G.group)}"><td class="l">${k>=0?`<i class="trkc" style="background:${TRK_COL[k%5]}"></i>`:""}<b>${esc(z.G.group)}</b></td><td><span class="pill ${qc[z.q]}">${z.q}</span></td><td class="num"><b>${z.r}위</b></td><td class="num">${mv(z.d1)}</td><td class="num">${mv(z.dm)}</td><td class="num">${z.now[0]}</td><td class="l">${sp(z.G)}</td><td class="num">${z.now[2]}%</td><td class="l"><small class="muted">${esc(z.chg)}</small></td></tr>`}).join("")}</table></div>`}
+function sectorTrack(){const {K,n,i,per,sel}=trkState();if(!n)return "";const T=D.tf_market||{};
+  return `<style>${T.css||""}</style><div class="tfr" id="trkbox"><div class="page"><div class="fig"><div class="ft"><span>그림</span>업종 테크노펀더멘탈 지도 — 이익(가로) × 추세(세로) <small class="muted" style="font-weight:400">· 업종을 누르면 지나온 길이 켜집니다(최대 5개)</small></div>
+   <div class="trkbar"><button class="chip" data-tplay="1">${TRK_T?"⏸ 멈춤":"▶ 재생"}</button><input id="trkr" type="range" min="0" max="${n-1}" value="${i}" aria-label="날짜"><b class="num" id="trkd">${esc(fmtYmd(K.dates[i]))}</b>
+    <span class="cg2">${[5,20,60].map(d=>`<button class="chip ${per==d?"on":""}" data-tper="${d}">꼬리 ${d}일</button>`).join("")}</span>${i<n-1?`<button class="chip" data-ttoday="1">오늘로</button>`:""}${sel.length?`<button class="chip" data-tclr="1">선택 지우기</button>`:""}</div>
+   ${sel.length?`<div class="sumlg" style="margin:4px 0">${sel.map((nm,k)=>{const G=K.groups.find(z=>z.group==nm),a=G&&G.pts[Math.max(0,i-per)],b=G&&G.pts[i];return `<span><i style="background:${TRK_COL[k%5]}"></i><b>${esc(nm)}</b> ${a&&b?`${a[1]}위 → ${b[1]}위 · 강도 ${a[0]} → ${b[0]}`:""}</span>`}).join("")}</div>`:""}
+   <div id="trkmapw">${trkMap()}</div>
+   <div class="src">가로 = 올해 영업이익 컨센서스 업종 합 증가율(지난 날짜도 지금 값으로 고정 → 궤적은 위아래로 움직이고, 보기 쉽게 지난 날일수록 왼쪽으로 펼쳐 그림) · 세로 = 주도 섹터 레이더 점수(지난 날은 일봉으로 다시 계산) · ${esc(K.source||"")} · ${esc(K.made_at||"")}</div></div>
+   <div class="fig"><div class="ft"><span>표</span>업종 순위 추이 — 누르면 지도에 궤적</div><div id="trktw">${trkTable()}</div></div></div></div>`}
+let TRK_T=null;
+function sectorsTab(){const h=tfMarket("sectors"),tr=sectorTrack();if(!tr)return h;const F='<div class="fig">',a=h.indexOf(F),b=a<0?-1:h.indexOf(F,a+F.length);return b<0?tr+h:tr+h.slice(0,a)+h.slice(b)}   // 옛 고정 그림 자리에 움직이는 지도
+document.addEventListener("click",e=>{if(e.target.closest("[data-ttoday]")){ui.tdi=null;save();render()}});
+function trkRefresh(){const {K,i}=trkState(),a=document.getElementById("trkmapw"),b=document.getElementById("trktw"),d=document.getElementById("trkd"),r=document.getElementById("trkr");if(a)a.innerHTML=trkMap();if(b)b.innerHTML=trkTable();if(d)d.textContent=fmtYmd(K.dates[i]);if(r&&+r.value!=i)r.value=i}
+document.addEventListener("input",e=>{if(e.target.id=="trkr"){ui.tdi=+e.target.value;trkRefresh()}});
+document.addEventListener("change",e=>{if(e.target.id=="trkr")save()});
+document.addEventListener("click",e=>{const a=e.target.closest("[data-tsel]"),b=e.target.closest("[data-tper]"),c=e.target.closest("[data-tsort]");
+  if(a){const nm=a.dataset.tsel,S=ui.tsel||[];ui.tsel=S.includes(nm)?S.filter(z=>z!=nm):S.concat(nm).slice(-5);save();render()}
+  else if(b){ui.tper=+b.dataset.tper;save();render()}else if(c){ui.tsort=c.dataset.tsort;save();trkRefresh();render()}
+  else if(e.target.closest("[data-tclr]")){ui.tsel=[];save();render()}
+  else if(e.target.closest("[data-tplay]")){if(TRK_T){clearInterval(TRK_T);TRK_T=null;render()}else{const {n,i}=trkState();ui.tdi=i>=n-1?Math.max(0,n-41):i;TRK_T=setInterval(()=>{const s=trkState();if(s.i>=s.n-1||!document.getElementById("trkbox")){clearInterval(TRK_T);TRK_T=null;ui.tdi=null;render();return}ui.tdi=s.i+1;trkRefresh()},350);render()}}});
 function viewFlow(){   // 2026-11-14 2차: 시장 = 매일 보는 탑다운(매크로 → 국면·시장 폭 → 수급 → 업종 지도) + 소식
   let t=ui.ft||"macro";
   if(["digest","reports","channels","news"].includes(t)){if(t!="news")ui.nt=t;ui.ft="macro";save();setTimeout(()=>{location.hash="news"},0);t="macro"}
   if(!MKT_TABS.some(([v])=>v==t))t="macro";
-  const body=t=="macro"?macroTab():tfMarket(t);
+  const body=t=="macro"?macroTab():t=="sectors"?sectorsTab():tfMarket(t);
   return `<h1>시장</h1><div class="sub">탑다운: 매크로 → 국면·시장 폭 → 수급 → 업종 지도 · 숫자는 웹 갱신 때마다 자동(토큰 0) · 글로 된 소식은 '소식' 메뉴</div>
   <div class="chips tabs" style="margin-bottom:10px">${MKT_TABS.map(([v,n])=>`<button class="chip ${t==v?"on":""}" data-ft="${v}">${n}</button>`).join("")}</div>${body}`;
 }

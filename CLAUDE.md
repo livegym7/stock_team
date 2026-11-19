@@ -41,6 +41,7 @@ python3 tools/us_quote.py price                        # 미국 지수·반도�
 python3 tools/us_quote.py daily --symbol ^GSPC --days 60
 python3 tools/screener.py                              # 감시 목록 (시총 2천억↑ 훑기 → 셋업·기준가), --send 텔레그램
 python3 tools/sector_etf.py                            # 섹터 ETF 강도 (config/sector_etfs.toml)
+python3 tools/sector_track.py                          # 업종 지도 발자취 재료(토큰 0): 지난 60거래일 업종 강도 점수·순위를 일봉으로 다시 계산 → data/market/sector_track.json. web_build가 매번 → 웹 '시장 › 업종 지도'(지도 그대로 + 누르면 궤적 · 날짜 막대 되감기·재생 · 순위 추이 표). 가로(이익 증가율)는 지금 값 고정. 표시만 (2026-11-19 사용자 확정)
 python3 tools/dashboard_data.py --collect              # 대시보드 데이터 12개 → data/dashboard/ (dashboard/README.md)
 python3 tools/risk.py                                  # R·CR·E 리스크 지표, 3R 도달 시 본전 손절 알림 / --size 매수가 손절가 → 살 수 있는 수량 / --card --send 포트폴리오 표 그림
 python3 tools/web_build.py                             # 웹 데이터 → web/index.html. "새로고침해줘" = 전체. 화면은 main에 푸시하면 깃허브가 Balance Lab(https://balance-lab.pages.dev)에 자동 배포 (Artifact는 2026-11-19 종료)
