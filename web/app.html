@@ -1912,7 +1912,7 @@ function marketFold(){
 /* 오른쪽 열 (2026-11-11 사용자 요청): 코스피·코스닥 지수 + 투자자 수급은 접지 않고 맨 위, 해외·매크로 '시장 숫자'는 맨 아래 */
 function krFlowBox(){
   const P=D.pulse, st=P?(P.markets?.[0]?.status=="CLOSE"?"마감":"장중")+" "+(P.at||"").slice(11):"";
-  return `<div class="bx"><div class="bh">코스피 · 코스닥 · 투자자 수급<em>${P?(P.markets?.[0]?.status=="CLOSE"?"마감 ":"장중 ")+ageTag(P.at,"지수·수급"):""} · 네이버 · 거래소 잠정치(억 원)</em></div>${thermoTable()}${indexCharts()}</div>`;
+  return `<div class="bx"><div class="bh">코스피 · 코스닥 · 투자자 수급<em>${P?(P.markets?.[0]?.status=="CLOSE"?"마감 ":"장중 ")+ageTag(P.at,"지수·수급"):""} · 네이버 · 거래소 잠정치(억 원)</em></div>${thermoTable()}</div>`;   // 지수 차트는 시장 › 매크로로 (2026-11-19 사용자 요청)
 }
 function macroBox(){
   const m=D.market||{}, sp=m.spark||{};
@@ -2640,6 +2640,7 @@ function stockWhere(c){
   const W=D.watch||{};["signals","candidates","watch","running"].forEach(k=>(W[k]||[]).forEach(x=>{if(x.code==c.code){const lv=x.levels||{};out.push(`<span class="pill warn">감시 ${({signals:"✅ 신호",candidates:"👀 후보",watch:"대기",running:"진행"})[k]}${(x.setups||[]).length?" · 셋업 "+esc(x.setups.join(",")):""}${lv.breakout?` · 기준가 ${w(lv.breakout)} (${pc(lv.distance_pct)})`:""}</span>`)}}));
   return out.join(" ");
 }
+const STOCK_SUB='<div class="sub">발굴: 셋업 보드(펀더+기술) · 신고가 · 거래대금 · 실적 · ETF · 전체 목록 · 종목을 누르면 종목 페이지</div>';   // 탭 줄 위치가 탭마다 같도록 모든 탭에 같은 한 줄 (2026-11-19)
 function stockTabsBar(t){return `<div class="chips tabs" style="margin-bottom:10px">${STOCK_TABS.map(([v,n])=>`<button class="chip ${t==v?"on":""}" data-kt="${v}">${n}</button>`).join("")}</div>`}
 /* 셋업 보드 정리 (2026-11-17 시안): 옛 '감시 목록 원래 화면' 대신 ✅ 오늘 신호 줄 + 👀 후보·1stage·아깝게 빠짐 접힌 칸 + 📖 용어 */
 /* 신호 줄 하나 (2026-11-19 사용자 확정): 장중 돌파(1분 시세)와 마감 확정 신호를 한 줄에, 딱지 이름 통일 — 기준가 돌파 · 매물대 돌파 · 포켓피봇 */
@@ -2720,8 +2721,8 @@ function viewStock(){
     const t=STOCK_TABS.some(([v])=>v==ui.kt)?ui.kt:"setup";
     let body=t=="setup"?setupTab():t=="highs"?highsTab():t=="vtop"?vtopTab():t=="earn"?earnTab():etfTab(),bar="";
     body=body.replace(/<!--bar-->([\s\S]*?)<!--\/bar-->/,(m,x)=>{bar=x;return ""});
-    return `<h1>종목</h1><div class="sub">발굴: 셋업 보드(펀더+기술) · 신고가 · 거래대금 · 실적 · ETF · 전체 목록 · 종목을 누르면 종목 페이지</div>${stockTabsBar(t)}${bar?`<div class="flowbar" style="margin-top:-4px">${bar}</div>`:""}${body}`}
-  if(!c){const L=viewCompanies().replace(/^<h1>기업<\/h1>/,"<h1>종목</h1>"+stockTabsBar("list"));
+    return `<h1>종목</h1>${STOCK_SUB}${stockTabsBar(t)}${bar?`<div class="flowbar" style="margin-top:-4px">${bar}</div>`:""}${body}`}
+  if(!c){const L=viewCompanies().replace(/^<h1>기업<\/h1>/,"<h1>종목</h1>"+STOCK_SUB+stockTabsBar("list"));
     const rec=(ui.recent||[]).map(k=>stockByCode(k)).filter(Boolean);
     return L.replace('<div class="ctool">',`${rec.length?`<div class="chips" style="margin-bottom:10px"><span class="muted" style="font-size:12.5px;align-self:center;padding:0 6px">최근 본 종목</span>${rec.map(x=>`<a class="chip" href="#s${x.code}">${esc(x.name)}</a>`).join("")}</div>`:""}<div class="ctool">`)}
   ui.recent=[c.code,...(ui.recent||[]).filter(x=>x!=c.code)].slice(0,6);save();
