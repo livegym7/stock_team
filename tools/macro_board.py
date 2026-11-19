@@ -20,12 +20,12 @@ import us_quote
 INDEX = [["^GSPC", "S&P 500"], ["^IXIC", "나스닥"], ["^SOX", "필라델피아 반도체"], ["^DJI", "다우"]]
 PEERS = [["^TWII", "대만 가권"], ["^N225", "닛케이 225"], ["000001.SS", "상해종합"], ["EWY", "EWY (미국 상장 한국 ETF)"]]
 RATES = [["KRW=X", "원/달러"], ["DX-Y.NYB", "달러인덱스"], ["^TNX", "미국 10년물 금리(%)"], ["^VIX", "VIX 변동성"], ["CL=F", "WTI 유가"]]
-N = 200
+N = 320   # 화면은 200일, 120일선이 끝까지 그려지도록 넉넉히
 
 
 def rows(sym):
     try:
-        r = us_quote.get_chart(sym, {"range": "1y", "interval": "1d"})
+        r = us_quote.get_chart(sym, {"range": "2y", "interval": "1d"})
         return [[d.replace("-", ""), us_quote.rnd(o), us_quote.rnd(h), us_quote.rnd(l), us_quote.rnd(c), v or 0]
                 for d, o, h, l, c, v in us_quote.bars(r) if o and h and l and c][-N:] if r else []
     except Exception:
@@ -39,7 +39,7 @@ def stat(rs):
     ret = lambda n: round((c[-1] / c[-1 - n] - 1) * 100, 2) if len(c) > n else None
     ma = lambda n: sum(c[-n:]) / n if len(c) >= n else None
     return {"date": rs[-1][0], "close": c[-1], "d1": ret(1), "w1": ret(5), "m1": ret(21), "m3": ret(63),
-            "above20": c[-1] > ma(20), "above60": (c[-1] > ma(60)) if ma(60) else None, "off_high": round((c[-1] / max(x[2] for x in rs) - 1) * 100, 1)}
+            "above20": c[-1] > ma(20), "above60": (c[-1] > ma(60)) if ma(60) else None, "off_high": round((c[-1] / max(x[2] for x in rs[-200:]) - 1) * 100, 1)}
 
 
 def kofia(obj, days=420):

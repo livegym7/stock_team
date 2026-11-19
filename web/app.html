@@ -2160,13 +2160,13 @@ function mcCard(x,o){o=o||{};const r=x.rows||[];if(r.length<30)return `<div clas
   const big=ui.mcz==x.symbol;
   return `<div class="mcc ${big?"big":""}" data-mcz="${esc(x.symbol)}" title="누르면 크게"><div class="mch"><b>${esc(x.name)}</b><span class="num">${x.close>=1000?w(x.close):x.close}</span><span class="num ${cls(o.inv?-x.d1:x.d1)}">${pc(x.d1,2)}</span></div>
    <div class="mcs num"><span>1주 <b class="${cls(x.w1)}">${pc(x.w1,1)}</b></span><span>1개월 <b class="${cls(x.m1)}">${pc(x.m1,1)}</b></span><span>고점 대비 ${pc(x.off_high,1)}</span><span>20일선 ${x.above20?'<b class="up">위</b>':'<b class="down">아래</b>'}</span></div>
-   ${candleChart(r,{w:big?900:360,h:big?320:170,n:big?200:120,ma:big?[20,60,120]:[20,60],vp:false,vol:false,fs:big?11:10})}${o.note?`<div class="mcn">${o.note}</div>`:""}</div>`}
+   ${candleChart(r,{w:big?900:360,h:big?320:170,n:200,ma:big?[20,60,120]:[20,60],vp:false,vol:false,fs:big?11:10})}${o.note?`<div class="mcn">${o.note}</div>`:""}</div>`}
 function mcGrid(L,o){return `<div class="mcg">${L.map(x=>mcCard(x,typeof o=="function"?o(x):o)).join("")}</div>`}
 function relChart(){const M=D.macro_board||{},K=(D.index_daily||{}).KOSPI||[],f=(sym)=>(([...(M.index||[]),...(M.peers||[])].find(x=>x.symbol==sym)||{}).rows||[]).map(r=>r[4]);
-  const S=[["코스피",K.map(r=>r[4]),"var(--accent)",2.6],["대만 가권",f("^TWII"),"#2bb3a3",1.5],["닛케이",f("^N225"),"#e58a3a",1.5],["S&P 500",f("^GSPC"),"#8b7cf6",1.5]].map(([n,c,col,sw])=>{const a=c.slice(-63);return {n,col,sw,v:a.map(x=>(x/a[0]-1)*100)}}).filter(x=>x.v.length>10);
+  const S=[["코스피",K.map(r=>r[4]),"var(--accent)",2.6],["대만 가권",f("^TWII"),"#2bb3a3",1.5],["닛케이",f("^N225"),"#e58a3a",1.5],["S&P 500",f("^GSPC"),"#8b7cf6",1.5]].map(([n,c,col,sw])=>{const a=c.slice(-200);return {n,col,sw,v:a.map(x=>(x/a[0]-1)*100)}}).filter(x=>x.v.length>10);
   if(!S.length)return "";const W=720,H=200,L=40,Rr=10,T=10,B=10,all=S.flatMap(x=>x.v),lo=Math.min(...all,0)-1,hi=Math.max(...all,0)+1,y=v=>(T+(hi-v)/(hi-lo)*(H-T-B)).toFixed(1),ns='vector-effect="non-scaling-stroke"';
-  return `<svg viewBox="0 0 ${W} ${H}" width="100%" height="200" preserveAspectRatio="none" role="img" aria-label="코스피와 다른 시장 3개월 비교"><line x1="${L}" x2="${W-Rr}" y1="${y(0)}" y2="${y(0)}" stroke="var(--line)" stroke-dasharray="3 3" ${ns}/>${S.map(x=>`<path d="${x.v.map((v,i)=>(i?"L":"M")+(L+i/(x.v.length-1)*(W-L-Rr)).toFixed(1)+" "+y(v)).join("")}" fill="none" stroke="${x.col}" stroke-width="${x.sw}" ${ns}/>`).join("")}</svg>
-   <div class="sumlg">${S.map(x=>`<span><i style="background:${x.col}"></i>${x.n} <b class="${cls(x.v[x.v.length-1])}">${pc(x.v[x.v.length-1],1)}</b></span>`).join("")}<span class="muted">최근 3개월(63거래일) · 출발점을 0%로 맞춤</span></div>`}
+  return `<svg viewBox="0 0 ${W} ${H}" width="100%" height="200" preserveAspectRatio="none" role="img" aria-label="코스피와 다른 시장 200일 비교"><line x1="${L}" x2="${W-Rr}" y1="${y(0)}" y2="${y(0)}" stroke="var(--line)" stroke-dasharray="3 3" ${ns}/>${S.map(x=>`<path d="${x.v.map((v,i)=>(i?"L":"M")+(L+i/(x.v.length-1)*(W-L-Rr)).toFixed(1)+" "+y(v)).join("")}" fill="none" stroke="${x.col}" stroke-width="${x.sw}" ${ns}/>`).join("")}</svg>
+   <div class="sumlg">${S.map(x=>`<span><i style="background:${x.col}"></i>${x.n} <b class="${cls(x.v[x.v.length-1])}">${pc(x.v[x.v.length-1],1)}</b></span>`).join("")}<span class="muted">최근 200거래일 · 출발점을 0%로 맞춤</span></div>`}
 function macroVerdict(){const M=D.macro_board||{},K=(D.index_daily||{}).KOSPI||[],c=K.map(r=>r[4]),m=((D.live||{}).markets||[]).find(x=>x.market=="KOSPI")||{},kp=m.price||c[c.length-1],ma20=c.length>=20?c.slice(-20).reduce((a,b)=>a+b,0)/20:null;
   const g=s=>(M.rates||[]).find(x=>x.symbol==s)||{},fx=g("KRW=X"),vix=g("^VIX"),sox=(M.index||[]).find(x=>x.symbol=="^SOX")||{},L=M.liquidity||{};
   const it=[];const add=(ok,t)=>it.push([ok,t]);
@@ -2183,14 +2183,14 @@ function bigIndex(code,name){const X=(D.index_daily||{})[code]||[];if(X.length<6
   return `<div class="bx" style="padding:10px 12px"><div class="ixh"><b style="font-size:15px">${name}</b> <b class="num" style="font-size:19px">${l[4].toLocaleString("en-US",{maximumFractionDigits:2})}</b> <b class="num ${cls(chg)}" style="font-size:15px">${pc(chg,2)}</b> <small class="muted">${m&&m.price?"실시간 "+esc(String(m.at||"").slice(11,16)):"마감"}</small> <small>${maPos(r,[20,60,120])}</small></div>
    ${candleChart(rr,{w:640,h:360,n:mode=="w"?52:200,ma:mode=="w"?[10,20]:[20,60,120],vp:false,vol:true,vlab:"거래량",dd:mode!="w"})}${mode!="w"?`<div class="mcn"><span style="color:var(--down)">●</span> 분산일 (최근 25거래일 중 0.2% 넘게 내리면서 거래량이 늘어난 날) ${r.slice(-25).filter((x,i,a)=>i>0&&x[4]<a[i-1][4]*0.998&&x[5]>a[i-1][5]).length}일</div>`:""}</div>`}
 function liqPanel(){const L=(D.macro_board||{}).liquidity;if(!L||!L.series)return `<div class="empty">유동성 자료가 아직 없습니다</div>`;
-  const jo=v=>(v/10000).toFixed(1)+"조",S=L.series,la=L.last,pos=k=>`<div class="lqp" title="최근 1년 범위 안 위치"><i style="left:${L.pos[k]}%"></i></div><small class="muted">1년 범위 ${L.pos[k]}% 위치</small>`;
+  const jo=v=>(v/10000).toFixed(1)+"조",S=L.series.slice(-200),la=L.last,pos=k=>`<div class="lqp" title="최근 1년 범위 안 위치"><i style="left:${L.pos[k]}%"></i></div><small class="muted">1년 범위 ${L.pos[k]}% 위치</small>`;
   const tile=(t,v,sub,k)=>`<div class="tile"><span>${t}</span><b>${v}</b><small class="muted">${sub}</small>${k?pos(k):""}</div>`;
   const W=720,H=180,Lp=8,ser=[["고객 예탁금",S.map(x=>x.deposit),"var(--accent)"],["신용잔고",S.map(x=>x.credit),"#e0323a"]].map(([n,a,c])=>({n,c,v:a.map(x=>(x/a[0]-1)*100)})),all=ser.flatMap(x=>x.v),lo=Math.min(...all)-2,hi=Math.max(...all)+2,y=v=>(8+(hi-v)/(hi-lo)*(H-16)).toFixed(1),ns='vector-effect="non-scaling-stroke"';
   return `<div class="grid g4">${tile("고객 예탁금",jo(la.deposit),`전일 ${L.d1.deposit>=0?"+":""}${w(L.d1.deposit)}억 · 1개월 ${pc(L.m1_pct.deposit,1)}`,"deposit")}
     ${tile("신용잔고 (빚내서 산 주식)",jo(la.credit),`코스피 ${jo(la.credit_kospi)} · 코스닥 ${jo(la.credit_kosdaq)} · 1개월 ${pc(L.m1_pct.credit,1)}`,"credit")}
     ${tile("신용잔고 ÷ 예탁금",la.ratio+"%","높을수록 빚 비중이 큼 (과열 참고)","ratio")}
     ${tile("미수금 반대매매",w(la.forced)+"억",`미수금 ${w(la.misu)}억 대비 ${la.forced_pct}% · 급락 뒤 늘면 강제 청산`,"forced")}</div>
-   <svg viewBox="0 0 ${W} ${H}" width="100%" height="180" preserveAspectRatio="none" role="img" aria-label="예탁금과 신용잔고 1년 흐름" style="margin-top:8px"><line x1="${Lp}" x2="${W-Lp}" y1="${y(0)}" y2="${y(0)}" stroke="var(--line)" stroke-dasharray="3 3" ${ns}/>${ser.map(x=>`<path d="${x.v.map((v,i)=>(i?"L":"M")+(Lp+i/(x.v.length-1)*(W-2*Lp)).toFixed(1)+" "+y(v)).join("")}" fill="none" stroke="${x.c}" stroke-width="2" ${ns}/>`).join("")}</svg>
+   <svg viewBox="0 0 ${W} ${H}" width="100%" height="180" preserveAspectRatio="none" role="img" aria-label="예탁금과 신용잔고 200일 흐름" style="margin-top:8px"><line x1="${Lp}" x2="${W-Lp}" y1="${y(0)}" y2="${y(0)}" stroke="var(--line)" stroke-dasharray="3 3" ${ns}/>${ser.map(x=>`<path d="${x.v.map((v,i)=>(i?"L":"M")+(Lp+i/(x.v.length-1)*(W-2*Lp)).toFixed(1)+" "+y(v)).join("")}" fill="none" stroke="${x.c}" stroke-width="2" ${ns}/>`).join("")}</svg>
    <div class="sumlg">${ser.map(x=>`<span><i style="background:${x.c}"></i>${x.n} <b class="${cls(x.v[x.v.length-1])}">${pc(x.v[x.v.length-1],1)}</b></span>`).join("")}<span class="muted">${esc(fmtYmd(S[0].date))} ~ ${esc(fmtYmd(L.as_of))} · 시작을 0%로 맞춤</span></div>
    ${src("출처: "+L.source+" · 기준 "+fmtYmd(L.as_of)+" · 신용잔고가 빠르게 늘면 과열, 급락 뒤 반대매매가 늘면 강제 청산 구간(바닥 근처일 때가 많음) — 참고 지표, 매매 규칙 아님")}`}
 function usSectors(){const M=D.macro_board||{},S=[...(M.sectors||[])].sort((a,b)=>(b.d1??-99)-(a.d1??-99)),open=ui.usx;
@@ -2205,10 +2205,10 @@ function macroTab(){const M=D.macro_board;if(!M)return tfMarket("macro");const t
      <div class="ixh" style="margin:2px 0 6px"><b>코스피 · 코스닥</b><span style="margin-left:auto" class="cg2"><button class="chip ${mode=="d"?"on":""}" data-mkw="d">일봉 200일</button><button class="chip ${mode=="w"?"on":""}" data-mkw="w">주봉 1년</button></span></div>
      <div class="grid g2">${bigIndex("KOSPI","코스피")}${bigIndex("KOSDAQ","코스닥")}</div>
      ${H("한국이 강한가","코스피를 대만·일본·미국과 같은 출발점에 놓고 비교")}<div class="panel">${relChart()}</div>
-     ${H("피어그룹","한국과 비교할 시장 · 일봉 120일 · 20·60일선 · 누르면 크게")}${mcGrid(M.peers||[])}`
-   :t=="us"?`${H("주요 지수","일봉 120일 · 20·60일선 · 누르면 크게")}${mcGrid(M.index||[])}
+     ${H("피어그룹","한국과 비교할 시장 · 일봉 200일 · 20·60일선 · 누르면 크게")}${mcGrid(M.peers||[])}`
+   :t=="us"?`${H("주요 지수","일봉 200일 · 20·60일선 · 누르면 크게")}${mcGrid(M.index||[])}
      ${H("미국 산업 지도","간밤 강한 순 · 산업을 누르면 대표 종목 캔들이 펼쳐집니다")}${usSectors()}`
-   :`${H("금리 · 환율 · 원자재","일봉 120일 · 누르면 크게")}${mcGrid(M.rates||[],x=>({note:{"KRW=X":"오르면 원화 약세 → 외국인 수급에 부담","DX-Y.NYB":"오르면 달러 강세 → 신흥국 자금에 부담","^TNX":"오르면 성장주 할인율 부담","^VIX":"20 넘으면 경계 · 30 넘으면 공포","CL=F":"내리면 항공·화학에 우호, 정유에 부담"}[x.symbol]}))}
+   :`${H("금리 · 환율 · 원자재","일봉 200일 · 누르면 크게")}${mcGrid(M.rates||[],x=>({note:{"KRW=X":"오르면 원화 약세 → 외국인 수급에 부담","DX-Y.NYB":"오르면 달러 강세 → 신흥국 자금에 부담","^TNX":"오르면 성장주 할인율 부담","^VIX":"20 넘으면 경계 · 30 넘으면 공포","CL=F":"내리면 항공·화학에 우호, 정유에 부담"}[x.symbol]}))}
      ${H("유동성 · 레버리지","증시 주변 자금과 빚 · 하루 늦게 나옴")}<div class="panel">${liqPanel()}</div>
      ${H("매크로 숫자 · 경제지표")}${tfMarket("macro")}`;
   return tabs+body+src(`해외 일봉: Yahoo Finance(비공식) 전일 마감 기준 · ${esc(M.made_at||"")} 수집 · 코스피·코스닥은 장중 1분 시세 · 출처·시각은 각 칸 참고`)}
