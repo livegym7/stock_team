@@ -1455,6 +1455,22 @@ def write_html(data):
     return blob
 
 
+def cards_source():
+    """깊은 카드 큐(stock_cards.py queue)의 재료를 저장소 파일만으로 만든다 — web/last_data.json이 없는 대화(리서치 데스크)용.
+    시세를 받지 않으므로 '200일 신고가' 조건은 빠진다(보유·관찰 풀, 리포트·채널 언급 조건만)."""
+    t, allp = tg_data()
+    from universe import load as load_universe
+    uni = {s["name"]: s for s in load_universe()["stocks"]}
+    companies = {k: v for k, v in json.loads((DATA / "companies.json").read_text(encoding="utf-8")).items() if not k.startswith("_")}
+    by_stock, _ = report_rows(t, allp, companies, uni)
+    week = (datetime.now(KST) - timedelta(days=7)).isoformat()
+    by_code = {s["code"]: s["name"] for s in uni.values()}
+    return {"companies": build_companies(allp, uni, companies, by_stock, fetch_limit=0),
+            "channels": [{"time": p.get("time"), "channel": p.get("channel"), "text": (p.get("text") or "-")[:400], "stocks": [x.get("name") for x in p.get("stocks") or []]} for p in allp if (p.get("time") or "") >= week],
+            "uni": {c: [n] for c, n in by_code.items()},
+            "risk": {"positions": load_toml("positions.toml").get("positions", [])}, "highs": {}}
+
+
 def partial(part, now):
     """부분 새로고침: 지난 전체 데이터에서 한 부분만 바꿔 다시 쓴다 (시세·백테스트 등은 그대로)."""
     if not LAST.exists():

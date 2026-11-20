@@ -32,7 +32,12 @@ def taxonomy():
 def queue(top=10):
     now = datetime.now(KST)
     comp = json.loads(COMP.read_text(encoding="utf-8"))
-    d = json.loads((ROOT / "web" / "last_data.json").read_text(encoding="utf-8"))
+    last = ROOT / "web" / "last_data.json"
+    if last.exists():
+        d = json.loads(last.read_text(encoding="utf-8"))
+    else:   # 웹 빌드를 돌리지 않는 대화(리서치 데스크): 저장소 파일만으로 재료를 만든다 (신고가 조건만 빠짐)
+        import web_build
+        d = web_build.cards_source()
     prof = json.loads((DATA / "stock_profiles.json").read_text(encoding="utf-8")) if (DATA / "stock_profiles.json").exists() else {}
     names = {c["code"]: c["name"] for c in d.get("companies") or []} | {k: v[0] for k, v in (d.get("uni") or {}).items()}
     old = (now - timedelta(days=180)).strftime("%Y-%m-%d")

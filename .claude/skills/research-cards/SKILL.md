@@ -53,6 +53,7 @@ git add data/research/cards data/naver_research && git commit -m "리포트 카�
 python3 tools/stock_cards.py queue --top 10 > data/cache/stock_cards_queue.json   # 토큰 0, 재료: 기업 개요·업종·리포트·채널
 python3 tools/stock_cards.py save --code 035420 --json '{"sector":"인터넷·소프트웨어","detail":"플랫폼","sub_sectors":["AI·데이터센터"],"one_liner":"…","points":["…"],"against":["…"]}'
 ```
+- `web/last_data.json`이 없어도 큐는 돕니다(저장소 파일만으로 재료를 만듭니다. 이때는 신고가 조건만 빠집니다). **웹 빌드를 따로 돌리지 않고, 이 단계를 건너뛰지 않습니다.**
 - `one_liner` 40자 안팎: 무엇을 만들어/팔아 돈을 버는지. 기업 개요(사실)를 줄여 쓴다.
 - `sector`·`detail`·`sub_sectors`는 큐의 `taxonomy` 안에서만 고른다(매출 1위 사업 = detail).
 - `points` 1~2줄: 지금 주목받는 이유, **재료에 있는 숫자·날짜만**. `against` 1~2줄: 반대로 볼 점(하향 리포트·실적 하회·밸류에이션 등).
