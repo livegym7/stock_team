@@ -709,16 +709,45 @@ def chart_quarters(q):
     return f'<svg viewBox="0 0 {W} {H}" class="chart" role="img" aria-label="분기 영업이익">{"".join(g)}</svg>'
 
 
+def title_html(t):
+    """제목: '—' 앞은 큰 제목, 뒤는 작은 둘째 줄 (한 줄에 다 넣으면 잘림)."""
+    a, _, b = str(t).partition(" — ")
+    return f'<h1 class="tt">{E(a)}</h1>' + (f'<p class="tt2">{E(b)}</p>' if b else "")
+
+
+def sub_html(t):
+    """요약 글: 한 문장 한 줄 (docs/brief-style.md). 괄호 안의 마침표에서는 끊지 않는다."""
+    parts, buf, depth = [], "", 0
+    for ch in str(t):
+        buf += ch
+        depth += ch == "("; depth -= ch == ")" and depth > 0
+        if ch == "." and depth == 0 and buf.rstrip().endswith(("다.", "요.")):
+            parts.append(buf.strip()); buf = ""
+    if buf.strip():
+        parts.append(buf.strip())
+    return '<ul class="sub">' + "".join(f"<li>{x}</li>" for x in parts) + "</ul>"
+
+
+def leaders_html(t):
+    """리더 칸: '큰 줄기:' 머리말은 라벨로 올리고, 항목은 한 줄에 하나씩."""
+    t = re.sub(r"^\s*큰\s*(줄기|스트림|띔)\s*[:：]\s*", "", str(t))
+    items = [x.strip() for x in re.split(r"\s*[·,]\s*", t) if x.strip()]
+    return '<b class="txt k-a">' + "".join(f"<i>{E(x)}</i>" for x in items) + "</b>"
+
+
+
 CSS = """
 .tfr{font-family:var(--f-body);line-height:1.7;color:var(--ink);word-break:keep-all;overflow-wrap:anywhere}
 .tfr .page{background:var(--paper);border:1px solid var(--rule);padding:26px 30px;margin:0 0 22px}
 .tfr .mast{display:flex;justify-content:space-between;align-items:baseline;gap:12px;border-bottom:3px solid var(--acc);padding-bottom:6px;margin-bottom:16px;flex-wrap:wrap}
 .tfr .mast h2{font-size:13px!important;letter-spacing:.08em;color:var(--acc);margin:0!important;font-weight:700}.tfr .mast h2 i{font-style:normal;color:var(--ink3);margin-right:6px}.tfr .mast span{font-size:12px;color:var(--ink3)}
-.tfr h1.tt{font-family:var(--f-disp);font-size:27px!important;line-height:1.4;margin:4px 0 10px!important;text-wrap:balance;font-weight:800}
-.tfr .sub{color:var(--ink2);font-size:14.5px;max-width:70ch;margin:0}
+.tfr h1.tt{font-family:var(--f-disp);font-size:26px!important;line-height:1.35;margin:4px 0 4px!important;font-weight:800;white-space:normal}
+.tfr .tt2{font-size:16px;font-weight:600;color:var(--ink2);line-height:1.5;margin:0 0 12px}
+.tfr ul.sub{list-style:none;padding:0;margin:0;color:var(--ink2);font-family:var(--f-body);font-size:14px!important;line-height:1.75!important;letter-spacing:0;margin:0!important}.tfr ul.sub li{padding-left:14px;position:relative;margin:2px 0}.tfr ul.sub li:before{content:"";position:absolute;left:2px;top:.8em;width:4px;height:4px;border-radius:50%;background:var(--acc)}
 .tfr .flow{display:flex;flex-wrap:wrap;gap:4px;align-items:center;font-size:12px;color:var(--ink2);margin:10px 0 2px}.tfr .flow span{border:1px solid var(--rule);padding:2px 8px;border-radius:3px}.tfr .flow span.on{border-color:var(--acc);color:var(--acc);font-weight:600}
 .tfr .kpis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border:1px solid var(--rule);margin:12px 0}
-.tfr .kpis div{padding:10px 12px;border-right:1px solid var(--rule)}.tfr .kpis div:last-child{border-right:0}.tfr .kpis span{display:block;font-size:11px;color:var(--ink3)}.tfr .kpis b{font-family:var(--f-num);font-size:16px}.tfr .kpis small{display:block;font-size:11px;color:var(--ink3)}
+.tfr .kpis div{padding:12px 14px;border-right:1px solid var(--rule)}.tfr .kpis div:last-child{border-right:0}.tfr .kpis span{display:block;font-size:12px;color:var(--ink3);margin-bottom:2px}.tfr .kpis b{display:block;font-family:var(--f-body);font-variant-numeric:tabular-nums;font-size:18px;font-weight:700;line-height:1.35}.tfr .kpis b.k-r{color:#d92d20}.tfr .kpis b.k-y{color:#c98a00}.tfr .kpis b.k-g{color:#12925a}.tfr .kpis b.k-o{color:#d9730d}.tfr .kpis b.k-a{color:#6b4fd8}
+.tfr .kpis b.txt{font-size:14.5px;line-height:1.5}.tfr .kpis b.txt i{font-style:normal;display:block}.tfr .kpis small{display:block;font-size:12px;color:var(--ink3);line-height:1.5;margin-top:3px}
 .tfr .cover,.tfr .sec{display:grid;grid-template-columns:230px minmax(0,1fr);gap:26px}
 .tfr .side{font-size:12.5px}.tfr .cover .side{border-right:1px solid var(--rule);padding-right:18px}
 .tfr .sec .side{border-top:2px solid var(--ink);padding-top:10px}.tfr .sec .main{border-top:2px solid var(--ink);padding-top:10px;min-width:0}
@@ -945,14 +974,14 @@ def body(P, N):
     return f'''<div class="tfr">
 <article class="page">
  <div class="mast"><h2 data-tl="📄 요약">BALANCE LAB · 테크노펀더멘탈 주간</h2><span>{E(P["date"])} 발간 · 시세 {md(asof)} 종가 · 작성 {E(P["made_at"])}</span></div>
- <h1 class="tt">{E(N.get("title", ""))}</h1>
- <p class="sub">{N.get("sub", "")}</p>
+ {title_html(N.get("title", ""))}
+ {sub_html(N.get("sub", ""))}
  <div class="flow"><span>매크로</span>→<span>시황·국면</span>→<span>수급</span>→<span>업종</span>→<span class="on">종목(펀더 필터 → 기술 트리거)</span>→<span>보유·성적</span></div>
  <div class="kpis">
-  <div><span>매크로</span><b>{E(N.get("macro_view", "중립"))}</b><small>{E(N.get("macro_note", "금리·환율·유가·반도체·VIX"))}</small></div>
-  <div><span>국면</span><b class="{ {"neg": "dn", "pos": "up"}.get(ltc, "")}">{lt}</b><small>분산일 {dd} · 50일선 위 {lb["a50"]:.0f}%</small></div>
+  <div><span>매크로</span><b class="{"k-g" if "우호" in str(N.get("macro_view")) else "k-o" if "부담" in str(N.get("macro_view")) or "경계" in str(N.get("macro_view")) else ""}">{E(N.get("macro_view", "중립"))}</b><small>{E(N.get("macro_note", "금리·환율·유가·반도체·VIX"))}</small></div>
+  <div><span>국면</span><b class="{ {"neg": "k-r", "pos": "k-g", "warn": "k-y"}.get(ltc, "")}">● {lt}</b><small>분산일 {dd} · 50일선 위 {lb["a50"]:.0f}%</small></div>
   <div><span>외국인 5일</span><b class="{cls(f5)}">{f5/10000:+.2f}조</b><small>기관 {i5/10000:+.2f}조 (코스피)</small></div>
-  <div><span>리더 업종</span><b style="font-size:13.5px">{E(N.get("leaders_label") or "·".join(leaders[:3]) or "없음")}</b><small>이익 +{XQ}%↑ + 강도 {YQ}↑</small></div>
+  <div><span>{"큰 스트림" if "스트림" in polish(str(N.get("leaders_label") or "")) or "줄기" in str(N.get("leaders_label") or "") else "리더 업종"}</span>{leaders_html(N.get("leaders_label") or "·".join(leaders[:3]) or "없음")}<small>이익 +{XQ}%↑ + 강도 {YQ}↑</small></div>
   <div><span>핵심 후보</span><b>{len(core)}종목</b><small>펀더 2/3↑ + 기술 2/3↑</small></div>
  </div>
  {compare_html(P, core)}
