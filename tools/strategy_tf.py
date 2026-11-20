@@ -736,7 +736,7 @@ def sub_html(t):
 
 
 def leaders_html(t):
-    """리더 칸: '큰 줄기:' 머리말은 라벨로 올리고, 항목은 한 줄에 하나씩."""
+    """리더 칸: '큰 줄기:'(옛 말) 머리말은 라벨로 올리고, 항목은 한 줄에 하나씩."""
     t = re.sub(r"^\s*큰\s*(줄기|스트림|띔)\s*[:：]\s*", "", str(t))
     items = [x.strip() for x in re.split(r"\s*[·,]\s*", t) if x.strip()]
     return '<b class="txt k-a">' + "".join(f"<i>{E(x)}</i>" for x in items) + "</b>"
@@ -1214,7 +1214,7 @@ def render(date=None):
 
 
 def pool(date=None):
-    """관찰 풀 = 큰 줄기의 기업 지도 (2026-11-20 사용자 확정: "보고서의 관찰 풀은 큰 줄기를 잡는 목적, 셋업 보드는 지금의 수급과 위치").
+    """관찰 풀 = 큰 스트림의 기업 지도 (2026-11-20 사용자 확정: "보고서의 관찰 풀은 큰 줄기를 잡는 목적, 셋업 보드는 지금의 수급과 위치").
     전략 보고서(data/strategy/latest.json)의 스트림 중 유지되는 줄기(확신 2↑ · 단계가 소멸이 아님)의 기업 지도에서 행동이 '회피'가 아닌 종목.
     차트 조건(기준가·RS·업종 강도)으로는 넣고 빼지 않는다 — 차트 자리는 셋업 보드가 본다. 줄기가 유지되면 풀도 유지된다.
     보고서에 줄기가 없으면 옛 방식(pool_board: 감시 목록 × 펀더·기술)으로 대신 쓴다."""
@@ -1230,9 +1230,9 @@ def pool(date=None):
     fund = _fund()
     q = lambda v: str(v or "").replace('"', "").replace("\n", " ")  # noqa: E731
     now = datetime.now(KST).strftime("%Y-%m-%d %H:%M")
-    L = ["# 관찰 풀 — 전략 보고서 '큰 줄기'의 기업 지도 (strategy_tf.py pool, 2026-11-20 사용자 확정). 줄기가 유지되는 동안 풀도 유지.",
+    L = ["# 관찰 풀 — 전략 보고서 '큰 스트림'의 기업 지도 (strategy_tf.py pool, 2026-11-20 사용자 확정). 줄기가 유지되는 동안 풀도 유지.",
          "# 차트 조건으로 넣고 빼지 않음(차트 자리는 셋업 보드). 직접 고쳐도 됨. 감시 목록(screener --pool)은 이 풀 + RS 70↑만 본다. 주문 기능 없음.",
-         f'updated = "{now}"', f'source = "전략 보고서 {q(rep.get("issue"))} 큰 줄기"', ""]
+         f'updated = "{now}"', f'source = "전략 보고서 {q(rep.get("issue"))} 큰 스트림"', ""]
     seen, out, skip = set(), {}, []
     for t in keep:
         items = []
@@ -1249,7 +1249,7 @@ def pool(date=None):
                          f'action = "{q(c.get("action") or "관찰")}", fund = {pts if pts is not None else -1} }},')
         if items:
             nm = q(t.get("name")).split(" — ")[0].split(" (")[0]
-            L += ["[[themes]]", f'id = "{q(t.get("id"))}"', f'name = "🌳 {nm}"', 'stage = "큰 줄기"', "stocks = ["] + items + ["]", ""]
+            L += ["[[themes]]", f'id = "{q(t.get("id"))}"', f'name = "🌳 {nm}"', 'stage = "큰 스트림"', "stocks = ["] + items + ["]", ""]
             out[t.get("id")] = len(items)
     weak = [q(t.get("name")).split(" — ")[0] for t in rep.get("themes") or [] if t not in keep]
     if weak:
@@ -1257,7 +1257,7 @@ def pool(date=None):
     if skip:
         L.append("# 줄기 안이지만 보고서가 '회피'로 적은 종목: " + ", ".join(x for x in skip if x))
     (ROOT / "config" / "watch_pool.toml").write_text("\n".join(L) + "\n", encoding="utf-8")
-    return {"mode": "큰 줄기", "themes": out, "n": len(seen), "left_out_themes": weak, "skip": skip}
+    return {"mode": "큰 스트림", "themes": out, "n": len(seen), "left_out_themes": weak, "skip": skip}
 
 
 def pool_board(date=None):

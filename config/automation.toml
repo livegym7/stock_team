@@ -1,7 +1,7 @@
 # 자동 작업 목록 (웹 '더보기 > 자동 작업 현황'에 표시). Claude가 관리.
 # runner: claude = Claude 예약 작업(토큰 사용) / actions = 깃허브 자동 실행(토큰 0) / build = 웹 데이터 만들 때 함께(토큰 0)
 # model: 예약이 묶인 전용 대화의 모델 (2026-11-10 역할별 배분 — 글쓰기·판단은 Sonnet, 주 1회 종합은 Opus, 스크립트 실행은 Haiku)
-#   Sonnet 데스크 session_0122SASEgvzcy9RLXRVs53fs / Opus 전략 데스크 session_0122SASDV279Yx9jPF6BddAT / Haiku 전용 session_0122SASCA8mmXsLqgWRMNFm9
+#   Sonnet 데스크 session_0122SASEgvzcy9RLXRVs53fs / Opus 전략 데스크 session_0122SASDV279Yx9jPF6BddAT / Haiku 전용 session_0122SASCA8mmXsLqgWRMNFm9 / Sonnet 리서치 데스크 session_0122SASBt8bkHzv3iiiMfwKu(깊이 모드)
 # check: 실행됐는지 확인하는 방법 (report:파일이름 / bus / naver_pick / alerts / calendar / naver / channels / weekly / live / web / strategy)
 
 [[tasks]]
@@ -10,7 +10,7 @@ when = "평일 06:47 · 09:47 · 11:47 · 14:47 · 17:47 시작"
 due = "06:47"
 runner = "claude"
 model = "Sonnet"
-tokens = "보통 (하루 3회 · 같은 회차에 채널·리포트 정리까지)"
+tokens = "보통 (하루 5회 · 같은 회차에 채널·리포트 정리·전문가 견해까지)"
 check = "checkpoint"
 
 [[tasks]]
@@ -19,12 +19,12 @@ when = "평일 07·10·12·15·18시 체크포인트 직후(웹에서는 체크�
 due = "06:47"
 runner = "claude"
 model = "Sonnet"
-tokens = "중간 (하루 5회 → 3회로 줄임)"
+tokens = "중간 (평일 5회, 체크포인트와 같은 회차)"
 check = "live"
 
 [[tasks]]
 name = "감시 목록 (관찰 풀 + RS 70↑ 한정)"
-when = "평일 16:07 — 2026-11-10 관찰 풀 한정으로 다시 켬 (main 합치기 전까지는 건너뜀 알림만)"
+when = "평일 16:07"
 due = "16:07"
 runner = "claude"
 model = "Haiku"
@@ -75,7 +75,7 @@ tokens = "보통"
 check = "weekly"
 
 [[tasks]]
-name = "전략 보고서 (전문 애널리스트 양식 v3)"
+name = "전략 보고서 (스트림 · 테크노펀더 지면, 업종 분석가 6명 → 전략가 → 반론가)"
 when = "토 09:07"
 due = "09:07"
 days = "sat"
@@ -86,7 +86,7 @@ check = "strategy"
 
 [[tasks]]
 name = "웹 배포 (Cloudflare, balance-lab.pages.dev)"
-when = "평일 07:40·12:40·16:40·19:40 · 토 10:30·18:40 · 일 12:40·20:40(주말은 채널 글 수집) · 글 저장 때 바로"
+when = "평일 07:40·12:40·16:40·19:40·21:10 · 토 10:30·18:40 · 일 12:40·20:40(주말은 채널 글 수집) · 글·보고서·종목 메모 저장 때 바로 · 실패하면 텔레그램"
 due = "07:40"
 runner = "actions"
 tokens = "0"

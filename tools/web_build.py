@@ -1,6 +1,6 @@
 """웹 화면(트레이딩룸) 만들기: 여러 도구의 결과를 data 하나로 모아 web/index.html에 넣는다.
 
-설계: docs/web-design.md. 보기 전용 (주문 기능 없음). 계좌 정보가 들어가므로 비공개 Artifact로만 올린다.
+보기 전용 (주문 기능 없음). 화면은 main에 푸시하면 깃허브가 Balance Lab(Cloudflare Pages, 접근 잠금)에 배포한다.
 
 사용법:
     python3 tools/web_build.py            # 데이터 모으기 → web/index.html (Claude가 Artifact로 다시 올림)
@@ -1227,7 +1227,6 @@ def main():
     else:
         data["lab"] = lab(data, now)
         data["radar"] = safe(lambda: json.loads(rp.read_text(encoding="utf-8"))) if rp.exists() else None
-    data["refresh"] = {"owner": "livegym7", "repo": "stock_team", "workflow": "web-data.yml", "branch": "web-data", "path": "data.json"}
     data["parts"] = {**(last.get("parts") or {}), **{k: data["built_at"] for k in ("market", "risk", "channels", "insights")}}
     data["automation"] = safe(lambda: automation(now, data, allp))
     if a.only == "monitoring":   # 모니터링만: 분석 쪽은 지난 데이터 그대로

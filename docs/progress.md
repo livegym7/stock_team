@@ -592,3 +592,9 @@
 - 매크로 보강: `tools/macro_extra.py`(수출 월간 실제 vs 예상·뉴스 제목 / 메모리 현물가 / 유동성) → prep의 `macro_extra` → 지면 표 1-2~1-4. 한계: 관세청 10일 단위·품목별은 뉴스 제목(2차), 메모리 1주·1개월 변화는 기록이 쌓인 뒤부터.
 - 전문가 견해: `tools/views.py`(후보 → 저장 → 주간 묶음). live_brief prep 재료에 후보 칸, /live-brief 스킬에 '🗣 전문가 견해' 칸(회차 2~4건, 하루 8건), strategy_prep 재료에 `views`, /strategy-report 스킬에 인용 규칙. 첫 적용은 다음 체크포인트 회차.
 - 보고서 해설 상자: 라벨 + 한 문장 한 줄 두 칸 짜임(`side_html`), 출처 괄호 흐리게.
+
+### 2026-11-20 전체 점검 뒤 정리 1~3단계
+- **1단계(틀린 것)**: 신호등 정의 통일(`common.regime_light`, 보고서 지면도 20일선 위 + 정배열로) · 백테스트 지수 기준 KODEX 200 → 코스피로 다시 계산(985건 +0.46R) · `backtest.py --scorecard`가 '실제 신호' 건수(지금 5/30)를 세고 웹 배포 때마다 돌게 함 · 웹 배포 21:10 추가 + 종목 메모·관찰 풀 푸시 때 배포 + 실패 텔레그램 알림 + 기업 개요 캐시 보존 · 매수 기록 때 CR 6% 점검 · alerts의 업종 동행 숫자를 `screener.IA_RULE`에서 · `--only monitoring`이 관찰 풀 범위를 지킴 · strategy-report 스킬 저장 명령 오류(`#` 뒤 주석) 수정 · rules.md에 점검 메모(백테스트가 실전보다 낙관적인 이유 등).
+- **2단계(지우기)**: 도구 4개(dashboard_data, chart, backtest_variants, backtest_zone) · `dashboard/`·`data/dashboard/` · `screener.yml` · web_build의 옛 `refresh` · 관찰 풀을 두 번 쓰던 `strategy_prep.write_pool`(이제 `strategy_tf.py pool` 한 곳) · 옛 설계 문서 7개는 `docs/archive/`로. 화면(app.html) 죽은 코드는 따로 진행.
+- **3단계(문서)**: CLAUDE.md를 현재형으로 다시 씀(옛 '작업 방식' 원문은 `docs/decisions.md`) · automation.toml·스킬 설명의 옛 시각·모델·횟수 정리 · '큰 줄기' → '큰 스트림'(관찰 풀 stage 포함).
+- **남은 것**: 깊은 카드가 11/13 이후 멈춘 원인(대기 종목은 87개 있음 → 18:40 회차가 마지막 단계를 건너뛴 것으로 보임, 오늘 저녁 확인) · 옛 디자인 가지 5개 삭제 여부 · 예약 지시문 글 고치기(각 대화에서만 가능) · 4~5단계(디자인 부품 통일·겹치는 화면 덜어내기)는 시안 먼저.

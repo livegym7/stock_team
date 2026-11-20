@@ -1,6 +1,6 @@
 ---
 name: live-brief
-description: 채널·리포트 정리. 채널 새 글·시세를 모으고, 채널 정리와 리포트 정리를 한 번에(글은 한 번만 읽고) 업데이트해 웹에 올린다. 평일은 체크포인트(07:00·12:30·18:30) 회차가 이어서 부르고(2026-11-19 합침), 주말은 토·일 12·20시 예약이 부른다. 또는 사용자가 /live-brief, "새로고침해줘"(정리까지 원할 때)라고 할 때 쓴다.
+description: 채널·리포트 정리. 채널 새 글·시세를 모으고, 채널 정리와 리포트 정리를 한 번에(글은 한 번만 읽고) 업데이트해 웹에 올린다. 평일은 체크포인트(07·10·12·15·18시) 회차가 이어서 부르고(2026-11-19 합침), 주말은 토·일 12·20시 예약이 부른다. 또는 사용자가 /live-brief, "새로고침해줘"(정리까지 원할 때)라고 할 때 쓴다.
 ---
 
 # /live-brief — 채널·리포트 정리 (평일은 체크포인트 직후, 주말은 12·20시)
@@ -27,7 +27,7 @@ description: 채널·리포트 정리. 채널 새 글·시세를 모으고, 채�
 5. 스크래치 파일에 쓴 뒤 저장:
    - `python3 tools/live_brief.py save --kind channels --file <A 파일>`
    - `python3 tools/live_brief.py save --kind report --file <B 파일>`
-5-1. (2026-11-12부터 인사이트는 쓰지 않는다. 하루 세 번 /checkpoint 가 대신한다 — Balance Lab 2.0)
+5-1. (2026-11-12부터 인사이트는 쓰지 않는다. 평일 5회 /checkpoint 가 대신한다 — Balance Lab 2.0)
 6. `python3 tools/web_build.py --only channels` — 방금 저장한 정리를 웹 데이터에 넣는다 (몇 초)
 7. (Artifact 갱신 단계는 2026-11-19 없앰 — 웹은 푸시하면 자동 배포)
 8. 커밋·푸시: `git add reports data && git commit -m "채널·리포트 정리 HH:MM"` → `git pull --rebase origin main` (데이터 파일 충돌은 `git checkout --ours` 후 계속) → `git push -u origin main`. web/index.html은 커밋하지 않는다.

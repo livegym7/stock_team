@@ -543,31 +543,6 @@ def score():
 
 
 # ---------- pool ----------
-def write_pool(L=None):
-    L = L or load_latest()
-    if not L:
-        raise SystemExit("data/strategy/latest.json 없음")
-    _, code_of, group_of = universe_maps()
-    lines = ["# 관찰 풀 — 전략 보고서가 고른 종목 (Claude가 보고서 저장 때 다시 씀. 직접 고쳐도 됨: 빼고 싶은 종목은 줄을 지우고, 넣고 싶은 종목은 같은 형식으로 추가)",
-             "# 감시 목록(screener --pool)은 이 풀 + RS 70↑ 종목만 본다. 주문 기능 없음.",
-             f'updated = "{datetime.now(KST).strftime("%Y-%m-%d %H:%M")}"', f'source = "전략 보고서 {L.get("made_at", "")}"', ""]
-    n = 0
-    for th in L.get("themes", []):
-        lines += ["[[themes]]", f'id = "{th.get("id", "")}"', f'name = "{th.get("name", "").replace(chr(34), "")}"', f'stage = "{th.get("stage", "")}"', "stocks = ["]
-        for c in th.get("companies", []) + [{"name": x, "role": "풀"} for x in th.get("pool_extra", [])]:
-            for nm in split_names(c["name"]):
-                code = (c.get("code") if len(split_names(c["name"])) == 1 else None) or code_of.get(nm)
-                if not code:
-                    lines.append(f'  # {{ name = "{nm}" }}  # 종목 코드 못 찾음(비상장·ETF·해외·시총 2천억 미만?) — 확인 필요')
-                    continue
-                role = (c.get("role") or "").replace('"', "")
-                lines.append(f'  {{ name = "{nm}", code = "{code}", role = "{role}", group = "{group_of(nm) or ""}" }},')
-                n += 1
-        lines += ["]", ""]
-    POOL.write_text("\n".join(lines), encoding="utf-8")
-    return n
-
-
 # ---------- save ----------
 REQUIRED = ("title", "made_at", "conclusion", "summary", "regime", "themes", "sector_scorecard", "pool", "scenarios", "scorecard", "checkpoints", "risks", "references")
 
@@ -595,8 +570,8 @@ def save(path):
         (HIST / f"{(old.get('made_at') or 'old')[:10]}.json").write_text(json.dumps(old, ensure_ascii=False, indent=1), encoding="utf-8")
     d["version"] = 3
     (STRAT / "latest.json").write_text(json.dumps(d, ensure_ascii=False, indent=1), encoding="utf-8")
-    n = write_pool(d)
-    return {"saved": str(STRAT / "latest.json"), "history": sorted(p.name for p in HIST.glob("*.json")), "pool_stocks": n}
+    # 관찰 풀(config/watch_pool.toml)은 여기서 쓰지 않는다 — strategy_tf.py pool 한 곳에서만 (2026-11-20 정리: 한 회차에 두 번 쓰던 것)
+    return {"saved": str(STRAT / "latest.json"), "history": sorted(p.name for p in HIST.glob("*.json")), "pool_note": "관찰 풀은 strategy_tf.py pool 이 씁니다"}
 
 
 def main():
@@ -616,7 +591,10 @@ def main():
     elif a.cmd == "score":
         print(json.dumps(score(), ensure_ascii=False, indent=1))
     elif a.cmd == "pool":
-        print(json.dumps({"pool_stocks": write_pool(), "file": str(POOL)}, ensure_ascii=False))
+        import tomllib   # 읽기만: 지금 관찰 풀 종목 수 (쓰는 것은 strategy_tf.py pool, 2026-11-20)
+        P_ = tomllib.loads(POOL.read_text(encoding="utf-8")) if POOL.exists() else {}
+        print(json.dumps({"pool_stocks": sum(len(t.get("stocks", [])) for t in P_.get("themes", [])), "updated": P_.get("updated"), "file": str(POOL),
+                          "note": "읽기 전용. 다시 쓰려면 python3 tools/strategy_tf.py pool"}, ensure_ascii=False))
     elif a.cmd == "save":
         print(json.dumps(save(a.file), ensure_ascii=False))
 

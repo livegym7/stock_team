@@ -119,7 +119,7 @@ def weekly_closes(rows):
 
 
 def volume_zones(rows, nb=40):
-    """거래대금 매물대: 평균의 1.5배 넘는 가격 칸을 붙여서 구간으로 (chart.py와 같은 방식)."""
+    """거래대금 매물대: 평균의 1.5배 넘는 가격 칸을 붙여서 구간으로 (옛 chart.py와 같은 방식)."""
     lo, hi = min(r["low"] for r in rows), max(r["high"] for r in rows)
     if hi <= lo:
         return []

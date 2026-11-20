@@ -347,10 +347,10 @@ def _pool_targets():
     core, groups = {}, defaultdict(set)
     for th in wp.get("themes", []):
         for st in th.get("stocks", []):
-            # 2026-11-20: 풀이 '큰 줄기의 기업 지도'로 바뀜 → 핵심 = 행동 '준비'(옛 C1), 업종은 풀 전체(옛 C1·C4)
+            # 2026-11-20: 풀이 '큰 스트림의 기업 지도'로 바뀜 → 핵심 = 행동 '준비'(옛 C1), 업종은 풀 전체(옛 C1·C4)
             if th.get("id") == "C1" or st.get("action") == "준비":
                 core[st["code"]] = st["name"]
-            if (th.get("id") in ("C1", "C4") or th.get("stage") == "큰 줄기") and st.get("group"):
+            if (th.get("id") in ("C1", "C4") or th.get("stage") in ("큰 스트림", "큰 줄기")) and st.get("group"):
                 groups[st["group"]].add(st["name"])
     return core, groups
 

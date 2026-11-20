@@ -1,6 +1,6 @@
 ---
 name: research-cards
-description: 네이버 산업·전략 리포트 카드 쓰기 (Tier 1, 평일 18:40 Haiku 예약). 토큰 0 도구가 고른 새 내용 리포트 10~15건의 핵심 구간만 읽고 구조화 카드(논지·입장·숫자 3·근거 2·위험 2·새 주장·깊이 읽을 가치)를 채운다. 사용자가 /research-cards, "리포트 카드 써줘"라고 하거나 예약이 부를 때 쓴다.
+description: 네이버 산업·전략 리포트 카드 쓰기 (Tier 1, 평일 18:40 예약 — 깊이 모드는 Sonnet 리서치 데스크 30건·전문까지, 절약 모드는 Haiku 15건·핵심 구간만; 맨 처음 `python3 tools/depth.py`로 확인). 토큰 0 도구가 고른 새 내용 리포트의 핵심 구간을 읽고 구조화 카드(논지·입장·숫자 3·근거 2·위험 2·새 주장·깊이 읽을 가치)를 채운다. 사용자가 /research-cards, "리포트 카드 써줘"라고 하거나 예약이 부를 때 쓴다.
 ---
 
 # /research-cards — 산업·전략 리포트 카드 (Tier 1)
@@ -42,7 +42,7 @@ python3 tools/research_cards.py save --cat industry --nid 46926 --json '{"thesis
 ```bash
 git add data/research/cards data/naver_research && git commit -m "리포트 카드 MM/DD n건" && git push -u origin main
 ```
-- 텔레그램은 보내지 않는다(실패 알림만). 웹 반영은 다음 웹 갱신(16:32·07:32)과 자료실 19:13 때 된다.
+- 텔레그램은 보내지 않는다(실패 알림만). 웹 반영은 다음 웹 배포(19:40·21:10)와 자료실 19:13 때 된다.
 
 ## 사용량
 - Haiku, 입력 약 5~6만 토큰 + 출력 1만 → 하루 약 7만 토큰(Haiku 단가). 큐를 20건 넘게 늘리지 않는다.
