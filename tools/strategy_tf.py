@@ -764,6 +764,11 @@ CSS = """
 .tfr .sec .side{border-top:2px solid var(--ink);padding:12px 16px;background:var(--acc2);font-size:14px;line-height:1.8;max-width:none}
 .tfr .sec .side p{margin:0 0 8px;color:var(--ink);max-width:78ch}.tfr .sec .side::before{content:"해설";display:block;font-size:11px;letter-spacing:.1em;color:var(--acc);font-weight:700;margin-bottom:4px}
 .tfr .sec .main{border-top:0!important;padding-top:4px}
+.tfr .side .sx{display:grid;grid-template-columns:118px minmax(0,1fr);gap:4px 16px;padding:9px 0;border-top:1px solid color-mix(in srgb,var(--acc) 22%,transparent)}.tfr .side .sx:first-of-type{border-top:0;padding-top:2px}
+.tfr .side .sx .lb{font-weight:700;color:var(--acc);font-size:13px;line-height:1.6;padding-top:1px}.tfr .side .sx .lb:empty+ul{}.tfr .side .sx.head{display:block;font-size:14.5px;padding:2px 0 8px}
+.tfr .side .sx ul{list-style:none;margin:0;padding:0}.tfr .side .sx li{position:relative;padding-left:12px;margin:0 0 5px;line-height:1.7;color:var(--ink)}.tfr .side .sx li:last-child{margin-bottom:0}.tfr .side .sx li:before{content:"";position:absolute;left:1px;top:.78em;width:4px;height:4px;border-radius:50%;background:var(--ink3)}
+.tfr .side small.cite{color:var(--ink3);font-size:12px;white-space:normal}
+@media(max-width:760px){.tfr .side .sx{grid-template-columns:1fr;gap:2px}.tfr .side .sx .lb:empty{display:none}}
 .tfr .two2{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:14px;margin:0 0 14px}@media(max-width:760px){.tfr .two2{grid-template-columns:1fr}}
 .tfr .box{border:1px solid var(--rule);border-radius:6px;padding:12px 14px}.tfr .box h4{font-size:12px;letter-spacing:.08em;color:var(--acc);margin:0 0 8px}.tfr .box h4 small{color:var(--ink3);font-weight:400;letter-spacing:0;margin-left:6px}
 .tfr table.desk{width:100%;border-collapse:collapse}.tfr table.desk td{padding:6px 0;border-bottom:1px dashed var(--rule);font-size:13.5px;vertical-align:middle}.tfr table.desk td:first-child{text-align:left}.tfr table.desk td:last-child{text-align:right;white-space:nowrap}.tfr table.desk tr:last-child td{border-bottom:0}
@@ -897,6 +902,62 @@ def counter_html(N, items, title):
     return f'<h3 style="font-size:14px;margin:14px 0 6px">⚖️ {title} — 반대 근거 + 깨지는 조건</h3><div class="ctg">{"".join(cards)}</div>'
 
 
+_SRC = re.compile(r"출처|Yahoo|TradingView|한국은행|산업통상|금융투자협회|DRAMeXchange|채널 요약|개인 의견|네이버|컨센서스|증권|리서치|\d{1,2}/\d{1,2}")
+
+
+def _cite(sn):
+    """맨 바깥 괄호 가운데 출처로 보이는 것만 작고 흐리게 (괄호 안 괄호도 한 덩어리로)."""
+    out, depth, st = "", 0, 0
+    for i, ch in enumerate(sn):
+        if ch == "(":
+            if depth == 0:
+                out += sn[st:i]; st = i
+            depth += 1
+        elif ch == ")" and depth:
+            depth -= 1
+            if depth == 0:
+                g = sn[st:i + 1]
+                out += f'<small class="cite">{g}</small>' if _SRC.search(g) else g
+                st = i + 1
+    return out + sn[st:]
+
+
+def _sentences(t):
+    """한 문장 한 줄로 끊기: 괄호·따옴표 안의 마침표에서는 끊지 않고, '…습니다(출처).'처럼 출처 괄호가 붙은 문장도 끊는다."""
+    out, buf, depth, q = [], "", 0, False
+    for i, ch in enumerate(t):
+        buf += ch
+        if ch == "(":
+            depth += 1
+        elif ch == ")" and depth:
+            depth -= 1
+        elif ch in "'‘’":
+            q = (not q) if ch == "'" else (ch == "‘")
+        if ch == "." and depth == 0 and not q and t[i + 1:i + 2] in ("", " "):
+            core = re.sub(r"\s*\((?:[^()]|\([^()]*\))*\)\.$", ".", buf.rstrip())   # 끝의 출처 괄호를 떼고 어미 확인
+            if core.endswith(("다.", "요.", "까.")):
+                out.append(buf.strip()); buf = ""
+    if buf.strip():
+        out.append(buf.strip())
+    return out
+
+
+def side_html(L):
+    rows = []
+    for x in L or []:
+        x = str(x)
+        if re.fullmatch(r"\s*<b>.*</b>\s*", x, re.S):
+            rows.append(["head", x, []]); continue
+        m = re.match(r"\s*<b>([^<]{1,24})</b>\s*[—–-]\s*(.*)$", x, re.S)
+        lab, body = (m.group(1), m.group(2)) if m else ("", x)
+        li = [f"<li>{_cite(sn)}</li>" for sn in _sentences(body)]
+        if not lab and rows and rows[-1][0] != "head":
+            rows[-1][2] += li            # 라벨 없는 문단은 앞 칸에 이어 붙임
+        else:
+            rows.append(["row", lab, li])
+    return "".join(f'<div class="sx head">{b}</div>' if k == "head" else f'<div class="sx"><div class="lb">{E(b)}</div><ul>{"".join(li)}</ul></div>' for k, b, li in rows)
+
+
 def _mon(p):
     m = {"Jan": 1, "Feb": 2, "Mar": 3, "Apr": 4, "May": 5, "Jun": 6, "Jul": 7, "Aug": 8, "Sep": 9, "Oct": 10, "Nov": 11, "Dec": 12}.get(str(p)[:3])
     return f"{m}월" if m else str(p)
@@ -946,7 +1007,7 @@ def body(P, N):
     first_low = min(P["breadth"][-20:], key=lambda b: b["a50"]) if P["breadth"] else lb
     DY = P["days"]; f5 = sum((d["f"] or 0) for d in DY[-5:]); i5 = sum((d["i"] or 0) for d in DY[-5:])
     dd = len(P["regime"]["dist_days"]); mk = P.get("market") or {}
-    para = lambda L: "".join(f"<p>{x}</p>" for x in (L or []))  # noqa: E731  (해석 글은 Claude가 쓴 짧은 HTML 허용: <b>만)
+    para = side_html   # 해설: 왼쪽 라벨(무엇이·왜…) + 오른쪽 한 문장 한 줄, 출처 괄호는 작게 (2026-11-20 사용자 요청)
     # 데스크 의견: narr가 없으면 업종 분류로
     desk = N.get("desk") or ([["시장 노출", {"빨강": "관찰", "노랑": "준비", "초록": "참여"}[lt], {"빨강": "neu", "노랑": "pos", "초록": "pos"}[lt]]]
                              + [[g, "리더", "pos"] for g in leaders[:3]] + [[m["group"], "모멘텀만", "warn"] for m in sorted(MT, key=lambda m: m["rank"]) if quad(m) == "모멘텀만"][:2]
