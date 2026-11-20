@@ -572,3 +572,4 @@
 - 배운 점: 새 컨테이너는 `data/cache/`가 비어 있어 일봉·실적 숫자가 낡게 나옴 → 보고서 전에 일봉 전 종목 재수신 + `fundamentals.py update --budget 420` + `universe.py --refresh`(네이버 502는 재시도) 필요
 - 2026-11-20: 분석 깊이 모드(맥스 구독 중) — config/depth.toml + tools/depth.py(스킬이 읽는 모드 값) · 리포트 카드 Sonnet 30건·전문까지 · 깊이 읽기 8건 전문 + 업종 노트 매일 · 채널 주장 검증(claim_check.py) + 사진 읽기 · 종목 메모(stock_memo.py, /stock-memo, Opus 20:10) · 전략 보고서 업종 분석가 6명 + 수요일 중간 점검. 새 대화 '리서치 데스크 (Sonnet)', 새 예약 4개, 끈 예약 2개(Haiku 카드·19:13 3건). 되돌리는 법 docs/plan-modes.md, 직전 코드는 가지 lean-2026-11-19. 다음: 종목 메모·검증 성적을 웹에 보여 주는 화면(시안 먼저)
 - 2026-11-20: 채널 주장 검증은 끔(사용자: 굳이 필요 없음) — depth.toml channel_verify = false, 사진 읽기만 유지. 검증 탭 화면도 만들지 않음
+- 2026-11-20: 종목 페이지에 '📝 종목 메모' 칸(가설·근거 vs 반대·깨지는 조건·이익 동인·핵심 숫자·경쟁사·다음 확인·읽은 자료) — web_build가 data/stock_memos를 D.stock_memos로. 메모가 있으면 깊은 카드의 주목 이유·반대로 볼 점은 숨김

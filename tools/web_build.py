@@ -1405,6 +1405,8 @@ def write_html(data):
         opg = {m["group"]: m.get("opg") for m in (json.loads(fs[-1].read_text(encoding="utf-8")).get("matrix") or [])} if fs else {}
         return {"fp": fp, "opg": opg}
     data["secpop"] = safe(_secpop)
+    # 깊이 모드 자료 (2026-11-20): 종목 메모(코드 → 메모)
+    data["stock_memos"] = safe(lambda: {f.stem: json.loads(f.read_text(encoding="utf-8")) for f in (DATA / "stock_memos").glob("*.json")}, {})
     data["brief_missed"] = safe(lambda: __import__("live_brief").missed(data), [])   # 놓친 것 점검 (2026-11-15, 토큰 0)
     WEB.mkdir(exist_ok=True)
     LAST.write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")

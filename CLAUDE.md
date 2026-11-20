@@ -79,7 +79,7 @@ python3 tools/dart.py list --days 3                    # 관심종목 공시
 python3 tools/dart.py fin --stock 005930 --year 2026 --quarter 3
 python3 tools/depth.py [set lean|deep]                 # 분석 깊이 모드(config/depth.toml): 스킬이 맨 처음 읽는 값. 되돌리는 법 docs/plan-modes.md
 python3 tools/claim_check.py add|stats|recent          # 채널 주장 검증 기록(깊이 모드): 확인·미확인·틀림 + 1차 자료 → data/telegram/claims.jsonl, 채널별 성적(참고)
-python3 tools/stock_memo.py queue|save|show|list       # 종목 메모(깊이 모드, Opus 평일 20:10): 보유·관찰 풀 하루 4종목 → data/stock_memos/코드.json. /stock-memo 스킬
+python3 tools/stock_memo.py queue|save|show|list       # 종목 메모(깊이 모드, Opus 평일 20:10): 보유·관찰 풀 하루 4종목 → data/stock_memos/코드.json → 웹 종목 페이지 맨 위 '📝 종목 메모' 칸(`memoBox`). /stock-memo 스킬
 python3 tools/telegram_send.py --test                  # 텔레그램 연결 테스트
 python3 tools/telegram_send.py --file reports/날짜/파일.md
 ```
