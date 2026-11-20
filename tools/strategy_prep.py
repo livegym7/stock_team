@@ -298,7 +298,7 @@ def calendar_ahead(pool, days=14):
 
 # ---------- 채널 흐름 (2차 자료): 정리 헤드라인 · 여러 채널 소식 · 리포트 요약 근거 · 말 vs 주가 ----------
 DIGEST_KINDS = (("채널 정리", "channels_[0-9]*.md"), ("리포트 정리", "report_live_[0-9]*.md"))   # 리포트 브리핑(14:53)은 리포트 정리와 겹쳐 제외
-HEAD_MARKS = ("💡", "🔥", "🔺", "🔽", "🆕", "⚖️", "🌡️", "🧭", "📌", "💼", "🔄")
+HEAD_MARKS = ("💡", "🔥", "🔺", "🔽", "🔴", "🔵", "🆕", "⚖️", "🌡️", "🧭", "📌", "💼", "🔄")
 
 
 def digests(days=5, max_chars=900):
@@ -451,10 +451,10 @@ def md_summary(o):
     L.append("관찰 풀 종목 주별 언급: " + " · ".join(f"{p['name']} {p['weeks']}" for p in tk.get("pool", [])[:20]))
     ea = o.get("earnings") or {}
     L.append(f"## ③ 이익: 31일 리포트 상향 {ea.get('totals_31d', {}).get('up')} / 하향 {ea.get('totals_31d', {}).get('down')}")
-    L.append("최근 7일 섹터 흐름: " + " · ".join(f"{f['sector']} 🔺{f.get('up', 0)}🔽{f.get('down', 0)}🆕{f.get('new', 0)}" for f in ea.get("flow_7d", [])[:12]))
+    L.append("최근 7일 섹터 흐름: " + " · ".join(f"{f['sector']} 🔴{f.get('up', 0)}🔵{f.get('down', 0)}🆕{f.get('new', 0)}" for f in ea.get("flow_7d", [])[:12]))
     for p in ea.get("pool", []):
         c = p.get("consensus") or {}; e = p.get("earnings") or {}
-        L.append(f"- {p['name']}: 리포트 {p['reports_31d']}건 🔺{p['up']} 🔽{p['down']} · 컨센 {c.get('now')} ({c.get('chg_pct')}%, {c.get('n')}곳) · 실적 {e.get('verdict') or '-'} 영업이익 {e.get('op')} vs 예상 {e.get('op_est')}")
+        L.append(f"- {p['name']}: 리포트 {p['reports_31d']}건 🔴{p['up']} 🔵{p['down']} · 컨센 {c.get('now')} ({c.get('chg_pct')}%, {c.get('n')}곳) · 실적 {e.get('verdict') or '-'} 영업이익 {e.get('op')} vs 예상 {e.get('op_est')}")
     pm = o.get("price_money") or {}
     L.append("## ④⑤ 가격·돈: 관찰 풀")
     for p in pm.get("pool", []):
@@ -463,7 +463,7 @@ def md_summary(o):
     L.append("업종 5일 하위: " + " · ".join(f"{s['group']} {s.get('r5')}%" for s in pm.get("sectors", [])[-6:]))
     L.append("## 채널 흐름 (2차 자료) — 업종별 말 vs 주가")
     for r in o.get("channel_themes") or []:
-        L.append(f"- {r.get('group')}: 글 {r.get('talk')}(전 {r.get('talk_prev')}, {r.get('talk_chg')}%) 🔺{r.get('up')}🔽{r.get('down')} · 5일 {r.get('r5')}% 20일 {r.get('r20')}% · 수급5일 {r.get('money5')}억 → {r.get('tag')} · {', '.join((r.get('stocks') or [])[:3])}")
+        L.append(f"- {r.get('group')}: 글 {r.get('talk')}(전 {r.get('talk_prev')}, {r.get('talk_chg')}%) 🔴{r.get('up')}🔵{r.get('down')} · 5일 {r.get('r5')}% 20일 {r.get('r20')}% · 수급5일 {r.get('money5')}억 → {r.get('tag')} · {', '.join((r.get('stocks') or [])[:3])}")
     L.append("## 🔥 여러 채널이 같이 다룬 소식 (7일, 3곳↑)")
     for h in o.get("hot_topics") or []:
         L.append(f"- [{h['time'][5:]} · {h['channels']}곳 · {h['type']}] {h['head']} {('(' + ', '.join(h['stocks']) + ')') if h['stocks'] else ''}")
@@ -473,7 +473,7 @@ def md_summary(o):
         L.append(d["text"])
     L.append("## 채널 리포트 요약 근거 (2차 · 관찰 풀 + 리포트 많은 섹터 대표 종목, 종목당 최근 2건)")
     for rp in o.get("report_points") or []:
-        L.append(f"- {rp['name']}: 31일 {rp['n_31d']}건 🔺{rp['up']} 🔽{rp['down']}")
+        L.append(f"- {rp['name']}: 31일 {rp['n_31d']}건 🔴{rp['up']} 🔵{rp['down']}")
         for r in rp["reports"]:
             tp = f"{r['before']:,}→{r['after']:,}" if r.get("before") and r.get("after") else (f"{r['after']:,}" if r.get("after") else "")
             L.append(f"  · {r['t'][5:]} {r.get('broker') or ''} {r.get('dir') or ''} {tp} {('— ' + r['title']) if r.get('title') else ''}")
@@ -499,9 +499,9 @@ def md_summary(o):
             st = t["stance"]
             L.append(f"- **{t['topic']}** {t['n']}건(글쓴이 {t['who_n']}명) · 긍정 {st.get('긍정', 0)} / 부정·경계 {st.get('부정', 0) + st.get('경계', 0)} / 중립 {st.get('중립', 0)}")
             for v in t["pro"]:
-                L.append(f"  - 👍 {v['who']} {v['date'][5:]}: {v['view']} — {v['reason']}")
+                L.append(f"  - 🔴 {v['who']} {v['date'][5:]}: {v['view']} — {v['reason']}")
             for v in t["con"]:
-                L.append(f"  - 👎 {v['who']} {v['date'][5:]}: {v['view']} — {v['reason']}")
+                L.append(f"  - 🔵 {v['who']} {v['date'][5:]}: {v['view']} — {v['reason']}")
         L.append("")
     L.append("## 앞으로 14일 일정")
     for e in o.get("calendar") or []:

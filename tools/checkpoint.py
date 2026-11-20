@@ -134,7 +134,7 @@ def md_prep(o):
         L.append("## 오늘 리포트 (채널 요약 2차)")
         L += [f"- {r['name']} {r.get('broker') or ''} {r.get('before') or ''}→{r.get('after')} {r.get('dir') or ''} · {r['point']}" for r in o["reports_today"]]
     if o.get("report_flow"):
-        L.append("- 31일 업종 흐름: " + " · ".join(f"{s.get('sector')} 🔺{s.get('up')}/🔽{s.get('down')}" for s in o["report_flow"]))
+        L.append("- 31일 업종 흐름: " + " · ".join(f"{s.get('sector')} 🔴{s.get('up')}/🔵{s.get('down')}" for s in o["report_flow"]))
     if (o.get("highs_today") or {}).get("groups"):
         L.append("- 신고가 많은 업종: " + " · ".join(f"{g['group']} {g['n60']}" for g in o["highs_today"]["groups"]))
     tr = o.get("trade_review") or {}

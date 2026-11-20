@@ -232,10 +232,11 @@ JSON 형식 (키 이름 그대로):
     "report_link": "관련 리포트 n건 — 한 줄 (없으면 빈칸)"}}],
  "reports": {{"counts": {{"total": 100, "up": 2, "down": 25, "new": 3, "keep": 28}}, "one": "오늘 리포트 한 줄 요약 …입니다.", "mine": "내 종목 관련 리포트 한 줄 …입니다.", "note": "읽는 법·엇갈리는 점 한 줄 (없으면 빈칸)", "new": true,
    "sectors": [{{"dir": "down|up|new", "name": "유틸리티·원전", "n": 3, "text": "한전기술 −56% · 한전KPS −44% (한화)", "new": true}}],   // 하향·상향·신규 섹터 묶음, 상향 먼저
-   "picks": [{{"dir": "down|up|new|note", "name": "한전기술", "broker": "한화", "t": "14:45", "change": "210,000 → 93,000 (−56%)", "why": "근거 한두 문장 …입니다.", "new": true}}]}},   // 눈여겨볼 5~8건: 보유·관찰 풀 > 같은 종목 여러 증권사 > 변화율 큰 것 > 업종 코멘트(dir note)
+   "picks": [{{"dir": "down|up|new|note", "name": "한전기술", "broker": "한화", "t": "14:45", "change": "210,000 → 93,000 (−56%)", "why": "근거 한두 문장 …입니다.", "url": "그 리포트 글의 링크(재료에 있으면, 없으면 빈칸)", "new": true}}]}},   // 눈여겨볼 5~8건: 보유·관찰 풀 > 같은 종목 여러 증권사 > 변화율 큰 것 > 업종 코멘트(dir note)
  "others": [{{"group": "계약·수주", "items": [{{"t": "09:21", "tone": "pos", "text": "…", "new": false}}]}}],
  "views": [{{"channel": "Jstockclass", "id": 123, "who": "JPM (Jstockclass 요약)", "topic": "시장 국면", "stance": "긍정|부정|중립|경계", "view": "…입니다.", "reason": "…", "horizon": "단기|중기|장기"}}],
  "sources": "텔레그램 채널 요약(2차 자료) · 시세 네이버·Yahoo(비공식) HH:MM · 견해는 개인 의견 · 판단은 본인"}}
+- 기호는 세 가지로만 씁니다: 오름·긍정 🔴 / 내림·부정 🔵 / 중립 ⚪ (🔺🔽➖👍👎는 쓰지 않습니다). 새로 나온 것은 🆕.
 - reports의 숫자는 아래 '[리포트 대조]'와 리포트·실적 글에서 센다. '유지' 리포트는 보유·관심 종목이거나 같은 종목 3건↑일 때만 picks에 쓴다.
 
 [이전 주제 카드 JSON — {tp_at or '없음(오늘 첫 주제 카드)'}. 이것을 고쳐 쓴다. 없으면 아래 이전 채널 정리·리포트 정리 글(옛 형식 또는 자동으로 만든 글)을 재료로 삼는다]
@@ -298,7 +299,7 @@ JSON 형식 (키 이름 그대로):
 {rp_part}
 
 [(B) 리포트 대조 — 머리줄 다음 줄에 그대로 한 줄로 적고, 버틀러에만 있는 목표가 변경은 빠짐없이 반영] {xcheck}
-- '유지' 리포트(대부분 버틀러)는 보유·관심 종목이거나 같은 종목 리포트가 3건↑일 때만 본문에 쓰고, 나머지는 머리줄 ➖유지 숫자에만 센다.
+- '유지' 리포트(대부분 버틀러)는 보유·관심 종목이거나 같은 종목 리포트가 3건↑일 때만 본문에 쓰고, 나머지는 머리줄 ⚪유지 숫자에만 센다.
 
 [(B)용 리포트·실적 글 {len(rp_rows)}개 · {(rp_since if rp_prev else rp_start)[5:]} 이후 · 오늘 누적 {len(rp_today)}건{f" · 공시 채널 실적 {disc_cut}건은 예상치 차이가 작아 뺌(웹 실적 탭에 있음)" if disc_cut else ""}]
 {chr(10).join(("★" + line(p, 1500)) if imp(p) else line(p, 300) for p in rp_rows[-120:]) or '(새 리포트 없음)'}
@@ -312,7 +313,7 @@ JSON 형식 (키 이름 그대로):
 
 STANCE = ("긍정", "부정", "엇갈림", "중립")
 TONE = {"pos": "🔴", "neg": "🔵", "neu": "⚪"}
-DIRS = {"up": "🔺", "down": "🔽", "new": "🆕", "note": "⚪"}
+DIRS = {"up": "🔴", "down": "🔵", "new": "🆕", "note": "⚪"}
 BAD = ("매수하세요", "매도하세요", "사야 합니다", "팔아야 합니다", "적극 매수", "강력 매수", "무조건")
 
 
@@ -368,7 +369,7 @@ def topics_to_text(d):
     A += ["", "📚 오늘의 채널 종합"]
     for i, t in enumerate(d.get("topics") or []):
         A += [f"{i + 1}️⃣ {t.get('name', '')} · {t.get('stance', '')}" + (" 🆕" if t.get("new") else ""), t.get("one", "")]
-        A += [f"- 👍 {x}" for x in t.get("pro") or []] + [f"- 👎 {x}" for x in t.get("con") or []]
+        A += [f"- 🔴 {x}" for x in t.get("pro") or []] + [f"- 🔵 {x}" for x in t.get("con") or []]
         if t.get("so"):
             A.append(f"- 🎯 {t['so']}")
         A += [f"- {TONE.get(x.get('tone'), '⚪')} {x.get('text', '')} ({x.get('t', '')}{', ' + x['src'] if x.get('src') else ''})" for x in t.get("items") or []] + [""]
@@ -380,7 +381,7 @@ def topics_to_text(d):
     R, B = d.get("reports") or {}, []
     if R:
         c = R.get("counts") or {}
-        B = [f"📑 리포트 정리 · {md} 업데이트", f"리포트 {c.get('total', '-')}건 · 🔺상향 {c.get('up', 0)} · 🆕신규 {c.get('new', 0)} · ➖유지 {c.get('keep', 0)} · 🔽하향 {c.get('down', 0)} · 출처: 채널 요약(2차 자료)", "",
+        B = [f"📑 리포트 정리 · {md} 업데이트", f"리포트 {c.get('total', '-')}건 · 🔴상향 {c.get('up', 0)} · 🆕신규 {c.get('new', 0)} · ⚪유지 {c.get('keep', 0)} · 🔵하향 {c.get('down', 0)} · 출처: 채널 요약(2차 자료)", "",
              "💡 Claude 의견", R.get("one", "")] + [x for x in (R.get("mine"), R.get("note")) if x] + [""]
         B += [f"{DIRS.get(x.get('dir'), '')} {x.get('name', '')} · {x.get('n', '')}건 · {x.get('text', '')}" + (" 🆕" if x.get("new") else "") for x in R.get("sectors") or []] + ["", "📌 주요 종목"]
         for i, x in enumerate(R.get("picks") or []):

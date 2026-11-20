@@ -215,8 +215,30 @@ def briefs(days=21):
             except Exception:
                 pass
         if T:
+            _pick_links(day, T)
             r["topics"] = T
     return out
+
+
+def _pick_links(day, T):
+    """눈여겨볼 리포트(picks)에 원문 링크 붙이기: 같은 날 · 같은 시각(HH:MM)의 채널 글 중 종목 이름이나 증권사가 들어간 글 (글에 url이 이미 있으면 그대로)."""
+    try:
+        import tg_channel
+        posts = [q for ch in tg_channel.channels() for q in tg_channel.load_store(ch["id"]).values() if q.get("time", "").startswith(day) and q.get("url")]
+    except Exception:
+        return
+    by = {}
+    for q in posts:
+        by.setdefault(q["time"][11:16], []).append(q)
+    cut = lambda v: [x.strip() for x in re.split(r"[·,/]", v or "") if x.strip()]
+    for t in T:
+        for x in (t.get("reports") or {}).get("picks") or []:
+            if x.get("url"):
+                continue
+            keys = cut(x.get("name")) + [re.sub(r"증권|투자|금융", "", k)[:2] for k in cut(x.get("broker"))]
+            best = max(by.get(x.get("t") or "", []), key=lambda q: sum(k in (q.get("text") or "") for k in keys if k), default=None)
+            if best and any(k and k in (best.get("text") or "") for k in keys):
+                x["url"] = best["url"]
 
 
 def schedule(now, brief_rows):

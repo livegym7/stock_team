@@ -81,7 +81,7 @@ def md(o):
             L.append(f"- 볼 것: {s}")
     L.append("## 말 vs 주가 (업종별 7일 글 수·5/20일 수익률·5일 수급)")
     for c in o.get("channel_themes") or []:
-        L.append(f"- {c['group']}: 글 {c['talk']}(전 {c['talk_prev']}, {c['talk_chg']}%) 🔺{c['up']}🔽{c['down']} · 5일 {c['r5']}% 20일 {c['r20']}% · 수급 {c['money5']}억 → {c.get('tag') or ''} · {', '.join((c.get('stocks') or [])[:3])}")
+        L.append(f"- {c['group']}: 글 {c['talk']}(전 {c['talk_prev']}, {c['talk_chg']}%) 🔴{c['up']}🔵{c['down']} · 5일 {c['r5']}% 20일 {c['r20']}% · 수급 {c['money5']}억 → {c.get('tag') or ''} · {', '.join((c.get('stocks') or [])[:3])}")
     L.append("## 🔥 여러 채널(3곳↑)이 같이 다룬 소식")
     for h in o.get("hot_topics") or []:
         L.append(f"- [{h['time'][5:]} · {h['channels']}곳 · {h['type']}] {h['head']}")
