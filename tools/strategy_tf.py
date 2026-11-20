@@ -146,6 +146,11 @@ def prep():
     px = {c: r[-1]["close"] for c, r in daily.items()}
     P = {"made_at": now.strftime("%Y-%m-%d %H:%M"), "date": now.strftime("%Y-%m-%d")}
     P["macro"] = macro()
+    try:   # 수출·메모리 현물가·유동성 (2026-11-20 사용자 확정, tools/macro_extra.py)
+        import macro_extra
+        P["macro_extra"] = macro_extra.build()
+    except Exception as e:
+        P["macro_extra"] = {"error": str(e)[:120]}
     P["regime"] = regime_block(daily)
     P["breadth"] = breadth(daily, uni)
     pulse = _j(DATA / "market" / "pulse_latest.json", {}) or {}
@@ -746,7 +751,8 @@ CSS = """
 .tfr ul.sub{list-style:none;padding:0;margin:0;color:var(--ink2);font-family:var(--f-body);font-size:14px!important;line-height:1.75!important;letter-spacing:0;margin:0!important}.tfr ul.sub li{padding-left:14px;position:relative;margin:2px 0}.tfr ul.sub li:before{content:"";position:absolute;left:2px;top:.8em;width:4px;height:4px;border-radius:50%;background:var(--acc)}
 .tfr .flow{display:flex;flex-wrap:wrap;gap:4px;align-items:center;font-size:12px;color:var(--ink2);margin:10px 0 2px}.tfr .flow span{border:1px solid var(--rule);padding:2px 8px;border-radius:3px}.tfr .flow span.on{border-color:var(--acc);color:var(--acc);font-weight:600}
 .tfr .kpis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border:1px solid var(--rule);margin:12px 0}
-.tfr .kpis div{padding:12px 14px;border-right:1px solid var(--rule)}.tfr .kpis div:last-child{border-right:0}.tfr .kpis span{display:block;font-size:12px;color:var(--ink3);margin-bottom:2px}.tfr .kpis b{display:block;font-family:var(--f-body);font-variant-numeric:tabular-nums;font-size:18px;font-weight:700;line-height:1.35}.tfr .kpis b.k-r{color:#d92d20}.tfr .kpis b.k-y{color:#c98a00}.tfr .kpis b.k-g{color:#12925a}.tfr .kpis b.k-o{color:#d9730d}.tfr .kpis b.k-a{color:#6b4fd8}
+.tfr .kpis div{padding:12px 14px;border-right:1px solid var(--rule)}.tfr .kpis div:last-child{border-right:0}.tfr .kpis span{display:block;font-size:12px;color:var(--ink3);margin-bottom:2px}.tfr .kpis b{display:block;font-family:var(--f-body);font-variant-numeric:tabular-nums;font-size:18px;font-weight:700;line-height:1.35}.tfr ul.xnews{list-style:none;margin:6px 0 0;padding:0;font-size:12.5px;color:var(--ink2)}.tfr ul.xnews li{padding:2px 0;border-bottom:1px dotted var(--rule)}.tfr ul.xnews small{color:var(--ink3);margin-right:6px}
+.tfr .kpis b.k-r{color:#d92d20}.tfr .kpis b.k-y{color:#c98a00}.tfr .kpis b.k-g{color:#12925a}.tfr .kpis b.k-o{color:#d9730d}.tfr .kpis b.k-a{color:#6b4fd8}
 .tfr .kpis b.txt{font-size:14.5px;line-height:1.5}.tfr .kpis b.txt i{font-style:normal;display:block}.tfr .kpis small{display:block;font-size:12px;color:var(--ink3);line-height:1.5;margin-top:3px}
 .tfr .cover,.tfr .sec{display:grid;grid-template-columns:230px minmax(0,1fr);gap:26px}
 .tfr .side{font-size:12.5px}.tfr .cover .side{border-right:1px solid var(--rule);padding-right:18px}
@@ -891,6 +897,45 @@ def counter_html(N, items, title):
     return f'<h3 style="font-size:14px;margin:14px 0 6px">⚖️ {title} — 반대 근거 + 깨지는 조건</h3><div class="ctg">{"".join(cards)}</div>'
 
 
+def _mon(p):
+    m = {"Jan": 1, "Feb": 2, "Mar": 3, "Apr": 4, "May": 5, "Jun": 6, "Jul": 7, "Aug": 8, "Sep": 9, "Oct": 10, "Nov": 11, "Dec": 12}.get(str(p)[:3])
+    return f"{m}월" if m else str(p)
+
+
+def extra_html(P):
+    """매크로 보강 표: 한국 수출 · 메모리 현물가 · 유동성 (tools/macro_extra.py). 재료가 없으면 빈칸."""
+    X = P.get("macro_extra") or {}
+    num = lambda v, d=1: "-" if v is None else f"{v:,.{d}f}"          # noqa: E731
+    sg = lambda v, u="%": "-" if v is None else f"{v:+.1f}{u}"         # noqa: E731
+    out = []
+    ex = (X.get("exports") or {}).get("rows") or []
+    if ex:
+        per = [r["period"] for r in ex[0]["series"][-6:]]
+        rows = ""
+        for r in ex:
+            m = {x["period"]: x for x in r["series"]}
+            cells = "".join(f'<td class="{cls(m[p_]["actual"]) if p_ in m else ""}">{num(m[p_]["actual"]) if p_ in m else "-"}</td>' for p_ in per)
+            la = r["last"]; gap = None if la.get("forecast") is None else la["actual"] - la["forecast"]
+            rows += f'<tr><td class="l">{E(r["name"])}</td>{cells}<td>{num(la.get("forecast"))}</td><td class="{cls(gap)}">{sg(gap, "")}</td><td class="l"><small>{E(r.get("next") or "")}</small></td></tr>'
+        news = "".join(f'<li><small>{E(n["time"][5:10])}</small> {E(n["title"])}</li>' for n in ((X.get("export_news") or {}).get("items") or [])[:6])
+        out.append(f'<div class="fig"><div class="ft"><span>표 1-2</span>한국 수출 — 최근 6개월 (실제 · 예상 대비)</div><div class="tw"><table><thead><tr><th class="l">지표</th>{"".join(f"<th>{E(_mon(p_))}</th>" for p_ in per)}<th>최근 예상</th><th>예상 대비</th><th class="l">다음 발표</th></tr></thead><tbody>{rows}</tbody></table></div>'
+                   + (f'<ul class="xnews">{news}</ul>' if news else "")
+                   + f'<div class="src">월간 수치 = {E((X.get("exports") or {}).get("source", ""))} · 아래 줄 = 10일 단위·품목별 수출 관련 뉴스 제목(2차 자료, 구글 뉴스)</div></div>')
+    mem = (X.get("memory") or {}).get("rows") or []
+    if mem:
+        rows = "".join(f'<tr><td class="l">{E(r["name"])}</td><td><b>{num(r["usd"], 2)}</b></td><td class="{cls(r["chg_pct"])}">{sg(r["chg_pct"])}</td><td class="{cls(r["w1_pct"])}">{sg(r["w1_pct"])}</td><td class="{cls(r["m1_pct"])}">{sg(r["m1_pct"])}</td></tr>' for r in mem)
+        out.append(f'<div class="fig"><div class="ft"><span>표 1-3</span>메모리 현물가 — D램 · 낸드 (달러)</div><div class="tw"><table><thead><tr><th class="l">품목</th><th>평균가</th><th>직전 대비</th><th>1주</th><th>1개월</th></tr></thead><tbody>{rows}</tbody></table></div>'
+                   f'<div class="src">{E((X.get("memory") or {}).get("source", ""))} · 사이트 갱신 {E((X.get("memory") or {}).get("updated", ""))} · 현물가는 소량 거래 가격이라 대형 계약 가격(고정거래가)과 다를 수 있음</div></div>')
+    liq = (X.get("liquidity") or {}).get("rows") or []
+    if liq:
+        rows = "".join(f'<tr><td class="l">{E(r["name"])}</td><td><b>{num(r["now"])}</b></td><td class="{cls(r.get("d1"))}">{sg(r.get("d1"), "")}</td><td class="{cls(r.get("m1_pct"))}">{sg(r.get("m1_pct"))}</td><td class="l nw">' + (f'<span class="pbar"><i style="left:{r["pos_1y"]:.0f}%"></i></span><small>{r["pos_1y"]:.0f}%</small>' if r.get("pos_1y") is not None else "-") + f'</td><td class="l"><small>{E(r["read"])}</small></td></tr>' for r in liq)
+        a = str((X.get("liquidity") or {}).get("as_of") or "")
+        out.append(f'<div class="fig"><div class="ft"><span>표 1-4</span>유동성 — 예탁금 · 신용잔고 · 반대매매</div><div class="tw"><table><thead><tr><th class="l">지표</th><th>지금</th><th>전일 대비</th><th>1개월</th><th class="l">1년 위치</th><th class="l">뜻</th></tr></thead><tbody>{rows}</tbody></table></div>'
+                   f'<div class="src">{E((X.get("liquidity") or {}).get("source", ""))} · 기준 {E(a[4:6] + "/" + a[6:8] if len(a) == 8 else a)}</div></div>')
+    return "".join(out)
+
+
+
 def body(P, N):
     lt, ltc = light(P)
     MT = [m for m in P["matrix"] if m.get("opg") is not None and (m.get("n_fund") or 0) >= 3]
@@ -998,6 +1043,7 @@ def body(P, N):
  <div class="mast"><h2 data-tl="🌐 매크로"><i>STEP 1</i>매크로</h2><span>어느 업종에 유리한가</span></div>
  <section class="sec"><aside class="side">{para(N.get("macro_side"))}</aside><div class="main">
   <div class="fig"><div class="ft"><span>표 1</span>글로벌 지표 — 지금 · 1주 · 1개월</div><div class="tw"><table><thead><tr><th class="l">지표</th><th>최근</th><th>1주</th><th>1개월</th></tr></thead><tbody>{"".join(mrow)}</tbody></table></div><div class="src">출처: Yahoo Finance(비공식, 지연 가능)</div></div>
+  {extra_html(P)}
   <div class="fig"><div class="ft"><span>표 2</span>매크로 → 업종 연결</div><div class="tw"><table><thead><tr><th class="l">변화</th><th>방향</th><th class="l">무엇에 영향</th></tr></thead><tbody>{impl}</tbody></table></div><div class="src">해석 = 데스크 의견(Claude)</div></div>
  </div></section>
 </article>

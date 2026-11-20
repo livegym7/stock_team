@@ -1,0 +1,478 @@
+{
+ "made_at": "2026-11-20 12:21",
+ "exports": {
+  "rows": [
+   {
+    "key": "Exports YoY",
+    "name": "수출 증가율(전년 대비)",
+    "last": {
+     "date": "2026-11-01",
+     "period": "Oct. 2026",
+     "actual": 93.7,
+     "forecast": 93.2,
+     "previous": 83.5
+    },
+    "series": [
+     {
+      "period": "Oct. 2025",
+      "actual": 3.6,
+      "forecast": -0.2
+     },
+     {
+      "period": "Nov. 2025",
+      "actual": 8.4,
+      "forecast": 5.7
+     },
+     {
+      "period": "Dec. 2025",
+      "actual": 13.4,
+      "forecast": 9
+     },
+     {
+      "period": "Jan. 2026",
+      "actual": 33.9,
+      "forecast": 29.9
+     },
+     {
+      "period": "Feb. 2026",
+      "actual": 29.4,
+      "forecast": 24
+     },
+     {
+      "period": "Mar. 2026",
+      "actual": 50.5,
+      "forecast": 44.9
+     },
+     {
+      "period": "Apr. 2026",
+      "actual": 47.8,
+      "forecast": 45.3
+     },
+     {
+      "period": "May. 2026",
+      "actual": 52.9,
+      "forecast": 48.4
+     },
+     {
+      "period": "Jun. 2026",
+      "actual": 70.4,
+      "forecast": 61
+     },
+     {
+      "period": "Jul. 2026",
+      "actual": 63.3,
+      "forecast": 59
+     },
+     {
+      "period": "Aug. 2026",
+      "actual": 68.7,
+      "forecast": 62.6
+     },
+     {
+      "period": "Sep. 2026",
+      "actual": 83.5,
+      "forecast": 61.7
+     },
+     {
+      "period": "Oct. 2026",
+      "actual": 93.7,
+      "forecast": 93.2
+     }
+    ],
+    "next": "2026-12-01"
+   },
+   {
+    "key": "Balance of Trade",
+    "name": "무역수지(십억 달러)",
+    "last": {
+     "date": "2026-11-01",
+     "period": "Oct. 2026",
+     "actual": 42.5,
+     "forecast": 37.24,
+     "previous": 49.85
+    },
+    "series": [
+     {
+      "period": "Oct. 2025",
+      "actual": 6.06,
+      "forecast": 2.98
+     },
+     {
+      "period": "Nov. 2025",
+      "actual": 9.74,
+      "forecast": 8.4
+     },
+     {
+      "period": "Dec. 2025",
+      "actual": 12.18,
+      "forecast": 10
+     },
+     {
+      "period": "Jan. 2026",
+      "actual": 8.69,
+      "forecast": 4.6
+     },
+     {
+      "period": "Feb. 2026",
+      "actual": 15.54,
+      "forecast": 10
+     },
+     {
+      "period": "Mar. 2026",
+      "actual": 26.61,
+      "forecast": 21.2
+     },
+     {
+      "period": "Apr. 2026",
+      "actual": 23.64,
+      "forecast": 23
+     },
+     {
+      "period": "May. 2026",
+      "actual": 26.8,
+      "forecast": 24.3
+     },
+     {
+      "period": "Jun. 2026",
+      "actual": 35.91,
+      "forecast": 32.58
+     },
+     {
+      "period": "Jul. 2026",
+      "actual": 30.65,
+      "forecast": 29.59
+     },
+     {
+      "period": "Aug. 2026",
+      "actual": 34.79,
+      "forecast": 30.74
+     },
+     {
+      "period": "Sep. 2026",
+      "actual": 49.85,
+      "forecast": 38.15
+     },
+     {
+      "period": "Oct. 2026",
+      "actual": 42.5,
+      "forecast": 37.24
+     }
+    ],
+    "next": "2026-12-01"
+   },
+   {
+    "key": "Export Prices YoY",
+    "name": "수출물가(전년 대비)",
+    "last": {
+     "date": "2026-11-12",
+     "period": "Oct. 2026",
+     "actual": 36.7,
+     "forecast": null,
+     "previous": 41.3
+    },
+    "series": [
+     {
+      "period": "Oct. 2025",
+      "actual": 4.8,
+      "forecast": null
+     },
+     {
+      "period": "Nov. 2025",
+      "actual": 6.8,
+      "forecast": null
+     },
+     {
+      "period": "Dec. 2025",
+      "actual": 5,
+      "forecast": null
+     },
+     {
+      "period": "Jan. 2026",
+      "actual": 7.8,
+      "forecast": null
+     },
+     {
+      "period": "Feb. 2026",
+      "actual": 11.1,
+      "forecast": null
+     },
+     {
+      "period": "Mar. 2026",
+      "actual": 29.5,
+      "forecast": null
+     },
+     {
+      "period": "Apr. 2026",
+      "actual": 41.3,
+      "forecast": null
+     },
+     {
+      "period": "May. 2026",
+      "actual": 47.1,
+      "forecast": null
+     },
+     {
+      "period": "Jun. 2026",
+      "actual": 48.7,
+      "forecast": null
+     },
+     {
+      "period": "Jul. 2026",
+      "actual": 48.9,
+      "forecast": null
+     },
+     {
+      "period": "Aug. 2026",
+      "actual": 42.7,
+      "forecast": null
+     },
+     {
+      "period": "Sep. 2026",
+      "actual": 41.3,
+      "forecast": null
+     },
+     {
+      "period": "Oct. 2026",
+      "actual": 36.7,
+      "forecast": null
+     }
+    ],
+    "next": null
+   },
+   {
+    "key": "Imports YoY",
+    "name": "수입 증가율(전년 대비)",
+    "last": {
+     "date": "2026-11-01",
+     "period": "Oct. 2026",
+     "actual": 36,
+     "forecast": 39.9,
+     "previous": 26
+    },
+    "series": [
+     {
+      "period": "Oct. 2025",
+      "actual": -1.5,
+      "forecast": -1.8
+     },
+     {
+      "period": "Nov. 2025",
+      "actual": 1.2,
+      "forecast": 3.4
+     },
+     {
+      "period": "Dec. 2025",
+      "actual": 4.6,
+      "forecast": 2.5
+     },
+     {
+      "period": "Jan. 2026",
+      "actual": 11.7,
+      "forecast": 14.6
+     },
+     {
+      "period": "Feb. 2026",
+      "actual": 7.8,
+      "forecast": 13
+     },
+     {
+      "period": "Mar. 2026",
+      "actual": 13.9,
+      "forecast": 18
+     },
+     {
+      "period": "Apr. 2026",
+      "actual": 16.7,
+      "forecast": 14.5
+     },
+     {
+      "period": "May. 2026",
+      "actual": 20.7,
+      "forecast": 21.5
+     },
+     {
+      "period": "Jun. 2026",
+      "actual": 30,
+      "forecast": 26.3
+     },
+     {
+      "period": "Jul. 2026",
+      "actual": 26.4,
+      "forecast": 26.6
+     },
+     {
+      "period": "Aug. 2026",
+      "actual": 22.4,
+      "forecast": 24.7
+     },
+     {
+      "period": "Sep. 2026",
+      "actual": 26,
+      "forecast": 21.5
+     },
+     {
+      "period": "Oct. 2026",
+      "actual": 36,
+      "forecast": 39.9
+     }
+    ],
+    "next": "2026-12-01"
+   }
+  ],
+  "source": "TradingView 경제 캘린더(비공식) · 원자료 산업통상자원부·한국은행 · 예상 = 시장 컨센서스"
+ },
+ "export_news": {
+  "items": [
+   {
+    "time": "2026-11-20T08:00",
+    "press": "자본시장뉴스",
+    "title": "[수출 1조 달러 시대 下] 화장품 최대…김밥도 뜰까",
+    "q": "화장품 수출 월간"
+   },
+   {
+    "time": "2026-11-17T16:19",
+    "press": "더퍼스트미디어",
+    "title": "코스맥스, 화장품 월 생산량 1억개 돌파…K뷰티 수출 호조에 생산량 급증",
+    "q": "화장품 수출 월간"
+   },
+   {
+    "time": "2026-11-17T09:51",
+    "press": "서울경제TV",
+    "title": "강원 수출 10월 역대 최고인데…수입 156% 폭증에 무역적자 1억6000만 달러",
+    "q": "화장품 수출 월간"
+   },
+   {
+    "time": "2026-11-15T11:00",
+    "press": "지디넷코리아",
+    "title": "AI 반도체 호황에 ICT 수출 증가율 첫 200% 돌파",
+    "q": "월간 수출입동향 반도체 수출"
+   },
+   {
+    "time": "2026-11-02T17:00",
+    "press": "대한민국 정책브리핑",
+    "title": "우리나라 수출 첫 9000억 달러 돌파…\"11월 중 1조 달성 확실시\"",
+    "q": "월간 수출입동향 반도체 수출"
+   },
+   {
+    "time": "2026-11-02T17:00",
+    "press": "테크데일리",
+    "title": "한국 10월 수출 1,153억 달러… 반도체 호황에 연간 1조 달러 눈앞",
+    "q": "월간 수출입동향 반도체 수출"
+   },
+   {
+    "time": "2026-11-01T16:00",
+    "press": "KB Think",
+    "title": "연 수출 1조달러 눈앞…반도체, 2개월 연속 500억달러 넘겨(종합)",
+    "q": "월간 수출입동향 반도체 수출"
+   },
+   {
+    "time": "2026-11-01T16:00",
+    "press": "스트레이트뉴스",
+    "title": "10월 수출 1153억달러 역대 2위…반도체·AI가 끌어올렸다",
+    "q": "월간 수출입동향 반도체 수출"
+   },
+   {
+    "time": "2026-11-01T16:00",
+    "press": "뉴스피릿",
+    "title": "10월 수출, 반도체 호황에 '역대 2위'…사상 첫 9000억 달러 돌파",
+    "q": "월간 수출입동향 반도체 수출"
+   },
+   {
+    "time": "2026-11-01T16:00",
+    "press": "뉴시스",
+    "title": "반도체 호황에 10월 수출 1153억弗 '역대 2위'…올해 9000억弗 돌파(1보)",
+    "q": "월간 수출입동향 반도체 수출"
+   }
+  ],
+  "source": "구글 뉴스 RSS 제목(2차 자료) — 관세청 10일 단위·품목별 수출은 공식 자료를 직접 받지 못해 제목으로만 봄"
+ },
+ "memory": {
+  "rows": [
+   {
+    "item": "DDR5 16Gb (2Gx8) 4800/5600",
+    "name": "D램 DDR5 16Gb 현물",
+    "usd": 60.667,
+    "chg_pct": 0.0,
+    "w1_pct": null,
+    "m1_pct": null
+   },
+   {
+    "item": "DDR4 16Gb (2Gx8) 3200",
+    "name": "D램 DDR4 16Gb 현물",
+    "usd": 78.625,
+    "chg_pct": -0.16,
+    "w1_pct": null,
+    "m1_pct": null
+   },
+   {
+    "item": "DDR4 8Gb (1Gx8) 3200",
+    "name": "D램 DDR4 8Gb 현물",
+    "usd": 43.75,
+    "chg_pct": -0.39,
+    "w1_pct": null,
+    "m1_pct": null
+   },
+   {
+    "item": "DDR5 RDIMM 32GB 4800/5600",
+    "name": "서버 모듈 DDR5 RDIMM 32GB",
+    "usd": 1950.0,
+    "chg_pct": -3.7,
+    "w1_pct": null,
+    "m1_pct": null
+   },
+   {
+    "item": "512Gb TLC",
+    "name": "낸드 웨이퍼 512Gb TLC",
+    "usd": 14.267,
+    "chg_pct": -11.67,
+    "w1_pct": null,
+    "m1_pct": null
+   },
+   {
+    "item": "256Gb TLC",
+    "name": "낸드 웨이퍼 256Gb TLC",
+    "usd": 18.142,
+    "chg_pct": -1.21,
+    "w1_pct": null,
+    "m1_pct": null
+   }
+  ],
+  "updated": "Nov.20 2026",
+  "hist_days": 1,
+  "source": "DRAMeXchange 현물가 평균(달러, 비공식) · chg = 직전 회차 대비 · 1주·1개월 변화는 이 도구가 날마다 쌓은 기록 기준(쌓이기 전에는 빈칸)"
+ },
+ "liquidity": {
+  "as_of": "20261118",
+  "rows": [
+   {
+    "name": "고객 예탁금(조 원)",
+    "now": 84.2,
+    "d1": -2.4,
+    "m1_pct": -6.1,
+    "pos_1y": 13,
+    "read": "주식 살 대기 자금"
+   },
+   {
+    "name": "신용융자 잔고(조 원)",
+    "now": 26.3,
+    "d1": -0.1,
+    "m1_pct": -13.2,
+    "pos_1y": 4,
+    "read": "빚내서 산 주식 — 높으면 급락 때 매물"
+   },
+   {
+    "name": "예탁금 대비 신용(%)",
+    "now": 31.2,
+    "pos_1y": 58,
+    "read": "레버리지 정도"
+   },
+   {
+    "name": "반대매매(억 원)",
+    "now": 285,
+    "pos_1y": 16,
+    "read": "강제 청산 — 급증 뒤 바닥이 나오기도 함"
+   }
+  ],
+  "source": "금융투자협회 종합통계(freesis) · 1년 위치 = 1년 최저 0% ~ 최고 100%"
+ }
+}

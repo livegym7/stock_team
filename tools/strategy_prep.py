@@ -411,7 +411,7 @@ def prep(weeks=4):
         s["group"] = group_of(s["name"])
     out = {
         "made_at": now.strftime("%Y-%m-%d %H:%M"), "weeks": weeks,
-        "regime": safe(regime), "market": safe(market_now), "overseas": safe(overseas), "econ": safe(econ_recent),
+        "regime": safe(regime), "market": safe(market_now), "overseas": safe(overseas), "econ": safe(econ_recent), "macro_extra": safe(lambda: __import__("macro_extra").build()),
         "talk": safe(lambda: talk(allp, group_of, pool, weeks)),
         "earnings": safe(lambda: earnings_axis(allp, uni, companies, pool, by_stock_rep, flow31)),
         "price_money": safe(lambda: price_money(allp, uni, companies, pool, by_stock_rep)),
