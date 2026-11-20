@@ -1,54 +1,43 @@
-# 관찰 풀 — 테크노펀더 주간 지면(strategy_tf.py pool)이 고른 종목. 매주 토요일 보고서 때 다시 씀.
-# 직접 고쳐도 됨(빼려면 줄 삭제, 넣으려면 같은 형식으로 추가). 감시 목록(screener --pool)은 이 풀 + RS 70↑만 본다. 주문 기능 없음.
-updated = "2026-11-20 11:13"
-source = "테크노펀더 주간 2026-11-20"
+# 관찰 풀 — 전략 보고서 '큰 줄기'의 기업 지도 (strategy_tf.py pool, 2026-11-20 사용자 확정). 줄기가 유지되는 동안 풀도 유지.
+# 차트 조건으로 넣고 빼지 않음(차트 자리는 셋업 보드). 직접 고쳐도 됨. 감시 목록(screener --pool)은 이 풀 + RS 70↑만 본다. 주문 기능 없음.
+updated = "2026-11-20 11:44"
+source = "전략 보고서 제6호 · 2026-11-20(금) 시험 발간 큰 줄기"
 
 [[themes]]
-id = "C1"
-name = "🎯 핵심 후보 — 펀더 2/3↑ + 기술 2/3↑ (기준가 돌파 대기)"
-stage = "준비"
+id = "T1"
+name = "🌳 AI 인프라 공급 병목"
+stage = "큰 줄기"
 stocks = [
-  { name = "코스맥스", code = "192820", role = "준비 · 기준가 320,000", group = "화장품" },
-  { name = "한미사이언스", code = "008930", role = "준비 · 기준가 60,400", group = "바이오" },
-  { name = "엑시콘", code = "092870", role = "준비 · 기준가 68,000", group = "반도체 테스트·후공정" },
+  { name = "티엘비", code = "356860", role = "기판(메모리 모듈 · 소캠)", group = "반도체 기판·전자부품", action = "관찰", fund = 3 },
+  { name = "엑시콘", code = "092870", role = "테스트(SSD 테스터) · 핵심 후보 후순위", group = "반도체 테스트·후공정", action = "준비", fund = 3 },
+  { name = "삼성전자", code = "005930", role = "메모리 대형", group = "반도체(메모리·대형)", action = "관찰", fund = 3 },
+  { name = "SK하이닉스", code = "000660", role = "메모리 대형(HBM)", group = "반도체(메모리·대형)", action = "관찰", fund = 3 },
+  { name = "심텍", code = "222800", role = "기판(메모리)", group = "반도체 기판·전자부품", action = "관찰", fund = 3 },
+  { name = "원익홀딩스", code = "030530", role = "장비(가스 공급) ⭐보유", group = "반도체 장비", action = "관찰", fund = 3 },
+  { name = "티에프이", code = "425420", role = "테스트 부품", group = "반도체 테스트·후공정", action = "관찰", fund = 3 },
 ]
 
 [[themes]]
-id = "C2"
-name = "펀더 OK · 기술 대기 — 이익은 받쳐 주고 베이스·RS를 기다림"
-stage = "관찰"
+id = "T2"
+name = "🌳 K-뷰티 수출"
+stage = "큰 줄기"
 stocks = [
-  { name = "아모레퍼시픽", code = "090430", role = "관찰", group = "화장품" },
-  { name = "디케이티", code = "290550", role = "관찰", group = "핸드셋/IT부품" },
-  { name = "한진칼", code = "180640", role = "관찰", group = "운송/물류" },
-  { name = "안랩", code = "053800", role = "관찰", group = "IT/소프트웨어" },
-  { name = "나노신소재", code = "121600", role = "관찰", group = "2차전지" },
-  { name = "NHN", code = "181710", role = "관찰", group = "IT/소프트웨어" },
-  { name = "제주항공", code = "089590", role = "관찰", group = "운송/물류" },
+  { name = "코스맥스", code = "192820", role = "ODM 1위 · 핵심 후보", group = "화장품", action = "준비", fund = 2 },
+  { name = "한국콜마", code = "161890", role = "ODM 2위", group = "화장품", action = "관찰", fund = 3 },
+  { name = "아모레퍼시픽", code = "090430", role = "브랜드 대형", group = "화장품", action = "관찰", fund = 3 },
+  { name = "코스메카코리아", code = "241710", role = "ODM 3위", group = "화장품", action = "관찰", fund = 2 },
 ]
 
 [[themes]]
-id = "C3"
-name = "달리는 주도주 — 베이스 없음, 추격하지 않고 첫 눌림 대기"
-stage = "첫 눌림 대기"
+id = "T3"
+name = "🌳 국내 건설 · 플랜트"
+stage = "큰 줄기"
 stocks = [
-  { name = "지니언스", code = "263860", role = "눌림 대기", group = "IT/소프트웨어" },
-  { name = "티에프이", code = "425420", role = "눌림 대기", group = "반도체 테스트·후공정" },
-  { name = "삼성E&A", code = "028050", role = "눌림 대기", group = "건설" },
+  { name = "삼성E&A", code = "028050", role = "선도(플랜트 · 반도체 공장)", group = "건설", action = "관찰", fund = 3 },
+  { name = "IPARK현대산업개발", code = "294870", role = "주택 · 2027년 증익", group = "건설", action = "관찰", fund = 3 },
+  { name = "계룡건설", code = "013580", role = "공공주택", group = "건설", action = "관찰", fund = 3 },
+  { name = "GS건설", code = "006360", role = "데이터센터 · 주택", group = "건설", action = "관찰", fund = 0 },
 ]
 
-[[themes]]
-id = "C4"
-name = "리더 업종 주도주 — 업종 이익 +20%↑ × 강도 65↑, 종목 펀더 2/3↑"
-stage = "리더 업종"
-stocks = [
-  { name = "와이지엔터테인먼트", code = "122870", role = "업종 리더", group = "K-엔터" },
-  { name = "신세계", code = "004170", role = "업종 리더", group = "유통" },
-  { name = "바이오비쥬", code = "489460", role = "업종 리더", group = "화장품" },
-  { name = "아모레퍼시픽홀딩스", code = "002790", role = "업종 리더", group = "화장품" },
-  { name = "TYM", code = "002900", role = "업종 리더", group = "건설기계" },
-  { name = "두산밥캣", code = "241560", role = "업종 리더", group = "건설기계" },
-  { name = "효성티앤씨", code = "298020", role = "업종 리더", group = "의류/패션" },
-]
-
-# 넣지 않음(기술만 좋고 펀더 0~1 또는 미확인): 코웨이, 프로티나, 동국제약, 롯데렌탈, 진에어, 대한항공
+# 풀에 넣지 않은 띔(약화·관찰·이익 미확인): 항공
+# 줄기 안이지만 보고서가 '회피'로 적은 종목: 실리콘투, DL이앤씨

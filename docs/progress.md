@@ -583,3 +583,4 @@
 - 만든 것: `docs/strategy-v4/issue_2026-11-20.py`, `data/strategy/latest.json`, `reports/2026-11-20/strategy_tf.html`, `data/strategy/tf/redteam_2026-11-20.json`, 업종 노트 6개(유통 새로), `questions_week.json` 8문항. 텔레그램은 `strategy_tf.py tg` 요약 1회
 - 남은 한계: 올해 이익 추정의 1개월 변화는 기록이 11/19부터라 12/19 무렵부터 볼 수 있음. 20일 수급은 업종별 대표 6종목 합(임시 계산, 도구로 만들지는 않음). `strategy_tf.py tg`의 업종 줄과 '리더' 칸은 여전히 지금 강도 기준이라 큰 줄기와 다르게 보임
 - 2026-11-20: 검증실 부록 backtest_exit.py — 본전 손절 시점 비교(지금 3R: 985건 평균 +0.46R PF 1.67 MDD −60.9R / 2R(책): 1,008건 +0.47R PF 1.77 MDD −53.6R / 1.5R: +0.44R PF 1.80 MDD −51.2R / 1R: +0.38R / 2R에서 +1R 잠금: +0.39R). 규칙은 그대로, 2027-01 재검토 재료
+- 2026-11-20: 관찰 풀을 '큰 줄기의 기업 지도'로 바꿈(strategy_tf.pool: 보고서 유지 줄기의 companies, 회피 제외, 차트 조건 없음). 제6호 기준 15종목(AI 인프라 7 · K-뷰티 4 · 건설 4), 항공은 약화라 제외. 옛 방식은 pool_board로 보관

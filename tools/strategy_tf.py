@@ -1032,7 +1032,54 @@ def render(date=None):
 
 
 def pool(date=None):
-    """관찰 풀을 테크노펀더 지면 기준으로 다시 씀 (2026-11-14 사용자 지적: 풀이 옛 v3 띔 기준이라 보고서와 달랐음).
+    """관찰 풀 = 큰 줄기의 기업 지도 (2026-11-20 사용자 확정: "보고서의 관찰 풀은 큰 줄기를 잡는 목적, 셋업 보드는 지금의 수급과 위치").
+    전략 보고서(data/strategy/latest.json)의 띔 중 유지되는 줄기(확신 2↑ · 단계가 소멸이 아님)의 기업 지도에서 행동이 '회피'가 아닌 종목.
+    차트 조건(기준가·RS·업종 강도)으로는 넣고 빼지 않는다 — 차트 자리는 셋업 보드가 본다. 줄기가 유지되면 풀도 유지된다.
+    보고서에 줄기가 없으면 옛 방식(pool_board: 감시 목록 × 펀더·기술)으로 대신 쓴다."""
+    rep = _j(DATA / "strategy" / "latest.json") or {}
+    keep = [t for t in rep.get("themes") or [] if (t.get("conviction") or 0) >= 2 and t.get("stage") != "소멸" and t.get("companies")]
+    if not keep:
+        return pool_board(date)
+    try:
+        from sector_map import custom_map
+        cmap = custom_map()
+    except Exception:
+        cmap = {}
+    fund = _fund()
+    q = lambda v: str(v or "").replace('"', "").replace("\n", " ")  # noqa: E731
+    now = datetime.now(KST).strftime("%Y-%m-%d %H:%M")
+    L = ["# 관찰 풀 — 전략 보고서 '큰 줄기'의 기업 지도 (strategy_tf.py pool, 2026-11-20 사용자 확정). 줄기가 유지되는 동안 풀도 유지.",
+         "# 차트 조건으로 넣고 빼지 않음(차트 자리는 셋업 보드). 직접 고쳐도 됨. 감시 목록(screener --pool)은 이 풀 + RS 70↑만 본다. 주문 기능 없음.",
+         f'updated = "{now}"', f'source = "전략 보고서 {q(rep.get("issue"))} 큰 줄기"', ""]
+    seen, out, skip = set(), {}, []
+    for t in keep:
+        items = []
+        for c in t["companies"]:
+            code = str(c.get("code") or "")
+            if not code or code in seen:
+                continue
+            if c.get("action") == "회피":
+                skip.append(c.get("name")); continue
+            seen.add(code)
+            f = fscore(fund.get(code), None)
+            pts = f["pts"] if f else None
+            items.append(f'  {{ name = "{q(c.get("name"))}", code = "{code}", role = "{q(c.get("role"))}", group = "{q(cmap.get(code))}", '
+                         f'action = "{q(c.get("action") or "관찰")}", fund = {pts if pts is not None else -1} }},')
+        if items:
+            nm = q(t.get("name")).split(" — ")[0].split(" (")[0]
+            L += ["[[themes]]", f'id = "{q(t.get("id"))}"', f'name = "🌳 {nm}"', 'stage = "큰 줄기"', "stocks = ["] + items + ["]", ""]
+            out[t.get("id")] = len(items)
+    weak = [q(t.get("name")).split(" — ")[0] for t in rep.get("themes") or [] if t not in keep]
+    if weak:
+        L.append("# 풀에 넣지 않은 띔(약화·관찰·이익 미확인): " + ", ".join(weak))
+    if skip:
+        L.append("# 줄기 안이지만 보고서가 '회피'로 적은 종목: " + ", ".join(x for x in skip if x))
+    (ROOT / "config" / "watch_pool.toml").write_text("\n".join(L) + "\n", encoding="utf-8")
+    return {"mode": "큰 줄기", "themes": out, "n": len(seen), "left_out_themes": weak, "skip": skip}
+
+
+def pool_board(date=None):
+    """(옛 방식, 2026-11-14~11-20) 관찰 풀을 테크노펀더 지면 기준으로 다시 씀 (2026-11-14 사용자 지적: 풀이 옛 v3 띔 기준이라 보고서와 달랐음).
     핵심 후보(준비) · 펀더 OK·기술 대기(관찰) · 달리는 주도주 펀더 2↑(첫 눌림 대기) · 리더 업종 주도주 펀더 2↑(업종 리더). 펀더 0~1은 넣지 않음."""
     fs = [TF / f"prep_{date}.json"] if date else sorted(TF.glob("prep_*.json"))
     P = _j(fs[-1])
