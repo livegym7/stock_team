@@ -771,7 +771,7 @@ CSS = """
 .tfr .side .sx ul{list-style:none;margin:0;padding:0}.tfr .side .sx li{position:relative;padding-left:12px;margin:0 0 5px;line-height:1.7;color:var(--ink)}.tfr .side .sx li:last-child{margin-bottom:0}.tfr .side .sx li:before{content:"";position:absolute;left:1px;top:.78em;width:4px;height:4px;border-radius:50%;background:var(--ink3)}
 .tfr .side small.cite{color:var(--ink3);font-size:12px;white-space:normal}
 @media(max-width:760px){.tfr .side .sx{grid-template-columns:1fr;gap:2px}.tfr .side .sx .lb:empty{display:none}}
-.tfr .two2{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:14px;margin:0 0 14px}@media(max-width:760px){.tfr .two2{grid-template-columns:1fr}}
+.tfr .two2{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:14px;margin:0 0 14px}@media(max-width:820px){.tfr .two2{grid-template-columns:minmax(0,1fr)}.tfr table.desk td:last-child{white-space:normal}}
 .tfr .box{border:1px solid var(--rule);border-radius:6px;padding:12px 14px}.tfr .box h4{font-size:12px;letter-spacing:.08em;color:var(--acc);margin:0 0 8px}.tfr .box h4 small{color:var(--ink3);font-weight:400;letter-spacing:0;margin-left:6px}
 .tfr table.desk{width:100%;border-collapse:collapse}.tfr table.desk td{padding:6px 0;border-bottom:1px dashed var(--rule);font-size:13.5px;vertical-align:middle}.tfr table.desk td:first-child{text-align:left}.tfr table.desk td:last-child{text-align:right;white-space:nowrap}.tfr table.desk tr:last-child td{border-bottom:0}
 .tfr ol.todo{margin:0;padding-left:20px}.tfr ol.todo li{font-size:13.5px;line-height:1.7;margin:0 0 6px;color:var(--ink)}
@@ -1095,7 +1095,7 @@ def body(P, N):
  {compare_html(P, core)}
  <div class="cover">
   <div style="min-width:0"><div class="call"><b class="h">한 줄 결론</b>{N.get("call", "")}</div>
-   <div class="two2"><div class="box"><h4>데스크 의견 <small>줄기마다 지금 판정</small></h4><table class="desk">{"".join(f'<tr><td>{E(a)}</td><td><span class="tag {c}">{E(b)}</span></td></tr>' for a, b, c in desk)}</table></div>
+   <div class="two2"><div class="box"><h4>데스크 의견 <small>스트림마다 지금 판정</small></h4><table class="desk">{"".join(f'<tr><td>{E(a)}</td><td><span class="tag {c}">{E(b)}</span></td></tr>' for a, b, c in desk)}</table></div>
     <div class="box"><h4>이번 주 할 일</h4><ol class="todo">{"".join(f"<li>{E(t)}</li>" for t in (N.get("todo") or [])[:5])}</ol></div></div>
    {red_team_html(N)}
    <div class="fig"><div class="ft"><span>그림 1</span>업종 테크노펀더멘탈 지도 — 이익(가로) × 추세(세로)</div>{chart_matrix(P)}
