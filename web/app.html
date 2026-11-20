@@ -1913,8 +1913,8 @@ function sectorTrack(){const {K,n,i,per,sel}=trkState();if(!n)return "";const T=
   return `<style>${T.css||""}</style><div class="tfr" id="trkbox"><div class="page"><div class="fig"><div class="ft"><span>그림</span>업종 테크노펀더멘탈 지도 — 이익(가로) × 추세(세로) <small class="muted" style="font-weight:400">· 업종을 누르면 지나온 길이 켜집니다(최대 5개)</small></div>
    <div class="trkbar"><button class="chip" data-tplay="1">${TRK_T?"⏸ 멈춤":"▶ 재생"}</button><input id="trkr" type="range" min="0" max="${n-1}" value="${i}" aria-label="날짜"><b class="num" id="trkd">${esc(fmtYmd(K.dates[i]))}</b>
     <span class="cg2">${[5,20,60].map(d=>`<button class="chip ${per==d?"on":""}" data-tper="${d}">꼬리 ${d}일</button>`).join("")}</span>${i<n-1?`<button class="chip" data-ttoday="1">오늘로</button>`:""}${sel.length?`<button class="chip" data-tclr="1">선택 지우기</button>`:""}</div>
-   ${sel.length?`<div class="sumlg" style="margin:4px 0">${sel.map((nm,k)=>{const G=K.groups.find(z=>z.group==nm),a=G&&G.pts[Math.max(0,i-per)],b=G&&G.pts[i];return `<span><i style="background:${TRK_COL[k%5]}"></i><b>${esc(nm)}</b> ${a&&b?`${a[1]}위 → ${b[1]}위 · 강도 ${a[0]} → ${b[0]}`:""}</span>`}).join("")}</div>`:""}
    <div id="trkmapw">${trkMap()}</div>
+   ${sel.length?`<div class="sumlg" style="margin:6px 0 2px">${sel.map((nm,k)=>{const G=K.groups.find(z=>z.group==nm),a=G&&G.pts[Math.max(0,i-per)],b=G&&G.pts[i];return `<span><i style="background:${TRK_COL[k%5]}"></i><b>${esc(nm)}</b> ${a&&b?`${a[1]}위 → ${b[1]}위 · 강도 ${a[0]} → ${b[0]}`:""}</span>`}).join("")}</div>`:""}
    <div class="src">가로 = 올해 영업이익 컨센서스 업종 합 증가율(지난 날짜도 지금 값으로 고정 → 궤적은 위아래로 움직이고, 보기 쉽게 지난 날일수록 왼쪽으로 펼쳐 그림) · 세로 = 주도 섹터 레이더 점수(지난 날은 일봉으로 다시 계산) · ${esc(K.source||"")} · ${esc(K.made_at||"")}</div></div>
    <div class="fig"><div class="ft"><span>표</span>업종 순위 추이 — 누르면 지도에 궤적</div><div id="trktw">${trkTable()}</div></div></div></div>`}
 let TRK_T=null;
