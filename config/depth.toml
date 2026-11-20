@@ -1,0 +1,42 @@
+# 분석 깊이 모드 (2026-11-20 사용자 확정)
+#   "deep" = 클로드 맥스 구독 중: 리포트 전문 읽기·업종 노트·채널 검증·종목 메모·전략 보고서 다단계
+#   "lean" = 2026-11-19까지의 절약형 (낮은 요금제로 바꿀 때). 되돌리는 법은 docs/plan-modes.md
+# 스킬은 맨 처음 `python3 tools/depth.py` 로 지금 모드의 값을 읽는다. 값을 바꾸려면 아래 표만 고친다.
+mode = "deep"
+
+[lean]
+cards_top = 15              # 리포트 카드 하루 건수 (월요일 20)
+cards_top_monday = 20
+cards_fulltext = false      # 카드는 핵심 구간만 읽음
+cards_model = "haiku"
+deep_read_n = 3             # 깊이 읽기 하루 건수
+deep_read_fulltext = false  # 질문 키워드 주변만 발췌
+sector_notes_daily = false  # 업종 노트는 토요일 전략 보고서 때만
+channel_verify = false      # 채널 주장 검증 안 함 (요약만)
+channel_verify_n = 0
+channel_images = 0          # 채널 글 사진 읽기
+stock_memo = false          # 보유·관찰 풀 종목 메모
+stock_memo_n = 0
+strategy_analysts = 0       # 전략 보고서 업종 담당 분석가 수
+strategy_midweek = false    # 수요일 중간 점검
+
+[deep]
+cards_top = 30
+cards_top_monday = 40
+cards_fulltext = true       # 깊이 읽을 가치 '상'으로 보이면 전문까지
+cards_model = "sonnet"
+deep_read_n = 8
+deep_read_fulltext = true   # 전문을 끝까지 (표·가정·추정치 변경)
+sector_notes_daily = true   # 읽은 리포트의 업종 노트를 매일 덧붙임
+channel_verify = true       # 중요한 주장을 공시·뉴스·시세와 대조
+channel_verify_n = 8        # 회차마다 최대 건수
+channel_images = 20         # 회차마다 읽을 사진 수
+stock_memo = true
+stock_memo_n = 4            # 하루 종목 수 (오래된 메모부터 돌아가며)
+strategy_analysts = 6
+strategy_midweek = true
+
+# 예약 (모드를 바꿀 때 켜고 끌 것 — docs/plan-modes.md 와 같이 고친다)
+[triggers]
+lean_only = ["trig_01F4qx3sY6TzX49zg7Ymc8rt", "trig_01AM1isJndYUigkeEM8tEevv"]   # 리포트 카드(Haiku 18:40) · 자료실 3건(Sonnet 19:13)
+deep_only = ["trig_01BsPcnmvF54eikQU4tvYAGN", "trig_01W6iN2ep5xi6AEJycG1kDo2", "trig_01PfwRLxDoWPMHr6Gy368SdR", "trig_01Bf7D4YPuvLFnZqQH84Bdzh"]   # 리포트 카드 깊이(Sonnet 리서치 데스크 18:40) · 깊이 읽기 8건(20:15) · 종목 메모(Opus 20:10) · 전략 중간 점검(Opus 수 21:40)

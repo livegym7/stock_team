@@ -32,22 +32,37 @@ tokens = "적음 (스크립트만)"
 check = "bus"
 
 [[tasks]]
-name = "리포트 카드 (네이버 산업·전략 10~15건, 핵심 구간만) + 종목 깊은 카드 (조건 종목 최대 10개)"
-when = "평일 18:40"
+name = "리포트 카드 깊이 모드 (네이버 산업·전략 30건, 전문까지) + 종목 깊은 카드 (조건 종목 최대 10개)"
+when = "평일 18:40 — 2026-11-20 깊이 모드: Sonnet 리서치 데스크 (절약 모드로 돌아가면 Haiku 15건)"
 due = "18:40"
 runner = "claude"
-model = "Haiku"
-tokens = "적음 (약 7만, Haiku)"
+model = "Sonnet"
+tokens = "많음 (깊이 모드)"
 check = "cards"
 
 [[tasks]]
-name = "자료실: 카드로 고른 3건 깊이 읽기 (1건은 반대 의견, 질문 주도)"
-when = "평일 19:13"
-due = "19:13"
+name = "자료실: 깊이 읽기 8건 전문 (반대 의견 2건↑) + 업종 노트 매일 갱신"
+when = "평일 20:15 — 2026-11-20 깊이 모드: Sonnet 리서치 데스크 (절약 모드로 돌아가면 19:13 발췌 3건)"
+due = "20:15"
 runner = "claude"
 model = "Sonnet"
-tokens = "보통 (발췌 읽기라 3건이어도 전문 2건보다 적음)"
+tokens = "많음 (깊이 모드, 전문 읽기)"
 check = "naver_pick"
+
+[[tasks]]
+name = "종목 메모: 보유·관찰 풀 하루 4종목 (공시·실적·리포트 전문·경쟁사 → 가설·반대 근거·깨지는 조건)"
+when = "평일 20:10 — 2026-11-20 깊이 모드에서만 (Opus 전략 데스크)"
+due = "20:10"
+runner = "claude"
+model = "Opus"
+tokens = "많음 (깊이 모드)"
+
+[[tasks]]
+name = "전략 중간 점검: 지난 호 가설이 주중에 맞는지 한 장"
+when = "수 21:40 — 2026-11-20 깊이 모드에서만 (Opus 전략 데스크)"
+runner = "claude"
+model = "Opus"
+tokens = "보통 (깊이 모드)"
 
 [[tasks]]
 name = "주간 리뷰 (복기·띔 중간 성적)"
