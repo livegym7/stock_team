@@ -227,6 +227,10 @@ def prep():
 1️⃣ 2️⃣ … 주제 제목 + 글머리 2~5개(🔴/🔵/⚪, 숫자·회사명, 각 줄 끝에 (HH:MM)), 중요한 순, 3개↑ 채널이면 🔥
 📑 리포트는 리포트 정리 참고: 🔺상향 a · 🆕신규 c · 🔽하향 b (숫자만 한 줄)
 💼 내 종목 (오늘 누적): ⭐ 종목 · 관련 소식 (없으면 '직접 소식 없음')
+🗣 전문가 견해 (오늘 누적, 최대 8건 · 출처: 채널 요약(2차 자료) · 개인 의견) — 아래 '[(A) 🗣 전문가 견해 후보]' 칸에서 글쓴이의 해석·전망이 실제로 담긴 글을 이번 회차에 2~4건 골라 **반드시** 이 칸을 씁니다(후보가 하나도 없을 때만 생략). 한 건에 두 줄:
+• 👍/👎/⚠️/➖ 누가(채널) · 주제 — 견해 한 문장 (HH:MM)
+  근거: 글에 있는 근거 한 줄
+  (이전 회차의 견해는 살려 두고 새 것을 위에. 매수·매도 권유 문장은 옮기지 않고 방향만. 고른 견해는 저장 뒤 `python3 tools/views.py add --file …`로도 남깁니다 — 형식은 tools/views.py 맨 위)
 ⚖️ 읽는 법 1줄
 ※ 판단은 본인이 합니다.
 
@@ -320,7 +324,15 @@ def save(kind, file):
     out = ROOT / "reports" / at[:10] / f"{PREFIX[kind]}{at[11:13]}{at[14:16]}.md"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(text, encoding="utf-8")
-    print(json.dumps({"saved": str(out.relative_to(ROOT)), "chars": len(text)}, ensure_ascii=False))
+    res = {"saved": str(out.relative_to(ROOT)), "chars": len(text)}
+    if kind == "channels" and "🗣" not in text:   # 전문가 견해 칸 빠뜨림 경고 (2026-11-20: 첫 회차에서 칸이 빠졌음)
+        try:
+            import views
+            if views.candidates(8, 3)["n"] or views.recent(1):
+                res["warn"] = "🗣 전문가 견해 칸이 없습니다 — 재료의 견해 후보에서 2~4건 골라 칸을 넣고 다시 저장하세요 (views.py add도)"
+        except Exception:
+            pass
+    print(json.dumps(res, ensure_ascii=False))
 
 
 if __name__ == "__main__":
