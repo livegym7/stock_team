@@ -285,7 +285,8 @@ def insights(W, etf, allp, by_stock, now):
     except Exception:
         b = (etf or {}).get("benchmark") or {}
     if b:
-        light = "green" if b.get("above20") and b.get("aligned") else "yellow" if b.get("above20") or (b.get("slope20") or 0) > 0 else "red"
+        from common import regime_light
+        light = regime_light(b.get("above20"), b.get("aligned"), b.get("slope20"))
         out["regime"] = {"light": light, "etf": b.get("etf"), "gap20": b.get("gap20"), "slope20": b.get("slope20"),
                          "r1w": b.get("r1w"), "r1m": b.get("r1m"), "off_high": b.get("off_high"), "date": b.get("date"),
                          "text": {"green": "지수가 20일선 위 · 이평 정배열 → 돌파 매매에 우호적",
@@ -1151,7 +1152,8 @@ def main():
     if a.only == "monitoring":
         import subprocess
         # 감시 목록 다시 계산(섹터 레이더 포함). 텔레그램은 보내지 않음. 몇 분 걸림
-        subprocess.run(["python3", "tools/screener.py"], cwd=ROOT, capture_output=True, text=True, timeout=1800)
+        scope = ((load_toml("features.toml") or {}).get("scope") or (load_toml("features.toml") or {}).get("monitoring_scope") or "")
+        subprocess.run(["python3", "tools/screener.py"] + (["--pool"] if scope == "pool" else []), cwd=ROOT, capture_output=True, text=True, timeout=1800)   # 예약(16:07)과 같은 범위로 (2026-11-20)
     from universe import load as load_universe
     uni = {s["name"]: s for s in load_universe()["stocks"]}
     companies = {k: v for k, v in json.loads((DATA / "companies.json").read_text(encoding="utf-8")).items() if not k.startswith("_")}

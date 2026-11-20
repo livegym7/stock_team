@@ -148,7 +148,8 @@ python3 tools/strategy_tf.py pool            # 관찰 풀(config/watch_pool.toml
 python3 tools/web_build.py --only analysis
 # (Artifact 갱신은 2026-11-19 없앰 — 웹은 푸시하면 자동 배포)
 python3 tools/strategy_tf.py tg && python3 tools/telegram_send.py --file reports/YYYY-MM-DD/strategy_tg.md   # 텔레그램 요약 = 테크노펀더 지면 기준(2026-11-14), 도구가 만듦(30줄 안팎)
-git add data/strategy data/research/notes config/watch_pool.toml reports  # data/strategy/tf 포함 && git commit -m "전략 보고서 제n호 MM/DD" && git push -u origin main
+git add data/strategy data/research/notes config/watch_pool.toml reports   # data/strategy 안에 tf 폴더도 들어 있음
+git commit -m "전략 보고서 제n호 MM/DD" && git pull --rebase origin main && git push -u origin main
 ```
 
 7. **이번 주 확인할 질문 남기기 (2026-11-15, 빠뜨리지 말 것)** — 평일 깊이 읽기(Sonnet 19:13)가 이 질문에 답하는 리포트를 먼저 고릅니다. `data/strategy/questions_week.json`:

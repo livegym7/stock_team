@@ -88,7 +88,8 @@ def pool_stocks():
 def regime():
     import sector_etf
     b = sector_etf.stats("KOSPI", "코스피")
-    light = "green" if b.get("above20") and b.get("aligned") else "yellow" if b.get("above20") or (b.get("slope20") or 0) > 0 else "red"
+    from common import regime_light
+    light = regime_light(b.get("above20"), b.get("aligned"), b.get("slope20"))
     b["light"] = light
     b["source"] = "네이버 코스피 일봉(비공식) · 20일선 · 정배열"
     return b

@@ -9,7 +9,8 @@ on:
   push:
     branches: [main]
     paths:
-      - "data/insight/**"
+      - "data/stock_memos/**"     # 종목 메모(20:10)가 올라오면 바로 반영 (2026-11-20)
+      - "config/watch_pool.toml"
       - "data/strategy/latest.json"
       - "data/strategy/tf/latest.json"
       - "config/positions.toml"
@@ -21,7 +22,8 @@ on:
     - cron: "40 22 * * 0-4"     # 한국 평일 07:40 (전체 계산)
     - cron: "40 3 * * 1-5"      # 한국 평일 12:40 (장중 가격은 알림 작업이 20분마다 live.json으로 따로 올림, 2026-11-12)
     - cron: "40 7 * * 1-5"      # 한국 평일 16:40 (마감 확정)
-    - cron: "40 10 * * 1-5"     # 한국 평일 19:40 (리포트 카드·자료실 뒤)
+    - cron: "40 10 * * 1-5"     # 한국 평일 19:40 (리포트 카드 뒤)
+    - cron: "10 12 * * 1-5"     # 한국 평일 21:10 (깊이 읽기 20:15·종목 메모 20:10 뒤, 2026-11-20)
     - cron: "30 1 * * 6"        # 한국 토 10:30 (전략 보고서 뒤)
     - cron: "40 9 * * 6"        # 한국 토 18:40 (주말 채널 글 수집, 2026-11-15 사용자 확정 · Claude 사용량 0)
     - cron: "40 3 * * 0"        # 한국 일 12:40 (주말 채널 글 수집)
@@ -54,6 +56,7 @@ jobs:
           path: |
             web/last_data.json
             data/cache
+            data/stock_profiles.json
           key: web-${{ github.run_id }}
           restore-keys: web-
       - name: 잠금 확인 여부
@@ -72,6 +75,7 @@ jobs:
           # 수급 오실레이터 (2026-11-13): 외국인·기관 순매수 받기 — 회차마다 4분 안에서 오래된 것부터(처음 채우기는 몇 회차에 나눠), 19시 회차가 저녁 확정치로 갱신
           timeout 300 python3 tools/flow_osc.py update --budget 240 || true
           timeout 150 python3 tools/stock_profile.py update --budget 100 || true   # 기본 카드: 새 상장·60일 지난 기업 개요만 (보통 몇 초)
+          timeout 120 python3 tools/backtest.py --scorecard > /dev/null || true   # 감시 목록 성적표 + '실제 신호 30건' 세기 (2026-11-20, 11/5 이후 멈춰 있던 것)
           timeout 200 python3 tools/fundamentals.py update --budget 150 || true   # 실적·밸류에이션(2026-11-13): 네이버 재무·컨센서스, 실적 시즌은 하루·그 밖은 7일 지난 것부터
           if [ ! -f web/last_data.json ] || [ "$H" = "07" ]; then
             python3 tools/web_build.py
@@ -85,6 +89,7 @@ jobs:
           path: |
             web/last_data.json
             data/cache
+            data/stock_profiles.json
           key: web-${{ github.run_id }}
       - name: 배포 폴더 만들기
         run: |
@@ -108,3 +113,10 @@ jobs:
         run: |
           npx --yes wrangler@3.90.0 pages project create balance-lab --production-branch main 2>/dev/null || true
           npx --yes wrangler@3.90.0 pages deploy site --project-name balance-lab --branch main --commit-dirty=true
+      - name: 실패 알림 (텔레그램)   # 2026-11-20: 배포가 실패해도 아무도 모르던 것 보완
+        if: failure()
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          python3 tools/telegram_send.py "⚠️ 웹 배포 실패 — Balance Lab 화면이 갱신되지 않았습니다. 깃허브 Actions '웹 배포' ${{ github.run_number }}번 기록을 확인하거나 Claude에게 '웹 배포 실패 확인해줘'라고 말해 주세요." || true

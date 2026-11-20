@@ -1,7 +1,1421 @@
 {
- "made_at": "2026-11-03 21:21",
- "lists": 2,
+ "signals": [
+  {
+   "day": "20261118",
+   "stock": "안랩",
+   "code": "053800",
+   "setups": [
+    "A"
+   ]
+  },
+  {
+   "day": "20261111",
+   "stock": "네오셈",
+   "code": "253590",
+   "setups": []
+  },
+  {
+   "day": "20261111",
+   "stock": "지니언스",
+   "code": "263860",
+   "setups": []
+  },
+  {
+   "day": "20261110",
+   "stock": "삼성에스디에스",
+   "code": "018260",
+   "setups": [
+    "A"
+   ]
+  },
+  {
+   "day": "20261110",
+   "stock": "지니언스",
+   "code": "263860",
+   "setups": []
+  }
+ ],
+ "signals_n": 5,
+ "signals_target": 30,
+ "signals_since": "2026-11-03",
+ "made_at": "2026-11-20 14:49",
+ "lists": 11,
  "rows": [
+  {
+   "list_day": "20261119",
+   "stock": "프로티나",
+   "code": "468530",
+   "pivot": 62800,
+   "setups": [
+    "A"
+   ],
+   "days_after": 1,
+   "broke": false,
+   "max_up_pct": 1.0,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261119",
+   "stock": "엑시콘",
+   "code": "092870",
+   "pivot": 68000,
+   "setups": [
+    "A"
+   ],
+   "days_after": 1,
+   "broke": false,
+   "max_up_pct": -0.4,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261119",
+   "stock": "아모레퍼시픽",
+   "code": "090430",
+   "pivot": 152500,
+   "setups": [
+    "A"
+   ],
+   "days_after": 1,
+   "broke": false,
+   "max_up_pct": 2.6,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261119",
+   "stock": "코스맥스",
+   "code": "192820",
+   "pivot": 320000,
+   "setups": [
+    "A"
+   ],
+   "days_after": 1,
+   "broke": false,
+   "max_up_pct": 1.6,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261119",
+   "stock": "나노신소재",
+   "code": "121600",
+   "pivot": 78000,
+   "setups": [
+    "A"
+   ],
+   "days_after": 1,
+   "broke": false,
+   "max_up_pct": -4.8,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261119",
+   "stock": "한미사이언스",
+   "code": "008930",
+   "pivot": 60400,
+   "setups": [
+    "A"
+   ],
+   "days_after": 1,
+   "broke": false,
+   "max_up_pct": 6.3,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261119",
+   "stock": "동국제약",
+   "code": "086450",
+   "pivot": 31250,
+   "setups": [],
+   "days_after": 1,
+   "broke": false,
+   "max_up_pct": 0.0,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261119",
+   "stock": "한진칼",
+   "code": "180640",
+   "pivot": 245000,
+   "setups": [
+    "A"
+   ],
+   "days_after": 1,
+   "broke": false,
+   "max_up_pct": 14.7,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261119",
+   "stock": "디케이티",
+   "code": "290550",
+   "pivot": 34950,
+   "setups": [],
+   "days_after": 1,
+   "broke": false,
+   "max_up_pct": 1.8,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261119",
+   "stock": "안랩",
+   "code": "053800",
+   "pivot": 137300,
+   "setups": [
+    "A"
+   ],
+   "days_after": 1,
+   "broke": false,
+   "max_up_pct": 1.5,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261119",
+   "stock": "NHN",
+   "code": "181710",
+   "pivot": 89100,
+   "setups": [
+    "A"
+   ],
+   "days_after": 1,
+   "broke": false,
+   "max_up_pct": -3.9,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261119",
+   "stock": "코웨이",
+   "code": "021240",
+   "pivot": 111400,
+   "setups": [
+    "A"
+   ],
+   "days_after": 1,
+   "broke": false,
+   "max_up_pct": 2.3,
+   "low_vs_stop": false
+  },
+  {
+   "list_day": "20261118",
+   "stock": "프로티나",
+   "code": "468530",
+   "pivot": 62800,
+   "setups": [
+    "A"
+   ],
+   "days_after": 2,
+   "broke": false,
+   "max_up_pct": 12.9,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261118",
+   "stock": "원익홀딩스",
+   "code": "030530",
+   "pivot": 37300,
+   "setups": [],
+   "days_after": 2,
+   "broke": false,
+   "max_up_pct": 0.1,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261118",
+   "stock": "엑시콘",
+   "code": "092870",
+   "pivot": 68000,
+   "setups": [
+    "A"
+   ],
+   "days_after": 2,
+   "broke": false,
+   "max_up_pct": -0.9,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261118",
+   "stock": "코스맥스",
+   "code": "192820",
+   "pivot": 320000,
+   "setups": [
+    "A"
+   ],
+   "days_after": 2,
+   "broke": false,
+   "max_up_pct": 5.4,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261118",
+   "stock": "한미사이언스",
+   "code": "008930",
+   "pivot": 60400,
+   "setups": [
+    "A"
+   ],
+   "days_after": 2,
+   "broke": false,
+   "max_up_pct": 4.0,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261118",
+   "stock": "동국제약",
+   "code": "086450",
+   "pivot": 26050,
+   "setups": [
+    "A"
+   ],
+   "days_after": 2,
+   "broke": true,
+   "break_day": "20261119",
+   "entry": 26600.0,
+   "result_r": -0.19,
+   "how": "보유 중(평가)"
+  },
+  {
+   "list_day": "20261118",
+   "stock": "대한항공",
+   "code": "003490",
+   "pivot": 32800,
+   "setups": [
+    "A",
+    "E"
+   ],
+   "days_after": 2,
+   "broke": false,
+   "max_up_pct": 5.3,
+   "low_vs_stop": false
+  },
+  {
+   "list_day": "20261118",
+   "stock": "한진칼",
+   "code": "180640",
+   "pivot": 245000,
+   "setups": [
+    "A"
+   ],
+   "days_after": 2,
+   "broke": false,
+   "max_up_pct": 10.6,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261118",
+   "stock": "디케이티",
+   "code": "290550",
+   "pivot": 34950,
+   "setups": [],
+   "days_after": 2,
+   "broke": false,
+   "max_up_pct": 6.7,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261118",
+   "stock": "안랩",
+   "code": "053800",
+   "pivot": 137300,
+   "setups": [
+    "A"
+   ],
+   "days_after": 2,
+   "broke": false,
+   "max_up_pct": 13.1,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261118",
+   "stock": "NHN",
+   "code": "181710",
+   "pivot": 89100,
+   "setups": [
+    "A"
+   ],
+   "days_after": 2,
+   "broke": false,
+   "max_up_pct": 1.1,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261118",
+   "stock": "삼현",
+   "code": "437730",
+   "pivot": 60300,
+   "setups": [],
+   "days_after": 2,
+   "broke": false,
+   "max_up_pct": 4.5,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261118",
+   "stock": "코웨이",
+   "code": "021240",
+   "pivot": 111400,
+   "setups": [
+    "A"
+   ],
+   "days_after": 2,
+   "broke": false,
+   "max_up_pct": 5.3,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261118",
+   "stock": "KT&G",
+   "code": "033780",
+   "pivot": 201000,
+   "setups": [
+    "A"
+   ],
+   "days_after": 2,
+   "broke": false,
+   "max_up_pct": 1.5,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261117",
+   "stock": "원익홀딩스",
+   "code": "030530",
+   "pivot": 34500,
+   "setups": [
+    "A"
+   ],
+   "days_after": 3,
+   "broke": true,
+   "break_day": "20261118",
+   "entry": 35800.0,
+   "result_r": -1.0,
+   "how": "손절"
+  },
+  {
+   "list_day": "20261117",
+   "stock": "엑시콘",
+   "code": "092870",
+   "pivot": 68000,
+   "setups": [
+    "A"
+   ],
+   "days_after": 3,
+   "broke": false,
+   "max_up_pct": 10.4,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261117",
+   "stock": "코스맥스",
+   "code": "192820",
+   "pivot": 320000,
+   "setups": [
+    "A"
+   ],
+   "days_after": 3,
+   "broke": false,
+   "max_up_pct": 7.6,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261117",
+   "stock": "동국제약",
+   "code": "086450",
+   "pivot": 26250,
+   "setups": [
+    "A"
+   ],
+   "days_after": 3,
+   "broke": true,
+   "break_day": "20261119",
+   "entry": 26600.0,
+   "result_r": -0.19,
+   "how": "보유 중(평가)"
+  },
+  {
+   "list_day": "20261117",
+   "stock": "대한항공",
+   "code": "003490",
+   "pivot": 32800,
+   "setups": [
+    "A",
+    "E"
+   ],
+   "days_after": 3,
+   "broke": false,
+   "max_up_pct": 3.3,
+   "low_vs_stop": false
+  },
+  {
+   "list_day": "20261117",
+   "stock": "한진칼",
+   "code": "180640",
+   "pivot": 245000,
+   "setups": [
+    "A"
+   ],
+   "days_after": 3,
+   "broke": false,
+   "max_up_pct": 15.0,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261117",
+   "stock": "안랩",
+   "code": "053800",
+   "pivot": 137300,
+   "setups": [
+    "A"
+   ],
+   "days_after": 3,
+   "broke": false,
+   "max_up_pct": 17.3,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261117",
+   "stock": "코웨이",
+   "code": "021240",
+   "pivot": 111400,
+   "setups": [
+    "A"
+   ],
+   "days_after": 3,
+   "broke": false,
+   "max_up_pct": 4.7,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261116",
+   "stock": "원익홀딩스",
+   "code": "030530",
+   "pivot": 34500,
+   "setups": [
+    "A"
+   ],
+   "days_after": 4,
+   "broke": true,
+   "break_day": "20261118",
+   "entry": 35800.0,
+   "result_r": -1.0,
+   "how": "손절"
+  },
+  {
+   "list_day": "20261116",
+   "stock": "엑시콘",
+   "code": "092870",
+   "pivot": 68000,
+   "setups": [
+    "A"
+   ],
+   "days_after": 4,
+   "broke": false,
+   "max_up_pct": -0.4,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261116",
+   "stock": "코스맥스",
+   "code": "192820",
+   "pivot": 320000,
+   "setups": [
+    "A"
+   ],
+   "days_after": 4,
+   "broke": false,
+   "max_up_pct": 10.6,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261116",
+   "stock": "롯데렌탈",
+   "code": "089860",
+   "pivot": 58500,
+   "setups": [
+    "A",
+    "E"
+   ],
+   "days_after": 4,
+   "broke": true,
+   "break_day": "20261119",
+   "entry": 58600.0,
+   "result_r": 0.0,
+   "how": "보유 중(평가)"
+  },
+  {
+   "list_day": "20261116",
+   "stock": "안랩",
+   "code": "053800",
+   "pivot": 137300,
+   "setups": [
+    "A"
+   ],
+   "days_after": 4,
+   "broke": false,
+   "max_up_pct": 12.6,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261116",
+   "stock": "코웨이",
+   "code": "021240",
+   "pivot": 111400,
+   "setups": [
+    "A"
+   ],
+   "days_after": 4,
+   "broke": false,
+   "max_up_pct": 4.2,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261113",
+   "stock": "뉴파워프라즈마",
+   "code": "144960",
+   "pivot": 16220,
+   "setups": [
+    "A"
+   ],
+   "days_after": 5,
+   "broke": false,
+   "max_up_pct": 0.1,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261113",
+   "stock": "원익홀딩스",
+   "code": "030530",
+   "pivot": 34500,
+   "setups": [
+    "A"
+   ],
+   "days_after": 5,
+   "broke": true,
+   "break_day": "20261118",
+   "entry": 35800.0,
+   "result_r": -1.0,
+   "how": "손절"
+  },
+  {
+   "list_day": "20261113",
+   "stock": "미코",
+   "code": "059090",
+   "pivot": 26500,
+   "setups": [
+    "A"
+   ],
+   "days_after": 5,
+   "broke": false,
+   "max_up_pct": -1.1,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261113",
+   "stock": "엑시콘",
+   "code": "092870",
+   "pivot": 68000,
+   "setups": [
+    "A"
+   ],
+   "days_after": 5,
+   "broke": false,
+   "max_up_pct": 0.6,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261113",
+   "stock": "인텍플러스",
+   "code": "064290",
+   "pivot": 64800,
+   "setups": [
+    "A"
+   ],
+   "days_after": 5,
+   "broke": false,
+   "max_up_pct": 0.9,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261113",
+   "stock": "오킨스전자",
+   "code": "080580",
+   "pivot": 31500,
+   "setups": [
+    "A"
+   ],
+   "days_after": 5,
+   "broke": false,
+   "max_up_pct": 1.8,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261113",
+   "stock": "코스맥스",
+   "code": "192820",
+   "pivot": 320000,
+   "setups": [
+    "A"
+   ],
+   "days_after": 5,
+   "broke": false,
+   "max_up_pct": 11.8,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261113",
+   "stock": "동국제약",
+   "code": "086450",
+   "pivot": 26250,
+   "setups": [
+    "A"
+   ],
+   "days_after": 5,
+   "broke": true,
+   "break_day": "20261119",
+   "entry": 26600.0,
+   "result_r": -0.19,
+   "how": "보유 중(평가)"
+  },
+  {
+   "list_day": "20261113",
+   "stock": "셀트리온",
+   "code": "068270",
+   "pivot": 216000,
+   "setups": [
+    "A",
+    "B"
+   ],
+   "days_after": 5,
+   "broke": false,
+   "max_up_pct": 2.6,
+   "low_vs_stop": false
+  },
+  {
+   "list_day": "20261113",
+   "stock": "상신이디피",
+   "code": "091580",
+   "pivot": 28650,
+   "setups": [
+    "A"
+   ],
+   "days_after": 5,
+   "broke": false,
+   "max_up_pct": 10.8,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261113",
+   "stock": "롯데렌탈",
+   "code": "089860",
+   "pivot": 58500,
+   "setups": [
+    "A",
+    "E",
+    "F"
+   ],
+   "days_after": 5,
+   "broke": true,
+   "break_day": "20261119",
+   "entry": 58600.0,
+   "result_r": 0.0,
+   "how": "보유 중(평가)"
+  },
+  {
+   "list_day": "20261113",
+   "stock": "에스원",
+   "code": "012750",
+   "pivot": 101600,
+   "setups": [
+    "A"
+   ],
+   "days_after": 5,
+   "broke": true,
+   "break_day": "20261116",
+   "entry": 102600.0,
+   "result_r": 0.3,
+   "how": "보유 중(평가)"
+  },
+  {
+   "list_day": "20261113",
+   "stock": "안랩",
+   "code": "053800",
+   "pivot": 137300,
+   "setups": [
+    "A"
+   ],
+   "days_after": 5,
+   "broke": false,
+   "max_up_pct": 7.0,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261113",
+   "stock": "삼성에스디에스",
+   "code": "018260",
+   "pivot": 246000,
+   "setups": [
+    "A"
+   ],
+   "days_after": 5,
+   "broke": false,
+   "max_up_pct": 3.6,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261113",
+   "stock": "금호건설",
+   "code": "002990",
+   "pivot": 15390,
+   "setups": [],
+   "days_after": 5,
+   "broke": false,
+   "max_up_pct": 12.4,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261112",
+   "stock": "티에프이",
+   "code": "425420",
+   "pivot": 91800,
+   "setups": [
+    "A"
+   ],
+   "days_after": 6,
+   "broke": true,
+   "break_day": "20261113",
+   "entry": 91900.0,
+   "result_r": -1.0,
+   "how": "손절"
+  },
+  {
+   "list_day": "20261112",
+   "stock": "뉴파워프라즈마",
+   "code": "144960",
+   "pivot": 16220,
+   "setups": [
+    "A"
+   ],
+   "days_after": 6,
+   "broke": false,
+   "max_up_pct": 6.1,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261112",
+   "stock": "원익홀딩스",
+   "code": "030530",
+   "pivot": 34500,
+   "setups": [
+    "A"
+   ],
+   "days_after": 6,
+   "broke": true,
+   "break_day": "20261118",
+   "entry": 35800.0,
+   "result_r": -1.0,
+   "how": "손절"
+  },
+  {
+   "list_day": "20261112",
+   "stock": "코스맥스",
+   "code": "192820",
+   "pivot": 320000,
+   "setups": [
+    "A"
+   ],
+   "days_after": 6,
+   "broke": false,
+   "max_up_pct": 13.4,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261112",
+   "stock": "지니언스",
+   "code": "263860",
+   "pivot": 35200,
+   "setups": [],
+   "days_after": 6,
+   "broke": true,
+   "break_day": "20261117",
+   "entry": 36600.0,
+   "result_r": 0.1,
+   "how": "보유 중(평가)"
+  },
+  {
+   "list_day": "20261112",
+   "stock": "안랩",
+   "code": "053800",
+   "pivot": 137300,
+   "setups": [
+    "A"
+   ],
+   "days_after": 6,
+   "broke": false,
+   "max_up_pct": 6.4,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261112",
+   "stock": "에스원",
+   "code": "012750",
+   "pivot": 101600,
+   "setups": [
+    "A"
+   ],
+   "days_after": 6,
+   "broke": true,
+   "break_day": "20261116",
+   "entry": 102600.0,
+   "result_r": 0.3,
+   "how": "보유 중(평가)"
+  },
+  {
+   "list_day": "20261112",
+   "stock": "동국제약",
+   "code": "086450",
+   "pivot": 26250,
+   "setups": [
+    "A"
+   ],
+   "days_after": 6,
+   "broke": true,
+   "break_day": "20261119",
+   "entry": 26600.0,
+   "result_r": -0.19,
+   "how": "보유 중(평가)"
+  },
+  {
+   "list_day": "20261112",
+   "stock": "셀트리온",
+   "code": "068270",
+   "pivot": 216000,
+   "setups": [
+    "A",
+    "B"
+   ],
+   "days_after": 6,
+   "broke": false,
+   "max_up_pct": 4.8,
+   "low_vs_stop": false
+  },
+  {
+   "list_day": "20261111",
+   "stock": "네오셈",
+   "code": "253590",
+   "pivot": 18960,
+   "setups": [],
+   "days_after": 7,
+   "broke": false,
+   "max_up_pct": 9.6,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261111",
+   "stock": "티에프이",
+   "code": "425420",
+   "pivot": 91800,
+   "setups": [
+    "A"
+   ],
+   "days_after": 7,
+   "broke": true,
+   "break_day": "20261113",
+   "entry": 91900.0,
+   "result_r": -1.0,
+   "how": "손절"
+  },
+  {
+   "list_day": "20261111",
+   "stock": "미코",
+   "code": "059090",
+   "pivot": 26500,
+   "setups": [
+    "A"
+   ],
+   "days_after": 7,
+   "broke": false,
+   "max_up_pct": 6.1,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261111",
+   "stock": "뉴파워프라즈마",
+   "code": "144960",
+   "pivot": 16220,
+   "setups": [
+    "A"
+   ],
+   "days_after": 7,
+   "broke": false,
+   "max_up_pct": 4.4,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261111",
+   "stock": "원익홀딩스",
+   "code": "030530",
+   "pivot": 34500,
+   "setups": [
+    "A"
+   ],
+   "days_after": 7,
+   "broke": true,
+   "break_day": "20261118",
+   "entry": 35800.0,
+   "result_r": -1.0,
+   "how": "손절"
+  },
+  {
+   "list_day": "20261111",
+   "stock": "나노신소재",
+   "code": "121600",
+   "pivot": 95300,
+   "setups": [],
+   "days_after": 7,
+   "broke": false,
+   "max_up_pct": 4.1,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261111",
+   "stock": "에스엠벡셀",
+   "code": "010580",
+   "pivot": 4150,
+   "setups": [
+    "A"
+   ],
+   "days_after": 7,
+   "broke": false,
+   "max_up_pct": 1.8,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261111",
+   "stock": "삼현",
+   "code": "437730",
+   "pivot": 52400,
+   "setups": [],
+   "days_after": 7,
+   "broke": true,
+   "break_day": "20261118",
+   "entry": 53200.0,
+   "result_r": -0.16,
+   "how": "보유 중(평가)"
+  },
+  {
+   "list_day": "20261111",
+   "stock": "삼성에스디에스",
+   "code": "018260",
+   "pivot": 246000,
+   "setups": [
+    "A"
+   ],
+   "days_after": 7,
+   "broke": false,
+   "max_up_pct": 5.2,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261111",
+   "stock": "지니언스",
+   "code": "263860",
+   "pivot": 35200,
+   "setups": [],
+   "days_after": 7,
+   "broke": true,
+   "break_day": "20261117",
+   "entry": 36600.0,
+   "result_r": 0.1,
+   "how": "보유 중(평가)"
+  },
+  {
+   "list_day": "20261111",
+   "stock": "안랩",
+   "code": "053800",
+   "pivot": 137300,
+   "setups": [
+    "A"
+   ],
+   "days_after": 7,
+   "broke": false,
+   "max_up_pct": 4.5,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261111",
+   "stock": "에스원",
+   "code": "012750",
+   "pivot": 106500,
+   "setups": [
+    "A"
+   ],
+   "days_after": 7,
+   "broke": false,
+   "max_up_pct": 9.2,
+   "low_vs_stop": false
+  },
+  {
+   "list_day": "20261111",
+   "stock": "동국제약",
+   "code": "086450",
+   "pivot": 26250,
+   "setups": [
+    "A"
+   ],
+   "days_after": 7,
+   "broke": true,
+   "break_day": "20261119",
+   "entry": 26600.0,
+   "result_r": -0.19,
+   "how": "보유 중(평가)"
+  },
+  {
+   "list_day": "20261110",
+   "stock": "티에프이",
+   "code": "425420",
+   "pivot": 91800,
+   "setups": [
+    "A"
+   ],
+   "days_after": 8,
+   "broke": true,
+   "break_day": "20261113",
+   "entry": 91900.0,
+   "result_r": -1.0,
+   "how": "손절"
+  },
+  {
+   "list_day": "20261110",
+   "stock": "에스엠벡셀",
+   "code": "010580",
+   "pivot": 4150,
+   "setups": [
+    "A"
+   ],
+   "days_after": 8,
+   "broke": false,
+   "max_up_pct": 3.3,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261110",
+   "stock": "NHN",
+   "code": "181710",
+   "pivot": 78200,
+   "setups": [
+    "E"
+   ],
+   "days_after": 8,
+   "broke": true,
+   "break_day": "20261111",
+   "entry": 80300.0,
+   "result_r": -1.0,
+   "how": "손절"
+  },
+  {
+   "list_day": "20261110",
+   "stock": "삼성에스디에스",
+   "code": "018260",
+   "pivot": 246000,
+   "setups": [
+    "A"
+   ],
+   "days_after": 8,
+   "broke": false,
+   "max_up_pct": 4.1,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261110",
+   "stock": "지니언스",
+   "code": "263860",
+   "pivot": 35200,
+   "setups": [],
+   "days_after": 8,
+   "broke": true,
+   "break_day": "20261117",
+   "entry": 36600.0,
+   "result_r": 0.1,
+   "how": "보유 중(평가)"
+  },
+  {
+   "list_day": "20261110",
+   "stock": "안랩",
+   "code": "053800",
+   "pivot": 137300,
+   "setups": [
+    "A"
+   ],
+   "days_after": 8,
+   "broke": false,
+   "max_up_pct": 19.1,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261110",
+   "stock": "에스원",
+   "code": "012750",
+   "pivot": 106500,
+   "setups": [
+    "A"
+   ],
+   "days_after": 8,
+   "broke": false,
+   "max_up_pct": 9.8,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261110",
+   "stock": "동국제약",
+   "code": "086450",
+   "pivot": 26250,
+   "setups": [
+    "A"
+   ],
+   "days_after": 8,
+   "broke": true,
+   "break_day": "20261119",
+   "entry": 26600.0,
+   "result_r": -0.19,
+   "how": "보유 중(평가)"
+  },
+  {
+   "list_day": "20261104",
+   "stock": "삼성화재",
+   "code": "000810",
+   "pivot": 705000,
+   "setups": [
+    "A"
+   ],
+   "days_after": 12,
+   "broke": false,
+   "max_up_pct": 4.1,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261104",
+   "stock": "라온시큐어",
+   "code": "042510",
+   "pivot": 22450,
+   "setups": [
+    "A"
+   ],
+   "days_after": 12,
+   "broke": false,
+   "max_up_pct": 10.0,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261104",
+   "stock": "셀트리온",
+   "code": "068270",
+   "pivot": 203500,
+   "setups": [
+    "A"
+   ],
+   "days_after": 12,
+   "broke": true,
+   "break_day": "20261105",
+   "entry": 215000.0,
+   "result_r": -0.12,
+   "how": "보유 중(평가)"
+  },
+  {
+   "list_day": "20261104",
+   "stock": "동국제약",
+   "code": "086450",
+   "pivot": 26250,
+   "setups": [
+    "A",
+    "C"
+   ],
+   "days_after": 12,
+   "broke": true,
+   "break_day": "20261119",
+   "entry": 26600.0,
+   "result_r": -0.19,
+   "how": "보유 중(평가)"
+  },
+  {
+   "list_day": "20261104",
+   "stock": "상신이디피",
+   "code": "091580",
+   "pivot": 31550,
+   "setups": [],
+   "days_after": 12,
+   "broke": false,
+   "max_up_pct": 3.1,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261104",
+   "stock": "에스원",
+   "code": "012750",
+   "pivot": 106500,
+   "setups": [
+    "A"
+   ],
+   "days_after": 12,
+   "broke": false,
+   "max_up_pct": 9.5,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261104",
+   "stock": "HMM",
+   "code": "011200",
+   "pivot": 24250,
+   "setups": [
+    "A",
+    "B"
+   ],
+   "days_after": 12,
+   "broke": false,
+   "max_up_pct": 0.6,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261104",
+   "stock": "HT로보틱스",
+   "code": "396300",
+   "pivot": 11690,
+   "setups": [
+    "A"
+   ],
+   "days_after": 12,
+   "broke": false,
+   "max_up_pct": 0.7,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261104",
+   "stock": "코웨이",
+   "code": "021240",
+   "pivot": 111800,
+   "setups": [
+    "A"
+   ],
+   "days_after": 12,
+   "broke": false,
+   "max_up_pct": 7.5,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261104",
+   "stock": "에스엠벡셀",
+   "code": "010580",
+   "pivot": 4150,
+   "setups": [
+    "A"
+   ],
+   "days_after": 12,
+   "broke": false,
+   "max_up_pct": 2.0,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261104",
+   "stock": "한양디지텍",
+   "code": "078350",
+   "pivot": 42700,
+   "setups": [
+    "A"
+   ],
+   "days_after": 12,
+   "broke": false,
+   "max_up_pct": -5.6,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261104",
+   "stock": "엑시콘",
+   "code": "092870",
+   "pivot": 68000,
+   "setups": [
+    "A"
+   ],
+   "days_after": 12,
+   "broke": false,
+   "max_up_pct": 25.0,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261104",
+   "stock": "뉴파워프라즈마",
+   "code": "144960",
+   "pivot": 16220,
+   "setups": [
+    "A"
+   ],
+   "days_after": 12,
+   "broke": false,
+   "max_up_pct": 8.9,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261104",
+   "stock": "네오셈",
+   "code": "253590",
+   "pivot": 18960,
+   "setups": [
+    "A"
+   ],
+   "days_after": 12,
+   "broke": false,
+   "max_up_pct": 1.5,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261104",
+   "stock": "에이팩트",
+   "code": "200470",
+   "pivot": 11090,
+   "setups": [
+    "A"
+   ],
+   "days_after": 12,
+   "broke": false,
+   "max_up_pct": -2.8,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261104",
+   "stock": "마이크로컨텍솔",
+   "code": "098120",
+   "pivot": 63000,
+   "setups": [
+    "A"
+   ],
+   "days_after": 12,
+   "broke": false,
+   "max_up_pct": 0.5,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261104",
+   "stock": "오킨스전자",
+   "code": "080580",
+   "pivot": 31500,
+   "setups": [
+    "A"
+   ],
+   "days_after": 12,
+   "broke": false,
+   "max_up_pct": 2.2,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261104",
+   "stock": "삼성E&A",
+   "code": "028050",
+   "pivot": 67300,
+   "setups": [
+    "A",
+    "E"
+   ],
+   "days_after": 12,
+   "broke": true,
+   "break_day": "20261113",
+   "entry": 69400.0,
+   "result_r": -1.0,
+   "how": "손절"
+  },
   {
    "list_day": "20261103",
    "stock": "HT로보틱스",
@@ -10,10 +1424,10 @@
    "setups": [
     "A"
    ],
-   "days_after": 0,
+   "days_after": 13,
    "broke": false,
-   "max_up_pct": 0.0,
-   "low_vs_stop": false
+   "max_up_pct": 5.4,
+   "low_vs_stop": true
   },
   {
    "list_day": "20261103",
@@ -23,10 +1437,10 @@
    "setups": [
     "A"
    ],
-   "days_after": 0,
+   "days_after": 13,
    "broke": false,
-   "max_up_pct": 0.0,
-   "low_vs_stop": false
+   "max_up_pct": 11.0,
+   "low_vs_stop": true
   },
   {
    "list_day": "20261103",
@@ -36,10 +1450,12 @@
    "setups": [
     "A"
    ],
-   "days_after": 0,
-   "broke": false,
-   "max_up_pct": 0.0,
-   "low_vs_stop": false
+   "days_after": 13,
+   "broke": true,
+   "break_day": "20261113",
+   "entry": 69400.0,
+   "result_r": -1.0,
+   "how": "손절"
   },
   {
    "list_day": "20261103",
@@ -50,10 +1466,10 @@
     "A",
     "B"
    ],
-   "days_after": 0,
+   "days_after": 13,
    "broke": false,
-   "max_up_pct": 0.0,
-   "low_vs_stop": false
+   "max_up_pct": 2.2,
+   "low_vs_stop": true
   },
   {
    "list_day": "20261103",
@@ -63,10 +1479,10 @@
    "setups": [
     "A"
    ],
-   "days_after": 0,
+   "days_after": 13,
    "broke": false,
-   "max_up_pct": 0.0,
-   "low_vs_stop": false
+   "max_up_pct": 7.8,
+   "low_vs_stop": true
   },
   {
    "list_day": "20261103",
@@ -76,10 +1492,10 @@
    "setups": [
     "A"
    ],
-   "days_after": 0,
+   "days_after": 13,
    "broke": false,
-   "max_up_pct": 0.0,
-   "low_vs_stop": false
+   "max_up_pct": 2.6,
+   "low_vs_stop": true
   },
   {
    "list_day": "20261103",
@@ -90,10 +1506,10 @@
     "A",
     "C"
    ],
-   "days_after": 0,
+   "days_after": 13,
    "broke": false,
-   "max_up_pct": 0.0,
-   "low_vs_stop": false
+   "max_up_pct": 4.6,
+   "low_vs_stop": true
   },
   {
    "list_day": "20261103",
@@ -104,10 +1520,12 @@
     "A",
     "F"
    ],
-   "days_after": 0,
-   "broke": false,
-   "max_up_pct": 0.0,
-   "low_vs_stop": false
+   "days_after": 13,
+   "broke": true,
+   "break_day": "20261105",
+   "entry": 215000.0,
+   "result_r": -0.12,
+   "how": "보유 중(평가)"
   },
   {
    "list_day": "20261103",
@@ -117,10 +1535,12 @@
    "setups": [
     "A"
    ],
-   "days_after": 0,
-   "broke": false,
-   "max_up_pct": 0.0,
-   "low_vs_stop": false
+   "days_after": 13,
+   "broke": true,
+   "break_day": "20261119",
+   "entry": 26600.0,
+   "result_r": -0.19,
+   "how": "보유 중(평가)"
   },
   {
    "list_day": "20261103",
@@ -130,10 +1550,10 @@
    "setups": [
     "A"
    ],
-   "days_after": 0,
+   "days_after": 13,
    "broke": false,
-   "max_up_pct": 0.0,
-   "low_vs_stop": false
+   "max_up_pct": 10.4,
+   "low_vs_stop": true
   },
   {
    "list_day": "20261103",
@@ -143,10 +1563,12 @@
    "setups": [
     "E"
    ],
-   "days_after": 0,
-   "broke": false,
-   "max_up_pct": 0.0,
-   "low_vs_stop": false
+   "days_after": 13,
+   "broke": true,
+   "break_day": "20261104",
+   "entry": 187800.0,
+   "result_r": 1.5,
+   "how": "본전 청산"
   },
   {
    "list_day": "20261102",
@@ -156,7 +1578,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 1,
+   "days_after": 14,
    "broke": false,
    "max_up_pct": 15.8,
    "low_vs_stop": true
@@ -169,10 +1591,12 @@
    "setups": [
     "A"
    ],
-   "days_after": 1,
-   "broke": false,
-   "max_up_pct": 3.8,
-   "low_vs_stop": true
+   "days_after": 14,
+   "broke": true,
+   "break_day": "20261119",
+   "entry": 26600.0,
+   "result_r": -0.19,
+   "how": "보유 중(평가)"
   },
   {
    "list_day": "20261102",
@@ -182,7 +1606,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 1,
+   "days_after": 14,
    "broke": false,
    "max_up_pct": -1.5,
    "low_vs_stop": true
@@ -195,9 +1619,9 @@
    "setups": [
     "A"
    ],
-   "days_after": 1,
+   "days_after": 14,
    "broke": false,
-   "max_up_pct": 1.8,
+   "max_up_pct": 5.8,
    "low_vs_stop": true
   },
   {
@@ -208,7 +1632,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 1,
+   "days_after": 14,
    "broke": false,
    "max_up_pct": -4.3,
    "low_vs_stop": true
@@ -219,9 +1643,9 @@
    "code": "030530",
    "pivot": 37300,
    "setups": [],
-   "days_after": 1,
+   "days_after": 14,
    "broke": false,
-   "max_up_pct": -1.2,
+   "max_up_pct": 9.1,
    "low_vs_stop": true
   },
   {
@@ -232,12 +1656,12 @@
    "setups": [
     "A"
    ],
-   "days_after": 1,
+   "days_after": 14,
    "broke": false,
    "max_up_pct": 0.3,
    "low_vs_stop": true
   }
  ],
- "broke": 0,
- "total": 18
+ "broke": 31,
+ "total": 121
 }

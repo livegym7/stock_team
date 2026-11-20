@@ -498,8 +498,10 @@ def cat(b):
 
 
 def light(P):
-    g = P["regime"]["gap20"]; s = P["regime"]["slope20"]
-    return ("초록", "pos") if g > 0 and s > 0 else ("노랑", "warn") if g > 0 or s > 0 else ("빨강", "neg")
+    """국면 신호등 — common.regime_light 한 정의(20일선 위 + 정배열). 코스피 종가 120개로 다시 계산 (2026-11-20 통일)."""
+    from common import regime_light_from_closes
+    lt = regime_light_from_closes([x[1] for x in P["regime"].get("kospi") or []])
+    return {"green": ("초록", "pos"), "yellow": ("노랑", "warn"), "red": ("빨강", "neg")}[lt]
 
 
 def _mac(P, sym):

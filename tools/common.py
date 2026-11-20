@@ -105,3 +105,20 @@ def http_post_json(url, payload, timeout=20, headers=None):
     )
     with urllib.request.urlopen(req, timeout=timeout) as resp:
         return json.loads(resp.read())
+
+
+def regime_light(above20, aligned, slope20):
+    """국면 신호등 — 정의는 여기 한 곳 (2026-11-20 통일: 웹 '오늘'·전략 보고서·재료가 모두 이 함수를 씀).
+    초록 = 코스피가 20일선 위 + 정배열(20 > 60 > 120일선) / 노랑 = 20일선 위이거나 20일선 기울기가 위 / 빨강 = 나머지."""
+    return "green" if above20 and aligned else "yellow" if above20 or (slope20 or 0) > 0 else "red"
+
+
+def regime_light_from_closes(closes):
+    """종가 목록(120개 이상이면 정배열까지 판정)으로 신호등. 지나간 재료 파일도 같은 정의로 다시 계산할 때 씀."""
+    c = [x for x in closes if x is not None]
+    if len(c) < 25:
+        return "red"
+    ma = lambda n, k=0: sum(c[len(c) - n - k:len(c) - k]) / n if len(c) >= n + k else None   # noqa: E731
+    m20, m60, m120 = ma(20), ma(60), ma(120)
+    slope = (m20 / ma(20, 5) - 1) * 100 if ma(20, 5) else 0
+    return regime_light(c[-1] > m20, bool(m60 and m120 and m20 > m60 > m120), slope)

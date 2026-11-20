@@ -212,8 +212,12 @@ def run_backtest(limit=None, workers=4):
         import bisect
         ranks[d] = {k: round(bisect.bisect_right(order, x) / n * 99) for k, x in m.items()}
     rs_at = lambda d, code: ranks.get(d, {}).get(code)
-    # 시장 국면: KODEX 200 종가가 20일선 위인가
-    bench = fetch_long("069500")
+    # 시장 국면: 코스피 지수 종가가 20일선 위인가 (2026-11-05 기준 변경을 2026-11-20에 반영, 옛 값은 KODEX 200)
+    try:
+        import sector_etf
+        bench = sector_etf.daily("KOSPI", "코스피", 900)["rows"]
+    except Exception:
+        bench = fetch_long("069500")
     bc = [r["close"] for r in bench]
     bench_ok = {bench[i]["date"]: bc[i] > sum(bc[i - 19:i + 1]) / 20 for i in range(19, len(bench))}
     # 인더스트리 액션: 신호일에 같은 업종(사용자 분류 custom → 없으면 네이버 업종, 시총 2천억↑)이 함께 올랐나
@@ -299,7 +303,13 @@ def scorecard():
                 item["max_up_pct"] = round((max((r["high"] for r in daily), default=x["close"]) / x["close"] - 1) * 100, 1)
                 item["low_vs_stop"] = bool(daily and min(r["low"] for r in daily) <= lv["stop_1r"])
             rows_out.append(item)
-    out = {"made_at": datetime.now(KST).strftime("%Y-%m-%d %H:%M"), "lists": len(list((DATA / "bus").glob("*/screener.json"))),
+    sig = []   # 실제 신호(셋업 + 거래량 + 업종 동행을 모두 갖춘 날) — 규칙 재검토 조건 '신호 30건'을 세는 곳 (2026-11-20)
+    for f in sorted((DATA / "bus").glob("*/screener.json")):
+        d = json.loads(f.read_text(encoding="utf-8"))
+        if (d.get("as_of") or "") >= "20261103":
+            sig += [{"day": d.get("as_of"), "stock": x.get("stock"), "code": x.get("code"), "setups": x.get("setups", [])} for x in d.get("signals", [])]
+    out = {"signals": sig[::-1], "signals_n": len(sig), "signals_target": 30, "signals_since": "2026-11-03",
+           "made_at": datetime.now(KST).strftime("%Y-%m-%d %H:%M"), "lists": len(list((DATA / "bus").glob("*/screener.json"))),
            "rows": rows_out[::-1], "broke": sum(r["broke"] for r in rows_out), "total": len(rows_out)}
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "scorecard.json").write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")

@@ -96,10 +96,11 @@ def breakout_watch(now, sent, limit=40):
         # 장중 업종 동행 (screener.industry_action과 같은 규칙: 같은 업종 40%↑가 +2%↑ 또는 중앙값 +1.5%↑, 2026-11-18)
         ch = [q[pc]["chg"] for pc in (cx.get("peers") or []) if (q.get(pc) or {}).get("chg") is not None]
         ia = None
-        if len(ch) >= 3:
+        if len(ch) >= 3:   # screener.IA_RULE["min_peers"]와 같은 값
             import statistics
-            share, med = round(sum(1 for v in ch if v >= 2) / len(ch) * 100), statistics.median(ch)
-            ia = (share >= 40 or med >= 1.5, share)
+            from screener import IA_RULE   # 숫자는 screener 한 곳에서만 (2026-11-20, 여기 따로 적혀 있던 40·1.5를 없앰)
+            share, med = round(sum(1 for v in ch if v >= IA_RULE["up"] * 100) / len(ch) * 100), statistics.median(ch)
+            ia = (share >= IA_RULE["min_up_share"] or med >= IA_RULE["min_median"], share)
         iatxt = " · 업종 " + (("동행 ✓" if ia[0] else "나 홀로") + f" {ia[1]}%" if ia else "확인 불가")
         # 매물대 돌파: 어제 종가 ≤ 최대 매물대(차트 빨간 막대 상단) < 현재가 (2026-11-18 사용자 요청)
         zt = cx.get("zone_top") or (x.get("max_zone") or {}).get("top")

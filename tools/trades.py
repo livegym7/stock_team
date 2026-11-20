@@ -120,6 +120,14 @@ def buy(a):
     ev["risk_pct_of_account"] = round(one_r / r["capital"] * 100, 2) if r["capital"] else None
     ev["checks"] = {"손절폭 8% 이내": (a.price - stop) / a.price <= r["stop_pct"] + 0.001,
                     "1R ≤ 계좌 2%": one_r <= r["capital"] * r["risk"] * 1.05 if r["capital"] else None}
+    try:   # 총 위험(CR) 한도: 기존 보유의 Σ max(0, 평균가 − 손절가) × 수량 + 이번 매수 ≤ 계좌 × cr_limit (규칙은 그대로, 기록 때 점검만 추가 2026-11-20)
+        lim = load_toml("account.toml").get("max_open_risk", 0.06)
+        held = sum(max(0, (p.get("avg_price") or p.get("price") or 0) - (p.get("stop") or 0)) * (p.get("qty") or 0)
+                   for p in load_pos() if p.get("book") != "addon" and str(p.get("code")) != str(code))
+        ev["cr_after_pct"] = round((held + max(0, one_r)) / r["capital"] * 100, 2) if r["capital"] else None
+        ev["checks"][f"CR 합계 ≤ {lim * 100:.0f}%"] = (held + max(0, one_r)) <= r["capital"] * lim * 1.02 if r["capital"] else None
+    except Exception:
+        pass
     append(ev)
     return ev
 
