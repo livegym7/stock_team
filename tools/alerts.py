@@ -5,7 +5,7 @@
   - 3R 도달 (50% 익절 + 남은 물량 손절가 본전 규칙)
   - 3R 이후 20일선 아래 (종가로 확인 필요)
   - 하루 등락 -5% 이하 / +7% 이상
-  - 감시 목록(전날 16:07) 종목의 기준가 근접(−2% 이내)·장중 돌파 (예상 거래량 배수 포함) · 핵심 후보(펀더+기술, core.json)는 🎯로 먼저 (2026-11-14)
+  - 감시 목록(전날 16:07) 중 관찰 풀·핵심 후보의 기준가 근접(−2% 이내)·장중 돌파 (예상 거래량 배수 포함) · 풀 밖은 규칙을 다 채운 돌파(✅)만 (2026-11-20) · 핵심 후보(펀더+기술, core.json)는 🎯로 먼저 (2026-11-14)
   - 최대 매물대(차트 빨간 막대 상단) 장중 돌파 + 장중 업종 동행(같은 업종 종목 1분 전 시세) · 기준가 돌파+거래량+업종 동행이면 ✅ 규칙 충족 (2026-11-18)
   - 보유 종목이 주인공인 채널 새 글 (기업·실적·리포트·정책 글, 중복·잡담·시황 나열 제외, 지난 확인 이후)
 판단만 알린다. 매수·매도를 대신하지 않는다 (절대 규칙 1·4).
@@ -109,13 +109,18 @@ def breakout_watch(now, sent, limit=40):
         bo = px > piv
         vok = vr is not None and vr >= 1.5
         rule = bo and vok and bool(ia and ia[0])
+        # 2026-11-20 사용자 확정: 웹 셋업 보드와 같은 기준으로 좁힘 — 관찰 풀·핵심 후보는 근접·돌파 모두, 풀 밖은 규칙을 다 채운 돌파(✅)만.
+        # (전에는 풀 밖·조건 부족 후보의 '기준가 근접'까지 "참고"로 보내 하루 5건 한도를 채웠음)
+        mine = bool(x.get("pool")) or bool(cx.get("core"))
+        if not mine and not (rule and not x.get("missing")):
+            continue
         if bo or zb:
             what = " + ".join(([f"기준가 {piv:,}"] if bo else []) + ([f"매물대 {zt:,}"] if zb else []))
             head = f"🔔 {grade}{tier} {x['stock']} {px:,.0f}원 ({r.get('chg') or 0:+.2f}%) · {what} 돌파{vtxt}{' ✓' if vok else ''}{iatxt}"
             tail = " — ✅ 규칙 충족(장중), 종가로 확정" if rule else (" — 매물대만 돌파(참고)" if not bo else " — 종가 유지·거래량 1.5배·업종 동행 확인 필요")
-            if bo:
+            if bo and mine:
                 out.append((f"brk:{c}", head + tail + miss))
-            if zb:
+            if zb and mine:
                 out.append((f"zb:{c}", head + tail + miss))
             if rule:   # 처음엔 업종이 안 따라왔다가 나중에 규칙을 채우면 한 번 더
                 out.append((f"rule:{c}", head + tail + miss))
