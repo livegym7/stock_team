@@ -275,6 +275,15 @@ def prep():
     ms = missed(D, day)
     miss_part = ("[지난 정리에서 빠진 관련 글 — 보유·관찰 풀·핵심 후보 언급인데 오늘 정리에 그 종목이 없음. 중요하면 이번에 반영]\n"
                  + "\n".join(f"[{m['time']}|{m['channel']}] {', '.join(m['names'])} — {m['text']}" for m in ms[-20:]) + "\n") if ms else ""
+    try:   # 전문가 견해 후보 (2026-11-20 사용자 확정, tools/views.py): 해석·전망이 담긴 글 — (A) 맨 아래 '🗣 전문가 견해' 칸
+        import views
+        hrs = max(3, min(30, int((now - datetime.strptime(ch_since, "%Y-%m-%d %H:%M").replace(tzinfo=KST)).total_seconds() // 3600) + 1))
+        VW = views.candidates(hrs, 10)["items"]; VR = views.recent(1)
+    except Exception:
+        VW, VR = [], []
+    view_part = ("[(A) 🗣 전문가 견해 후보 — 글쓴이의 해석·전망이 담긴 글(규칙 점수, voice = 본인/하우스 뷰·후기/해설). 사실만 나열한 글은 견해로 올리지 않음]\n"
+                 + "\n".join(f"[{v['time'][5:]}|{v['channel']}|{v['voice']}] {v['text'][:1200]}" for v in VW)
+                 + ("\n[오늘 이미 저장한 견해 — 다시 저장하지 말고, 정리 글의 견해 칸에는 살려 둠]\n" + "\n".join(f"- {v.get('who')} · {v.get('topic')} · {v.get('stance')}: {v.get('view')}" for v in VR) if VR else "") + "\n") if VW or VR else ""
     text = f"""{rules}
 
 {common}
@@ -282,6 +291,7 @@ def prep():
 {ch_part}
 
 {miss_part}
+{view_part}
 [(A)용 새 채널 글 {len(ch_new)}개 · {ch_since[11:]} 이후 · 리포트·실적 제외 · {cnt(raw)} · ★ = 보유·관찰 풀·핵심 후보·여러 채널·숫자 많은 글이라 전문(최대 1,500자)]
 {chr(10).join(("★" + line(p, 1500)) if imp(p) else line(p, 260) for p in ch_new[-150:]) or '(새 글 없음)'}
 

@@ -411,7 +411,7 @@ def prep(weeks=4):
         s["group"] = group_of(s["name"])
     out = {
         "made_at": now.strftime("%Y-%m-%d %H:%M"), "weeks": weeks,
-        "regime": safe(regime), "market": safe(market_now), "overseas": safe(overseas), "econ": safe(econ_recent), "macro_extra": safe(lambda: __import__("macro_extra").build()),
+        "regime": safe(regime), "market": safe(market_now), "overseas": safe(overseas), "econ": safe(econ_recent), "macro_extra": safe(lambda: __import__("macro_extra").build()), "views": safe(lambda: __import__("views").weekly(7)),
         "talk": safe(lambda: talk(allp, group_of, pool, weeks)),
         "earnings": safe(lambda: earnings_axis(allp, uni, companies, pool, by_stock_rep, flow31)),
         "price_money": safe(lambda: price_money(allp, uni, companies, pool, by_stock_rep)),
@@ -491,6 +491,17 @@ def md_summary(o):
     L.append("## 최근 의견")
     for op in (o.get("opinions") or [])[-6:]:
         L.append(f"[{op['date']} {op['kind']}] {op['opinion']}")
+    V = (o.get("views") or {}).get("topics") or []
+    if V:
+        L.append("## 🗣 전문가 견해 (채널 글쓴이의 개인 의견 · 2차 자료 · 7일) — 해설의 '왜'와 '반대 해석' 재료. 견해만으로 스트림을 올리거나 내리지 않음")
+        for t in V[:12]:
+            st = t["stance"]
+            L.append(f"- **{t['topic']}** {t['n']}건(글쓴이 {t['who_n']}명) · 긍정 {st.get('긍정', 0)} / 부정·경계 {st.get('부정', 0) + st.get('경계', 0)} / 중립 {st.get('중립', 0)}")
+            for v in t["pro"]:
+                L.append(f"  - 👍 {v['who']} {v['date'][5:]}: {v['view']} — {v['reason']}")
+            for v in t["con"]:
+                L.append(f"  - 👎 {v['who']} {v['date'][5:]}: {v['view']} — {v['reason']}")
+        L.append("")
     L.append("## 앞으로 14일 일정")
     for e in o.get("calendar") or []:
         L.append(f"- {e.get('date')} {e.get('time') or ''} {e.get('name')} ({e.get('kind')})")
