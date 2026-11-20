@@ -598,3 +598,4 @@
 - **2단계(지우기)**: 도구 4개(dashboard_data, chart, backtest_variants, backtest_zone) · `dashboard/`·`data/dashboard/` · `screener.yml` · web_build의 옛 `refresh` · 관찰 풀을 두 번 쓰던 `strategy_prep.write_pool`(이제 `strategy_tf.py pool` 한 곳) · 옛 설계 문서 7개는 `docs/archive/`로. 화면(app.html) 죽은 코드는 따로 진행.
 - **3단계(문서)**: CLAUDE.md를 현재형으로 다시 씀(옛 '작업 방식' 원문은 `docs/decisions.md`) · automation.toml·스킬 설명의 옛 시각·모델·횟수 정리 · '큰 줄기' → '큰 스트림'(관찰 풀 stage 포함).
 - **남은 것**: 깊은 카드가 11/13 이후 멈춘 원인(대기 종목은 87개 있음 → 18:40 회차가 마지막 단계를 건너뛴 것으로 보임, 오늘 저녁 확인) · 옛 디자인 가지 5개 삭제 여부 · 예약 지시문 글 고치기(각 대화에서만 가능) · 4~5단계(디자인 부품 통일·겹치는 화면 덜어내기)는 시안 먼저.
+- 4~5단계 1차(사용자 시안 확인 뒤 반영): 보고서 `foldPages`(13,298 → 2,639px, 휴대폰 옆 밀림 해소), '오늘' 3,112 → 약 2,400px, 금리·유동성 옛 표 제거, 국면·수급 카드 격자, 부품 통일 레이어 CSS. 남은 것: 표 15종 → 1종, 글자 크기 단계 줄이기, 휴대폰 기준 폭 하나로, 내용 적은 탭 합치기.

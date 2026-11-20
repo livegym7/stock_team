@@ -676,6 +676,35 @@ table.sortt th{cursor:pointer;user-select:none} table.sortt th:hover{color:var(-
  /* ⑤ 종목 목록 '전체 보기' 버튼 한 줄 */
  .ctool .chip{white-space:nowrap;font-size:12px;padding:6px 10px;flex:none}
 }
+
+/* ===== 2026-11-20 사용자 확정: 부품 통일 레이어 — 표·숫자 카드·상자·보고서 조각을 한 모양으로 ===== */
+html body .view .tfr.mkt .page{background:none;border:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:start}
+html body .view .tfr.mkt .page>*{grid-column:1/-1}
+html body .view .tfr.mkt .page>.fig,html body .view .tfr.mkt .two>.fig{grid-column:auto;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px;margin:0}
+html body .view .tfr.mkt .two{display:contents}
+html body .view .tfr.mkt .ftdc{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px}
+html body .view .tfr.mkt svg.chart{width:100%;height:auto;max-height:none}
+html body .view .tfr.mkt-sectors .page>.fig{grid-column:1/-1}
+html body .view .tfr.mkt-flows .page>.fig{grid-column:1/-1}
+html body .view .tfr .ft{font-family:var(--sans);font-size:13.5px;font-weight:700;color:var(--fg);margin:0 0 8px}html body .view .tfr .ft span{color:var(--primary,#2f6fed);font-weight:700;margin-right:6px}
+html body .view .tfr table{font-family:var(--sans);font-size:12.5px;border:0}
+html body .view .tfr th{font-family:var(--sans);font-size:11px;font-weight:500;color:var(--muted);background:transparent;border-bottom:1px solid var(--line);padding:6px 8px}
+html body .view .tfr td{font-family:var(--sans);font-variant-numeric:tabular-nums;border-bottom:1px solid var(--line);padding:6px 8px}
+html body .view .tfr .src{font-size:11px;color:var(--muted)}
+html body .view .panel.kpi,html body .view .tile{background:var(--soft);border:1px solid transparent;border-radius:14px;padding:10px 12px}
+html body .view .panel.kpi>span,html body .view .tile>span{font-size:11.5px;color:var(--muted)}
+html body .view .panel.kpi>b,html body .view .tile>b{font-family:var(--sans);font-variant-numeric:tabular-nums;font-size:18px;font-weight:700;line-height:1.3}
+html body .view .chips.tabs,html body .view .view>.chips:first-of-type{margin-bottom:12px!important}
+details.pgfold{border:1px solid var(--line);border-radius:14px;background:var(--panel);margin:0 0 10px;overflow:hidden}
+details.pgfold>summary{list-style:none;cursor:pointer;display:flex;align-items:baseline;gap:12px;padding:13px 16px}
+details.pgfold>summary::-webkit-details-marker{display:none}
+details.pgfold>summary b{font-size:15px}details.pgfold>summary b i{font-style:normal;color:var(--muted);font-size:11.5px;letter-spacing:.06em;margin-right:4px}
+details.pgfold>summary span{color:var(--muted);font-size:12.5px;flex:1;min-width:0}details.pgfold>summary em{font-style:normal;font-size:12px;color:var(--primary,#2f6fed)}
+details.pgfold[open]>summary em{visibility:hidden}details.pgfold[open]>summary{border-bottom:1px solid var(--line)}
+details.pgfold .tfr .page,details.pgfold>article.page{border:0!important;margin:0!important}
+details.pgfold>article.page .mast{display:none}
+.cpmore{margin-top:6px}.mktgo{display:block;margin-top:10px}
+@media(max-width:820px){html body .view .tfr.mkt .page{grid-template-columns:minmax(0,1fr)}details.pgfold>summary{flex-wrap:wrap;gap:4px 10px}.tfr{max-width:100%;overflow-x:hidden}.tfr .tw{overflow-x:auto}}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="bl-icon" viewBox="0 0 1024 1024"><defs><linearGradient id="blbg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#52525b"/><stop offset="1" stop-color="#18181b"/></linearGradient><linearGradient id="blgl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".16"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/></linearGradient></defs><rect width="1024" height="1024" rx="232" fill="url(#blbg)"/><rect width="1024" height="1024" rx="232" fill="url(#blgl)"/><path d="M352 262 V762 M352 262 H528 A122 122 0 0 1 528 506 H352 M352 506 H574 A128 128 0 0 1 574 762 H352" fill="none" stroke="#fff" stroke-linejoin="round" stroke-linecap="round" stroke-width="104"/><circle cx="742" cy="290" r="44" fill="#6d7dff"/></symbol></svg>
@@ -855,11 +884,9 @@ function viewStrategy(){
 }
 
 /* ---------- 오늘 (디자인 B, 2026-11-05) ---------- */
-const MACRO=[["^IXIC","나스닥"],["^GSPC","S&P 500"],["^DJI","다우존스"],["NQ=F","나스닥100 선물"],["EWY","EWY"],["^SOX","SOX 반도체"],["KRW=X","원/달러"],["DX-Y.NYB","달러인덱스"],["^TNX","미 10년물"],["CL=F","WTI"],["^N225","닛케이"],["000001.SS","상해"],["^TWII","대만"]];   // 2026-11-15 달러·일본·중국·대만 추가
 const KSYM={KOSPI:"^KS11",KOSDAQ:"^KQ11"};
 const fp=n=>n==null||isNaN(n)?"-":Number(n).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
 const man=n=>n==null?"-":Math.abs(n)>=1e8?(n/1e8).toFixed(1)+"억":(n/1e4).toLocaleString("ko-KR",{maximumFractionDigits:Math.abs(n)<1e6?1:0})+"만";
-function usRow(sym){return ((D.market||{}).us||[]).find(r=>r.symbol==sym)}
 function thermoTable(){
   const P=D.pulse, m=D.market||{}, sp=m.spark||{};
   const mk=(P&&P.markets)||(m.kr||[]).map(r=>({market:r.code,name:r.index,price:r.price,change_pct:r.change_pct}));
@@ -1488,13 +1515,6 @@ function krFlowBox(){
   const P=D.pulse, st=P?(P.markets?.[0]?.status=="CLOSE"?"마감":"장중")+" "+(P.at||"").slice(11):"";
   return `<div class="bx"><div class="bh">코스피 · 코스닥 · 투자자 수급<em>${P?(P.markets?.[0]?.status=="CLOSE"?"마감 ":"장중 ")+ageTag(P.at,"지수·수급"):""} · 네이버 · 거래소 잠정치(억 원)</em></div>${thermoTable()}</div>`;   // 지수 차트는 시장 › 매크로로 (2026-11-19 사용자 요청)
 }
-function macroBox(){
-  const m=D.market||{}, sp=m.spark||{};
-  const us=MACRO.map(([s,n])=>{const r=usRow(s);return r&&{n,p:r.price,c:r.change_pct,s}}).filter(Boolean);
-  const tile=x=>`<div><small>${esc(x.n)}</small><b class="num">${fp(x.p)}</b><em class="num ${cls(x.c)}">${pc(x.c,2)}</em>${spark(sp[x.s],64,26)}</div>`;
-  return `<div class="bx"><div class="bh">시장 숫자 · 해외·매크로<em>Yahoo(비공식) · 미니 차트: 회색 전일 · 색 오늘</em></div>
-   ${us.length?`<div class="mt">${us.map(tile).join("")}</div>`:`<div class="empty" style="margin:10px">해외 시세를 불러오지 못했습니다</div>`}</div>`;
-}
 /* Claude 인사이트 (2026-11-11): 상향·하향 나열 대신 채널 며칠 치를 종합한 해석. data/insight/latest.json (tools/insight.py) */
 function insightBox(op){
   const I=D.insight, age=I&&I.made_at?(Date.now()-new Date(I.made_at.replace(" ","T")+":00+09:00"))/36e5:1e9;
@@ -1538,7 +1558,7 @@ function viewHome2(){
     ${highsLine()}
     ${alertLine()}
     ${krFlowBox()}
-    ${macroBox()}
+    <a class="bmore mktgo" href="#flow" data-ft="macro">🌐 해외 지수·환율·금리는 시장 › 매크로에서 ›</a>
    </div>
   </div>`;
 }
@@ -1715,7 +1735,7 @@ function earnTab(){
    <div class="src">PER(E) = 현재가 ÷ 올해 EPS 컨센서스(적자면 '적자') · ROE 올해 E · 영업이익률 = 최근 분기 실제, 작은 선 = 최근 5개 분기 · +1,000%↑ = 이익이 아주 작은 데서 늘어난 경우 · 출처: 네이버 재무(비공식) · 참고용, 매매 판단은 본인</div></section>`}
 function tfMarket(k){   // 매일 숫자·그림 (strategy_tf.market_fragments, 토큰 0) — 해석 글은 주간 보고서
   const T=D.tf_market;if(!T||!T.html||!T.html[k])return `<div class="empty">아직 데이터가 없습니다 (다음 웹 갱신 때 생깁니다)</div>`;
-  return `<style>${T.css||""}</style><div class="tfr"><div class="page">${T.html[k]}<div class="src" style="margin-top:8px">숫자 ${esc(T.made_at||"")} · 해석은 <a href="#strategy" data-st="report">전략 › 주간 보고서</a></div></div></div>`}
+  return `<style>${T.css||""}</style><div class="tfr mkt mkt-${k}"><div class="page">${T.html[k]}<div class="src" style="margin-top:8px">숫자 ${esc(T.made_at||"")} · 해석은 <a href="#strategy" data-st="report">전략 › 주간 보고서</a></div></div></div>`}
 function newsTab(){
   if(ui.nt=="reports"){ui.nt="digest";ui.st="research";ui.rt="corp";save();setTimeout(()=>{location.hash="strategy"},0)}   // 소식 › 리포트는 전략 › 자료실 › 기업 리포트로 옮김 (2026-11-17)
   const nt=["digest","channels"].includes(ui.nt)?ui.nt:"digest";
@@ -1778,8 +1798,7 @@ function macroTab(){const M=D.macro_board;if(!M)return tfMarket("macro");const t
    :t=="us"?`${H("주요 지수","일봉 200일 · 20·60일선 · 누르면 크게")}${mcGrid(M.index||[])}
      ${H("미국 산업 지도","간밤 강한 순 · 산업을 누르면 대표 종목 캔들이 펼쳐집니다")}${usSectors()}`
    :`${H("금리 · 환율 · 원자재","일봉 200일 · 누르면 크게")}${mcGrid(M.rates||[],x=>({note:{"KRW=X":"오르면 원화 약세 → 외국인 수급에 부담","DX-Y.NYB":"오르면 달러 강세 → 신흥국 자금에 부담","^TNX":"오르면 성장주 할인율 부담","^VIX":"20 넘으면 경계 · 30 넘으면 공포","CL=F":"내리면 항공·화학에 우호, 정유에 부담"}[x.symbol]}))}
-     ${H("유동성 · 레버리지","증시 주변 자금과 빚 · 하루 늦게 나옴")}<div class="panel">${liqPanel()}</div>
-     ${H("매크로 숫자 · 경제지표")}${tfMarket("macro")}`;
+     ${H("유동성 · 레버리지","증시 주변 자금과 빚 · 하루 늦게 나옴")}<div class="panel">${liqPanel()}</div>`;
   return tabs+body+src(`해외 일봉: Yahoo Finance(비공식) 전일 마감 기준 · ${esc(M.made_at||"")} 수집 · 코스피·코스닥은 장중 1분 시세 · 출처·시각은 각 칸 참고`)}
 document.addEventListener("click",e=>{const a=e.target.closest("[data-mk]"),b=e.target.closest("[data-mkw]"),c=e.target.closest("[data-usx]"),d=e.target.closest("[data-mcz]");
   if(a){ui.mk=a.dataset.mk;save();render()}else if(b){ui.mkw=b.dataset.mkw;save();render()}else if(d){ui.mcz=ui.mcz==d.dataset.mcz?null:d.dataset.mcz;save();render()}else if(c){ui.usx=ui.usx==c.dataset.usx?null:c.dataset.usx;save();render()}});
@@ -1965,10 +1984,14 @@ function pastReport(date){
   if(J.err)return ban+`<div class="empty">이 호의 본문 파일을 찾지 못했습니다</div>`;
   const v3=()=>{if(!J.v3)return "";const keep=D.strategy;D.strategy=J.v3;try{return stripH1(viewStrategy())}finally{D.strategy=keep}};
   return ban+(J.tf&&J.tf.html?`<style>${J.tf.css||""}</style>${J.tf.html}<details class="fold"><summary class="foldh">📄 같은 호 옛 형식(v3) <small class="muted">눌러서 펼치기</small></summary>${v3()}</details>`:v3()||`<div class="empty">본문 없음</div>`)}
+function foldPages(html){   // 보고서가 너무 길어(13,000px) 요약 장만 펼치고 STEP 1~6은 접어 둠 — 제목 줄을 누르면 펼쳐짐 (2026-11-20 사용자 확정)
+  const P=html.split('<article class="page">');if(P.length<3)return html;
+  return P[0]+'<article class="page">'+P[1]+P.slice(2).map((x,i)=>{const m=x.match(/<h2 data-tl="([^"]+)">([\s\S]*?)<\/h2><span>([\s\S]*?)<\/span>/),e=x.lastIndexOf("</article>");
+    return `<details class="pgfold" data-fold="pg${i}" ${ui["pg"+i]?"open":""}><summary><b>${m?m[2].replace(/<i>(.*?)<\/i>/,'<i>$1</i> '):"장 "+(i+1)}</b><span>${m?m[3]:""}</span><em>펼치기</em></summary><article class="page">${x.slice(0,e)}</article></details>${x.slice(e+10)}`}).join("")}
 function tfReport(){   // 테크노펀더멘탈 · 탑다운 주간 보고서(2026-11-14 사용자 확정) — strategy_tf.py가 만든 조각 + 지난 형식은 접어 둠
   const I=D.strategy_issues||[];if(ui.si&&I.length&&ui.si!=I[0].date&&I.some(x=>x.date==ui.si))return issueBar()+pastReport(ui.si);
   const T=D.strategy_tf; if(!T||!T.html)return issueBar()+stripH1(viewStrategy());
-  return `${issueBar()}<style>${T.css||""}</style>${T.html}
+  return `${issueBar()}<style>${T.css||""}</style>${foldPages(T.html)}
    <details class="fold" data-fold="oldRpt" ${ui.oldRpt?"open":""}><summary class="foldh">📄 지난 형식(애널리스트 v3) 보고서 · 관찰 풀·가설 성적표 원본 <small class="muted">눌러서 펼치기</small></summary>${stripH1(viewStrategy())}</details>`}
 /* ---------- 부록 · 지수 되돌림 현황판 (2026-11-18 시안): 깡토 '지수이지' 재구성, 검증실 backtest_ibs.py · 본 매매 규칙과 별개(표시만) ----------
    조건 = 코스피 20일선 아래(🔴) + ETF IBS < 0.2 (그날 범위 하위 20%에서 끝남) + 흔들림(ATR 14일, 종가 대비) 지난 250일 중 상위 30% → 15:00~15:20 매수, 다음 날 종가 매도 */
@@ -2281,8 +2304,10 @@ function checkpointBox(op){
   return `<div class="bx insight"><div class="bh">🧭 체크포인트 · ${esc(SLOTN[K.slot]||"")}<em>${ageTag(K.made_at,"체크포인트 작성")} · 하루 5회 (07·10·12·15·18시) · 텔레그램은 07·12·18시</em></div>
    <div class="ihl">${tint(K.title)}</div>
    ${(K.graded||[]).length?`<div class="cpg">${K.graded.map(g=>`<span class="pill cpgp" title="${esc(g.note||"")}">${M[g.result]||""} ${esc(g.watch)}${g.note?` <small class="muted">→ ${esc(g.note)}</small>`:""}</span>`).join("")}</div>`:""}
-   ${sec("changed","바뀐 것")}${sec("today","오늘 중요했던 것")}${sec("now","지금 상태")}${sec("mine","내 종목")}${sec("watch","다음까지 볼 것")}
-   ${K.sources?`<div class="isrc">출처: ${esc(K.sources)}</div>`:""}
+   ${sec("changed","바뀐 것")}${sec("watch","다음까지 볼 것")}
+   <details class="fold cpmore" data-fold="cpAll" ${ui.cpAll?"open":""}><summary class="foldh">나머지 보기 <small class="muted">오늘 중요했던 것 · 지금 상태 · 내 종목 · 출처</small></summary>
+   ${sec("today","오늘 중요했던 것")}${sec("now","지금 상태")}${sec("mine","내 종목")}
+   ${K.sources?`<div class="isrc">출처: ${esc(K.sources)}</div>`:""}</details>
    <a class="bmore" href="#flow" data-ft="digest">지난 체크포인트·정리 타임라인 ›</a></div>`;
 }
 function todoItems(){
