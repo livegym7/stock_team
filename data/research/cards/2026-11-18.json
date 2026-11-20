@@ -532,11 +532,11 @@
   "contrarian": false,
   "theme_hit": [
    "AI",
-   "개선",
    "국내",
    "반도체",
-   "소비",
-   "신세계"
+   "수출",
+   "업종",
+   "인프라"
   ],
   "stocks": [
    "BGF리테일",
@@ -985,7 +985,7 @@
    "원화 강세와 방문지역"
   ],
   "status": "draft",
-  "built_at": "2026-11-19 19:14",
+  "built_at": "2026-11-20 18:40",
   "error": null
  },
  "industry:47057": {
@@ -1004,7 +1004,7 @@
   "body": true,
   "series_key": "IBK투자증권|게임|인터넷/게임",
   "prev_nid": "47036",
-  "new_ratio": 0.83,
+  "new_ratio": 1.0,
   "novelty": 0.84,
   "stance_hint": "중립",
   "neg": 0,
@@ -1012,9 +1012,8 @@
   "contrarian": false,
   "theme_hit": [
    "AI",
-   "NHN",
    "국내",
-   "엔터"
+   "업종"
   ],
   "stocks": [
    "NAVER",
@@ -1438,7 +1437,7 @@
    "흑전 3591 67000"
   ],
   "status": "draft",
-  "built_at": "2026-11-19 19:14",
+  "built_at": "2026-11-20 18:40",
   "error": null
  },
  "industry:47058": {
@@ -1947,19 +1946,19 @@
   "body": true,
   "series_key": "유진투자증권|기타|안녕하세요 데일리에요",
   "prev_nid": "47041",
-  "new_ratio": 0.92,
+  "new_ratio": 1.0,
   "novelty": 0.92,
   "stance_hint": "중립",
   "neg": 0,
   "pos": 0,
   "contrarian": false,
   "theme_hit": [
-   "관계",
+   "공장",
    "국내",
    "반도체",
    "삼성전자",
    "원익홀딩스",
-   "유가"
+   "인프라"
   ],
   "stocks": [
    "HD한국조선해양",
@@ -2316,7 +2315,7 @@
    "휴머노이드 추가 업뎃"
   ],
   "status": "draft",
-  "built_at": "2026-11-19 19:14",
+  "built_at": "2026-11-20 18:40",
   "error": null
  },
  "industry:47060": {
@@ -3833,18 +3832,14 @@
   "body": true,
   "series_key": "유안타증권|기타|디지털 자산 Daily",
   "prev_nid": "46973",
-  "new_ratio": 0.88,
+  "new_ratio": 1.0,
   "novelty": 0.92,
   "stance_hint": "약세",
   "neg": 12,
   "pos": 3,
   "contrarian": true,
   "theme_hit": [
-   "AI",
-   "개선",
-   "신호",
-   "유가",
-   "하락"
+   "AI"
   ],
   "stocks": [],
   "numbers": [
@@ -4280,7 +4275,7 @@
    "엔비디아는 마감 강한"
   ],
   "status": "draft",
-  "built_at": "2026-11-19 19:14",
+  "built_at": "2026-11-20 18:40",
   "error": null
  },
  "industry:47064": {
@@ -5768,11 +5763,11 @@
   "contrarian": false,
   "theme_hit": [
    "AI",
+   "가격이",
    "국내",
+   "기판",
    "메모리",
-   "반도체",
-   "장비",
-   "지난"
+   "반도체"
   ],
   "stocks": [
    "LG전자",
@@ -6198,7 +6193,7 @@
    "준공 11 12"
   ],
   "status": "draft",
-  "built_at": "2026-11-19 19:14",
+  "built_at": "2026-11-20 18:40",
   "error": null
  },
  "industry:47068": {
@@ -6709,9 +6704,7 @@
   "contrarian": false,
   "theme_hit": [
    "AI",
-   "검증",
-   "바이오",
-   "아직"
+   "인프라"
   ],
   "stocks": [],
   "numbers": [
@@ -7122,7 +7115,7 @@
    "이는 공개적으로 기술"
   ],
   "status": "draft",
-  "built_at": "2026-11-19 19:14",
+  "built_at": "2026-11-20 18:40",
   "error": null
  },
  "industry:47070": {
@@ -8113,9 +8106,8 @@
   "theme_hit": [
    "AI",
    "공급",
-   "소비",
-   "유가",
-   "하락"
+   "수출",
+   "인프라"
   ],
   "stocks": [],
   "numbers": [
@@ -8526,7 +8518,7 @@
    "안전자산 수요가 유입되면서"
   ],
   "status": "draft",
-  "built_at": "2026-11-19 19:14",
+  "built_at": "2026-11-20 18:40",
   "error": null
  },
  "invest:40861": {
@@ -9013,7 +9005,7 @@
   "body": true,
   "series_key": "IBK투자증권||Start with IBK",
   "prev_nid": "40847",
-  "new_ratio": 0.93,
+  "new_ratio": 1.0,
   "novelty": 0.96,
   "stance_hint": "약세",
   "neg": 17,
@@ -9025,7 +9017,7 @@
    "공급",
    "반도체",
    "삼성전자",
-   "유가"
+   "수출"
   ],
   "stocks": [
    "삼성전자",
@@ -9456,7 +9448,7 @@
    "따른 금리 인상"
   ],
   "status": "draft",
-  "built_at": "2026-11-19 19:14",
+  "built_at": "2026-11-20 18:40",
   "error": null
  },
  "invest:40863": {
@@ -9484,10 +9476,10 @@
   "theme_hit": [
    "AI",
    "SK하이닉스",
-   "개선",
    "공급",
-   "관계",
-   "국내"
+   "국내",
+   "데이터센터",
+   "반도체"
   ],
   "stocks": [
    "삼성전자",
@@ -9930,7 +9922,7 @@
    "엔비디아는 차세대 AI"
   ],
   "status": "draft",
-  "built_at": "2026-11-19 19:14",
+  "built_at": "2026-11-20 18:40",
   "error": null
  },
  "invest:40864": {
@@ -9956,10 +9948,8 @@
   "pos": 4,
   "contrarian": false,
   "theme_hit": [
-   "개선",
-   "검증",
    "국내",
-   "유가"
+   "그대로"
   ],
   "stocks": [
    "삼성전자",
@@ -10399,7 +10389,7 @@
    "오랫동안 경영권 방어"
   ],
   "status": "draft",
-  "built_at": "2026-11-19 19:14",
+  "built_at": "2026-11-20 18:40",
   "error": null
  },
  "invest:40865": {
@@ -11834,7 +11824,7 @@
    "지수 1W 1M"
   ],
   "status": "draft",
-  "built_at": "2026-11-19 19:14",
+  "built_at": "2026-11-20 18:40",
   "error": null
  },
  "invest:40868": {
@@ -11860,8 +11850,6 @@
   "pos": 0,
   "contrarian": false,
   "theme_hit": [
-   "관계",
-   "바이오",
    "삼성전자"
   ],
   "stocks": [],
@@ -12031,7 +12019,7 @@
    "현재 자료에 관련하여"
   ],
   "status": "draft",
-  "built_at": "2026-11-19 19:14",
+  "built_at": "2026-11-20 18:40",
   "error": null
  },
  "invest:40869": {
@@ -12547,10 +12535,9 @@
   "contrarian": false,
   "theme_hit": [
    "SK하이닉스",
-   "관계",
    "반도체",
    "삼성전자",
-   "하락"
+   "업종"
   ],
   "stocks": [
    "삼성전자",
@@ -12993,7 +12980,7 @@
    "올해 처음으로 25"
   ],
   "status": "draft",
-  "built_at": "2026-11-19 19:14",
+  "built_at": "2026-11-20 18:40",
   "error": null
  },
  "invest:40871": {
@@ -13020,11 +13007,11 @@
   "contrarian": false,
   "theme_hit": [
    "AI",
-   "개선",
    "공급",
    "데이터센터",
    "반도체",
-   "중국"
+   "수출",
+   "인프라"
   ],
   "stocks": [],
   "numbers": [
@@ -13443,7 +13430,7 @@
    "양산을 앞당겼다 이러한"
   ],
   "status": "draft",
-  "built_at": "2026-11-19 19:14",
+  "built_at": "2026-11-20 18:40",
   "error": null
  }
 }
