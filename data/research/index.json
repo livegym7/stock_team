@@ -1145,6 +1145,102 @@
    "drive_modified": null,
    "analyzed_at": "2026-11-19 19:16",
    "depth": "light"
+  },
+  "naver_company_98043": {
+   "title": "모든 스탯이 맥스 (키움증권, 2026-11-12)",
+   "broker": "키움증권",
+   "date": "2026-11-12",
+   "kind": "기업",
+   "subject": "코스맥스 · 화장품 ODM",
+   "one_line": "3Q26 영업이익이 833억원(YoY +94.9%)으로 컨센서스를 웃돌았고, 증설과 미국 수익성 개선으로 27년 영업이익 3,471억원을 제시합니다.",
+   "url": "https://stock.naver.com/research/company/98043",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-20 20:19",
+   "depth": "full"
+  },
+  "naver_invest_40869": {
+   "title": "[주황전략] 앤트로픽 IPO발 수급 변동성이 만든 가격 착시 (한화투자증권, 2026-11-18)",
+   "broker": "한화투자증권",
+   "date": "2026-11-18",
+   "kind": "전략",
+   "subject": "코스피·반도체 수급 (앤트로픽 IPO)",
+   "one_line": "악재가 이어졌지만 주가는 2027년 이익 추정치의 60%를 부정하는 수준이어서, 앤트로픽 IPO발 수급 부담은 가격 착시이고 코스피 5,000pt 전후는 반도체 중심 매수 입장입니다.",
+   "url": "https://stock.naver.com/research/invest/40869",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-20 20:19",
+   "depth": "full"
+  },
+  "naver_invest_40873": {
+   "title": "11/19, 엔비디아 실적이 안되면 앤스로픽 IPO라도... (키움증권, 2026-11-19)",
+   "broker": "키움증권",
+   "date": "2026-11-19",
+   "kind": "전략",
+   "subject": "코스피 시황 · 외국인 수급",
+   "one_line": "엔비디아 호실적에도 AI 수익성·자금조달 불안과 연준 매파 발언으로 미 증시는 혼조였고, 외국인 순매도 강도 약화와 앤트로픽 IPO 이후 매도 완화 가능성을 대응에 반영하라는 시황입니다.",
+   "url": "https://stock.naver.com/research/invest/40873",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-20 20:19",
+   "depth": "full"
+  },
+  "naver_industry_47061": {
+   "title": "보험주 약세 원인 분석 (대신증권, 2026-11-18)",
+   "broker": "대신증권",
+   "date": "2026-11-18",
+   "kind": "산업",
+   "subject": "보험업 (손해보험·생명보험)",
+   "one_line": "3Q 손보 3사 어닝미스와 주주환원 불확실성으로 보험주가 약세이나 위험손해율·자동차손해율 지표는 개선 중이라며 비중확대는 유지하고 목표가를 낮췄습니다.",
+   "url": "https://stock.naver.com/research/industry/47061",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-20 20:19",
+   "depth": "full"
+  },
+  "naver_industry_47080": {
+   "title": "가장 강력한 데이터센터 비용분담 체계 구축 가시화 (DS투자증권, 2026-11-19)",
+   "broker": "DS투자증권",
+   "date": "2026-11-19",
+   "kind": "산업",
+   "subject": "전력기기 · 미국 데이터센터 접속 규칙",
+   "one_line": "미국 5개 전력망 운영기구가 FERC에 대형부하 접속규칙을 제출했고 BAAJA가 상원 절차를 통과 중이어서 데이터센터 비용분담이 제도화되며 전력기기 비중확대를 유지합니다.",
+   "url": "https://stock.naver.com/research/industry/47080",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-20 20:19",
+   "depth": "full"
+  },
+  "naver_industry_47083": {
+   "title": "3년전 BEAD 프로그램이었다면 지금은 OBBBA를 봐라 (하나증권, 2026-11-19)",
+   "broker": "하나증권",
+   "date": "2026-11-19",
+   "kind": "산업",
+   "subject": "무선 통신장비 (미국 주파수 경매)",
+   "one_line": "2025년 7월 OBBBA에 따른 800MHz 주파수 경매가 2027년 국내 무선통신장비주 급등을 부를 것이라며 쏠리드·RFHIC·LIG아큐버·KMW·오이솔루션을 Top pick으로 제시합니다.",
+   "url": "https://stock.naver.com/research/industry/47083",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-20 20:19",
+   "depth": "full"
+  },
+  "naver_industry_47085": {
+   "title": "조선/방산/기계 27년 전망: 반등의 가능성, 증명의 시간 (키움증권, 2026-11-20)",
+   "broker": "키움증권",
+   "date": "2026-11-20",
+   "kind": "산업",
+   "subject": "방산·조선·건설기계 27년 전망",
+   "one_line": "방산 5사와 조선 4사 시총이 연초 대비 -33%, -49%로 빠져 저점을 형성했고, 27년 반등은 방산 신규 수주 확보와 조선 신사업(미 군함·FDC) 증명에 달렸다는 전망입니다.",
+   "url": "https://stock.naver.com/research/industry/47085",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-20 20:19",
+   "depth": "full"
+  },
+  "naver_industry_47086": {
+   "title": "2027 Outlook: 빈곤 속의 풍요 (키움증권, 2026-11-20)",
+   "broker": "키움증권",
+   "date": "2026-11-20",
+   "kind": "산업",
+   "subject": "자동차 27년 전망",
+   "one_line": "미국 산업수요가 2년 연속 역성장 기로에 있지만 무역장벽 재편 속에서 2027년 최선호주를 현대차에서 기아로 바꾸고 한온시스템·DN오토모티브를 부품 Top pick으로 제시합니다.",
+   "url": "https://stock.naver.com/research/industry/47086",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-20 20:19",
+   "depth": "full"
   }
  },
  "skipped": {

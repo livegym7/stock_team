@@ -474,7 +474,7 @@
    "신사업 모멘텀이 관건",
    "신성장 사업 확보가"
   ],
-  "status": "card",
+  "status": "deep",
   "built_at": "2026-11-20 18:40",
   "error": null,
   "thesis": "방산·조선 주가는 저점 형성, 27년은 수주 증명 여부가 관건 (Top pick LIG D&A·KAI·삼성중공업)",
@@ -509,7 +509,9 @@
   ],
   "horizon": "2027 상반기~연중",
   "filled_by": "sonnet",
-  "filled_at": "2026-11-20 18:46"
+  "filled_at": "2026-11-20 18:46",
+  "deep_file": "naver_industry_47085",
+  "deep_at": "2026-11-20 20:19"
  },
  "industry:47086": {
   "nid": "47086",
@@ -981,7 +983,7 @@
    "위해 2025년부터 반덤핑관세",
    "위해 수출 확대로"
   ],
-  "status": "card",
+  "status": "deep",
   "built_at": "2026-11-20 18:40",
   "error": null,
   "thesis": "미국 자동차 수요 역성장 속 관세·무역장벽 재편으로 2027 최선호주를 기아로 변경",
@@ -1014,7 +1016,9 @@
   ],
   "horizon": "2027 연간",
   "filled_by": "sonnet",
-  "filled_at": "2026-11-20 18:46"
+  "filled_at": "2026-11-20 18:46",
+  "deep_file": "naver_industry_47086",
+  "deep_at": "2026-11-20 20:19"
  },
  "industry:47087": {
   "nid": "47087",
