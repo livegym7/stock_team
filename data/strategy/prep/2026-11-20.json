@@ -1,19 +1,19 @@
 {
- "made_at": "2026-11-20 10:49",
+ "made_at": "2026-11-20 16:51",
  "weeks": 4,
  "regime": {
-  "date": "20261119",
-  "close": 5137.89,
-  "r1w": -3.8,
-  "r1m": -10.4,
-  "r3m": -25.2,
-  "r6m": -31.6,
-  "r12m": 23.8,
+  "date": "20261120",
+  "close": 4869.96,
+  "r1w": -7.9,
+  "r1m": -12.0,
+  "r3m": -24.7,
+  "r6m": -33.0,
+  "r12m": 16.8,
   "above20": false,
-  "gap20": -5.3,
-  "slope20": -2.4,
+  "gap20": -9.7,
+  "slope20": -2.7,
   "aligned": false,
-  "off_high": -45.3,
+  "off_high": -48.1,
   "light": "red",
   "source": "네이버 코스피 일봉(비공식) · 20일선 · 정배열"
  },
@@ -21,235 +21,235 @@
   "markets": [
    {
     "market": "KOSPI",
-    "price": 4925.51,
-    "change_pct": -4.13,
-    "status": "OPEN",
-    "at": "2026-11-20 10:49",
+    "price": 4869.96,
+    "change_pct": -5.21,
+    "status": "CLOSE",
+    "at": "2026-11-20 16:15",
     "deal_date": "20261120",
-    "individual_eok": 8284.0,
-    "foreign_eok": -6695.0,
-    "institution_eok": -3048.0,
-    "program_eok": -6478.0,
-    "up": 165,
-    "down": 706,
-    "high52": 100,
-    "low52": 354,
-    "trading_value_eok": 48298
+    "individual_eok": 16061.0,
+    "foreign_eok": -11381.0,
+    "institution_eok": -9536.0,
+    "program_eok": -11615.0,
+    "up": 89,
+    "down": 808,
+    "high52": 116,
+    "low52": 517,
+    "trading_value_eok": 141064
    },
    {
     "market": "KOSDAQ",
-    "price": 658.5,
-    "change_pct": -3.84,
-    "status": "OPEN",
-    "at": "2026-11-20 10:49",
+    "price": 645.68,
+    "change_pct": -5.71,
+    "status": "CLOSE",
+    "at": "2026-11-20 16:15",
     "deal_date": "20261120",
-    "individual_eok": 2116.0,
-    "foreign_eok": -1678.0,
-    "institution_eok": -293.0,
-    "program_eok": -1615.0,
-    "up": 277,
-    "down": 1415,
-    "high52": 4,
-    "low52": 149,
-    "trading_value_eok": 19432
+    "individual_eok": 2901.0,
+    "foreign_eok": -1693.0,
+    "institution_eok": -1081.0,
+    "program_eok": -1813.0,
+    "up": 196,
+    "down": 1510,
+    "high52": 6,
+    "low52": 271,
+    "trading_value_eok": 41366
    }
   ],
   "industries_up": [
    {
-    "no": 305,
-    "name": "항공사",
-    "change_pct": 4.56,
-    "n": 9,
-    "up": 5,
-    "down": 4
-   },
-   {
     "no": 319,
     "name": "기타금융",
-    "change_pct": 4.19,
+    "change_pct": 5.0,
     "n": 6,
-    "up": 3,
-    "down": 2
+    "up": 1,
+    "down": 5
+   },
+   {
+    "no": 305,
+    "name": "항공사",
+    "change_pct": 3.2,
+    "n": 9,
+    "up": 4,
+    "down": 5
+   },
+   {
+    "no": 326,
+    "name": "항공화물운송과물류",
+    "change_pct": 0.58,
+    "n": 13,
+    "up": 5,
+    "down": 7
+   },
+   {
+    "no": 265,
+    "name": "판매업체",
+    "change_pct": 0.43,
+    "n": 13,
+    "up": 6,
+    "down": 5
    },
    {
     "no": 325,
     "name": "전기유틸리티",
-    "change_pct": 2.28,
+    "change_pct": -0.24,
     "n": 5,
     "up": 1,
     "down": 4
    },
    {
-    "no": 326,
-    "name": "항공화물운송과물류",
-    "change_pct": 1.66,
-    "n": 13,
-    "up": 4,
-    "down": 8
+    "no": 296,
+    "name": "운송인프라",
+    "change_pct": -0.26,
+    "n": 8,
+    "up": 1,
+    "down": 5
    },
    {
     "no": 301,
     "name": "은행",
-    "change_pct": 1.29,
+    "change_pct": -0.35,
     "n": 11,
-    "up": 7,
-    "down": 4
-   },
-   {
-    "no": 263,
-    "name": "게임엔터테인먼트",
-    "change_pct": 1.13,
-    "n": 34,
-    "up": 8,
-    "down": 22
-   },
-   {
-    "no": 337,
-    "name": "카드",
-    "change_pct": 1.08,
-    "n": 1,
-    "up": 1,
-    "down": 0
-   },
-   {
-    "no": 296,
-    "name": "운송인프라",
-    "change_pct": 0.83,
-    "n": 8,
     "up": 2,
-    "down": 6
+    "down": 9
+   },
+   {
+    "no": 338,
+    "name": "사무용전자제품",
+    "change_pct": -0.39,
+    "n": 1,
+    "up": 0,
+    "down": 1
    }
   ],
   "industries_down": [
    {
-    "no": 276,
-    "name": "복합기업",
-    "change_pct": -4.35,
-    "n": 24,
-    "up": 4,
-    "down": 19
+    "no": 294,
+    "name": "통신장비",
+    "change_pct": -6.1,
+    "n": 55,
+    "up": 8,
+    "down": 43
    },
    {
-    "no": 295,
-    "name": "에너지장비및서비스",
-    "change_pct": -4.49,
-    "n": 35,
-    "up": 2,
-    "down": 30
+    "no": 279,
+    "name": "건설",
+    "change_pct": -6.12,
+    "n": 76,
+    "up": 9,
+    "down": 60
    },
    {
     "no": 299,
     "name": "기계",
-    "change_pct": -5.07,
+    "change_pct": -6.74,
     "n": 107,
-    "up": 5,
-    "down": 95
+    "up": 7,
+    "down": 94
    },
    {
     "no": 330,
     "name": "생명보험",
-    "change_pct": -6.03,
+    "change_pct": -7.04,
     "n": 3,
     "up": 0,
     "down": 3
    },
    {
-    "no": 306,
-    "name": "전기장비",
-    "change_pct": -6.04,
-    "n": 35,
-    "up": 2,
-    "down": 30
-   },
-   {
     "no": 278,
     "name": "반도체와반도체장비",
-    "change_pct": -6.1,
+    "change_pct": -7.12,
     "n": 175,
-    "up": 2,
-    "down": 168
+    "up": 5,
+    "down": 164
+   },
+   {
+    "no": 306,
+    "name": "전기장비",
+    "change_pct": -7.59,
+    "n": 35,
+    "up": 0,
+    "down": 33
    },
    {
     "no": 333,
     "name": "무선통신서비스",
-    "change_pct": -7.77,
+    "change_pct": -9.67,
     "n": 4,
     "up": 0,
-    "down": 4
+    "down": 3
    },
    {
     "no": 282,
     "name": "전자장비와기기",
-    "change_pct": -8.39,
+    "change_pct": -10.94,
     "n": 105,
-    "up": 8,
-    "down": 92
+    "up": 13,
+    "down": 86
    }
   ],
   "themes_up": [
    {
     "no": 380,
     "name": "면세점",
-    "change_pct": 1.86,
+    "change_pct": -0.05,
     "n": 8,
-    "up": 5,
-    "down": 3
+    "up": 2,
+    "down": 6
    },
    {
-    "no": 379,
-    "name": "항공기부품",
-    "change_pct": 1.46,
-    "n": 16,
-    "up": 1,
-    "down": 15
-   },
-   {
-    "no": 166,
-    "name": "항공/저가 항공사(LCC)",
-    "change_pct": 0.69,
+    "no": 147,
+    "name": "여행",
+    "change_pct": -0.34,
     "n": 9,
+    "up": 3,
+    "down": 6
+   },
+   {
+    "no": 284,
+    "name": "기업인수목적회사(SPAC)",
+    "change_pct": -0.53,
+    "n": 68,
+    "up": 10,
+    "down": 37
+   },
+   {
+    "no": 506,
+    "name": "탈모 치료",
+    "change_pct": -0.57,
+    "n": 29,
     "up": 4,
-    "down": 5
+    "down": 23
+   },
+   {
+    "no": 59,
+    "name": "광고",
+    "change_pct": -0.94,
+    "n": 26,
+    "up": 7,
+    "down": 18
    },
    {
     "no": 165,
     "name": "은행",
-    "change_pct": 0.65,
+    "change_pct": -0.94,
     "n": 11,
-    "up": 7,
-    "down": 4
-   },
-   {
-    "no": 488,
-    "name": "웹툰",
-    "change_pct": 0.61,
-    "n": 14,
-    "up": 4,
-    "down": 10
-   },
-   {
-    "no": 290,
-    "name": "스포츠행사 수혜(올림픽, 월드컵 등)",
-    "change_pct": 0.47,
-    "n": 10,
-    "up": 5,
-    "down": 4
-   },
-   {
-    "no": 241,
-    "name": "바이오시밀러(복제 바이오의약품)",
-    "change_pct": 0.43,
-    "n": 21,
-    "up": 11,
+    "up": 1,
     "down": 9
    },
    {
-    "no": 384,
-    "name": "편의점",
-    "change_pct": 0.34,
-    "n": 5,
-    "up": 3,
-    "down": 2
+    "no": 470,
+    "name": "마이크로바이옴",
+    "change_pct": -0.98,
+    "n": 18,
+    "up": 5,
+    "down": 13
+   },
+   {
+    "no": 108,
+    "name": "백신/진단시약/방역(신종플루, AI 등)",
+    "change_pct": -1.01,
+    "n": 41,
+    "up": 8,
+    "down": 31
    }
   ],
   "source": "네이버 증권(비공식) · 시간외(NXT) 시세가 섞일 수 있음"
@@ -279,8 +279,8 @@
   {
    "name": "나스닥100 선물",
    "symbol": "NQ=F",
-   "price": 26423.5,
-   "change_pct": -2.81,
+   "price": 26313.5,
+   "change_pct": -1.08,
    "at": null
   },
   {
@@ -293,8 +293,8 @@
   {
    "name": "원/달러 환율",
    "symbol": "KRW=X",
-   "price": 1336.48,
-   "change_pct": 0.46,
+   "price": 1333.77,
+   "change_pct": 0.25,
    "at": null
   },
   {
@@ -314,8 +314,8 @@
   {
    "name": "WTI 원유",
    "symbol": "CL=F",
-   "price": 82.91,
-   "change_pct": -0.42,
+   "price": 82.52,
+   "change_pct": -0.83,
    "at": null
   }
  ],
@@ -883,7 +883,7 @@
    "ko": "기준금리 결정",
    "importance": 0,
    "actual": null,
-   "forecast": null,
+   "forecast": 3.25,
    "previous": 3,
    "unit": "%",
    "scale": "",
@@ -906,6 +906,706 @@
    "done": false
   }
  ],
+ "macro_extra": {
+  "made_at": "2026-11-20 16:51",
+  "exports": {
+   "rows": [
+    {
+     "key": "Exports YoY",
+     "name": "수출 증가율(전년 대비)",
+     "last": {
+      "date": "2026-11-01",
+      "period": "Oct. 2026",
+      "actual": 93.7,
+      "forecast": 93.2,
+      "previous": 83.5
+     },
+     "series": [
+      {
+       "period": "Oct. 2025",
+       "actual": 3.6,
+       "forecast": -0.2
+      },
+      {
+       "period": "Nov. 2025",
+       "actual": 8.4,
+       "forecast": 5.7
+      },
+      {
+       "period": "Dec. 2025",
+       "actual": 13.4,
+       "forecast": 9
+      },
+      {
+       "period": "Jan. 2026",
+       "actual": 33.9,
+       "forecast": 29.9
+      },
+      {
+       "period": "Feb. 2026",
+       "actual": 29.4,
+       "forecast": 24
+      },
+      {
+       "period": "Mar. 2026",
+       "actual": 50.5,
+       "forecast": 44.9
+      },
+      {
+       "period": "Apr. 2026",
+       "actual": 47.8,
+       "forecast": 45.3
+      },
+      {
+       "period": "May. 2026",
+       "actual": 52.9,
+       "forecast": 48.4
+      },
+      {
+       "period": "Jun. 2026",
+       "actual": 70.4,
+       "forecast": 61
+      },
+      {
+       "period": "Jul. 2026",
+       "actual": 63.3,
+       "forecast": 59
+      },
+      {
+       "period": "Aug. 2026",
+       "actual": 68.7,
+       "forecast": 62.6
+      },
+      {
+       "period": "Sep. 2026",
+       "actual": 83.5,
+       "forecast": 61.7
+      },
+      {
+       "period": "Oct. 2026",
+       "actual": 93.7,
+       "forecast": 93.2
+      }
+     ],
+     "next": "2026-12-01"
+    },
+    {
+     "key": "Balance of Trade",
+     "name": "무역수지(십억 달러)",
+     "last": {
+      "date": "2026-11-01",
+      "period": "Oct. 2026",
+      "actual": 42.5,
+      "forecast": 37.24,
+      "previous": 49.85
+     },
+     "series": [
+      {
+       "period": "Oct. 2025",
+       "actual": 6.06,
+       "forecast": 2.98
+      },
+      {
+       "period": "Nov. 2025",
+       "actual": 9.74,
+       "forecast": 8.4
+      },
+      {
+       "period": "Dec. 2025",
+       "actual": 12.18,
+       "forecast": 10
+      },
+      {
+       "period": "Jan. 2026",
+       "actual": 8.69,
+       "forecast": 4.6
+      },
+      {
+       "period": "Feb. 2026",
+       "actual": 15.54,
+       "forecast": 10
+      },
+      {
+       "period": "Mar. 2026",
+       "actual": 26.61,
+       "forecast": 21.2
+      },
+      {
+       "period": "Apr. 2026",
+       "actual": 23.64,
+       "forecast": 23
+      },
+      {
+       "period": "May. 2026",
+       "actual": 26.8,
+       "forecast": 24.3
+      },
+      {
+       "period": "Jun. 2026",
+       "actual": 35.91,
+       "forecast": 32.58
+      },
+      {
+       "period": "Jul. 2026",
+       "actual": 30.65,
+       "forecast": 29.59
+      },
+      {
+       "period": "Aug. 2026",
+       "actual": 34.79,
+       "forecast": 30.74
+      },
+      {
+       "period": "Sep. 2026",
+       "actual": 49.85,
+       "forecast": 38.15
+      },
+      {
+       "period": "Oct. 2026",
+       "actual": 42.5,
+       "forecast": 37.24
+      }
+     ],
+     "next": "2026-12-01"
+    },
+    {
+     "key": "Export Prices YoY",
+     "name": "수출물가(전년 대비)",
+     "last": {
+      "date": "2026-11-12",
+      "period": "Oct. 2026",
+      "actual": 36.7,
+      "forecast": null,
+      "previous": 41.3
+     },
+     "series": [
+      {
+       "period": "Oct. 2025",
+       "actual": 4.8,
+       "forecast": null
+      },
+      {
+       "period": "Nov. 2025",
+       "actual": 6.8,
+       "forecast": null
+      },
+      {
+       "period": "Dec. 2025",
+       "actual": 5,
+       "forecast": null
+      },
+      {
+       "period": "Jan. 2026",
+       "actual": 7.8,
+       "forecast": null
+      },
+      {
+       "period": "Feb. 2026",
+       "actual": 11.1,
+       "forecast": null
+      },
+      {
+       "period": "Mar. 2026",
+       "actual": 29.5,
+       "forecast": null
+      },
+      {
+       "period": "Apr. 2026",
+       "actual": 41.3,
+       "forecast": null
+      },
+      {
+       "period": "May. 2026",
+       "actual": 47.1,
+       "forecast": null
+      },
+      {
+       "period": "Jun. 2026",
+       "actual": 48.7,
+       "forecast": null
+      },
+      {
+       "period": "Jul. 2026",
+       "actual": 48.9,
+       "forecast": null
+      },
+      {
+       "period": "Aug. 2026",
+       "actual": 42.7,
+       "forecast": null
+      },
+      {
+       "period": "Sep. 2026",
+       "actual": 41.3,
+       "forecast": null
+      },
+      {
+       "period": "Oct. 2026",
+       "actual": 36.7,
+       "forecast": null
+      }
+     ],
+     "next": null
+    },
+    {
+     "key": "Imports YoY",
+     "name": "수입 증가율(전년 대비)",
+     "last": {
+      "date": "2026-11-01",
+      "period": "Oct. 2026",
+      "actual": 36,
+      "forecast": 39.9,
+      "previous": 26
+     },
+     "series": [
+      {
+       "period": "Oct. 2025",
+       "actual": -1.5,
+       "forecast": -1.8
+      },
+      {
+       "period": "Nov. 2025",
+       "actual": 1.2,
+       "forecast": 3.4
+      },
+      {
+       "period": "Dec. 2025",
+       "actual": 4.6,
+       "forecast": 2.5
+      },
+      {
+       "period": "Jan. 2026",
+       "actual": 11.7,
+       "forecast": 14.6
+      },
+      {
+       "period": "Feb. 2026",
+       "actual": 7.8,
+       "forecast": 13
+      },
+      {
+       "period": "Mar. 2026",
+       "actual": 13.9,
+       "forecast": 18
+      },
+      {
+       "period": "Apr. 2026",
+       "actual": 16.7,
+       "forecast": 14.5
+      },
+      {
+       "period": "May. 2026",
+       "actual": 20.7,
+       "forecast": 21.5
+      },
+      {
+       "period": "Jun. 2026",
+       "actual": 30,
+       "forecast": 26.3
+      },
+      {
+       "period": "Jul. 2026",
+       "actual": 26.4,
+       "forecast": 26.6
+      },
+      {
+       "period": "Aug. 2026",
+       "actual": 22.4,
+       "forecast": 24.7
+      },
+      {
+       "period": "Sep. 2026",
+       "actual": 26,
+       "forecast": 21.5
+      },
+      {
+       "period": "Oct. 2026",
+       "actual": 36,
+       "forecast": 39.9
+      }
+     ],
+     "next": "2026-12-01"
+    }
+   ],
+   "source": "TradingView 경제 캘린더(비공식) · 원자료 산업통상자원부·한국은행 · 예상 = 시장 컨센서스"
+  },
+  "export_news": {
+   "items": [
+    {
+     "time": "2026-11-20T14:48",
+     "press": "한국세정신문",
+     "title": "\"1분에 42억원 어치\" 수출 1조달러 돌파…대미 장식은 반도체",
+     "q": "관세청 1~10일 수출"
+    },
+    {
+     "time": "2026-11-20T14:37",
+     "press": "한겨레",
+     "title": "하루 1억원씩 쓰면 4만년 걸려…사상 첫 ‘수출 1조달러’",
+     "q": "관세청 1~20일 수출"
+    },
+    {
+     "time": "2026-11-20T08:00",
+     "press": "자본시장뉴스",
+     "title": "[수출 1조 달러 시대 下] 화장품 최대…김밥도 뜰까",
+     "q": "화장품 수출 월간"
+    },
+    {
+     "time": "2026-11-17T16:19",
+     "press": "더퍼스트미디어",
+     "title": "코스맥스, 화장품 월 생산량 1억개 돌파…K뷰티 수출 호조에 생산량 급증",
+     "q": "화장품 수출 월간"
+    },
+    {
+     "time": "2026-11-17T09:51",
+     "press": "서울경제TV",
+     "title": "강원 수출 10월 역대 최고인데…수입 156% 폭증에 무역적자 1억6000만 달러",
+     "q": "화장품 수출 월간"
+    },
+    {
+     "time": "2026-11-15T11:00",
+     "press": "지디넷코리아",
+     "title": "AI 반도체 호황에 ICT 수출 증가율 첫 200% 돌파",
+     "q": "월간 수출입동향 반도체 수출"
+    },
+    {
+     "time": "2026-11-02T17:00",
+     "press": "대한민국 정책브리핑",
+     "title": "우리나라 수출 첫 9000억 달러 돌파…\"11월 중 1조 달성 확실시\"",
+     "q": "월간 수출입동향 반도체 수출"
+    },
+    {
+     "time": "2026-11-02T17:00",
+     "press": "테크데일리",
+     "title": "한국 10월 수출 1,153억 달러… 반도체 호황에 연간 1조 달러 눈앞",
+     "q": "월간 수출입동향 반도체 수출"
+    },
+    {
+     "time": "2026-11-01T16:00",
+     "press": "KB Think",
+     "title": "연 수출 1조달러 눈앞…반도체, 2개월 연속 500억달러 넘겨(종합)",
+     "q": "월간 수출입동향 반도체 수출"
+    },
+    {
+     "time": "2026-11-01T16:00",
+     "press": "스트레이트뉴스",
+     "title": "10월 수출 1153억달러 역대 2위…반도체·AI가 끌어올렸다",
+     "q": "월간 수출입동향 반도체 수출"
+    },
+    {
+     "time": "2026-11-01T16:00",
+     "press": "뉴스피릿",
+     "title": "10월 수출, 반도체 호황에 '역대 2위'…사상 첫 9000억 달러 돌파",
+     "q": "월간 수출입동향 반도체 수출"
+    },
+    {
+     "time": "2026-11-01T16:00",
+     "press": "뉴시스",
+     "title": "반도체 호황에 10월 수출 1153억弗 '역대 2위'…올해 9000억弗 돌파(1보)",
+     "q": "월간 수출입동향 반도체 수출"
+    }
+   ],
+   "source": "구글 뉴스 RSS 제목(2차 자료) — 관세청 10일 단위·품목별 수출은 공식 자료를 직접 받지 못해 제목으로만 봄"
+  },
+  "memory": {
+   "rows": [
+    {
+     "item": "DDR5 16Gb (2Gx8) 4800/5600",
+     "name": "D램 DDR5 16Gb 현물",
+     "usd": 60.667,
+     "chg_pct": 0.0,
+     "w1_pct": null,
+     "m1_pct": null
+    },
+    {
+     "item": "DDR4 16Gb (2Gx8) 3200",
+     "name": "D램 DDR4 16Gb 현물",
+     "usd": 78.625,
+     "chg_pct": -0.16,
+     "w1_pct": null,
+     "m1_pct": null
+    },
+    {
+     "item": "DDR4 8Gb (1Gx8) 3200",
+     "name": "D램 DDR4 8Gb 현물",
+     "usd": 43.75,
+     "chg_pct": -0.39,
+     "w1_pct": null,
+     "m1_pct": null
+    },
+    {
+     "item": "DDR5 RDIMM 32GB 4800/5600",
+     "name": "서버 모듈 DDR5 RDIMM 32GB",
+     "usd": 1950.0,
+     "chg_pct": -3.7,
+     "w1_pct": null,
+     "m1_pct": null
+    },
+    {
+     "item": "512Gb TLC",
+     "name": "낸드 웨이퍼 512Gb TLC",
+     "usd": 14.267,
+     "chg_pct": -11.67,
+     "w1_pct": null,
+     "m1_pct": null
+    },
+    {
+     "item": "256Gb TLC",
+     "name": "낸드 웨이퍼 256Gb TLC",
+     "usd": 18.142,
+     "chg_pct": -1.21,
+     "w1_pct": null,
+     "m1_pct": null
+    }
+   ],
+   "updated": "Nov.20 2026",
+   "hist_days": 1,
+   "source": "DRAMeXchange 현물가 평균(달러, 비공식) · chg = 직전 회차 대비 · 1주·1개월 변화는 이 도구가 날마다 쌓은 기록 기준(쌓이기 전에는 빈칸)"
+  },
+  "liquidity": {
+   "as_of": "20261118",
+   "rows": [
+    {
+     "name": "고객 예탁금(조 원)",
+     "now": 84.2,
+     "d1": -2.4,
+     "m1_pct": -6.1,
+     "pos_1y": 13,
+     "read": "주식 살 대기 자금"
+    },
+    {
+     "name": "신용융자 잔고(조 원)",
+     "now": 26.3,
+     "d1": -0.1,
+     "m1_pct": -13.2,
+     "pos_1y": 4,
+     "read": "빚내서 산 주식 — 높으면 급락 때 매물"
+    },
+    {
+     "name": "예탁금 대비 신용(%)",
+     "now": 31.2,
+     "pos_1y": 58,
+     "read": "레버리지 정도"
+    },
+    {
+     "name": "반대매매(억 원)",
+     "now": 285,
+     "pos_1y": 16,
+     "read": "강제 청산 — 급증 뒤 바닥이 나오기도 함"
+    }
+   ],
+   "source": "금융투자협회 종합통계(freesis) · 1년 위치 = 1년 최저 0% ~ 최고 100%"
+  }
+ },
+ "views": {
+  "days": 7,
+  "n": 19,
+  "topics": [
+   {
+    "topic": "시장 국면",
+    "n": 7,
+    "who_n": 7,
+    "stance": {
+     "긍정": 2,
+     "부정": 0,
+     "중립": 2,
+     "경계": 3
+    },
+    "pro": [
+     {
+      "date": "2026-11-16",
+      "who": "nje2e 전달 글(글쓴이 미상)",
+      "view": "새 악재보다 악재에 반응하는 주가의 민감도가 달라지고 있고, 기술주 하락을 이끈 포지션 청산 압력은 상당 부분 완화됐을 가능성이 있다는 견해입니다.",
+      "reason": "헤지펀드의 기술주 포지션이 상당 부분 축소되고 일부는 숏으로 전환. 엔비디아 실적 기대가 과거 어느 때보다 낮음",
+      "horizon": "단기"
+     },
+     {
+      "date": "2026-11-17",
+      "who": "GS 한국 전략 (Jstockclass 요약)",
+      "view": "코스피 목표를 9,000에서 7,500으로 낮췄지만 둔화는 이미 반영됐고 역내 최대 상승 여력이 있다는 견해입니다.",
+      "reason": "현재 반도체 주가는 2027년 컨센서스 이익 70% 감소를 반영, FY3 PBR 약 0.7배로 역사적 저점. D램·HBM은 2029년까지 완판",
+      "horizon": "중기"
+     }
+    ],
+    "con": [
+     {
+      "date": "2026-11-18",
+      "who": "스탠리 드러켄밀러 (bornlupin 요약)",
+      "view": "향후 12개월의 불확실성이 극심해 자본 보존을 우선하고 주식 순노출을 매우 낮게 유지한다는 견해입니다.",
+      "reason": "2027년 하반기 미국 경기 둔화와 긴축 전환 리스크를 경계. AI는 인프라 구축 기업보다 활용 기업에 관심",
+      "horizon": "중기"
+     },
+     {
+      "date": "2026-11-20",
+      "who": "증권가 종합: 키움·iM (ked_epic_ai 요약)",
+      "view": "이번 하락은 AI 수요 감소보다 수급 요인이라 길게 이어질 가능성은 크지 않다고 보면서도, 외국인 반도체 매도가 늘면 코스피 5,000선을 다시 밑돌 수 있다는 경고입니다.",
+      "reason": "코스피 5,000선은 선행 PBR 1.0배 아래. 외국인 5거래일 연속 순매도라 반등의 강도는 외국인 현·선물 수급에 좌우",
+      "horizon": "단기"
+     },
+     {
+      "date": "2026-11-17",
+      "who": "shmstory 시황",
+      "view": "하락 때 매수보다 반등 때 매도가 강한 상태이고, 문제가 된 종목이 풀려야 반전 가능성이 있다는 견해입니다.",
+      "reason": "최근 4거래일 연속 장중 선전 뒤 밀리는 현상 반복. 악재가 반복된 상태라 작은 이슈에도 기술적 반등은 가능",
+      "horizon": "단기"
+     }
+    ],
+    "neutral": [
+     {
+      "date": "2026-11-17",
+      "who": "nje2e 대응전략 글",
+      "view": "혼란스러운 장세에서 믿을 것은 기업의 펀더멘털이라는 견해입니다."
+     },
+     {
+      "date": "2026-11-17",
+      "who": "Jstockclass 운영자",
+      "view": "올해 하반기 하락은 펀더멘털로 설명되지 않았고, 셀사이드 의견이 한쪽으로 쏠린다면 역설적으로 그곳에 기회가 있을 수 있다는 견해입니다."
+     }
+    ]
+   },
+   {
+    "topic": "반도체",
+    "n": 5,
+    "who_n": 5,
+    "stance": {
+     "긍정": 3,
+     "부정": 1,
+     "중립": 1,
+     "경계": 0
+    },
+    "pro": [
+     {
+      "date": "2026-11-19",
+      "who": "nje2e Anakin",
+      "view": "내년 메모리는 가격이 아니라 물량(Q) 사이클이 본격화하고, 실적이 먼저 돌아선 전공정 소재·부품·장비가 중심이 된다고 보는 견해입니다.",
+      "reason": "메모리 2사 가동률이 최상단이고 내년 상반기부터 장비 발주 사이클 도래. 파츠 기업은 내년 사상 최대 이익이 예상되는데 멀티플은 5~8배",
+      "horizon": "중기"
+     },
+     {
+      "date": "2026-11-20",
+      "who": "MS 삼성전자 (Jstockclass 요약)",
+      "view": "2027~29년 캐파는 대부분 계약이 확정됐고 2027년 공급은 2026년보다 더 빠듯하다는 견해입니다.",
+      "reason": "보증금과 가격 하단·상단을 갖춘 5년 단위 계약. 다만 다운사이클에서 가격 보호의 실효성은 아직 검증 대상이라고 경영진이 인정",
+      "horizon": "장기"
+     },
+     {
+      "date": "2026-11-18",
+      "who": "트렌드포스 (bornlupin 전달)",
+      "view": "2027년 메모리는 수요가 강하고 공급이 빠듯해 가격 전망을 바꾸지 않았다는 견해입니다.",
+      "reason": "HBM 평균판매가격 +122% 전망, 주요 클라우드 사업자 내년 설비투자 +60% 전망",
+      "horizon": "중기"
+     }
+    ],
+    "con": [
+     {
+      "date": "2026-11-18",
+      "who": "BofA 아시아 펀드매니저 설문 (Jstockclass 요약)",
+      "view": "아시아 펀드매니저의 반도체 사이클 기대가 마이너스로 돌아섰고 한국 비중확대 의견도 줄었습니다.",
+      "reason": "향후 12개월 반도체 사이클 기대 약 50% → −5%(역사적 하위 12%), 한국 순 비중확대 15% → 5%, 방어 섹터 로테이션이 AI 헤지 수단 1위",
+      "horizon": "중기"
+     }
+    ],
+    "neutral": [
+     {
+      "date": "2026-11-16",
+      "who": "nje2e hodolry",
+      "view": "AI 설비투자 속도 둔화는 이미 알려진 사실이고, 가격 상승 수혜가 컸던 기업부터 매력이 떨어지지만 물량 수혜 기업은 너무 내려와 기회 구간이 생긴다고 보는 견해입니다."
+     }
+    ]
+   },
+   {
+    "topic": "AI",
+    "n": 5,
+    "who_n": 5,
+    "stance": {
+     "긍정": 3,
+     "부정": 0,
+     "중립": 0,
+     "경계": 2
+    },
+    "pro": [
+     {
+      "date": "2026-11-20",
+      "who": "JPM 대만 전략 (Jstockclass 요약)",
+      "view": "이번 조정은 수요가 아니라 수급·포지셔닝이 만든 사이클 내 리셋이고 AI 인프라는 다년 슈퍼사이클 초기라는 견해입니다.",
+      "reason": "조정 중에도 이익 수정은 거의 변동 없이 긍정적. 롱온리는 이미 언더웨이트, 헤지펀드 순레버리지도 매우 낮음",
+      "horizon": "중기"
+     },
+     {
+      "date": "2026-11-18",
+      "who": "MS 엔비디아 (Jstockclass 요약)",
+      "view": "엔비디아 목표주가를 낮춘 이유는 이익이 아니라 멀티플 압축이고 추정치는 오히려 올렸다는 견해입니다.",
+      "reason": "FY28E EPS 13.37달러 → 15.32달러 상향, 목표주가 267달러 → 260달러는 그룹 전반의 멀티플 압축과 리더십 불확실성 반영",
+      "horizon": "중기"
+     },
+     {
+      "date": "2026-11-20",
+      "who": "GF Securities (bornlupin 전달)",
+      "view": "메타·마이크로소프트의 서버 CPU 주문 축소 우려는 과장됐다는 견해입니다.",
+      "reason": "메타는 일부 x86 CPU를 엔비디아 CPU로 전환 중(50만 개 이상)이며 범용 서버 구축은 오히려 가속",
+      "horizon": "단기"
+     }
+    ],
+    "con": [
+     {
+      "date": "2026-11-18",
+      "who": "BofA 글로벌 펀드매니저 설문 (Jstockclass 요약)",
+      "view": "펀드매니저 다수가 하이퍼스케일러의 설비투자 삭감과 과잉투자를 우려하는 쪽으로 돌아섰습니다.",
+      "reason": "6개월 내 Capex 삭감 발표 예상 52%(9월 약 14%), 과잉투자 응답 38%로 역대 최고, 기술주 비중확대 비율은 2006년 이후 최대 폭 하락",
+      "horizon": "단기"
+     },
+     {
+      "date": "2026-11-17",
+      "who": "GS 대만 전략 (Jstockclass 요약)",
+      "view": "대만을 비중확대에서 중립으로 낮추며 이익은 강해도 변동성이 위험 대비 보상을 제약한다는 견해입니다.",
+      "reason": "AI 설비투자 증가율은 2027년 정점 전망, 2028년 이후 마진 확대 가정이 높아 하향 조정 위험",
+      "horizon": "중기"
+     }
+    ],
+    "neutral": []
+   },
+   {
+    "topic": "화장품",
+    "n": 1,
+    "who_n": 1,
+    "stance": {
+     "긍정": 0,
+     "부정": 0,
+     "중립": 1,
+     "경계": 0
+    },
+    "pro": [],
+    "con": [],
+    "neutral": [
+     {
+      "date": "2026-11-18",
+      "who": "BRILLER (nje2e 전달)",
+      "view": "중국 쪽 규제 완화는 ODM에는 매출 증가로 수혜이지만, 브랜드사는 중국 자체 화장품 품질 향상과 높은 왕홍 수수료를 고려해야 한다는 견해입니다."
+     }
+    ]
+   },
+   {
+    "topic": "금리·환율",
+    "n": 1,
+    "who_n": 1,
+    "stance": {
+     "긍정": 0,
+     "부정": 0,
+     "중립": 1,
+     "경계": 0
+    },
+    "pro": [],
+    "con": [],
+    "neutral": [
+     {
+      "date": "2026-11-16",
+      "who": "GS 아시아 경제 (Jstockclass 요약)",
+      "view": "미국은 12월·3월 인상 뒤 정점이고 시장의 과도한 인상 기대는 되돌려질 것이라는 견해입니다."
+     }
+    ]
+   }
+  ],
+  "note": "채널 글쓴이의 개인 견해(2차 자료). 같은 사람이 여러 번 말한 것은 한 목소리다(who_n 참고). 견해만으로 스트림을 올리거나 내리지 않는다 — 해설의 '왜'와 '반대 해석' 재료로만 쓴다."
+ },
  "talk": {
   "weeks": [
    "10/26",
@@ -920,11 +1620,11 @@
      261,
      529,
      658,
-     520
+     529
     ],
-    "chg_pct": -21,
+    "chg_pct": -20,
     "updown": {
-     "하향": 795,
+     "하향": 798,
      "상향": 128
     }
    },
@@ -934,9 +1634,9 @@
      115,
      61,
      91,
-     71
+     77
     ],
-    "chg_pct": -22,
+    "chg_pct": -15,
     "updown": {
      "하향": 25,
      "상향": 6
@@ -948,9 +1648,9 @@
      62,
      59,
      82,
-     81
+     82
     ],
-    "chg_pct": -1,
+    "chg_pct": 0,
     "updown": {
      "하향": 50,
      "상향": 20
@@ -962,9 +1662,9 @@
      56,
      72,
      67,
-     64
+     67
     ],
-    "chg_pct": -4,
+    "chg_pct": 0,
     "updown": {
      "하향": 75,
      "상향": 13
@@ -990,9 +1690,9 @@
      20,
      52,
      71,
-     54
+     55
     ],
-    "chg_pct": -24,
+    "chg_pct": -23,
     "updown": {
      "상향": 11,
      "하향": 34
@@ -1004,9 +1704,9 @@
      29,
      51,
      54,
-     49
+     50
     ],
-    "chg_pct": -9,
+    "chg_pct": -7,
     "updown": {
      "상향": 18,
      "하향": 61
@@ -1018,9 +1718,9 @@
      9,
      38,
      91,
-     34
+     36
     ],
-    "chg_pct": -63,
+    "chg_pct": -60,
     "updown": {
      "하향": 60,
      "상향": 14
@@ -1074,9 +1774,9 @@
      13,
      10,
      65,
-     63
+     64
     ],
-    "chg_pct": -3,
+    "chg_pct": -2,
     "updown": {
      "상향": 7,
      "하향": 19
@@ -1102,9 +1802,9 @@
      9,
      46,
      56,
-     38
+     39
     ],
-    "chg_pct": -32,
+    "chg_pct": -30,
     "updown": {
      "상향": 22,
      "하향": 11
@@ -1116,9 +1816,9 @@
      26,
      37,
      39,
-     34
+     35
     ],
-    "chg_pct": -13,
+    "chg_pct": -10,
     "updown": {
      "하향": 44,
      "상향": 1
@@ -1181,6 +1881,20 @@
     }
    },
    {
+    "name": "자동차",
+    "weeks": [
+     15,
+     37,
+     32,
+     35
+    ],
+    "chg_pct": 9,
+    "updown": {
+     "하향": 31,
+     "상향": 1
+    }
+   },
+   {
     "name": "우주/방산",
     "weeks": [
      19,
@@ -1191,20 +1905,6 @@
     "chg_pct": 36,
     "updown": {
      "하향": 57,
-     "상향": 1
-    }
-   },
-   {
-    "name": "자동차",
-    "weeks": [
-     15,
-     37,
-     32,
-     34
-    ],
-    "chg_pct": 6,
-    "updown": {
-     "하향": 31,
      "상향": 1
     }
    },
@@ -1242,48 +1942,57 @@
      10,
      29,
      25,
-     29
+     30
     ],
-    "chg_pct": 16,
+    "chg_pct": 20,
     "updown": {
-     "하향": 30
+     "하향": 29
     }
    },
    {
-    "name": "통신서비스",
+    "name": "원전",
     "weeks": [
-     4,
-     45,
-     28,
-     11
+     21,
+     13,
+     41,
+     13
     ],
-    "chg_pct": -61,
+    "chg_pct": -68,
     "updown": {
-     "상향": 5,
-     "하향": 1
+     "하향": 42
     }
    }
   ],
   "pool": [
    {
-    "name": "신세계",
+    "name": "삼성전자",
     "weeks": [
-     2,
-     2,
-     27,
-     9
+     66,
+     51,
+     65,
+     62
     ],
-    "chg_pct": -67
+    "chg_pct": -5
    },
    {
-    "name": "NHN",
+    "name": "SK하이닉스",
     "weeks": [
-     0,
-     3,
-     22,
-     11
+     80,
+     39,
+     53,
+     48
     ],
-    "chg_pct": -50
+    "chg_pct": -9
+   },
+   {
+    "name": "GS건설",
+    "weeks": [
+     1,
+     11,
+     18,
+     7
+    ],
+    "chg_pct": -61
    },
    {
     "name": "코스맥스",
@@ -1306,24 +2015,24 @@
     "chg_pct": 62
    },
    {
-    "name": "제주항공",
+    "name": "티엘비",
     "weeks": [
      1,
      7,
-     10,
-     11
+     11,
+     10
     ],
-    "chg_pct": 10
+    "chg_pct": -9
    },
    {
-    "name": "와이지엔터테인먼트",
+    "name": "한국콜마",
     "weeks": [
-     0,
-     0,
-     18,
-     5
+     1,
+     4,
+     16,
+     3
     ],
-    "chg_pct": -72
+    "chg_pct": -81
    },
    {
     "name": "아모레퍼시픽",
@@ -1336,24 +2045,14 @@
     "chg_pct": 80
    },
    {
-    "name": "한진칼",
+    "name": "코스메카코리아",
     "weeks": [
-     1,
-     12,
-     4,
-     1
-    ],
-    "chg_pct": -75
-   },
-   {
-    "name": "지니언스",
-    "weeks": [
-     5,
      0,
-     5,
-     6
+     0,
+     11,
+     2
     ],
-    "chg_pct": 20
+    "chg_pct": -82
    },
    {
     "name": "티에프이",
@@ -1366,44 +2065,14 @@
     "chg_pct": -86
    },
    {
-    "name": "효성티앤씨",
+    "name": "IPARK현대산업개발",
     "weeks": [
+     3,
      1,
      4,
-     2,
      2
-    ],
-    "chg_pct": 0
-   },
-   {
-    "name": "나노신소재",
-    "weeks": [
-     0,
-     5,
-     2,
-     1
     ],
     "chg_pct": -50
-   },
-   {
-    "name": "디케이티",
-    "weeks": [
-     0,
-     0,
-     4,
-     4
-    ],
-    "chg_pct": 0
-   },
-   {
-    "name": "TYM",
-    "weeks": [
-     0,
-     4,
-     2,
-     2
-    ],
-    "chg_pct": 0
    },
    {
     "name": "엑시콘",
@@ -1416,21 +2085,21 @@
     "chg_pct": -50
    },
    {
-    "name": "두산밥캣",
-    "weeks": [
-     4,
-     1,
-     1,
-     0
-    ],
-    "chg_pct": -100
-   },
-   {
-    "name": "한미사이언스",
+    "name": "원익홀딩스",
     "weeks": [
      0,
+     0,
      1,
-     1,
+     1
+    ],
+    "chg_pct": 0
+   },
+   {
+    "name": "계룡건설",
+    "weeks": [
+     0,
+     0,
+     2,
      0
     ],
     "chg_pct": -100
@@ -1446,7 +2115,7 @@
     "up": 18,
     "down": 52,
     "new": 84,
-    "avg_change_pct": -11.6,
+    "avg_change_pct": -11.7,
     "stocks": [
      "테스",
      "티엘비",
@@ -1763,25 +2432,19 @@
     "sector": "건설",
     "up": 5,
     "down": 8,
-    "new": 10
+    "new": 7
    },
    {
     "sector": "손해보험",
     "up": 0,
     "down": 9,
-    "new": 11
+    "new": 9
    },
    {
     "sector": "건강관리장비와용품",
     "up": 0,
     "down": 7,
-    "new": 12
-   },
-   {
-    "sector": "복합기업",
-    "up": 0,
-    "down": 13,
-    "new": 5
+    "new": 11
    },
    {
     "sector": "섬유,의류,신발,호화품",
@@ -1796,10 +2459,10 @@
     "new": 10
    },
    {
-    "sector": "화장품",
-    "up": 2,
-    "down": 2,
-    "new": 13
+    "sector": "전기제품",
+    "up": 0,
+    "down": 10,
+    "new": 7
    },
    {
     "sector": "증권",
@@ -1808,10 +2471,10 @@
     "new": 3
    },
    {
-    "sector": "전기제품",
+    "sector": "복합기업",
     "up": 0,
-    "down": 9,
-    "new": 7
+    "down": 11,
+    "new": 5
    },
    {
     "sector": "전자장비와기기",
@@ -1832,10 +2495,10 @@
     "new": 6
    },
    {
-    "sector": "유통",
-    "up": 0,
-    "down": 5,
-    "new": 9
+    "sector": "화장품",
+    "up": 1,
+    "down": 1,
+    "new": 12
    },
    {
     "sector": "화학",
@@ -1844,16 +2507,10 @@
     "new": 6
    },
    {
-    "sector": "철강·비철금속",
+    "sector": "유통",
     "up": 0,
     "down": 4,
     "new": 9
-   },
-   {
-    "sector": "식품",
-    "up": 0,
-    "down": 4,
-    "new": 8
    },
    {
     "sector": "IT서비스",
@@ -1862,69 +2519,72 @@
     "new": 7
    },
    {
-    "sector": "기계",
-    "up": 1,
+    "sector": "에너지장비및서비스",
+    "up": 0,
+    "down": 6,
+    "new": 5
+   },
+   {
+    "sector": "식품",
+    "up": 0,
     "down": 3,
     "new": 8
+   },
+   {
+    "sector": "핸드셋",
+    "up": 1,
+    "down": 3,
+    "new": 7
    }
   ],
   "totals_31d": {
    "up": 142,
-   "down": 985
+   "down": 986
   },
   "pool": [
    {
-    "name": "코스맥스",
-    "reports_31d": 22,
-    "up": 11,
-    "down": 0,
+    "name": "티엘비",
+    "reports_31d": 8,
+    "up": 3,
+    "down": 2,
     "last": [
      {
-      "t": "2026-10-21",
-      "broker": "한화투자증권",
-      "dir": "상향",
-      "before": 300000,
-      "after": 370000
+      "t": "2026-11-06",
+      "broker": "메리츠증권",
+      "dir": "하향",
+      "before": 57000,
+      "after": 47000
      },
      {
-      "t": "2026-11-03",
-      "broker": "유진투자증권",
-      "dir": "상향",
-      "before": 330000,
-      "after": 420000
+      "t": "2026-11-09",
+      "broker": "교보증권",
+      "dir": "하향",
+      "before": 60000,
+      "after": 45000
      },
      {
       "t": "2026-11-12",
-      "broker": "하나증권",
+      "broker": "키움증권",
       "dir": "상향",
-      "before": 380000,
-      "after": 420000
+      "before": 53000,
+      "after": 60000
      }
     ],
     "consensus": {
-     "now": 391000,
-     "n": 18,
-     "chg_pct": 3.7,
-     "since": "2026-10-21"
+     "now": 58429,
+     "n": 7,
+     "chg_pct": 5.0,
+     "since": "2026-11-06"
     },
-    "earnings": null
-   },
-   {
-    "name": "한미사이언스",
-    "reports_31d": 1,
-    "up": 0,
-    "down": 0,
-    "last": [
-     {
-      "t": "2026-11-09",
-      "broker": "iM증권",
-      "dir": null,
-      "before": null,
-      "after": null
-     }
-    ],
-    "consensus": null,
-    "earnings": null
+    "earnings": {
+     "period": "2026.3Q",
+     "op": 166.0,
+     "op_est": 165.0,
+     "op_surprise": 0.6,
+     "op_yoy": 91.8,
+     "verdict": "부합",
+     "time": "2026-11-05 16:10"
+    }
    },
    {
     "name": "엑시콘",
@@ -1952,231 +2612,146 @@
     }
    },
    {
-    "name": "아모레퍼시픽",
-    "reports_31d": 3,
-    "up": 0,
+    "name": "삼성전자",
+    "reports_31d": 12,
+    "up": 1,
+    "down": 4,
+    "last": [
+     {
+      "t": "2026-10-26",
+      "broker": "대신증권",
+      "dir": "하향",
+      "before": 560000,
+      "after": 500000
+     },
+     {
+      "t": "2026-10-29",
+      "broker": "유안타증권",
+      "dir": "상향",
+      "before": 630000,
+      "after": 690000
+     },
+     {
+      "t": "2026-10-30",
+      "broker": "IBK투자증권",
+      "dir": "하향",
+      "before": 460000,
+      "after": 350000
+     }
+    ],
+    "consensus": {
+     "now": 462222,
+     "n": 9,
+     "chg_pct": -22.3,
+     "since": "2026-10-29"
+    },
+    "earnings": {
+     "period": "2026.3Q",
+     "op": 1070000.0,
+     "op_est": null,
+     "op_surprise": null,
+     "op_yoy": 783.1,
+     "verdict": null,
+     "time": "2026-10-29 09:51"
+    }
+   },
+   {
+    "name": "SK하이닉스",
+    "reports_31d": 13,
+    "up": 3,
+    "down": 5,
+    "last": [
+     {
+      "t": "2026-10-26",
+      "broker": "대신증권",
+      "dir": "하향",
+      "before": 3200000,
+      "after": 3000000
+     },
+     {
+      "t": "2026-10-28",
+      "broker": "BNK투자증권",
+      "dir": "상향",
+      "before": 1480000,
+      "after": 1650000
+     },
+     {
+      "t": "2026-10-28",
+      "broker": "유안타증권",
+      "dir": "상향",
+      "before": 3300000,
+      "after": 3700000
+     }
+    ],
+    "consensus": {
+     "now": 2808182,
+     "n": 11,
+     "chg_pct": -9.4,
+     "since": "2026-10-26"
+    },
+    "earnings": {
+     "period": "2026.3Q",
+     "op": 830000.0,
+     "op_est": null,
+     "op_surprise": null,
+     "op_yoy": 632.1,
+     "verdict": null,
+     "time": "2026-10-28 08:28"
+    }
+   },
+   {
+    "name": "심텍",
+    "reports_31d": 10,
+    "up": 1,
     "down": 1,
     "last": [
      {
-      "t": "2026-11-03",
-      "broker": "유진투자증권",
-      "dir": "하향",
-      "before": 190000,
-      "after": 180000
+      "t": "2026-11-04",
+      "broker": "하나증권",
+      "dir": "상향",
+      "before": 170000,
+      "after": 210000
      },
      {
       "t": "2026-11-04",
       "broker": "DB증권",
-      "dir": "유지",
-      "before": null,
-      "after": 180000
+      "dir": "하향",
+      "before": 245000,
+      "after": 200000
      },
      {
-      "t": "2026-11-19",
-      "broker": "NH투자증권",
+      "t": "2026-11-04",
+      "broker": "대신증권",
       "dir": "유지",
       "before": null,
-      "after": 185000
+      "after": 170000
      }
     ],
     "consensus": {
-     "now": 181667,
-     "n": 3,
-     "chg_pct": 0.9,
-     "since": "2026-11-04"
+     "now": 192857,
+     "n": 7,
+     "chg_pct": -10.3,
+     "since": "2026-10-21"
     },
-    "earnings": null
+    "earnings": {
+     "period": "2026.3Q",
+     "op": 1018.0,
+     "op_est": 851.0,
+     "op_surprise": 19.6,
+     "op_yoy": 721.6,
+     "verdict": "서프라이즈",
+     "time": "2026-11-03 16:00"
+    }
    },
    {
-    "name": "디케이티",
-    "reports_31d": 3,
-    "up": 1,
+    "name": "원익홀딩스",
+    "reports_31d": 1,
+    "up": 0,
     "down": 0,
     "last": [
-     {
-      "t": "2026-11-16",
-      "broker": "리딩투자증권",
-      "dir": "상향",
-      "before": 35000,
-      "after": 40000
-     },
      {
       "t": "2026-11-11",
-      "broker": "한양증권",
-      "dir": null,
-      "before": null,
-      "after": null
-     },
-     {
-      "t": "2026-11-17",
-      "broker": "하나증권",
-      "dir": null,
-      "before": null,
-      "after": null
-     }
-    ],
-    "consensus": null,
-    "earnings": null
-   },
-   {
-    "name": "한진칼",
-    "reports_31d": 0,
-    "up": 0,
-    "down": 0,
-    "last": [],
-    "consensus": null,
-    "earnings": null
-   },
-   {
-    "name": "안랩",
-    "reports_31d": 0,
-    "up": 0,
-    "down": 0,
-    "last": [],
-    "consensus": null,
-    "earnings": {
-     "period": "2026.3Q",
-     "op": 109.0,
-     "op_est": null,
-     "op_surprise": null,
-     "op_yoy": 38.7,
-     "verdict": null,
-     "time": "2026-10-28 09:13"
-    }
-   },
-   {
-    "name": "나노신소재",
-    "reports_31d": 2,
-    "up": 1,
-    "down": 0,
-    "last": [
-     {
-      "t": "2026-11-05",
-      "broker": "iM증권",
-      "dir": "상향",
-      "before": 80000,
-      "after": 115000
-     },
-     {
-      "t": "2026-11-05",
-      "broker": "유안타증권",
-      "dir": "유지",
-      "before": null,
-      "after": 105000
-     }
-    ],
-    "consensus": {
-     "now": 110000,
-     "n": 2,
-     "chg_pct": 0.0,
-     "since": "2026-11-05"
-    },
-    "earnings": {
-     "period": "2026.3Q",
-     "op": 66.0,
-     "op_est": null,
-     "op_surprise": null,
-     "op_yoy": null,
-     "verdict": null,
-     "time": "2026-11-12 17:56"
-    }
-   },
-   {
-    "name": "NHN",
-    "reports_31d": 19,
-    "up": 10,
-    "down": 0,
-    "last": [
-     {
-      "t": "2026-11-10",
-      "broker": "한화투자증권",
-      "dir": "상향",
-      "before": 87000,
-      "after": 93000
-     },
-     {
-      "t": "2026-11-10",
-      "broker": "삼성증권",
-      "dir": "상향",
-      "before": 92000,
-      "after": 100000
-     },
-     {
-      "t": "2026-11-10",
-      "broker": "KB증권",
-      "dir": "상향",
-      "before": 68000,
-      "after": 91000
-     }
-    ],
-    "consensus": {
-     "now": 95455,
-     "n": 11,
-     "chg_pct": 4.0,
-     "since": "2026-11-10"
-    },
-    "earnings": null
-   },
-   {
-    "name": "제주항공",
-    "reports_31d": 11,
-    "up": 7,
-    "down": 0,
-    "last": [
-     {
-      "t": "2026-10-30",
       "broker": "NH투자증권",
-      "dir": "상향",
-      "before": 5500,
-      "after": 5700
-     },
-     {
-      "t": "2026-11-04",
-      "broker": "iM증권",
-      "dir": "상향",
-      "before": 7000,
-      "after": 8000
-     },
-     {
-      "t": "2026-11-04",
-      "broker": "한화투자증권",
-      "dir": "상향",
-      "before": 6500,
-      "after": 7500
-     }
-    ],
-    "consensus": {
-     "now": 7900,
-     "n": 6,
-     "chg_pct": 38.6,
-     "since": "2026-10-30"
-    },
-    "earnings": {
-     "period": "2026.3Q",
-     "op": 549.0,
-     "op_est": 145.0,
-     "op_surprise": 278.6,
-     "op_yoy": null,
-     "verdict": "서프라이즈",
-     "time": "2026-11-03 16:01"
-    }
-   },
-   {
-    "name": "지니언스",
-    "reports_31d": 2,
-    "up": 0,
-    "down": 0,
-    "last": [
-     {
-      "t": "2026-11-13",
-      "broker": "유안타증권",
-      "dir": null,
-      "before": null,
-      "after": null
-     },
-     {
-      "t": "2026-11-16",
-      "broker": "유진투자증권",
       "dir": null,
       "before": null,
       "after": null
@@ -2230,6 +2805,150 @@
     }
    },
    {
+    "name": "코스맥스",
+    "reports_31d": 22,
+    "up": 11,
+    "down": 0,
+    "last": [
+     {
+      "t": "2026-10-21",
+      "broker": "한화투자증권",
+      "dir": "상향",
+      "before": 300000,
+      "after": 370000
+     },
+     {
+      "t": "2026-11-03",
+      "broker": "유진투자증권",
+      "dir": "상향",
+      "before": 330000,
+      "after": 420000
+     },
+     {
+      "t": "2026-11-12",
+      "broker": "하나증권",
+      "dir": "상향",
+      "before": 380000,
+      "after": 420000
+     }
+    ],
+    "consensus": {
+     "now": 391000,
+     "n": 18,
+     "chg_pct": 3.7,
+     "since": "2026-10-21"
+    },
+    "earnings": null
+   },
+   {
+    "name": "한국콜마",
+    "reports_31d": 20,
+    "up": 0,
+    "down": 11,
+    "last": [
+     {
+      "t": "2026-11-09",
+      "broker": "하나증권",
+      "dir": "하향",
+      "before": 180000,
+      "after": 160000
+     },
+     {
+      "t": "2026-11-09",
+      "broker": "KB증권",
+      "dir": "하향",
+      "before": 180000,
+      "after": 150000
+     },
+     {
+      "t": "2026-11-09",
+      "broker": "NH투자증권",
+      "dir": "하향",
+      "before": 170000,
+      "after": 160000
+     }
+    ],
+    "consensus": {
+     "now": 163588,
+     "n": 17,
+     "chg_pct": -8.3,
+     "since": "2026-10-21"
+    },
+    "earnings": null
+   },
+   {
+    "name": "아모레퍼시픽",
+    "reports_31d": 3,
+    "up": 0,
+    "down": 1,
+    "last": [
+     {
+      "t": "2026-11-03",
+      "broker": "유진투자증권",
+      "dir": "하향",
+      "before": 190000,
+      "after": 180000
+     },
+     {
+      "t": "2026-11-04",
+      "broker": "DB증권",
+      "dir": "유지",
+      "before": null,
+      "after": 180000
+     },
+     {
+      "t": "2026-11-19",
+      "broker": "NH투자증권",
+      "dir": "유지",
+      "before": null,
+      "after": 185000
+     }
+    ],
+    "consensus": {
+     "now": 181667,
+     "n": 3,
+     "chg_pct": 0.9,
+     "since": "2026-11-04"
+    },
+    "earnings": null
+   },
+   {
+    "name": "코스메카코리아",
+    "reports_31d": 11,
+    "up": 2,
+    "down": 2,
+    "last": [
+     {
+      "t": "2026-11-09",
+      "broker": "하나증권",
+      "dir": "상향",
+      "before": 147000,
+      "after": 155000
+     },
+     {
+      "t": "2026-11-09",
+      "broker": "신영증권",
+      "dir": "상향",
+      "before": 125000,
+      "after": 135000
+     },
+     {
+      "t": "2026-11-09",
+      "broker": "다올투자증권",
+      "dir": "하향",
+      "before": null,
+      "after": 140000
+     }
+    ],
+    "consensus": {
+     "now": 141182,
+     "n": 11,
+     "chg_pct": 0.8,
+     "since": "2026-10-21"
+    },
+    "earnings": null
+   },
+   {
     "name": "삼성E&A",
     "reports_31d": 27,
     "up": 25,
@@ -2274,188 +2993,98 @@
     }
    },
    {
-    "name": "와이지엔터테인먼트",
-    "reports_31d": 16,
-    "up": 0,
-    "down": 3,
+    "name": "IPARK현대산업개발",
+    "reports_31d": 4,
+    "up": 2,
+    "down": 0,
     "last": [
      {
-      "t": "2026-11-10",
-      "broker": "삼성증권",
-      "dir": "하향",
-      "before": 61000,
-      "after": 56000
-     },
-     {
-      "t": "2026-11-10",
-      "broker": "KB증권",
-      "dir": "하향",
-      "before": 60000,
-      "after": 50000
-     },
-     {
-      "t": "2026-11-10",
-      "broker": "LS증권",
-      "dir": "하향",
-      "before": 62000,
-      "after": 58000
-     }
-    ],
-    "consensus": {
-     "now": 60533,
-     "n": 15,
-     "chg_pct": 0.9,
-     "since": "2026-10-21"
-    },
-    "earnings": null
-   },
-   {
-    "name": "신세계",
-    "reports_31d": 19,
-    "up": 0,
-    "down": 18,
-    "last": [
-     {
-      "t": "2026-10-27",
-      "broker": "흥국증권",
-      "dir": "하향",
-      "before": 470000,
-      "after": 380000
-     },
-     {
-      "t": "2026-10-27",
-      "broker": "LS증권",
-      "dir": "하향",
-      "before": 860000,
-      "after": 450000
-     },
-     {
-      "t": "2026-11-09",
+      "t": "2026-10-26",
       "broker": "신한투자증권",
-      "dir": "하향",
-      "before": 570000,
-      "after": 460000
+      "dir": "상향",
+      "before": 29000,
+      "after": 30000
+     },
+     {
+      "t": "2026-10-27",
+      "broker": "삼성증권",
+      "dir": "상향",
+      "before": 28000,
+      "after": 31000
+     },
+     {
+      "t": "2026-11-10",
+      "broker": "한화투자증권",
+      "dir": "유지",
+      "before": null,
+      "after": 32000
      }
     ],
     "consensus": {
-     "now": 411000,
-     "n": 16,
-     "chg_pct": -23.2,
-     "since": "2026-10-21"
+     "now": 31750,
+     "n": 4,
+     "chg_pct": 4.1,
+     "since": "2026-10-27"
     },
-    "earnings": null
+    "earnings": {
+     "period": null,
+     "op": 1658.0,
+     "op_est": null,
+     "op_surprise": null,
+     "op_yoy": null,
+     "verdict": null,
+     "time": "2026-11-13 16:02"
+    }
    },
    {
-    "name": "바이오비쥬",
-    "reports_31d": 0,
-    "up": 0,
-    "down": 0,
-    "last": [],
-    "consensus": null,
-    "earnings": null
-   },
-   {
-    "name": "아모레퍼시픽홀딩스",
-    "reports_31d": 0,
-    "up": 0,
-    "down": 0,
-    "last": [],
-    "consensus": null,
-    "earnings": null
-   },
-   {
-    "name": "TYM",
+    "name": "계룡건설",
     "reports_31d": 1,
     "up": 0,
     "down": 0,
     "last": [
      {
-      "t": "2026-11-05",
-      "broker": "키움증권",
-      "dir": null,
+      "t": "2026-11-13",
+      "broker": "하나증권",
+      "dir": "유지",
       "before": null,
-      "after": null
+      "after": 45000
      }
     ],
     "consensus": null,
-    "earnings": {
-     "period": "2026.3Q",
-     "op": 358.0,
-     "op_est": null,
-     "op_surprise": null,
-     "op_yoy": 124.7,
-     "verdict": null,
-     "time": "2026-11-04 09:19"
-    }
-   },
-   {
-    "name": "두산밥캣",
-    "reports_31d": 4,
-    "up": 1,
-    "down": 3,
-    "last": [
-     {
-      "t": "2026-10-29",
-      "broker": "다올투자증권",
-      "dir": "하향",
-      "before": 97000,
-      "after": 89000
-     },
-     {
-      "t": "2026-10-30",
-      "broker": "삼성증권",
-      "dir": "하향",
-      "before": 98000,
-      "after": 74000
-     },
-     {
-      "t": "2026-10-30",
-      "broker": "신한투자증권",
-      "dir": "상향",
-      "before": 75000,
-      "after": 80000
-     }
-    ],
-    "consensus": {
-     "now": 79400,
-     "n": 5,
-     "chg_pct": 3.1,
-     "since": "2026-10-21"
-    },
     "earnings": null
    },
    {
-    "name": "효성티앤씨",
-    "reports_31d": 5,
-    "up": 0,
-    "down": 4,
+    "name": "GS건설",
+    "reports_31d": 18,
+    "up": 5,
+    "down": 5,
     "last": [
      {
       "t": "2026-10-21",
       "broker": "신한투자증권",
       "dir": "하향",
-      "before": 520000,
-      "after": 460000
-     },
-     {
-      "t": "2026-10-27",
-      "broker": "신영증권",
-      "dir": "하향",
-      "before": 620000,
-      "after": 440000
+      "before": 47000,
+      "after": 43000
      },
      {
       "t": "2026-11-02",
-      "broker": "iM증권",
+      "broker": "LS증권",
       "dir": "하향",
-      "before": 530000,
-      "after": 430000
+      "before": 50000,
+      "after": 38000
+     },
+     {
+      "t": "2026-11-02",
+      "broker": "NH투자증권",
+      "dir": "하향",
+      "before": 45000,
+      "after": 40000
      }
     ],
     "consensus": {
-     "now": 422500,
-     "n": 4,
-     "chg_pct": -1.7,
+     "now": 42692,
+     "n": 13,
+     "chg_pct": 0.1,
      "since": "2026-10-21"
     },
     "earnings": null
@@ -2466,15 +3095,141 @@
  "price_money": {
   "pool": [
    {
+    "name": "티엘비",
+    "code": "356860",
+    "price": 44600.0,
+    "date": "20261120",
+    "rs": 90,
+    "rs_chg4w": 17,
+    "r1w": 1.7,
+    "r1m": 18.8,
+    "r3m": 28.9,
+    "off_high": -34.0,
+    "above20": true,
+    "above50": true,
+    "f5_eok": null,
+    "i5_eok": null,
+    "f_streak": null,
+    "i_streak": null
+   },
+   {
+    "name": "엑시콘",
+    "code": "092870",
+    "price": 52600.0,
+    "date": "20261120",
+    "rs": 98,
+    "rs_chg4w": 0,
+    "r1w": -15.8,
+    "r1m": 7.5,
+    "r3m": 130.7,
+    "off_high": -22.6,
+    "above20": false,
+    "above50": true,
+    "f5_eok": null,
+    "i5_eok": null,
+    "f_streak": null,
+    "i_streak": null
+   },
+   {
+    "name": "삼성전자",
+    "code": "005930",
+    "price": 184900.0,
+    "date": "20261120",
+    "rs": 62,
+    "rs_chg4w": -18,
+    "r1w": -11.5,
+    "r1m": -13.8,
+    "r3m": -31.8,
+    "off_high": -50.6,
+    "above20": false,
+    "above50": false,
+    "f5_eok": -13570,
+    "i5_eok": 4439,
+    "f_streak": -4,
+    "i_streak": -1
+   },
+   {
+    "name": "SK하이닉스",
+    "code": "000660",
+    "price": 1108000.0,
+    "date": "20261120",
+    "rs": 58,
+    "rs_chg4w": -28,
+    "r1w": -10.1,
+    "r1m": -10.2,
+    "r3m": -34.5,
+    "off_high": -62.9,
+    "above20": false,
+    "above50": false,
+    "f5_eok": -11832,
+    "i5_eok": -7201,
+    "f_streak": -6,
+    "i_streak": -1
+   },
+   {
+    "name": "심텍",
+    "code": "222800",
+    "price": 103300.0,
+    "date": "20261120",
+    "rs": 88,
+    "rs_chg4w": -4,
+    "r1w": -18.2,
+    "r1m": -13.1,
+    "r3m": -10.1,
+    "off_high": -43.4,
+    "above20": false,
+    "above50": false,
+    "f5_eok": -697,
+    "i5_eok": 74,
+    "f_streak": -13,
+    "i_streak": -1
+   },
+   {
+    "name": "원익홀딩스",
+    "code": "030530",
+    "price": 33100.0,
+    "date": "20261120",
+    "rs": 95,
+    "rs_chg4w": 23,
+    "r1w": 3.1,
+    "r1m": 46.5,
+    "r3m": 64.7,
+    "off_high": -34.6,
+    "above20": true,
+    "above50": true,
+    "f5_eok": -156,
+    "i5_eok": 277,
+    "f_streak": -1,
+    "i_streak": 10
+   },
+   {
+    "name": "티에프이",
+    "code": "425420",
+    "price": 68200.0,
+    "date": "20261120",
+    "rs": 96,
+    "rs_chg4w": 2,
+    "r1w": -25.8,
+    "r1m": 14.2,
+    "r3m": 68.0,
+    "off_high": -26.4,
+    "above20": false,
+    "above50": true,
+    "f5_eok": null,
+    "i5_eok": null,
+    "f_streak": null,
+    "i_streak": null
+   },
+   {
     "name": "코스맥스",
     "code": "192820",
     "price": 290000.0,
-    "date": "20261119",
+    "date": "20261120",
     "rs": 94,
     "rs_chg4w": 2,
-    "r1w": 4.9,
-    "r1m": 7.0,
-    "r3m": 17.9,
+    "r1w": 3.9,
+    "r1m": 7.4,
+    "r3m": 11.3,
     "off_high": -9.4,
     "above20": true,
     "above50": true,
@@ -2484,51 +3239,33 @@
     "i_streak": -1
    },
    {
-    "name": "한미사이언스",
-    "code": "008930",
-    "price": 51100.0,
+    "name": "한국콜마",
+    "code": "161890",
+    "price": 118000.0,
     "date": "20261119",
-    "rs": 91,
-    "rs_chg4w": 8,
-    "r1w": -3.8,
-    "r1m": 17.9,
-    "r3m": 13.2,
-    "off_high": -25.4,
-    "above20": true,
-    "above50": true,
-    "f5_eok": 8,
-    "i5_eok": 16,
-    "f_streak": 1,
-    "i_streak": 4
-   },
-   {
-    "name": "엑시콘",
-    "code": "092870",
-    "price": 53300.0,
-    "date": "20261119",
-    "rs": 98,
+    "rs": 90,
     "rs_chg4w": 0,
-    "r1w": -6.7,
-    "r1m": 1.1,
-    "r3m": 130.7,
-    "off_high": -21.6,
-    "above20": false,
-    "above50": true,
-    "f5_eok": null,
-    "i5_eok": null,
-    "f_streak": null,
-    "i_streak": null
+    "r1w": 13.7,
+    "r1m": -7.3,
+    "r3m": -7.7,
+    "off_high": -28.9,
+    "above20": true,
+    "above50": false,
+    "f5_eok": -143,
+    "i5_eok": 178,
+    "f_streak": -3,
+    "i_streak": 4
    },
    {
     "name": "아모레퍼시픽",
     "code": "090430",
-    "price": 140700.0,
-    "date": "20261119",
-    "rs": 86,
+    "price": 140800.0,
+    "date": "20261120",
+    "rs": 85,
     "rs_chg4w": 12,
-    "r1w": 11.8,
-    "r1m": 4.2,
-    "r3m": 5.7,
+    "r1w": 11.7,
+    "r1m": 6.3,
+    "r3m": 3.1,
     "off_high": -16.7,
     "above20": true,
     "above50": true,
@@ -2538,144 +3275,18 @@
     "i_streak": 4
    },
    {
-    "name": "디케이티",
-    "code": "290550",
-    "price": 31350.0,
+    "name": "코스메카코리아",
+    "code": "241710",
+    "price": 108100.0,
     "date": "20261119",
-    "rs": 98,
-    "rs_chg4w": 7,
-    "r1w": 13.4,
-    "r1m": 43.5,
-    "r3m": 77.0,
-    "off_high": -10.3,
-    "above20": true,
-    "above50": true,
-    "f5_eok": null,
-    "i5_eok": null,
-    "f_streak": null,
-    "i_streak": null
-   },
-   {
-    "name": "한진칼",
-    "code": "180640",
-    "price": 216500.0,
-    "date": "20261119",
-    "rs": 97,
-    "rs_chg4w": 19,
-    "r1w": 9.3,
-    "r1m": 78.9,
-    "r3m": 86.2,
-    "off_high": -11.6,
-    "above20": true,
-    "above50": true,
-    "f5_eok": 481,
-    "i5_eok": 200,
-    "f_streak": 5,
-    "i_streak": -1
-   },
-   {
-    "name": "안랩",
-    "code": "053800",
-    "price": 116800.0,
-    "date": "20261119",
-    "rs": 98,
-    "rs_chg4w": 5,
-    "r1w": -1.1,
-    "r1m": 33.8,
-    "r3m": 104.9,
-    "off_high": -14.9,
-    "above20": true,
-    "above50": true,
-    "f5_eok": null,
-    "i5_eok": null,
-    "f_streak": null,
-    "i_streak": null
-   },
-   {
-    "name": "나노신소재",
-    "code": "121600",
-    "price": 66300.0,
-    "date": "20261119",
-    "rs": 88,
-    "rs_chg4w": 5,
-    "r1w": -11.6,
-    "r1m": 12.0,
-    "r3m": 36.6,
-    "off_high": -30.4,
-    "above20": true,
-    "above50": true,
-    "f5_eok": null,
-    "i5_eok": null,
-    "f_streak": null,
-    "i_streak": null
-   },
-   {
-    "name": "NHN",
-    "code": "181710",
-    "price": 64100.0,
-    "date": "20261119",
-    "rs": 93,
+    "rs": 87,
     "rs_chg4w": -2,
-    "r1w": -6.6,
-    "r1m": 12.3,
-    "r3m": -14.0,
-    "off_high": -28.1,
+    "r1w": 16.6,
+    "r1m": 1.1,
+    "r3m": -12.5,
+    "off_high": -30.5,
     "above20": true,
-    "above50": true,
-    "f5_eok": 62,
-    "i5_eok": 13,
-    "f_streak": 1,
-    "i_streak": -1
-   },
-   {
-    "name": "제주항공",
-    "code": "089590",
-    "price": 8380.0,
-    "date": "20261119",
-    "rs": 97,
-    "rs_chg4w": 20,
-    "r1w": 13.4,
-    "r1m": 61.2,
-    "r3m": 107.2,
-    "off_high": -10.6,
-    "above20": true,
-    "above50": true,
-    "f5_eok": null,
-    "i5_eok": null,
-    "f_streak": null,
-    "i_streak": null
-   },
-   {
-    "name": "지니언스",
-    "code": "263860",
-    "price": 37900.0,
-    "date": "20261119",
-    "rs": 98,
-    "rs_chg4w": 7,
-    "r1w": 13.8,
-    "r1m": 85.3,
-    "r3m": 163.2,
-    "off_high": -15.8,
-    "above20": true,
-    "above50": true,
-    "f5_eok": null,
-    "i5_eok": null,
-    "f_streak": null,
-    "i_streak": null
-   },
-   {
-    "name": "티에프이",
-    "code": "425420",
-    "price": 74500.0,
-    "date": "20261119",
-    "rs": 97,
-    "rs_chg4w": 7,
-    "r1w": -10.7,
-    "r1m": 16.8,
-    "r3m": 96.3,
-    "off_high": -19.6,
-    "above20": false,
-    "above50": true,
+    "above50": false,
     "f5_eok": null,
     "i5_eok": null,
     "f_streak": null,
@@ -2684,14 +3295,14 @@
    {
     "name": "삼성E&A",
     "code": "028050",
-    "price": 63100.0,
-    "date": "20261119",
+    "price": 61300.0,
+    "date": "20261120",
     "rs": 95,
-    "rs_chg4w": 4,
-    "r1w": -4.0,
-    "r1m": 32.0,
-    "r3m": 30.1,
-    "off_high": -10.2,
+    "rs_chg4w": 2,
+    "r1w": -11.7,
+    "r1m": 9.3,
+    "r3m": 27.6,
+    "off_high": -12.8,
     "above20": false,
     "above50": true,
     "f5_eok": -604,
@@ -2700,88 +3311,34 @@
     "i_streak": -2
    },
    {
-    "name": "와이지엔터테인먼트",
-    "code": "122870",
-    "price": 46800.0,
+    "name": "IPARK현대산업개발",
+    "code": "294870",
+    "price": 24900.0,
     "date": "20261119",
-    "rs": 80,
-    "rs_chg4w": 52,
-    "r1w": 9.1,
-    "r1m": 10.8,
-    "r3m": 18.6,
-    "off_high": -40.8,
-    "above20": true,
-    "above50": true,
-    "f5_eok": null,
-    "i5_eok": null,
-    "f_streak": null,
-    "i_streak": null
-   },
-   {
-    "name": "신세계",
-    "code": "004170",
-    "price": 294000.0,
-    "date": "20261119",
-    "rs": 42,
-    "rs_chg4w": 32,
-    "r1w": 22.2,
-    "r1m": 8.7,
-    "r3m": -26.6,
-    "off_high": -62.9,
-    "above20": true,
-    "above50": false,
-    "f5_eok": -121,
-    "i5_eok": 189,
-    "f_streak": -3,
-    "i_streak": 6
-   },
-   {
-    "name": "바이오비쥬",
-    "code": "489460",
-    "price": 16490.0,
-    "date": "20261119",
-    "rs": 96,
-    "rs_chg4w": 5,
-    "r1w": 9.8,
-    "r1m": 41.7,
-    "r3m": 45.0,
-    "off_high": -0.2,
-    "above20": true,
-    "above50": true,
-    "f5_eok": null,
-    "i5_eok": null,
-    "f_streak": null,
-    "i_streak": null
-   },
-   {
-    "name": "아모레퍼시픽홀딩스",
-    "code": "002790",
-    "price": 27750.0,
-    "date": "20261119",
-    "rs": 85,
+    "rs": 88,
     "rs_chg4w": 26,
-    "r1w": 4.7,
-    "r1m": 9.5,
-    "r3m": 10.3,
-    "off_high": -22.8,
+    "r1w": 4.2,
+    "r1m": 20.0,
+    "r3m": 12.9,
+    "off_high": -4.0,
     "above20": true,
     "above50": true,
-    "f5_eok": 12,
-    "i5_eok": 3,
+    "f5_eok": 3,
+    "i5_eok": 15,
     "f_streak": -1,
-    "i_streak": 1
+    "i_streak": 4
    },
    {
-    "name": "TYM",
-    "code": "002900",
-    "price": 7320.0,
-    "date": "20261119",
-    "rs": 79,
-    "rs_chg4w": 37,
-    "r1w": 3.8,
-    "r1m": 24.7,
-    "r3m": 7.5,
-    "off_high": -26.1,
+    "name": "계룡건설",
+    "code": "013580",
+    "price": 25050.0,
+    "date": "20261120",
+    "rs": 88,
+    "rs_chg4w": 2,
+    "r1w": -7.9,
+    "r1m": -3.5,
+    "r3m": 8.9,
+    "off_high": -24.8,
     "above20": true,
     "above50": true,
     "f5_eok": null,
@@ -2790,40 +3347,22 @@
     "i_streak": null
    },
    {
-    "name": "두산밥캣",
-    "code": "241560",
-    "price": 51700.0,
-    "date": "20261119",
-    "rs": 43,
-    "rs_chg4w": 24,
-    "r1w": -0.8,
-    "r1m": 2.2,
-    "r3m": -16.3,
-    "off_high": -35.1,
-    "above20": true,
-    "above50": false,
-    "f5_eok": -139,
-    "i5_eok": 169,
-    "f_streak": -15,
-    "i_streak": 15
-   },
-   {
-    "name": "효성티앤씨",
-    "code": "298020",
-    "price": 263000.0,
-    "date": "20261119",
-    "rs": 45,
-    "rs_chg4w": 25,
-    "r1w": -14.3,
-    "r1m": 0.4,
-    "r3m": -18.3,
-    "off_high": -52.8,
+    "name": "GS건설",
+    "code": "006360",
+    "price": 29400.0,
+    "date": "20261120",
+    "rs": 79,
+    "rs_chg4w": 10,
+    "r1w": -7.1,
+    "r1m": 1.0,
+    "r3m": -17.4,
+    "off_high": -34.4,
     "above20": false,
     "above50": false,
-    "f5_eok": null,
-    "i5_eok": null,
-    "f_streak": null,
-    "i_streak": null
+    "f5_eok": 40,
+    "i5_eok": 100,
+    "f_streak": -3,
+    "i_streak": -2
    }
   ],
   "sectors": [
@@ -3528,7 +4067,7 @@
     "cap_eok": null
    }
   ],
-  "source": "가격 네이버 일봉(비공식) · RS = 시총 2천억↑ 종목 중 백분위(12/6/3개월 가중) · 수급 시총 상위 300 외국인·기관 추정 금액(억) 2026-11-20 09:56"
+  "source": "가격 네이버 일봉(비공식) · RS = 시총 2천억↑ 종목 중 백분위(12/6/3개월 가중) · 수급 시총 상위 300 외국인·기관 추정 금액(억) 2026-11-20 14:49"
  },
  "digests": [
   {
@@ -3594,14 +4133,14 @@
   {
    "date": "2026-11-20",
    "kind": "채널 정리",
-   "file": "reports/2026-11-20/channels_0953.md",
-   "text": "💡 Claude 의견\n핵심: 미국 급락이 그대로 반영돼 코스피가 개장 직후 -4.79%(09:56)까지 내렸습니다. 반도체 -6%대, 전자장비 -8%대입니다. 외국인 -3,866억·기관 -3,579억 순매도를 개인 +6,587억이 받고 있습니다. 오른 종목 145개, 내린\n🔄 07:15 대비: 개장 전 예상(선물 -2.5%대)보다 낙폭이 -4.79%로 커졌습니다. 앤트로픽 첫날 종가, AMD 급락, 엔비디아 캘리포니아 조사 소환장, 대만 JPM 분석이 새로 나왔습니다.\n📚 오늘의 채널 종합 (11/19 20:00~09:55)\n0️⃣ 🔥 앤트로픽 상장 첫날 (미국 11/19)\n- ⚪ 시가 111.5달러(공모가 83달러 대비 +34%, 시총 약 2조 달러)로 시작해 100달러 아래로 밀렸고 첫날 종가는 97.17달러입니다. 종가 시총은 발행주식 기준 1.3조 달러, 완전희석 기준 1.8조 달러입니다. (06:05·09:09)\n1️⃣ 🔵 미국 급락 원인\n- 🔵 S&P 500 -2.02%(6거래일 연속 하락), 나스닥 -2.25%, 다우 5만선 붕괴이고 VIX는 3월 이후 가장 높은 28.44입니다. 11개 업종이 모두 내렸고 엔비디아·마이크론도 큰 폭 상승 후 하락 전환했습니다. (07:41·08:4\n2️⃣ 🔴 메모리·반도체\n- 🔴 파이슨 CEO는 최근 현물가는 약세지만 계약가는 견조하고 내년 메모리 공급은 여전히 빠듯하다고 밝혔습니다. (08:30)\n3️⃣ 한한령 · 한중 FTA\n- 🔴 증권가는 한한령 완화 기대를 이어 가고 있습니다. KB는 한중 여행 규제 완화가 항공사에 긍정적이지만 급진적 수요 개선은 아니라며 아시아나항공을 숨은 수혜자로 꼽았습니다. (07:33)\n4️⃣ 국내 이슈\n- 🔴 로보티즈가 프랑스 Pollen Robotics와 DYNAMIXEL-X 공급 40억 원(매출 대비"
+   "file": "reports/2026-11-20/channels_1456.md",
+   "text": "💡 Claude 의견\n핵심: 장 막판 낙폭이 더 커졌습니다. 14:58 코스피 -5.62%(4,849.45), 코스닥 -5.93%(644.15)입니다. 코스피 외국인 -1조 2,414억·기관 -9,197억 순매도를 개인 +1조 6,727억이 받고 있습니다. 오른 종목 72\n🔄 12:15 대비: 낙폭이 코스피 -4.78%에서 -5.62%, 코스닥 -4.35%에서 -5.93%로 커졌고 외국인 순매도는 -8,962억에서 -1조 2,414억으로 늘었습니다. 대만 -6%대 급락, 낸드 계약가 하락 전망, 문샷AI 엔비디아 GPU\n📚 오늘의 채널 종합 (11/19 20:00~14:50)\n0️⃣ 🔥 앤트로픽 상장 첫날 (미국 11/19)\n- ⚪ 시가 111.5달러(공모가 83달러 대비 +34%, 시총 약 2조 달러)로 시작해 100달러 아래로 밀렸고 첫날 종가는 97.17달러입니다. 종가 시총은 발행주식 기준 1.3조 달러, 완전희석 기준 1.8조 달러입니다. (06:05·09:09)\n1️⃣ 🔵 미국 급락 원인\n- 🔵 S&P 500 -2.02%(6거래일 연속 하락), 나스닥 -2.25%, 다우 5만선 붕괴이고 VIX는 3월 이후 가장 높은 28.44입니다. 11개 업종이 모두 내렸고 엔비디아·마이크론도 큰 폭 상승 후 하락 전환했습니다. (07:41·08:4\n2️⃣ 🔴 메모리·반도체\n- 🔴 파이슨 CEO는 최근 현물가는 약세지만 계약가는 견조하고 내년 메모리 공급은 여전히 빠듯하다고 밝혔습니다. (08:30)\n3️⃣ 한한령 · 한중 FTA\n- 🔴 증권가는 한한령 완화 기대를 이어 가고 있습니다. KB는 한중 여행 규제 완화가 항공사에 긍정적이지만 급진적 수요 개선은 아니라며 아시아나항공을 숨은 수혜자로 꼽았습니다. (07:33)\n4️⃣ 국내 이슈\n- 🔴 로보티즈가 프랑스 Pollen Robotic"
   },
   {
    "date": "2026-11-20",
    "kind": "리포트 정리",
-   "file": "reports/2026-11-20/report_live_0953.md",
-   "text": "💡 Claude 의견\n핵심: 오늘 아침 리포트는 하향이 압도적입니다. 대신증권이 증권업(키움증권 370,000→250,000원, 미래에셋증권 44,000→23,000원, NH투자증권 45,000→27,500원 등)을 크게 낮췄고, 이수페타시스는 키움(190,000→130,\n🔄 07:15 대비: 하향이 4건에서 약 21건으로 늘었고 상향은 롯데웰푸드·비나텍 2건입니다. 신규 커버리지는 NHN KCP(흥국)·한국타이어(키움) 등 3건입니다.\n🔺 상향 섹터: 🔺 식품·소재 · 롯데웰푸드 현대차 170,000→190,000(+12%) · 비나텍 한투 →132,000 (07:48·08:40)\n🆕 신규 커버리지: 🆕 NHN KCP 흥국 15,000원 매수 · 한국타이어앤테크놀로지 키움 커버리지 개시 · 제이브이엠 흥국 (07:35·09:01·08:34)\n🔽 하향 섹터: 🔽 증권 (대신증권) · 키움증권 370,000→250,000(−32%) · 미래에셋증권 44,000→23,000(−48%, 중립) · NH투자증권 45,000→27,500(−39%, 중립) · 한국금융지주 200,000→170,000\n🔽 하향 섹터: 🔽 반도체 부품·소재 · 이수페타시스 키움 190,000→130,000(−32%) · 메리츠 160,000→130,000(−19%) · 리노공업 키움 120,000→97,000(−19%) (07:30~07:49)\n🔽 하향 섹터: 🔽 2차전지·전선 · 엘앤에프 대신 150,000→110,000(−27%) · 포스코퓨처엠 교보 320,000→280,000(−12.5%) · 가온전선 대신 360,000→300,000(−17%) (07:08~08:03)\n🔽 하향 섹터: 🔽 자동차·조선·지주 · 현대오토에버 키움 300,000→260,000(매도 유지) · 현대위아 키움 →53,000 · 넥"
+   "file": "reports/2026-11-20/report_live_1456.md",
+   "text": "💡 Claude 의견\n핵심: 12시 이후 새 목표가 변경은 한화투자증권의 유틸리티 3건입니다. 한전기술 210,000→93,000원(−56%, 체코 원전 시공사 협상 결렬 이후 해외 수주 기대 약화), 한국전력 47,000→32,000원(−32%, 연초 이후 실적 추정 하\n🔄 12:15 대비: 유틸리티 하향 3건이 추가돼 국내 하향 약 25건이 됐습니다. IPARK현대산업개발의 3,501억 원 수주와 에스엠국일 자기주식 처분이 공시됐습니다.\n🔺 상향 섹터: 🔺 식품·소재 · 롯데웰푸드 현대차 170,000→190,000(+12%) · 비나텍 한투 →132,000 (07:48·08:40)\n🆕 신규 커버리지: 🆕 NHN KCP 흥국 15,000원 매수 · 한국타이어앤테크놀로지 키움 커버리지 개시 · 제이브이엠 흥국 (07:35·09:01·08:34)\n🔽 하향 섹터: 🔽 증권 (대신증권) · 키움증권 370,000→250,000(−32%) · 미래에셋증권 44,000→23,000(−48%, 중립) · NH투자증권 45,000→27,500(−39%, 중립) · 한국금융지주 200,000→170,000\n🔽 하향 섹터: 🔽 반도체 부품·소재 · 이수페타시스 키움 190,000→130,000(−32%) · 메리츠 160,000→130,000(−19%) · 리노공업 키움 120,000→97,000(−19%) (07:30~07:49)\n🔽 하향 섹터: 🔽 유틸리티·원전 (15:05 추가) · 한전기술 한화 210,000→93,000(−56%) · 한국전력 한화 47,000→32,000(−32%) · 한전KPS 한화 68,000→38,000(−44%, 중립 하향) (14:45~14:4\n🔽 하향 섹터: 🔽 2차전지 재활용 (12:15 추가) · 성일하이텍 유진 51,000→30,000(−41%) (10:1"
   }
  ],
  "hot_topics": [
@@ -3669,53 +4208,33 @@
  ],
  "report_points": [
   {
-   "name": "코스맥스",
-   "n_31d": 22,
-   "up": 11,
-   "down": 0,
+   "name": "티엘비",
+   "n_31d": 8,
+   "up": 3,
+   "down": 2,
    "reports": [
     {
-     "t": "2026-11-19",
-     "broker": "NH투자증권",
-     "dir": "유지",
-     "before": null,
-     "after": 385000,
-     "title": "Global Standard",
-     "points": [
-      "2027년 글로벌 영토 확장으로 분기 매출 9,000억원 시대 진입 전망",
-      "K-스킨케어, 미국 인디 뷰티, C-뷰티의 삼박자 성장을 바탕으로 투자의견 'Buy' 및 목표주가 385,000원 유지"
-     ]
-    },
-    {
-     "t": "2026-11-17",
-     "broker": "교보증권",
-     "dir": "유지",
-     "before": null,
-     "after": 410000,
-     "title": "내가 맥스 못 놓는 이유, 다 있는 거야",
-     "points": [
-      "3분기 한국 법인 매출 YoY 61% 성장, 해외 인디 및 글로벌 고객사 물량 증가로 가파른 성장세 시현",
-      "미국 법인의 고성장과 중국, 동남아 법인의 턴어라운드에 힘입어 투자의견 'Buy' 및 목표주가 410,000원 유지"
-     ]
-    }
-   ]
-  },
-  {
-   "name": "한미사이언스",
-   "n_31d": 1,
-   "up": 0,
-   "down": 0,
-   "reports": [
-    {
-     "t": "2026-11-09",
-     "broker": "iM증권",
+     "t": "2026-11-20",
+     "broker": "미래에셋증권",
      "dir": null,
      "before": null,
      "after": null,
-     "title": "상업화, 기술수출, 자체사업 등으로 성장성 부각",
+     "title": "SOCAMM이 올리는 모듈 기판의 값",
      "points": [
-      "상업화 진척에 따른 특허배분수익 증가와 기술수출 확대로 수익성 개선 가속화 전망",
-      "화장품, 케어푸드, 건기식 등 자체사업 부문에서도 B2C 시장 진출 확대로 매출 성장 가시화"
+      "3Q26 매출 940억 원(YoY +36%), 영업이익 166억 원(YoY +92%)으로 높은 실적 기록",
+      "신제품 SOCAMM2의 높은 판가 및 원재료 가격 전가 합의로 향후 실적 성장 전망"
+     ]
+    },
+    {
+     "t": "2026-11-16",
+     "broker": "신한투자증권",
+     "dir": "상향",
+     "before": 60000,
+     "after": 68000,
+     "title": "2027년 성장 스토리 주목",
+     "points": [
+      "공급 부족과 원자재 가격 상승에 따른 판가 인상 지속, 2027년 추가 인상 및 증설 효과로 성장 기대",
+      "투자의견 '매수' 유지, 목표주가 68,000원으로 상향, 2027년 예상 P/E 10.9배로 저평가 매력 부각"
      ]
     }
    ]
@@ -3741,192 +4260,117 @@
    ]
   },
   {
-   "name": "아모레퍼시픽",
-   "n_31d": 3,
-   "up": 0,
-   "down": 1,
-   "reports": [
-    {
-     "t": "2026-11-19",
-     "broker": "NH투자증권",
-     "dir": "유지",
-     "before": null,
-     "after": 185000,
-     "title": "Make Amore Great Again",
-     "points": [
-      "2027년 더마와 헤어케어를 성장 축으로 글로벌 사업 확장을 본격화하며, 투자의견 'Buy' 및 목표주가 185,000원 유지",
-      "글로벌 믹스 개선과 마케팅 효율화에 따른 수익성 개선을 바탕으로 2026~2028년 배당성향을 40%로 상향 조정"
-     ]
-    },
-    {
-     "t": "2026-11-04",
-     "broker": "DB증권",
-     "dir": "유지",
-     "before": null,
-     "after": 180000,
-     "title": "예상보다 더 좋았던 국내",
-     "points": [
-      "3분기 연결 영업이익 1,152억원으로 시장 기대치에 부합, 국내 고마진 채널 호조로 이익률 개선",
-      "투자의견 'BUY'와 목표주가 180,000원 유지, 더마 브랜드 포트폴리오와 중화권 매출 성장 전환에 주목"
-     ]
-    }
-   ]
-  },
-  {
-   "name": "디케이티",
-   "n_31d": 3,
+   "name": "삼성전자",
+   "n_31d": 12,
    "up": 1,
-   "down": 0,
+   "down": 4,
    "reports": [
     {
      "t": "2026-11-17",
-     "broker": "하나증권",
+     "broker": "키움증권",
+     "dir": "하향",
+     "before": 350000,
+     "after": 290000,
+     "title": "봄이 오면…",
+     "points": [
+      "목표주가는 2028~2030년 실적 전망치 및 금리, 베타값 변경 등을 반영해 하향 조정",
+      "분기 실적이 2Q27 피크 아웃 이후 감소세에 진입하며 3Q27 영업이익 -4%, 4Q27 영업이익 -24% QoQ 전망"
+     ]
+    },
+    {
+     "t": "2026-11-16",
+     "broker": "KB증권",
      "dir": null,
      "before": null,
      "after": null,
-     "title": "비수기에 확인된 이익 체력, 2027년엔 휴머노이드까지",
+     "title": "AI 생태계 확장의 최대 수혜",
      "points": [
-      "3Q26 영업이익 129억원으로 추정치를 55% 상회, ESS BMS 등 신사업 성장이 스마트폰 비수기를 상쇄",
-      "2027년 고객사 북미 증설에 따른 ESS BMS 매출 확대와 휴머노이드향 부품 공급 본격화로 성장 지속 전망"
-     ]
-    },
-    {
-     "t": "2026-11-16",
-     "broker": "리딩투자증권",
-     "dir": "상향",
-     "before": 35000,
-     "after": 40000,
-     "title": "또다시 서프라이즈, 그러나 이제 겨우 시작일 뿐",
-     "points": [
-      "2026년 추정 EPS 상승",
-      "ESS 및 전장 부문 매출 확대가 전체적인 실적 성장 견인"
+      "엔비디아 CEO 젠슨 황의 사임으로 AI 패권이 다변화되며, 삼성전자가 AI 생태계 확장의 최대 수혜주로 부상할 전망",
+      "2027년 삼성전자 HBM 출하 비중은 구글, AMD 등 비(非)엔비디아 고객이 65%를 차지하며 탈(脫)엔비디아 시대의 수혜를 입증할 것으로 예상"
      ]
     }
    ]
   },
   {
-   "name": "나노신소재",
-   "n_31d": 2,
+   "name": "SK하이닉스",
+   "n_31d": 13,
+   "up": 3,
+   "down": 5,
+   "reports": [
+    {
+     "t": "2026-11-17",
+     "broker": "키움증권",
+     "dir": "하향",
+     "before": 2100000,
+     "after": 1800000,
+     "title": "봄이 오면…",
+     "points": [
+      "2028~2030년 실적 전망치 및 금리, 베타 값 변경 반영으로 목표주가 하향 조정",
+      "분기 실적이 2Q27 피크 아웃 이후 감소세 진입 전망"
+     ]
+    },
+    {
+     "t": "2026-11-15",
+     "broker": "LS증권",
+     "dir": "유지",
+     "before": null,
+     "after": 2400000,
+     "title": "실적이 쌓이고, 주당 가치가 높아진다",
+     "points": [
+      "4분기 HBM4 공급 확대로 사상 최대 실적 경신이 전망되며, 투자의견 'Buy'와 목표주가 2,400,000원 유지",
+      "2029년까지의 높은 수요 가시성과 대규모 주주환원 계획 발표로 중장기 투자 매력도 부각"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "심텍",
+   "n_31d": 10,
    "up": 1,
-   "down": 0,
+   "down": 1,
    "reports": [
     {
-     "t": "2026-11-05",
-     "broker": "유안타증권",
-     "dir": "유지",
+     "t": "2026-11-20",
+     "broker": "미래에셋증권",
+     "dir": "신규",
      "before": null,
-     "after": 105000,
-     "title": "2027년 전 사업부 구조적 레벨업",
+     "after": null,
+     "title": "레거시 회복에 SOCAMM 성장 가세",
      "points": [
-      "3Q26 실적 컨센서스 상회 및 4Q26 호조 지속으로 2026년 하반기 실적 기대감 고조",
-      "2027년 전 사업부의 구조적 성장 전망을 근거로 투자의견 'BUY' 및 목표주가 105,000원 제시"
+      "메모리 모듈 PCB·패키지 기판 전문 기업으로, 레거시 기판의 판가 상승 및 가동률 회복과 신규 기판인 SOCAMM의 가파른 매출 성장을 통해 동반 성장 구간에 진입",
+      "2027년에는 영업이익 6,110억 원(+109%), 영업이익률 23.7%를 달성하며 과거 실적 정점을 상회할 것으로 전망"
      ]
     },
     {
-     "t": "2026-11-05",
-     "broker": "iM증권",
-     "dir": "상향",
-     "before": 80000,
-     "after": 115000,
-     "title": "TCO와 실버 페이스트까지, 커지는 태양광 기회 ",
-     "points": [
-      "CNT 도전재 고객사 다변화와 적용처 확대를 바탕으로 성장세 지속 전망",
-      "2027년부터 국내 배터리 셀 3사향 수요 증가와 해외 고객사향 공급 확대 동시 발생 예상"
-     ]
-    }
-   ]
-  },
-  {
-   "name": "NHN",
-   "n_31d": 19,
-   "up": 10,
-   "down": 0,
-   "reports": [
-    {
-     "t": "2026-11-19",
-     "broker": "한화투자증권",
-     "dir": "유지",
-     "before": null,
-     "after": 93000,
-     "title": "AI DC 옥석가리기, NHN이 돋보이는 이유",
-     "points": [
-      "AI GPU DC 사업의 경쟁력 부각으로 밸류에이션 재평가 기대",
-      "투자의견 'Buy' 및 목표주가 93,000원 유지, 업종 내 최선호주 의견 유지"
-     ]
-    },
-    {
-     "t": "2026-11-19",
-     "broker": "현대차증권",
-     "dir": "유지",
-     "before": null,
-     "after": 100000,
-     "title": "국내 핵심 네오클라우드로 발돋움, 추후 일본확장도 기대",
-     "points": [
-      "국내 핵심 네오클라우드 사업자로 성장하며 일본 시장 확장 가능성 기대",
-      "2027년 게임, 결제, 기술 전 부문의 동반 성장과 AI 데이터센터 확대로 실적 개선 전망"
-     ]
-    }
-   ]
-  },
-  {
-   "name": "제주항공",
-   "n_31d": 11,
-   "up": 7,
-   "down": 0,
-   "reports": [
-    {
-     "t": "2026-11-18",
-     "broker": "하나증권",
-     "dir": "상향",
-     "before": 7500,
-     "after": 10000,
-     "title": "한-중 FTA 타결, 중국 관광객도 제주항공을 타고 온다  ",
-     "points": [
-      "중국 내 23개 지역에서 국내 여행사가 중국인을 대상으로 해외여행을 주선하는 아웃바운드 관광업 영위 가능",
-      "증편이 제한적인 환경에서 수요가 늘어난다면 탑승률과 운임 상승 동반 가능성 확대"
-     ]
-    },
-    {
-     "t": "2026-11-16",
+     "t": "2026-11-11",
      "broker": "신한투자증권",
-     "dir": "상향",
-     "before": 7800,
-     "after": 8300,
-     "title": "LCC의 정석",
+     "dir": "유지",
+     "before": null,
+     "after": 200000,
+     "title": "목표주가 200,000원, 투자의견 ‘매수’ 유지",
      "points": [
-      "투자의견 '매수' 유지, 목표주가는 8,300원으로 상향 조정",
-      "유연한 노선 운영과 신기재 도입으로 수익성을 개선하고 있으며, 유가 하락에 따른 여행 수요 회복으로 2026년 흑자 전환 전망"
+      "3Q26에 제품 Mix 최적화와 영업 레버리지 효과로 1,000억원대 영업이익을 기록하며 실적 개선",
+      "투자의견 '매수'와 목표주가 200,000원을 유지하며, 2027년 예상 실적 기반 밸류에이션 재평가 필요성 제기"
      ]
     }
    ]
   },
   {
-   "name": "지니언스",
-   "n_31d": 2,
+   "name": "원익홀딩스",
+   "n_31d": 1,
    "up": 0,
    "down": 0,
    "reports": [
     {
-     "t": "2026-11-16",
-     "broker": "유진투자증권",
+     "t": "2026-11-11",
+     "broker": "NH투자증권",
      "dir": null,
      "before": null,
      "after": null,
-     "title": "AI보안 투자 수요 증가 수혜 지속",
+     "title": "원익로보틱스: K-로봇손 대표주자",
      "points": [
-      "3Q26 실적은 매출 138억원, 영업이익 38억원으로 시장 컨센서스를 크게 상회하며 어닝 서프라이즈 시현",
-      "4Q26은 성수기 진입으로 최대 매출이 기대되며, AI 보안 투자 수요 증가에 따른 수혜가 지속될 전망"
-     ]
-    },
-    {
-     "t": "2026-11-13",
-     "broker": "유안타증권",
-     "dir": null,
-     "before": null,
-     "after": null,
-     "title": "더 이상 늦을 수 없는 보안투자",
-     "points": [
-      "지니언스 (263860)\n\n더 이상 늦을 수 없는 보안투자\n\n작성일: 2026.11.13\n작성자: 유안타증권 (권명준)\n\n작성일 주가: 31,350원\n\n• 3Q26 실적은 분기 사상 최대 매출인 1"
+      "자회사 원익로보틱스를 통해 K-로봇손 대표주자로 부상, Meta가 채택한 로봇손 'Allegro'의 제조사로 주목",
+      "원익로보틱스의 가치 재평가(리레이팅) 기대감이 주가에 반영 중이며, World Model 개발 및 휴머노이드 시장 성장의 수혜 예상"
      ]
     }
    ]
@@ -3964,245 +4408,33 @@
    ]
   },
   {
-   "name": "삼성E&A",
-   "n_31d": 27,
-   "up": 25,
+   "name": "코스맥스",
+   "n_31d": 22,
+   "up": 11,
    "down": 0,
    "reports": [
     {
-     "t": "2026-11-18",
-     "broker": "미래에셋증권",
-     "dir": "상향",
+     "t": "2026-11-19",
+     "broker": "NH투자증권",
+     "dir": "유지",
      "before": null,
-     "after": 94000,
-     "title": "나무랄 데가 없다",
+     "after": 385000,
+     "title": "Global Standard",
      "points": [
-      "2026년 수주 및 영업이익 가이던스 상향 조정으로 뚜렷한 본업 성장과 자신감 제시",
-      "투자의견 '매수' 유지, 목표주가는 94,000원으로 24% 상향하며 업종 최선호주 의견 유지"
+      "2027년 글로벌 영토 확장으로 분기 매출 9,000억원 시대 진입 전망",
+      "K-스킨케어, 미국 인디 뷰티, C-뷰티의 삼박자 성장을 바탕으로 투자의견 'Buy' 및 목표주가 385,000원 유지"
      ]
     },
-    {
-     "t": "2026-11-17",
-     "broker": "KB증권",
-     "dir": "상향",
-     "before": 88000,
-     "after": 96000,
-     "title": "E&A. 새로운 DNA: 나는 시간을 판다",
-     "points": [
-      "자사주 소각(예정)에 따른 BVPS 증가",
-      "AI 기반 설계 강화로 설계능력 극대화"
-     ]
-    }
-   ]
-  },
-  {
-   "name": "와이지엔터테인먼트",
-   "n_31d": 16,
-   "up": 0,
-   "down": 3,
-   "reports": [
     {
      "t": "2026-11-17",
      "broker": "교보증권",
      "dir": "유지",
      "before": null,
-     "after": 60000,
-     "title": "You Deserve Better",
+     "after": 410000,
+     "title": "내가 맥스 못 놓는 이유, 다 있는 거야",
      "points": [
-      "기존 IP 성장과 2027년 신인 그룹 데뷔에 따른 성장 동력 확보 전망",
-      "투자의견 BUY, 목표주가 60,000원 유지"
-     ]
-    },
-    {
-     "t": "2026-11-12",
-     "broker": "유안타증권",
-     "dir": null,
-     "before": null,
-     "after": null,
-     "title": "3Q26 일회성 비용으로 컨센서스 하회, 27년은 이익 하단 확인 구간",
-     "points": [
-      "3Q26 실적은 일회성 비용으로 컨센서스를 하회했으며, 27년은 빅뱅 활동 기저효과로 매출 감소가 예상되나 이익은 개선될 전망",
-      "베이비몬스터의 빠른 수익화와 27년 신인 그룹 2팀 데뷔는 특정 IP 의존도를 낮추고 성장 동력으로 작용할 것"
-     ]
-    }
-   ]
-  },
-  {
-   "name": "신세계",
-   "n_31d": 19,
-   "up": 0,
-   "down": 18,
-   "reports": [
-    {
-     "t": "2026-11-17",
-     "broker": "하나증권",
-     "dir": null,
-     "before": null,
-     "after": null,
-     "title": "탄탄한 실적, 백화점 성장률이 관건",
-     "points": [
-      "3분기 양호한 실적에 이어 4분기에도 면세점 수익성 개선 등으로 긍정적 실적 전망",
-      "백화점 기존점 성장률 둔화 및 외국인 매출 하락은 주가에 부담 요인으로 작용"
-     ]
-    },
-    {
-     "t": "2026-11-16",
-     "broker": "iM증권",
-     "dir": "하향",
-     "before": 680000,
-     "after": 400000,
-     "title": "백화점 둔화 우려가 반영된 밸류에이션",
-     "points": [
-      "3Q26 연결 영업이익 1,643억원으로 컨센서스 1,706억원 하회",
-      "3Q26 들어 원/달러, 증시의 동반 하락으로 백화점 모멘텀이 빠르게 둔화"
-     ]
-    }
-   ]
-  },
-  {
-   "name": "TYM",
-   "n_31d": 1,
-   "up": 0,
-   "down": 0,
-   "reports": [
-    {
-     "t": "2026-11-05",
-     "broker": "키움증권",
-     "dir": null,
-     "before": null,
-     "after": null,
-     "title": "수확의 계절",
-     "points": [
-      "3Q26, 비수기에도 미국 시장 성장에 힘입어 매출 2,601억 원, 영업이익 358억 원의 견조한 실적 달성",
-      "2026년 기대배당수익률 8.1% 등 높은 투자 매력 보유, 2027년에도 미국 중심 성장세 지속 전망"
-     ]
-    }
-   ]
-  },
-  {
-   "name": "두산밥캣",
-   "n_31d": 4,
-   "up": 1,
-   "down": 3,
-   "reports": [
-    {
-     "t": "2026-11-03",
-     "broker": "BNK투자증권",
-     "dir": "하향",
-     "before": 90000,
-     "after": 75000,
-     "title": "비주택 인프라가 이끈 실적 방어",
-     "points": [
-      "매크로 불확실성 및 실적 조정을 반영해 목표주가 하향함",
-      "고금리 장기화에 따른 미 주택시장 회복 지연이 단기 센티먼트 부담으로 작용 가능함"
-     ]
-    },
-    {
-     "t": "2026-10-30",
-     "broker": "신한투자증권",
-     "dir": "상향",
-     "before": 75000,
-     "after": 80000,
-     "title": "소형 장비 회복, 관세만 남았다 ",
-     "points": [
-      "북미 이연 물량 출하와 렌탈사 수요로 매출 16.5% 증가",
-      "3Q26 영업이익 1,674억원(+25.3%), 영업이익률 6.9%(+0.5%p)로 수익성 개선"
-     ]
-    }
-   ]
-  },
-  {
-   "name": "효성티앤씨",
-   "n_31d": 5,
-   "up": 0,
-   "down": 4,
-   "reports": [
-    {
-     "t": "2026-11-16",
-     "broker": "하나증권",
-     "dir": "유지",
-     "before": null,
-     "after": 400000,
-     "title": "스판덱스 회복 사이클 진입. 반면, 원료는 공급과잉",
-     "points": [
-      "스판덱스 회복 사이클에 진입했으나 원료인 BDO는 공급과잉 상태 지속",
-      "사이클 회복 초입 국면에서 절대 저평가 상태로, 투자의견 'BUY'와 목표주가 40만원 유지"
-     ]
-    },
-    {
-     "t": "2026-11-02",
-     "broker": "신한투자증권",
-     "dir": "하향",
-     "before": 460000,
-     "after": 420000,
-     "title": "숨 고르기 속에서도 방향성은 위",
-     "points": [
-      "3Q26 영업이익 1,102억원(-42%, QoQ)으로 컨센서스 1,228억원 하회, 비수기와 역래깅 영향으로 실적 부진 발생",
-      "스판덱스/PTMG는 계절적 비수기와 중국 외 지역 부진, PTMG 가수요 소멸로 판매량 감소하며 1,090억원(-31%) 기록"
-     ]
-    }
-   ]
-  },
-  {
-   "name": "테스",
-   "n_31d": 10,
-   "up": 0,
-   "down": 9,
-   "reports": [
-    {
-     "t": "2026-11-19",
-     "broker": "메리츠증권",
-     "dir": "하향",
-     "before": 200000,
-     "after": 162000,
-     "title": "외형 성장과 동반될 수익성 개선 ",
-     "points": [
-      "성과급 반영으로 3Q26 영업이익 246억원이 컨센서스 292억원을 하회하며 수익성이 기대치 대비 둔화함",
-      "2026E 영업이익 101.8억원이 기존 추정치 107.3억원 대비 -5.2% 조정되고, 세전이익 114.9억원은 기존 추정치 140.4억원 대비 -18.2%, 지배주주순이익 95.9억원은 기존 추"
-     ]
-    },
-    {
-     "t": "2026-11-19",
-     "broker": "유진투자증권",
-     "dir": "하향",
-     "before": null,
-     "after": 140000,
-     "title": "장기 사이클에 주목",
-     "points": [
-      "4Q26 실적은 해외 고객사 및 신제품 매출 확대로 매출액 1,429억원, 영업이익 274억원을 기록할 전망",
-      "장비 산업의 장기 슈퍼사이클 진입에 주목하여 투자의견 BUY를 유지하나, 업종 멀티플 하락 등을 반영해 목표주가는 140,000원으로 하향 조정"
-     ]
-    }
-   ]
-  },
-  {
-   "name": "티엘비",
-   "n_31d": 8,
-   "up": 3,
-   "down": 2,
-   "reports": [
-    {
-     "t": "2026-11-20",
-     "broker": "미래에셋증권",
-     "dir": null,
-     "before": null,
-     "after": null,
-     "title": "SOCAMM이 올리는 모듈 기판의 값",
-     "points": [
-      "3Q26 매출 940억 원(YoY +36%), 영업이익 166억 원(YoY +92%)으로 높은 실적 기록",
-      "신제품 SOCAMM2의 높은 판가 및 원재료 가격 전가 합의로 향후 실적 성장 전망"
-     ]
-    },
-    {
-     "t": "2026-11-16",
-     "broker": "신한투자증권",
-     "dir": "상향",
-     "before": 60000,
-     "after": 68000,
-     "title": "2027년 성장 스토리 주목",
-     "points": [
-      "공급 부족과 원자재 가격 상승에 따른 판가 인상 지속, 2027년 추가 인상 및 증설 효과로 성장 기대",
-      "투자의견 '매수' 유지, 목표주가 68,000원으로 상향, 2027년 예상 P/E 10.9배로 저평가 매력 부각"
+      "3분기 한국 법인 매출 YoY 61% 성장, 해외 인디 및 글로벌 고객사 물량 증가로 가파른 성장세 시현",
+      "미국 법인의 고성장과 중국, 동남아 법인의 턴어라운드에 힘입어 투자의견 'Buy' 및 목표주가 410,000원 유지"
      ]
     }
    ]
@@ -4240,6 +4472,218 @@
    ]
   },
   {
+   "name": "아모레퍼시픽",
+   "n_31d": 3,
+   "up": 0,
+   "down": 1,
+   "reports": [
+    {
+     "t": "2026-11-19",
+     "broker": "NH투자증권",
+     "dir": "유지",
+     "before": null,
+     "after": 185000,
+     "title": "Make Amore Great Again",
+     "points": [
+      "2027년 더마와 헤어케어를 성장 축으로 글로벌 사업 확장을 본격화하며, 투자의견 'Buy' 및 목표주가 185,000원 유지",
+      "글로벌 믹스 개선과 마케팅 효율화에 따른 수익성 개선을 바탕으로 2026~2028년 배당성향을 40%로 상향 조정"
+     ]
+    },
+    {
+     "t": "2026-11-04",
+     "broker": "DB증권",
+     "dir": "유지",
+     "before": null,
+     "after": 180000,
+     "title": "예상보다 더 좋았던 국내",
+     "points": [
+      "3분기 연결 영업이익 1,152억원으로 시장 기대치에 부합, 국내 고마진 채널 호조로 이익률 개선",
+      "투자의견 'BUY'와 목표주가 180,000원 유지, 더마 브랜드 포트폴리오와 중화권 매출 성장 전환에 주목"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "코스메카코리아",
+   "n_31d": 11,
+   "up": 2,
+   "down": 2,
+   "reports": [
+    {
+     "t": "2026-11-19",
+     "broker": "NH투자증권",
+     "dir": "유지",
+     "before": null,
+     "after": 140000,
+     "title": "Breaking Records",
+     "points": [
+      "투자의견 'Buy'와 목표주가 140,000원을 유지하며, K-뷰티 성장세에 힘입어 2027년에도 사상 최대 실적을 경신할 것으로 전망",
+      "오창공장 증설을 통한 CAPA 확대와 자회사 잉글우드랩의 턴어라운드 기대감도 긍정적"
+     ]
+    },
+    {
+     "t": "2026-11-11",
+     "broker": "상상인증권",
+     "dir": "유지",
+     "before": null,
+     "after": 140000,
+     "title": "매출과 수익성의 온도차",
+     "points": [
+      "3Q26 실적은 매출 2,475억원으로 컨센서스를 상회했으나, 외주 비용 증가로 영업이익은 272억원으로 하회",
+      "견조한 별도법인 성장세와 향후 공장 가동을 통한 효율성 개선 기대감에 투자의견 BUY와 목표주가 140,000원 유지"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "삼성E&A",
+   "n_31d": 27,
+   "up": 25,
+   "down": 0,
+   "reports": [
+    {
+     "t": "2026-11-18",
+     "broker": "미래에셋증권",
+     "dir": "상향",
+     "before": null,
+     "after": 94000,
+     "title": "나무랄 데가 없다",
+     "points": [
+      "2026년 수주 및 영업이익 가이던스 상향 조정으로 뚜렷한 본업 성장과 자신감 제시",
+      "투자의견 '매수' 유지, 목표주가는 94,000원으로 24% 상향하며 업종 최선호주 의견 유지"
+     ]
+    },
+    {
+     "t": "2026-11-17",
+     "broker": "KB증권",
+     "dir": "상향",
+     "before": 88000,
+     "after": 96000,
+     "title": "E&A. 새로운 DNA: 나는 시간을 판다",
+     "points": [
+      "자사주 소각(예정)에 따른 BVPS 증가",
+      "AI 기반 설계 강화로 설계능력 극대화"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "IPARK현대산업개발",
+   "n_31d": 4,
+   "up": 2,
+   "down": 0,
+   "reports": [
+    {
+     "t": "2026-11-12",
+     "broker": "키움증권",
+     "dir": "유지",
+     "before": null,
+     "after": 34000,
+     "title": "내년에도 견고할 실적",
+     "points": [
+      "'26년 외주주택 수익성 개선으로 실적 성장, '27년은 자체주택과 일반건축이 증익을 이끌 전망",
+      "투자의견 BUY와 목표주가 34,000원을 유지하며, 향후 주주환원 여부가 주가 상승의 주요 요인으로 판단"
+     ]
+    },
+    {
+     "t": "2026-11-10",
+     "broker": "한화투자증권",
+     "dir": "유지",
+     "before": null,
+     "after": 32000,
+     "title": "실적을 따르는 주가",
+     "points": [
+      "투자의견 'Buy'와 목표주가 32,000원 유지, 양호한 이익률과 매출 성장에 따른 저평가 매력 부각",
+      "연간 수주 가이던스 상향 및 주택공급 증가, 2028년 실적 정점 우려 해소를 위한 중장기 성장 가시성 확보 필요"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "계룡건설",
+   "n_31d": 1,
+   "up": 0,
+   "down": 0,
+   "reports": [
+    {
+     "t": "2026-11-13",
+     "broker": "하나증권",
+     "dir": "유지",
+     "before": null,
+     "after": 45000,
+     "title": "LH 발주확대 수혜주",
+     "points": [
+      "투자의견 'BUY'와 목표주가 45,000원 유지, 공공 수주 잔고 증가에 따른 실적 개선 기대",
+      "2026년 추정치 기준 PER 1.5배 수준으로 극단적 저평가 상태로 판단"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "GS건설",
+   "n_31d": 18,
+   "up": 5,
+   "down": 5,
+   "reports": [
+    {
+     "t": "2026-11-18",
+     "broker": "미래에셋증권",
+     "dir": "유지",
+     "before": null,
+     "after": 46000,
+     "title": "숨길 수 없는 데이터센터 기대감",
+     "points": [
+      "2027년 주택 분양 실적 반등과 비용 반영의 기저 효과로 영업이익 개선 기대",
+      "동해 AIDC 참여를 통해 대규모 공사 물량을 확보하여 비주택 부문 성장 동력 확보"
+     ]
+    },
+    {
+     "t": "2026-11-18",
+     "broker": "KB증권",
+     "dir": "유지",
+     "before": null,
+     "after": 48000,
+     "title": "낮은 기저로 더 돋보일 2027년",
+     "points": [
+      "투자의견 'Buy'와 목표주가 48,000원 유지, 업종 차선호주 의견 제시",
+      "2026년 이익 감소 후 2027년 큰 폭의 증익이 예상되며, AIDC 사업과 해외 원전 사업이 성장 동력으로 작용할 전망"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "테스",
+   "n_31d": 10,
+   "up": 0,
+   "down": 9,
+   "reports": [
+    {
+     "t": "2026-11-19",
+     "broker": "메리츠증권",
+     "dir": "하향",
+     "before": 200000,
+     "after": 162000,
+     "title": "외형 성장과 동반될 수익성 개선 ",
+     "points": [
+      "성과급 반영으로 3Q26 영업이익 246억원이 컨센서스 292억원을 하회하며 수익성이 기대치 대비 둔화함",
+      "2026E 영업이익 101.8억원이 기존 추정치 107.3억원 대비 -5.2% 조정되고, 세전이익 114.9억원은 기존 추정치 140.4억원 대비 -18.2%, 지배주주순이익 95.9억원은 기존 추"
+     ]
+    },
+    {
+     "t": "2026-11-19",
+     "broker": "유진투자증권",
+     "dir": "하향",
+     "before": 170000,
+     "after": 140000,
+     "title": "장기 사이클에 주목",
+     "points": [
+      "4Q26 실적은 해외 고객사 및 신제품 매출 확대로 매출액 1,429억원, 영업이익 274억원을 기록할 전망",
+      "장비 산업의 장기 슈퍼사이클 진입에 주목하여 투자의견 BUY를 유지하나, 업종 멀티플 하락 등을 반영해 목표주가는 140,000원으로 하향 조정"
+     ]
+    }
+   ]
+  },
+  {
    "name": "현대건설",
    "n_31d": 21,
    "up": 0,
@@ -4270,14 +4714,110 @@
      ]
     }
    ]
+  },
+  {
+   "name": "현대백화점",
+   "n_31d": 19,
+   "up": 1,
+   "down": 8,
+   "reports": [
+    {
+     "t": "2026-11-18",
+     "broker": "키움증권",
+     "dir": "유지",
+     "before": null,
+     "after": 130000,
+     "title": "상대적 매력 부각",
+     "points": [
+      "백화점 업체 중 실적 개선 모멘텀이 상대적으로 돋보이며, 자회사 지누스 부진으로 인한 낮은 기저 효과 기대",
+      "면세점과 지누스의 실적 개선, 양호한 재무구조를 바탕으로 투자의견 'BUY'와 목표주가 130,000원 유지"
+     ]
+    },
+    {
+     "t": "2026-11-17",
+     "broker": "하나증권",
+     "dir": "유지",
+     "before": null,
+     "after": 120000,
+     "title": "2027년, 가장 유리한 사업 구조",
+     "points": [
+      "2027년 상반기 지누스 영업손실 축소 및 외국인 매출의 패션 중심 이동으로 실적 개선 부각 전망",
+      "환율 하락에 따른 내국인 출국 증가로 공항 면세점의 중요성 부각, 투자의견 '매수' 및 목표주가 120,000원 유지"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "신세계",
+   "n_31d": 19,
+   "up": 0,
+   "down": 18,
+   "reports": [
+    {
+     "t": "2026-11-17",
+     "broker": "하나증권",
+     "dir": null,
+     "before": null,
+     "after": null,
+     "title": "탄탄한 실적, 백화점 성장률이 관건",
+     "points": [
+      "3분기 양호한 실적에 이어 4분기에도 면세점 수익성 개선 등으로 긍정적 실적 전망",
+      "백화점 기존점 성장률 둔화 및 외국인 매출 하락은 주가에 부담 요인으로 작용"
+     ]
+    },
+    {
+     "t": "2026-11-16",
+     "broker": "iM증권",
+     "dir": "하향",
+     "before": 680000,
+     "after": 400000,
+     "title": "백화점 둔화 우려가 반영된 밸류에이션",
+     "points": [
+      "3Q26 연결 영업이익 1,643억원으로 컨센서스 1,706억원 하회",
+      "3Q26 들어 원/달러, 증시의 동반 하락으로 백화점 모멘텀이 빠르게 둔화"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "금호석유화학",
+   "n_31d": 13,
+   "up": 0,
+   "down": 10,
+   "reports": [
+    {
+     "t": "2026-11-16",
+     "broker": "하나증권",
+     "dir": "유지",
+     "before": null,
+     "after": 180000,
+     "title": "2027년은 NBL 턴어라운드의 원년",
+     "points": [
+      "투자의견 BUY와 목표주가 180,000원 유지, 2027년은 NBL 턴어라운드의 원년이 될 전망",
+      "합성고무 중심의 실적 개선과 증설 효과, 주주환원 확대 기대로 2027년부터 본격적인 주가 상승 예상"
+     ]
+    },
+    {
+     "t": "2026-11-09",
+     "broker": "IBK투자증권",
+     "dir": "하향",
+     "before": null,
+     "after": 153000,
+     "title": "고부가 고무와 차기 주주환원에 주목",
+     "points": [
+      "3분기 실적은 합성고무와 페놀유도체 부진으로 시장 기대치를 크게 하회하며 적자 전환",
+      "업황 부진에도 고부가 제품 경쟁력과 재무안정성을 바탕으로 투자 및 주주환원 여력 보유"
+     ]
+    }
+   ]
   }
  ],
  "channel_themes": [
   {
    "group": "바이오",
-   "talk": 82,
-   "talk_prev": 43,
-   "talk_chg": 91,
+   "talk": 83,
+   "talk_prev": 35,
+   "talk_chg": 137,
    "up": 2,
    "down": 5,
    "stocks": [
@@ -4293,21 +4833,39 @@
   },
   {
    "group": "로봇",
-   "talk": 64,
-   "talk_prev": 38,
-   "talk_chg": 68,
+   "talk": 67,
+   "talk_prev": 36,
+   "talk_chg": 86,
    "up": 5,
    "down": 11,
    "stocks": [
     "현대차",
     "로보티즈",
-    "삼성에스디에스",
-    "현대모비스"
+    "현대모비스",
+    "삼성에스디에스"
    ],
    "r5": 0.25,
    "r20": -6.53,
    "money5": 2035,
    "tag": "📈 말과 주가 함께 ↑"
+  },
+  {
+   "group": "반도체 장비",
+   "talk": 65,
+   "talk_prev": 47,
+   "talk_chg": 38,
+   "up": 1,
+   "down": 7,
+   "stocks": [
+    "HPSP",
+    "인텍플러스",
+    "예스티",
+    "GST"
+   ],
+   "r5": -1.6,
+   "r20": -10.95,
+   "money5": -1269,
+   "tag": "⚠️ 말은 많은데 주가 ↓"
   },
   {
    "group": "2차전지",
@@ -4330,8 +4888,8 @@
   {
    "group": "지주사",
    "talk": 50,
-   "talk_prev": 31,
-   "talk_chg": 61,
+   "talk_prev": 30,
+   "talk_chg": 67,
    "up": 1,
    "down": 14,
    "stocks": [
@@ -4343,6 +4901,24 @@
    "r5": -2.16,
    "r20": -2.91,
    "money5": -949,
+   "tag": "⚠️ 말은 많은데 주가 ↓"
+  },
+  {
+   "group": "건설",
+   "talk": 50,
+   "talk_prev": 30,
+   "talk_chg": 67,
+   "up": 5,
+   "down": 8,
+   "stocks": [
+    "삼성E&A",
+    "현대건설",
+    "GS건설",
+    "아이에스동서"
+   ],
+   "r5": -2.9,
+   "r20": -1.29,
+   "money5": -349,
    "tag": "⚠️ 말은 많은데 주가 ↓"
   },
   {
@@ -4401,9 +4977,9 @@
   },
   {
    "group": "운송/물류",
-   "talk": 39,
-   "talk_prev": 40,
-   "talk_chg": -2,
+   "talk": 40,
+   "talk_prev": 32,
+   "talk_chg": 25,
    "up": 7,
    "down": 3,
    "stocks": [
@@ -4438,8 +5014,8 @@
   {
    "group": "K-엔터",
    "talk": 37,
-   "talk_prev": 34,
-   "talk_chg": 9,
+   "talk_prev": 33,
+   "talk_chg": 12,
    "up": 0,
    "down": 5,
    "stocks": [
@@ -4455,9 +5031,9 @@
   },
   {
    "group": "화장품",
-   "talk": 34,
+   "talk": 36,
    "talk_prev": 57,
-   "talk_chg": -40,
+   "talk_chg": -37,
    "up": 0,
    "down": 1,
    "stocks": [
@@ -4473,9 +5049,9 @@
   },
   {
    "group": "철강/비철금속",
-   "talk": 30,
-   "talk_prev": 19,
-   "talk_chg": 58,
+   "talk": 31,
+   "talk_prev": 17,
+   "talk_chg": 82,
    "up": 0,
    "down": 7,
    "stocks": [
@@ -4492,8 +5068,8 @@
   {
    "group": "유통",
    "talk": 25,
-   "talk_prev": 30,
-   "talk_chg": -17,
+   "talk_prev": 29,
+   "talk_chg": -14,
    "up": 0,
    "down": 4,
    "stocks": [
@@ -4506,24 +5082,6 @@
    "r20": 7.04,
    "money5": 355,
    "tag": "🤫 조용히 오름 (말 적음)"
-  },
-  {
-   "group": "미디어/엔터",
-   "talk": 24,
-   "talk_prev": 10,
-   "talk_chg": 140,
-   "up": 0,
-   "down": 7,
-   "stocks": [
-    "스튜디오드래곤",
-    "CJ CGV",
-    "M83",
-    "컴투스엔"
-   ],
-   "r5": -1.72,
-   "r20": -3.58,
-   "money5": -22,
-   "tag": "⚠️ 말은 많은데 주가 ↓"
   },
   {
    "group": "의류/패션",
@@ -4544,10 +5102,28 @@
    "tag": "⚠️ 말은 많은데 주가 ↓"
   },
   {
+   "group": "미디어/엔터",
+   "talk": 22,
+   "talk_prev": 12,
+   "talk_chg": 83,
+   "up": 0,
+   "down": 6,
+   "stocks": [
+    "스튜디오드래곤",
+    "CJ CGV",
+    "M83",
+    "컴투스엔"
+   ],
+   "r5": -1.72,
+   "r20": -3.58,
+   "money5": -22,
+   "tag": "⚠️ 말은 많은데 주가 ↓"
+  },
+  {
    "group": "화학",
    "talk": 17,
-   "talk_prev": 13,
-   "talk_chg": 31,
+   "talk_prev": 11,
+   "talk_chg": 55,
    "up": 0,
    "down": 2,
    "stocks": [
@@ -4596,42 +5172,6 @@
    "r20": 8.37,
    "money5": 330,
    "tag": "🔥 말·주가·수급 모두 ↑ (주도 후보)"
-  },
-  {
-   "group": "전자부품/장비",
-   "talk": 14,
-   "talk_prev": 9,
-   "talk_chg": 56,
-   "up": 0,
-   "down": 5,
-   "stocks": [
-    "파크시스템스",
-    "롯데에너지머티리얼즈",
-    "에스오에스랩",
-    "파이버프로"
-   ],
-   "r5": 4.42,
-   "r20": -25.43,
-   "money5": 12,
-   "tag": "🔥 말·주가·수급 모두 ↑ (주도 후보)"
-  },
-  {
-   "group": "반도체 설계·유통",
-   "talk": 12,
-   "talk_prev": 9,
-   "talk_chg": 33,
-   "up": 0,
-   "down": 1,
-   "stocks": [
-    "LX세미콘",
-    "세미파이브",
-    "에이직랜드",
-    "유니퀘스트"
-   ],
-   "r5": -9.24,
-   "r20": -24.09,
-   "money5": -403,
-   "tag": "⚠️ 말은 많은데 주가 ↓"
   }
  ],
  "research": [
@@ -7423,7 +7963,7 @@
   }
  ],
  "card_digest": {
-  "made_at": "2026-11-20 10:49",
+  "made_at": "2026-11-20 16:51",
   "days": 7,
   "n": 175,
   "sectors": [
@@ -8107,160 +8647,232 @@
   }
  ],
  "previous": {
-  "made_at": "2026-11-19 18:40",
-  "title": "돈이 반도체에서 '사람이 움직이는 업종'으로 옮겨 갔습니다 — 항공·중국 소비가 앞서고, 준비는 코스맥스·한미사이언스·엑시콘 순입니다",
-  "conclusion": "돈이 반도체에서 '사람이 움직이는 업종'으로 옮겨 갔습니다 — 항공·중국 소비가 앞서고, 준비는 코스맥스·한미사이언스·엑시콘 순입니다",
+  "made_at": "2026-11-20 11:40",
+  "title": "큰 줄기는 그대로입니다 — AI 인프라 공급 병목(메모리·기판·테스트)·화장품 수출·국내 건설은 이익이 늘고 있고, 가격만 쉬고 있습니다",
+  "conclusion": "큰 줄기는 그대로입니다 — AI 인프라 공급 병목(메모리·기판·테스트)·화장품 수출·국내 건설은 이익이 늘고 있고, 가격만 쉬고 있습니다",
   "themes": [
    {
     "id": "T1",
-    "name": "유가 하락 + 한중 관계 개선 → 항공 (4검증 1위, 펀더는 아직)",
+    "name": "AI 인프라 공급 병목 — 메모리 · 기판 · 테스트/장비 (이익은 그대로, 가격은 쉬는 중)",
     "stage": "확산",
     "conviction": 2,
-    "invalid": "WTI 주간 +8% 이상 반등 · 운송 업종 5일 수익률 2주 연속 코스피 하회 · 대한항공 20일선(29,360원) 종가 이탈 · 대한항공 4Q 영업이익 적자 지속",
-    "thesis": "유가가 한 주에 7.2% 더 내렸고(WTI 82.3달러), 한중 FTA 후속협상 타결로 중국 관광객 기대가 더해졌습니다. 운송 업종은 20일 +21.3%로 4검증 1위입니다. 다만 대형 항공사의 올해 이익 추정은 아직 마이너스라, 가격·수급이 이익보다 앞서 있는 띔입니다.",
+    "invalid": "D램 고정가 2개월 연속 하락 또는 낸드 고정가 하락이 D램으로 번짐 · 삼성전자 4분기 잠정 영업이익이 3분기보다 감소 · 삼성전자 2027년 영업이익 컨센서스 1개월 −10% 이상 하향 · 기판 BB ratio 1.0 아래 또는 판가 인상 철회 · 하이퍼스케일러 설비투자 가이던스 하향 · (가격은 하나만) 삼성전자 17만 원 종가 이탈",
+    "thesis": "AI 서버용 메모리와 기판, 테스트 장비는 2027년까지 공급이 수요를 못 따라간다는 것이 증권사 다수 의견이고, 올해·내년 이익 추정과 수주·단가가 그것을 숫자로 받치고 있습니다. 주가는 2028년 이후 걱정과 배수 하락으로 빠졌습니다. 지난 호는 5일 수익률로 이 띔을 '소멸'까지 내렸지만, 지난 호가 적은 무효 신호 중 이익 쪽 조건은 걸린 것이 확인되지 않았습니다. 다만 컨센서스 변화는 기록이 하루뿐이라 아직 잴 수 없고, 반론가는 PER 3~4배가 '이 이익이 이어지지 않는다'는 가격일 수 있다고 지적했습니다.",
     "companies": [
-     "대한항공",
-     "제주항공",
-     "진에어",
-     "한진칼"
+     "티엘비",
+     "엑시콘",
+     "삼성전자",
+     "SK하이닉스",
+     "심텍",
+     "원익홀딩스",
+     "티에프이"
     ]
    },
    {
     "id": "T2",
-    "name": "한중 FTA 후속협상 타결 → 중국 소비(화장품·엔터·유통)",
-    "stage": "초기",
-    "conviction": 1,
-    "invalid": "후속협상 세부에서 콘텐츠·관광 조항이 빠지거나 서명이 미뤄짐 · 중국향 화장품 수출이 다시 전년 대비 감소 · K-엔터 업종이 11/18 급등 폭의 절반 이상을 반납 · 코스맥스 4Q 영업이익이 추정 749억의 80% 미만",
-    "thesis": "11/18 한중 정상회담에서 FTA 서비스·투자 후속협상이 8년 8개월 만에 실질 타결됐습니다. 콘텐츠 최혜국대우, 단체관광 모집, 유통 독자 매장이 담겼습니다. 업종 이익이 이미 늘고 있던 화장품·엔터·유통에 추세가 붙기 시작했습니다. 다만 하루 급등으로 시작한 뉴스 띔이라 베이스가 없습니다.",
+    "name": "K-뷰티 수출 — ODM 선두 (수출은 빨라지고, 이익은 환율로 갈립니다)",
+    "stage": "확산",
+    "conviction": 2,
+    "invalid": "월 화장품 수출 증가율이 2개월 연속 +20% 미만 · 코스맥스 4분기 영업이익이 추정 749억의 80% 미만 · 업종 올해 영업이익 컨센서스 증가율이 +40% 아래 · (가격은 하나만) 코스맥스 60일선(275,366원) 종가 이탈",
+    "thesis": "화장품 수출은 하반기에 오히려 빨라졌고 2027년에도 +27%가 전망됩니다. 지난 호는 한중 FTA 뉴스 한 건으로 이 업종을 올렸지만, 줄기의 근거는 중국이 아니라 미국·유럽 수출과 ODM(주문 생산) 물량입니다. 다만 원화 강세로 브랜드·유통사 이익은 기대에 못 미쳐, 지금 줄기로 볼 수 있는 것은 ODM 선두에 한정됩니다.",
     "companies": [
      "코스맥스",
-     "아모레퍼시픽",
      "한국콜마",
-     "신세계",
-     "호텔신라",
-     "하이브",
-     "스튜디오드래곤",
-     "JYP Ent."
+     "아모레퍼시픽",
+     "코스메카코리아",
+     "실리콘투"
     ]
    },
    {
     "id": "T3",
-    "name": "AI 공급 부족 → 반도체 장비·테스트·메모리 (무효 신호 켜짐)",
-    "stage": "소멸",
-    "conviction": 1,
-    "invalid": "삼성전자 17만 원 종가 이탈이면 폐기 · 장비·테스트 3Q→4Q 영업이익이 줄어든다는 가이던스 · 메모리 고정가 하락 전환 보도 (이미 켜진 것: 장비 업종 5일 수익률 코스피 하회)",
-    "thesis": "이익 근거는 그대로입니다. 엔비디아 3분기 매출이 예상을 넘었고 마이크론은 2027년 공급의 75%가 이미 팔렸다고 했습니다. 그러나 가격과 수급이 반대로 갔습니다. 장비 업종 5일 −9.5%, 메모리 외국인 5일 −2.5조 원입니다. 지난 호가 정한 무효 신호가 켜졌습니다.",
+    "name": "국내 건설 · 플랜트 — 데이터센터 · 반도체 공장 · 공공 착공 (이익은 업종 전반, 가격은 소수)",
+    "stage": "초기",
+    "conviction": 2,
+    "invalid": "삼성E&A 올해 영업이익 컨센서스 하향 전환 · 동해 데이터센터 1단계 착공이 2027년으로 연기 · 삼성E&A 멕시코 · 카타르 수주 실패 · 2027년 건설 수주 전망 하향 · (가격은 하나만) 삼성E&A 60일선(53,338원) 종가 이탈",
+    "thesis": "건설은 올해 이익 증가가 삼성E&A 한 회사에만 있지 않고(대우건설 흑자 전환 · HDC 이중 집계를 감안해도 여러 회사가 증익), 2027년 일감(데이터센터 · 반도체 공장 · 공공주택)도 수주 통계로 받쳐집니다. 다만 2027년 근거의 상당수가 아직 '예정'이고, 가격이 따라온 종목은 삼성E&A · IPARK현대산업개발 · 계룡건설 정도입니다.",
     "companies": [
-     "엑시콘",
-     "원익홀딩스",
-     "티엘비",
-     "삼성전자",
-     "SK하이닉스",
-     "이오테크닉스"
+     "삼성E&A",
+     "IPARK현대산업개발",
+     "계룡건설",
+     "GS건설",
+     "DL이앤씨"
     ]
    },
    {
     "id": "T4",
-    "name": "국내 데이터센터·반도체 팹 건설 (지난 호 메인 → 관찰)",
-    "stage": "확산",
-    "conviction": 2,
-    "invalid": "건설 업종 20일 수익률이 코스피 아래 · 삼성E&A 올해 영업이익 컨센서스 하향 전환 · 동해 DC 착공 연기",
-    "thesis": "삼성E&A 목표가 상향은 계속됐지만(31일 상향 25·하향 0) 주가는 IR 뒤 9.1% 빠져 20일선을 깼습니다. 업종 20일 수익률은 아직 코스피보다 높습니다. 이익 근거는 살아 있고 가격이 쉬는 구간이라 관찰로 내립니다.",
+    "name": "항공 — 2027년 연료비 정상화 (가격이 이익보다 앞서 있습니다)",
+    "stage": "초기",
+    "conviction": 1,
+    "invalid": "(폐기) 대한항공 4분기 영업이익 적자 · 항공유 스프레드가 55달러 위에 머물러 2027년 상반기 추정 하향 · (승격 조건) 대한항공 2027년 영업이익 컨센서스 상향이 2호 연속 확인 · (가격은 하나만) 대한항공 60일선(29,344원) 종가 이탈",
+    "thesis": "지난 호 메인이던 항공은 이번 기준에서는 관찰 띔입니다. 가격과 수급은 가장 강하지만 올해 항공사 이익은 줄고 있고, 2027년 증익은 항공유 스프레드가 정상으로 돌아온다는 가정에 기댑니다. 이익이 확인될 때까지 '가격만 오름(이익 미확인)'으로 둡니다.",
     "companies": [
-     "삼성E&A",
-     "계룡건설",
-     "GS건설"
+     "대한항공",
+     "제주항공",
+     "HMM",
+     "한진칼"
     ]
    }
   ],
   "watch": [
    {
-    "name": "방어·내수(통신·은행·음식료·생활용품)",
+    "name": "🆕 새 관찰: 백화점(고소득 소비)",
+    "status": "🤫 이익이 먼저 늘어남",
+    "why": "3분기 영업이익 신세계 +65% · 롯데쇼핑 +35% · 현대백화점 +30%(키움 · 하나 · 유안타 11/9~16). 목표가 하향은 배수 조정 위주. 다만 10~11월 기존점 성장률 2% 안팎으로 둔화(하나 11/17)라 지속성 미확인. 다음 호에도 이익 근거가 이어지면 관찰 띔으로 올립니다"
+   },
+   {
+    "name": "엔터(K-엔터 · 미디어)",
+    "status": "⚠️ 가격이 앞섬",
+    "why": "업종 강도 1위 · 60일선 위 100%. 그러나 하이브를 뺀 3사 누적 영업이익 −2.5%, JYP · 에스엠 · YG는 올해 감익(E). 2027년 신인 흥행과 중국 개방 구체 조치가 숫자로 나오기 전(키움 11/18, DS 11/19)"
+   },
+   {
+    "name": "바이오 대형(셀트리온 · 한미약품)",
     "status": "🤫 조용히 오름",
-    "why": "지수 급락 주간에 코스피보다 덜 빠짐. BofA 설문 아시아 방어주 로테이션(채널 요약 11/18). 이익 증가율은 한 자릿수~10%대라 띔으로 세우지 않음"
+    "why": "기관 20일 +9,969억(대표 6종목), 셀트리온 올해 영업이익 +63%(E) · 20·60일선 위. 업종 전체로는 60일선 위 26%라 줄기로 세우기 이릅니다"
    },
    {
-    "name": "2차전지·조선·방산",
-    "status": "⚠️ 말이 앞섬",
-    "why": "글은 +96~154%인데 목표가 하향 9~12건, 20일 −16~−22%"
-   },
-   {
-    "name": "보안 소프트웨어(지니언스·안랩)",
-    "status": "🤫 조용히 오름",
-    "why": "업종(IT/SW)은 약한데 두 종목만 RS 98. 띔으로 세우기엔 종목 수가 적음"
-   },
-   {
-    "name": "로봇(삼성 휴머노이드 상용화 보도)",
-    "status": "⚠️ 말이 앞섬",
-    "why": "11/18 레인보우로보틱스 +21% 등 급등, 업종 올해 영업이익 +2.8%(E)로 이익이 받치지 않음"
+    "name": "조선 · 전력기기 · 방산",
+    "status": "⚠️ 값을 다시 매기는 중",
+    "why": "올해 이익은 늘지만 120일 −50% 안팎, 목표가 하향 44~78건. 기각 칸 참고"
    }
   ],
   "checkpoints": [
-   "11/20 새벽 앤트로픽 나스닥 상장(공모가 83달러, 채널 요약) — 다음 날 국내 AI·반도체 반응",
-   "11/23~26 랠리 시도 4~7일째 — 코스피 +1.5%↑ + 거래량 증가면 팔로스루. 11/18 저점 4,943.17을 깨면 다시 셉니다",
-   "매일 외국인 코스피 순매수 — 4거래일 연속 순매도(합계 약 −3조 5,240억)가 멈추는지",
-   "코스맥스 기준가 320,000원 · 한미사이언스 60,400원 · 엑시콘 20일선(54,908원) 회복",
-   "한중 FTA 후속협상 세부 — 중국 본토 공연·드라마 심사가 들어가는지 (DS가 꼽은 선결 과제)",
-   "WTI 주간 등락 — +8% 이상 반등이면 T1 무효",
-   "삼성전자 17만 원 종가 — 이탈이면 T3 폐기",
-   "12월 초 11월 화장품 수출(중국향 6개월 연속 증가 여부) · 12/02 마벨 실적",
+   "11/20 종가 — 코스피가 11/18 저점 4,943.17 위에서 끝나는지(장중 4,909). 아래면 랠리 시도를 다시 셉니다",
+   "11/20 14:30 코스맥스 IR — 4분기 영업이익 추정 749억과 증설 일정에 대한 회사 언급",
+   "11/21 무렵 11월 1~20일 수출 — 메모리(낸드 · SSD 전월 대비), 화장품(유럽 · 미국)",
+   "11월 말~12월 초 D램 · 낸드 고정가 — T1의 첫 번째 이익 쪽 무효 신호",
+   "12/01 11월 수출 확정치 · 12/02 마벨 실적",
+   "12월 동해 AI 데이터센터 1단계 착공 여부 · 삼성E&A 해외 수주 결과",
+   "주 단위로 세는 숫자: 큰 줄기 업종의 60일선 위 종목 비율 (지금 메모리 0% · 테스트 24% · 기판 27% · 장비 28% · 화장품 24% · 건설 20%)",
    "보유: JYP Ent. 손절가 41,446원 · 원익홀딩스 32,476원 · 동국제약 24,288원"
   ],
   "scorecard": [
    {
+    "made": "2026-11-19",
+    "hypothesis": "제5호 띔 4개(항공 · 중국 소비 · 반도체 · 건설)",
+    "status": "진행",
+    "numbers": "발간 뒤 1거래일이 안 지났습니다(11/19 종가 기준 0.0%)",
+    "note": "채점 창은 4주입니다. 12/17 무렵 첫 채점"
+   },
+   {
+    "made": "2026-11-19",
+    "hypothesis": "체크포인트: 11/18 저점 4,943.17을 깨면 랠리 시도를 다시 셈",
+    "status": "진행",
+    "numbers": "11/20 장중 4,909.76(−4.44%, 10:52)로 저점 아래",
+    "note": "종가로 확인합니다. 종가 이탈이면 랠리 시도 무효"
+   },
+   {
     "made": "2026-11-14",
-    "hypothesis": "T1 국내 DC·팹 건설 (확신 3)",
+    "hypothesis": "제4호 T1 국내 데이터센터 · 반도체 공장 건설 (확신 3)",
     "status": "틀림",
     "numbers": "삼성E&A −9.1%, GS건설 −4.6%, 계룡건설 −3.9% (11/13→11/19, 코스피 −2.9%)",
-    "note": "IR 뒤 20일선 이탈. 'IR 전에는 준비에 넣지 않는다'는 원칙이 손실을 피하게 했습니다"
+    "note": "4거래일 성적입니다. 이익 쪽 무효 신호는 걸리지 않아 이번 호에서 띔은 유지"
    },
    {
     "made": "2026-11-14",
-    "hypothesis": "T2 항공 (확신 2)",
+    "hypothesis": "제4호 T2 항공 (확신 2)",
     "status": "맞음",
     "numbers": "제주항공 +22.2%, 진에어 +4.6%, 대한항공 +2.5%",
-    "note": "준비로 둔 대한항공은 고점 −1.7%. 다만 펀더 0/3이라 이번 호부터 관찰"
+    "note": "가격은 맞았지만 이익 근거가 약해 이번 호에서 관찰 띔으로"
    },
    {
     "made": "2026-11-14",
-    "hypothesis": "T3 반도체 장비·테스트·메모리 (확신 1→2로 올림)",
+    "hypothesis": "제4호 T3 반도체 장비 · 테스트 · 메모리 (확신 2)",
     "status": "틀림",
-    "numbers": "티에프이 −18.9%, 엑시콘 −14.7%, 심텍 −11.9%, 이오테크닉스 −7.7%, 삼성전자 −5.9%",
-    "note": "원문 근거로 확신도를 올린 직후 무효 신호(장비 5일 수익률 코스피 하회)가 켜졌습니다. 보유 티에프이는 11/18 손절(−1.0R)"
+    "numbers": "티에프이 −18.9%, 엑시콘 −14.7%, 심텍 −11.9%, 삼성전자 −5.9%",
+    "note": "4거래일 성적입니다. 이익은 그대로라 띔은 유지, 행동은 관찰"
    },
    {
     "made": "2026-11-14",
-    "hypothesis": "T4 운영·소프트웨어 (확신 1)",
+    "hypothesis": "제4호 T4 운영 · 소프트웨어 (확신 1)",
     "status": "틀림",
-    "numbers": "삼성에스디에스 −8.7%(20일선 이탈), NHN −3.5%",
-    "note": "폐기 조건 충족 → 이번 호에서 폐기"
+    "numbers": "삼성에스디에스 −8.7%, NHN −3.5%",
+    "note": "제3호 메인이던 띔이 2호 만에 폐기됐습니다. 업종 올해 영업이익 +3%(E)로 이익 근거가 처음부터 약했습니다"
    },
    {
-    "made": "2026-11-14",
-    "hypothesis": "기각: NAVER 낙폭 과대",
-    "status": "맞음",
-    "numbers": "NAVER −2.9%, 현대차증권 목표가 340,000→290,000(11/19)",
-    "note": "회피 유지"
-   },
-   {
-    "made": "2026-11-14",
-    "hypothesis": "체크포인트: 11/16~18 팔로스루 / 5,018.85 이탈이면 무효",
+    "made": "2026-11-11",
+    "hypothesis": "배운 것: 제3~5호는 9일 동안 메인 띔이 세 번 바뀌었습니다(운영·SW → 건설 → 항공)",
     "status": "틀림",
-    "numbers": "11/16 −3.59%, 11/17 종가 4,968.48로 이탈",
-    "note": "랠리 시도 무효. 11/18(+1.99%)을 새 1일째로 셉니다"
+    "numbers": "세 번 모두 5일 수익률 · 수급 1위 업종을 따라감",
+    "note": "이번 호부터 이익 · 산업 구조로 세우고 4주 창으로 채점합니다"
    }
   ],
   "sector_scorecard": [
    {
-    "group": "운송/물류 (항공)",
+    "group": "반도체 장비",
+    "talk": 2,
+    "profit": 2,
+    "price": 1,
+    "money": 0,
+    "total": 5,
+    "stage": "확산",
+    "action": "관찰",
+    "note": "올해 영업이익 +77%(E) · 글 63건 유지 · 60일선 위 28% · 60일 −6.3% · 외국인 20일 −2,880억"
+   },
+   {
+    "group": "건설",
+    "talk": 1,
+    "profit": 2,
+    "price": 0,
+    "money": 1,
+    "total": 4,
+    "stage": "초기",
+    "action": "관찰",
+    "note": "올해 영업이익 +40%(E, 대우건설 제외 +42%) · 60일선 위 20% · 외국인 20일 +2,818억"
+   },
+   {
+    "group": "반도체 기판·전자부품",
+    "talk": 1,
+    "profit": 2,
+    "price": 1,
+    "money": 0,
+    "total": 4,
+    "stage": "확산",
+    "action": "관찰",
+    "note": "올해 영업이익 +119%(E) · BB ratio 2배 · 60일선 위 27% · 외국인 20일 약 −1.65조"
+   },
+   {
+    "group": "반도체(메모리·대형)",
+    "talk": 1,
+    "profit": 2,
+    "price": 0,
+    "money": 0,
+    "total": 3,
+    "stage": "확산",
+    "action": "관찰",
+    "note": "올해 영업이익 +632%(E) · 60일선 위 0% · 60일 −22.9% · 외국인 20일 약 −10.5조"
+   },
+   {
+    "group": "반도체 테스트·후공정",
+    "talk": 1,
+    "profit": 2,
+    "price": 0,
+    "money": 0,
+    "total": 3,
+    "stage": "확산",
+    "action": "관찰",
+    "note": "올해 영업이익 +144%(E) · 60일선 위 24% · 60일 +3.7% · 외국인 20일 −2,060억"
+   },
+   {
+    "group": "건설기계",
+    "talk": 0,
+    "profit": 2,
+    "price": 1,
+    "money": 0,
+    "total": 3,
+    "stage": "–",
+    "action": "관찰",
+    "note": "올해 영업이익 +66%(E) · 60일선 위 33% · 순위 32위 → 6위(1개월) · 외국인 20일 −1,262억"
+   },
+   {
+    "group": "운송/물류",
     "talk": 1,
     "profit": 1,
     "price": 2,
     "money": 2,
     "total": 6,
-    "stage": "확산",
+    "stage": "초기",
     "action": "관찰",
-    "note": "5일 +6.4%·20일 +21.3%, 외국인 +1,621억. 7일 상향 7·하향 2. 단 대한항공 올해 영업이익 −35%(E)"
+    "note": "60일선 위 62% · 외국인 +2,680억 · 기관 +3,236억. 다만 항공 6개사 올해 합계 적자 전환(E)"
    },
    {
     "group": "K-엔터",
@@ -8271,150 +8883,84 @@
     "total": 5,
     "stage": "초기",
     "action": "관찰",
-    "note": "5일 +23.5%·20일 +6.3%, 기관 +779억. 업종 올해 영업이익 +49%(E). 7일 상향 0·하향 5"
+    "note": "60일선 위 100% · 60일 +20.5% · 기관 20일 +1,292억. 올해 +49%(E)는 하이브 한 종목 효과, 나머지 3사는 감익(E)"
    },
    {
     "group": "바이오",
-    "talk": 1,
+    "talk": 2,
     "profit": 1,
-    "price": 2,
+    "price": 1,
     "money": 1,
     "total": 5,
     "stage": "–",
     "action": "관찰",
-    "note": "5일 −3.2%·20일 −1.1%로 코스피보다 위. 기관 +1,432억. 셀트리온 31일 상향 12. 임상 실패 2건(HLB테라퓨틱스·아리바이오)"
+    "note": "글 81건 · 올해 영업이익 +36%(E, 23종목) · 60일선 위 26% · 기관 20일 +9,969억(셀트리온 · 삼성바이오로직스)"
+   },
+   {
+    "group": "유통",
+    "talk": 1,
+    "profit": 1,
+    "price": 1,
+    "money": 1,
+    "total": 4,
+    "stage": "–",
+    "action": "관찰",
+    "note": "올해 영업이익 +33%(E) · 3분기 백화점 3사 +30~65% · 60일선 위 33% · 120일 −30.2% · 기관 20일 +1,191억. 31일 하향 57(배수 하향 위주)"
    },
    {
     "group": "화장품",
-    "talk": 0,
-    "profit": 1,
-    "price": 2,
-    "money": 1,
-    "total": 4,
-    "stage": "초기",
-    "action": "준비",
-    "note": "5일 +2.9%·20일 −8.3%(코스피 −10.4%보다 위). 코스맥스 3Q +95%. 중국향 수출 10월 +31.6%(키움). 7일 상향 4·하향 12"
-   },
-   {
-    "group": "건설",
     "talk": 1,
     "profit": 1,
     "price": 1,
-    "money": 1,
-    "total": 4,
+    "money": 0,
+    "total": 3,
     "stage": "확산",
-    "action": "관찰",
-    "note": "20일 +5.4%, 5일 −5.1%. 삼성E&A 상향 25·하향 0, 20일선 이탈"
-   },
-   {
-    "group": "은행",
-    "talk": 1,
-    "profit": 1,
-    "price": 1,
-    "money": 1,
-    "total": 4,
-    "stage": "방어",
-    "action": "관찰",
-    "note": "5일 +1.9%·20일 −1.8%. 외국인 +1,195억·기관 −468억"
-   },
-   {
-    "group": "통신서비스",
-    "talk": 0,
-    "profit": 1,
-    "price": 1,
-    "money": 2,
-    "total": 4,
-    "stage": "방어",
-    "action": "관찰",
-    "note": "20일 +5.2%. 외국인 +363억·기관 +66억. BNK 통신 3사 목표가 상향(11/17)"
-   },
-   {
-    "group": "유통 (백화점·면세)",
-    "talk": 0,
-    "profit": 1,
-    "price": 1,
-    "money": 1,
-    "total": 3,
-    "stage": "초기",
-    "action": "관찰",
-    "note": "5일 +5.4%·20일 +3.0%. 기관 +533억·외국인 −343억. 업종 올해 영업이익 +33%(E)"
-   },
-   {
-    "group": "건설기계",
-    "talk": 0,
-    "profit": 1,
-    "price": 1,
-    "money": 1,
-    "total": 3,
-    "stage": "–",
-    "action": "관찰",
-    "note": "업종 올해 영업이익 +66%(E)·강도 9위. 5일 −3.4%. 외국인 −553억·기관 +561억"
-   },
-   {
-    "group": "조선",
-    "talk": 2,
-    "profit": 0,
-    "price": 0,
-    "money": 1,
-    "total": 3,
-    "stage": "–",
-    "action": "회피",
-    "note": "글 38건(전주 19건)인데 하향 9건, 20일 −16.4%"
-   },
-   {
-    "group": "반도체 장비·테스트",
-    "talk": 1,
-    "profit": 1,
-    "price": 0,
-    "money": 0,
-    "total": 2,
-    "stage": "소멸",
-    "action": "관찰",
-    "note": "⚠️ 5일 −9.5~−10.0%. 장비 외국인 −968억·기관 −938억. 3Q 서프라이즈는 이어짐"
-   },
-   {
-    "group": "2차전지",
-    "talk": 2,
-    "profit": 0,
-    "price": 0,
-    "money": 0,
-    "total": 2,
-    "stage": "소멸",
-    "action": "회피",
-    "note": "⚠️ 글 +96%인데 하향 12건, 20일 −22.1%, 수급 −2,493억"
-   },
-   {
-    "group": "반도체(메모리·대형)",
-    "talk": 0,
-    "profit": 0,
-    "price": 0,
-    "money": 1,
-    "total": 1,
-    "stage": "소멸",
-    "action": "관찰",
-    "note": "5일 −7.4%, 외국인 −2조 5,074억·기관 +1,008억. 20일선 위 종목 0%"
-   },
-   {
-    "group": "반도체 기판·전자부품",
-    "talk": 0,
-    "profit": 1,
-    "price": 0,
-    "money": 0,
-    "total": 1,
-    "stage": "소멸",
-    "action": "관찰",
-    "note": "5일 −10.8%·20일 −27.2%, 외국인 −4,134억. 수주잔고는 역대 최고(11/15 리포트 정리)"
+    "action": "준비",
+    "note": "올해 영업이익 +53%(E) · 수출 7~10월 +43% · 60일선 위 24% · 3분기 이익 기대치 미달 여럿. 준비는 코스맥스에만"
    },
    {
     "group": "IT/소프트웨어",
-    "talk": 0,
+    "talk": 1,
     "profit": 0,
     "price": 1,
+    "money": 1,
+    "total": 3,
+    "stage": "–",
+    "action": "관찰",
+    "note": "올해 영업이익 +3%(E) · 60일선 위 41%. 지니언스 · 안랩 등 보안 몇 종목만 강함"
+   },
+   {
+    "group": "조선",
+    "talk": 1,
+    "profit": 1,
+    "price": 0,
     "money": 0,
-    "total": 1,
-    "stage": "소멸",
+    "total": 2,
+    "stage": "–",
     "action": "회피",
-    "note": "5일 −7.4%, 외국인 −382억·기관 −1,391억. 보안주(지니언스·안랩)만 강함"
+    "note": "올해 영업이익 +83%(E)이나 3분기 대형사 기대 미달 · 신조선가 횡보 · 60일선 위 5% · 120일선 위 0% · 31일 하향 78"
+   },
+   {
+    "group": "전력기기",
+    "talk": 1,
+    "profit": 1,
+    "price": 0,
+    "money": 0,
+    "total": 2,
+    "stage": "–",
+    "action": "회피",
+    "note": "올해 영업이익 +56%(E) · 60일선 위 6% · 120일 −52.2% · 31일 하향 44 · 상향 1"
+   },
+   {
+    "group": "미디어/엔터",
+    "talk": 0,
+    "profit": 0,
+    "price": 2,
+    "money": 0,
+    "total": 2,
+    "stage": "–",
+    "action": "관찰",
+    "note": "올해 영업이익 −3.7%(E)인데 60일선 위 67%. 가격만 오름(이익 미확인)"
    }
   ],
   "pool": [
@@ -8423,11 +8969,11 @@
     "code": "192820",
     "theme": "T2",
     "role": "핵심 후보 1순위",
-    "rs": 94,
+    "rs": 95,
     "r1w": 4.9,
-    "off_high": -9.4,
+    "off_high": -6.6,
     "setup": "돌파 대기 (기준가 320,000 · 베이스 30일)",
-    "watch_for": "320,000 돌파 + 거래량 · 업종 동행",
+    "watch_for": "오늘 IR · 320,000 돌파 + 거래량 · 60일선 275,366원",
     "action": "준비",
     "fund": 2
    },
@@ -8435,38 +8981,168 @@
     "name": "한미사이언스",
     "code": "008930",
     "theme": "–",
-    "role": "핵심 후보 2순위(바이오)",
-    "rs": 91,
+    "role": "핵심 후보 2순위(바이오 지주)",
+    "rs": 92,
     "r1w": -3.8,
-    "off_high": -25.4,
+    "off_high": -22.8,
     "setup": "돌파 대기 (기준가 60,400 · 베이스 6일)",
-    "watch_for": "60,400 돌파. 분기 영업이익 +71%·올해 +11%(E). 원문 미확인",
+    "watch_for": "60,400 돌파. 2026년 영업이익 1,533억(+10.5%) 추정으로 증가율은 얕음(iM 11/09 원문)",
     "action": "준비",
     "fund": 2
    },
    {
     "name": "엑시콘",
     "code": "092870",
-    "theme": "T3",
+    "theme": "T1",
     "role": "핵심 후보 3순위(테스트)",
-    "rs": 98,
+    "rs": 99,
     "r1w": -6.7,
     "off_high": -21.6,
     "setup": "베이스 형성 중 (기준가 68,000 · 16일)",
-    "watch_for": "20일선(54,908원) 회복이 먼저. 기준가까지 26.9%",
+    "watch_for": "20일선 회복이 먼저 · 4분기 영업이익(추정 119억)",
     "action": "준비",
     "fund": 3
    },
    {
-    "name": "아모레퍼시픽",
-    "code": "090430",
-    "theme": "T2",
-    "role": "브랜드",
-    "rs": 85,
-    "r1w": 11.8,
-    "off_high": -16.7,
-    "setup": "베이스 형성 중 (기준가 152,500 · 54일)",
-    "watch_for": "152,500 돌파 + 업종 동행",
+    "name": "티엘비",
+    "code": "356860",
+    "theme": "T1",
+    "role": "기판 · 이익 가시성 1위",
+    "rs": 91,
+    "r1w": 9.8,
+    "off_high": -27.7,
+    "setup": "셋업 없음 (20·60일선 위)",
+    "watch_for": "셋업 보드 기준가 생성 · 4분기 영업이익 245억 추정",
+    "action": "관찰",
+    "fund": 3
+   },
+   {
+    "name": "심텍",
+    "code": "222800",
+    "theme": "T1",
+    "role": "기판",
+    "rs": 92,
+    "r1w": -8.5,
+    "off_high": -36.0,
+    "setup": "셋업 없음 (60일선 −12.9%)",
+    "watch_for": "60일선(127,733원) 회복",
+    "action": "관찰",
+    "fund": 3
+   },
+   {
+    "name": "이수페타시스",
+    "code": "007660",
+    "theme": "T1",
+    "role": "기판(AI 가속기)",
+    "rs": 28,
+    "r1w": -0.8,
+    "off_high": -48.1,
+    "setup": "이탈 (60일선 −17.0%)",
+    "watch_for": "수주잔고 7,849억(+26%, 키움 11/20 요약) · 60일선 회복",
+    "action": "관찰",
+    "fund": 3
+   },
+   {
+    "name": "삼성전기",
+    "code": "009150",
+    "theme": "T1",
+    "role": "기판 · MLCC 대형",
+    "rs": 94,
+    "r1w": 0.7,
+    "off_high": -61.3,
+    "setup": "이탈 (60일선 −30.5%)",
+    "watch_for": "20일선 회복부터",
+    "action": "관찰",
+    "fund": 3
+   },
+   {
+    "name": "티에프이",
+    "code": "425420",
+    "theme": "T1",
+    "role": "테스트 부품",
+    "rs": 98,
+    "r1w": -10.7,
+    "off_high": -18.9,
+    "setup": "눌림 (20일선 −3.4%)",
+    "watch_for": "20일선 회복 · 새 베이스",
+    "action": "관찰",
+    "fund": 3
+   },
+   {
+    "name": "원익홀딩스",
+    "code": "030530",
+    "theme": "T1",
+    "role": "장비 ⭐보유",
+    "rs": 96,
+    "r1w": 16.1,
+    "off_high": -28.2,
+    "setup": "1stage 진행 (20일선 +18.6%)",
+    "watch_for": "보유: 손절가 32,476원",
+    "action": "관찰",
+    "fund": 3
+   },
+   {
+    "name": "코세스",
+    "code": "089890",
+    "theme": "T1",
+    "role": "장비(후공정)",
+    "rs": 93,
+    "r1w": 9.6,
+    "off_high": -26.2,
+    "setup": "셋업 없음 (20·60일선 위)",
+    "watch_for": "분기 영업이익 243억이 이어지는지",
+    "action": "관찰",
+    "fund": 3
+   },
+   {
+    "name": "와이씨",
+    "code": "232140",
+    "theme": "T1",
+    "role": "테스트 장비",
+    "rs": 92,
+    "r1w": 31.0,
+    "off_high": -33.5,
+    "setup": "급등 직후 (20일선 +26.1%)",
+    "watch_for": "첫 눌림 뒤 베이스",
+    "action": "관찰",
+    "fund": 3
+   },
+   {
+    "name": "샘씨엔에스",
+    "code": "252990",
+    "theme": "T1",
+    "role": "소재·부품(프로브카드 기판)",
+    "rs": 94,
+    "r1w": -5.8,
+    "off_high": -23.6,
+    "setup": "셋업 없음 (60일선 −0.9%)",
+    "watch_for": "2027년 +50% 성장 제시(유안타 11/10)",
+    "action": "관찰",
+    "fund": 3
+   },
+   {
+    "name": "삼성전자",
+    "code": "005930",
+    "theme": "T1",
+    "role": "메모리 대형",
+    "rs": 75,
+    "r1w": -4.8,
+    "off_high": -45.8,
+    "setup": "이탈 (60일선 −18.1%)",
+    "watch_for": "D램 고정가 · 17만 원 지지",
+    "action": "관찰",
+    "fund": 3
+   },
+   {
+    "name": "SK하이닉스",
+    "code": "000660",
+    "theme": "T1",
+    "role": "메모리 대형",
+    "rs": 73,
+    "r1w": -4.4,
+    "off_high": -59.3,
+    "setup": "이탈 (60일선 −22.6%)",
+    "watch_for": "외국인 매도 둔화",
     "action": "관찰",
     "fund": 3
    },
@@ -8474,246 +9150,259 @@
     "name": "한국콜마",
     "code": "161890",
     "theme": "T2",
-    "role": "ODM",
-    "rs": null,
+    "role": "ODM 2위",
+    "rs": 91,
     "r1w": 13.7,
-    "off_high": -28.9,
-    "setup": "셋업 없음",
-    "watch_for": "20일선 위 베이스",
+    "off_high": -27.0,
+    "setup": "셋업 없음 (60일선 −10.7%)",
+    "watch_for": "분기 영업이익 재증가",
     "action": "관찰",
     "fund": 3
    },
    {
-    "name": "신세계",
-    "code": "004170",
+    "name": "아모레퍼시픽",
+    "code": "090430",
     "theme": "T2",
-    "role": "백화점·면세",
-    "rs": null,
-    "r1w": 22.2,
-    "off_high": -62.9,
-    "setup": "셋업 없음 · 급등",
-    "watch_for": "첫 눌림에서 20일선(254,825원)",
+    "role": "브랜드 대형",
+    "rs": 86,
+    "r1w": 11.8,
+    "off_high": -14.8,
+    "setup": "돌파 대기 (기준가 152,500 · 베이스 54일)",
+    "watch_for": "152,500 돌파 + 업종 동행",
     "action": "관찰",
     "fund": 3
    },
    {
-    "name": "호텔신라",
-    "code": "008770",
+    "name": "코스메카코리아",
+    "code": "241710",
     "theme": "T2",
-    "role": "면세",
-    "rs": null,
-    "r1w": 8.8,
-    "off_high": -45.4,
-    "setup": "셋업 없음",
-    "watch_for": "20일선 위 유지",
-    "action": "관찰",
-    "fund": 3
-   },
-   {
-    "name": "하이브",
-    "code": "352820",
-    "theme": "T2",
-    "role": "엔터 대형",
-    "rs": null,
-    "r1w": 20.1,
-    "off_high": -53.9,
-    "setup": "셋업 없음 · 급등",
-    "watch_for": "첫 눌림 뒤 베이스",
-    "action": "관찰",
-    "fund": 3
-   },
-   {
-    "name": "스튜디오드래곤",
-    "code": "253450",
-    "theme": "T2",
-    "role": "드라마 제작",
-    "rs": null,
-    "r1w": 32.2,
-    "off_high": -39.0,
-    "setup": "셋업 없음 · 급등",
-    "watch_for": "구작 중국 판매 계약 공시",
-    "action": "관찰",
-    "fund": 3
-   },
-   {
-    "name": "JYP Ent.",
-    "code": "035900",
-    "theme": "T2",
-    "role": "엔터 ⭐보유",
-    "rs": null,
-    "r1w": 5.3,
-    "off_high": -40.5,
-    "setup": "보유 중",
-    "watch_for": "손절가 41,446원 · 3R 55,862원. 펀더 0/3",
-    "action": "관찰",
-    "fund": 0
-   },
-   {
-    "name": "대한항공",
-    "code": "003490",
-    "theme": "T1",
-    "role": "항공 대형",
-    "rs": 92,
-    "r1w": 2.2,
-    "off_high": -1.7,
-    "setup": "셋업 없음 · 1stage 진행 중",
-    "watch_for": "분기 흑자 전환 · 첫 눌림 20일선(29,360원). 펀더 0/3",
-    "action": "관찰",
-    "fund": 0
-   },
-   {
-    "name": "제주항공",
-    "code": "089590",
-    "theme": "T1",
-    "role": "LCC",
-    "rs": 97,
-    "r1w": 13.4,
-    "off_high": -10.6,
-    "setup": "셋업 없음 · 1stage 진행 중",
-    "watch_for": "첫 눌림 뒤 베이스",
+    "role": "ODM 3위",
+    "rs": 88,
+    "r1w": 16.6,
+    "off_high": -29.8,
+    "setup": "셋업 없음 (60일선 −6.5%)",
+    "watch_for": "60일선 회복",
     "action": "관찰",
     "fund": 2
    },
    {
-    "name": "진에어",
-    "code": "272450",
-    "theme": "T1",
-    "role": "LCC",
-    "rs": 94,
-    "r1w": 0.2,
-    "off_high": -5.3,
-    "setup": "셋업 없음 · 1stage 진행 중",
-    "watch_for": "분기 흑자 전환. 펀더 0/3",
-    "action": "관찰",
-    "fund": 0
-   },
-   {
-    "name": "한진칼",
-    "code": "180640",
-    "theme": "T1",
-    "role": "지주",
-    "rs": 97,
-    "r1w": 9.3,
-    "off_high": -11.6,
-    "setup": "베이스 형성 중 (기준가 245,000 · 7일)",
-    "watch_for": "거래량 마름(지금 2.55배)",
-    "action": "관찰",
-    "fund": 2
-   },
-   {
-    "name": "원익홀딩스",
-    "code": "030530",
-    "theme": "T3",
-    "role": "장비 ⭐보유",
-    "rs": 95,
-    "r1w": 15.6,
-    "off_high": -31.2,
-    "setup": "보유 중",
-    "watch_for": "손절가 32,476원 · 3R 43,772원",
-    "action": "관찰",
-    "fund": 3
-   },
-   {
-    "name": "티엘비",
-    "code": "356860",
-    "theme": "T3",
-    "role": "기판",
-    "rs": 90,
-    "r1w": 9.8,
-    "off_high": -32.8,
-    "setup": "셋업 없음",
-    "watch_for": "첫 눌림 뒤 베이스",
-    "action": "관찰",
-    "fund": 3
-   },
-   {
-    "name": "삼성전자",
-    "code": "005930",
-    "theme": "T3",
-    "role": "메모리",
-    "rs": null,
-    "r1w": -4.8,
-    "off_high": -47.5,
-    "setup": "이탈 · 20일선 −6.4%",
-    "watch_for": "20일선 종가 회복 + 외국인 3일 순매수",
-    "action": "관찰",
-    "fund": 3
-   },
-   {
-    "name": "SK하이닉스",
-    "code": "000660",
-    "theme": "T3",
-    "role": "메모리",
-    "rs": null,
-    "r1w": -4.4,
-    "off_high": -60.3,
-    "setup": "이탈 · 20일선 −7.8%",
-    "watch_for": "20일선 종가 회복",
-    "action": "관찰",
-    "fund": 3
-   },
-   {
-    "name": "이오테크닉스",
-    "code": "039030",
-    "theme": "T3",
-    "role": "장비",
-    "rs": null,
-    "r1w": -8.8,
-    "off_high": -47.0,
-    "setup": "이탈 · 20일선 −7.5%",
-    "watch_for": "20일선 회복",
-    "action": "관찰",
+    "name": "실리콘투",
+    "code": "257720",
+    "theme": "T2",
+    "role": "유통",
+    "rs": 6,
+    "r1w": -1.8,
+    "off_high": -55.5,
+    "setup": "이탈",
+    "watch_for": "판매가 인상 반영",
+    "action": "회피",
     "fund": 3
    },
    {
     "name": "삼성E&A",
     "code": "028050",
-    "theme": "T4",
-    "role": "플랜트·팹",
-    "rs": 95,
+    "theme": "T3",
+    "role": "선도(플랜트)",
+    "rs": 96,
     "r1w": -4.0,
-    "off_high": -10.2,
-    "setup": "셋업 없음 · 20일선 −1.2%",
-    "watch_for": "20일선(63,860원) 회복 뒤 새 베이스",
+    "off_high": -9.1,
+    "setup": "눌림 (20일선 −1.2% · 60일선 위)",
+    "watch_for": "새 베이스 · 해외 수주 결과",
+    "action": "관찰",
+    "fund": 3
+   },
+   {
+    "name": "IPARK현대산업개발",
+    "code": "294870",
+    "theme": "T3",
+    "role": "주택",
+    "rs": 89,
+    "r1w": 4.2,
+    "off_high": -1.0,
+    "setup": "셋업 없음 (고점 −1.0%)",
+    "watch_for": "거래대금 관문",
     "action": "관찰",
     "fund": 3
    },
    {
     "name": "계룡건설",
     "code": "013580",
-    "theme": "T4",
+    "theme": "T3",
     "role": "공공주택",
-    "rs": 89,
+    "rs": 90,
     "r1w": 3.2,
-    "off_high": -21.5,
-    "setup": "셋업 없음",
-    "watch_for": "단기 고점 27,650원",
+    "off_high": -13.3,
+    "setup": "셋업 없음 (20·60일선 위)",
+    "watch_for": "3분기 실제치",
     "action": "관찰",
     "fund": 3
+   },
+   {
+    "name": "GS건설",
+    "code": "006360",
+    "theme": "T3",
+    "role": "데이터센터 · 주택",
+    "rs": 81,
+    "r1w": 0.8,
+    "off_high": -29.9,
+    "setup": "셋업 없음 (60일선 −6.9%)",
+    "watch_for": "동해 착공",
+    "action": "관찰",
+    "fund": 0
+   },
+   {
+    "name": "TYM",
+    "code": "002900",
+    "theme": "–",
+    "role": "건설기계(농기계)",
+    "rs": 79,
+    "r1w": 3.8,
+    "off_high": -19.9,
+    "setup": "셋업 없음 (20·60일선 위)",
+    "watch_for": "분기 영업이익 358억 유지",
+    "action": "관찰",
+    "fund": 3
+   },
+   {
+    "name": "DL이앤씨",
+    "code": "375500",
+    "theme": "T3",
+    "role": "플랜트 · 주택",
+    "rs": 35,
+    "r1w": -7.2,
+    "off_high": -51.0,
+    "setup": "이탈",
+    "watch_for": "–",
+    "action": "회피",
+    "fund": 3
+   },
+   {
+    "name": "대한항공",
+    "code": "003490",
+    "theme": "T4",
+    "role": "대형 항공",
+    "rs": 93,
+    "r1w": 2.2,
+    "off_high": -0.6,
+    "setup": "1stage 진행 (20일선 +10.4%)",
+    "watch_for": "2027년 컨센서스 상향",
+    "action": "관찰",
+    "fund": 0
+   },
+   {
+    "name": "제주항공",
+    "code": "089590",
+    "theme": "T4",
+    "role": "저비용 항공",
+    "rs": 98,
+    "r1w": 13.4,
+    "off_high": 0.0,
+    "setup": "1stage 진행 (20일선 +29.0%)",
+    "watch_for": "첫 눌림 뒤 베이스",
+    "action": "관찰",
+    "fund": 2
+   },
+   {
+    "name": "HMM",
+    "code": "011200",
+    "theme": "T4",
+    "role": "해운",
+    "rs": 85,
+    "r1w": 6.9,
+    "off_high": -8.0,
+    "setup": "셋업 없음 (20·60일선 위)",
+    "watch_for": "4분기 추정 8,711억",
+    "action": "관찰",
+    "fund": 3
+   },
+   {
+    "name": "한진칼",
+    "code": "180640",
+    "theme": "T4",
+    "role": "지주(지분 이슈)",
+    "rs": 98,
+    "r1w": 9.3,
+    "off_high": -8.5,
+    "setup": "급등 직후 (기준가 245,000)",
+    "watch_for": "–",
+    "action": "회피",
+    "fund": 2
+   },
+   {
+    "name": "현대백화점",
+    "code": "069960",
+    "theme": "새 관찰",
+    "role": "백화점",
+    "rs": 74,
+    "r1w": 15.9,
+    "off_high": -53.0,
+    "setup": "셋업 없음 (20·60일선 위)",
+    "watch_for": "3분기 946억(+30%) 뒤 10~11월 기존점 성장률",
+    "action": "관찰",
+    "fund": 0
+   },
+   {
+    "name": "신세계",
+    "code": "004170",
+    "theme": "새 관찰",
+    "role": "백화점 · 면세",
+    "rs": 42,
+    "r1w": 22.2,
+    "off_high": -62.1,
+    "setup": "바닥 반등 (60일선 −7.8%)",
+    "watch_for": "60일선 회복 · 목표가 하향 멈춤",
+    "action": "관찰",
+    "fund": 3
+   },
+   {
+    "name": "JYP Ent.",
+    "code": "035900",
+    "theme": "–",
+    "role": "엔터 ⭐보유",
+    "rs": 69,
+    "r1w": 4.6,
+    "off_high": -39.2,
+    "setup": "1stage 진행 (20일선 +14.3%)",
+    "watch_for": "보유: 손절가 41,446원 · 2027-01-11 신인 데뷔",
+    "action": "관찰",
+    "fund": 0
    },
    {
     "name": "셀트리온",
     "code": "068270",
     "theme": "–",
     "role": "바이오 대형",
-    "rs": 88,
+    "rs": 89,
     "r1w": 1.7,
-    "off_high": -10.6,
-    "setup": "셋업 없음",
-    "watch_for": "31일 상향 12·하향 0. 고점 219,000원 근처 베이스",
+    "off_high": -9.7,
+    "setup": "셋업 없음 (20·60일선 위)",
+    "watch_for": "분기 영업이익 4,518억 · 올해 +63%(E)",
     "action": "관찰",
     "fund": 3
    },
    {
-    "name": "한올바이오파마",
-    "code": "009420",
+    "name": "지니언스",
+    "code": "263860",
     "theme": "–",
-    "role": "바이오",
-    "rs": null,
-    "r1w": 4.9,
-    "off_high": -26.4,
-    "setup": "셋업 없음 · 급등",
-    "watch_for": "첫 눌림에서 20일선",
+    "role": "보안 소프트웨어",
+    "rs": 99,
+    "r1w": 13.8,
+    "off_high": 0.0,
+    "setup": "1stage 진행 (20일선 +36.4%)",
+    "watch_for": "첫 눌림 뒤 베이스",
+    "action": "관찰",
+    "fund": 3
+   },
+   {
+    "name": "NHN",
+    "code": "181710",
+    "theme": "–",
+    "role": "클라우드 · 결제",
+    "rs": 94,
+    "r1w": -6.6,
+    "off_high": -20.2,
+    "setup": "베이스 형성 중 (기준가 89,100)",
+    "watch_for": "기준가까지 39%로 멀음",
     "action": "관찰",
     "fund": 3
    },
@@ -8722,306 +9411,166 @@
     "code": "086450",
     "theme": "–",
     "role": "제약 ⭐보유",
-    "rs": 94,
-    "r1w": 7.3,
-    "off_high": -15.0,
-    "setup": "보유 중",
-    "watch_for": "손절가 24,288원 · 3R 32,736원. 펀더 1/3",
+    "rs": 95,
+    "r1w": 7.5,
+    "off_high": -11.0,
+    "setup": "돌파 대기 (기준가 31,250)",
+    "watch_for": "보유: 손절가 24,288원",
     "action": "관찰",
     "fund": 1
-   },
-   {
-    "name": "지니언스",
-    "code": "263860",
-    "theme": "–",
-    "role": "보안 SW",
-    "rs": 98,
-    "r1w": 13.8,
-    "off_high": -15.8,
-    "setup": "셋업 없음 · 1stage 진행 중",
-    "watch_for": "첫 눌림(20일선 +36%로 멂)",
-    "action": "관찰",
-    "fund": 3
-   },
-   {
-    "name": "안랩",
-    "code": "053800",
-    "theme": "–",
-    "role": "보안 SW",
-    "rs": 98,
-    "r1w": -1.1,
-    "off_high": -14.9,
-    "setup": "베이스 형성 중 (기준가 137,300 · 12일)",
-    "watch_for": "거래량 마름(지금 1.58배)",
-    "action": "관찰",
-    "fund": 2
-   },
-   {
-    "name": "NHN",
-    "code": "181710",
-    "theme": "–",
-    "role": "AI DC·결제",
-    "rs": 93,
-    "r1w": -6.6,
-    "off_high": -28.1,
-    "setup": "베이스 형성 중 (기준가 89,100)",
-    "watch_for": "기준가까지 38%. 한화 NDR 후기 목표가 93,000 유지(11/19)",
-    "action": "관찰",
-    "fund": 3
-   },
-   {
-    "name": "롯데웰푸드",
-    "code": "280360",
-    "theme": "–",
-    "role": "음식료",
-    "rs": null,
-    "r1w": 6.6,
-    "off_high": -10.2,
-    "setup": "셋업 없음",
-    "watch_for": "DS 170,000→190,000(11/16). 20일선 위 베이스",
-    "action": "관찰",
-    "fund": 3
-   },
-   {
-    "name": "TYM",
-    "code": "002900",
-    "theme": "–",
-    "role": "건설기계(농기계)",
-    "rs": 78,
-    "r1w": 3.8,
-    "off_high": -26.1,
-    "setup": "셋업 없음",
-    "watch_for": "RS 80 회복 · 단기 고점 7,550원",
-    "action": "관찰",
-    "fund": 3
-   },
-   {
-    "name": "HD건설기계",
-    "code": "267270",
-    "theme": "–",
-    "role": "건설기계",
-    "rs": null,
-    "r1w": -0.2,
-    "off_high": -58.2,
-    "setup": "셋업 없음",
-    "watch_for": "분기 영업이익 +522%. 20일선 위 유지",
-    "action": "관찰",
-    "fund": 3
-   },
-   {
-    "name": "디케이티",
-    "code": "290550",
-    "theme": "–",
-    "role": "IT부품",
-    "rs": 98,
-    "r1w": 13.4,
-    "off_high": -10.3,
-    "setup": "베이스 형성 중 (기준가 34,950 · 조정 깊음)",
-    "watch_for": "상승분 73% 반납한 깊은 조정 뒤",
-    "action": "관찰",
-    "fund": 2
-   },
-   {
-    "name": "나노신소재",
-    "code": "121600",
-    "theme": "–",
-    "role": "2차전지 소재",
-    "rs": 88,
-    "r1w": -11.6,
-    "off_high": -30.4,
-    "setup": "베이스 형성 중 (기준가 78,000 · 5일)",
-    "watch_for": "업종이 약함(2차전지 20일 −22.1%)",
-    "action": "관찰",
-    "fund": 3
-   },
-   {
-    "name": "코웨이",
-    "code": "021240",
-    "theme": "–",
-    "role": "생활용품",
-    "rs": 88,
-    "r1w": 4.2,
-    "off_high": -4.7,
-    "setup": "돌파 대기 (기준가 111,400 · 거래량 마름)",
-    "watch_for": "기술 2/3이지만 펀더 0/3: 분기 영업이익 +7%, 올해 +13%(E)",
-    "action": "관찰",
-    "fund": 0
-   },
-   {
-    "name": "NAVER",
-    "code": "035420",
-    "theme": "–",
-    "role": "인터넷",
-    "rs": null,
-    "r1w": -6.9,
-    "off_high": -44.6,
-    "setup": "이탈 · 20일선 −5.1%",
-    "watch_for": "현대차 목표가 340,000→290,000(11/19). 펀더 0/3",
-    "action": "회피",
-    "fund": 0
    }
   ]
  },
  "pool": [
   {
-   "name": "코스맥스",
-   "code": "192820",
-   "role": "준비 · 기준가 320,000",
-   "group": "화장품",
-   "theme": "C1",
-   "theme_name": "🎯 핵심 후보 — 펀더 2/3↑ + 기술 2/3↑ (기준가 돌파 대기)"
-  },
-  {
-   "name": "한미사이언스",
-   "code": "008930",
-   "role": "준비 · 기준가 60,400",
-   "group": "바이오",
-   "theme": "C1",
-   "theme_name": "🎯 핵심 후보 — 펀더 2/3↑ + 기술 2/3↑ (기준가 돌파 대기)"
+   "name": "티엘비",
+   "code": "356860",
+   "role": "기판(메모리 모듈 · 소캠)",
+   "group": "반도체 기판·전자부품",
+   "action": "관찰",
+   "fund": 3,
+   "theme": "T1",
+   "theme_name": "🌳 AI 인프라 공급 병목"
   },
   {
    "name": "엑시콘",
    "code": "092870",
-   "role": "준비 · 기준가 68,000",
+   "role": "테스트(SSD 테스터) · 핵심 후보 후순위",
    "group": "반도체 테스트·후공정",
-   "theme": "C1",
-   "theme_name": "🎯 핵심 후보 — 펀더 2/3↑ + 기술 2/3↑ (기준가 돌파 대기)"
+   "action": "준비",
+   "fund": 3,
+   "theme": "T1",
+   "theme_name": "🌳 AI 인프라 공급 병목"
   },
   {
-   "name": "아모레퍼시픽",
-   "code": "090430",
-   "role": "관찰",
-   "group": "화장품",
-   "theme": "C2",
-   "theme_name": "펀더 OK · 기술 대기 — 이익은 받쳐 주고 베이스·RS를 기다림"
+   "name": "삼성전자",
+   "code": "005930",
+   "role": "메모리 대형",
+   "group": "반도체(메모리·대형)",
+   "action": "관찰",
+   "fund": 3,
+   "theme": "T1",
+   "theme_name": "🌳 AI 인프라 공급 병목"
   },
   {
-   "name": "디케이티",
-   "code": "290550",
-   "role": "관찰",
-   "group": "핸드셋/IT부품",
-   "theme": "C2",
-   "theme_name": "펀더 OK · 기술 대기 — 이익은 받쳐 주고 베이스·RS를 기다림"
+   "name": "SK하이닉스",
+   "code": "000660",
+   "role": "메모리 대형(HBM)",
+   "group": "반도체(메모리·대형)",
+   "action": "관찰",
+   "fund": 3,
+   "theme": "T1",
+   "theme_name": "🌳 AI 인프라 공급 병목"
   },
   {
-   "name": "한진칼",
-   "code": "180640",
-   "role": "관찰",
-   "group": "운송/물류",
-   "theme": "C2",
-   "theme_name": "펀더 OK · 기술 대기 — 이익은 받쳐 주고 베이스·RS를 기다림"
+   "name": "심텍",
+   "code": "222800",
+   "role": "기판(메모리)",
+   "group": "반도체 기판·전자부품",
+   "action": "관찰",
+   "fund": 3,
+   "theme": "T1",
+   "theme_name": "🌳 AI 인프라 공급 병목"
   },
   {
-   "name": "안랩",
-   "code": "053800",
-   "role": "관찰",
-   "group": "IT/소프트웨어",
-   "theme": "C2",
-   "theme_name": "펀더 OK · 기술 대기 — 이익은 받쳐 주고 베이스·RS를 기다림"
-  },
-  {
-   "name": "나노신소재",
-   "code": "121600",
-   "role": "관찰",
-   "group": "2차전지",
-   "theme": "C2",
-   "theme_name": "펀더 OK · 기술 대기 — 이익은 받쳐 주고 베이스·RS를 기다림"
-  },
-  {
-   "name": "NHN",
-   "code": "181710",
-   "role": "관찰",
-   "group": "IT/소프트웨어",
-   "theme": "C2",
-   "theme_name": "펀더 OK · 기술 대기 — 이익은 받쳐 주고 베이스·RS를 기다림"
-  },
-  {
-   "name": "제주항공",
-   "code": "089590",
-   "role": "관찰",
-   "group": "운송/물류",
-   "theme": "C2",
-   "theme_name": "펀더 OK · 기술 대기 — 이익은 받쳐 주고 베이스·RS를 기다림"
-  },
-  {
-   "name": "지니언스",
-   "code": "263860",
-   "role": "눌림 대기",
-   "group": "IT/소프트웨어",
-   "theme": "C3",
-   "theme_name": "달리는 주도주 — 베이스 없음, 추격하지 않고 첫 눌림 대기"
+   "name": "원익홀딩스",
+   "code": "030530",
+   "role": "장비(가스 공급) ⭐보유",
+   "group": "반도체 장비",
+   "action": "관찰",
+   "fund": 3,
+   "theme": "T1",
+   "theme_name": "🌳 AI 인프라 공급 병목"
   },
   {
    "name": "티에프이",
    "code": "425420",
-   "role": "눌림 대기",
+   "role": "테스트 부품",
    "group": "반도체 테스트·후공정",
-   "theme": "C3",
-   "theme_name": "달리는 주도주 — 베이스 없음, 추격하지 않고 첫 눌림 대기"
+   "action": "관찰",
+   "fund": 3,
+   "theme": "T1",
+   "theme_name": "🌳 AI 인프라 공급 병목"
+  },
+  {
+   "name": "코스맥스",
+   "code": "192820",
+   "role": "ODM 1위 · 핵심 후보",
+   "group": "화장품",
+   "action": "준비",
+   "fund": 2,
+   "theme": "T2",
+   "theme_name": "🌳 K-뷰티 수출"
+  },
+  {
+   "name": "한국콜마",
+   "code": "161890",
+   "role": "ODM 2위",
+   "group": "화장품",
+   "action": "관찰",
+   "fund": 3,
+   "theme": "T2",
+   "theme_name": "🌳 K-뷰티 수출"
+  },
+  {
+   "name": "아모레퍼시픽",
+   "code": "090430",
+   "role": "브랜드 대형",
+   "group": "화장품",
+   "action": "관찰",
+   "fund": 3,
+   "theme": "T2",
+   "theme_name": "🌳 K-뷰티 수출"
+  },
+  {
+   "name": "코스메카코리아",
+   "code": "241710",
+   "role": "ODM 3위",
+   "group": "화장품",
+   "action": "관찰",
+   "fund": 2,
+   "theme": "T2",
+   "theme_name": "🌳 K-뷰티 수출"
   },
   {
    "name": "삼성E&A",
    "code": "028050",
-   "role": "눌림 대기",
+   "role": "선도(플랜트 · 반도체 공장)",
    "group": "건설",
-   "theme": "C3",
-   "theme_name": "달리는 주도주 — 베이스 없음, 추격하지 않고 첫 눌림 대기"
+   "action": "관찰",
+   "fund": 3,
+   "theme": "T3",
+   "theme_name": "🌳 국내 건설 · 플랜트"
   },
   {
-   "name": "와이지엔터테인먼트",
-   "code": "122870",
-   "role": "업종 리더",
-   "group": "K-엔터",
-   "theme": "C4",
-   "theme_name": "리더 업종 주도주 — 업종 이익 +20%↑ × 강도 65↑, 종목 펀더 2/3↑"
+   "name": "IPARK현대산업개발",
+   "code": "294870",
+   "role": "주택 · 2027년 증익",
+   "group": "건설",
+   "action": "관찰",
+   "fund": 3,
+   "theme": "T3",
+   "theme_name": "🌳 국내 건설 · 플랜트"
   },
   {
-   "name": "신세계",
-   "code": "004170",
-   "role": "업종 리더",
-   "group": "유통",
-   "theme": "C4",
-   "theme_name": "리더 업종 주도주 — 업종 이익 +20%↑ × 강도 65↑, 종목 펀더 2/3↑"
+   "name": "계룡건설",
+   "code": "013580",
+   "role": "공공주택",
+   "group": "건설",
+   "action": "관찰",
+   "fund": 3,
+   "theme": "T3",
+   "theme_name": "🌳 국내 건설 · 플랜트"
   },
   {
-   "name": "바이오비쥬",
-   "code": "489460",
-   "role": "업종 리더",
-   "group": "화장품",
-   "theme": "C4",
-   "theme_name": "리더 업종 주도주 — 업종 이익 +20%↑ × 강도 65↑, 종목 펀더 2/3↑"
-  },
-  {
-   "name": "아모레퍼시픽홀딩스",
-   "code": "002790",
-   "role": "업종 리더",
-   "group": "화장품",
-   "theme": "C4",
-   "theme_name": "리더 업종 주도주 — 업종 이익 +20%↑ × 강도 65↑, 종목 펀더 2/3↑"
-  },
-  {
-   "name": "TYM",
-   "code": "002900",
-   "role": "업종 리더",
-   "group": "건설기계",
-   "theme": "C4",
-   "theme_name": "리더 업종 주도주 — 업종 이익 +20%↑ × 강도 65↑, 종목 펀더 2/3↑"
-  },
-  {
-   "name": "두산밥캣",
-   "code": "241560",
-   "role": "업종 리더",
-   "group": "건설기계",
-   "theme": "C4",
-   "theme_name": "리더 업종 주도주 — 업종 이익 +20%↑ × 강도 65↑, 종목 펀더 2/3↑"
-  },
-  {
-   "name": "효성티앤씨",
-   "code": "298020",
-   "role": "업종 리더",
-   "group": "의류/패션",
-   "theme": "C4",
-   "theme_name": "리더 업종 주도주 — 업종 이익 +20%↑ × 강도 65↑, 종목 펀더 2/3↑"
+   "name": "GS건설",
+   "code": "006360",
+   "role": "데이터센터 · 주택",
+   "group": "건설",
+   "action": "관찰",
+   "fund": 0,
+   "theme": "T3",
+   "theme_name": "🌳 국내 건설 · 플랜트"
   }
  ],
  "trades": {
@@ -9031,42 +9580,49 @@
     "code": "035900",
     "qty": 22,
     "avg_price": 45050,
-    "price": 49050.0,
-    "r_multiple": 1.11,
+    "price": 46500.0,
+    "r_multiple": 0.4,
     "stop": 41446,
-    "to_stop_pct": -15.5
-   },
-   {
-    "name": "원익홀딩스",
-    "code": "030530",
-    "qty": 28,
-    "avg_price": 35300,
-    "price": 32950.0,
-    "r_multiple": -0.83,
-    "stop": 32476,
-    "to_stop_pct": -1.4
+    "to_stop_pct": -10.9
    },
    {
     "name": "동국제약",
     "code": "086450",
     "qty": 37,
     "avg_price": 26400,
-    "price": 26150.0,
-    "r_multiple": -0.12,
+    "price": 25100.0,
+    "r_multiple": -0.62,
     "stop": 24288,
-    "to_stop_pct": -7.1
+    "to_stop_pct": -3.2
    }
   ],
   "cr_won": null,
   "stats": {
-   "n": 7,
+   "n": 8,
    "win": 0,
-   "avg_r": -1.21,
-   "sum_r": -8.48,
-   "pnl_won": -1724700,
-   "rule_ok": 5
+   "avg_r": -1.19,
+   "sum_r": -9.49,
+   "pnl_won": -1804500,
+   "rule_ok": 6
   },
   "closed_recent": [
+   {
+    "name": "원익홀딩스",
+    "code": "030530",
+    "open": "2026-11-18",
+    "close": "2026-11-20",
+    "qty": 28,
+    "avg": 35300,
+    "pnl_won": -79800,
+    "r": -1.01,
+    "setup": null,
+    "fp": null,
+    "group": "반도체 장비",
+    "exits": [
+     "28주 32,450 (손절가 근처 체결 (키움 체결통보))"
+    ],
+    "rule_ok": true
+   },
    {
     "name": "티에프이",
     "code": "425420",
@@ -9188,15 +9744,15 @@
    }
   ],
   "review": {
-   "at": "2026-11-20 10:49",
-   "n": 7,
+   "at": "2026-11-20 16:51",
+   "n": 8,
    "win_rate": 0,
-   "expectancy_r": -1.21,
-   "sum_r": -8.48,
-   "pnl_won": -1724700,
-   "max_loss_streak": 7,
-   "current_loss_streak": 7,
-   "rule_ok_pct": 71,
+   "expectancy_r": -1.19,
+   "sum_r": -9.49,
+   "pnl_won": -1804500,
+   "max_loss_streak": 8,
+   "current_loss_streak": 8,
+   "rule_ok_pct": 75,
    "worse_than_stop": 2,
    "same_day_clusters": [
     {
@@ -9227,8 +9783,8 @@
    ],
    "by_regime": {
     "red": {
-     "n": 7,
-     "avg_r": -1.21,
+     "n": 8,
+     "avg_r": -1.19,
      "win": 0
     }
    },
@@ -9276,6 +9832,12 @@
      "name": "티에프이",
      "r": -1.0,
      "cum": -8.48
+    },
+    {
+     "date": "2026-11-20",
+     "name": "원익홀딩스",
+     "r": -1.01,
+     "cum": -9.49
     }
    ],
    "r_hist": [
@@ -9286,7 +9848,7 @@
     },
     {
      "label": "−2~−1R",
-     "n": 5,
+     "n": 6,
      "win": false
     },
     {
@@ -9311,8 +9873,27 @@
     }
    ],
    "big_wins": 0,
-   "avg_hold_days": 2.9,
+   "avg_hold_days": 2.8,
    "trades": [
+    {
+     "name": "원익홀딩스",
+     "code": "030530",
+     "open": "2026-11-18",
+     "close": "2026-11-20",
+     "qty": 28,
+     "avg": 35300,
+     "pnl_won": -79800,
+     "r": -1.01,
+     "setup": null,
+     "fp": null,
+     "group": "반도체 장비",
+     "exits": [
+      "28주 32,450 (손절가 근처 체결 (키움 체결통보))"
+     ],
+     "rule_ok": true,
+     "regime_at_entry": "red",
+     "hold_days": 2
+    },
     {
      "name": "티에프이",
      "code": "425420",
@@ -9448,12 +10029,12 @@
     }
    ],
    "lessons": [
-    "연속 손절 7건 (2026-11-05~2026-11-18, 합계 -8.48R). 연속 손실 뒤에는 포지션 수를 줄이는지 점검.",
+    "연속 손절 8건 (2026-11-05~2026-11-20, 합계 -9.49R). 연속 손실 뒤에는 포지션 수를 줄이는지 점검.",
     "2026-11-02 같은 날 2종목 매수(삼성전자, 티에프이) → 합계 -2.04R. 같은 날 몰아 사면 시장 하락 하루에 CR이 한 번에 현실이 됨.",
     "2026-11-04 같은 날 3종목 매수(심텍, 한화솔루션, 삼성SDI) → 합계 -4.43R. 같은 날 몰아 사면 시장 하락 하루에 CR이 한 번에 현실이 됨.",
     "2026-11-11 같은 날 2종목 매수(NAVER, 티에프이) → 합계 -2.01R. 같은 날 몰아 사면 시장 하락 하루에 CR이 한 번에 현실이 됨.",
     "손절가보다 더 잃은 거래 2건 (한화솔루션 -1.54R, 삼성SDI -1.89R). 갭하락·늦은 체결 — 실적·이벤트 전 보유 여부와 장 시작 직후 대응을 점검.",
-    "코스피 20일선 아래(🔴)에서 진입한 7건 평균 -1.21R. 국면이 나쁠 때 결과가 나쁜지 계속 세어 본다(규칙 재검토 2027-01 재료)."
+    "코스피 20일선 아래(🔴)에서 진입한 8건 평균 -1.19R. 국면이 나쁠 때 결과가 나쁜지 계속 세어 본다(규칙 재검토 2027-01 재료)."
    ],
    "source": "data/trades/trades.jsonl · 신호등 = 진입일 코스피 종가 vs 20일선(네이버 일봉, 비공식) · 숫자만, 판단은 사용자"
   }
