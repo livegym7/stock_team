@@ -730,7 +730,8 @@ html body .view .chips.tctabs{margin:8px 0 0}.chips.tctabs .chip small{font-size
 html body .view table.tcrt th{white-space:nowrap}html body .view table.tcrt td.num{white-space:nowrap;width:1%;text-align:center}
 .tcog{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 24px}
 .cpfold{margin-top:12px}
-.tchist{display:flex;align-items:center;justify-content:flex-end;gap:8px;margin:8px 0 -2px;font-size:12px}.tchist span{white-space:nowrap}html body .view .tchist select{width:auto;flex:none;max-width:140px}.tchist select{font:inherit;font-size:12px;border:1px solid var(--line);border-radius:8px;padding:3px 6px;background:var(--panel);color:var(--fg)}
+.tcbar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:4px 12px;margin:6px 0 0}html body .view .tcbar .chips.tctabs{margin:0}.tcbar+.tcm .tctop{margin-top:8px}
+.tchist{display:flex;align-items:center;justify-content:flex-end;gap:8px;margin:0 0 0 auto;font-size:12px}.tchist span{white-space:nowrap}html body .view .tchist select{width:auto;flex:none;max-width:140px}.tchist select{font:inherit;font-size:12px;border:1px solid var(--line);border-radius:8px;padding:3px 6px;background:var(--panel);color:var(--fg)}
 .tcslot{font-size:10.5px;color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:0 5px;white-space:nowrap}.tcslot.n{color:var(--tcp);border-color:var(--tcp);font-weight:700}
 @media(max-width:820px){.tcg,.tcrg,.tcog{grid-template-columns:minmax(0,1fr)}.tcrh span{margin-left:0;flex-basis:100%}html body .view table.tcrt td:first-child{white-space:normal}}
 </style>
@@ -1670,7 +1671,7 @@ function dayTabs(day,fd){
     if(cur2){const b0=cur2;return tabs+(b0.name=="자료"?b0.L.map(b=>{const lines=String(b.text||"").split("\n").filter(x=>/^(#|💡|- )/.test(x.trim())).slice(0,6).join("\n");return `<article class="panel brief br2" style="margin:8px 0 0">${briefHtml(lines)}<div style="margin-top:8px"><a class="chip on" href="#strategy" data-rsgo="1">자료실 › 깊이 읽기에서 전문 보기 ›</a></div></article>`}).join(""):b0.L.map(b=>`<article class="panel brief br2" style="margin:8px 0 0">${briefHtml(b.text)}</article>`).join(""))}
     const hist=TP.length>1?`<div class="tchist"><span class="muted">${last?`최신 ${esc(T.hm)} · 오늘 ${TP.length}회 갱신`:`<b>${esc(T.hm)} 때의 모습</b>을 보고 있습니다`}</span><label class="sr" for="tchs">회차</label><select id="tchs" data-tcs="${esc(fd)}">${TP.slice().reverse().map((x,i)=>`<option value="${esc(x.hm)}" ${x===T?"selected":""}>${i==0?"최신 ":"이전 "}${esc(x.hm)}</option>`).join("")}</select></div>`:"";
     const cps=CP.length?`<details class="fold cpfold" data-fold="cpInNews" ${ui.cpInNews?"open":""}><summary class="foldh">🧭 체크포인트 ${CP.length}개 <small class="muted">${CP.map(b=>esc(b.time)).join(" · ")} · 바뀐 것 · 지금 상태 · 다음까지 볼 것</small></summary>${CP.slice().reverse().map((b,i)=>`<details class="dsec" ${i==0?"open":""}><summary><span class="pill">${esc(b.time||"")}</span><span class="dsl">${esc(briefLine(b))}</span></summary><article class="panel brief br2" style="margin:8px 0 0">${briefHtml(b.text)}</article></details>`).join("")}</details>`:"";
-    return tabs+hist+topicBoard(T,fd,TP)+cps}
+    return `<div class="tcbar">${tabs}${hist}</div>`+topicBoard(T,fd,TP)+cps}
   return `<div class="dtabs">${G.map(btn).join("")}</div>${body}${ev}`}
 document.addEventListener("click",e=>{const t=e.target.closest("[data-dsel]");if(t){ui.dsel=ui.dsel||{};ui.dsel[t.dataset.dd]=t.dataset.dsel;save();const y=scrollY;render();scrollTo(0,y)}});
 function flowTimeline(){
