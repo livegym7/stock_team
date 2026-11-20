@@ -47,7 +47,7 @@ description: 체크포인트 (Balance Lab 2.0, 평일 07·10·12·15·18시 예�
 - 반대 신호: 스트림과 어긋난 움직임
 ```
 7. `python3 tools/web_build.py --only channels` → `git add data/checkpoint data/strategy/memos reports && git commit -m "체크포인트 HH:MM" && git push -u origin main` (웹은 푸시하면 자동 배포). 텔레그램이 제시간에 가도록 여기까지를 먼저 끝낸다.
-7-1. **채널·리포트 정리도 이 회차에 이어서 쓴다 (2026-11-19 사용자 확정: 2시간 정리 예약 5회를 없애고 체크포인트 회차에 합침, 같은 날 5회로 늘림).** `.claude/skills/live-brief/SKILL.md`의 2~8단계를 그대로 한다(`live_brief.py prep` 재료 → 채널 정리·리포트 정리 저장 → 커밋·푸시). 새 글이 없으면(channels_new·report_new 모두 0) 건너뛴다. 정리는 텔레그램으로 보내지 않는다. 예약 지시문의 "checkpoint.py prep 재료만 본다"는 지난 실행 내용을 다시 읽지 말라는 뜻이며, 이 단계의 `live_brief.py prep` 재료는 읽는다(예약 지시문보다 이 문서가 최신).
+7-1. **채널·리포트 정리도 이 회차에 이어서 쓴다 (2026-11-19 사용자 확정: 2시간 정리 예약 5회를 없애고 체크포인트 회차에 합침, 같은 날 5회로 늘림).** `.claude/skills/live-brief/SKILL.md`의 2~8단계를 그대로 한다(`live_brief.py prep` 재료 → **주제 카드 JSON 하나** 저장 `live_brief.py save --kind topics` → 커밋·푸시. 2026-11-20부터 채널 정리·리포트 정리 두 글을 따로 쓰지 않음). 새 글이 없으면(channels_new·report_new 모두 0) 건너뛴다. 정리는 텔레그램으로 보내지 않는다. 예약 지시문의 "checkpoint.py prep 재료만 본다"는 지난 실행 내용을 다시 읽지 말라는 뜻이며, 이 단계의 `live_brief.py prep` 재료는 읽는다(예약 지시문보다 이 문서가 최신).
 8. 실패하면 실패 단계·오류(키 값 없이)를 `python3 tools/telegram_send.py "체크포인트 실패: …"`로.
 
 ## 지키는 선

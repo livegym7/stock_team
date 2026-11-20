@@ -200,6 +200,22 @@ def briefs(days=21):
             r["versions"] = [r["time"]]
             keep[k] = r
         out.append(r)
+    # 주제 카드(2026-11-20): 그날 채널 정리 줄에 topics_HHMM.json을 붙여 보낸다 → 웹 '소식 › 정리'가 주제 카드로 그림 (없으면 옛 글 그대로)
+    recent = sorted({r["date"] for r in out}, reverse=True)[:3]
+    for (day, kind), r in keep.items():
+        if kind != "channels":
+            continue
+        fs = sorted(glob.glob(str(ROOT / "reports" / day / "topics_[0-9][0-9][0-9][0-9].json")))
+        if day not in recent:
+            fs = fs[-1:]          # 지난 날은 마지막 회차만 (화면 자료를 작게)
+        T = []
+        for f in fs:
+            try:
+                T.append({"hm": Path(f).stem[-4:-2] + ":" + Path(f).stem[-2:], **json.loads(Path(f).read_text(encoding="utf-8"))})
+            except Exception:
+                pass
+        if T:
+            r["topics"] = T
     return out
 
 

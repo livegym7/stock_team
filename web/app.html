@@ -705,6 +705,30 @@ details.pgfold .tfr .page,details.pgfold>article.page{border:0!important;margin:
 details.pgfold>article.page .mast{display:none}
 .cpmore{margin-top:6px}.mktgo{display:block;margin-top:10px}
 @media(max-width:820px){html body .view .tfr.mkt .page{grid-template-columns:minmax(0,1fr)}details.pgfold>summary{flex-wrap:wrap;gap:4px 10px}.tfr{max-width:100%;overflow-x:hidden}.tfr .tw{overflow-x:auto}}
+
+/* 주제 카드 (2026-11-20) */
+.tcm{--tcp:var(--primary,#2f6fed)}
+.tctop{border:1px solid color-mix(in srgb,var(--tcp) 30%,var(--line));border-radius:14px;padding:14px 16px;margin:10px 0 12px;background:color-mix(in srgb,var(--tcp) 5%,var(--panel))}
+.tctop .k{font-size:11px;color:var(--tcp);font-weight:700;letter-spacing:.06em}.tctop .t{font-size:15px;font-weight:700;margin:2px 0 6px}
+.tctop ul{margin:0;padding:0;list-style:none}.tctop li{padding-left:12px;position:relative;margin:2px 0}.tctop li:before{content:"";position:absolute;left:1px;top:.75em;width:4px;height:4px;border-radius:50%;background:var(--muted)}
+.tcidx{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px}.tcidx a{border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:12px;color:var(--fg);text-decoration:none;background:var(--panel);cursor:pointer}.tcidx a i{font-style:normal;margin-left:2px}.tcidx a.new{border-color:var(--tcp)}.tcidx a.rp{border-color:color-mix(in srgb,var(--up) 35%,var(--line))}
+.tcg{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:start}
+.tcc{border:1px solid var(--line);border-radius:14px;padding:14px 16px;background:var(--panel);min-width:0;scroll-margin-top:70px}.tcc.mine{border-left:3px solid var(--tcp)}.tcc.full{grid-column:1/-1}.tcc.tcr{border-top:3px solid #c9a227}
+.tch{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-bottom:4px}.tch b{font-size:15px}
+.pill.tcp{font-size:11px;padding:1px 8px;background:var(--soft);color:var(--muted);white-space:nowrap}.pill.tcp.st{background:color-mix(in srgb,var(--tcp) 12%,transparent);color:var(--tcp);font-weight:700}.pill.tcp.new{background:var(--tcp);color:#fff;font-weight:700}.pill.tcp.pos{background:color-mix(in srgb,var(--up) 12%,transparent);color:var(--up)}.pill.tcp.neg{background:color-mix(in srgb,var(--down) 12%,transparent);color:var(--down)}.pill.tcp.mix{background:color-mix(in srgb,#e0a63a 22%,transparent);color:var(--fg)}
+.tco1{font-weight:700;font-size:13px;margin:2px 0 8px}
+.tcpc{display:grid;grid-template-columns:22px minmax(0,1fr);gap:2px 6px;margin-bottom:6px}
+.tcl{border-top:1px solid var(--line);margin-top:8px;padding-top:8px}
+.tclh{font-size:11px;color:var(--muted);font-weight:700;margin-bottom:4px;display:flex;justify-content:space-between;gap:8px}
+.tci{display:grid;grid-template-columns:38px 14px minmax(0,1fr);gap:0 6px;padding:3px 0;border-bottom:1px dotted var(--line);font-size:12.5px}.tci:last-of-type{border-bottom:0}
+.tci time{color:var(--muted);font-size:11px;font-variant-numeric:tabular-nums;padding-top:2px}.tci em{font-style:normal;font-size:10.5px;padding-top:3px}.tci.n time{color:var(--tcp);font-weight:700}.tci.n>div{font-weight:500}.tci small{color:var(--muted);font-size:11px}
+.tcrl{display:block;margin-top:8px;padding:6px 10px;border-radius:9px;background:var(--soft);font-size:12px;color:var(--fg);cursor:pointer;text-decoration:none}
+.tcrg{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:20px;border-top:1px solid var(--line);margin-top:8px;padding-top:10px}
+html body .view table.tcrt{width:100%;font-size:12.5px}html body .view table.tcrt td,html body .view table.tcrt th{white-space:normal;vertical-align:top}html body .view table.tcrt td:first-child{white-space:nowrap;font-weight:700}html body .view table.tcrt tr.n td:first-child{color:var(--tcp)}
+.tcrp{padding:6px 0;border-bottom:1px dotted var(--line);font-size:12.5px}.tcrp:last-child{border-bottom:0}.tcrh{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:baseline}.tcrh span{margin-left:auto;font-variant-numeric:tabular-nums}.tcrh small{color:var(--muted);font-size:11px}
+.tcog{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 24px}
+.cpfold{margin-top:12px}
+@media(max-width:820px){.tcg,.tcrg,.tcog{grid-template-columns:minmax(0,1fr)}.tcrh span{margin-left:0;flex-basis:100%}html body .view table.tcrt td:first-child{white-space:normal}}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="bl-icon" viewBox="0 0 1024 1024"><defs><linearGradient id="blbg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#52525b"/><stop offset="1" stop-color="#18181b"/></linearGradient><linearGradient id="blgl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".16"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/></linearGradient></defs><rect width="1024" height="1024" rx="232" fill="url(#blbg)"/><rect width="1024" height="1024" rx="232" fill="url(#blgl)"/><path d="M352 262 V762 M352 262 H528 A122 122 0 0 1 528 506 H352 M352 506 H574 A128 128 0 0 1 574 762 H352" fill="none" stroke="#fff" stroke-linejoin="round" stroke-linecap="round" stroke-width="104"/><circle cx="742" cy="290" r="44" fill="#6d7dff"/></symbol></svg>
@@ -1588,6 +1612,29 @@ function briefLine(b){   // 카드 요약 한 줄: 💡 의견 첫 줄
 const SECN={checkpoint:"체크포인트",channels:"장중 정리 · 채널",report_live:"장중 정리 · 리포트",close:"마감 리뷰",morning:"아침 브리핑",
   report_brief_am:"리포트 브리핑",report_brief_pm:"리포트 브리핑",weekly:"주간 리뷰",strategy:"전략 보고서",deep_research:"딥리서치"};
 /* 소식 하루 카드: 띠 펼치기 대신 위쪽 버튼 줄 → 고른 글 하나만 아래에 (2026-11-17 시안) · 자료(딥리서치)는 버튼 하나로 묶음 */
+/* ---------- 주제 카드 (2026-11-20 사용자 확정): 시간순 채널 정리·리포트 정리 두 글 대신 주제별 카드 + 카드마다 개별 소식 + 리포트 카드. 자료 = reports/날짜/topics_HHMM.json (tools/live_brief.py save --kind topics) ---------- */
+const TC_ST={"긍정":["pos","👍 긍정 우세"],"부정":["neg","👎 부정 우세"],"엇갈림":["mix","⚖️ 엇갈림"],"중립":["","➖ 중립"]},TC_TONE={pos:"🔴",neg:"🔵",neu:"⚪"},TC_DIR={up:"🔺",down:"🔽",new:"🆕",note:"⚪"};
+function tcItems(L,key,lim){const n=moreN(key,lim||7);return L.slice(0,n).map(x=>`<div class="tci ${x.new?"n":""}"><time>${esc(x.t||"")}</time><em>${TC_TONE[x.tone]||"⚪"}</em><div>${tint(x.text||"")}${x.src?` <small>${esc(x.src)}</small>`:""}${x.new?" 🆕":""}</div></div>`).join("")+moreBtn(key,Math.min(n,L.length),L.length,20)}
+function tcPct(t){return esc(t).replace(/([+−-]\d[\d.,]*%)/g,(m)=>`<b class="${/^\+/.test(m)?"up":"down"}">${m}</b>`)}
+function topicBoard(T,fd){
+  const op=T.opinion||{},R=T.reports,rc=(R||{}).counts||{},k="tc"+fd+T.hm;
+  const pc2=(ic,L)=>(L||[]).map(x=>`<span>${ic}</span><div>${tint(x)}</div>`).join("");
+  const idx=(T.topics||[]).map((t,i)=>`<a class="${t.new?"new":""}" data-tcgo="tc${i}">${esc(t.name)} <i>${((TC_ST[t.stance]||[])[1]||"").split(" ")[0]}</i>${t.new?" 🆕":""}</a>`).join("")+(R?`<a class="rp" data-tcgo="tcr">📑 리포트 🔽${rc.down??0} 🔺${rc.up??0} 🆕${rc.new??0}</a>`:"")+((T.others||[]).length?`<a data-tcgo="tco">그 밖의 개별 소식 ${(T.others||[]).reduce((a,g)=>a+(g.items||[]).length,0)}</a>`:"");
+  const card=(t,i)=>{const st=TC_ST[t.stance]||["",""];return `<div class="tcc ${t.mine?"mine":""}" id="tc${i}"><div class="tch"><b>${esc(t.name)}</b><span class="pill tcp ${st[0]}">${st[1]}</span>${t.scope?`<span class="pill tcp ${t.mine?"st":""}">${esc(t.scope)}</span>`:""}${t.new?`<span class="pill tcp new">🆕 ${esc(T.hm.slice(0,2))}시</span>`:""}</div>
+    <div class="tco1">${tint(t.one||"")}</div><div class="tcpc">${pc2("👍",t.pro)}${pc2("👎",t.con)}${t.so?pc2("🎯",[t.so]):""}</div>
+    <div class="tcl"><div class="tclh"><span>개별 소식 ${(t.items||[]).length}건</span><span>${(t.items||[]).some(x=>x.new)?"🆕 = 이번 회차에 새로 들어옴":""}</span></div>${tcItems(t.items||[],k+"i"+i)}</div>
+    ${t.report_link?`<a class="tcrl" data-tcgo="tcr">📑 ${esc(t.report_link)} ›</a>`:""}</div>`};
+  const rep=R?`<div class="tcc full tcr" id="tcr"><div class="tch"><b>📑 오늘의 리포트</b><span class="pill tcp neg">🔽 하향 ${rc.down??0}</span><span class="pill tcp pos">🔺 상향 ${rc.up??0}</span><span class="pill tcp">🆕 신규 ${rc.new??0}</span><span class="pill tcp">➖ 유지 ${rc.keep??0}</span>${rc.total?`<span class="pill tcp">전체 ${rc.total}건</span>`:""}${R.new?`<span class="pill tcp new">🆕 ${esc(T.hm.slice(0,2))}시</span>`:""}</div>
+    <div class="tco1">${tint(R.one||"")}</div><div class="tcpc">${R.mine?pc2("🎯",[R.mine]):""}${R.note?pc2("⚖️",[R.note]):""}</div>
+    <div class="tcrg"><div><div class="tclh"><span>업종별 묶음</span></div><table class="tcrt"><tr><th class="l">업종</th><th>건수</th><th class="l">종목 · 변화</th></tr>${(R.sectors||[]).map(x=>`<tr class="${x.new?"n":""}"><td class="l">${TC_DIR[x.dir]||""} ${esc(x.name||"")}${x.new?" 🆕":""}</td><td class="num">${x.n??""}</td><td class="l">${tcPct(x.text||"")}</td></tr>`).join("")}</table></div>
+     <div><div class="tclh"><span>눈여겨볼 리포트 ${(R.picks||[]).length}건</span></div>${(R.picks||[]).map(x=>`<div class="tcrp ${x.new?"n":""}"><div class="tcrh"><b>${TC_DIR[x.dir]||""} ${esc(x.name||"")}</b> <small>${esc([x.broker,x.t].filter(Boolean).join(" · "))}</small>${x.new?" 🆕":""}<span>${tcPct(x.change||"")}</span></div><div>${tint(x.why||"")}</div></div>`).join("")}</div></div>
+    <a class="bmore" href="#strategy" data-corpgo="1">리포트 전체 목록은 전략 › 자료실 › 기업 리포트 ›</a></div>`:"";
+  const oth=(T.others||[]).length?`<div class="tcc full" id="tco"><div class="tch"><b>그 밖의 개별 소식</b><span class="pill tcp">주제에 묶이지 않은 것</span></div><div class="tcog">${T.others.map((g,i)=>`<div><div class="tclh"><span>${esc(g.group||"")}</span></div>${tcItems(g.items||[],k+"o"+i,8)}</div>`).join("")}</div></div>`:"";
+  return `<div class="tcm"><div class="tctop"><div class="k">💡 CLAUDE 의견 · ${esc(T.hm)}</div><div class="t">${tint(op.title||"")}</div><ul>${(op.lines||[]).map(x=>`<li>${tint(x)}</li>`).join("")}${op.delta?`<li>🔄 ${tint(op.delta)}</li>`:""}</ul></div>
+   <div class="tcidx">${idx}</div><div class="tcg">${(T.topics||[]).map(card).join("")}${rep}${oth}</div>${src(T.sources||"출처: 텔레그램 채널 요약(2차 자료) · 판단은 본인")}</div>`}
+document.addEventListener("click",e=>{const t=e.target.closest("[data-tcgo]");if(t){e.preventDefault();const el=document.getElementById(t.dataset.tcgo);el&&el.scrollIntoView({behavior:"smooth",block:"start"})}});
+function tcPick(L,tm){   // 고른 체크포인트 시각에 맞는 회차: 그 시각 +25분 안에서 가장 늦은 것, 없으면 가장 이른 것
+  const m=x=>+x.slice(0,2)*60+ +x.slice(3,5),lim=tm?m(tm)+25:1e9,ok=L.filter(x=>m(x.hm)<=lim);return ok.length?ok[ok.length-1]:L[0]}
 function dayTabs(day,fd){
   const res=day.filter(b=>fam(b.kind)=="research"),oth=day.filter(b=>fam(b.kind)!="research");
   /* 체크포인트와 정리를 한 장으로 (2026-11-19 사용자 확정): 체크포인트가 있는 날은 채널·리포트 정리를 따로 버튼으로 두지 않고, 고른 체크포인트 아래 '근거' 접힌 칸으로 붙임 */
@@ -1599,6 +1646,9 @@ function dayTabs(day,fd){
   const btn=g=>{const b=g.L[0],v=(b.versions||[]).length;return `<button class="dtab ${g===cur?"on":""}" data-dsel="${esc(g.key)}" data-dd="${esc(fd)}" title="${esc(briefLine(b))}"><span class="num">${esc(g.time)}</span> <b>${esc(g.name)}</b>${g.L.length>1?` <small>${g.L.length}</small>`:""}${v>1?` <small class="muted">${v}회째</small>`:""}</button>`};
   const body=cur&&cur.name=="자료"?cur.L.map(b=>{const lines=String(b.text||"").split("\n").filter(x=>/^(#|💡|- )/.test(x.trim())).slice(0,6).join("\n");return `<article class="panel brief br2" style="margin:8px 0 0">${briefHtml(lines)}<div style="margin-top:8px"><a class="chip on" href="#strategy" data-rsgo="1">자료실 › 깊이 읽기에서 전문 보기 ›</a></div></article>`}).join(""):cur?cur.L.map(b=>`<article class="panel brief br2" style="margin:8px 0 0">${cur.L.length>1?`<div class="muted" style="font-size:12px;margin-bottom:4px">${esc(b.time||"")} · ${esc(SECN[b.kind]||b.kind_name)}</div>`:""}${(b.versions||[]).length>1?`<div class="muted" style="font-size:12px;margin-bottom:4px">${b.versions.length}회째 갱신 · 첫 ${esc(b.versions[b.versions.length-1])} · 최신 ${esc(b.time||"")}</div>`:""}${briefHtml(b.text)}${/^report/.test(b.kind)?`<div style="margin-top:8px"><a class="chip on" href="#strategy" data-corpgo="1">전체 목록 → 자료실 › 기업 리포트 ›</a></div>`:""}</article>`).join(""):"";
   const evn={channels:"채널 소식",report_live:"리포트"},ev=cur&&cur.L[0].kind=="checkpoint"&&EV.length?`<div class="evbox"><div class="evh">근거 <small class="muted">오늘 쌓인 채널 소식·리포트 정리 · 회차마다 이어서 갱신</small></div>${EV.slice().sort((a,b)=>(a.kind=="channels"?0:1)-(b.kind=="channels"?0:1)).map(b=>`<details class="dsec" data-bf="${esc(b.file)}"><summary><span class="pill">${evn[b.kind]}</span><small class="muted num">최신 ${esc(b.time||"")}${(b.versions||[]).length>1?` · ${b.versions.length}회째`:""}</small><span class="dsl">${esc(briefLine(b))}</span></summary><article class="panel brief br2" style="margin:8px 0 0">${briefHtml(b.text)}${/^report/.test(b.kind)?`<div style="margin-top:8px"><a class="chip on" href="#strategy" data-corpgo="1">전체 목록 → 자료실 › 기업 리포트 ›</a></div>`:""}</article></details>`).join("")}</div>`:"";
+  const TP=((day.find(b=>b.kind=="channels")||{}).topics)||[];
+  if(TP.length&&cur&&(cur.L[0].kind=="checkpoint"||cur.L[0].kind=="channels")){const T=cur.L[0].kind=="checkpoint"?tcPick(TP,cur.time):TP[TP.length-1];
+    return `<div class="dtabs">${G.map(btn).join("")}</div>${topicBoard(T,fd)}${cur.L[0].kind=="checkpoint"?`<details class="fold cpfold" data-fold="cpInNews" ${ui.cpInNews?"open":""}><summary class="foldh">🧭 ${esc(cur.time)} 체크포인트 <small class="muted">바뀐 것 · 지금 상태 · 다음까지 볼 것 (오늘 메뉴와 같은 글)</small></summary>${body}</details>`:""}`}
   return `<div class="dtabs">${G.map(btn).join("")}</div>${body}${ev}`}
 document.addEventListener("click",e=>{const t=e.target.closest("[data-dsel]");if(t){ui.dsel=ui.dsel||{};ui.dsel[t.dataset.dd]=t.dataset.dsel;save();const y=scrollY;render();scrollTo(0,y)}});
 function flowTimeline(){
@@ -1617,7 +1667,7 @@ function flowTimeline(){
   cards.sort((a,b)=>String(b[0]).localeCompare(String(a[0])));
   return `<!--bar--><div class="chips">${F.map(([v,n])=>`<button class="chip ${k==v?"on":""}" data-bk="${v}">${n}</button>`).join("")}</div>${datePicker(Object.keys(byDay),"")}<!--/bar-->
   ${cards.map(c=>c[1]).join("")||`<div class="empty">이 날 글이 없습니다</div>`}
-  ${src("하루에 나온 글은 한 장에 시각순 버튼으로 모입니다(누르면 그 글만 아래에, 처음엔 최신 글) · 체크포인트 07·10·12·15·18시(18시는 마감 리뷰 겸함, 아래 '근거'에 채널 소식·리포트 정리) · 주간(금) · 전략(토) · 자료 = 그날 딥리서치 깊이 읽기 묶음")}`;
+  ${src("하루에 나온 글은 한 장에 시각순 버튼으로 모입니다(누르면 그 글만 아래에, 처음엔 최신 글) · 체크포인트 07·10·12·15·18시(18시는 마감 리뷰 겸함, 그 회차의 주제 카드 = 주제별 종합 + 개별 소식 + 리포트) · 주간(금) · 전략(토) · 자료 = 그날 딥리서치 깊이 읽기 묶음")}`;
 }
 /* 네이버 원본 종목 리포트 (2026-11-17 시안): 자료실 '오늘의 리포트' 탭을 소식 › 리포트로 옮김 · 1차 자료 · 규칙 점수 */
 function dayReports(){
