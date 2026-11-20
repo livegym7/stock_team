@@ -5,7 +5,7 @@
 리포트 상향·하향 나열이 아니라: 며칠째 이어지는 큰 흐름 / 오늘 바뀐 것 / 말과 주가가 엇갈리는 곳 /
 내 전략(돌파·관찰 풀)에 주는 뜻 / 반대 근거 / 볼 것(숫자 조건)을 쓴다.
 
-  python3 tools/insight.py prep [--days 3]     # 재료 요약(토큰 0, 약 1.2만 자): 정리 헤드라인·🔥여러 채널·말 vs 주가·띔 메모·카드 새 주장·시세
+  python3 tools/insight.py prep [--days 3]     # 재료 요약(토큰 0, 약 1.2만 자): 정리 헤드라인·🔥여러 채널·말 vs 주가·스트림 메모·카드 새 주장·시세
   python3 tools/insight.py save --file x.json   # 형식 검사 → data/insight/latest.json + history/
   python3 tools/insight.py show                 # 지금 저장된 인사이트
 
@@ -92,7 +92,7 @@ def md(o):
         L.append("## 리포트 카드의 새 주장")
         L += [f"- {c}" for c in o["card_new_claims"]]
     if o.get("memos"):
-        L.append("## 띔 메모")
+        L.append("## 스트림 메모")
         for m in o["memos"]:
             L.append(m if isinstance(m, str) else json.dumps(m, ensure_ascii=False)[:1500])
     if o.get("trades"):

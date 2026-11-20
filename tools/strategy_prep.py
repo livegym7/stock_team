@@ -2,7 +2,7 @@
 """전략 보고서 재료 (토큰 0). Claude 전략가는 이 결과만 읽고 보고서를 쓴다 — 31일 치 채널 글을 다시 읽지 않는다.
 
 python3 tools/strategy_prep.py prep            # 4검증(말·이익·가격·돈) 숫자 + 국면 + 자료실·메모·일정 → data/strategy/prep/날짜.json + 요약 출력
-python3 tools/strategy_prep.py score           # 지난 보고서 띔·관찰 종목의 그 뒤 성적(가설 채점 재료)
+python3 tools/strategy_prep.py score           # 지난 보고서 스트림·관찰 종목의 그 뒤 성적(가설 채점 재료)
 python3 tools/strategy_prep.py pool            # latest.json 기업 지도 → config/watch_pool.toml (관찰 풀, 사용자 편집 가능)
 python3 tools/strategy_prep.py save --file 초안.json   # 형식 점검 → history 보관 → latest.json → 관찰 풀 갱신
 
@@ -485,7 +485,7 @@ def md_summary(o):
     L.append(f"## 자료실 최근 14일 {len(o.get('research') or [])}건")
     for d in (o.get("research") or [])[:30]:
         L.append(f"- [{d.get('date')} {d.get('broker')} {d.get('kind')}] {d.get('title')} — {d.get('one_line')}")
-    L.append("## 띔 메모")
+    L.append("## 스트림 메모")
     for m in o.get("memos") or []:
         L.append(m["text"])
     L.append("## 최근 의견")
@@ -507,7 +507,7 @@ def md_summary(o):
 
 # ---------- score ----------
 def score():
-    """지난 보고서 띔별: 그 뒤 관찰 종목·업종의 가격·RS·수급 변화 (채점은 에이전트가, 숫자는 여기서)."""
+    """지난 보고서 스트림별: 그 뒤 관찰 종목·업종의 가격·RS·수급 변화 (채점은 에이전트가, 숫자는 여기서)."""
     L = load_latest()
     if not L:
         return {"error": "latest.json 없음"}
@@ -570,11 +570,11 @@ def save(path):
     for th in d["themes"]:
         for k in ("id", "name", "stage", "conviction", "thesis", "logic", "evidence", "companies", "against", "invalid"):
             if k not in th:
-                raise SystemExit(f"띔 {th.get('id')} 에 {k} 없음")
-        # 반론 3개 이상 (2026-11-15 사용자 확정: 반론가 규칙 '띔마다 3~5개'를 저장 때 검사)
+                raise SystemExit(f"스트림 {th.get('id')} 에 {k} 없음")
+        # 반론 3개 이상 (2026-11-15 사용자 확정: 반론가 규칙 '스트림마다 3~5개'를 저장 때 검사)
         n_against = len([x for x in (th.get("against") or []) if str(x).strip()])
         if n_against < 3:
-            raise SystemExit(f"띔 {th.get('id')} 반론이 {n_against}개 — 3개 이상 필요 (반론가 단계를 다시 하세요)")
+            raise SystemExit(f"스트림 {th.get('id')} 반론이 {n_against}개 — 3개 이상 필요 (반론가 단계를 다시 하세요)")
     if not d.get("red_team"):
         raise SystemExit("red_team 칸 없음 — 반론가 보조 에이전트 결과(누가·몇 개·확신도 조정)를 적으세요 (SKILL 2단계)")
     HIST.mkdir(parents=True, exist_ok=True)

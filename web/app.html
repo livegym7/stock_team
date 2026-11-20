@@ -974,21 +974,21 @@ function spark5(v){if(!v||!v.length)return "";const mx=Math.max(...v,1);return `
 function viewStrategy(){
   const R=D.strategy;
   if(!R)return `<h1>전략 보고서</h1><div class="empty">아직 보고서가 없습니다. Claude에게 "전략 보고서 써줘"라고 요청하세요</div>`;
-  const roleC={"선도":"ok","후속 (가장 균형)":"ok","후속 (기판)":"ok","후속":"ok","확산 후보":"","후속 후보":"","관찰":"","비켜난 종목":"warn","띔의 원천 (주도주 아님)":""};
+  const roleC={"선도":"ok","후속 (가장 균형)":"ok","후속 (기판)":"ok","후속":"ok","확산 후보":"","후속 후보":"","관찰":"","비켜난 종목":"warn","스트림의 원천 (주도주 아님)":""};
   const AX={"말":"🗣️ 말","이익":"💰 이익","가격":"📈 가격","돈":"🏦 돈"};
   const theme=t=>`<section class="panel rpt" id="${esc(t.id||"")}">
-   <div class="rhead"><span class="pill ${t.rank=="메인 띔"?"ok":""}">${esc(t.rank||"")}</span><h2>${esc(t.name)}</h2></div>
+   <div class="rhead"><span class="pill ${t.rank=="메인 스트림"?"ok":""}">${esc(t.rank||"")}</span><h2>${esc(t.name)}</h2></div>
    <div class="rmeta">${stageBar(t.stage)}<span class="pill" title="확신도">확신 ${"●".repeat(t.conviction||0)}${"○".repeat(5-(t.conviction||0))}</span></div>
    <p class="thesis">${tint(t.thesis||"")}</p>
    <h3>📖 논리</h3><div class="logic">${(t.logic||[]).map(x=>`<p>${tint(x)}</p>`).join("")}</div>
    ${(t.flow||[]).length?`<h3>🔗 사고 플로우 <small class="muted">실선 = 증거로 확인 · 점선 = 아직 가설</small></h3><div class="chain">${t.flow.map((c,i)=>`${i?'<span class="arr">→</span>':""}<div class="node ${c.status=="확인"?"ok":"hyp"}"><b>${tint(c.node)}</b>${c.note?`<small>${esc(c.note)}</small>`:""}</div>`).join("")}</div>`:""}
    <h3>📊 네 가지로 검증</h3><div class="ev4">${(t.evidence||[]).map(e=>`<div class="evc"><div class="evh"><b>${AX[e.axis]||esc(e.axis)}</b> ${ARW[e.score]||esc(e.score||"")}</div><div>${tint(e.text)}</div>${e.trend?`<div style="margin-top:4px">${spark5(e.trend)}</div>`:""}</div>`).join("")}</div>
-   <h3>🏢 기업 지도 <small class="muted">선도 → 후속 → 확산 후보 · 띔에서 비켜난 종목까지</small></h3>
+   <h3>🏢 기업 지도 <small class="muted">선도 → 후속 → 확산 후보 · 스트림에서 비켜난 종목까지</small></h3>
    <div class="cmap">${(t.companies||[]).map(c=>`<div class="cmc"><div class="cmh"><b class="click" data-cq="${esc(c.name.split("·")[0])}" style="cursor:pointer">${esc(c.name)}</b><span class="pill ${roleC[c.role]??""}">${esc(c.role)}</span><small class="muted">노출: ${esc(c.exposure||"-")}</small></div>
      <div>${tint(c.point||"")}</div>${c.stats?`<div class="num" style="font-size:12.5px;margin-top:2px">${tint(c.stats)}</div>`:""}
      ${c.against&&c.against!="-"?`<div style="font-size:12.5px"><span class="down">반대</span> ${tint(c.against)}</div>`:""}${c.check?`<div style="font-size:12px" class="muted">👀 ${esc(c.check)}</div>`:""}</div>`).join("")}</div>
    ${(t.against||[]).length?`<h3>⚖️ 반론</h3>${t.against.map(x=>`<div>- ${tint(x)}</div>`).join("")}`:""}
-   ${t.invalid?`<div class="invalid">❌ 이 띔이 깨지는 신호: ${tint(t.invalid)}</div>`:""}</section>`;
+   ${t.invalid?`<div class="invalid">❌ 이 스트림이 깨지는 신호: ${tint(t.invalid)}</div>`:""}</section>`;
   const G=R.regime||{}, PF=R.portfolio;
   return `<div class="rpt-wrap"><div class="rcover">
    <div class="muted" style="font-size:12.5px">${esc(R.subtitle||"전략 보고서")} ${R.sample?'<span class="pill warn">샘플 초안</span>':""}</div>
@@ -1000,11 +1000,11 @@ function viewStrategy(){
   ${G.title?`<section class="panel rpt"><h2>🧭 ${esc(G.title)}</h2>${(G.numbers||[]).length?`<div class="grid g4" style="margin:8px 0">${G.numbers.map(n=>`<div class="tile"><span>${esc(n.label)}</span><b>${esc(n.value)}</b><small class="muted">${esc(n.note||"")}</small></div>`).join("")}</div>`:""}<div class="logic">${(G.body||[]).map(x=>`<p>${tint(x)}</p>`).join("")}</div></section>`:""}
   ${(R.themes||[]).map(theme).join("")}
   ${(R.watch||[]).length?`<section class="panel rpt"><h2>👀 관찰 · 주의 섹터</h2><div class="ins">${R.watch.map(x=>`<div class="insrow"><b>${esc(x.name)}</b> <span class="pill">${esc(x.status)}</span><div style="font-size:13px">${tint(x.why)}</div></div>`).join("")}</div></section>`:""}
-  ${PF?`<section class="panel rpt"><h2>💼 ${esc(PF.title)}</h2><div class="tw"><table><tr><th class="l">종목</th><th>띔 정렬</th><th class="l">메모</th></tr>${(PF.rows||[]).map(r=>`<tr><td class="l"><b>${esc(r.name)}</b></td><td><span class="pill ${r.fit=="높음"?"ok":r.fit=="낮음"?"warn":""}">${esc(r.fit)}</span></td><td class="l" style="white-space:normal">${tint(r.note)}</td></tr>`).join("")}</table></div>${PF.note?`<div class="src">${esc(PF.note)}</div>`:""}</section>`:""}
+  ${PF?`<section class="panel rpt"><h2>💼 ${esc(PF.title)}</h2><div class="tw"><table><tr><th class="l">종목</th><th>스트림 정렬</th><th class="l">메모</th></tr>${(PF.rows||[]).map(r=>`<tr><td class="l"><b>${esc(r.name)}</b></td><td><span class="pill ${r.fit=="높음"?"ok":r.fit=="낮음"?"warn":""}">${esc(r.fit)}</span></td><td class="l" style="white-space:normal">${tint(r.note)}</td></tr>`).join("")}</table></div>${PF.note?`<div class="src">${esc(PF.note)}</div>`:""}</section>`:""}
   ${v3Tables(R)}
   ${(R.checkpoints||[]).length?`<section class="panel rpt"><h2>📌 앞으로 확인할 것</h2>${R.checkpoints.map(x=>`<div>☐ ${tint(x)}</div>`).join("")}</section>`:""}
   ${(R.risks||[]).length?`<section class="panel rpt"><h2>⚠️ 이 보고서의 한계·위험</h2>${R.risks.map(x=>`<div>- ${tint(x)}</div>`).join("")}</section>`:""}
-  <section class="panel rpt"><h2>📋 가설 성적표</h2>${(R.scorecard||[]).length?`<div class="tw"><table><tr><th>세운 날</th><th class="l">가설</th><th>결과</th><th class="l">메모</th></tr>${R.scorecard.map(x=>`<tr><td class="num">${esc(x.made)}</td><td class="l" style="white-space:normal">${tint(x.hypothesis)}</td><td><span class="pill ${x.status=="맞음"?"ok":x.status=="틀림"?"warn":""}">${esc(x.status)}</span></td><td class="l" style="white-space:normal">${esc(x.note||"")}</td></tr>`).join("")}</table></div>`:`<div class="muted">첫 보고서라 채점할 가설이 없습니다. 다음 보고서부터 이번 띔·무효 신호를 채점합니다.</div>`}</section>
+  <section class="panel rpt"><h2>📋 가설 성적표</h2>${(R.scorecard||[]).length?`<div class="tw"><table><tr><th>세운 날</th><th class="l">가설</th><th>결과</th><th class="l">메모</th></tr>${R.scorecard.map(x=>`<tr><td class="num">${esc(x.made)}</td><td class="l" style="white-space:normal">${tint(x.hypothesis)}</td><td><span class="pill ${x.status=="맞음"?"ok":x.status=="틀림"?"warn":""}">${esc(x.status)}</span></td><td class="l" style="white-space:normal">${esc(x.note||"")}</td></tr>`).join("")}</table></div>`:`<div class="muted">첫 보고서라 채점할 가설이 없습니다. 다음 보고서부터 이번 스트림·무효 신호를 채점합니다.</div>`}</section>
   <div class="grid g3" style="margin-top:12px">${(R.agents||[]).map(a=>`<div class="tile"><b style="display:block;font-size:14px">${esc(a.role)}</b><small class="muted" style="display:block;margin-top:4px">${esc(a.did)}</small></div>`).join("")}</div>
   ${(R.references||[]).length?`<div class="src" style="margin-top:10px">참고: ${R.references.map(r=>r.url?`<a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(r.name)}</a> (${esc(r.type)})`:`${esc(r.name)} (${esc(r.type)})`).join(" · ")}</div>`:""}
   ${src("채널·리포트 요약·블로그는 2차 자료 · 원문 = 네이버 리서치 전문·드라이브 원문(1차) · RS = 전체 종목 중 상대 강도 순위(100이 최강) · 매수·매도 추천이 아니며 판단은 본인이 합니다")}</div>`;
@@ -1912,7 +1912,7 @@ function v3Tables(R){
     h+=`<section class="panel rpt"><h2>🏭 업종 스코어카드 <small class="muted">말·이익·가격·돈 각 0~2점</small></h2><div class="tw"><table><tr><th class="l">업종</th><th>말</th><th>이익</th><th>가격</th><th>돈</th><th>합계</th><th>단계</th><th>행동</th><th class="l">근거</th></tr>
     ${R.sector_scorecard.map(x=>`<tr><td class="l"><b>${esc(x.group)}</b></td><td class="num">${esc(x.talk)}</td><td class="num">${esc(x.profit)}</td><td class="num">${esc(x.price)}</td><td class="num">${esc(x.money)}</td><td class="num"><b>${esc(x.total)}</b></td><td>${esc(x.stage||"")}</td><td><span class="pill ${ACT[x.action]??""}">${esc(x.action||"")}</span></td><td class="l" style="white-space:normal;min-width:220px"><small>${tint(x.note||"")}</small></td></tr>`).join("")}</table></div></section>`;}
   if((R.pool||[]).length){
-    h+=`<section class="panel rpt"><h2>🎯 관찰 풀 <small class="muted">${R.pool.length}종목 · 감시 목록은 이 풀 + RS 70↑만 봅니다</small></h2><div class="tw"><table><tr><th class="l">종목</th><th>띔</th><th class="l">역할</th><th>RS</th><th>1개월</th><th>고점 대비</th><th>컨센 괴리</th><th class="l">셋업</th><th class="l">볼 것</th><th>행동</th></tr>
+    h+=`<section class="panel rpt"><h2>🎯 관찰 풀 <small class="muted">${R.pool.length}종목 · 감시 목록은 이 풀 + RS 70↑만 봅니다</small></h2><div class="tw"><table><tr><th class="l">종목</th><th>스트림</th><th class="l">역할</th><th>RS</th><th>1개월</th><th>고점 대비</th><th>컨센 괴리</th><th class="l">셋업</th><th class="l">볼 것</th><th>행동</th></tr>
     ${R.pool.map(x=>`<tr><td class="l"><b class="click" data-cq="${esc(x.name)}" style="cursor:pointer">${esc(x.name)}</b></td><td>${esc(x.theme||"")}</td><td class="l"><small>${esc(x.role||"")}</small></td><td class="num">${esc(x.rs??"-")}</td><td class="num ${cls(x.r1m)}">${pc(x.r1m)}</td><td class="num">${pc(x.off_high)}</td><td class="num">${x.consensus_gap_pct==null?"-":pc(x.consensus_gap_pct)}</td><td class="l"><small>${esc(x.setup||"")}</small></td><td class="l" style="white-space:normal;min-width:200px"><small>${tint(x.watch_for||"")}</small></td><td><span class="pill ${ACT[x.action]??""}">${esc(x.action||"")}</span></td></tr>`).join("")}</table></div></section>`;}
   if((R.scenarios||[]).length){
     h+=`<section class="panel rpt"><h2>🧩 시나리오</h2><div class="grid g3">${R.scenarios.map(x=>`<div class="tile" style="text-align:left"><b style="display:block;font-size:14px">${esc(x.name)} <small class="muted">${esc(x.prob||"")}</small></b><div style="font-size:13px;margin-top:4px"><b>트리거</b> ${tint(x.trigger||"")}</div><div style="font-size:13px;margin-top:4px"><b>그러면</b> ${tint(x.implication||"")}</div></div>`).join("")}</div></section>`;}

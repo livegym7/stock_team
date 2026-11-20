@@ -82,7 +82,7 @@ def buy(a):
     ev = {"type": "buy", "date": a.date, "name": a.name, "code": code, "qty": a.qty, "price": a.price, "stop": stop,
           "setup": a.setup, "note": a.note, "at": datetime.now(KST).isoformat(timespec="seconds"),
           "fee_won": 0}   # 세금+수수료는 왕복 0.23%를 매도 때 한 번에 뺌 (2026-11-18)
-    # 결정 로그 (Balance Lab 2.0 TR-01, 2026-11-12): 어느 띔 · 가설 한 줄 · 깨지는 조건. 비면 '근거 없음' 꼬리표(강제 아님)
+    # 결정 로그 (Balance Lab 2.0 TR-01, 2026-11-12): 어느 스트림 · 가설 한 줄 · 깨지는 조건. 비면 '근거 없음' 꼬리표(강제 아님)
     ev["decision"] = {"theme": a.theme, "thesis": a.thesis, "invalid": a.invalid}
     if getattr(a, "addon", False):   # 부록 · 지수 되돌림 (2026-11-18): 본 매매 일지·복기와 따로, 세 질문·규칙 점검 없음
         ev.update(book="addon", decision=None, tags=["🧩 부록"], note=a.note or "지수 되돌림 · 다음 날 종가 매도")
@@ -321,7 +321,7 @@ def main():
         if c == "buy":
             s.add_argument("--stop", type=float); s.add_argument("--setup"); s.add_argument("--note")
             s.add_argument("--addon", action="store_true", help="부록 · 지수 되돌림 매수 (본 매매와 따로 기록, 다음 날 종가 매도)")
-            s.add_argument("--theme", help="어느 띔 (예: T2 유가 하락 → 항공)"); s.add_argument("--thesis", help="가설 한 줄")
+            s.add_argument("--theme", help="어느 스트림 (예: T2 유가 하락 → 항공)"); s.add_argument("--thesis", help="가설 한 줄")
             s.add_argument("--invalid", help="깨지는 조건 (예: WTI 주간 +8%%)")
         else:
             s.add_argument("--reason")

@@ -29,7 +29,7 @@ python3 tools/research_cards.py save --cat industry --nid 46926 --json '{"thesis
 | reasons | 논지를 받치는 근거 2개 | 2줄 |
 | risks | 리포트가 스스로 밝힌 위험·전제 2개 (없으면 "리포트에 없음") | 2줄 |
 | new_claim | 큐 머리줄의 '시리즈 직전 호'나 같은 섹터 지난 카드 대비 **무엇이 새로운가** 한 줄. 새 게 없으면 "반복" | 1줄 |
-| depth_value | 깊이 읽을 가치 상 / 중 / 하 + depth_why 한 줄. 상 = 새 숫자·새 논리·띔과 직결·반대 의견 / 하 = 시리즈 반복·단순 정리 | |
+| depth_value | 깊이 읽을 가치 상 / 중 / 하 + depth_why 한 줄. 상 = 새 숫자·새 논리·스트림과 직결·반대 의견 / 하 = 시리즈 반복·단순 정리 | |
 | sectors_fine | 세부 섹터 1~2개 (config/sector_taxonomy.toml 안에서) | |
 | stocks_key | 리포트가 핵심으로 꼽은 종목 3개까지 (본문 언급 전부가 아님) | |
 | horizon | 실적·효과가 반영되는 시점 (예: 2027 상반기) | 1줄 |
@@ -37,7 +37,7 @@ python3 tools/research_cards.py save --cat industry --nid 46926 --json '{"thesis
 ## 쓰는 법
 - 한 리포트에 2~3분, 전체 15건에 30분 안. 읽은 범위를 넘어 추측하지 않는다. 핵심 구간에 없는 숫자는 쓰지 않는다.
 - 같은 날 같은 주제 리포트가 여럿이면 카드마다 `new_claim`에 "A증권과 같은 논지"처럼 겹침을 적는다 — 토요일 집계가 '반복 주장'을 세는 데 쓴다.
-- 반대 의견(큐에 '추정 입장 약세'거나 띔 키워드가 있는데 부정적인 리포트)은 빠뜨리지 않는다. depth_value를 후하게.
+- 반대 의견(큐에 '추정 입장 약세'거나 스트림 키워드가 있는데 부정적인 리포트)은 빠뜨리지 않는다. depth_value를 후하게.
 - 다 쓰면 `python3 tools/research_cards.py weekly --days 7 | head -30`으로 집계가 도는지 확인하고 커밋·푸시:
 ```bash
 git add data/research/cards data/naver_research && git commit -m "리포트 카드 MM/DD n건" && git push -u origin main

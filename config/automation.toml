@@ -65,7 +65,7 @@ model = "Opus"
 tokens = "보통 (깊이 모드)"
 
 [[tasks]]
-name = "주간 리뷰 (복기·띔 중간 성적)"
+name = "주간 리뷰 (복기·스트림 중간 성적)"
 when = "금 16:47"
 due = "16:47"
 days = "fri"

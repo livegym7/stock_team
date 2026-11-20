@@ -19,7 +19,7 @@ description: 딥리서치. 사용자가 구글 드라이브(config/research.toml
 python3 tools/naver_research.py collect --days 3
 python3 tools/research_cards.py build --days 2            # 카드 초안이 없으면 만든다 (토큰 0)
 python3 tools/research_cards.py pick-deep --top 3         # 깊이 읽을 3칸 (2026-11-15 사용자 확정): ① 핵심 후보 종목 리포트(관찰 풀 C1, 국내종목) ② 리더 업종 산업 리포트(C1·C4 업종) ③ 반대 의견 고정 — 토요일 보고서가 남긴 "이번 주 질문"에 걸리는 것 먼저, 빈 칸은 점수 순 보충
-python3 tools/research_cards.py questions                 # 질문 목록 (data/research/questions.json): 토요일 보고서가 남긴 data/strategy/questions_week.json이 있으면 그것(이번 주 확인할 질문 5~8개), 없으면 띔의 무효 신호·체크포인트
+python3 tools/research_cards.py questions                 # 질문 목록 (data/research/questions.json): 토요일 보고서가 남긴 data/strategy/questions_week.json이 있으면 그것(이번 주 확인할 질문 5~8개), 없으면 스트림의 무효 신호·체크포인트
 ```
 - 3건마다 **질문 주도 읽기**: 카드(thesis·numbers3·new_claim)를 먼저 보고, 질문 목록 중 이 리포트에 답이 있을 법한 질문 3~5개를 고른다. 각 질문의 키워드로 발췌만 받는다:
   `python3 tools/research_cards.py excerpt --cat industry --nid 46926 --q "DRAM|계약가|LTA" --window 600` (키워드 주변 600자, 최대 6곳). 발췌에 답이 없으면 "없음"으로 적는다. 전문(`naver_research.py pdf`)은 **표·결론을 꼭 봐야 할 때 한 번만**, `--max 12000`으로.

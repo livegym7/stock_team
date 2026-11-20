@@ -14,7 +14,7 @@
 기술 점수(3): RS 80↑ · 기준가 10% 안 + 빠진 조건 없음 · 업종 동행(인더스트리 액션)
 펀더 점수는 순서를 정하는 참고다. 매매 규칙(docs/rules.md)은 2027-01-31까지 고정. 주문 기능 없음.
 """
-import argparse, glob, html, json, subprocess, sys
+import argparse, glob, html, json, re, subprocess, sys
 from datetime import datetime
 from pathlib import Path
 
@@ -724,6 +724,17 @@ CSS = """
 .tfr .sec .side{border-top:2px solid var(--ink);padding-top:10px}.tfr .sec .main{border-top:2px solid var(--ink);padding-top:10px;min-width:0}
 .tfr .side h4{font-size:11px;letter-spacing:.1em;color:var(--acc);margin:0 0 6px}
 .tfr .side p{margin:0 0 10px;color:var(--ink2)}.tfr .side dl{display:grid;grid-template-columns:1fr auto;gap:4px 8px;margin:0 0 14px}.tfr .side dt{color:var(--ink3)}.tfr .side dd{margin:0;text-align:right}
+/* 2026-11-20 사용자 확정: 좁은 옆 단(230px)을 없애고 한 단으로 — 해설은 그림 위 넓은 상자, 그림마다 '읽는 법' */
+.tfr .cover,.tfr .sec{grid-template-columns:minmax(0,1fr)!important;gap:12px!important}
+.tfr .sec .side{border-top:2px solid var(--ink);padding:12px 16px;background:var(--acc2);font-size:14px;line-height:1.8;max-width:none}
+.tfr .sec .side p{margin:0 0 8px;color:var(--ink);max-width:78ch}.tfr .sec .side::before{content:"해설";display:block;font-size:11px;letter-spacing:.1em;color:var(--acc);font-weight:700;margin-bottom:4px}
+.tfr .sec .main{border-top:0!important;padding-top:4px}
+.tfr .two2{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:14px;margin:0 0 14px}@media(max-width:760px){.tfr .two2{grid-template-columns:1fr}}
+.tfr .box{border:1px solid var(--rule);border-radius:6px;padding:12px 14px}.tfr .box h4{font-size:12px;letter-spacing:.08em;color:var(--acc);margin:0 0 8px}.tfr .box h4 small{color:var(--ink3);font-weight:400;letter-spacing:0;margin-left:6px}
+.tfr table.desk{width:100%;border-collapse:collapse}.tfr table.desk td{padding:6px 0;border-bottom:1px dashed var(--rule);font-size:13.5px;vertical-align:middle}.tfr table.desk td:first-child{text-align:left}.tfr table.desk td:last-child{text-align:right;white-space:nowrap}.tfr table.desk tr:last-child td{border-bottom:0}
+.tfr ol.todo{margin:0;padding-left:20px}.tfr ol.todo li{font-size:13.5px;line-height:1.7;margin:0 0 6px;color:var(--ink)}
+.tfr .how{font-size:12.5px;line-height:1.65;color:var(--ink2);background:color-mix(in srgb,var(--rule) 35%,transparent);border-radius:4px;padding:7px 10px;margin:4px 0 8px}.tfr .how b{color:var(--ink)}
+.tfr .rtm{font-size:13.5px!important;line-height:1.8}.tfr .rtm p{margin:0 0 6px}
 .tfr .spk{display:block}.tfr .pbar{position:relative;display:inline-block;width:64px;height:6px;border-radius:3px;background:linear-gradient(90deg,var(--dn),var(--rule),var(--up));opacity:.85;margin-right:6px;vertical-align:middle}.tfr .pbar i{position:absolute;top:-3px;width:3px;height:12px;background:var(--ink);border-radius:2px;transform:translateX(-1px)}.tfr td.nw{white-space:nowrap}
 .tfr .ftdc{border:1px solid var(--rule);border-left:4px solid var(--warn);border-radius:8px;padding:10px 12px;margin:0 0 14px}.tfr .ftdc .k{font-size:11.5px;color:var(--ink3)}.tfr .ftdc .st{font-size:16px;font-weight:700;margin:2px 0}.tfr .ftdc .d{font-size:12px;color:var(--ink2)}
 .tfr .ktab td{text-align:center;font-size:11px;padding:4px 3px;white-space:nowrap}
@@ -733,7 +744,7 @@ CSS = """
 .tfr .ctc .x2{font-size:11.5px;color:var(--ink2);margin-top:3px}.tfr .ctc .x2 b{font-weight:600}.tfr .ctc .x small{color:var(--ink3)}
 .tfr .ctc .x{font-size:12px;border-top:1px dashed var(--rule);padding-top:5px;margin-top:5px}.tfr .ctc .x b{color:var(--up)}
 .tfr .cmp{border:1px solid var(--rule);border-left:4px solid var(--warn);padding:10px 14px;margin:0 0 14px;font-size:13px}.tfr .cmp>div{margin-top:4px}.tfr .cmp table{margin-top:6px}
-.tfr .call{background:var(--acc2);border-left:4px solid var(--acc);padding:12px 16px;margin:0 0 14px}.tfr .call b{display:block;font-size:12px;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.tfr .call{background:var(--acc2);border-left:4px solid var(--acc);padding:12px 16px;margin:0 0 14px}.tfr .call b.h{display:block;font-size:12px;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}.tfr .call{font-size:15px;line-height:1.8}
 .tfr .fig{margin:10px 0 4px}.tfr .fig .ft{font-size:12.5px;font-weight:600;margin-bottom:2px}.tfr .fig .ft span{color:var(--acc);margin-right:6px}
 .tfr .src{font-size:11px;color:var(--ink3);margin-top:2px}
 .tfr .chart{width:100%;height:auto;display:block;max-width:760px}.tfr .chart .grid{stroke:var(--rule);stroke-width:.6}.tfr .chart .basel{stroke:var(--ink3);stroke-width:.8;stroke-dasharray:3 3}
@@ -946,10 +957,10 @@ def body(P, N):
  </div>
  {compare_html(P, core)}
  <div class="cover">
-  <aside class="side"><h4>데스크 의견</h4><dl>{"".join(f'<dt>{E(a)}</dt><dd><span class="tag {c}">{E(b)}</span></dd>' for a, b, c in desk)}</dl>
-   <h4>이번 주 할 일</h4><p>{" ".join(f"{"①②③④⑤"[i]} {E(t)}" for i, t in enumerate((N.get("todo") or [])[:5]))}</p>
-   <h4>작성</h4><p>Balance Lab 전략 데스크 (Claude) · 숫자: strategy_tf · fundamentals · screener · sector_radar</p></aside>
-  <div style="min-width:0"><div class="call"><b>한 줄 결론</b>{N.get("call", "")}</div>{red_team_html(N)}
+  <div style="min-width:0"><div class="call"><b class="h">한 줄 결론</b>{N.get("call", "")}</div>
+   <div class="two2"><div class="box"><h4>데스크 의견 <small>줄기마다 지금 판정</small></h4><table class="desk">{"".join(f'<tr><td>{E(a)}</td><td><span class="tag {c}">{E(b)}</span></td></tr>' for a, b, c in desk)}</table></div>
+    <div class="box"><h4>이번 주 할 일</h4><ol class="todo">{"".join(f"<li>{E(t)}</li>" for t in (N.get("todo") or [])[:5])}</ol></div></div>
+   {red_team_html(N)}
    <div class="fig"><div class="ft"><span>그림 1</span>업종 테크노펀더멘탈 지도 — 이익(가로) × 추세(세로)</div>{chart_matrix(P)}
     <div class="src">가로 = 업종 내 시총 2천억↑ 종목의 올해 영업이익 컨센서스 합 ÷ 작년 실제 합 − 1(+200%↑ 오른쪽 끝) · 세로 = 주도 섹터 레이더 점수({md(P.get("radar_as_of") or asof)}) · 원 크기 = 종목 수 · 컨센서스 있는 종목 3개↑ 업종만 · 출처: 네이버 재무·컨센서스(비공식)</div></div></div>
  </div>
@@ -1008,6 +1019,36 @@ def body(P, N):
 </div>'''
 
 
+HOW = [   # 그림·표 제목 머리 → 읽는 법 (2026-11-20 사용자 확정: 표·차트에 설명 보충)
+    ("업종 테크노펀더멘탈 지도", "오른쪽일수록 올해 이익이 많이 늘고, 위일수록 주가 추세가 강한 업종입니다. <b>오른쪽 위(리더)</b>는 이익과 추세가 함께 좋은 곳, <b>오른쪽 아래(기다림)</b>는 이익은 느는데 주가가 아직 안 따라온 곳입니다. 스트림은 오른쪽에 있는 업종에서 찾고, 위로 올라오는지를 지켜봅니다."),
+    ("글로벌 지표", "해외 시장이 위험을 좋아하는지 피하는지를 봅니다. 주가지수·반도체 지수가 내리고 VIX(공포 지수)와 금리가 오르면 위험 회피입니다. 1주보다 <b>1개월 칸</b>이 큰 흐름입니다."),
+    ("매크로 → 업종 연결", "위 지표의 변화가 국내 어느 업종에 유리하고 불리한지를 규칙으로 옮긴 표입니다. 예를 들어 유가가 내리면 항공·화학 비용이 줄어듭니다. 방향을 참고하는 용도이고 종목 선택의 근거는 아닙니다."),
+    ("코스피 120거래일", "지수가 점선(20일선) 위에 있어야 돌파 매매가 잘 통합니다. ▼(분산일)는 거래가 늘면서 내린 날로, 25일 안에 5개를 넘으면 큰손이 파는 중이라는 신호입니다."),
+    ("시장 폭", "지수가 아니라 <b>종목 수</b>로 본 시장 건강입니다. 50일선 위 종목이 50%를 넘으면 대부분의 종목이 오르는 장, 30% 아래면 소수만 버티는 장입니다."),
+    ("ADR", "오른 종목 수 ÷ 내린 종목 수를 20일 평균한 값입니다. 120 위는 과열, 75 아래는 침체로 봅니다. 침체 구간에서 돌아설 때가 반등의 시작인 경우가 많습니다."),
+    ("코스피 투자자별 순매수", "막대가 위면 산 것, 아래면 판 것입니다. <b>외국인과 기관이 같은 날 함께 사는지</b>가 중요합니다. 개인만 사는 상승은 오래가지 못하는 편입니다."),
+    ("5일 순매수 상위 업종", "최근 5일 동안 외국인·기관 돈이 들어온 업종입니다. 스트림 업종이 여기에 올라오면 '이익이 가격에 반영되기 시작했다'는 확인이 됩니다. 5일 수급만으로 스트림을 바꾸지는 않습니다."),
+    ("5일 순매도 상위 업종", "최근 5일 동안 돈이 빠져나간 업종입니다. 스트림 업종이 여기 있으면 '이익은 그대로, 가격은 쉬는 중'인지 이익 전제가 깨진 것인지를 본문에서 따집니다."),
+    ("업종 스코어", "업종마다 강도 점수(주가 추세)와 올해 영업이익 증가율(이익)을 나란히 놓은 표입니다. 분류 칸의 <b>리더</b> = 둘 다 좋음, <b>기다림</b> = 이익만 좋음, <b>모멘텀만</b> = 주가만 좋음, <b>회피</b> = 둘 다 약함입니다."),
+    ("분기 영업이익", "막대는 분기 영업이익, 선은 영업이익률입니다. 막대가 계단처럼 올라가고 선도 함께 오르면 '많이 팔면서 더 남기는' 구간입니다. 흐린 막대는 증권사 추정치입니다."),
+]
+_JUL = [("줄기로", "스트림으로"), ("줄기를", "스트림을"), ("줄기가", "스트림이"), ("줄기는", "스트림은"), ("줄기와", "스트림과"), ("줄기", "스트림"), ("띔", "스트림")]   # 용어: 스트림 (2026-11-20 사용자 확정, 옛 말 띔·줄기)
+
+
+def polish(html):
+    """render 마무리 (2026-11-20 사용자 확정): ① 그림·표 제목 아래 '읽는 법' ② 옛 말 '띔'·'줄기' → '스트림'(조사까지)"""
+    def add(m):
+        title = re.sub(r"<[^>]+>", "", m.group(0))
+        for key, txt in HOW:
+            if key in title:
+                return m.group(0) + f'<div class="how"><b>읽는 법</b> · {txt}</div>'
+        return m.group(0)
+    html = re.sub(r'<div class="ft">.*?</div>', add, html)
+    for a, b in _JUL:
+        html = html.replace(a, b)
+    return html
+
+
 def render(date=None):
     P = _j(TF / f"prep_{date}.json") if date else None
     if not P:
@@ -1019,6 +1060,9 @@ def render(date=None):
     user = _j(TF / f"narr_{P['date']}.json", {}) or {}
     N.update({k: v for k, v in user.items() if v not in (None, "", [], {})})
     b = body(P, N)
+    b = polish(b)
+    for _a, _b in _JUL:   # 제목(호 목록·텔레그램에 쓰임)도 같은 용어로
+        N["title"] = str(N.get("title") or "").replace(_a, _b)
     page = ("<!doctype html><html lang=\"ko\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,viewport-fit=cover\">"
             f"<title>테크노펀더멘탈 주간 {P['date']}</title><link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;600;700&family=Noto+Serif+KR:wght@800&family=IBM+Plex+Mono&display=swap\">"
             f"<style>{TOKENS_PAGE}{CSS}</style></head><body>{b}</body></html>")
@@ -1033,7 +1077,7 @@ def render(date=None):
 
 def pool(date=None):
     """관찰 풀 = 큰 줄기의 기업 지도 (2026-11-20 사용자 확정: "보고서의 관찰 풀은 큰 줄기를 잡는 목적, 셋업 보드는 지금의 수급과 위치").
-    전략 보고서(data/strategy/latest.json)의 띔 중 유지되는 줄기(확신 2↑ · 단계가 소멸이 아님)의 기업 지도에서 행동이 '회피'가 아닌 종목.
+    전략 보고서(data/strategy/latest.json)의 스트림 중 유지되는 줄기(확신 2↑ · 단계가 소멸이 아님)의 기업 지도에서 행동이 '회피'가 아닌 종목.
     차트 조건(기준가·RS·업종 강도)으로는 넣고 빼지 않는다 — 차트 자리는 셋업 보드가 본다. 줄기가 유지되면 풀도 유지된다.
     보고서에 줄기가 없으면 옛 방식(pool_board: 감시 목록 × 펀더·기술)으로 대신 쓴다."""
     rep = _j(DATA / "strategy" / "latest.json") or {}
@@ -1071,7 +1115,7 @@ def pool(date=None):
             out[t.get("id")] = len(items)
     weak = [q(t.get("name")).split(" — ")[0] for t in rep.get("themes") or [] if t not in keep]
     if weak:
-        L.append("# 풀에 넣지 않은 띔(약화·관찰·이익 미확인): " + ", ".join(weak))
+        L.append("# 풀에 넣지 않은 스트림(약화·관찰·이익 미확인): " + ", ".join(weak))
     if skip:
         L.append("# 줄기 안이지만 보고서가 '회피'로 적은 종목: " + ", ".join(x for x in skip if x))
     (ROOT / "config" / "watch_pool.toml").write_text("\n".join(L) + "\n", encoding="utf-8")
@@ -1079,7 +1123,7 @@ def pool(date=None):
 
 
 def pool_board(date=None):
-    """(옛 방식, 2026-11-14~11-20) 관찰 풀을 테크노펀더 지면 기준으로 다시 씀 (2026-11-14 사용자 지적: 풀이 옛 v3 띔 기준이라 보고서와 달랐음).
+    """(옛 방식, 2026-11-14~11-20) 관찰 풀을 테크노펀더 지면 기준으로 다시 씀 (2026-11-14 사용자 지적: 풀이 옛 v3 스트림 기준이라 보고서와 달랐음).
     핵심 후보(준비) · 펀더 OK·기술 대기(관찰) · 달리는 주도주 펀더 2↑(첫 눌림 대기) · 리더 업종 주도주 펀더 2↑(업종 리더). 펀더 0~1은 넣지 않음."""
     fs = [TF / f"prep_{date}.json"] if date else sorted(TF.glob("prep_*.json"))
     P = _j(fs[-1])

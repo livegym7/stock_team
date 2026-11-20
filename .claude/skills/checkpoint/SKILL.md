@@ -37,14 +37,14 @@ description: 체크포인트 (Balance Lab 2.0, 평일 07·10·12·15·18시 예�
    - 보유 종목이 손절가 −3% 안이거나 규칙 알림(3R·20일선)이 있으면 `mine` 첫 줄에 쓴다. 매수·매도는 단정하지 않는다(규칙대로라는 사실만).
 4. `python3 tools/checkpoint.py save --file <스크래치>.json` (형식 검사 → `reports/날짜/checkpoint_HHMM.md`)
 5. `python3 tools/checkpoint.py send` — 텔레그램 발송(유일하게 허용된 정기 글)
-6. **18시 회차만**: 읽은 재료만으로 `data/strategy/memos/YYYY-MM-DD.md`에 띔 메모 1천 자 안팎을 남긴다(토요일 전략 보고서 재료). 새로 더 읽지 않는다.
+6. **18시 회차만**: 읽은 재료만으로 `data/strategy/memos/YYYY-MM-DD.md`에 스트림 메모 1천 자 안팎을 남긴다(토요일 전략 보고서 재료). 새로 더 읽지 않는다.
 ```
-# YYYY-MM-DD 띔 메모
+# YYYY-MM-DD 스트림 메모
 - 시장: 지수·외국인 수급·신호등 한 줄
-- 띔: 오늘 강해진/약해진 테마 2~4개 (근거 숫자·출처 한 줄씩, 2차 자료 표시)
-- 기업: 띔 안에서 눈에 띈 기업 3~6개 (실적·목표가·주가 반응 한 줄)
+- 스트림: 오늘 강해진/약해진 테마 2~4개 (근거 숫자·출처 한 줄씩, 2차 자료 표시)
+- 기업: 스트림 안에서 눈에 띈 기업 3~6개 (실적·목표가·주가 반응 한 줄)
 - 새로 나온 것: 처음 보는 키워드·논리 (있으면)
-- 반대 신호: 띔과 어긋난 움직임
+- 반대 신호: 스트림과 어긋난 움직임
 ```
 7. `python3 tools/web_build.py --only channels` → `git add data/checkpoint data/strategy/memos reports && git commit -m "체크포인트 HH:MM" && git push -u origin main` (웹은 푸시하면 자동 배포). 텔레그램이 제시간에 가도록 여기까지를 먼저 끝낸다.
 7-1. **채널·리포트 정리도 이 회차에 이어서 쓴다 (2026-11-19 사용자 확정: 2시간 정리 예약 5회를 없애고 체크포인트 회차에 합침, 같은 날 5회로 늘림).** `.claude/skills/live-brief/SKILL.md`의 2~8단계를 그대로 한다(`live_brief.py prep` 재료 → 채널 정리·리포트 정리 저장 → 커밋·푸시). 새 글이 없으면(channels_new·report_new 모두 0) 건너뛴다. 정리는 텔레그램으로 보내지 않는다. 예약 지시문의 "checkpoint.py prep 재료만 본다"는 지난 실행 내용을 다시 읽지 말라는 뜻이며, 이 단계의 `live_brief.py prep` 재료는 읽는다(예약 지시문보다 이 문서가 최신).

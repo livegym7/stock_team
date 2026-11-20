@@ -8,7 +8,7 @@ Tier 1 (Haiku가 씀)
     python3 tools/research_cards.py save --cat industry --nid 46926 --file card.json   # Haiku가 채운 칸 저장 (status card)
 Tier 2 (Sonnet 자료실)
     python3 tools/research_cards.py pick-deep [--top 3]         # 깊이 읽을 3건 (1건은 반대 의견·비주류 업종 고정)
-    python3 tools/research_cards.py questions                   # 전략 보고서(띔)에서 질문 뽑기 → data/research/questions.json
+    python3 tools/research_cards.py questions                   # 전략 보고서(스트림)에서 질문 뽑기 → data/research/questions.json
     python3 tools/research_cards.py excerpt --cat industry --nid 46926 --q "DRAM|계약가|LTA" [--window 600]   # 질문 키워드 주변 발췌 (토큰 절약)
 Tier 3 (전략 보고서 재료)
     python3 tools/research_cards.py weekly [--days 7]           # 업종별 집계표(카드 수·입장·반복 주장·새 주장·숫자) → data/research/cards/weekly_latest.json + 마크다운
@@ -185,7 +185,7 @@ def series_key(r):
 
 
 def theme_words():
-    """현재 띔·관찰 풀 키워드 (반대 의견·관련성 판정용)."""
+    """현재 스트림·관찰 풀 키워드 (반대 의견·관련성 판정용)."""
     words = set()
     f = DATA / "strategy" / "latest.json"
     if f.exists():
@@ -268,7 +268,7 @@ def build(days=2, force=False):
 
 # ---------- Tier 1 큐 ----------
 def core_excerpt(txt, tw, head=1800, tail=600, win=500, cap=3500):
-    """핵심 구간: 앞 1,800자(요약·결론) + 숫자 표 줄 + 띔 키워드 주변 + 마지막 600자."""
+    """핵심 구간: 앞 1,800자(요약·결론) + 숫자 표 줄 + 스트림 키워드 주변 + 마지막 600자."""
     parts = [txt[:head]]
     tb = tables(txt, max_rows=8)
     if tb:
@@ -281,7 +281,7 @@ def core_excerpt(txt, tw, head=1800, tail=600, win=500, cap=3500):
         if len(hits) >= 2:
             break
     if hits:
-        parts.append("[띔 키워드 주변]\n" + "\n…\n".join(hits))
+        parts.append("[스트림 키워드 주변]\n" + "\n…\n".join(hits))
     if len(txt) > head + tail:
         parts.append("[끝부분]\n" + txt[-tail:])
     out = re.sub(r"[ \t]{2,}", " ", "\n\n".join(parts))
@@ -318,7 +318,7 @@ def queue(top=15, day=None):
     for c in pool:
         txt = text_path(c["cat"], c["nid"]).read_text(encoding="utf-8")
         prev = f" · 시리즈 직전 호 {c['prev_nid']} 대비 새 문단 {int((c.get('new_ratio') or 1) * 100)}%" if c.get("prev_nid") else ""
-        L.append(f"\n## [{c['cat']}:{c['nid']}] {c['title']} — {c['broker']} {c['date']} · 섹터 {c['sector']}({c.get('industry')}) · 신규성 {c['novelty']} · 추정 입장 {c['stance_hint']}{prev} · 띔 키워드 {', '.join(c.get('theme_hit') or []) or '-'} · 종목 {', '.join(c.get('stocks') or [])[:80]}")
+        L.append(f"\n## [{c['cat']}:{c['nid']}] {c['title']} — {c['broker']} {c['date']} · 섹터 {c['sector']}({c.get('industry')}) · 신규성 {c['novelty']} · 추정 입장 {c['stance_hint']}{prev} · 스트림 키워드 {', '.join(c.get('theme_hit') or []) or '-'} · 종목 {', '.join(c.get('stocks') or [])[:80]}")
         L.append(f"네이버 요약: {c['summary'][:300]}")
         L.append("```\n" + core_excerpt(txt, c.get("theme_hit") or list(tw)[:10]) + "\n```")
     return "\n".join(L)
@@ -451,10 +451,10 @@ def _old_pick_deep(top=3, days=2):
     val = {"상": 30, "중": 10, "하": -20}
     def sc(c):
         return rank(c) + val.get(c.get("depth_value"), 0) + (10 if c["status"] == "card" else 0)
-    # 반대 의견 판정: 카드가 있으면 카드 입장(stance) 우선, 없으면 초안의 추정 입장 — 띔 관련 + 약세
+    # 반대 의견 판정: 카드가 있으면 카드 입장(stance) 우선, 없으면 초안의 추정 입장 — 스트림 관련 + 약세
     is_contra = lambda c: bool(c.get("theme_hit")) and (c.get("stance") or c.get("stance_hint")) == "약세" and c.get("depth_value") != "하"
     cont = sorted((c for c in pool if is_contra(c)), key=lambda c: -sc(c))
-    if not cont:   # 반대 의견이 없으면 띔 밖(비주류) 업종 중 깊이 가치 '하'가 아닌 것
+    if not cont:   # 반대 의견이 없으면 스트림 밖(비주류) 업종 중 깊이 가치 '하'가 아닌 것
         cont = sorted((c for c in pool if not c.get("theme_hit") and c.get("depth_value") != "하"), key=lambda c: -sc(c))
     main = sorted((c for c in pool if c not in cont[:1]), key=lambda c: -sc(c))
     chosen = main[:max(1, top - 1)] + cont[:1]
@@ -501,7 +501,7 @@ def questions():
 
 
 def kw(text):
-    stop = {"여부", "확인", "필요", "이후", "대비", "기준", "수준", "관련", "또는", "있는", "없는", "하는", "이번", "오늘", "내년", "가장", "공통의", "지점", "되는지", "맞는지", "하면", "까지", "보도와", "발표", "숫자", "시점", "전제", "띔의", "띔은", "본다", "보류한다"}
+    stop = {"여부", "확인", "필요", "이후", "대비", "기준", "수준", "관련", "또는", "있는", "없는", "하는", "이번", "오늘", "내년", "가장", "공통의", "지점", "되는지", "맞는지", "하면", "까지", "보도와", "발표", "숫자", "시점", "전제", "스트림의", "스트림은", "본다", "보류한다"}
     w = [re.sub(r"(의|이|가|을|를|은|는|에서|으로|로)$", "", x) for x in re.findall(r"[가-힣A-Za-z]{2,}", text)]
     w = [x for x in w if len(x) >= 2 and x not in stop]
     return "|".join(dict.fromkeys(w[:8]))
