@@ -1,62 +1,7 @@
 {
- "fetched_at": "2026-11-21 09:38",
+ "fetched_at": "2026-11-22 12:18",
  "errors": [],
  "events": [
-  {
-   "date": "2026-10-12",
-   "time": "",
-   "kind": "earnings_kr",
-   "name": "삼양컴텍 기업설명회(IR)",
-   "detail": "",
-   "source": "DART 공시",
-   "code": "484590",
-   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261008900600",
-   "id": "ir:484590:2026-10-12"
-  },
-  {
-   "date": "2026-10-12",
-   "time": "10:00",
-   "kind": "earnings_kr",
-   "name": "현대모비스 기업설명회(IR)",
-   "detail": "최근 경영현황 및 전략, 주요 관심사항 등",
-   "source": "DART 공시",
-   "code": "012330",
-   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261008800513",
-   "id": "ir:012330:2026-10-12"
-  },
-  {
-   "date": "2026-10-12",
-   "time": "10:30",
-   "kind": "earnings_kr",
-   "name": "NC 기업설명회(IR)",
-   "detail": "기관투자자 대상 사업 현황 설명",
-   "source": "DART 공시",
-   "code": "036570",
-   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261006800338",
-   "id": "ir:036570:2026-10-12"
-  },
-  {
-   "date": "2026-10-12",
-   "time": "13:30",
-   "kind": "earnings_kr",
-   "name": "가온전선 기업설명회(IR)",
-   "detail": "주요 사업 현황 및 성장 전략 및 질의응답",
-   "source": "DART 공시",
-   "code": "000500",
-   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261008800258",
-   "id": "ir:000500:2026-10-12"
-  },
-  {
-   "date": "2026-10-12",
-   "time": "15:30",
-   "kind": "earnings_kr",
-   "name": "LG씨엔에스 기업설명회(IR)",
-   "detail": "2026년 2분기 경영실적 및 Q&amp;A",
-   "source": "DART 공시",
-   "code": "064400",
-   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261007800333",
-   "id": "ir:064400:2026-10-12"
-  },
   {
    "date": "2026-10-13",
    "time": "",
@@ -686,6 +631,17 @@
   },
   {
    "date": "2026-10-27",
+   "time": "09:10",
+   "kind": "earnings_kr",
+   "name": "동아제약 기업설명회(IR)",
+   "detail": "2026년 3분기 경영실적 및 주요 계열회사 경영현황 설명",
+   "source": "DART 공시",
+   "code": "000640",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261027800214",
+   "id": "ir:000640:2026-10-27"
+  },
+  {
+   "date": "2026-10-27",
    "time": "10:00",
    "kind": "earnings_kr",
    "name": "삼성카드 기업설명회(IR)",
@@ -694,17 +650,6 @@
    "code": "029780",
    "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261020800355",
    "id": "ir:029780:2026-10-27"
-  },
-  {
-   "date": "2026-10-27",
-   "time": "14:00",
-   "kind": "earnings_kr",
-   "name": "동아제약 기업설명회(IR)",
-   "detail": "2026년 3분기 경영실적 및 주요 계열회사 경영현황 설명",
-   "source": "DART 공시",
-   "code": "000640",
-   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261022800425",
-   "id": "ir:000640:2026-10-27"
   },
   {
    "date": "2026-10-27",
@@ -1621,13 +1566,13 @@
   },
   {
    "date": "2026-11-02",
-   "time": "09:10",
+   "time": "09:45",
    "kind": "earnings_kr",
    "name": "현대글로비스 기업설명회(IR)",
    "detail": "최근 경영실적 및 사업현황 설명",
    "source": "DART 공시",
    "code": "086280",
-   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261022800204",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261028800065",
    "id": "ir:086280:2026-11-02"
   },
   {
