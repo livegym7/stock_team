@@ -1,62 +1,7 @@
 {
- "fetched_at": "2026-11-22 12:18",
+ "fetched_at": "2026-11-23 06:54",
  "errors": [],
  "events": [
-  {
-   "date": "2026-10-13",
-   "time": "",
-   "kind": "earnings_kr",
-   "name": "서부T&D 기업설명회(IR)",
-   "detail": "",
-   "source": "DART 공시",
-   "code": "006730",
-   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261008900348",
-   "id": "ir:006730:2026-10-13"
-  },
-  {
-   "date": "2026-10-13",
-   "time": "",
-   "kind": "earnings_kr",
-   "name": "BNK금융지주 기업설명회(IR)",
-   "detail": "2026년 2분기 경영실적 및 Q&amp;A",
-   "source": "DART 공시",
-   "code": "138930",
-   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261006800185",
-   "id": "ir:138930:2026-10-13"
-  },
-  {
-   "date": "2026-10-13",
-   "time": "",
-   "kind": "earnings_kr",
-   "name": "쓰리빌리언 기업설명회(IR)",
-   "detail": "",
-   "source": "DART 공시",
-   "code": "394800",
-   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261013900167",
-   "id": "ir:394800:2026-10-13"
-  },
-  {
-   "date": "2026-10-13",
-   "time": "09:10",
-   "kind": "earnings_kr",
-   "name": "파미셀 기업설명회(IR)",
-   "detail": "경영 현황 설명 및 Q&amp;A",
-   "source": "DART 공시",
-   "code": "005690",
-   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261012800123",
-   "id": "ir:005690:2026-10-13"
-  },
-  {
-   "date": "2026-10-13",
-   "time": "12:30",
-   "kind": "earnings_kr",
-   "name": "카카오 기업설명회(IR)",
-   "detail": "주요 내용 설명 및 질의응답",
-   "source": "DART 공시",
-   "code": "035720",
-   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261016800407",
-   "id": "ir:035720:2026-10-13"
-  },
   {
    "date": "2026-10-14",
    "time": "",
@@ -5910,6 +5855,26 @@
    "code": "020560",
    "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261118800357",
    "id": "ir:020560:2026-11-25"
+  },
+  {
+   "date": "2026-11-25",
+   "time": "22:30",
+   "kind": "macro",
+   "name": "미국 근원 PCE 물가 월간",
+   "name_en": "Core PCE Price Index m/m",
+   "detail": "예상 0.3% · 이전 0.3%",
+   "source": "ForexFactory 경제 캘린더",
+   "id": "ff:USD:Core PCE Price Index m/m:20261125"
+  },
+  {
+   "date": "2026-11-25",
+   "time": "22:30",
+   "kind": "macro",
+   "name": "미국 (속보치) GDP(성장률)",
+   "name_en": "Prelim GDP q/q",
+   "detail": "예상 3.5% · 이전 3.4%",
+   "source": "ForexFactory 경제 캘린더",
+   "id": "ff:USD:Prelim GDP q/q:20261125"
   },
   {
    "date": "2026-11-26",
