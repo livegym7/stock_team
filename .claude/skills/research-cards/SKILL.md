@@ -42,7 +42,7 @@ python3 tools/research_cards.py save --cat industry --nid 46926 --json '{"thesis
 ```bash
 git add data/research/cards data/naver_research && git commit -m "리포트 카드 MM/DD n건" && git push -u origin main
 ```
-- 텔레그램은 보내지 않는다(실패 알림만). 웹 반영은 다음 웹 배포(19:40·21:10)와 자료실 19:13 때 된다.
+- 텔레그램은 보내지 않는다(실패 알림만). 웹 반영은 다음 정시 웹 배포(21:10) 때 된다.
 
 ## 사용량
 - Haiku, 입력 약 5~6만 토큰 + 출력 1만 → 하루 약 7만 토큰(Haiku 단가). 큐를 20건 넘게 늘리지 않는다.

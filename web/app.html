@@ -2234,7 +2234,7 @@ function viewMore(){
   const MORE_T=[["alert","🔔 알림"],["cal","📅 일정"],["auto","⚙️ 자동 작업"],["src","출처·채널"]],mt=ui.mt=="ch"?"src":MORE_T.some(([k])=>k==ui.mt)?ui.mt:"alert";
   return `<h1>더보기</h1><div class="sub">일정·자동 작업·데이터 출처·채널 목록 · 바꾸고 싶으면 Claude에게 말해 주세요 (보기 전용)</div>
   <div class="chips tabs">${MORE_T.map(([k,n])=>`<button class="chip ${mt==k?"on":""}" data-mt="${k}">${n}</button>`).join("")}<span class="tabgap"></span><button class="chip themeb" data-theme-t="1">${isDark()?"☀ 밝은 화면":"☾ 어두운 화면"}</button></div>
-  <div class="src morenote">데이터 ${esc(D.built_at)} · 체크포인트·정리 평일 07·10·12·15·18시 · 주말 정리 12·20시 · 웹 갱신 평일 07:40·12:40·16:40·19:40·21:10(푸시 때마다 추가) · 장중 가격 20분마다(화면은 1분 시세)</div>
+  <div class="src morenote">데이터 ${esc(D.built_at)} · 체크포인트·정리 평일 07·10·12·15·18시 · 주말 정리 12·20시 · 웹 갱신 평일 07:20·10:20·12:20·15:20·16:40·18:20·21:10 · 주말 12:40·20:40(글이 써진 뒤 약 20분) · 장중 가격 20분마다(화면은 1분 시세)</div>
   ${mt=="alert"?alertCenter():""}
   ${mt=="cal"?`<div class="panel" style="margin-bottom:16px"><h2>📅 일정 달력</h2>${calMonth()}</div>
   <div class="panel" style="margin-bottom:16px"><h2>📡 채널 일정 글 (최근 3일)</h2>${((D.calendar||{}).channel_posts||[]).map(p=>`<div class="post"><div class="meta"><span class="num">${esc(p.time)}</span><b>${esc(p.channel)}</b><a href="${esc(p.url)}" target="_blank" rel="noopener">원문</a></div><div>${tint(p.text||"")}</div></div>`).join("")||`<div class="muted">없음</div>`}</div>`:""}
