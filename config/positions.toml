@@ -18,3 +18,11 @@ qty = 37
 avg_price = 26400
 initial_stop = 24288   # 처음 손절가 = 1R 기준
 stop = 24288
+
+[[positions]]
+name = "코스맥스"
+code = "192820"
+qty = 3
+avg_price = 285500
+initial_stop = 262660   # 처음 손절가 = 1R 기준
+stop = 262660
