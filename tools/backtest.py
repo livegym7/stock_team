@@ -8,7 +8,7 @@
 - 처음 손절 −8%(1R). 장중 저가가 닿으면 손절가(갭이면 시가)에 나감.
 - 3R(+24%) 닿으면 50% 익절, 남은 물량 손절가를 본전으로.
 - 그 뒤 20일선을 종가로 깨면 나머지 매도 (본전 손절도 유지).
-- 같은 종목은 앞 거래가 끝나기 전 새 신호를 받지 않음. 수수료·세금·슬리피지는 넣지 않음.
+- 같은 종목은 앞 거래가 끝나기 전 새 신호를 받지 않음. 수수료·세금은 왕복 0.23%(config/account.toml cost_rate)를 매도 금액에 매김(2026-11-23). 슬리피지는 넣지 않음.
 
 한계 (화면에도 표시): 지금 시총 2천억↑ 종목만 대상(생존 편향), 시총 관문은 지금 값, 일봉만 써서 장중 순서는 모름(같은 날 3R과 손절이 다 닿으면 손절로 봄).
 
@@ -79,7 +79,7 @@ def is_etf(name):
 def rules():
     a = load_toml("account.toml")
     return {"one_r": S.RULES["one_r"], "take_r": a.get("breakeven_at_r", 3), "take_pct": a.get("take_profit_at_3r", 0.5),
-            "trail_ma": a.get("trail_ma", 20)}
+            "trail_ma": a.get("trail_ma", 20), "cost": a.get("cost_rate", 0.0)}   # cost = 사고 파는 한 번(왕복)에 드는 비용률, 매도 금액에 매김 (2026-11-23 사용자 확정: 0.23%)
 
 
 def simulate(rows, i, R):
@@ -90,24 +90,25 @@ def simulate(rows, i, R):
     target = entry + R["take_r"] * unit
     c = [r["close"] for r in rows]
     took, realized, left = False, 0.0, 1.0
+    fee = lambda frac, px: frac * px * R.get("cost", 0.0) / unit   # 매도 금액 × 비용률을 R 단위로  # noqa: E731
     for j in range(i + 1, len(rows)):
         r = rows[j]
         if r["low"] <= stop:  # 손절(또는 본전) — 갭 하락이면 시가
             px = min(r["open"], stop)
-            realized += left * (px - entry) / unit
+            realized += left * (px - entry) / unit - fee(left, px)
             return {"r": round(realized, 2), "exit": r["date"], "days": j - i, "how": "본전 청산" if took else "손절", "took": took}
         if not took and r["high"] >= target:
             px = max(r["open"], target)
-            realized += R["take_pct"] * (px - entry) / unit
+            realized += R["take_pct"] * (px - entry) / unit - fee(R["take_pct"], px)
             left -= R["take_pct"]
             took, stop = True, entry
         if took and j >= R["trail_ma"]:
             ma = sum(c[j - R["trail_ma"] + 1:j + 1]) / R["trail_ma"]
             if c[j] < ma:
-                realized += left * (c[j] - entry) / unit
+                realized += left * (c[j] - entry) / unit - fee(left, c[j])
                 return {"r": round(realized, 2), "exit": r["date"], "days": j - i, "how": f"{R['trail_ma']}일선 이탈", "took": True}
     last = rows[-1]["close"]
-    realized += left * (last - entry) / unit
+    realized += left * (last - entry) / unit - fee(left, last)
     return {"r": round(realized, 2), "exit": None, "days": len(rows) - 1 - i, "how": "보유 중(평가)", "took": took}
 
 
@@ -255,7 +256,7 @@ def run_backtest(limit=None, workers=4):
                   "gate": f"돌파 관문 {S.RULES['gate_allow_miss']}개 미달 허용(필수: {', '.join(S.RULES['gate_must'])}) · 포켓피봇 7/7"},
         "source": "네이버 일봉(수정주가, 비공식) · 계산 Claude",
         "limits": ["지금 시총 2천억↑ 종목만 대상(사라진 종목 빠짐 → 성적이 좋게 나올 수 있음)", "시총 관문은 지금 값으로 판단",
-                   "일봉만 사용: 같은 날 3R과 손절이 함께 닿으면 손절로 처리", "수수료·세금·슬리피지 미반영", "진입은 신호일 종가(장중 돌파가보다 불리할 수 있음)"],
+                   "일봉만 사용: 같은 날 3R과 손절이 함께 닿으면 손절로 처리", "수수료·세금 왕복 0.23% 반영(매도 금액 기준), 슬리피지 미반영", "진입은 신호일 종가(장중 돌파가보다 불리할 수 있음)"],
         "all": stats(closed), "open_trades": len(trades) - len(closed),
         "ia_required": True,
         "compare_without_ia": {"all": stats([t for t in loose if t["exit"]]),
