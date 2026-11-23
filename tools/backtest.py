@@ -262,11 +262,12 @@ def run_backtest(limit=None, workers=4):
     out = {
         "made_at": datetime.now(KST).strftime("%Y-%m-%d %H:%M"), "seconds": round(time.time() - t0),
         "universe": len(data), "period": period, "rules": {**R, "breakout_vol": S.RULES["breakout_vol"], "max_giveback": S.RULES["max_giveback"],
-                  "gate": f"돌파 관문 {S.RULES['gate_allow_miss']}개 미달 허용(필수: {', '.join(S.RULES['gate_must'])}) · 포켓피봇 7/7"},
+                  "gate": f"돌파 관문 {S.RULES['gate_allow_miss']}개 미달 허용(필수: {', '.join(S.RULES['gate_must'])}) · 포켓피봇은 참고 신호(7/7)"},
         "source": "네이버 일봉(수정주가, 비공식) · 계산 Claude",
         "limits": ["지금 시총 2천억↑ 종목만 대상(사라진 종목 빠짐 → 성적이 좋게 나올 수 있음)", "시총 관문은 지금 값으로 판단",
                    "일봉만 사용: 같은 날 3R과 손절이 함께 닿으면 손절로 처리", "수수료·세금 왕복 0.23% 반영(매도 금액 기준), 슬리피지 미반영", "진입은 신호일 종가(장중 돌파가보다 불리할 수 있음)"],
-        "all": stats(closed), "open_trades": len(trades) - len(closed),
+        "all": stats([t for t in closed if t["kind"] != "포켓피봇"]),      # 2026-11-23: 정식 신호는 돌파뿐 (포켓피봇은 참고 신호 — 아래 by_kind·all_with_pp에 비교용으로 남김)
+        "all_with_pp": stats(closed), "open_trades": len(trades) - len(closed),
         "ia_required": True,
         "compare_without_ia": {"all": stats([t for t in loose if t["exit"]]),
                                "breakout": stats([t for t in loose if t["exit"] and t["kind"] == "돌파"])},

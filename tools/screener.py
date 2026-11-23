@@ -417,7 +417,7 @@ def tiers(results):
 
 def grade(it):
     core = set(it["setups"]) & set("ABCDE")
-    if (it["gate_pass"] and "돌파" in it["today"] and core) or (it.get("gate_strict") and "G" in it["today"]):
+    if it["gate_pass"] and "돌파" in it["today"] and core:      # 2026-11-23 사용자 확정: 포켓피봇(G)은 정식 신호에서 빼고 참고 신호로 (5년·10년 비교 자료에서 수익 기여 없음)
         return "✅"  # '돌파'는 인더스트리 액션(업종 동반 상승)까지 확인된 것만 (무반응이면 '돌파(업종 무반응)')
     if it["gate_pass"] and (core or "F" in it["setups"]):
         d = (it.get("levels") or {}).get("distance_pct")
@@ -602,6 +602,8 @@ def main():
                "signals": [r for r in results if r["tier"] == "신호"],
                # 참고 신호(매물대 돌파): 관문 통과(RS·시총·거래대금 필수) + 관찰 풀이거나 풀 밖이면 RS 조건 충족. 정식 신호와 겹치면 정식 쪽에만.
                "zone_signals": [r for r in results if "매물대 돌파" in r["today"] and r["gate_pass"] and r["tier"] != "신호"],
+               # 참고 신호(포켓피봇): 관문 7개 모두 통과한 포켓피봇. 정식 신호와 겹치면 정식 쪽에만 (2026-11-23)
+               "pp_signals": [r for r in results if "G" in r["today"] and r.get("gate_strict") and r["tier"] != "신호"],
                "candidates": sorted((r for r in results if r["tier"] == "후보"),
                                     key=lambda r: (len(r["missing"]), -(r["rs"] or 0)))[:40],
                "watch": [r for r in results if r["gate_pass"] and (r["setups"] or r["today"])],

@@ -6,10 +6,16 @@ name: 웹 배포 (Cloudflare)
 
 on:
   workflow_dispatch:
-  push:                       # 2026-11-23: 깃허브 액션 한도(월 2,000분) 때문에 글이 올라올 때마다 도는 배포를 끔 → 아래 정시 배포가 글 쓰는 시각 바로 뒤에 돈다
-    branches: [main]
+  push:                       # 2026-11-23 밤: 저장소가 공개인 동안은 액션이 무료라 푸시 때마다 배포를 다시 켬(사용자 확정).
+    branches: [main]          # ※ 12/1 비공개로 되돌릴 때는 아래 경로를 config/positions.toml · functions/** · config/web.toml 만 남긴다 (비공개 한도 월 2,000분)
     paths:
-      - "config/positions.toml"   # 샀어/팔았어 기록은 바로 반영 (드물고 바로 보여야 함)
+      - "reports/**"              # 체크포인트·소식 정리·주간 리뷰·감시 목록
+      - "data/stock_memos/**"     # 종목 메모
+      - "data/strategy/latest.json"
+      - "data/strategy/tf/latest.json"
+      - "config/watch_pool.toml"
+      - "config/positions.toml"   # 샀어/팔았어 기록
+      - "web/app.html"            # 화면 틀
       - "functions/**"            # 시세 중계(Cloudflare 함수)
       - "config/web.toml"
   schedule:                     # 한국 시각 기준, 글이 써지는 시각 약 20분 뒤 (화면 수정은 모아서 올리고 필요하면 수동 실행)
