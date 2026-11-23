@@ -1,5 +1,5 @@
 {
- "made_at": "2026-11-23 22:26",
+ "made_at": "2026-11-23 23:46",
  "years": 10.0,
  "period": [
   "20161125",
@@ -1184,5 +1184,971 @@
    }
   }
  ],
- "seconds": 1780
+ "book": {
+  "score": "최근 분기 ① 매출 ② 영업이익 ③ 순이익(EPS 대신, 주식 수 변화 미반영)이 1년 전 같은 분기보다 늘었는가 · 문턱 없음(흑자이면서 증가)",
+  "coverage": {
+   "1점": 1334,
+   "2점": 1160,
+   "0점": 1396,
+   "3점": 2765,
+   "확인 불가": 996
+  },
+  "breakout_by_score": {
+   "3점": {
+    "n": 542,
+    "win_rate": 30.4,
+    "avg_r": 0.21,
+    "payoff": 2.94,
+    "max_loss_streak": 21
+   },
+   "2점": {
+    "n": 230,
+    "win_rate": 34.8,
+    "avg_r": 0.42,
+    "payoff": 3.04,
+    "max_loss_streak": 14
+   },
+   "1점": {
+    "n": 267,
+    "win_rate": 33.3,
+    "avg_r": 0.28,
+    "payoff": 2.81,
+    "max_loss_streak": 14
+   },
+   "0점": {
+    "n": 280,
+    "win_rate": 33.6,
+    "avg_r": 0.35,
+    "payoff": 2.95,
+    "max_loss_streak": 15
+   },
+   "확인 불가": {
+    "n": 181,
+    "win_rate": 23.2,
+    "avg_r": -0.11,
+    "payoff": 2.86,
+    "max_loss_streak": 24
+   }
+  },
+  "breakout_net_up": {
+   "순이익 증가": {
+    "n": 716,
+    "win_rate": 31.4,
+    "avg_r": 0.25,
+    "payoff": 2.93,
+    "max_loss_streak": 26
+   },
+   "순이익 감소·적자": {
+    "n": 612,
+    "win_rate": 33.7,
+    "avg_r": 0.34,
+    "payoff": 2.93,
+    "max_loss_streak": 26
+   }
+  },
+  "breakout_old_x_net": {
+   "지금 점수 2점↑ + 순이익 증가": {
+    "n": 552,
+    "win_rate": 30.4,
+    "avg_r": 0.21,
+    "payoff": 2.95,
+    "max_loss_streak": 22
+   },
+   "지금 점수 2점↑ + 순이익 감소": {
+    "n": 115,
+    "win_rate": 37.4,
+    "avg_r": 0.59,
+    "payoff": 3.2,
+    "max_loss_streak": 6
+   },
+   "지금 점수 0~1점 + 순이익 증가": {
+    "n": 164,
+    "win_rate": 34.8,
+    "avg_r": 0.36,
+    "payoff": 2.86,
+    "max_loss_streak": 10
+   }
+  },
+  "breakout_3pt_by_year": {
+   "2016": {
+    "n": 0,
+    "win_rate": null,
+    "avg_r": null,
+    "payoff": null,
+    "max_loss_streak": null
+   },
+   "2017": {
+    "n": 19,
+    "win_rate": 31.6,
+    "avg_r": 0.14,
+    "payoff": 2.59,
+    "max_loss_streak": 5
+   },
+   "2018": {
+    "n": 22,
+    "win_rate": 31.8,
+    "avg_r": 0.51,
+    "payoff": 3.67,
+    "max_loss_streak": 6
+   },
+   "2019": {
+    "n": 11,
+    "win_rate": 36.4,
+    "avg_r": 0.64,
+    "payoff": 3.47,
+    "max_loss_streak": 4
+   },
+   "2020": {
+    "n": 67,
+    "win_rate": 32.8,
+    "avg_r": 0.3,
+    "payoff": 2.9,
+    "max_loss_streak": 7
+   },
+   "2021": {
+    "n": 73,
+    "win_rate": 19.2,
+    "avg_r": -0.35,
+    "payoff": 2.47,
+    "max_loss_streak": 21
+   },
+   "2022": {
+    "n": 37,
+    "win_rate": 27.0,
+    "avg_r": -0.09,
+    "payoff": 2.39,
+    "max_loss_streak": 8
+   },
+   "2023": {
+    "n": 61,
+    "win_rate": 36.1,
+    "avg_r": 0.83,
+    "payoff": 3.97,
+    "max_loss_streak": 6
+   },
+   "2024": {
+    "n": 45,
+    "win_rate": 24.4,
+    "avg_r": -0.13,
+    "payoff": 2.6,
+    "max_loss_streak": 11
+   },
+   "2025": {
+    "n": 85,
+    "win_rate": 35.3,
+    "avg_r": 0.56,
+    "payoff": 3.35,
+    "max_loss_streak": 20
+   },
+   "2026": {
+    "n": 122,
+    "win_rate": 32.0,
+    "avg_r": 0.07,
+    "payoff": 2.33,
+    "max_loss_streak": 12
+   }
+  },
+  "breakout_under3_by_year": {
+   "2016": {
+    "n": 1,
+    "win_rate": 100.0,
+    "avg_r": 1.34,
+    "payoff": null,
+    "max_loss_streak": 0
+   },
+   "2017": {
+    "n": 27,
+    "win_rate": 40.7,
+    "avg_r": 0.3,
+    "payoff": 2.15,
+    "max_loss_streak": 6
+   },
+   "2018": {
+    "n": 43,
+    "win_rate": 25.6,
+    "avg_r": -0.21,
+    "payoff": 2.14,
+    "max_loss_streak": 9
+   },
+   "2019": {
+    "n": 13,
+    "win_rate": 7.7,
+    "avg_r": -0.84,
+    "payoff": 1.43,
+    "max_loss_streak": 11
+   },
+   "2020": {
+    "n": 121,
+    "win_rate": 38.0,
+    "avg_r": 0.42,
+    "payoff": 2.67,
+    "max_loss_streak": 12
+   },
+   "2021": {
+    "n": 94,
+    "win_rate": 29.8,
+    "avg_r": 0.17,
+    "payoff": 2.89,
+    "max_loss_streak": 14
+   },
+   "2022": {
+    "n": 27,
+    "win_rate": 22.2,
+    "avg_r": -0.26,
+    "payoff": 2.37,
+    "max_loss_streak": 11
+   },
+   "2023": {
+    "n": 109,
+    "win_rate": 24.8,
+    "avg_r": -0.05,
+    "payoff": 2.85,
+    "max_loss_streak": 18
+   },
+   "2024": {
+    "n": 78,
+    "win_rate": 30.8,
+    "avg_r": 0.21,
+    "payoff": 2.9,
+    "max_loss_streak": 19
+   },
+   "2025": {
+    "n": 118,
+    "win_rate": 37.3,
+    "avg_r": 0.82,
+    "payoff": 3.79,
+    "max_loss_streak": 18
+   },
+   "2026": {
+    "n": 146,
+    "win_rate": 43.8,
+    "avg_r": 0.77,
+    "payoff": 2.96,
+    "max_loss_streak": 10
+   }
+  },
+  "account": [
+   {
+    "name": "기준가 돌파만 (기준)",
+    "signals": 1501,
+    "order": "rs",
+    "final": 1.972,
+    "total_ret_pct": 97.2,
+    "cagr_pct": 7.2,
+    "max_dd_pct": -49.6,
+    "taken": 415,
+    "skipped": 1041,
+    "win_rate": 30.4,
+    "avg_r": 0.15,
+    "max_loss_streak": 19,
+    "by_kind": {
+     "돌파": 341,
+     "기준가+매물대 돌파": 74
+    },
+    "by_year": {
+     "2016": {
+      "ret_pct": -2.1,
+      "n": 3,
+      "win_rate": 33.3
+     },
+     "2017": {
+      "ret_pct": 14.5,
+      "n": 9,
+      "win_rate": 55.6
+     },
+     "2018": {
+      "ret_pct": -10.4,
+      "n": 24,
+      "win_rate": 16.7
+     },
+     "2019": {
+      "ret_pct": -23.2,
+      "n": 17,
+      "win_rate": 17.6
+     },
+     "2020": {
+      "ret_pct": 36.4,
+      "n": 48,
+      "win_rate": 39.6
+     },
+     "2021": {
+      "ret_pct": 3.5,
+      "n": 50,
+      "win_rate": 28.0
+     },
+     "2022": {
+      "ret_pct": -6.8,
+      "n": 33,
+      "win_rate": 27.3
+     },
+     "2023": {
+      "ret_pct": 34.7,
+      "n": 45,
+      "win_rate": 35.6
+     },
+     "2024": {
+      "ret_pct": -5.7,
+      "n": 56,
+      "win_rate": 28.6
+     },
+     "2025": {
+      "ret_pct": 33.7,
+      "n": 50,
+      "win_rate": 36.0
+     },
+     "2026": {
+      "ret_pct": 14.4,
+      "n": 79,
+      "win_rate": 26.6
+     }
+    },
+    "random_total_ret_pct": {
+     "min": -21.0,
+     "median": 76.4,
+     "max": 413.0
+    }
+   },
+   {
+    "name": "기준가 돌파 + 지금 점수 2점↑",
+    "signals": 673,
+    "order": "rs",
+    "final": 5.409,
+    "total_ret_pct": 440.9,
+    "cagr_pct": 18.8,
+    "max_dd_pct": -44.1,
+    "taken": 333,
+    "skipped": 299,
+    "win_rate": 32.5,
+    "avg_r": 0.35,
+    "max_loss_streak": 21,
+    "by_kind": {
+     "돌파": 289,
+     "기준가+매물대 돌파": 44
+    },
+    "by_year": {
+     "2016": {
+      "ret_pct": -2.1,
+      "n": 1,
+      "win_rate": 0.0
+     },
+     "2017": {
+      "ret_pct": -9.0,
+      "n": 18,
+      "win_rate": 27.8
+     },
+     "2018": {
+      "ret_pct": 15.9,
+      "n": 14,
+      "win_rate": 35.7
+     },
+     "2019": {
+      "ret_pct": 3.0,
+      "n": 15,
+      "win_rate": 26.7
+     },
+     "2020": {
+      "ret_pct": 64.4,
+      "n": 42,
+      "win_rate": 40.5
+     },
+     "2021": {
+      "ret_pct": -24.4,
+      "n": 48,
+      "win_rate": 18.8
+     },
+     "2022": {
+      "ret_pct": -1.5,
+      "n": 23,
+      "win_rate": 30.4
+     },
+     "2023": {
+      "ret_pct": 61.6,
+      "n": 37,
+      "win_rate": 37.8
+     },
+     "2024": {
+      "ret_pct": 24.1,
+      "n": 35,
+      "win_rate": 34.3
+     },
+     "2025": {
+      "ret_pct": 64.5,
+      "n": 42,
+      "win_rate": 40.5
+     },
+     "2026": {
+      "ret_pct": 25.9,
+      "n": 57,
+      "win_rate": 31.6
+     }
+    },
+    "random_total_ret_pct": {
+     "min": 177.0,
+     "median": 379.8,
+     "max": 607.1
+    }
+   },
+   {
+    "name": "기준가 돌파 + 책 점수 3점(매출·영업이익·순이익 모두 증가)",
+    "signals": 542,
+    "order": "rs",
+    "final": 4.183,
+    "total_ret_pct": 318.3,
+    "cagr_pct": 15.7,
+    "max_dd_pct": -34.0,
+    "taken": 285,
+    "skipped": 223,
+    "win_rate": 33.7,
+    "avg_r": 0.34,
+    "max_loss_streak": 12,
+    "by_kind": {
+     "돌파": 247,
+     "기준가+매물대 돌파": 38
+    },
+    "by_year": {
+     "2016": {
+      "ret_pct": 0.0,
+      "n": 0,
+      "win_rate": 0.0
+     },
+     "2017": {
+      "ret_pct": -9.5,
+      "n": 17,
+      "win_rate": 29.4
+     },
+     "2018": {
+      "ret_pct": 23.6,
+      "n": 12,
+      "win_rate": 41.7
+     },
+     "2019": {
+      "ret_pct": 6.0,
+      "n": 11,
+      "win_rate": 36.4
+     },
+     "2020": {
+      "ret_pct": 28.0,
+      "n": 37,
+      "win_rate": 32.4
+     },
+     "2021": {
+      "ret_pct": -15.9,
+      "n": 37,
+      "win_rate": 21.6
+     },
+     "2022": {
+      "ret_pct": 12.6,
+      "n": 22,
+      "win_rate": 40.9
+     },
+     "2023": {
+      "ret_pct": 79.9,
+      "n": 29,
+      "win_rate": 44.8
+     },
+     "2024": {
+      "ret_pct": -21.3,
+      "n": 32,
+      "win_rate": 21.9
+     },
+     "2025": {
+      "ret_pct": 86.4,
+      "n": 35,
+      "win_rate": 45.7
+     },
+     "2026": {
+      "ret_pct": 10.4,
+      "n": 53,
+      "win_rate": 32.1
+     }
+    },
+    "random_total_ret_pct": {
+     "min": 82.2,
+     "median": 202.7,
+     "max": 395.2
+    }
+   },
+   {
+    "name": "기준가 돌파 + 책 점수 2점↑",
+    "signals": 773,
+    "order": "rs",
+    "final": 3.609,
+    "total_ret_pct": 260.9,
+    "cagr_pct": 14.0,
+    "max_dd_pct": -39.2,
+    "taken": 337,
+    "skipped": 388,
+    "win_rate": 32.7,
+    "avg_r": 0.28,
+    "max_loss_streak": 24,
+    "by_kind": {
+     "돌파": 292,
+     "기준가+매물대 돌파": 45
+    },
+    "by_year": {
+     "2016": {
+      "ret_pct": 0.0,
+      "n": 0,
+      "win_rate": 0.0
+     },
+     "2017": {
+      "ret_pct": -11.1,
+      "n": 18,
+      "win_rate": 27.8
+     },
+     "2018": {
+      "ret_pct": 14.4,
+      "n": 18,
+      "win_rate": 33.3
+     },
+     "2019": {
+      "ret_pct": -4.4,
+      "n": 15,
+      "win_rate": 26.7
+     },
+     "2020": {
+      "ret_pct": 0.6,
+      "n": 44,
+      "win_rate": 29.5
+     },
+     "2021": {
+      "ret_pct": -31.5,
+      "n": 52,
+      "win_rate": 19.2
+     },
+     "2022": {
+      "ret_pct": 26.7,
+      "n": 26,
+      "win_rate": 42.3
+     },
+     "2023": {
+      "ret_pct": 67.3,
+      "n": 29,
+      "win_rate": 44.8
+     },
+     "2024": {
+      "ret_pct": 19.6,
+      "n": 33,
+      "win_rate": 33.3
+     },
+     "2025": {
+      "ret_pct": 92.3,
+      "n": 43,
+      "win_rate": 46.5
+     },
+     "2026": {
+      "ret_pct": 10.4,
+      "n": 58,
+      "win_rate": 29.3
+     }
+    },
+    "random_total_ret_pct": {
+     "min": 73.3,
+     "median": 237.5,
+     "max": 377.8
+    }
+   },
+   {
+    "name": "기준가 돌파 + 책 점수 0~1점 (반대 확인)",
+    "signals": 547,
+    "order": "rs",
+    "final": 3.468,
+    "total_ret_pct": 246.8,
+    "cagr_pct": 13.5,
+    "max_dd_pct": -60.2,
+    "taken": 289,
+    "skipped": 241,
+    "win_rate": 31.1,
+    "avg_r": 0.34,
+    "max_loss_streak": 23,
+    "by_kind": {
+     "돌파": 239,
+     "기준가+매물대 돌파": 50
+    },
+    "by_year": {
+     "2016": {
+      "ret_pct": 2.7,
+      "n": 1,
+      "win_rate": 100.0
+     },
+     "2017": {
+      "ret_pct": 5.4,
+      "n": 14,
+      "win_rate": 35.7
+     },
+     "2018": {
+      "ret_pct": -17.1,
+      "n": 21,
+      "win_rate": 23.8
+     },
+     "2019": {
+      "ret_pct": -8.3,
+      "n": 7,
+      "win_rate": 14.3
+     },
+     "2020": {
+      "ret_pct": 27.5,
+      "n": 41,
+      "win_rate": 34.1
+     },
+     "2021": {
+      "ret_pct": 19.4,
+      "n": 26,
+      "win_rate": 38.5
+     },
+     "2022": {
+      "ret_pct": -17.3,
+      "n": 18,
+      "win_rate": 16.7
+     },
+     "2023": {
+      "ret_pct": -39.3,
+      "n": 47,
+      "win_rate": 12.8
+     },
+     "2024": {
+      "ret_pct": 25.0,
+      "n": 28,
+      "win_rate": 39.3
+     },
+     "2025": {
+      "ret_pct": 84.4,
+      "n": 42,
+      "win_rate": 33.3
+     },
+     "2026": {
+      "ret_pct": 139.1,
+      "n": 44,
+      "win_rate": 45.5
+     }
+    },
+    "random_total_ret_pct": {
+     "min": 192.6,
+     "median": 264.5,
+     "max": 348.7
+    }
+   },
+   {
+    "name": "기준가 돌파 + 순이익 증가만",
+    "signals": 716,
+    "order": "rs",
+    "final": 2.831,
+    "total_ret_pct": 183.1,
+    "cagr_pct": 11.2,
+    "max_dd_pct": -33.4,
+    "taken": 324,
+    "skipped": 351,
+    "win_rate": 32.7,
+    "avg_r": 0.24,
+    "max_loss_streak": 12,
+    "by_kind": {
+     "돌파": 284,
+     "기준가+매물대 돌파": 40
+    },
+    "by_year": {
+     "2016": {
+      "ret_pct": 0.0,
+      "n": 0,
+      "win_rate": 0.0
+     },
+     "2017": {
+      "ret_pct": -11.1,
+      "n": 18,
+      "win_rate": 27.8
+     },
+     "2018": {
+      "ret_pct": 16.9,
+      "n": 18,
+      "win_rate": 33.3
+     },
+     "2019": {
+      "ret_pct": -4.6,
+      "n": 14,
+      "win_rate": 28.6
+     },
+     "2020": {
+      "ret_pct": 7.4,
+      "n": 45,
+      "win_rate": 33.3
+     },
+     "2021": {
+      "ret_pct": -9.6,
+      "n": 43,
+      "win_rate": 23.3
+     },
+     "2022": {
+      "ret_pct": 19.2,
+      "n": 22,
+      "win_rate": 45.5
+     },
+     "2023": {
+      "ret_pct": 66.8,
+      "n": 29,
+      "win_rate": 44.8
+     },
+     "2024": {
+      "ret_pct": -14.0,
+      "n": 34,
+      "win_rate": 26.5
+     },
+     "2025": {
+      "ret_pct": 60.6,
+      "n": 39,
+      "win_rate": 43.6
+     },
+     "2026": {
+      "ret_pct": 7.2,
+      "n": 62,
+      "win_rate": 27.4
+     }
+    },
+    "random_total_ret_pct": {
+     "min": 45.3,
+     "median": 184.3,
+     "max": 332.6
+    }
+   },
+   {
+    "name": "기준가 돌파 + 지금 점수 2점↑ + 순이익 증가 (4항목 방식)",
+    "signals": 552,
+    "order": "rs",
+    "final": 4.545,
+    "total_ret_pct": 354.5,
+    "cagr_pct": 16.7,
+    "max_dd_pct": -33.4,
+    "taken": 291,
+    "skipped": 228,
+    "win_rate": 33.3,
+    "avg_r": 0.35,
+    "max_loss_streak": 14,
+    "by_kind": {
+     "돌파": 252,
+     "기준가+매물대 돌파": 39
+    },
+    "by_year": {
+     "2016": {
+      "ret_pct": 0.0,
+      "n": 0,
+      "win_rate": 0.0
+     },
+     "2017": {
+      "ret_pct": -7.1,
+      "n": 17,
+      "win_rate": 29.4
+     },
+     "2018": {
+      "ret_pct": 13.8,
+      "n": 10,
+      "win_rate": 30.0
+     },
+     "2019": {
+      "ret_pct": -0.4,
+      "n": 14,
+      "win_rate": 28.6
+     },
+     "2020": {
+      "ret_pct": 38.8,
+      "n": 40,
+      "win_rate": 37.5
+     },
+     "2021": {
+      "ret_pct": -19.0,
+      "n": 41,
+      "win_rate": 19.5
+     },
+     "2022": {
+      "ret_pct": 11.0,
+      "n": 20,
+      "win_rate": 40.0
+     },
+     "2023": {
+      "ret_pct": 79.9,
+      "n": 29,
+      "win_rate": 44.8
+     },
+     "2024": {
+      "ret_pct": -13.1,
+      "n": 31,
+      "win_rate": 25.8
+     },
+     "2025": {
+      "ret_pct": 78.6,
+      "n": 37,
+      "win_rate": 45.9
+     },
+     "2026": {
+      "ret_pct": 23.8,
+      "n": 52,
+      "win_rate": 30.8
+     }
+    },
+    "random_total_ret_pct": {
+     "min": 110.8,
+     "median": 232.6,
+     "max": 358.3
+    }
+   },
+   {
+    "name": "기준가 돌파 + 책 점수 3점 + 코스피 20일선 위",
+    "signals": 400,
+    "order": "rs",
+    "final": 5.085,
+    "total_ret_pct": 408.5,
+    "cagr_pct": 18.1,
+    "max_dd_pct": -25.0,
+    "taken": 220,
+    "skipped": 160,
+    "win_rate": 35.0,
+    "avg_r": 0.46,
+    "max_loss_streak": 10,
+    "by_kind": {
+     "돌파": 196,
+     "기준가+매물대 돌파": 24
+    },
+    "by_year": {
+     "2016": {
+      "ret_pct": 0.0,
+      "n": 0,
+      "win_rate": 0.0
+     },
+     "2017": {
+      "ret_pct": -3.7,
+      "n": 9,
+      "win_rate": 22.2
+     },
+     "2018": {
+      "ret_pct": 21.8,
+      "n": 12,
+      "win_rate": 41.7
+     },
+     "2019": {
+      "ret_pct": -2.6,
+      "n": 5,
+      "win_rate": 40.0
+     },
+     "2020": {
+      "ret_pct": 14.2,
+      "n": 36,
+      "win_rate": 30.6
+     },
+     "2021": {
+      "ret_pct": 7.5,
+      "n": 29,
+      "win_rate": 27.6
+     },
+     "2022": {
+      "ret_pct": 10.9,
+      "n": 12,
+      "win_rate": 50.0
+     },
+     "2023": {
+      "ret_pct": 75.9,
+      "n": 21,
+      "win_rate": 33.3
+     },
+     "2024": {
+      "ret_pct": -4.1,
+      "n": 18,
+      "win_rate": 22.2
+     },
+     "2025": {
+      "ret_pct": 55.5,
+      "n": 35,
+      "win_rate": 48.6
+     },
+     "2026": {
+      "ret_pct": 24.7,
+      "n": 43,
+      "win_rate": 34.9
+     }
+    },
+    "random_total_ret_pct": {
+     "min": 184.9,
+     "median": 292.0,
+     "max": 424.2
+    }
+   },
+   {
+    "name": "기준가 돌파 + 책 점수 3점 + 업종 1~5위",
+    "signals": 137,
+    "order": "rs",
+    "final": 2.506,
+    "total_ret_pct": 150.6,
+    "cagr_pct": 9.8,
+    "max_dd_pct": -31.3,
+    "taken": 117,
+    "skipped": 14,
+    "win_rate": 35.0,
+    "avg_r": 0.5,
+    "max_loss_streak": 8,
+    "by_kind": {
+     "돌파": 108,
+     "기준가+매물대 돌파": 9
+    },
+    "by_year": {
+     "2016": {
+      "ret_pct": 0.0,
+      "n": 0,
+      "win_rate": 0.0
+     },
+     "2017": {
+      "ret_pct": -5.1,
+      "n": 7,
+      "win_rate": 28.6
+     },
+     "2018": {
+      "ret_pct": 2.4,
+      "n": 3,
+      "win_rate": 33.3
+     },
+     "2019": {
+      "ret_pct": 5.6,
+      "n": 4,
+      "win_rate": 25.0
+     },
+     "2020": {
+      "ret_pct": 4.2,
+      "n": 7,
+      "win_rate": 28.6
+     },
+     "2021": {
+      "ret_pct": -19.0,
+      "n": 19,
+      "win_rate": 15.8
+     },
+     "2022": {
+      "ret_pct": -6.5,
+      "n": 11,
+      "win_rate": 27.3
+     },
+     "2023": {
+      "ret_pct": 106.6,
+      "n": 14,
+      "win_rate": 50.0
+     },
+     "2024": {
+      "ret_pct": 5.8,
+      "n": 14,
+      "win_rate": 35.7
+     },
+     "2025": {
+      "ret_pct": 13.6,
+      "n": 14,
+      "win_rate": 42.9
+     },
+     "2026": {
+      "ret_pct": 24.9,
+      "n": 24,
+      "win_rate": 45.8
+     }
+    },
+    "random_total_ret_pct": {
+     "min": 137.1,
+     "median": 159.4,
+     "max": 178.2
+    }
+   }
+  ]
+ },
+ "seconds": 1364
 }
