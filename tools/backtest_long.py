@@ -156,6 +156,24 @@ def run(years=5, limit=None, with_delisted=True, workers=6, portfolio=False):
         return {"ia": label, "ia_group": ind_of[code], "ia_peers": len(xs), "ia_up_share": share, "ia_median": med}
 
     if portfolio:                      # 계좌 시뮬레이션: 보유 여부와 상관없이 뜬 신호를 모두 모아 넘긴다
+        # 그날의 주도 업종 순위 (2026-11-23 사용자 요청): 주도 섹터 레이더(sector_radar.score_on, 가격·거래대금만)를 5거래일마다 다시 계산.
+        # 그날 시총 2천억↑ 종목끼리, 업종 분류는 지금 기준. 신호에는 '그날 이전 가장 가까운 계산일'의 순위를 붙인다(앞날 자료 안 씀).
+        import sector_radar
+        rd = {s["code"]: {"rows": rows, "idx": {r["date"]: i for i, r in enumerate(rows)}, "group": ind_of[s["code"]], "name": s["name"]}
+              for s, rows in data if s["code"] in ind_of}
+        bdays = [r["date"] for r in bench]
+        snaps, snap_days = {}, []
+        for d in bdays[::5]:
+            sub = {c: v for c, v in rd.items() if d in v["idx"] and (cap_on(c, d) or 0) >= MIN}
+            sc = sector_radar.score_on(sub, d)
+            if sc:
+                snaps[d] = {x["group"]: (x["rank"], x["score"], len(sc)) for x in sc}
+                snap_days.append(d)
+
+        def sector_at(code, day):
+            k = bisect.bisect_right(snap_days, day) - 1
+            g = (ind_of.get(code) or "").replace("네이버:", "")
+            return snaps[snap_days[k]].get(g) if k >= 0 and g else None
         cand = []
         for s, rows in data:
             sh = shares.get(s["code"])
@@ -163,7 +181,9 @@ def run(years=5, limit=None, with_delisted=True, workers=6, portfolio=False):
             for t in B.scan(s, rows, rs_at, bench_ok, R, ia_at, require_ia=True, cap_at=cap_at, all_signals=True):
                 if s.get("delisted") and not t["exit"]:
                     t["exit"], t["how"] = rows[-1]["date"], "상장폐지까지 보유"
-                cand.append({k: t.get(k) for k in ("code", "stock", "date", "kind", "rs", "r", "exit", "be", "how", "market_ok", "vol_ratio")})
+                sa = sector_at(t["code"], t["date"])
+                cand.append({**{k: t.get(k) for k in ("code", "stock", "date", "kind", "rs", "r", "exit", "be", "how", "market_ok", "vol_ratio", "ia_group")},
+                             "sec_rank": sa[0] if sa else None, "sec_score": sa[1] if sa else None, "sec_n": sa[2] if sa else None})
         first = (datetime.strptime(last_day, "%Y%m%d") - timedelta(days=int(365 * years))).strftime("%Y%m%d")
         days = sorted({r["date"] for r in bench if r["date"] >= first})
         return [t for t in cand if t["date"] >= first], days, {"all": len(data), "delisted": sum(1 for s, _ in data if s.get("delisted"))}
@@ -275,6 +295,26 @@ def run_portfolio(years=5, with_delisted=True):
     st = lambda ts: {k: B.stats([{**t, "took": bool(t["be"]), "days": 0} for t in ts if t["exit"]]).get(k) for k in ("n", "win_rate", "avg_r")}  # noqa: E731
     out["signals_by_year"] = {y: st([t for t in cand if t["date"][:4] == y]) for y in sorted({t["date"][:4] for t in cand})}
     out["signals_by_rs"] = {b: st([t for t in cand if lo <= (t["rs"] or 0) < hi]) for b, lo, hi in (("70~80", 70, 80), ("80~90", 80, 90), ("90~95", 90, 95), ("95 이상", 95, 101))}
+    # 주도 업종(그날 레이더 순위)별 신호 성적과, 주도 업종만 샀을 때의 계좌 (참고 비교 — 지금 규칙 아님)
+    bucket = lambda t: "분류 없음" if t["sec_rank"] is None else "1~5위" if t["sec_rank"] <= 5 else "6~10위" if t["sec_rank"] <= 10 else "11~20위" if t["sec_rank"] <= 20 else "21위 아래"  # noqa: E731
+    order_b = ["1~5위", "6~10위", "11~20위", "21위 아래", "분류 없음"]
+    out["sector"] = {"note": "업종 순위 = 주도 섹터 레이더 점수(1개월·1주 상대 강도, 20일선 위 비율, 신고가 비율, 거래대금 쏠림) 순위, 5거래일마다 계산, 그날 시총 2천억↑ 종목·지금 업종 분류",
+                     "groups_median": sorted(t["sec_n"] for t in cand if t["sec_n"])[len([t for t in cand if t["sec_n"]]) // 2] if any(t["sec_n"] for t in cand) else None,
+                     "all": {b: st([t for t in cand if bucket(t) == b]) for b in order_b},
+                     "돌파": {b: st([t for t in cand if t["kind"] == "돌파" and bucket(t) == b]) for b in order_b},
+                     "포켓피봇": {b: st([t for t in cand if t["kind"] == "포켓피봇" and bucket(t) == b]) for b in order_b},
+                     "by_year_top10": {y: st([t for t in cand if t["date"][:4] == y and (t["sec_rank"] or 99) <= 10]) for y in out["signals_by_year"]},
+                     "by_year_rest": {y: st([t for t in cand if t["date"][:4] == y and (t["sec_rank"] or 99) > 10]) for y in out["signals_by_year"]},
+                     "account": []}
+    top = lambda n: (lambda t: (t["sec_rank"] or 99) <= n)  # noqa: E731
+    for name, f in (("주도 업종 1~5위만", top(5)), ("주도 업종 1~10위만", top(10)), ("주도 업종 11위 아래만 (반대 확인)", lambda t: (t["sec_rank"] or 99) > 10),
+                    ("돌파만 + 주도 업종 1~10위", lambda t: t["kind"] == "돌파" and top(10)(t)),
+                    ("포켓피봇만 + 주도 업종 1~5위", lambda t: t["kind"] == "포켓피봇" and top(5)(t)),
+                    ("주도 업종 1~10위 + 코스피 20일선 위", lambda t: top(10)(t) and t["market_ok"])):
+        c = [t for t in cand if f(t)]
+        rr = sorted(account(c, days, "random", seed=k)["total_ret_pct"] for k in range(30))
+        v = account(c, days, "rs"); v.pop("curve", None)
+        out["sector"]["account"].append({"name": name, "signals": len(c), **v, "random_total_ret_pct": {"min": rr[0], "median": rr[15], "max": rr[-1]}})
     rs_ = [account(cand, days, "random", seed=k) for k in range(30)]
     med = lambda k: sorted(r[k] for r in rs_)[len(rs_) // 2]  # noqa: E731
     out["random"] = {"name": "아무거나 고름 (30번 평균 — 고르는 순서가 얼마나 중요한지 보는 기준)", "runs": 30,
