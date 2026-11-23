@@ -12,6 +12,7 @@ backtest.py(3년, 지금 시총 2천억↑ 종목만)의 두 가지 약점을 �
 
   python3 tools/backtest_long.py [--years 5] [--limit 300] [--no-delisted]     # 신호를 모두 샀다고 본 성적 → data/backtest/long.json
   python3 tools/backtest_long.py --portfolio                                   # 계좌 하나를 실제처럼(동시 위험 6%) → data/backtest/long_portfolio.json
+  python3 tools/backtest_long.py --zone                                        # 기준가 돌파 vs 매물대 돌파 → data/backtest/long_zone.json
 """
 import argparse, bisect, json, os, re, sys, time
 from collections import Counter, defaultdict
@@ -328,11 +329,52 @@ def run_portfolio(years=5, with_delisted=True):
     return out
 
 
+def run_zone(years=5, with_delisted=True):
+    """기준가 돌파와 매물대 돌파를 나눠 비교 (2026-11-23 사용자 요청, 비교 자료).
+    매물대 돌파 = 어제 종가 ≤ 최대 매물대(웹 차트의 빨간 막대: 어제까지 200봉·10칸 중 거래량이 가장 많은 칸) 상단 < 오늘 종가, 거래량 50일 평균의 1.5배↑.
+    종목 조건·업종 동반 상승·청산 규칙은 돌파와 같다. 같은 날 기준가도 넘으면 '기준가+매물대 돌파'."""
+    t0 = time.time()
+    old = S.RULES.get("breakout_mode", "base")
+    S.RULES["breakout_mode"] = "zone_cmp"
+    try:
+        cand, days, uni = run(years, None, with_delisted, portfolio=True)
+    finally:
+        S.RULES["breakout_mode"] = old
+    st = lambda ts: {k: B.stats([{**t, "took": bool(t["be"]), "days": 0} for t in ts if t["exit"]]).get(k) for k in ("n", "win_rate", "avg_r", "payoff", "max_loss_streak")}  # noqa: E731
+    kinds = ["돌파", "기준가+매물대 돌파", "매물대 돌파", "포켓피봇"]
+    top10 = lambda t: (t["sec_rank"] or 99) <= 10  # noqa: E731
+    years_ = sorted({t["date"][:4] for t in cand})
+    out = {"made_at": datetime.now(KST).strftime("%Y-%m-%d %H:%M"), "years": years, "period": [days[0], days[-1]], "universe": uni, "signals": len(cand),
+           "define": run_zone.__doc__.strip(),
+           "by_kind": {k: st([t for t in cand if t["kind"] == k]) for k in kinds},
+           "by_kind_year": {k: {y: st([t for t in cand if t["kind"] == k and t["date"][:4] == y]) for y in years_} for k in kinds},
+           "by_kind_sector": {k: {"주도 업종 1~10위": st([t for t in cand if t["kind"] == k and top10(t)]), "11위 아래": st([t for t in cand if t["kind"] == k and not top10(t)])} for k in kinds},
+           "by_kind_market": {k: {"코스피 20일선 위": st([t for t in cand if t["kind"] == k and t["market_ok"]]), "아래": st([t for t in cand if t["kind"] == k and not t["market_ok"]])} for k in kinds},
+           "account": []}
+    zone = ("매물대 돌파", "기준가+매물대 돌파")
+    base = ("돌파", "기준가+매물대 돌파")
+    for name, f in (("지금 규칙 (기준가 돌파 + 포켓피봇)", lambda t: t["kind"] != "매물대 돌파"),
+                    ("기준가 돌파만", lambda t: t["kind"] in base), ("매물대 돌파만", lambda t: t["kind"] in zone),
+                    ("기준가 또는 매물대 돌파 (포켓피봇 제외)", lambda t: t["kind"] != "포켓피봇"),
+                    ("기준가와 매물대를 같은 날 함께 돌파한 것만", lambda t: t["kind"] == "기준가+매물대 돌파"),
+                    ("매물대 돌파만 + 주도 업종 1~10위", lambda t: t["kind"] in zone and top10(t)),
+                    ("기준가 또는 매물대 돌파 + 주도 업종 1~10위", lambda t: t["kind"] != "포켓피봇" and top10(t))):
+        c = [t for t in cand if f(t)]
+        rr = sorted(account(c, days, "random", seed=k)["total_ret_pct"] for k in range(30))
+        v = account(c, days, "rs"); v.pop("curve", None)
+        out["account"].append({"name": name, "signals": len(c), **v, "random_total_ret_pct": {"min": rr[0], "median": rr[15], "max": rr[-1]}})
+    out["seconds"] = round(time.time() - t0)
+    (DATA / "backtest" / "long_zone.json").write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
+    return {k: out[k] for k in ("made_at", "signals", "by_kind", "seconds")}
+
+
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(description="긴 기간 백테스트 (상장폐지 종목 포함 · 그날 시총) — 비교 자료")
     ap.add_argument("--years", type=float, default=5)
     ap.add_argument("--limit", type=int)
     ap.add_argument("--no-delisted", action="store_true")
     ap.add_argument("--portfolio", action="store_true", help="계좌 하나를 실제처럼 굴리는 시뮬레이션 (동시 위험 6% · 고르는 순서 비교) → data/backtest/long_portfolio.json")
+    ap.add_argument("--zone", action="store_true", help="기준가 돌파와 매물대 돌파 비교 → data/backtest/long_zone.json")
     a = ap.parse_args()
-    print(json.dumps(run_portfolio(a.years, not a.no_delisted) if a.portfolio else run(a.years, a.limit, not a.no_delisted), ensure_ascii=False, indent=1))
+    res = run_zone(a.years, not a.no_delisted) if a.zone else run_portfolio(a.years, not a.no_delisted) if a.portfolio else run(a.years, a.limit, not a.no_delisted)
+    print(json.dumps(res, ensure_ascii=False, indent=1))

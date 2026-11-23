@@ -130,7 +130,12 @@ def scan(stock, rows, rs_at, bench_ok, R, ia_at=None, require_ia=True, cap_at=No
         downs = [v[k] for k in range(i - 10, i) if c[k] < c[k - 1]]
         ma10 = sum(c[i - 9:i + 1]) / 10
         pp = downs and v[i] > max(downs) and 0.97 <= c[i] / ma10 <= 1.05
-        if not (brk or pp):
+        mode = S.RULES.get("breakout_mode", "base")          # base: 베이스 기준가 돌파 / d55: 55일 신고가 돌파 / both / zone_cmp: 기준가와 매물대 돌파를 나눠 비교(backtest_long --zone)
+        zb = False
+        if mode == "zone_cmp" and v[i] >= S.RULES["breakout_vol"] * vol50:     # 매물대 돌파 = 어제 종가 ≤ 최대 매물대(차트 빨간 막대, 어제까지 200봉) 상단 < 오늘 종가 + 거래량 1.5배
+            mz = S.max_zone(rows[max(0, i - 200):i])
+            zb = bool(mz and c[i - 1] <= mz["top"] < c[i])
+        if not (brk or pp or zb):
             continue
         hist = rows[max(0, i - 400):i + 1]
         rs = rs_at(rows[i]["date"], stock["code"])
@@ -149,12 +154,13 @@ def scan(stock, rows, rs_at, bench_ok, R, ia_at=None, require_ia=True, cap_at=No
         kind = None
         ia = ia_at(stock["code"], rows[i]["date"]) if ia_at else {"ia": "확인 불가"}
         brk_ok = base and setups and c[i] > prev.get("handle_high", base["pivot"]) and v[i] >= S.RULES["breakout_vol"] * vol50
-        mode = S.RULES.get("breakout_mode", "base")          # base: 베이스 기준가 돌파 / d55: 55일 신고가 돌파 / both
         nd = S.RULES.get("breakout_days", 55)
         brk55 = c[i] > max(h[i - nd:i]) and v[i] >= S.RULES["breakout_vol"] * vol50
         ia_ok = not require_ia or ia["ia"] == "동반 상승"
-        if gate_brk and ia_ok and brk_ok and mode in ("base", "both"):
-            kind = "돌파"
+        if gate_brk and ia_ok and brk_ok and mode in ("base", "both", "zone_cmp"):
+            kind = "기준가+매물대 돌파" if zb else "돌파"
+        elif gate_brk and ia_ok and zb:
+            kind = "매물대 돌파"
         elif gate_brk and ia_ok and brk55 and mode in ("d55", "both"):
             kind = f"{nd}일 신고가 돌파"
         elif gate_pp and pp:

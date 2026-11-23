@@ -1,0 +1,744 @@
+{
+ "made_at": "2026-11-23 18:58",
+ "years": 5,
+ "period": [
+  "20211124",
+  "20261123"
+ ],
+ "universe": {
+  "all": 2549,
+  "delisted": 167
+ },
+ "signals": 4130,
+ "define": "기준가 돌파와 매물대 돌파를 나눠 비교 (2026-11-23 사용자 요청, 비교 자료).\n매물대 돌파 = 어제 종가 ≤ 최대 매물대(웹 차트의 빨간 막대: 어제까지 200봉·10칸 중 거래량이 가장 많은 칸) 상단 < 오늘 종가, 거래량 50일 평균의 1.5배↑.\n종목 조건·업종 동반 상승·청산 규칙은 돌파와 같다. 같은 날 기준가도 넘으면 '기준가+매물대 돌파'.",
+ "by_kind": {
+  "돌파": {
+   "n": 809,
+   "win_rate": 31.9,
+   "avg_r": 0.31,
+   "payoff": 3.08,
+   "max_loss_streak": 22
+  },
+  "기준가+매물대 돌파": {
+   "n": 136,
+   "win_rate": 30.1,
+   "avg_r": 0.2,
+   "payoff": 2.96,
+   "max_loss_streak": 12
+  },
+  "매물대 돌파": {
+   "n": 423,
+   "win_rate": 29.6,
+   "avg_r": 0.15,
+   "payoff": 2.88,
+   "max_loss_streak": 14
+  },
+  "포켓피봇": {
+   "n": 2757,
+   "win_rate": 26.2,
+   "avg_r": 0.08,
+   "payoff": 3.09,
+   "max_loss_streak": 38
+  }
+ },
+ "by_kind_year": {
+  "돌파": {
+   "2021": {
+    "n": 6,
+    "win_rate": 16.7,
+    "avg_r": -0.46,
+    "payoff": 2.31,
+    "max_loss_streak": 5
+   },
+   "2022": {
+    "n": 57,
+    "win_rate": 22.8,
+    "avg_r": -0.2,
+    "payoff": 2.53,
+    "max_loss_streak": 11
+   },
+   "2023": {
+    "n": 151,
+    "win_rate": 27.2,
+    "avg_r": 0.2,
+    "payoff": 3.38,
+    "max_loss_streak": 15
+   },
+   "2024": {
+    "n": 124,
+    "win_rate": 25.8,
+    "avg_r": 0.01,
+    "payoff": 2.9,
+    "max_loss_streak": 21
+   },
+   "2025": {
+    "n": 207,
+    "win_rate": 35.3,
+    "avg_r": 0.66,
+    "payoff": 3.63,
+    "max_loss_streak": 22
+   },
+   "2026": {
+    "n": 264,
+    "win_rate": 37.1,
+    "avg_r": 0.38,
+    "payoff": 2.68,
+    "max_loss_streak": 19
+   }
+  },
+  "기준가+매물대 돌파": {
+   "2021": {
+    "n": 1,
+    "win_rate": 0.0,
+    "avg_r": -1.03,
+    "payoff": null,
+    "max_loss_streak": 1
+   },
+   "2022": {
+    "n": 16,
+    "win_rate": 25.0,
+    "avg_r": -0.36,
+    "payoff": 1.64,
+    "max_loss_streak": 5
+   },
+   "2023": {
+    "n": 34,
+    "win_rate": 29.4,
+    "avg_r": 0.21,
+    "payoff": 3.09,
+    "max_loss_streak": 12
+   },
+   "2024": {
+    "n": 28,
+    "win_rate": 25.0,
+    "avg_r": -0.14,
+    "payoff": 2.47,
+    "max_loss_streak": 7
+   },
+   "2025": {
+    "n": 28,
+    "win_rate": 35.7,
+    "avg_r": 0.4,
+    "payoff": 2.87,
+    "max_loss_streak": 8
+   },
+   "2026": {
+    "n": 29,
+    "win_rate": 34.5,
+    "avg_r": 0.68,
+    "payoff": 3.81,
+    "max_loss_streak": 6
+   }
+  },
+  "매물대 돌파": {
+   "2021": {
+    "n": 7,
+    "win_rate": 28.6,
+    "avg_r": 0.3,
+    "payoff": 3.52,
+    "max_loss_streak": 2
+   },
+   "2022": {
+    "n": 68,
+    "win_rate": 27.9,
+    "avg_r": -0.05,
+    "payoff": 2.42,
+    "max_loss_streak": 8
+   },
+   "2023": {
+    "n": 92,
+    "win_rate": 27.2,
+    "avg_r": -0.07,
+    "payoff": 2.43,
+    "max_loss_streak": 11
+   },
+   "2024": {
+    "n": 82,
+    "win_rate": 30.5,
+    "avg_r": 0.15,
+    "payoff": 2.75,
+    "max_loss_streak": 9
+   },
+   "2025": {
+    "n": 86,
+    "win_rate": 30.2,
+    "avg_r": 0.29,
+    "payoff": 3.24,
+    "max_loss_streak": 14
+   },
+   "2026": {
+    "n": 88,
+    "win_rate": 31.8,
+    "avg_r": 0.39,
+    "payoff": 3.33,
+    "max_loss_streak": 12
+   }
+  },
+  "포켓피봇": {
+   "2021": {
+    "n": 61,
+    "win_rate": 6.6,
+    "avg_r": -0.82,
+    "payoff": 2.34,
+    "max_loss_streak": 30
+   },
+   "2022": {
+    "n": 351,
+    "win_rate": 14.5,
+    "avg_r": -0.44,
+    "payoff": 3.02,
+    "max_loss_streak": 63
+   },
+   "2023": {
+    "n": 688,
+    "win_rate": 25.1,
+    "avg_r": 0.06,
+    "payoff": 3.2,
+    "max_loss_streak": 28
+   },
+   "2024": {
+    "n": 524,
+    "win_rate": 24.2,
+    "avg_r": -0.05,
+    "payoff": 2.95,
+    "max_loss_streak": 38
+   },
+   "2025": {
+    "n": 712,
+    "win_rate": 33.3,
+    "avg_r": 0.42,
+    "payoff": 3.22,
+    "max_loss_streak": 22
+   },
+   "2026": {
+    "n": 421,
+    "win_rate": 31.1,
+    "avg_r": 0.22,
+    "payoff": 2.88,
+    "max_loss_streak": 19
+   }
+  }
+ },
+ "by_kind_sector": {
+  "돌파": {
+   "주도 업종 1~10위": {
+    "n": 366,
+    "win_rate": 34.7,
+    "avg_r": 0.45,
+    "payoff": 3.14,
+    "max_loss_streak": 21
+   },
+   "11위 아래": {
+    "n": 443,
+    "win_rate": 29.6,
+    "avg_r": 0.2,
+    "payoff": 3.03,
+    "max_loss_streak": 20
+   }
+  },
+  "기준가+매물대 돌파": {
+   "주도 업종 1~10위": {
+    "n": 46,
+    "win_rate": 39.1,
+    "avg_r": 0.65,
+    "payoff": 3.15,
+    "max_loss_streak": 6
+   },
+   "11위 아래": {
+    "n": 90,
+    "win_rate": 25.6,
+    "avg_r": -0.03,
+    "payoff": 2.8,
+    "max_loss_streak": 14
+   }
+  },
+  "매물대 돌파": {
+   "주도 업종 1~10위": {
+    "n": 190,
+    "win_rate": 33.2,
+    "avg_r": 0.4,
+    "payoff": 3.17,
+    "max_loss_streak": 17
+   },
+   "11위 아래": {
+    "n": 233,
+    "win_rate": 26.6,
+    "avg_r": -0.05,
+    "payoff": 2.59,
+    "max_loss_streak": 17
+   }
+  },
+  "포켓피봇": {
+   "주도 업종 1~10위": {
+    "n": 806,
+    "win_rate": 27.3,
+    "avg_r": 0.12,
+    "payoff": 3.07,
+    "max_loss_streak": 29
+   },
+   "11위 아래": {
+    "n": 1951,
+    "win_rate": 25.8,
+    "avg_r": 0.06,
+    "payoff": 3.1,
+    "max_loss_streak": 47
+   }
+  }
+ },
+ "by_kind_market": {
+  "돌파": {
+   "코스피 20일선 위": {
+    "n": 637,
+    "win_rate": 34.5,
+    "avg_r": 0.44,
+    "payoff": 3.13,
+    "max_loss_streak": 30
+   },
+   "아래": {
+    "n": 172,
+    "win_rate": 22.1,
+    "avg_r": -0.17,
+    "payoff": 2.8,
+    "max_loss_streak": 20
+   }
+  },
+  "기준가+매물대 돌파": {
+   "코스피 20일선 위": {
+    "n": 88,
+    "win_rate": 27.3,
+    "avg_r": 0.05,
+    "payoff": 2.83,
+    "max_loss_streak": 11
+   },
+   "아래": {
+    "n": 48,
+    "win_rate": 35.4,
+    "avg_r": 0.48,
+    "payoff": 3.13,
+    "max_loss_streak": 8
+   }
+  },
+  "매물대 돌파": {
+   "코스피 20일선 위": {
+    "n": 260,
+    "win_rate": 29.2,
+    "avg_r": 0.16,
+    "payoff": 2.95,
+    "max_loss_streak": 20
+   },
+   "아래": {
+    "n": 163,
+    "win_rate": 30.1,
+    "avg_r": 0.14,
+    "payoff": 2.78,
+    "max_loss_streak": 15
+   }
+  },
+  "포켓피봇": {
+   "코스피 20일선 위": {
+    "n": 1779,
+    "win_rate": 26.6,
+    "avg_r": 0.1,
+    "payoff": 3.12,
+    "max_loss_streak": 36
+   },
+   "아래": {
+    "n": 978,
+    "win_rate": 25.6,
+    "avg_r": 0.03,
+    "payoff": 3.04,
+    "max_loss_streak": 48
+   }
+  }
+ },
+ "account": [
+  {
+   "name": "지금 규칙 (기준가 돌파 + 포켓피봇)",
+   "signals": 3706,
+   "order": "rs",
+   "final": 0.32,
+   "total_ret_pct": -68.0,
+   "cagr_pct": -20.8,
+   "max_dd_pct": -74.3,
+   "taken": 340,
+   "skipped": 3208,
+   "win_rate": 24.9,
+   "avg_r": -0.13,
+   "max_loss_streak": 17,
+   "by_kind": {
+    "포켓피봇": 266,
+    "돌파": 62,
+    "기준가+매물대 돌파": 12
+   },
+   "by_year": {
+    "2021": {
+     "ret_pct": -21.6,
+     "n": 15,
+     "win_rate": 6.7
+    },
+    "2022": {
+     "ret_pct": -50.4,
+     "n": 56,
+     "win_rate": 14.3
+    },
+    "2023": {
+     "ret_pct": -9.7,
+     "n": 64,
+     "win_rate": 26.6
+    },
+    "2024": {
+     "ret_pct": -23.4,
+     "n": 53,
+     "win_rate": 26.4
+    },
+    "2025": {
+     "ret_pct": 42.0,
+     "n": 54,
+     "win_rate": 33.3
+    },
+    "2026": {
+     "ret_pct": -16.3,
+     "n": 95,
+     "win_rate": 27.4
+    }
+   },
+   "random_total_ret_pct": {
+    "min": -62.7,
+    "median": -37.5,
+    "max": 91.6
+   }
+  },
+  {
+   "name": "기준가 돌파만",
+   "signals": 946,
+   "order": "rs",
+   "final": 1.622,
+   "total_ret_pct": 62.2,
+   "cagr_pct": 10.4,
+   "max_dd_pct": -41.3,
+   "taken": 271,
+   "skipped": 642,
+   "win_rate": 29.6,
+   "avg_r": 0.19,
+   "max_loss_streak": 19,
+   "by_kind": {
+    "돌파": 225,
+    "기준가+매물대 돌파": 46
+   },
+   "by_year": {
+    "2021": {
+     "ret_pct": -4.1,
+     "n": 5,
+     "win_rate": 20.0
+    },
+    "2022": {
+     "ret_pct": -6.8,
+     "n": 33,
+     "win_rate": 27.3
+    },
+    "2023": {
+     "ret_pct": 51.2,
+     "n": 46,
+     "win_rate": 37.0
+    },
+    "2024": {
+     "ret_pct": -9.2,
+     "n": 55,
+     "win_rate": 27.3
+    },
+    "2025": {
+     "ret_pct": 24.2,
+     "n": 51,
+     "win_rate": 33.3
+    },
+    "2026": {
+     "ret_pct": 6.4,
+     "n": 80,
+     "win_rate": 26.2
+    }
+   },
+   "random_total_ret_pct": {
+    "min": 14.1,
+    "median": 104.9,
+    "max": 204.5
+   }
+  },
+  {
+   "name": "매물대 돌파만",
+   "signals": 560,
+   "order": "rs",
+   "final": 1.184,
+   "total_ret_pct": 18.4,
+   "cagr_pct": 3.5,
+   "max_dd_pct": -52.0,
+   "taken": 276,
+   "skipped": 267,
+   "win_rate": 27.6,
+   "avg_r": 0.11,
+   "max_loss_streak": 14,
+   "by_kind": {
+    "매물대 돌파": 209,
+    "기준가+매물대 돌파": 67
+   },
+   "by_year": {
+    "2021": {
+     "ret_pct": -4.1,
+     "n": 7,
+     "win_rate": 28.6
+    },
+    "2022": {
+     "ret_pct": -11.7,
+     "n": 49,
+     "win_rate": 26.5
+    },
+    "2023": {
+     "ret_pct": -21.9,
+     "n": 56,
+     "win_rate": 23.2
+    },
+    "2024": {
+     "ret_pct": -5.8,
+     "n": 56,
+     "win_rate": 28.6
+    },
+    "2025": {
+     "ret_pct": 10.5,
+     "n": 52,
+     "win_rate": 34.6
+    },
+    "2026": {
+     "ret_pct": 71.8,
+     "n": 55,
+     "win_rate": 25.5
+    }
+   },
+   "random_total_ret_pct": {
+    "min": -39.1,
+    "median": 4.1,
+    "max": 42.9
+   }
+  },
+  {
+   "name": "기준가 또는 매물대 돌파 (포켓피봇 제외)",
+   "signals": 1370,
+   "order": "rs",
+   "final": 1.802,
+   "total_ret_pct": 80.2,
+   "cagr_pct": 12.8,
+   "max_dd_pct": -39.3,
+   "taken": 310,
+   "skipped": 1021,
+   "win_rate": 29.9,
+   "avg_r": 0.17,
+   "max_loss_streak": 15,
+   "by_kind": {
+    "매물대 돌파": 113,
+    "돌파": 169,
+    "기준가+매물대 돌파": 28
+   },
+   "by_year": {
+    "2021": {
+     "ret_pct": -6.1,
+     "n": 8,
+     "win_rate": 37.5
+    },
+    "2022": {
+     "ret_pct": -22.1,
+     "n": 44,
+     "win_rate": 20.5
+    },
+    "2023": {
+     "ret_pct": 35.8,
+     "n": 60,
+     "win_rate": 31.7
+    },
+    "2024": {
+     "ret_pct": 3.7,
+     "n": 48,
+     "win_rate": 31.2
+    },
+    "2025": {
+     "ret_pct": 57.3,
+     "n": 61,
+     "win_rate": 37.7
+    },
+    "2026": {
+     "ret_pct": 11.3,
+     "n": 87,
+     "win_rate": 26.4
+    }
+   },
+   "random_total_ret_pct": {
+    "min": -10.6,
+    "median": 34.2,
+    "max": 145.6
+   }
+  },
+  {
+   "name": "기준가와 매물대를 같은 날 함께 돌파한 것만",
+   "signals": 136,
+   "order": "rs",
+   "final": 1.202,
+   "total_ret_pct": 20.2,
+   "cagr_pct": 3.8,
+   "max_dd_pct": -31.2,
+   "taken": 114,
+   "skipped": 22,
+   "win_rate": 28.9,
+   "avg_r": 0.13,
+   "max_loss_streak": 11,
+   "by_kind": {
+    "기준가+매물대 돌파": 114
+   },
+   "by_year": {
+    "2021": {
+     "ret_pct": 0.0,
+     "n": 1,
+     "win_rate": 0.0
+    },
+    "2022": {
+     "ret_pct": -13.0,
+     "n": 16,
+     "win_rate": 25.0
+    },
+    "2023": {
+     "ret_pct": 6.5,
+     "n": 28,
+     "win_rate": 25.0
+    },
+    "2024": {
+     "ret_pct": -9.9,
+     "n": 23,
+     "win_rate": 30.4
+    },
+    "2025": {
+     "ret_pct": 16.8,
+     "n": 23,
+     "win_rate": 39.1
+    },
+    "2026": {
+     "ret_pct": 23.3,
+     "n": 23,
+     "win_rate": 26.1
+    }
+   },
+   "random_total_ret_pct": {
+    "min": 15.9,
+    "median": 20.2,
+    "max": 20.2
+   }
+  },
+  {
+   "name": "매물대 돌파만 + 주도 업종 1~10위",
+   "signals": 236,
+   "order": "rs",
+   "final": 3.25,
+   "total_ret_pct": 225.0,
+   "cagr_pct": 27.3,
+   "max_dd_pct": -32.6,
+   "taken": 161,
+   "skipped": 63,
+   "win_rate": 35.4,
+   "avg_r": 0.48,
+   "max_loss_streak": 11,
+   "by_kind": {
+    "매물대 돌파": 128,
+    "기준가+매물대 돌파": 33
+   },
+   "by_year": {
+    "2021": {
+     "ret_pct": -4.1,
+     "n": 3,
+     "win_rate": 0.0
+    },
+    "2022": {
+     "ret_pct": -11.0,
+     "n": 23,
+     "win_rate": 26.1
+    },
+    "2023": {
+     "ret_pct": -15.1,
+     "n": 38,
+     "win_rate": 23.7
+    },
+    "2024": {
+     "ret_pct": 26.3,
+     "n": 40,
+     "win_rate": 40.0
+    },
+    "2025": {
+     "ret_pct": 60.0,
+     "n": 25,
+     "win_rate": 52.0
+    },
+    "2026": {
+     "ret_pct": 122.0,
+     "n": 32,
+     "win_rate": 40.6
+    }
+   },
+   "random_total_ret_pct": {
+    "min": 151.0,
+    "median": 224.6,
+    "max": 275.7
+   }
+  },
+  {
+   "name": "기준가 또는 매물대 돌파 + 주도 업종 1~10위",
+   "signals": 602,
+   "order": "rs",
+   "final": 3.433,
+   "total_ret_pct": 243.3,
+   "cagr_pct": 28.7,
+   "max_dd_pct": -39.0,
+   "taken": 218,
+   "skipped": 358,
+   "win_rate": 34.9,
+   "avg_r": 0.4,
+   "max_loss_streak": 11,
+   "by_kind": {
+    "매물대 돌파": 70,
+    "돌파": 134,
+    "기준가+매물대 돌파": 14
+   },
+   "by_year": {
+    "2021": {
+     "ret_pct": -8.2,
+     "n": 7,
+     "win_rate": 0.0
+    },
+    "2022": {
+     "ret_pct": -13.4,
+     "n": 33,
+     "win_rate": 21.2
+    },
+    "2023": {
+     "ret_pct": -20.1,
+     "n": 46,
+     "win_rate": 26.1
+    },
+    "2024": {
+     "ret_pct": 14.1,
+     "n": 27,
+     "win_rate": 44.4
+    },
+    "2025": {
+     "ret_pct": 94.8,
+     "n": 44,
+     "win_rate": 45.5
+    },
+    "2026": {
+     "ret_pct": 142.9,
+     "n": 61,
+     "win_rate": 41.0
+    }
+   },
+   "random_total_ret_pct": {
+    "min": 87.9,
+    "median": 179.0,
+    "max": 295.4
+   }
+  }
+ ],
+ "seconds": 208
+}
