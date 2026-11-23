@@ -7,6 +7,7 @@ DART 다중회사 주요계정(fnlttMultiAcnt)은 회사 하나에 0.6초쯤 걸
 보고서 한 장에 '당기'와 '전년 같은 기간' 값이 함께 있어 전년 대비를 그 보고서만으로 계산한다(사업보고서의 4분기는 연간 − 3분기 누적).
 펀더 점수(0~3, 실전 strategy_tf의 펀더 점수와 같은 뜻 — 추정치 대신 발표된 실적):
   ① 최근 분기 영업이익 전년 대비 +20%↑ 또는 흑자전환 ② 최근 분기 영업이익률이 1년 전보다 높음 ③ 올해 누적 영업이익 전년 대비 +20%↑ 또는 흑자전환
+책 기준 점수(book, 2026-11-23): 최근 분기 매출 · 영업이익 · 순이익이 각각 1년 전 같은 분기보다 늘었는가(문턱 없음, 흑자이면서 증가). 순이익은 EPS 대신 쓴다(주식 수 변화는 반영 못 함)
 쓰는 곳: tools/backtest_long.py --fund. 필요한 환경 변수: DART_API_KEY
 """
 import json, sys, time
@@ -67,7 +68,7 @@ def fetch(need, workers=3, log=print):
     def one(key):
         year, rc = key
         have = _load(year, rc)
-        todo = sorted(c for c in need[key] if c not in have and c in names)
+        todo = sorted(c for c in need[key] if c in names and (c not in have or (have[c] and have[c].get("v") != 2)))   # v2 = 순이익까지 받은 것
         for i in range(0, len(todo), 50):
             part = todo[i:i + 50]
             L = []
@@ -83,7 +84,8 @@ def fetch(need, workers=3, log=print):
                     time.sleep(3)
             res = {}
             for x in L:
-                if x.get("account_nm") not in ("매출액", "영업이익"):
+                k = {"매출액": "s", "영업이익": "o"}.get(x.get("account_nm")) or ("n" if str(x.get("account_nm", "")).startswith("당기순이익") else None)
+                if not k:
                     continue
                 r = res.setdefault(x["stock_code"], {})
                 fs = x.get("fs_div")
@@ -91,8 +93,9 @@ def fetch(need, workers=3, log=print):
                     continue
                 if fs == "CFS" and r.get("fs") != "CFS":
                     r.clear()
-                k = "s" if x["account_nm"] == "매출액" else "o"
-                r.update({"fs": fs, "filed": x["rcept_no"][:8], k: _n(x.get("thstrm_amount")), k + "a": _n(x.get("thstrm_add_amount")),
+                if k in r:                                         # 순이익은 같은 줄이 두 번 온다 → 첫 줄만
+                    continue
+                r.update({"fs": fs, "v": 2, "filed": x["rcept_no"][:8], k: _n(x.get("thstrm_amount")), k + "a": _n(x.get("thstrm_add_amount")),
                           "p" + k: _n(x.get("frmtrm_amount")), "p" + k + "a": _n(x.get("frmtrm_add_amount"))})
             for c in part:
                 have[c] = res.get(c)
@@ -135,6 +138,7 @@ def score_at(code, day):
         ytd, pytd = (r["oa"] if r.get("oa") is not None else op), (r["poa"] if r.get("poa") is not None else pop)
     else:
         c = _mem.setdefault((y, "11014"), _load(y, "11014")).get(code) or {}
+        c = c if c.get("filed") else {}
         ytd, pytd = r.get("o"), r.get("po")
         if c.get("oa") is not None and c.get("poa") is not None and ytd is not None and pytd is not None:
             op, pop = ytd - c["oa"], pytd - c["poa"]
@@ -143,4 +147,13 @@ def score_at(code, day):
         else:
             op, pop, sales, psales = ytd, pytd, r.get("s"), r.get("ps")
     pts, why = _score(op, pop, sales, psales, ytd, pytd)
-    return {"pts": pts, "why": why, "period": f"{y}Q{Q[rc]}", "filed": r["filed"]}
+    # 책 기준(2026-11-23 사용자 확정): 매출·영업이익·순이익이 함께 늘었는가 — 숫자 문턱 없이 1년 전 같은 분기보다 늘면 통과(흑자전환·적자 축소 포함 안 함: 적자→적자는 통과 아님)
+    if rc != "11011":
+        net, pnet = r.get("n"), r.get("pn")
+    else:
+        net, pnet = r.get("n"), r.get("pn")
+        if net is not None and pnet is not None and c.get("na") is not None and c.get("pna") is not None:
+            net, pnet = net - c["na"], pnet - c["pna"]
+    up = lambda a, b: None if a is None or b is None else (a > b and a > 0)  # noqa: E731
+    book = {"sales": up(sales, psales), "op": up(op, pop), "net": up(net, pnet)}
+    return {"pts": pts, "why": why, "book": book, "period": f"{y}Q{Q[rc]}", "filed": r["filed"]}

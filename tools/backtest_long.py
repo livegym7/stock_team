@@ -397,6 +397,9 @@ def run_fund(years=10, with_delisted=True):
     for t in cand:
         sc = F.score_at(t["code"], t["date"])
         t["fp"] = sc["pts"] if sc else None
+        bk = (sc or {}).get("book") or {}
+        t["bk"] = None if not sc or any(bk.get(k) is None for k in ("sales", "op", "net")) else sum(bool(bk[k]) for k in ("sales", "op", "net"))
+        t["bk_net"] = bk.get("net")
     st = lambda ts: {k: B.stats([{**t, "took": bool(t["be"]), "days": 0} for t in ts if t["exit"]]).get(k) for k in ("n", "win_rate", "avg_r", "payoff", "max_loss_streak")}  # noqa: E731
     lab = lambda t: "확인 불가" if t["fp"] is None else f"{t['fp']}점"  # noqa: E731
     labs = ["3점", "2점", "1점", "0점", "확인 불가"]
@@ -427,6 +430,31 @@ def run_fund(years=10, with_delisted=True):
         rr = sorted(account(c, days, "random", seed=k)["total_ret_pct"] for k in range(30))
         v = account(c, days, "rs"); v.pop("curve", None)
         out["account"].append({"name": name, "signals": len(c), **v, "random_total_ret_pct": {"min": rr[0], "median": rr[15], "max": rr[-1]}})
+    # 책 기준 점수 비교 (2026-11-23 사용자 요청): 매출·영업이익·순이익(EPS 대신)이 1년 전 같은 분기보다 늘었는가, 0~3점
+    blab = lambda t: "확인 불가" if t["bk"] is None else f"{t['bk']}점"  # noqa: E731
+    B3 = [t for t in cand if brk(t)]
+    out["book"] = {"score": "최근 분기 ① 매출 ② 영업이익 ③ 순이익(EPS 대신, 주식 수 변화 미반영)이 1년 전 같은 분기보다 늘었는가 · 문턱 없음(흑자이면서 증가)",
+                   "coverage": dict(Counter(blab(t) for t in cand)),
+                   "breakout_by_score": {b: st([t for t in B3 if blab(t) == b]) for b in labs},
+                   "breakout_net_up": {"순이익 증가": st([t for t in B3 if t["bk_net"] is True]), "순이익 감소·적자": st([t for t in B3 if t["bk_net"] is False])},
+                   "breakout_old_x_net": {"지금 점수 2점↑ + 순이익 증가": st([t for t in B3 if ok(t) and t["bk_net"] is True]), "지금 점수 2점↑ + 순이익 감소": st([t for t in B3 if ok(t) and t["bk_net"] is False]),
+                                          "지금 점수 0~1점 + 순이익 증가": st([t for t in B3 if t["fp"] is not None and not ok(t) and t["bk_net"] is True])},
+                   "breakout_3pt_by_year": {y: st([t for t in B3 if t["bk"] == 3 and t["date"][:4] == y]) for y in years_},
+                   "breakout_under3_by_year": {y: st([t for t in B3 if t["bk"] is not None and t["bk"] < 3 and t["date"][:4] == y]) for y in years_},
+                   "account": []}
+    for name, f in (("기준가 돌파만 (기준)", brk),
+                    ("기준가 돌파 + 지금 점수 2점↑", lambda t: brk(t) and ok(t)),
+                    ("기준가 돌파 + 책 점수 3점(매출·영업이익·순이익 모두 증가)", lambda t: brk(t) and t["bk"] == 3),
+                    ("기준가 돌파 + 책 점수 2점↑", lambda t: brk(t) and (t["bk"] or 0) >= 2),
+                    ("기준가 돌파 + 책 점수 0~1점 (반대 확인)", lambda t: brk(t) and t["bk"] is not None and t["bk"] <= 1),
+                    ("기준가 돌파 + 순이익 증가만", lambda t: brk(t) and t["bk_net"] is True),
+                    ("기준가 돌파 + 지금 점수 2점↑ + 순이익 증가 (4항목 방식)", lambda t: brk(t) and ok(t) and t["bk_net"] is True),
+                    ("기준가 돌파 + 책 점수 3점 + 코스피 20일선 위", lambda t: brk(t) and t["bk"] == 3 and t["market_ok"]),
+                    ("기준가 돌파 + 책 점수 3점 + 업종 1~5위", lambda t: brk(t) and t["bk"] == 3 and top5(t))):
+        c = [t for t in cand if f(t)]
+        rr = sorted(account(c, days, "random", seed=k)["total_ret_pct"] for k in range(30))
+        v = account(c, days, "rs"); v.pop("curve", None)
+        out["book"]["account"].append({"name": name, "signals": len(c), **v, "random_total_ret_pct": {"min": rr[0], "median": rr[15], "max": rr[-1]}})
     out["seconds"] = round(time.time() - t0)
     (DATA / "backtest" / f"long_fund{_sfx(years)}.json").write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
     return {k: out[k] for k in ("made_at", "signals", "coverage", "by_score", "seconds")}
