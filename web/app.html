@@ -710,6 +710,12 @@ html body .view .tfr table:has(td.wrap),html body .view .tfr table:has(td.wrap) 
 html body .view .tfr .two2{grid-template-columns:minmax(0,1fr)}html body .view .tfr .two2 .box{min-width:0}html body .view .tfr table.desk,html body .view .tfr table.desk tbody{display:block}html body .view .tfr table.desk tr{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:4px 10px;padding:7px 0;border-bottom:1px dashed var(--line)}html body .view .tfr table.desk tr:last-child{border-bottom:0}html body .view .tfr table.desk td{display:block;border:0;padding:0;white-space:normal}html body .view .tfr table.desk td:last-child{margin-left:auto}html body .view .tfr ol.todo li{overflow-wrap:anywhere}
 html body .view table.tcrt,html body .view table.tcrt tbody{display:block}html body .view table.tcrt tr{display:block;padding:6px 0;border-bottom:1px solid var(--line)}html body .view table.tcrt tr:first-child{display:none}html body .view table.tcrt td{display:inline;border:0;padding:0;white-space:normal;width:auto}html body .view table.tcrt td.num:before{content:" · "}html body .view table.tcrt td.num:after{content:"건"}html body .view table.tcrt td:last-child{display:block;margin-top:2px}.tfr{max-width:100%;overflow-x:hidden}.tfr .tw{overflow-x:auto}}
 
+/* 종목 점검표 (2026-11-23) */
+.mcks3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:8px 0}.mck{background:var(--soft);border-radius:10px;padding:10px 12px;min-width:0;display:flex;flex-direction:column;gap:2px}
+.mckh{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--muted);font-weight:700}.mck>b{font-size:15px}.mck small{font-size:11px;line-height:1.5}.mck p{margin:6px 0 2px;font-size:12.5px;line-height:1.55;border-top:1px dashed var(--line);padding-top:6px}.mcks{margin-top:auto}
+.mpq{display:grid;gap:5px;margin:8px 0;font-size:12.5px;line-height:1.6}.pill.mtype{font-size:11px;vertical-align:middle;margin:0 2px}
+.memo2.mcond{margin-top:8px}.memo2.mcond .minv{margin-top:0}.minv.mok{border-left-color:var(--ok)}
+@media(max-width:820px){.mcks3{grid-template-columns:minmax(0,1fr)}}
 /* 주제 카드 (2026-11-20) */
 .tcm{--tcp:var(--primary,#2f6fed)}
 .tctop{border:1px solid color-mix(in srgb,var(--tcp) 30%,var(--line));border-radius:14px;padding:14px 16px;margin:10px 0 12px;background:color-mix(in srgb,var(--tcp) 5%,var(--panel))}
@@ -1138,11 +1144,20 @@ function stockNews(c){const ev=[];
   return ev.length?`<div class="snews">${ev.slice(0,n).map(x=>`<div class="snr"><span class="num muted">${esc(String(x.t).slice(5))}</span><span class="pill ${K[x.k]}">${x.k}</span><div>${esc(x.s)}${x.m?` <small class="muted">${esc(x.m)}</small>`:""} ${x.u?`<a href="${esc(x.u)}" target="_blank" rel="noopener">원문 ↗</a>`:""}</div></div>`).join("")}</div>${ev.length>12?`<button class="linkb" data-snall="1">${ui.snAll?"접기":`${ev.length-12}건 더 보기`}</button>`:""}`
    :`<div class="muted" style="font-size:13px">최근 31일 채널 글·리포트·실적·매매 기록 없음</div>`}
 /* 종목 메모 (깊이 모드, 2026-11-20 사용자 확정): 보유·관찰 풀 종목만 Opus가 쓴 한 장 — 가설 · 근거 vs 반대 · 깨지는 조건 · 숫자 · 다음 확인. 재료 tools/stock_memo.py → D.stock_memos */
+/* 종목 점검표 (2026-11-23 사용자 확정): 숫자는 tools/stock_check.py(토큰 0) → D.stock_checks, 해석 한 문장은 메모의 checks. 점검용 숫자이고 매매 규칙에는 들어가지 않음 */
+function mcheck(code,m){const k=((D.stock_checks||{}).stocks||{})[code];if(!k)return "";const c=m.checks||{},d=k.dilution||{},q=k.quality||{},p=k.priced||{};
+  const lv=v=>v=="주의"||v=="높음"?"warn":v=="확인"||v=="보통"?"":"ok";
+  const box=(t,L,big,sub,note,src)=>`<div class="mck"><div class="mckh"><span>${t}</span>${L?`<span class="pill ${lv(L)}">${esc(L)}</span>`:""}</div><b>${big}</b><small class="muted">${sub}</small>${note?`<p>${tint(esc(note))}</p>`:""}<small class="muted mcks">${src}</small></div>`;
+  return `<div class="mcks3">${box("희석 위험",d.level,(d.events||[]).length?`최근 3년 ${(d.events||[]).length}건`:"공시 없음",esc(d.line||""),c.dilution,`DART 주요사항보고서${(d.events||[]).length?" · 발행 결정 기준(이미 전환·상환된 물량은 못 뺌)":""}`)}
+   ${box("이익의 질",q.level,q.net_eok!=null?`순이익 ${w(q.net_eok)}억 · 현금 ${w(q.ocf_eok)}억`:"-",q.sales_yoy!=null||q.inventory_chg!=null?`매출 ${pc(q.sales_yoy)} · 재고 ${pc(q.inventory_chg)} · 매출채권 ${pc(q.receivable_chg)} <span title="${esc(q.note||"")}">ⓘ</span>`:esc(q.line||""),c.quality,esc(q.source||""))}
+   ${box("주가에 반영된 기대",p.level,p.per_est!=null?(p.need_growth>0?`PER ${p.per_est}배 → 연 ${pc(p.need_growth)} 필요`:`PER ${p.per_est}배 · 성장 기대 낮음`):"-",p.per_est!=null?"3년 뒤 PER 12배로 내려와도 주가가 제자리이려면 필요한 EPS 성장률 (표시용 가정)":esc(p.line||""),c.priced,`네이버 컨센서스 · 현재가 ${esc((k.at||"").slice(5))}`)}</div>`}
 function memoBox(code){const m=(D.stock_memos||{})[code];if(!m)return "";const li=a=>(a||[]).map(x=>`<li>${tint(esc(x))}</li>`).join("");
-  return `<section class="spsec memo"><h3>📝 종목 메모 <small class="muted">${esc(m.updated||"")} · ${esc((m.by||"").replace("opus","Opus"))} · 공시·실적·리포트 전문을 읽고 정리 · 판단은 본인</small></h3>
+  return `<section class="spsec memo"><h3>📝 종목 메모 ${m.type?`<span class="pill mtype">${esc(m.type)}</span>`:""} <small class="muted">${esc(m.updated||"")} · ${esc((m.by||"").replace("opus","Opus"))} · 공시·실적·리포트 전문을 읽고 정리 · 판단은 본인</small></h3>
    <div class="memot">${tint(esc(m.thesis))}</div><div class="memob muted">${esc(m.business||"")}</div>
+   ${mcheck(code,m)}${m.pq?`<div class="mpq"><div><span class="pill">${esc(m.pq.driver)}${m.pq.driver=="둘 다"?"":"이"} 끕니다</span> ${tint(esc(m.pq.note))}</div>${(m.customers||[]).map(x=>`<div><span class="pill">고객</span> <b>${esc(x.name)}</b>${x.share?` <small class="muted">${esc(x.share)}</small>`:""} — ${tint(esc(x.note))}</div>`).join("")}</div>`:""}
    <div class="memo2"><div class="mbull"><b>근거</b><ul>${li(m.bull)}</ul></div><div class="mbear"><b>반대 근거</b><ul>${li(m.bear)}</ul></div></div>
-   <div class="minv"><b>⛔ 이 가설이 깨지는 조건</b><ul>${li(m.invalid)}</ul></div>
+   <div class="memo2 mcond"><div class="minv"><b>⛔ 가설이 깨지는 조건</b><ul>${li(m.invalid)}</ul></div>${(m.confirm||[]).length?`<div class="minv mok"><b>✅ 가설이 강해지는 조건</b><ul>${li(m.confirm)}</ul></div>`:""}</div>
+   ${(m.lead||[]).length?`<div class="chips" style="margin-top:8px"><span class="muted" style="font-size:12px">미리 알려 주는 지표</span>${m.lead.map(x=>`<span class="pill">${esc(x.what)} <small class="muted">· ${esc(x.where)}</small></span>`).join("")}</div>`:""}
    <div class="memo2"><div><b class="mh">이익이 느는 이유</b>${(m.drivers||[]).map(d=>`<div class="mdr"><b>${esc(d.point)}</b><br><small class="muted">${esc(d.evidence)}</small></div>`).join("")}</div>
     <div><b class="mh">핵심 숫자</b><div class="tw"><table class="mnum">${(m.numbers||[]).map(n=>`<tr><td class="l">${esc(n.label)}</td><td class="num"><b>${esc(n.value)}</b></td><td class="l"><small class="muted">${esc(n.source)}</small></td></tr>`).join("")}</table></div>
      ${(m.peers||[]).length?`<b class="mh" style="margin-top:8px">경쟁사와 비교</b>${m.peers.map(p=>`<div class="mdr"><b data-pop="${esc(p.name)}">${esc(p.name)}</b> <small class="muted">${esc(p.note)}</small></div>`).join("")}`:""}</div></div>
@@ -1262,10 +1277,11 @@ function consChart(c,price,px){   // 목표가 컨센서스 추이 (증권사별
    <text x="${L}" y="${H-5}" font-size="10" fill="var(--muted)">${esc(S[0][0].slice(5))}</text><text x="${W-R}" y="${H-5}" font-size="10" text-anchor="end" fill="var(--muted)">${esc(S[S.length-1][0].slice(5))}</text></svg>
   <div class="src"><span style="color:var(--accent)">— 목표가 평균</span>${px?" · — 종가":""} · 날마다 '증권사별 가장 최근 목표가(90일 안)'의 평균 · 출처: 채널 리포트 요약(2차 자료)${px?", 네이버 일봉(비공식)":""}</div>`;
 }
+function reactTxt(code){const r=((D.earnings||{})[code]||{}).react;return r&&r[0]!=null?` · 주가 반응: 발표일 <b class="${cls(r[0])}">${pc(r[0])}</b>${r[1]!=null?` → 다음 날 <b class="${cls(r[1])}">${pc(r[1])}</b>`:""}`:""}   // 실적 발표가 반영된 첫 거래일과 그다음 날 등락 (web_build earnings_map)
 function earnLine(code,short){const e0=(D.earnings||{})[code];if(!e0)return "";const e={...e0,period:e0.period||"",time:e0.time||"",channel:e0.channel||""};   // 2026-11-13: 기간(period)이 빈 실적 기록 하나 때문에 종목 화면 전체가 멈추던 버그
   const v=e.verdict, ic=v=="서프라이즈"?"🔴":v=="쇼크"?"🔵":"⚪";
   if(short)return `<span class="pill ${v=="서프라이즈"?"ok":v=="쇼크"?"warn":""}" title="${esc(e.period+" 영업이익 "+eo(e.op)+(e.op_est!=null?" / 예상 "+eo(e.op_est):"")+" · "+e.time+" "+e.channel)}">${ic} ${esc(e.period.slice(2))} ${v||"실적"}${e.op_surprise!=null?" "+pc(e.op_surprise):""}</span>`;
-  return `<div class="earn">${ic} <b>${esc(e.period)} 잠정실적</b> · 영업이익 <b>${eo(e.op)}</b>${e.op_est!=null?` (예상 ${eo(e.op_est)}, <span class="${cls(e.op_surprise)}">${pc(e.op_surprise)}</span>)`:""}${e.op_yoy!=null?` · YoY ${pc(e.op_yoy)}`:""} · 매출 ${eo(e.sales)}${e.sales_surprise!=null?` (${pc(e.sales_surprise)})`:""}${v?` · <b>${v}</b>`:""}<br><small class="muted">${esc(e.time)} ${esc(e.channel)} · 출처: 채널 실적 공시 요약(2차 자료), 예상 = 글의 컨센서스</small></div>`}
+  return `<div class="earn">${ic} <b>${esc(e.period)} 잠정실적</b> · 영업이익 <b>${eo(e.op)}</b>${e.op_est!=null?` (예상 ${eo(e.op_est)}, <span class="${cls(e.op_surprise)}">${pc(e.op_surprise)}</span>)`:""}${e.op_yoy!=null?` · YoY ${pc(e.op_yoy)}`:""} · 매출 ${eo(e.sales)}${e.sales_surprise!=null?` (${pc(e.sales_surprise)})`:""}${v?` · <b>${v}</b>`:""}${reactTxt(code)}<br><small class="muted">${esc(e.time)} ${esc(e.channel)} · 출처: 채널 실적 공시 요약(2차 자료), 예상 = 글의 컨센서스</small></div>`}
 function chainMap(S){
   return (S.chains||[]).map(ch=>`<div class="panel" style="margin-bottom:16px"><h3>🗺️ ${esc(ch.name)}</h3><div class="chain">${ch.nodes.map((n,i)=>{
     const rs=n.stocks.map(x=>((D.research||{}).trend||{})[codeOf(x)]||{}).filter(t=>t.rs!=null), avg=rs.length?Math.round(rs.reduce((a,t)=>a+t.rs,0)/rs.length):null;
@@ -1776,7 +1792,7 @@ function fundBox(c){const m=fundM(c.code);
   const S=surList().filter(x=>x.code==c.code).slice(0,1)[0];
   return `<div class="grid fgt">${tile(`PER(${m.fy||"E"})`,m.fper!=null?f1(m.fper):"적자","현재가 ÷ 올해 EPS 컨센서스")}${tile("PBR",f1(m.pbr))}${tile(`ROE(${m.fy||""})`,m.roe!=null?f1(m.roe)+"%":"-")}${tile("올해 영업이익",gC(m.opg,m.turn),"올해 컨센서스 ÷ 작년 실제 − 1")}${tile(`최근 분기 YoY <small>${qlab(m.lq&&m.lq.p)}</small>`,gC(m.yoy,m.yturn),"최근 발표 분기 영업이익 ÷ 1년 전 같은 분기 − 1")}${tile("EPS 추정 1개월",m.rev!=null?retC(m.rev):`<small class="muted">기록 중</small>`,"올해 EPS 컨센서스가 4주 사이 바뀐 폭 (기록 시작 2026-11-14)")}${tile("배당수익률",m.dy!=null?f1(m.dy)+"%":"-")}</div>
    <div class="sp2 fgc"><div><h3>분기 실적 · 영업이익률</h3>${qBars(m.Q)}</div><div><h3>EPS 추이 · 연간</h3>${epsBars(m.A,m.price)}</div></div>
-   ${S?`<div class="earn">${S.v=="서프라이즈"?"🔴":S.v=="쇼크"?"🔵":"⚪"} <b>${esc(S.per)} 잠정실적</b> · 영업이익 <b>${eo(S.op)}</b>${S.est!=null?` (예상 ${eo(S.est)}, <span class="${cls(S.diff)}">${pc(S.diff)}</span>)`:""} ${S.v?`· <b>${S.v}</b>`:""} <small class="muted">${esc(S.time)} · 출처: ${S.src=="채널"?"채널 실적 공시 요약(2차 자료)":"네이버 컨센서스 vs 실제"}</small></div>`:""}
+   ${S?`<div class="earn">${S.v=="서프라이즈"?"🔴":S.v=="쇼크"?"🔵":"⚪"} <b>${esc(S.per)} 잠정실적</b> · 영업이익 <b>${eo(S.op)}</b>${S.est!=null?` (예상 ${eo(S.est)}, <span class="${cls(S.diff)}">${pc(S.diff)}</span>)`:""} ${S.v?`· <b>${S.v}</b>`:""}${reactTxt(c.code)} <small class="muted">${esc(S.time)} · 출처: ${S.src=="채널"?"채널 실적 공시 요약(2차 자료)":"네이버 컨센서스 vs 실제"}</small></div>`:""}
    <div class="src">재무·컨센서스 네이버(비공식) ${esc(m.at||"")} 기준 · 단위 억 원 · 부채비율 ${f1(m.debt)}% · 참고용, 매매 판단은 본인</div>`}
 function earnTab(){
   const F=D.fund||{};if(!Object.keys(F).length)return `<div class="empty">실적 자료가 아직 없습니다 (다음 웹 갱신 때 생깁니다)</div>`;

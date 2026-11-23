@@ -635,6 +635,18 @@ def earnings_map():
     out = {}
     for r in earnings.build():
         out.setdefault(r["code"], r)
+    from common import CACHE
+    for code, r in out.items():      # 실적 발표 뒤 주가 반응 (2026-11-23, 토큰 0): 발표가 반영된 첫 거래일 등락 → 그다음 날 등락
+        try:
+            rows = json.loads((CACHE / "daily" / f"{code}.json").read_text())["rows"]
+            day, hm = r["time"][:10].replace("-", ""), r["time"][11:16]
+            i = next(k for k, x in enumerate(rows) if x["date"] > day or (x["date"] == day and hm < "15:30"))
+            if i > 0:
+                chg = lambda k: round((rows[k]["close"] / rows[k - 1]["close"] - 1) * 100, 1)  # noqa: E731
+                r["react"] = [chg(i), chg(i + 1) if i + 1 < len(rows) else None]
+                r["react_day"] = rows[i]["date"]
+        except Exception:
+            pass
     return out
 
 
@@ -1446,6 +1458,7 @@ def write_html(data):
     data["secpop"] = safe(_secpop)
     # 깊이 모드 자료 (2026-11-20): 종목 메모(코드 → 메모)
     data["stock_memos"] = safe(lambda: {f.stem: json.loads(f.read_text(encoding="utf-8")) for f in (DATA / "stock_memos").glob("*.json")}, {})
+    data["stock_checks"] = safe(lambda: json.loads((DATA / "stock_checks.json").read_text(encoding="utf-8")), {})   # 종목 점검표 (2026-11-23, tools/stock_check.py)
     data["brief_missed"] = safe(lambda: __import__("live_brief").missed(data), [])   # 놓친 것 점검 (2026-11-15, 토큰 0)
     WEB.mkdir(exist_ok=True)
     LAST.write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")

@@ -15,6 +15,7 @@ JSON 칸: code, name, updated(자동), thesis(가설 한 문장, 80자 이내), 
   2026-11-23 추가(사용자 확정): pq{driver: "가격"|"물량"|"둘 다", note: 이익이 값이 올라서 느는지 많이 팔려서 느는지 한 문장},
   customers[{name, share, note}] 1~3개(매출이 달린 고객·그 고객의 투자 계획이 이 종목에 주는 뜻. 고객이 흩어져 있으면 name에 "분산"),
   confirm[] 1~3줄(가설이 강해지는 조건: 숫자·날짜로 — invalid의 반대쪽), lead[{what, where}] 1~3개(미리 알려 주는 지표 · 어디서 보나),
+  type(종목 성격 딱지: "성장" | "턴어라운드" | "경기 사이클" | "우량" 중 하나, 뒤에 " · 장비"처럼 한 단어를 덧붙여도 됨 — 표시만, 매매 규칙 아님),
   checks{dilution, quality, priced} 각 한 문장(tools/stock_check.py 숫자를 읽고 이 종목에서 그 숫자가 뜻하는 바를 해석 — 숫자를 그대로 옮기지 않는다).
 """
 import argparse, json, sys, tomllib
@@ -81,7 +82,7 @@ def queue(top):
 
 def save(path):
     d = json.loads(Path(path).read_text(encoding="utf-8"))
-    need = ("code", "name", "thesis", "business", "drivers", "numbers", "bull", "bear", "invalid", "next", "read", "sources", "pq", "customers", "confirm", "lead", "checks")
+    need = ("code", "name", "thesis", "business", "drivers", "numbers", "bull", "bear", "invalid", "next", "read", "sources", "pq", "customers", "confirm", "lead", "checks", "type")
     miss = [k for k in need if not d.get(k)]
     if miss:
         raise SystemExit(f"빠진 칸: {miss}")
@@ -93,6 +94,8 @@ def save(path):
             raise SystemExit(f"{k}는 {lo}~{hi}개: 지금 {len(d[k]) if isinstance(d[k], list) else '목록 아님'}")
     if any(not x.get("evidence") for x in d["drivers"]) or any(not x.get("source") for x in d["numbers"]):
         raise SystemExit("drivers에는 evidence, numbers에는 source가 있어야 합니다")
+    if not str(d["type"]).startswith(("성장", "턴어라운드", "경기 사이클", "우량")):
+        raise SystemExit('type은 "성장" | "턴어라운드" | "경기 사이클" | "우량" 중 하나로 시작해야 합니다')
     if (d["pq"] or {}).get("driver") not in ("가격", "물량", "둘 다") or not d["pq"].get("note"):
         raise SystemExit('pq는 {"driver": "가격"|"물량"|"둘 다", "note": "한 문장"}')
     if any(not x.get("name") or not x.get("note") for x in d["customers"]) or any(not x.get("what") or not x.get("where") for x in d["lead"]):
