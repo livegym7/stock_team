@@ -112,8 +112,9 @@ def simulate(rows, i, R):
     return {"r": round(realized, 2), "exit": None, "days": len(rows) - 1 - i, "how": "보유 중(평가)", "took": took}
 
 
-def scan(stock, rows, rs_at, bench_ok, R, ia_at=None, require_ia=True):
-    """한 종목의 과거 신호와 거래. require_ia면 돌파는 인더스트리 액션(업종 동반 상승)일 때만."""
+def scan(stock, rows, rs_at, bench_ok, R, ia_at=None, require_ia=True, cap_at=None):
+    """한 종목의 과거 신호와 거래. require_ia면 돌파는 인더스트리 액션(업종 동반 상승)일 때만.
+    cap_at(i)를 주면 시총 관문을 그날 시총(억)으로 판단한다(backtest_long.py). 없으면 지금 시총."""
     trades, busy_until = [], -1
     v = [r["volume"] for r in rows]
     h = [r["high"] for r in rows]
@@ -132,7 +133,7 @@ def scan(stock, rows, rs_at, bench_ok, R, ia_at=None, require_ia=True):
             continue
         hist = rows[max(0, i - 400):i + 1]
         rs = rs_at(rows[i]["date"], stock["code"])
-        checks, extra = S.gate(hist, stock, rs)
+        checks, extra = S.gate(hist, stock if cap_at is None else {**stock, "market_cap_eok": cap_at(i)}, rs)
         prev = S.analyze(hist[:-1])
         base = prev.get("base")
         stage1 = base["stage1_pct"] if base else prev.get("run_pct", 0)
