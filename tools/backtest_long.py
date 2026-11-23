@@ -13,6 +13,7 @@ backtest.py(3년, 지금 시총 2천억↑ 종목만)의 두 가지 약점을 �
   python3 tools/backtest_long.py [--years 5] [--limit 300] [--no-delisted]     # 신호를 모두 샀다고 본 성적 → data/backtest/long.json
   python3 tools/backtest_long.py --portfolio                                   # 계좌 하나를 실제처럼(동시 위험 6%) → data/backtest/long_portfolio.json
   python3 tools/backtest_long.py --zone                                        # 기준가 돌파 vs 매물대 돌파 → data/backtest/long_zone.json
+  python3 tools/backtest_long.py --fund --years 10                             # 그때 발표돼 있던 실적으로 펀더 점수별 비교 → data/backtest/long_fund_10y.json (DART 받기 1~2시간)
 """
 import argparse, bisect, json, os, re, sys, time
 from collections import Counter, defaultdict
@@ -372,13 +373,73 @@ def run_zone(years=5, with_delisted=True):
     return {k: out[k] for k in ("made_at", "signals", "by_kind", "seconds")}
 
 
+def run_fund(years=10, with_delisted=True):
+    """이익 조건이 차트 신호를 얼마나 살리는가 (2026-11-23 사용자 요청, 비교 자료).
+    신호가 뜬 날 이미 발표돼 있던 분기 실적(DART)으로 펀더 점수 0~3을 매겨(tools/dart_fin_hist.py — 추정치가 아니라 발표된 실적, 법정 제출 기한 기준) 신호 성적과 계좌 결과를 나눠 본다.
+    신호 종류는 --zone과 같다(기준가 돌파 · 매물대 돌파 · 포켓피봇)."""
+    import dart_fin_hist as F
+    t0 = time.time()
+    cf = CACHE / f"long_cand_zone{_sfx(years)}.json"
+    if cf.exists() and time.time() - cf.stat().st_mtime < 3 * 86400:
+        o = json.loads(cf.read_text()); cand, days, uni = o["cand"], o["days"], o["uni"]
+    else:
+        old = S.RULES.get("breakout_mode", "base")
+        S.RULES["breakout_mode"] = "zone_cmp"
+        try:
+            cand, days, uni = run(years, None, with_delisted, portfolio=True)
+        finally:
+            S.RULES["breakout_mode"] = old
+        cf.write_text(json.dumps({"cand": cand, "days": days, "uni": uni}, ensure_ascii=False))
+    print(f"신호 {len(cand)}건 · 실적 받기 시작", flush=True)
+    need = F.needs([(t["code"], t["date"]) for t in cand])
+    print(f"받을 보고서 묶음 {len(need)}개 · 종목-보고서 {sum(len(v) for v in need.values())}쌍", flush=True)
+    F.fetch(need, log=lambda m: print(m, flush=True))
+    for t in cand:
+        sc = F.score_at(t["code"], t["date"])
+        t["fp"] = sc["pts"] if sc else None
+    st = lambda ts: {k: B.stats([{**t, "took": bool(t["be"]), "days": 0} for t in ts if t["exit"]]).get(k) for k in ("n", "win_rate", "avg_r", "payoff", "max_loss_streak")}  # noqa: E731
+    lab = lambda t: "확인 불가" if t["fp"] is None else f"{t['fp']}점"  # noqa: E731
+    labs = ["3점", "2점", "1점", "0점", "확인 불가"]
+    ok = lambda t: (t["fp"] or 0) >= 2  # noqa: E731
+    brk = lambda t: t["kind"] in ("돌파", "기준가+매물대 돌파")  # noqa: E731
+    kinds = ["돌파", "기준가+매물대 돌파", "매물대 돌파", "포켓피봇"]
+    years_ = sorted({t["date"][:4] for t in cand})
+    out = {"made_at": datetime.now(KST).strftime("%Y-%m-%d %H:%M"), "years": years, "period": [days[0], days[-1]], "universe": uni, "signals": len(cand),
+           "define": run_fund.__doc__.strip(), "score": "① 최근 분기 영업이익 전년 대비 +20%↑/흑자전환 ② 영업이익률 1년 전보다 높음 ③ 올해 누적 영업이익 +20%↑/흑자전환 · 펀더 OK = 2점 이상(실전과 같은 문턱)",
+           "coverage": dict(Counter(lab(t) for t in cand)),
+           "by_score": {b: st([t for t in cand if lab(t) == b]) for b in labs},
+           "by_score_kind": {k: {b: st([t for t in cand if t["kind"] == k and lab(t) == b]) for b in labs} for k in kinds},
+           "breakout_ok_vs_not": {"기준가 돌파 · 펀더 OK(2점↑)": st([t for t in cand if brk(t) and ok(t)]), "기준가 돌파 · 펀더 0~1점": st([t for t in cand if brk(t) and t["fp"] is not None and not ok(t)])},
+           "breakout_ok_by_year": {y: st([t for t in cand if brk(t) and ok(t) and t["date"][:4] == y]) for y in years_},
+           "breakout_not_by_year": {y: st([t for t in cand if brk(t) and t["fp"] is not None and not ok(t) and t["date"][:4] == y]) for y in years_},
+           "account": []}
+    top5 = lambda t: (t["sec_rank"] or 99) <= 5  # noqa: E731
+    for name, f in (("지금 규칙 (기준가 돌파 + 포켓피봇)", lambda t: t["kind"] != "매물대 돌파"),
+                    ("지금 규칙 + 펀더 OK", lambda t: t["kind"] != "매물대 돌파" and ok(t)),
+                    ("기준가 돌파만", brk), ("기준가 돌파만 + 펀더 OK", lambda t: brk(t) and ok(t)),
+                    ("기준가 돌파만 + 펀더 0~1점 (반대 확인)", lambda t: brk(t) and t["fp"] is not None and not ok(t)),
+                    ("기준가 돌파만 + 펀더 3점", lambda t: brk(t) and t["fp"] == 3),
+                    ("기준가 돌파만 + 펀더 OK + 코스피 20일선 위", lambda t: brk(t) and ok(t) and t["market_ok"]),
+                    ("기준가 돌파만 + 펀더 OK + 업종 1~5위", lambda t: brk(t) and ok(t) and top5(t)),
+                    ("포켓피봇만 + 펀더 OK", lambda t: t["kind"] == "포켓피봇" and ok(t)),
+                    ("기준가 또는 매물대 돌파 + 펀더 OK", lambda t: t["kind"] != "포켓피봇" and ok(t))):
+        c = [t for t in cand if f(t)]
+        rr = sorted(account(c, days, "random", seed=k)["total_ret_pct"] for k in range(30))
+        v = account(c, days, "rs"); v.pop("curve", None)
+        out["account"].append({"name": name, "signals": len(c), **v, "random_total_ret_pct": {"min": rr[0], "median": rr[15], "max": rr[-1]}})
+    out["seconds"] = round(time.time() - t0)
+    (DATA / "backtest" / f"long_fund{_sfx(years)}.json").write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
+    return {k: out[k] for k in ("made_at", "signals", "coverage", "by_score", "seconds")}
+
+
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(description="긴 기간 백테스트 (상장폐지 종목 포함 · 그날 시총) — 비교 자료")
     ap.add_argument("--years", type=float, default=5)
     ap.add_argument("--limit", type=int)
     ap.add_argument("--no-delisted", action="store_true")
     ap.add_argument("--portfolio", action="store_true", help="계좌 하나를 실제처럼 굴리는 시뮬레이션 (동시 위험 6% · 고르는 순서 비교) → data/backtest/long_portfolio.json")
+    ap.add_argument("--fund", action="store_true", help="발표된 실적으로 매긴 펀더 점수별 비교 → data/backtest/long_fund.json")
     ap.add_argument("--zone", action="store_true", help="기준가 돌파와 매물대 돌파 비교 → data/backtest/long_zone.json")
     a = ap.parse_args()
-    res = run_zone(a.years, not a.no_delisted) if a.zone else run_portfolio(a.years, not a.no_delisted) if a.portfolio else run(a.years, a.limit, not a.no_delisted)
+    res = run_fund(a.years, not a.no_delisted) if a.fund else run_zone(a.years, not a.no_delisted) if a.zone else run_portfolio(a.years, not a.no_delisted) if a.portfolio else run(a.years, a.limit, not a.no_delisted)
     print(json.dumps(res, ensure_ascii=False, indent=1))
