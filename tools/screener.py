@@ -337,6 +337,10 @@ def run(codes_info, workers=4):
         hi55 = max(r["high"] for r in rows[-56:-1]) if len(rows) > 56 else None
         if hi55 and rows[-1]["close"] > hi55 and vr and vr >= RULES["breakout_vol"]:
             ev.append("55일 신고가")
+        # 참고 신호: 매물대 돌파 — 어제 종가 ≤ 최대 매물대(차트 빨간 막대, 어제까지 200봉) 상단 < 오늘 종가 + 거래량 1.5배 (2026-11-23 사용자 확정: 참고 신호, 정식 신호·30건에 넣지 않음)
+        pz_prev = max_zone(rows[:-1]) if len(rows) > 61 else None
+        if pz_prev and rows[-2]["close"] <= pz_prev["top"] < rows[-1]["close"] and vr and vr >= RULES["breakout_vol"]:
+            ev.append("매물대 돌파")
         stage1 = a["base"]["stage1_pct"] if a.get("base") else a.get("run_pct", 0)
         stage1_ok = stage1 >= RULES["min_stage1"]
         checks["1stage 상승"] = stage1_ok
@@ -399,7 +403,7 @@ def tiers(results):
         if not b:
             miss.append("조정 구간 없음(1stage 진행 중)")
         r["missing"] = miss
-        hot = any(e in r["today"] for e in ("돌파", "돌파(업종 무반응)", "55일 신고가", "G", "H"))
+        hot = any(e in r["today"] for e in ("돌파", "돌파(업종 무반응)", "55일 신고가", "매물대 돌파", "G", "H"))
         near = (r.get("levels") or {}).get("distance_pct")
         if g == "✅":
             r["tier"] = "신호"
@@ -596,6 +600,8 @@ def main():
     payload = {"source": "네이버 일봉 (비공식)", "as_of": as_of, "made_at": datetime.now(KST).isoformat(timespec="seconds"),
                "rules": RULES, "count": len(results), "scope": "pool" if a.pool else "all", "pool_size": len(pool_codes),
                "signals": [r for r in results if r["tier"] == "신호"],
+               # 참고 신호(매물대 돌파): 관문 통과(RS·시총·거래대금 필수) + 관찰 풀이거나 풀 밖이면 RS 조건 충족. 정식 신호와 겹치면 정식 쪽에만.
+               "zone_signals": [r for r in results if "매물대 돌파" in r["today"] and r["gate_pass"] and r["tier"] != "신호"],
                "candidates": sorted((r for r in results if r["tier"] == "후보"),
                                     key=lambda r: (len(r["missing"]), -(r["rs"] or 0)))[:40],
                "watch": [r for r in results if r["gate_pass"] and (r["setups"] or r["today"])],

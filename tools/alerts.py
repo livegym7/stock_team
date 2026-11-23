@@ -74,6 +74,10 @@ def breakout_watch(now, sent, limit=40):
         for r in raw.get("datas", []):
             num = lambda k: float(str(r.get(k) or "0").replace(",", "")) if str(r.get(k) or "").replace(",", "").replace(".", "").lstrip("-").isdigit() else None
             q[r["itemCode"]] = {"price": num("closePrice"), "chg": num("fluctuationsRatio"), "vol": num("accumulatedTradingVolume")}
+    try:      # 주도 섹터 레이더 순위(어제 마감 기준 data/radar/latest.json) — 알림에 '업종 n위'로 표시만
+        sec_rank = {g["group"]: g["rank"] for g in json.loads((DATA / "radar" / "latest.json").read_text(encoding="utf-8")).get("groups", [])}
+    except Exception:
+        sec_rank = {}
     opened = now.replace(hour=9, minute=0, second=0, microsecond=0)
     frac = min(1.0, max(0.05, (now - opened).total_seconds() / (390 * 60)))   # 장 경과 비율 (9:00~15:30)
     out = []
@@ -102,6 +106,9 @@ def breakout_watch(now, sent, limit=40):
             share, med = round(sum(1 for v in ch if v >= IA_RULE["up"] * 100) / len(ch) * 100), statistics.median(ch)
             ia = (share >= IA_RULE["min_up_share"] or med >= IA_RULE["min_median"], share)
         iatxt = " · 업종 " + (("동행 ✓" if ia[0] else "나 홀로") + f" {ia[1]}%" if ia else "확인 불가")
+        rk = sec_rank.get(x.get("group") or cx.get("group"))     # 주도 섹터 레이더 순위 (2026-11-23: 표시만) — 1~10위면 '주도'
+        if rk:
+            iatxt += f" · 업종 {rk}위" + ("(주도)" if rk <= 10 else "")
         # 매물대 돌파: 어제 종가 ≤ 최대 매물대(차트 빨간 막대 상단) < 현재가 (2026-11-18 사용자 요청)
         zt = cx.get("zone_top") or (x.get("max_zone") or {}).get("top")
         yc = x.get("close")
@@ -117,7 +124,7 @@ def breakout_watch(now, sent, limit=40):
         if bo or zb:
             what = " + ".join(([f"기준가 {piv:,}"] if bo else []) + ([f"매물대 {zt:,}"] if zb else []))
             head = f"🔔 {grade}{tier} {x['stock']} {px:,.0f}원 ({r.get('chg') or 0:+.2f}%) · {what} 돌파{vtxt}{' ✓' if vok else ''}{iatxt}"
-            tail = " — ✅ 규칙 충족(장중), 종가로 확정" if rule else (" — 매물대만 돌파(참고)" if not bo else " — 종가 유지·거래량 1.5배·업종 동행 확인 필요")
+            tail = " — ✅ 규칙 충족(장중), 종가로 확정" if rule else (" — 매물대 돌파(참고 신호, 정식 신호 아님)" if not bo else " — 종가 유지·거래량 1.5배·업종 동행 확인 필요")
             if bo and mine:
                 out.append((f"brk:{c}", head + tail + miss))
             if zb and mine:

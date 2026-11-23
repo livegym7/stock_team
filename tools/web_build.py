@@ -276,7 +276,7 @@ def watch():
     return {"as_of": d.get("as_of"), "made_at": d.get("made_at"), "count": d.get("count"), "rules": d.get("rules"),
             "source": d.get("source"), "watch": [slim(x) for x in d.get("watch", [])],
             "running": [slim(x) for x in d.get("running", [])], "near_miss": [slim(x) for x in d.get("near_miss", [])[:15]],
-            "signals": [slim(x) for x in d.get("signals", [])], "candidates": [slim(x) for x in d.get("candidates", [])]}
+            "signals": [slim(x) for x in d.get("signals", [])], "zone_signals": [slim(x) for x in d.get("zone_signals", [])], "candidates": [slim(x) for x in d.get("candidates", [])]}
 
 
 def polling(codes):
