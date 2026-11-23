@@ -1241,6 +1241,102 @@
    "drive_modified": null,
    "analyzed_at": "2026-11-20 20:19",
    "depth": "full"
+  },
+  "naver_industry_47126": {
+   "title": "반도체 : 증명, 그리고 밸류 (SK증권, 2026-11-23)",
+   "broker": "SK증권",
+   "date": "2026-11-23",
+   "kind": "산업",
+   "subject": "메모리 반도체 2027 연간전망",
+   "one_line": "27년은 메모리가 높아진 이익 방어력을 증명하는 해이며, 장기공급계약(LTA)과 Shell-first 전략이 이익을 '고원형'으로 바꿔 반도체 비중확대를 유지합니다.",
+   "url": "https://stock.naver.com/research/industry/47126",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-23 20:18",
+   "depth": "full"
+  },
+  "naver_industry_47160": {
+   "title": "인내 (SK증권, 2026-11-23)",
+   "broker": "SK증권",
+   "date": "2026-11-23",
+   "kind": "산업",
+   "subject": "전력기기·신재생에너지 2027 연간전망",
+   "one_line": "전력기기 3사는 PER 16.3배로 싸지만, 소프트뱅크 터빈 예약 취소가 수주잔고의 신뢰성 의문을 키워 투자심리 개선을 확인한 뒤 진입해야 한다는 '인내' 의견입니다.",
+   "url": "https://stock.naver.com/research/industry/47160",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-23 20:18",
+   "depth": "full"
+  },
+  "naver_invest_40866": {
+   "title": "KOSPI 5,000p선 이탈, 언더슈팅의 마지막 진통 (대신증권, 2026-11-18)",
+   "broker": "대신증권",
+   "date": "2026-11-18",
+   "kind": "전략",
+   "subject": "코스피 5,000p 이탈과 언더슈팅",
+   "one_line": "이익은 늘고 가격만 빠진 언더슈팅이므로 5,000p 이하에서도 분할 매수를 유지하며, 통계적 바닥권은 4,500~4,600p라는 전략 코멘트입니다.",
+   "url": "https://stock.naver.com/research/invest/40866",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-23 20:18",
+   "depth": "full"
+  },
+  "naver_invest_40901": {
+   "title": "코스피 어디까지 빠질까? 반등의 조건은? (키움증권, 2026-11-23)",
+   "broker": "키움증권",
+   "date": "2026-11-23",
+   "kind": "전략",
+   "subject": "코스피 급락과 반등 조건",
+   "one_line": "코스피가 고점 대비 약 -46.6%로 역대급 과매도에 진입했고 정부의 증안펀드 가동 준비가 안도 요인이지만, 워스트 시나리오는 선행 PBR 0.8배 4,200~4,300p까지 열어둡니다.",
+   "url": "https://stock.naver.com/research/invest/40901",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-23 20:18",
+   "depth": "full"
+  },
+  "naver_invest_40906": {
+   "title": "장부가로 추정한 KOSPI (신한투자증권, 2026-11-23)",
+   "broker": "신한투자증권",
+   "date": "2026-11-23",
+   "kind": "전략",
+   "subject": "코스피 하단과 NAND 컨센서스",
+   "one_line": "2027년 이익을 반영한 하방 기준은 4,800p이지만, NAND 하락 전환이 1Q27로 앞당겨졌는데 컨센서스는 이를 반영하지 않아 이익 하향 시점이 쟁점입니다.",
+   "url": "https://stock.naver.com/research/invest/40906",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-23 20:18",
+   "depth": "full"
+  },
+  "naver_industry_47082": {
+   "title": "하나 Biweekly 제약/바이오: 코스피 제약사 중심으로 헬스케어 상승 확인 (하나증권, 2026-11-19)",
+   "broker": "하나증권",
+   "date": "2026-11-19",
+   "kind": "산업",
+   "subject": "제약·바이오 11월 중간점검",
+   "one_line": "헬스케어 상승을 코스피 제약사가 견인하고 있으며, 코스닥 바이오텍은 알테오젠 외 시총 상위 종목의 성과 입증이 필요하다고 봅니다.",
+   "url": "https://stock.naver.com/research/industry/47082",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-23 20:18",
+   "depth": "full"
+  },
+  "naver_industry_47058": {
+   "title": "[NVIDIA] 27년 3분기 실적 발표 (IBK투자증권, 2026-11-18)",
+   "broker": "IBK투자증권",
+   "date": "2026-11-18",
+   "kind": "산업",
+   "subject": "엔비디아 FQ3 실적과 메모리 수요",
+   "one_line": "엔비디아 3Q27 매출 $115.8B(YoY +103%)로 컨센서스를 웃돌고 4Q 가이던스 $130B로 AI 수요는 여전히 강하며 HBM4·SOCAMM 수요가 빨라진다는 스팟 코멘트입니다.",
+   "url": "https://stock.naver.com/research/industry/47058",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-23 20:18",
+   "depth": "full"
+  },
+  "naver_industry_47040": {
+   "title": "항공유 하락 국면, 연료비 부담 점진적 완화 기대 (유진투자증권, 2026-11-17)",
+   "broker": "유진투자증권",
+   "date": "2026-11-17",
+   "kind": "산업",
+   "subject": "항공운송 연료비",
+   "one_line": "항공유가 하락 국면에 들어갔지만 정제 차질로 스프레드가 높아 연료비는 4Q26을 정점으로 점진 완화되며, 2Q27에 전년 대비 감소 전환할 것이라는 항공 업종 Overweight 의견입니다.",
+   "url": "https://stock.naver.com/research/industry/47040",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-23 20:18",
+   "depth": "full"
   }
  },
  "skipped": {

@@ -12183,7 +12183,7 @@
    "심화되고 있다 다만",
    "심화에 따른 PC"
   ],
-  "status": "card",
+  "status": "deep",
   "built_at": "2026-11-23 18:41",
   "error": null,
   "thesis": "27년은 메모리의 높아진 이익 방어력을 증명하는 해이며 반도체 비중확대를 유지합니다",
@@ -12213,7 +12213,9 @@
   ],
   "horizon": "2027",
   "filled_by": "sonnet",
-  "filled_at": "2026-11-23 18:46"
+  "filled_at": "2026-11-23 18:46",
+  "deep_file": "naver_industry_47126",
+  "deep_at": "2026-11-23 20:18"
  },
  "industry:47127": {
   "nid": "47127",
@@ -28091,7 +28093,7 @@
    "앞서 있다는 점이다",
    "양보 프로젝트 자금조달"
   ],
-  "status": "card",
+  "status": "deep",
   "built_at": "2026-11-23 18:41",
   "error": null,
   "thesis": "전력기기는 싸지만 소프트뱅크 터빈 예약 취소가 수주잔고 신뢰성 의문을 키워 인내가 필요합니다",
@@ -28122,7 +28124,9 @@
   ],
   "horizon": "2027",
   "filled_by": "sonnet",
-  "filled_at": "2026-11-23 18:46"
+  "filled_at": "2026-11-23 18:46",
+  "deep_file": "naver_industry_47160",
+  "deep_at": "2026-11-23 20:18"
  },
  "industry:47161": {
   "nid": "47161",
@@ -37637,7 +37641,7 @@
    "앤스로픽 IPO발 수급",
    "앤스로픽 IPO발수급 이탈"
   ],
-  "status": "card",
+  "status": "deep",
   "built_at": "2026-11-23 18:41",
   "error": null,
   "thesis": "코스피가 고점 대비 약 46% 빠졌지만 과매도 구간이며 증안펀드 준비로 버티는 전략을 권합니다",
@@ -37664,7 +37668,9 @@
   "stocks_key": [],
   "horizon": "단기(월요일 개장)",
   "filled_by": "sonnet",
-  "filled_at": "2026-11-23 18:46"
+  "filled_at": "2026-11-23 18:46",
+  "deep_file": "naver_invest_40901",
+  "deep_at": "2026-11-23 20:18"
  },
  "invest:40902": {
   "nid": "40902",
@@ -39939,7 +39945,7 @@
    "여전히 지속 중인",
    "연준 12월 금리"
   ],
-  "status": "card",
+  "status": "deep",
   "built_at": "2026-11-23 18:41",
   "error": null,
   "thesis": "가격이 이익보다 먼저 조정됐으나 NAND 하락 전환이 1Q27로 앞당겨져 2027년 이익 하향 시점이 쟁점입니다",
@@ -39969,7 +39975,9 @@
   ],
   "horizon": "1Q27",
   "filled_by": "sonnet",
-  "filled_at": "2026-11-23 18:46"
+  "filled_at": "2026-11-23 18:46",
+  "deep_file": "naver_invest_40906",
+  "deep_at": "2026-11-23 20:18"
  },
  "invest:40907": {
   "nid": "40907",

@@ -1896,7 +1896,7 @@
    "수준 GP Margin은",
    "시스템 초기 생산에"
   ],
-  "status": "card",
+  "status": "deep",
   "built_at": "2026-11-18 18:41",
   "error": null,
   "thesis": "NVIDIA FY27 3분기 실적은 컨센서스를 웃돌고 4분기 가이던스도 높아 AI 수요는 여전히 강하며, HBM4·SOCAMM 수요가 본격화된다는 판단",
@@ -1928,7 +1928,9 @@
   ],
   "horizon": "FY27 4분기 가이던스 기간 (Vera Rubin 양산 본격화)",
   "filled_by": "haiku",
-  "filled_at": "2026-11-18 18:44"
+  "filled_at": "2026-11-18 18:44",
+  "deep_file": "naver_industry_47058",
+  "deep_at": "2026-11-23 20:18"
  },
  "industry:47059": {
   "nid": "47059",
@@ -11333,7 +11335,7 @@
    "아니라 이익을 믿지",
    "아래는 2월 2일"
   ],
-  "status": "card",
+  "status": "deep",
   "built_at": "2026-11-18 18:41",
   "error": null,
   "thesis": "KOSPI 5,000 이탈은 AI 악재와 외국인 매도가 겹친 마지막 진통일 수 있으나, 변곡점은 엔비디아·FOMC 의사록·앤트로픽 결과라는 판단",
@@ -11364,7 +11366,9 @@
   ],
   "horizon": "1~2주 (11/18 엔비디아, 11/19 FOMC 의사록·美中, 11/20 앤트로픽)",
   "filled_by": "haiku",
-  "filled_at": "2026-11-18 18:44"
+  "filled_at": "2026-11-18 18:44",
+  "deep_file": "naver_invest_40866",
+  "deep_at": "2026-11-23 20:18"
  },
  "invest:40867": {
   "nid": "40867",
