@@ -2508,11 +2508,11 @@ function candleChart(all,o){
     if(t.after>hi)g+=`<path d="M${(x(t.i)-4).toFixed(1)} ${PT+7} L${x(t.i).toFixed(1)} ${PT} L${(x(t.i)+4).toFixed(1)} ${PT+7}Z" fill="${col}" fill-opacity=".85">${tip}</path>`;
     else g+=`<circle cx="${x(t.i).toFixed(1)}" cy="${y(t.after).toFixed(1)}" r="4" fill="${col}" fill-opacity=".85" stroke="var(--panel)" stroke-width="1">${tip}</circle>`});
   const last=R[R.length-1];
-  if(pv){const fs=o.fs||10,halo=`stroke="var(--panel)" stroke-width="3" paint-order="stroke"`,d=(last[4]/pv-1)*100,dt=d>=0?`넘음 +${d.toFixed(1)}%`:`${(-d).toFixed(1)}% 남음`;
+  if(pv){const fs=((o.fs||10)*(o.axis?0.8:0.55)).toFixed(1),   /* 팝업(작은 차트)은 화면에서 크게 보여 절반쯤으로 */ halo=`stroke="var(--panel)" stroke-width="2" paint-order="stroke"`,d=(last[4]/pv-1)*100,dt=d>=0?`넘음 +${d.toFixed(1)}%`:`${(-d).toFixed(1)}% 남음`;
     if(pvIn){const yp=y(pv);
       g+=`<line x1="${PL}" x2="${PL+pw}" y1="${yp.toFixed(1)}" y2="${yp.toFixed(1)}" stroke="${PV_COL}" stroke-width="0.5" stroke-dasharray="5 3"/>`;
-      g+=`<text x="${PL+3}" y="${(yp<PT+fs+5?yp+fs+3:yp-4).toFixed(1)}" font-size="${fs}" font-weight="700" fill="${PV_COL}" ${halo}>기준가 ${fax(pv)} · ${dt}</text>`;}
-    else g+=`<text x="${PL+3}" y="${pv>hi?PT+fs:PT+ph-3}" font-size="${fs}" font-weight="700" fill="${PV_COL}" ${halo}>기준가 ${fax(pv)} ${pv>hi?"▲":"▼"} ${dt}</text>`}
+      g+=`<text x="${PL+3}" y="${(yp<PT+(+fs)+5?yp+(+fs)+3:yp-3).toFixed(1)}" font-size="${fs}" font-weight="700" fill="${PV_COL}" ${halo}>기준가 ${fax(pv)} · ${dt}</text>`;}
+    else g+=`<text x="${PL+3}" y="${pv>hi?PT+(+fs):PT+ph-3}" font-size="${fs}" font-weight="700" fill="${PV_COL}" ${halo}>기준가 ${fax(pv)} ${pv>hi?"▲":"▼"} ${dt}</text>`}
   if(o.label){g+=`<line x1="${PL}" x2="${PL+pw}" y1="${y(last[4]).toFixed(1)}" y2="${y(last[4]).toFixed(1)}" stroke="var(--fg)" stroke-opacity=".35" stroke-dasharray="1 2"/>`;if(o.axis)g+=`<rect x="${W-PR+1}" y="${(y(last[4])-8).toFixed(1)}" width="${PR-2}" height="16" rx="3" fill="var(--fg)"/><text x="${W-PR+4}" y="${(y(last[4])+3.5).toFixed(1)}" font-size="${o.fs||10}" font-weight="700" fill="var(--bg)">${fax(last[4])}</text>`}
   if(o.dates){const lab=i=>{const d=R[i][0];return d.slice(4,6)+"/"+d.slice(6)};[0,Math.floor(R.length/2),R.length-1].forEach((i,k)=>{g+=`<text x="${x(i).toFixed(1)}" y="${H-4}" font-size="${o.fs||10}" fill="var(--muted)" text-anchor="${k==0?"start":k==2?"end":"middle"}">${lab(i)}</text>`})}
   return `<svg class="cc" viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="캔들 차트">${g}</svg>`;
