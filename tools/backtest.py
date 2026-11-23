@@ -89,32 +89,33 @@ def simulate(rows, i, R):
     stop = entry - unit
     target = entry + R["take_r"] * unit
     c = [r["close"] for r in rows]
-    took, realized, left = False, 0.0, 1.0
+    took, realized, left, be = False, 0.0, 1.0, None      # be = 3R에 닿아 손절가를 본전으로 올린 날 (그 뒤로는 위험 0)
     fee = lambda frac, px: frac * px * R.get("cost", 0.0) / unit   # 매도 금액 × 비용률을 R 단위로  # noqa: E731
     for j in range(i + 1, len(rows)):
         r = rows[j]
         if r["low"] <= stop:  # 손절(또는 본전) — 갭 하락이면 시가
             px = min(r["open"], stop)
             realized += left * (px - entry) / unit - fee(left, px)
-            return {"r": round(realized, 2), "exit": r["date"], "days": j - i, "how": "본전 청산" if took else "손절", "took": took}
+            return {"r": round(realized, 2), "exit": r["date"], "days": j - i, "how": "본전 청산" if took else "손절", "took": took, "be": be}
         if not took and r["high"] >= target:
             px = max(r["open"], target)
             realized += R["take_pct"] * (px - entry) / unit - fee(R["take_pct"], px)
             left -= R["take_pct"]
-            took, stop = True, entry
+            took, stop, be = True, entry, r["date"]
         if took and j >= R["trail_ma"]:
             ma = sum(c[j - R["trail_ma"] + 1:j + 1]) / R["trail_ma"]
             if c[j] < ma:
                 realized += left * (c[j] - entry) / unit - fee(left, c[j])
-                return {"r": round(realized, 2), "exit": r["date"], "days": j - i, "how": f"{R['trail_ma']}일선 이탈", "took": True}
+                return {"r": round(realized, 2), "exit": r["date"], "days": j - i, "how": f"{R['trail_ma']}일선 이탈", "took": True, "be": be}
     last = rows[-1]["close"]
     realized += left * (last - entry) / unit - fee(left, last)
-    return {"r": round(realized, 2), "exit": None, "days": len(rows) - 1 - i, "how": "보유 중(평가)", "took": took}
+    return {"r": round(realized, 2), "exit": None, "days": len(rows) - 1 - i, "how": "보유 중(평가)", "took": took, "be": be}
 
 
-def scan(stock, rows, rs_at, bench_ok, R, ia_at=None, require_ia=True, cap_at=None):
+def scan(stock, rows, rs_at, bench_ok, R, ia_at=None, require_ia=True, cap_at=None, all_signals=False):
     """한 종목의 과거 신호와 거래. require_ia면 돌파는 인더스트리 액션(업종 동반 상승)일 때만.
-    cap_at(i)를 주면 시총 관문을 그날 시총(억)으로 판단한다(backtest_long.py). 없으면 지금 시총."""
+    cap_at(i)를 주면 시총 관문을 그날 시총(억)으로 판단한다(backtest_long.py). 없으면 지금 시총.
+    all_signals면 보유 중에도 뜨는 신호를 모두 낸다(계좌 시뮬레이션이 무엇을 살지 고름)."""
     trades, busy_until = [], -1
     v = [r["volume"] for r in rows]
     h = [r["high"] for r in rows]
@@ -164,7 +165,8 @@ def scan(stock, rows, rs_at, bench_ok, R, ia_at=None, require_ia=True, cap_at=No
         trades.append({**ia, "gate_miss": miss, "stock": stock["name"], "code": stock["code"], "date": rows[i]["date"], "entry": c[i], "kind": kind,
                        "setups": setups, "rs": rs, "vol_ratio": round(v[i] / vol50, 2), "market_ok": bench_ok.get(rows[i]["date"]),
                        **res})
-        busy_until = i + res["days"]
+        if not all_signals:
+            busy_until = i + res["days"]
     return trades
 
 

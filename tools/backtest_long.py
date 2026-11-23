@@ -10,7 +10,8 @@ backtest.py(3년, 지금 시총 2천억↑ 종목만)의 두 가지 약점을 �
 남는 한계: 업종 분류는 지금 기준 · 일봉만 사용 · 신호일 종가 진입 · 동시 보유 한도(CR 6%) 없음 · 슬리피지 없음. 수수료·세금은 왕복 0.23% 반영.
 **비교 자료일 뿐, 매매 규칙(2027-01-31 또는 실제 신호 30건까지 고정)을 바꾸지 않는다.**
 
-  python3 tools/backtest_long.py [--years 5] [--limit 300] [--no-delisted]     # → data/backtest/long.json
+  python3 tools/backtest_long.py [--years 5] [--limit 300] [--no-delisted]     # 신호를 모두 샀다고 본 성적 → data/backtest/long.json
+  python3 tools/backtest_long.py --portfolio                                   # 계좌 하나를 실제처럼(동시 위험 6%) → data/backtest/long_portfolio.json
 """
 import argparse, bisect, json, os, re, sys, time
 from collections import Counter, defaultdict
@@ -89,7 +90,7 @@ def delisted_shares(codes_rows, names):
     return cache
 
 
-def run(years=5, limit=None, with_delisted=True, workers=6):
+def run(years=5, limit=None, with_delisted=True, workers=6, portfolio=False):
     t0 = time.time()
     R = B.rules()
     listed = [s for s in load_universe()["stocks"] if not B.is_etf(s["name"]) and s.get("market") not in ("KONEX", "2")]
@@ -154,6 +155,18 @@ def run(years=5, limit=None, with_delisted=True, workers=6):
         label, share, med = S.industry_action(xs)
         return {"ia": label, "ia_group": ind_of[code], "ia_peers": len(xs), "ia_up_share": share, "ia_median": med}
 
+    if portfolio:                      # 계좌 시뮬레이션: 보유 여부와 상관없이 뜬 신호를 모두 모아 넘긴다
+        cand = []
+        for s, rows in data:
+            sh = shares.get(s["code"])
+            cap_at = (lambda i, rows=rows, sh=sh: sh * rows[i]["close"] / 1e8) if sh else (lambda i: MIN)
+            for t in B.scan(s, rows, rs_at, bench_ok, R, ia_at, require_ia=True, cap_at=cap_at, all_signals=True):
+                if s.get("delisted") and not t["exit"]:
+                    t["exit"], t["how"] = rows[-1]["date"], "상장폐지까지 보유"
+                cand.append({k: t.get(k) for k in ("code", "stock", "date", "kind", "rs", "r", "exit", "be", "how", "market_ok", "vol_ratio")})
+        first = (datetime.strptime(last_day, "%Y%m%d") - timedelta(days=int(365 * years))).strftime("%Y%m%d")
+        days = sorted({r["date"] for r in bench if r["date"] >= first})
+        return [t for t in cand if t["date"] >= first], days, {"all": len(data), "delisted": sum(1 for s, _ in data if s.get("delisted"))}
     trades, loose = [], []
     for s, rows in data:
         sh = shares.get(s["code"])
@@ -200,10 +213,86 @@ def run(years=5, limit=None, with_delisted=True, workers=6):
     return {k: out[k] for k in ("made_at", "seconds", "period", "universe", "all", "by_year", "by_kind", "by_market", "by_delisted")}
 
 
+def account(cand, days, order, seed=0, risk=0.02, cr_max=0.06, stop=0.08):
+    """계좌 하나를 실제처럼 굴린다: 한 종목 위험 = 계좌의 2%, 본전으로 올리기 전 종목의 위험 합 ≤ 6%(= 동시에 3종목), 현금 한도(빚 없음).
+    한 종목 크기 = 위험 ÷ 손절폭 = 계좌의 25%, 3R 익절 뒤에는 절반. 같은 날 신호가 여러 개면 order 순서로 고른다. 손익은 청산일에 한꺼번에 반영(단순화)."""
+    import random
+    rnd = random.Random(seed)
+    key = {"rs": lambda t: (-(t["rs"] or 0), t["code"]),
+           "breakout": lambda t: (0 if t["kind"] == "돌파" else 1, -(t["rs"] or 0), t["code"]),
+           "random": lambda t: rnd.random()}[order]
+    by_day = defaultdict(list)
+    for t in cand:
+        by_day[t["date"]].append(t)
+    eq, peak, mdd, open_, taken, skipped, curve = 1.0, 1.0, 0.0, [], [], 0, []
+    size = risk / stop
+    for d in days:
+        for p in [p for p in open_ if p["exit"] and p["exit"] <= d]:
+            eq += p["r"] * p["amt"]
+            open_.remove(p)
+        peak = max(peak, eq); mdd = min(mdd, eq / peak - 1)
+        for t in sorted(by_day.get(d, []), key=key):
+            if any(p["code"] == t["code"] for p in open_):
+                continue
+            at_risk = sum(1 for p in open_ if not (p["be"] and p["be"] <= d))
+            used = sum(size * (0.5 if p["be"] and p["be"] <= d else 1.0) for p in open_)
+            if (at_risk + 1) * risk > cr_max + 1e-9 or used + size > 1.0 + 1e-9:
+                skipped += 1
+                continue
+            p = {**t, "amt": risk * eq}
+            open_.append(p); taken.append(p)
+        curve.append([d, round(eq, 4)])
+    closed = [p for p in taken if p["exit"]]
+    yrs = {}
+    for y in sorted({d[:4] for d in days}):
+        ys = [c for c in curve if c[0][:4] == y]
+        base = next((c[1] for c in reversed(curve) if c[0][:4] < y), 1.0)
+        yrs[y] = {"ret_pct": round((ys[-1][1] / base - 1) * 100, 1), "n": sum(1 for p in closed if p["date"][:4] == y),
+                  "win_rate": round(sum(1 for p in closed if p["date"][:4] == y and p["r"] > 0) / max(1, sum(1 for p in closed if p["date"][:4] == y)) * 100, 1)}
+    n_years = max(0.1, len(days) / 250)
+    st = B.stats([{**p, "took": bool(p["be"]), "days": 0} for p in closed]) if closed else {"n": 0}
+    return {"order": order, "final": round(eq, 3), "total_ret_pct": round((eq - 1) * 100, 1), "cagr_pct": round((eq ** (1 / n_years) - 1) * 100, 1),
+            "max_dd_pct": round(mdd * 100, 1), "taken": len(taken), "skipped": skipped, "win_rate": st.get("win_rate"), "avg_r": st.get("avg_r"),
+            "max_loss_streak": st.get("max_loss_streak"), "by_kind": dict(Counter(p["kind"] for p in taken)), "by_year": yrs,
+            "curve": curve[::max(1, len(curve) // 250)] + curve[-1:]}
+
+
+def run_portfolio(years=5, with_delisted=True):
+    t0 = time.time()
+    cand, days, uni = run(years, None, with_delisted, portfolio=True)
+    out = {"made_at": datetime.now(KST).strftime("%Y-%m-%d %H:%M"), "years": years, "period": [days[0], days[-1]], "universe": uni,
+           "signals": len(cand), "signals_by_kind": dict(Counter(t["kind"] for t in cand)),
+           "assume": "한 종목 위험 2% · 본전으로 올리기 전 위험 합 6%(동시에 3종목) · 종목 크기 계좌의 25%(3R 뒤 절반) · 빚 없음 · 신호일 종가 진입 · 수수료·세금 왕복 0.23% · 손익은 청산일에 반영",
+           "variants": [{"name": "RS 높은 순", **account(cand, days, "rs")}, {"name": "돌파 먼저, 그다음 RS 순", **account(cand, days, "breakout")}]}
+    # 참고(규칙을 바꿔 본 비교 — 지금 규칙 아님): 포켓피봇을 빼면 / 코스피 20일선 위에서만 사면
+    out["what_if"] = []
+    for name, f in (("돌파만 (포켓피봇 제외)", lambda t: t["kind"] == "돌파"), ("코스피 20일선 위에서만", lambda t: t["market_ok"]),
+                    ("돌파만 + 코스피 20일선 위", lambda t: t["kind"] == "돌파" and t["market_ok"])):
+        c = [t for t in cand if f(t)]
+        rr = sorted(account(c, days, "random", seed=k)["total_ret_pct"] for k in range(30))
+        v = account(c, days, "rs"); v.pop("curve", None)
+        out["what_if"].append({"name": name, "signals": len(c), **v, "random_total_ret_pct": {"min": rr[0], "median": rr[15], "max": rr[-1]}})
+    st = lambda ts: {k: B.stats([{**t, "took": bool(t["be"]), "days": 0} for t in ts if t["exit"]]).get(k) for k in ("n", "win_rate", "avg_r")}  # noqa: E731
+    out["signals_by_year"] = {y: st([t for t in cand if t["date"][:4] == y]) for y in sorted({t["date"][:4] for t in cand})}
+    out["signals_by_rs"] = {b: st([t for t in cand if lo <= (t["rs"] or 0) < hi]) for b, lo, hi in (("70~80", 70, 80), ("80~90", 80, 90), ("90~95", 90, 95), ("95 이상", 95, 101))}
+    rs_ = [account(cand, days, "random", seed=k) for k in range(30)]
+    med = lambda k: sorted(r[k] for r in rs_)[len(rs_) // 2]  # noqa: E731
+    out["random"] = {"name": "아무거나 고름 (30번 평균 — 고르는 순서가 얼마나 중요한지 보는 기준)", "runs": 30,
+                     "total_ret_pct": {"min": min(r["total_ret_pct"] for r in rs_), "median": med("total_ret_pct"), "max": max(r["total_ret_pct"] for r in rs_)},
+                     "max_dd_pct": {"worst": min(r["max_dd_pct"] for r in rs_), "median": med("max_dd_pct")},
+                     "by_year_median": {y: sorted(r["by_year"][y]["ret_pct"] for r in rs_)[15] for y in rs_[0]["by_year"]}}
+    out["seconds"] = round(time.time() - t0)
+    (DATA / "backtest" / "long_portfolio.json").write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
+    for v in out["variants"]:
+        v.pop("curve", None)
+    return out
+
+
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(description="긴 기간 백테스트 (상장폐지 종목 포함 · 그날 시총) — 비교 자료")
     ap.add_argument("--years", type=float, default=5)
     ap.add_argument("--limit", type=int)
     ap.add_argument("--no-delisted", action="store_true")
+    ap.add_argument("--portfolio", action="store_true", help="계좌 하나를 실제처럼 굴리는 시뮬레이션 (동시 위험 6% · 고르는 순서 비교) → data/backtest/long_portfolio.json")
     a = ap.parse_args()
-    print(json.dumps(run(a.years, a.limit, not a.no_delisted), ensure_ascii=False, indent=1))
+    print(json.dumps(run_portfolio(a.years, not a.no_delisted) if a.portfolio else run(a.years, a.limit, not a.no_delisted), ensure_ascii=False, indent=1))
