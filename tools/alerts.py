@@ -106,9 +106,9 @@ def breakout_watch(now, sent, limit=40):
             share, med = round(sum(1 for v in ch if v >= IA_RULE["up"] * 100) / len(ch) * 100), statistics.median(ch)
             ia = (share >= IA_RULE["min_up_share"] or med >= IA_RULE["min_median"], share)
         iatxt = " · 업종 " + (("동행 ✓" if ia[0] else "나 홀로") + f" {ia[1]}%" if ia else "확인 불가")
-        rk = sec_rank.get(x.get("group") or cx.get("group"))     # 주도 섹터 레이더 순위 (2026-11-23: 표시만) — 1~10위면 '주도'
+        rk = sec_rank.get(x.get("group") or cx.get("group"))     # 주도 섹터 레이더 순위 (2026-11-23: 표시만) — 1~5위면 '주도'
         if rk:
-            iatxt += f" · 업종 {rk}위" + ("(주도)" if rk <= 10 else "")
+            iatxt += f" · 업종 {rk}위" + ("(주도)" if rk <= 5 else "")
         # 매물대 돌파: 어제 종가 ≤ 최대 매물대(차트 빨간 막대 상단) < 현재가 (2026-11-18 사용자 요청)
         zt = cx.get("zone_top") or (x.get("max_zone") or {}).get("top")
         yc = x.get("close")

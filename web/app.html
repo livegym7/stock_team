@@ -2326,10 +2326,10 @@ function stockTabsBar(t){return `<div class="chips tabs" style="margin-bottom:10
 /* 셋업 보드 정리 (2026-11-17 시안): 옛 '감시 목록 원래 화면' 대신 ✅ 오늘 신호 줄 + 👀 후보·1stage·아깝게 빠짐 접힌 칸 + 📖 용어 */
 /* 신호 줄 하나 (2026-11-19 사용자 확정): 장중 돌파(1분 시세)와 마감 확정 신호를 한 줄에, 딱지 이름 통일 — 기준가 돌파 · 매물대 돌파 · 포켓피봇 */
 const SETUP_KO={A:"박스",B:"컵핸들",C:"VCP",D:"HTF",E:"신고가 대기",F:"로우치트"};
-/* 업종 순위 표시 (2026-11-23 사용자 확정, 표시만): 그 종목의 업종이 주도 섹터 레이더에서 몇 위인지. 1~10위 = 주도 업종(🔥).
-   근거는 5년 비교 자료(data/backtest/long_portfolio.json·long_zone.json) — 매매 규칙은 그대로 */
+/* 업종 순위 표시 (2026-11-23 사용자 확정, 표시만): 그 종목의 업종이 주도 섹터 레이더에서 몇 위인지. 1~5위 = 주도 업종(🔥, 2026-11-23 10년 자료를 보고 1~10위에서 좁힘).
+   근거는 5년·10년 비교 자료(data/backtest/long_portfolio*.json·long_zone*.json) — 매매 규칙은 그대로 */
 function secRank(g){const x=((D.radar||{}).groups||[]).find(r=>r.group==g);return x?x.rank:null}
-function secTag(g,short){const r=secRank(g);if(r==null)return "";const hot=r<=10;return `<span class="secr ${hot?"hot":""}" title="주도 섹터 레이더 순위(시장 › 업종 지도) · 1~10위 = 주도 업종">${hot?"🔥 ":""}${short?"":"업종 "}${r}위</span>`}
+function secTag(g,short){const r=secRank(g);if(r==null)return "";const hot=r<=5;return `<span class="secr ${hot?"hot":""}" title="주도 섹터 레이더 순위(시장 › 업종 지도) · 1~5위 = 주도 업종">${hot?"🔥 ":""}${short?"":"업종 "}${r}위</span>`}
 function signalStrip(){const W=D.watch||{},S=W.signals||[],G=liveSigs(),seen=new Set(G.map(g=>g.x.code));
   const tag=(t,c)=>`<span class="pill ${c||"brkt"}">${t}</span>`;
   const live=G.map(g=>`<span class="sigc">${g.rule?"✅ ":""}<b data-pop="${esc(g.x.name)}">${esc(g.x.name)}</b> <span class="num">${w(g.px)}</span> ${g.bo?tag("기준가 돌파"):""}${g.zb?tag("매물대 돌파"):""} <small class="${g.vr>=1.5?"up":"muted"}">거래량 ${g.vr!=null?g.vr.toFixed(1)+"배":"-"}</small> <small class="${g.ia&&g.ia.ok?"up":"down"}">업종 ${g.ia?(g.ia.ok?"동행":"나 홀로"):"-"}</small> ${secTag(g.x.group)}${g.zb&&!g.bo?' <small class="refsig">참고 신호</small>':""} <small class="pill">장중</small></span>`);
@@ -2337,9 +2337,9 @@ function signalStrip(){const W=D.watch||{},S=W.signals||[],G=liveSigs(),seen=new
     return `<span class="sigc">✅ <b data-pop="${esc(x.stock)}">${esc(x.stock)}</b> <span class="num">${n.p?w(n.p):""}</span> ${T.includes("돌파")?tag("기준가 돌파"):""}${T.includes("매물대 돌파")?tag("매물대 돌파"):""}${T.includes("G")?tag("포켓피봇","pp"):""} ${secTag(x.group)} <small class="muted">${esc((x.setups||[]).map(k=>SETUP_KO[k]||k).join("·"))}</small> <small class="pill">${esc(fmtYmd(W.as_of||""))} 확정</small></span>`});
   /* 매물대 돌파 = 참고 신호 (2026-11-23 사용자 확정): 정식 신호가 아니고 '실제 신호 30건'에 넣지 않음. 주도 업종 밖이면 흐리게 */
   const ref=(W.zone_signals||[]).filter(x=>!seen.has(x.code)&&!S.some(s=>s.code==x.code)).map(x=>{const n=nowPx(x.code),r=secRank(x.group);
-    return `<span class="sigc ${r!=null&&r<=10?"":"dim"}"><b data-pop="${esc(x.stock)}">${esc(x.stock)}</b> <span class="num">${n.p?w(n.p):""}</span> ${tag("매물대 돌파","zref")} ${secTag(x.group)} <small class="refsig">참고 신호</small> <small class="pill">${esc(fmtYmd(W.as_of||""))} 확정</small></span>`});
+    return `<span class="sigc ${r!=null&&r<=5?"":"dim"}"><b data-pop="${esc(x.stock)}">${esc(x.stock)}</b> <span class="num">${n.p?w(n.p):""}</span> ${tag("매물대 돌파","zref")} ${secTag(x.group)} <small class="refsig">참고 신호</small> <small class="pill">${esc(fmtYmd(W.as_of||""))} 확정</small></span>`});
   const all=live.concat(done,ref);
-  const tip=`<div class="sigtip">🔥 = 그 종목의 업종이 지금 주도 업종 1~10위(시장 › 업종 지도) · 5년 비교 자료(2021-11~2026-11, 수수료 반영): 주도 업종 안 기준가 돌파 +0.45R · 매물대 돌파 +0.40R, 그 밖 +0.20R · −0.05R, 포켓피봇 +0.08R · 매물대 돌파는 참고 신호(정식 신호 아님) · 표시만, 매매 규칙 아님</div>`;
+  const tip=`<div class="sigtip">🔥 = 그 종목의 업종이 지금 주도 업종 1~5위(시장 › 업종 지도) · 10년 비교 자료(2016-11~2026-11, 수수료 반영): 업종 1~5위 안 기준가 돌파 +0.42R · 그 밖 +0.18R · 포켓피봇 +0.05R · 매물대 돌파는 참고 신호(정식 신호 아님) · 표시만, 매매 규칙 아님</div>`;
   if(!all.length)return `<div class="sigstrip none">🔔 신호 없음 <small class="muted">· 기준가 돌파(거래량 1.5배 + 업종 동행) · 포켓피봇(관문 7개 모두) · 매물대 돌파는 참고 신호</small></div>`;
   return `<div class="sigstrip">🔔 <b>신호 ${all.length-ref.length}</b>${ref.length?` <small class="muted">+ 참고 ${ref.length}</small>`:""} ${all.join("")} <small class="muted">· ✅ = 규칙 충족 · 장중 판정은 종가로 확정 · 판단은 본인</small></div>${tip}`}
 /* 셋업 보드와 대기 목록의 칸 너비를 같게 (2026-11-20 사용자 확정): 두 표가 같은 colgroup을 씀 */
@@ -2384,7 +2384,7 @@ function setupTab(){   // 셋업 보드 = 감시 목록 × 펀더·기술 점수
      ${zoneCells(x,px)}<td class="num">${w(x.stop)}</td><td class="num">${x.breakout&&x.stop&&x.breakout>x.stop?Math.floor(300000/(x.breakout-x.stop))+"주":"-"}</td>${(()=>{const L=liveIA(x);return L?`<td title="장중 1분 시세 · 같은 업종 ${L.n}종목 중 +2%↑ ${L.share}% · 중앙값 ${L.med}%">${secTag(x.group,1)}<br><small class="${L.ok?"up":"down"}">${L.ok?"동행":"나 홀로"}</small></td>`:`<td title="동행 여부는 어제 마감 기준">${secTag(x.group,1)}<br><small class="${x.ia?"up":"down"}">${x.ia?"동행":"나 홀로"}</small></td>`})()}<td class="l"><small class="muted">${esc(x.note||"")}</small></td></tr>`}).join("");
   return `<div class="sub" style="margin-top:-4px">감시 목록(${esc(fmtYmd(C.as_of||""))} 16:07) × 펀더·기술 점수 · 핵심 ${C.n_core||0}종목 · ${esc(C.rule||"")} · 장중엔 현재가로 거리 · 종목을 누르면 종목 페이지</div>
    ${signalStrip()}
-   ${L.length?`<div class="tw"><table class="slist sbt">${SB_COLS}<tr><th class="l">종목</th><th>분류</th><th>현재가</th><th>오늘</th><th>펀더</th><th>기술</th><th>RS</th><th>기준가</th><th>거리</th><th title="종목 차트 매물대의 빨간 막대(최근 200봉 최대 매물대) 상단">최대 매물대</th><th>매물대까지</th><th>손절가(−8%)</th><th>1R 수량</th><th title="주도 섹터 레이더 순위(1~10위 🔥) · 같은 업종 동반 상승 여부">업종 순위</th><th class="l">메모</th></tr>${rows}</table></div>`:`<div class="empty">감시 목록이 아직 없습니다</div>`}
+   ${L.length?`<div class="tw"><table class="slist sbt">${SB_COLS}<tr><th class="l">종목</th><th>분류</th><th>현재가</th><th>오늘</th><th>펀더</th><th>기술</th><th>RS</th><th>기준가</th><th>거리</th><th title="종목 차트 매물대의 빨간 막대(최근 200봉 최대 매물대) 상단">최대 매물대</th><th>매물대까지</th><th>손절가(−8%)</th><th>1R 수량</th><th title="주도 섹터 레이더 순위(1~5위 🔥) · 같은 업종 동반 상승 여부">업종 순위</th><th class="l">메모</th></tr>${rows}</table></div>`:`<div class="empty">감시 목록이 아직 없습니다</div>`}
    ${watchExtra()}
    ${src("최대 매물대 = 종목 차트 매물대의 빨간 막대 상단(최근 200봉·10칸, 키움 MTS 방식) · 매물대까지 = 아직 아래면 상단까지 남은 %, 넘었으면 상단보다 몇 % 위인지(빨간 +%) · (돌파) = 기준가와 최대 매물대를 모두 넘은 종목 · 표시만, 매매 규칙 아님 · 1R 수량 = 30만 원 ÷ (기준가 − 손절가) · 펀더 점수는 순서를 정하는 참고이고 매매 규칙(docs/rules.md)은 2027-01-31까지 고정 · 출처: 감시 목록(screener.py), 네이버 재무·컨센서스(비공식)")}`}
 function viewStock(){
