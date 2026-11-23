@@ -33,8 +33,12 @@ SHARES = CACHE / "delisted_shares.json"
 SKIP = re.compile(r"스팩|기업인수목적|리츠|인프라|투자회사|유동화|선박투자|사모투자|제\d+호")
 
 
+def _sfx(years):
+    return "" if years == 5 else f"_{years:g}y"      # 5년이 기본 파일, 다른 기간은 long_10y.json처럼 따로
+
+
 def fetch(code, years):
-    path = DIR / f"{code}.json"
+    path = (DIR if years == 5 else CACHE / f"daily_long{years:g}") / f"{code}.json"     # 기간별로 캐시 폴더를 따로 (5년 캐시를 덮어쓰지 않게)
     today = datetime.now(KST).strftime("%Y%m%d")
     if path.exists():
         d = json.loads(path.read_text())
@@ -56,7 +60,7 @@ def fetch(code, years):
             continue
         if o and h and l and c:
             rows.append({"date": line[0], "open": o, "high": h, "low": l, "close": c, "volume": v})
-    DIR.mkdir(parents=True, exist_ok=True)
+    path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps({"day": today, "years": years, "rows": rows}))
     return rows
 
@@ -230,7 +234,7 @@ def run(years=5, limit=None, with_delisted=True, workers=6, portfolio=False):
            "curve": curve[::max(1, len(curve) // 300)] + curve[-1:],
            "worst": sorted(closed, key=lambda t: t["r"])[:10], "best": sorted(closed, key=lambda t: -t["r"])[:8]}
     (DATA / "backtest").mkdir(parents=True, exist_ok=True)
-    (DATA / "backtest" / "long.json").write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
+    (DATA / "backtest" / f"long{_sfx(years)}.json").write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
     return {k: out[k] for k in ("made_at", "seconds", "period", "universe", "all", "by_year", "by_kind", "by_market", "by_delisted")}
 
 
@@ -323,7 +327,7 @@ def run_portfolio(years=5, with_delisted=True):
                      "max_dd_pct": {"worst": min(r["max_dd_pct"] for r in rs_), "median": med("max_dd_pct")},
                      "by_year_median": {y: sorted(r["by_year"][y]["ret_pct"] for r in rs_)[15] for y in rs_[0]["by_year"]}}
     out["seconds"] = round(time.time() - t0)
-    (DATA / "backtest" / "long_portfolio.json").write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
+    (DATA / "backtest" / f"long_portfolio{_sfx(years)}.json").write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
     for v in out["variants"]:
         v.pop("curve", None)
     return out
@@ -364,7 +368,7 @@ def run_zone(years=5, with_delisted=True):
         v = account(c, days, "rs"); v.pop("curve", None)
         out["account"].append({"name": name, "signals": len(c), **v, "random_total_ret_pct": {"min": rr[0], "median": rr[15], "max": rr[-1]}})
     out["seconds"] = round(time.time() - t0)
-    (DATA / "backtest" / "long_zone.json").write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
+    (DATA / "backtest" / f"long_zone{_sfx(years)}.json").write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
     return {k: out[k] for k in ("made_at", "signals", "by_kind", "seconds")}
 
 
