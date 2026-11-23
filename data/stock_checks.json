@@ -1,0 +1,881 @@
+{
+ "at": "2026-11-23 11:42",
+ "stocks": {
+  "035900": {
+   "code": "035900",
+   "name": "JYP Ent.",
+   "at": "2026-11-23 11:38",
+   "priced": {
+    "price": 46250,
+    "eps_est": 2898.0,
+    "year": "2026",
+    "per_est": 16.0,
+    "need_growth": 10,
+    "eps_growth_this_year": -36,
+    "level": "보통",
+    "line": "올해 추정 EPS 기준 PER 16.0배입니다. 3년 뒤 PER이 12배로 내려와도 주가가 제자리이려면 EPS가 해마다 +10%씩 늘어야 합니다.",
+    "assume": "가정: 3년 뒤 PER 12배(표시용). 가정을 바꾸면 숫자가 달라집니다.",
+    "source": "네이버 재무·컨센서스 · 현재가 네이버"
+   },
+   "dilution": {
+    "level": "없음",
+    "line": "최근 3년 전환사채·유상증자 결정 공시가 없습니다.",
+    "events": [],
+    "source": "DART 주요사항보고서(최근 3년)",
+    "caveat": "발행 결정 공시 기준입니다. 이미 주식으로 바뀌었거나 갚은 물량은 빼지 못했으니 남은 잔액은 공시 원문에서 확인합니다."
+   },
+   "quality": {
+    "period": "2026년 3분기",
+    "sales_eok": 6366,
+    "sales_yoy": 8,
+    "net_eok": 778,
+    "ocf_eok": 816,
+    "ocf_to_net": 1.05,
+    "inventory_eok": 219,
+    "inventory_chg": 9,
+    "receivable_eok": 1458,
+    "receivable_chg": 18,
+    "inventory_days": 15,
+    "receivable_days": 63,
+    "note": "매출·순이익·현금흐름은 그 해 누적(전년 같은 기간 대비), 재고·매출채권은 작년 말 대비",
+    "source": "DART 2026년 3분기보고서",
+    "flags": [],
+    "level": "양호",
+    "line": "매출·재고·매출채권·현금흐름 사이에 눈에 띄는 어긋남이 없습니다."
+   }
+  },
+  "086450": {
+   "code": "086450",
+   "name": "동국제약",
+   "at": "2026-11-23 11:38",
+   "priced": {
+    "price": 24500,
+    "eps_est": 1792.0,
+    "year": "2026",
+    "per_est": 13.7,
+    "need_growth": 4,
+    "eps_growth_this_year": 23,
+    "level": "낮음",
+    "line": "올해 추정 EPS 기준 PER 13.7배입니다. 3년 뒤 PER이 12배로 내려와도 주가가 제자리이려면 EPS가 해마다 +4%씩 늘어야 합니다.",
+    "assume": "가정: 3년 뒤 PER 12배(표시용). 가정을 바꾸면 숫자가 달라집니다.",
+    "source": "네이버 재무·컨센서스 · 현재가 네이버"
+   },
+   "dilution": {
+    "level": "없음",
+    "line": "최근 3년 전환사채·유상증자 결정 공시가 없습니다.",
+    "events": [],
+    "source": "DART 주요사항보고서(최근 3년)",
+    "caveat": "발행 결정 공시 기준입니다. 이미 주식으로 바뀌었거나 갚은 물량은 빼지 못했으니 남은 잔액은 공시 원문에서 확인합니다."
+   },
+   "quality": {
+    "period": "2026년 3분기",
+    "sales_eok": 7686,
+    "sales_yoy": 12,
+    "net_eok": 578,
+    "ocf_eok": 652,
+    "ocf_to_net": 1.13,
+    "inventory_eok": 1895,
+    "inventory_chg": 8,
+    "receivable_eok": 2437,
+    "receivable_chg": 10,
+    "inventory_days": 151,
+    "receivable_days": 87,
+    "note": "매출·순이익·현금흐름은 그 해 누적(전년 같은 기간 대비), 재고·매출채권은 작년 말 대비",
+    "source": "DART 2026년 3분기보고서",
+    "flags": [],
+    "level": "양호",
+    "line": "매출·재고·매출채권·현금흐름 사이에 눈에 띄는 어긋남이 없습니다."
+   }
+  },
+  "005930": {
+   "code": "005930",
+   "name": "삼성전자",
+   "at": "2026-11-23 11:38",
+   "priced": {
+    "price": 172300,
+    "eps_est": 45565.0,
+    "year": "2026",
+    "per_est": 3.8,
+    "need_growth": -32,
+    "eps_growth_this_year": 594,
+    "level": "낮음",
+    "line": "올해 추정 EPS 기준 PER 3.8배로, 보통 수준(12배)보다 낮아 주가에 큰 성장 기대가 들어 있지 않습니다.",
+    "assume": "가정: 3년 뒤 PER 12배(표시용). 가정을 바꾸면 숫자가 달라집니다.",
+    "source": "네이버 재무·컨센서스 · 현재가 네이버"
+   },
+   "dilution": {
+    "level": "없음",
+    "line": "최근 3년 전환사채·유상증자 결정 공시가 없습니다.",
+    "events": [],
+    "source": "DART 주요사항보고서(최근 3년)",
+    "caveat": "발행 결정 공시 기준입니다. 이미 주식으로 바뀌었거나 갚은 물량은 빼지 못했으니 남은 잔액은 공시 원문에서 확인합니다."
+   },
+   "quality": {
+    "period": "2026년 3분기",
+    "sales_eok": 5006261,
+    "sales_yoy": 109,
+    "net_eok": 1939859,
+    "ocf_eok": 2439421,
+    "ocf_to_net": 1.26,
+    "inventory_eok": 719952,
+    "inventory_chg": 37,
+    "receivable_eok": 1060974,
+    "receivable_chg": 108,
+    "inventory_days": 120,
+    "receivable_days": 58,
+    "note": "매출·순이익·현금흐름은 그 해 누적(전년 같은 기간 대비), 재고·매출채권은 작년 말 대비",
+    "source": "DART 2026년 3분기보고서",
+    "flags": [],
+    "level": "양호",
+    "line": "매출·재고·매출채권·현금흐름 사이에 눈에 띄는 어긋남이 없습니다."
+   }
+  },
+  "000660": {
+   "code": "000660",
+   "name": "SK하이닉스",
+   "at": "2026-11-23 11:38",
+   "priced": {
+    "price": 1051000,
+    "eps_est": 355971.0,
+    "year": "2026",
+    "per_est": 3.0,
+    "need_growth": -37,
+    "eps_growth_this_year": 504,
+    "level": "낮음",
+    "line": "올해 추정 EPS 기준 PER 3.0배로, 보통 수준(12배)보다 낮아 주가에 큰 성장 기대가 들어 있지 않습니다.",
+    "assume": "가정: 3년 뒤 PER 12배(표시용). 가정을 바꾸면 숫자가 달라집니다.",
+    "source": "네이버 재무·컨센서스 · 현재가 네이버"
+   },
+   "dilution": {
+    "level": "주의",
+    "line": "최근 1년 안에 유상증자 결정(2026-07-10, 400,231억)이 있었습니다.",
+    "events": [
+     {
+      "date": "2026-07-10",
+      "kind": "유상증자",
+      "amount_eok": 400231,
+      "shares": 17790000.0,
+      "pct": 2.5,
+      "how": "제3자배정증자",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260710000008"
+     }
+    ],
+    "source": "DART 주요사항보고서(최근 3년)",
+    "caveat": "발행 결정 공시 기준입니다. 이미 주식으로 바뀌었거나 갚은 물량은 빼지 못했으니 남은 잔액은 공시 원문에서 확인합니다."
+   },
+   "quality": {
+    "period": "2026년 3분기",
+    "sales_eok": 2365105,
+    "sales_yoy": 268,
+    "net_eok": 1740441,
+    "ocf_eok": 1456343,
+    "ocf_to_net": 0.84,
+    "inventory_eok": 193558,
+    "inventory_chg": 35,
+    "receivable_eok": 591158,
+    "receivable_chg": 225,
+    "inventory_days": 135,
+    "receivable_days": 68,
+    "note": "매출·순이익·현금흐름은 그 해 누적(전년 같은 기간 대비), 재고·매출채권은 작년 말 대비",
+    "source": "DART 2026년 3분기보고서",
+    "flags": [],
+    "level": "양호",
+    "line": "매출·재고·매출채권·현금흐름 사이에 눈에 띄는 어긋남이 없습니다."
+   }
+  },
+  "356860": {
+   "code": "356860",
+   "name": "티엘비",
+   "at": "2026-11-23 11:39",
+   "priced": {
+    "price": 41600,
+    "eps_est": 2078.0,
+    "year": "2026",
+    "per_est": 20.0,
+    "need_growth": 19,
+    "eps_growth_this_year": 134,
+    "level": "보통",
+    "line": "올해 추정 EPS 기준 PER 20.0배입니다. 3년 뒤 PER이 12배로 내려와도 주가가 제자리이려면 EPS가 해마다 +19%씩 늘어야 합니다.",
+    "assume": "가정: 3년 뒤 PER 12배(표시용). 가정을 바꾸면 숫자가 달라집니다.",
+    "source": "네이버 재무·컨센서스 · 현재가 네이버"
+   },
+   "dilution": {
+    "level": "없음",
+    "line": "최근 3년 전환사채·유상증자 결정 공시가 없습니다.",
+    "events": [],
+    "source": "DART 주요사항보고서(최근 3년)",
+    "caveat": "발행 결정 공시 기준입니다. 이미 주식으로 바뀌었거나 갚은 물량은 빼지 못했으니 남은 잔액은 공시 원문에서 확인합니다."
+   },
+   "quality": {
+    "period": "2026년 3분기",
+    "sales_eok": 2580,
+    "sales_yoy": 39,
+    "net_eok": 310,
+    "ocf_eok": 184,
+    "ocf_to_net": 0.59,
+    "inventory_eok": 610,
+    "inventory_chg": 35,
+    "receivable_eok": 385,
+    "receivable_chg": 40,
+    "inventory_days": 81,
+    "receivable_days": 41,
+    "note": "매출·순이익·현금흐름은 그 해 누적(전년 같은 기간 대비), 재고·매출채권은 작년 말 대비",
+    "source": "DART 2026년 3분기보고서",
+    "flags": [],
+    "level": "양호",
+    "line": "매출·재고·매출채권·현금흐름 사이에 눈에 띄는 어긋남이 없습니다."
+   }
+  },
+  "222800": {
+   "code": "222800",
+   "name": "심텍",
+   "at": "2026-11-23 11:39",
+   "priced": {
+    "price": 97800,
+    "eps_est": 4854.0,
+    "year": "2026",
+    "per_est": 20.1,
+    "need_growth": 19,
+    "eps_growth_this_year": null,
+    "level": "보통",
+    "line": "올해 추정 EPS 기준 PER 20.1배입니다. 3년 뒤 PER이 12배로 내려와도 주가가 제자리이려면 EPS가 해마다 +19%씩 늘어야 합니다.",
+    "assume": "가정: 3년 뒤 PER 12배(표시용). 가정을 바꾸면 숫자가 달라집니다.",
+    "source": "네이버 재무·컨센서스 · 현재가 네이버"
+   },
+   "dilution": {
+    "level": "주의",
+    "line": "전환 가능한 전환사채가 있고 주가가 전환가(21,556원)보다 높습니다 — 주식 수의 18.7%가 매물로 나올 수 있습니다.",
+    "events": [
+     {
+      "date": "2025-06-11",
+      "kind": "전환사채",
+      "amount_eok": 500,
+      "price": 21556.0,
+      "shares": 2319539.0,
+      "pct": 7.28,
+      "from": "2026-06-20",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20250611000341",
+      "open": true,
+      "in_money": true
+     },
+     {
+      "date": "2024-03-08",
+      "kind": "전환사채",
+      "amount_eok": 1000,
+      "price": 30276.0,
+      "shares": 3302946.0,
+      "pct": 9.39,
+      "from": "2025-03-12",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20240308000879",
+      "open": true,
+      "in_money": true
+     },
+     {
+      "date": "2024-03-08",
+      "kind": "신주인수권부사채",
+      "amount_eok": 200,
+      "price": 30276.0,
+      "shares": 660589.0,
+      "pct": 2.03,
+      "from": "2025-03-12",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20240308000871",
+      "open": true,
+      "in_money": true
+     }
+    ],
+    "source": "DART 주요사항보고서(최근 3년)",
+    "caveat": "발행 결정 공시 기준입니다. 이미 주식으로 바뀌었거나 갚은 물량은 빼지 못했으니 남은 잔액은 공시 원문에서 확인합니다."
+   },
+   "quality": {
+    "period": "2026년 3분기",
+    "sales_eok": 14729,
+    "sales_yoy": 45,
+    "net_eok": 849,
+    "ocf_eok": -485,
+    "ocf_to_net": -0.57,
+    "inventory_eok": 3421,
+    "inventory_chg": 43,
+    "receivable_eok": 6568,
+    "receivable_chg": 56,
+    "inventory_days": 78,
+    "receivable_days": 122,
+    "note": "매출·순이익·현금흐름은 그 해 누적(전년 같은 기간 대비), 재고·매출채권은 작년 말 대비",
+    "source": "DART 2026년 3분기보고서",
+    "flags": [
+     "순이익은 849억인데 영업으로 들어온 현금은 -485억입니다(이익이 아직 현금이 되지 않음)."
+    ],
+    "level": "주의",
+    "line": "순이익은 849억인데 영업으로 들어온 현금은 -485억입니다(이익이 아직 현금이 되지 않음)."
+   }
+  },
+  "166090": {
+   "code": "166090",
+   "name": "하나머티리얼즈",
+   "at": "2026-11-23 11:39",
+   "priced": {
+    "price": 40000,
+    "eps_est": 3118.0,
+    "year": "2026",
+    "per_est": 12.8,
+    "need_growth": 2,
+    "eps_growth_this_year": 61,
+    "level": "낮음",
+    "line": "올해 추정 EPS 기준 PER 12.8배입니다. 3년 뒤 PER이 12배로 내려와도 주가가 제자리이려면 EPS가 해마다 +2%씩 늘어야 합니다.",
+    "assume": "가정: 3년 뒤 PER 12배(표시용). 가정을 바꾸면 숫자가 달라집니다.",
+    "source": "네이버 재무·컨센서스 · 현재가 네이버"
+   },
+   "dilution": {
+    "level": "주의",
+    "line": "전환 가능한 교환사채가 있고 주가가 전환가(34,388원)보다 높습니다 — 주식 수의 0.0%가 매물로 나올 수 있습니다.",
+    "events": [
+     {
+      "date": "2026-08-04",
+      "kind": "교환사채",
+      "amount_eok": 1000,
+      "price": 34388.0,
+      "shares": 2907991.0,
+      "pct": null,
+      "from": "2026-09-15",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260804000510",
+      "open": true,
+      "in_money": true
+     }
+    ],
+    "source": "DART 주요사항보고서(최근 3년)",
+    "caveat": "발행 결정 공시 기준입니다. 이미 주식으로 바뀌었거나 갚은 물량은 빼지 못했으니 남은 잔액은 공시 원문에서 확인합니다."
+   },
+   "quality": {
+    "period": "2026년 3분기",
+    "sales_eok": 2783,
+    "sales_yoy": 45,
+    "net_eok": 307,
+    "ocf_eok": 686,
+    "ocf_to_net": 2.23,
+    "inventory_eok": 805,
+    "inventory_chg": 26,
+    "receivable_eok": null,
+    "receivable_chg": null,
+    "inventory_days": 132,
+    "receivable_days": null,
+    "note": "매출·순이익·현금흐름은 그 해 누적(전년 같은 기간 대비), 재고·매출채권은 작년 말 대비",
+    "source": "DART 2026년 3분기보고서",
+    "flags": [],
+    "level": "양호",
+    "line": "매출·재고·매출채권·현금흐름 사이에 눈에 띄는 어긋남이 없습니다."
+   }
+  },
+  "092870": {
+   "code": "092870",
+   "name": "엑시콘",
+   "at": "2026-11-23 11:39",
+   "priced": {
+    "price": 47450,
+    "eps_est": 2586.0,
+    "year": "2026",
+    "per_est": 18.3,
+    "need_growth": 15,
+    "eps_growth_this_year": 276,
+    "level": "보통",
+    "line": "올해 추정 EPS 기준 PER 18.3배입니다. 3년 뒤 PER이 12배로 내려와도 주가가 제자리이려면 EPS가 해마다 +15%씩 늘어야 합니다.",
+    "assume": "가정: 3년 뒤 PER 12배(표시용). 가정을 바꾸면 숫자가 달라집니다.",
+    "source": "네이버 재무·컨센서스 · 현재가 네이버"
+   },
+   "dilution": {
+    "level": "확인",
+    "line": "최근 3년 1건이 있었지만 지금 매물로 나올 조건은 아닙니다.",
+    "events": [
+     {
+      "date": "2024-07-09",
+      "kind": "유상증자",
+      "amount_eok": 333,
+      "shares": 2202000.0,
+      "pct": 20.3,
+      "how": "주주배정후 실권주 일반공모",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20240709000042"
+     }
+    ],
+    "source": "DART 주요사항보고서(최근 3년)",
+    "caveat": "발행 결정 공시 기준입니다. 이미 주식으로 바뀌었거나 갚은 물량은 빼지 못했으니 남은 잔액은 공시 원문에서 확인합니다."
+   },
+   "quality": {
+    "period": "2026년 3분기",
+    "sales_eok": 918,
+    "sales_yoy": 339,
+    "net_eok": 270,
+    "ocf_eok": -99,
+    "ocf_to_net": -0.37,
+    "inventory_eok": 581,
+    "inventory_chg": 101,
+    "receivable_eok": 223,
+    "receivable_chg": 178,
+    "inventory_days": 284,
+    "receivable_days": 66,
+    "note": "매출·순이익·현금흐름은 그 해 누적(전년 같은 기간 대비), 재고·매출채권은 작년 말 대비",
+    "source": "DART 2026년 3분기보고서",
+    "flags": [
+     "순이익은 270억인데 영업으로 들어온 현금은 -99억입니다(이익이 아직 현금이 되지 않음)."
+    ],
+    "level": "주의",
+    "line": "순이익은 270억인데 영업으로 들어온 현금은 -99억입니다(이익이 아직 현금이 되지 않음)."
+   }
+  },
+  "192820": {
+   "code": "192820",
+   "name": "코스맥스",
+   "at": "2026-11-23 11:40",
+   "priced": {
+    "price": 277500,
+    "eps_est": 15960.0,
+    "year": "2026",
+    "per_est": 17.4,
+    "need_growth": 13,
+    "eps_growth_this_year": 47,
+    "level": "보통",
+    "line": "올해 추정 EPS 기준 PER 17.4배입니다. 3년 뒤 PER이 12배로 내려와도 주가가 제자리이려면 EPS가 해마다 +13%씩 늘어야 합니다.",
+    "assume": "가정: 3년 뒤 PER 12배(표시용). 가정을 바꾸면 숫자가 달라집니다.",
+    "source": "네이버 재무·컨센서스 · 현재가 네이버"
+   },
+   "dilution": {
+    "level": "없음",
+    "line": "최근 3년 전환사채·유상증자 결정 공시가 없습니다.",
+    "events": [],
+    "source": "DART 주요사항보고서(최근 3년)",
+    "caveat": "발행 결정 공시 기준입니다. 이미 주식으로 바뀌었거나 갚은 물량은 빼지 못했으니 남은 잔액은 공시 원문에서 확인합니다."
+   },
+   "quality": {
+    "period": "2026년 3분기",
+    "sales_eok": 23527,
+    "sales_yoy": 31,
+    "net_eok": 1384,
+    "ocf_eok": 639,
+    "ocf_to_net": 0.46,
+    "inventory_eok": 4203,
+    "inventory_chg": 55,
+    "receivable_eok": 5907,
+    "receivable_chg": 38,
+    "inventory_days": 59,
+    "receivable_days": 69,
+    "note": "매출·순이익·현금흐름은 그 해 누적(전년 같은 기간 대비), 재고·매출채권은 작년 말 대비",
+    "source": "DART 2026년 3분기보고서",
+    "flags": [
+     "영업현금흐름이 순이익의 46%뿐입니다."
+    ],
+    "level": "확인",
+    "line": "영업현금흐름이 순이익의 46%뿐입니다."
+   }
+  },
+  "161890": {
+   "code": "161890",
+   "name": "한국콜마",
+   "at": "2026-11-23 11:40",
+   "priced": {
+    "price": 115200,
+    "eps_est": 8074.0,
+    "year": "2026",
+    "per_est": 14.3,
+    "need_growth": 6,
+    "eps_growth_this_year": 52,
+    "level": "낮음",
+    "line": "올해 추정 EPS 기준 PER 14.3배입니다. 3년 뒤 PER이 12배로 내려와도 주가가 제자리이려면 EPS가 해마다 +6%씩 늘어야 합니다.",
+    "assume": "가정: 3년 뒤 PER 12배(표시용). 가정을 바꾸면 숫자가 달라집니다.",
+    "source": "네이버 재무·컨센서스 · 현재가 네이버"
+   },
+   "dilution": {
+    "level": "없음",
+    "line": "최근 3년 전환사채·유상증자 결정 공시가 없습니다.",
+    "events": [],
+    "source": "DART 주요사항보고서(최근 3년)",
+    "caveat": "발행 결정 공시 기준입니다. 이미 주식으로 바뀌었거나 갚은 물량은 빼지 못했으니 남은 잔액은 공시 원문에서 확인합니다."
+   },
+   "quality": {
+    "period": "2026년 3분기",
+    "sales_eok": 24175,
+    "sales_yoy": 17,
+    "net_eok": 1823,
+    "ocf_eok": 1684,
+    "ocf_to_net": 0.92,
+    "inventory_eok": 5379,
+    "inventory_chg": 66,
+    "receivable_eok": 4264,
+    "receivable_chg": 28,
+    "inventory_days": 84,
+    "receivable_days": 48,
+    "note": "매출·순이익·현금흐름은 그 해 누적(전년 같은 기간 대비), 재고·매출채권은 작년 말 대비",
+    "source": "DART 2026년 3분기보고서",
+    "flags": [
+     "재고가 작년 말보다 +66% 늘어 매출 증가율(+17%)보다 빠릅니다."
+    ],
+    "level": "확인",
+    "line": "재고가 작년 말보다 +66% 늘어 매출 증가율(+17%)보다 빠릅니다."
+   }
+  },
+  "251970": {
+   "code": "251970",
+   "name": "펌텍코리아",
+   "at": "2026-11-23 11:40",
+   "priced": {
+    "price": 76700,
+    "eps_est": 5208.0,
+    "year": "2026",
+    "per_est": 14.7,
+    "need_growth": 7,
+    "eps_growth_this_year": 87,
+    "level": "낮음",
+    "line": "올해 추정 EPS 기준 PER 14.7배입니다. 3년 뒤 PER이 12배로 내려와도 주가가 제자리이려면 EPS가 해마다 +7%씩 늘어야 합니다.",
+    "assume": "가정: 3년 뒤 PER 12배(표시용). 가정을 바꾸면 숫자가 달라집니다.",
+    "source": "네이버 재무·컨센서스 · 현재가 네이버"
+   },
+   "dilution": {
+    "level": "없음",
+    "line": "최근 3년 전환사채·유상증자 결정 공시가 없습니다.",
+    "events": [],
+    "source": "DART 주요사항보고서(최근 3년)",
+    "caveat": "발행 결정 공시 기준입니다. 이미 주식으로 바뀌었거나 갚은 물량은 빼지 못했으니 남은 잔액은 공시 원문에서 확인합니다."
+   },
+   "quality": {
+    "period": "2026년 3분기",
+    "sales_eok": 3324,
+    "sales_yoy": 13,
+    "net_eok": null,
+    "ocf_eok": 491,
+    "ocf_to_net": null,
+    "inventory_eok": 280,
+    "inventory_chg": 63,
+    "receivable_eok": 688,
+    "receivable_chg": 55,
+    "inventory_days": 31,
+    "receivable_days": 56,
+    "note": "매출·순이익·현금흐름은 그 해 누적(전년 같은 기간 대비), 재고·매출채권은 작년 말 대비",
+    "source": "DART 2026년 3분기보고서",
+    "flags": [
+     "재고가 작년 말보다 +63% 늘어 매출 증가율(+13%)보다 빠릅니다.",
+     "매출채권가 작년 말보다 +55% 늘어 매출 증가율(+13%)보다 빠릅니다."
+    ],
+    "level": "주의",
+    "line": "재고가 작년 말보다 +63% 늘어 매출 증가율(+13%)보다 빠릅니다."
+   }
+  },
+  "090430": {
+   "code": "090430",
+   "name": "아모레퍼시픽",
+   "at": "2026-11-23 11:40",
+   "priced": {
+    "price": 135300,
+    "eps_est": 5022.0,
+    "year": "2026",
+    "per_est": 26.9,
+    "need_growth": 31,
+    "eps_growth_this_year": 47,
+    "level": "높음",
+    "line": "올해 추정 EPS 기준 PER 26.9배입니다. 3년 뒤 PER이 12배로 내려와도 주가가 제자리이려면 EPS가 해마다 +31%씩 늘어야 합니다.",
+    "assume": "가정: 3년 뒤 PER 12배(표시용). 가정을 바꾸면 숫자가 달라집니다.",
+    "source": "네이버 재무·컨센서스 · 현재가 네이버"
+   },
+   "dilution": {
+    "level": "없음",
+    "line": "최근 3년 전환사채·유상증자 결정 공시가 없습니다.",
+    "events": [],
+    "source": "DART 주요사항보고서(최근 3년)",
+    "caveat": "발행 결정 공시 기준입니다. 이미 주식으로 바뀌었거나 갚은 물량은 빼지 못했으니 남은 잔액은 공시 원문에서 확인합니다."
+   },
+   "quality": {
+    "period": "2026년 3분기",
+    "sales_eok": 34411,
+    "sales_yoy": 11,
+    "net_eok": 2648,
+    "ocf_eok": 2623,
+    "ocf_to_net": 0.99,
+    "inventory_eok": 5250,
+    "inventory_chg": 9,
+    "receivable_eok": 3890,
+    "receivable_chg": 9,
+    "inventory_days": 156,
+    "receivable_days": 31,
+    "note": "매출·순이익·현금흐름은 그 해 누적(전년 같은 기간 대비), 재고·매출채권은 작년 말 대비",
+    "source": "DART 2026년 3분기보고서",
+    "flags": [],
+    "level": "양호",
+    "line": "매출·재고·매출채권·현금흐름 사이에 눈에 띄는 어긋남이 없습니다."
+   }
+  },
+  "278470": {
+   "code": "278470",
+   "name": "에이피알",
+   "at": "2026-11-23 11:41",
+   "priced": {
+    "price": 253500,
+    "eps_est": 14525.0,
+    "year": "2026",
+    "per_est": 17.5,
+    "need_growth": 13,
+    "eps_growth_this_year": 89,
+    "level": "보통",
+    "line": "올해 추정 EPS 기준 PER 17.5배입니다. 3년 뒤 PER이 12배로 내려와도 주가가 제자리이려면 EPS가 해마다 +13%씩 늘어야 합니다.",
+    "assume": "가정: 3년 뒤 PER 12배(표시용). 가정을 바꾸면 숫자가 달라집니다.",
+    "source": "네이버 재무·컨센서스 · 현재가 네이버"
+   },
+   "dilution": {
+    "level": "없음",
+    "line": "최근 3년 전환사채·유상증자 결정 공시가 없습니다.",
+    "events": [],
+    "source": "DART 주요사항보고서(최근 3년)",
+    "caveat": "발행 결정 공시 기준입니다. 이미 주식으로 바뀌었거나 갚은 물량은 빼지 못했으니 남은 잔액은 공시 원문에서 확인합니다."
+   },
+   "quality": {
+    "period": "2026년 3분기",
+    "sales_eok": 21340,
+    "sales_yoy": 118,
+    "net_eok": 3690,
+    "ocf_eok": 537,
+    "ocf_to_net": 0.15,
+    "inventory_eok": 4980,
+    "inventory_chg": 201,
+    "receivable_eok": 2102,
+    "receivable_chg": 131,
+    "inventory_days": 286,
+    "receivable_days": 27,
+    "note": "매출·순이익·현금흐름은 그 해 누적(전년 같은 기간 대비), 재고·매출채권은 작년 말 대비",
+    "source": "DART 2026년 3분기보고서",
+    "flags": [
+     "영업현금흐름이 순이익의 15%뿐입니다.",
+     "재고가 작년 말보다 +201% 늘어 매출 증가율(+118%)보다 빠릅니다."
+    ],
+    "level": "주의",
+    "line": "영업현금흐름이 순이익의 15%뿐입니다."
+   }
+  },
+  "028050": {
+   "code": "028050",
+   "name": "삼성E&A",
+   "at": "2026-11-23 11:41",
+   "priced": {
+    "price": 53300,
+    "eps_est": 4453.0,
+    "year": "2026",
+    "per_est": 12.0,
+    "need_growth": 0,
+    "eps_growth_this_year": 41,
+    "level": "낮음",
+    "line": "올해 추정 EPS 기준 PER 12.0배로, 보통 수준(12배)보다 낮아 주가에 큰 성장 기대가 들어 있지 않습니다.",
+    "assume": "가정: 3년 뒤 PER 12배(표시용). 가정을 바꾸면 숫자가 달라집니다.",
+    "source": "네이버 재무·컨센서스 · 현재가 네이버"
+   },
+   "dilution": {
+    "level": "없음",
+    "line": "최근 3년 전환사채·유상증자 결정 공시가 없습니다.",
+    "events": [],
+    "source": "DART 주요사항보고서(최근 3년)",
+    "caveat": "발행 결정 공시 기준입니다. 이미 주식으로 바뀌었거나 갚은 물량은 빼지 못했으니 남은 잔액은 공시 원문에서 확인합니다."
+   },
+   "quality": {
+    "period": "2026년 3분기",
+    "sales_eok": 77872,
+    "sales_yoy": 24,
+    "net_eok": 5625,
+    "ocf_eok": 12364,
+    "ocf_to_net": 2.2,
+    "inventory_eok": null,
+    "inventory_chg": null,
+    "receivable_eok": 28899,
+    "receivable_chg": -1,
+    "inventory_days": null,
+    "receivable_days": 101,
+    "note": "매출·순이익·현금흐름은 그 해 누적(전년 같은 기간 대비), 재고·매출채권은 작년 말 대비",
+    "source": "DART 2026년 3분기보고서",
+    "flags": [],
+    "level": "양호",
+    "line": "매출·재고·매출채권·현금흐름 사이에 눈에 띄는 어긋남이 없습니다."
+   }
+  },
+  "294870": {
+   "code": "294870",
+   "name": "IPARK현대산업개발",
+   "at": "2026-11-23 11:41",
+   "priced": {
+    "price": 23000,
+    "eps_est": 5760.0,
+    "year": "2026",
+    "per_est": 4.0,
+    "need_growth": -31,
+    "eps_growth_this_year": 140,
+    "level": "낮음",
+    "line": "올해 추정 EPS 기준 PER 4.0배로, 보통 수준(12배)보다 낮아 주가에 큰 성장 기대가 들어 있지 않습니다.",
+    "assume": "가정: 3년 뒤 PER 12배(표시용). 가정을 바꾸면 숫자가 달라집니다.",
+    "source": "네이버 재무·컨센서스 · 현재가 네이버"
+   },
+   "dilution": {
+    "level": "없음",
+    "line": "최근 3년 전환사채·유상증자 결정 공시가 없습니다.",
+    "events": [],
+    "source": "DART 주요사항보고서(최근 3년)",
+    "caveat": "발행 결정 공시 기준입니다. 이미 주식으로 바뀌었거나 갚은 물량은 빼지 못했으니 남은 잔액은 공시 원문에서 확인합니다."
+   },
+   "quality": {
+    "period": "2026년 3분기",
+    "sales_eok": 26707,
+    "sales_yoy": -14,
+    "net_eok": 2443,
+    "ocf_eok": 5005,
+    "ocf_to_net": 2.05,
+    "inventory_eok": 15395,
+    "inventory_chg": 2,
+    "receivable_eok": 22262,
+    "receivable_chg": -1,
+    "inventory_days": 199,
+    "receivable_days": 228,
+    "note": "매출·순이익·현금흐름은 그 해 누적(전년 같은 기간 대비), 재고·매출채권은 작년 말 대비",
+    "source": "DART 2026년 3분기보고서",
+    "flags": [],
+    "level": "양호",
+    "line": "매출·재고·매출채권·현금흐름 사이에 눈에 띄는 어긋남이 없습니다."
+   }
+  },
+  "013580": {
+   "code": "013580",
+   "name": "계룡건설",
+   "at": "2026-11-23 11:42",
+   "priced": {
+    "price": 23800,
+    "eps_est": 14975.0,
+    "year": "2026",
+    "per_est": 1.6,
+    "need_growth": -49,
+    "eps_growth_this_year": 34,
+    "level": "낮음",
+    "line": "올해 추정 EPS 기준 PER 1.6배로, 보통 수준(12배)보다 낮아 주가에 큰 성장 기대가 들어 있지 않습니다.",
+    "assume": "가정: 3년 뒤 PER 12배(표시용). 가정을 바꾸면 숫자가 달라집니다.",
+    "source": "네이버 재무·컨센서스 · 현재가 네이버"
+   },
+   "dilution": {
+    "level": "없음",
+    "line": "최근 3년 전환사채·유상증자 결정 공시가 없습니다.",
+    "events": [],
+    "source": "DART 주요사항보고서(최근 3년)",
+    "caveat": "발행 결정 공시 기준입니다. 이미 주식으로 바뀌었거나 갚은 물량은 빼지 못했으니 남은 잔액은 공시 원문에서 확인합니다."
+   },
+   "quality": {
+    "period": "2026년 3분기",
+    "sales_eok": 23094,
+    "sales_yoy": 12,
+    "net_eok": 669,
+    "ocf_eok": -1330,
+    "ocf_to_net": -1.99,
+    "inventory_eok": 7943,
+    "inventory_chg": 11,
+    "receivable_eok": 2577,
+    "receivable_chg": 8,
+    "inventory_days": 107,
+    "receivable_days": 30,
+    "note": "매출·순이익·현금흐름은 그 해 누적(전년 같은 기간 대비), 재고·매출채권은 작년 말 대비",
+    "source": "DART 2026년 3분기보고서",
+    "flags": [
+     "순이익은 669억인데 영업으로 들어온 현금은 -1,330억입니다(이익이 아직 현금이 되지 않음)."
+    ],
+    "level": "주의",
+    "line": "순이익은 669억인데 영업으로 들어온 현금은 -1,330억입니다(이익이 아직 현금이 되지 않음)."
+   }
+  },
+  "006360": {
+   "code": "006360",
+   "name": "GS건설",
+   "at": "2026-11-23 11:42",
+   "priced": {
+    "price": 23800,
+    "eps_est": 1866.0,
+    "year": "2026",
+    "per_est": 12.8,
+    "need_growth": 2,
+    "eps_growth_this_year": 71,
+    "level": "낮음",
+    "line": "올해 추정 EPS 기준 PER 12.8배입니다. 3년 뒤 PER이 12배로 내려와도 주가가 제자리이려면 EPS가 해마다 +2%씩 늘어야 합니다.",
+    "assume": "가정: 3년 뒤 PER 12배(표시용). 가정을 바꾸면 숫자가 달라집니다.",
+    "source": "네이버 재무·컨센서스 · 현재가 네이버"
+   },
+   "dilution": {
+    "level": "없음",
+    "line": "최근 3년 전환사채·유상증자 결정 공시가 없습니다.",
+    "events": [],
+    "source": "DART 주요사항보고서(최근 3년)",
+    "caveat": "발행 결정 공시 기준입니다. 이미 주식으로 바뀌었거나 갚은 물량은 빼지 못했으니 남은 잔액은 공시 원문에서 확인합니다."
+   },
+   "quality": {
+    "period": "2026년 3분기",
+    "sales_eok": 79239,
+    "sales_yoy": -16,
+    "net_eok": 985,
+    "ocf_eok": 1504,
+    "ocf_to_net": 1.53,
+    "inventory_eok": 12971,
+    "inventory_chg": 12,
+    "receivable_eok": 26172,
+    "receivable_chg": -6,
+    "inventory_days": 50,
+    "receivable_days": 90,
+    "note": "매출·순이익·현금흐름은 그 해 누적(전년 같은 기간 대비), 재고·매출채권은 작년 말 대비",
+    "source": "DART 2026년 3분기보고서",
+    "flags": [],
+    "level": "양호",
+    "line": "매출·재고·매출채권·현금흐름 사이에 눈에 띄는 어긋남이 없습니다."
+   }
+  },
+  "000720": {
+   "code": "000720",
+   "name": "현대건설",
+   "at": "2026-11-23 11:42",
+   "priced": {
+    "price": 64700,
+    "eps_est": 3934.0,
+    "year": "2026",
+    "per_est": 16.4,
+    "need_growth": 11,
+    "eps_growth_this_year": 18,
+    "level": "보통",
+    "line": "올해 추정 EPS 기준 PER 16.4배입니다. 3년 뒤 PER이 12배로 내려와도 주가가 제자리이려면 EPS가 해마다 +11%씩 늘어야 합니다.",
+    "assume": "가정: 3년 뒤 PER 12배(표시용). 가정을 바꾸면 숫자가 달라집니다.",
+    "source": "네이버 재무·컨센서스 · 현재가 네이버"
+   },
+   "dilution": {
+    "level": "확인",
+    "line": "전환사채가 2027-07-07부터 전환 가능합니다(전환가 150,607원, 주식 수의 2.9%).",
+    "events": [
+     {
+      "date": "2026-06-09",
+      "kind": "전환사채",
+      "amount_eok": 5000,
+      "price": 150607.0,
+      "shares": 3319898.0,
+      "pct": 2.9,
+      "from": "2027-07-07",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260609000517",
+      "open": false,
+      "in_money": false
+     }
+    ],
+    "source": "DART 주요사항보고서(최근 3년)",
+    "caveat": "발행 결정 공시 기준입니다. 이미 주식으로 바뀌었거나 갚은 물량은 빼지 못했으니 남은 잔액은 공시 원문에서 확인합니다."
+   },
+   "quality": {
+    "period": "2026년 3분기",
+    "sales_eok": 193642,
+    "sales_yoy": -16,
+    "net_eok": 4101,
+    "ocf_eok": -19706,
+    "ocf_to_net": -4.81,
+    "inventory_eok": 9787,
+    "inventory_chg": 31,
+    "receivable_eok": 65879,
+    "receivable_chg": -4,
+    "inventory_days": 15,
+    "receivable_days": 93,
+    "note": "매출·순이익·현금흐름은 그 해 누적(전년 같은 기간 대비), 재고·매출채권은 작년 말 대비",
+    "source": "DART 2026년 3분기보고서",
+    "flags": [
+     "순이익은 4,101억인데 영업으로 들어온 현금은 -19,706억입니다(이익이 아직 현금이 되지 않음).",
+     "재고가 작년 말보다 +31% 늘어 매출 증가율(-16%)보다 빠릅니다."
+    ],
+    "level": "주의",
+    "line": "순이익은 4,101억인데 영업으로 들어온 현금은 -19,706억입니다(이익이 아직 현금이 되지 않음)."
+   }
+  }
+ }
+}

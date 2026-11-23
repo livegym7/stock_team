@@ -96,7 +96,7 @@
 | 시세·기초 | `naver_quote.py`(국내 현재가·일봉·수급·지수) · `us_quote.py`(해외) · `universe.py`(종목 목록) · `common.py`(공용: 환경 변수·계좌·신호등) |
 | 채널 | `tg_channel.py collect\|summary\|show\|company\|images` · `disclosure_filter.py`(공시 채널 거르기) · `views.py`(전문가 견해) · `earnings.py`(잠정실적) · `news.py` · `dart.py` |
 | 리포트·자료실 | `naver_research.py`(목록·전문 글자, 원문 저장 안 함) · `research_cards.py`(카드 깔때기) · `research.py`(드라이브 딥리서치) · `report_digest.py`(리포트 재료 + 공용 현재가 함수) |
-| 종목 | `stock_profile.py`(기본 카드) · `stock_cards.py`(깊은 카드) · `stock_memo.py`(종목 메모) · `fundamentals.py`(실적·컨센서스) · `flow_osc.py`(수급 오실레이터) |
+| 종목 | `stock_profile.py`(기본 카드) · `stock_cards.py`(깊은 카드) · `stock_memo.py`(종목 메모) · `stock_check.py`(점검표: 희석 위험·이익의 질·주가에 반영된 기대, 토큰 0) · `fundamentals.py`(실적·컨센서스) · `flow_osc.py`(수급 오실레이터) |
 | 시장·업종 | `market_pulse.py`(시황·수급·경제지표) · `macro_board.py`(매크로 캔들·유동성) · `macro_extra.py`(수출·메모리·유동성) · `sector_radar.py`(주도 섹터 레이더) · `sector_track.py`(업종 발자취) · `sector_etf.py`(지수·섹터 ETF 통계) · `etf_board.py` · `value_top.py`(거래대금 상위) · `new_highs.py`(신고가) · `calendar_fetch.py`(일정) · `sector_map.py`(업종 분류 점검) |
 | 감시·매매 | `screener.py [--pool --send]`(감시 목록, 규칙 숫자 원본) · `alerts.py`(장중 알림) · `risk.py`(R·CR·E, 수량 계산) · `trades.py buy\|sell\|stop\|review` |
 | 검증실 | `backtest.py [--scorecard]`(돌파 규칙 3년 + 성적표·신호 건수) · `backtest_exit.py`(본전 손절 시점 비교) · `backtest_ibs.py`(부록 지수 되돌림) — 모두 비교 자료 |

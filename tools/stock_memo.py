@@ -12,6 +12,10 @@ JSON 칸: code, name, updated(자동), thesis(가설 한 문장, 80자 이내), 
   drivers[{point, evidence}] 2~4개(이익이 느는 이유 + 숫자·출처), numbers[{label, value, source}] 3~8개,
   peers[{name, note}] 0~4개(경쟁사 대비), bull[] 2~3줄, bear[] 2~3줄(반드시), invalid[] 1~3줄(가설이 깨지는 조건: 숫자·날짜로),
   next[{when, what}] 1~4개(다음 확인할 일정), read[] 읽은 자료(증권사 날짜 제목 / DART 공시명 날짜), sources 한 줄.
+  2026-11-23 추가(사용자 확정): pq{driver: "가격"|"물량"|"둘 다", note: 이익이 값이 올라서 느는지 많이 팔려서 느는지 한 문장},
+  customers[{name, share, note}] 1~3개(매출이 달린 고객·그 고객의 투자 계획이 이 종목에 주는 뜻. 고객이 흩어져 있으면 name에 "분산"),
+  confirm[] 1~3줄(가설이 강해지는 조건: 숫자·날짜로 — invalid의 반대쪽), lead[{what, where}] 1~3개(미리 알려 주는 지표 · 어디서 보나),
+  checks{dilution, quality, priced} 각 한 문장(tools/stock_check.py 숫자를 읽고 이 종목에서 그 숫자가 뜻하는 바를 해석 — 숫자를 그대로 옮기지 않는다).
 """
 import argparse, json, sys, tomllib
 from datetime import datetime
@@ -64,7 +68,8 @@ def queue(top):
     pick = T[:top]
     for t in pick:
         t.pop("_k", None); c, n = t["code"], t["name"]
-        t["materials"] = [f"python3 tools/fundamentals.py show --stock {c}",
+        t["materials"] = [f"python3 tools/stock_check.py show --stock {c}   # 희석 위험·이익의 질·주가에 반영된 기대 (토큰 0)",
+                          f"python3 tools/fundamentals.py show --stock {c}",
                           f"python3 tools/tg_channel.py company --stock {n} --days 30",
                           f"python3 tools/dart.py list --days 90   # 관심종목에 없으면 건너뜀",
                           f"python3 tools/naver_research.py candidates   # '{n}' 리포트 nid를 찾아 pdf --cat company --nid … --max 60000 (최근 2~3건, 원문 저장 금지)",
@@ -76,23 +81,29 @@ def queue(top):
 
 def save(path):
     d = json.loads(Path(path).read_text(encoding="utf-8"))
-    need = ("code", "name", "thesis", "business", "drivers", "numbers", "bull", "bear", "invalid", "next", "read", "sources")
+    need = ("code", "name", "thesis", "business", "drivers", "numbers", "bull", "bear", "invalid", "next", "read", "sources", "pq", "customers", "confirm", "lead", "checks")
     miss = [k for k in need if not d.get(k)]
     if miss:
         raise SystemExit(f"빠진 칸: {miss}")
     if len(d["thesis"]) > 80:
         raise SystemExit(f"thesis는 80자 이내: 지금 {len(d['thesis'])}자")
-    lim = {"drivers": (2, 4), "numbers": (3, 8), "bull": (2, 3), "bear": (2, 3), "invalid": (1, 3), "next": (1, 4), "read": (2, 12)}
+    lim = {"drivers": (2, 4), "numbers": (3, 8), "bull": (2, 3), "bear": (2, 3), "invalid": (1, 3), "next": (1, 4), "read": (2, 12), "customers": (1, 3), "confirm": (1, 3), "lead": (1, 3)}
     for k, (lo, hi) in lim.items():
         if not isinstance(d[k], list) or not lo <= len(d[k]) <= hi:
             raise SystemExit(f"{k}는 {lo}~{hi}개: 지금 {len(d[k]) if isinstance(d[k], list) else '목록 아님'}")
     if any(not x.get("evidence") for x in d["drivers"]) or any(not x.get("source") for x in d["numbers"]):
         raise SystemExit("drivers에는 evidence, numbers에는 source가 있어야 합니다")
+    if (d["pq"] or {}).get("driver") not in ("가격", "물량", "둘 다") or not d["pq"].get("note"):
+        raise SystemExit('pq는 {"driver": "가격"|"물량"|"둘 다", "note": "한 문장"}')
+    if any(not x.get("name") or not x.get("note") for x in d["customers"]) or any(not x.get("what") or not x.get("where") for x in d["lead"]):
+        raise SystemExit("customers에는 name·note, lead에는 what·where가 있어야 합니다")
+    if not isinstance(d["checks"], dict) or any(not d["checks"].get(k) for k in ("dilution", "quality", "priced")):
+        raise SystemExit("checks에는 dilution·quality·priced 세 문장이 있어야 합니다 (python3 tools/stock_check.py show 숫자를 해석)")
     js = json.dumps(d, ensure_ascii=False)
     hit = [b for b in BAD if b in js]
     if hit:
         raise SystemExit(f"매수·매도 단정 표현: {hit}")
-    flat = [d["thesis"]] + [x for k in ("bull", "bear", "invalid") for x in d[k]]
+    flat = [d["thesis"]] + [x for k in ("bull", "bear", "invalid", "confirm") for x in d[k]]
     bad_end = [s for s in flat if s.rstrip(" .").endswith(("한다", "이다", "된다", "있다", "없다", "했다", "였다"))]
     if bad_end:
         raise SystemExit(f"어투는 '~입니다': {bad_end[:2]}")
