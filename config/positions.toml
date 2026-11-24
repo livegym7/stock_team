@@ -42,3 +42,11 @@ qty = 9
 avg_price = 104600
 initial_stop = 96232   # 처음 손절가 = 1R 기준
 stop = 96232
+
+[[positions]]
+name = "삼현"
+code = "437730"
+qty = 15
+avg_price = 63000
+initial_stop = 57960   # 처음 손절가 = 1R 기준
+stop = 57960
