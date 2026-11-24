@@ -1494,6 +1494,10 @@ def write_html(data):
                                   "vr": round(v[-1] / v50, 2) if v50 else None, "peers": [p for p in peers.get(g, []) if p != s["code"]][:30]}
         return out
     data["pool55"] = safe(_pool55)
+    # 나스닥 선물·EWY + 지금 주목받는 종목(검색 상위 30) + 업종 묶음표 (2026-11-24, tools/hot_now.py — 화면이 열려 있으면 /api/quote가 1분마다 갈아 끼움)
+    data["night"] = safe(lambda: __import__("hot_now").night())
+    data["hot"] = safe(lambda: __import__("hot_now").hot())
+    data["grp"] = safe(lambda: __import__("sector_map").custom_map(), {})
     # 깊이 모드 자료 (2026-11-20): 종목 메모(코드 → 메모)
     data["stock_memos"] = safe(lambda: {f.stem: json.loads(f.read_text(encoding="utf-8")) for f in (DATA / "stock_memos").glob("*.json")}, {})
     data["stock_checks"] = safe(lambda: json.loads((DATA / "stock_checks.json").read_text(encoding="utf-8")), {})   # 종목 점검표 (2026-11-23, tools/stock_check.py)

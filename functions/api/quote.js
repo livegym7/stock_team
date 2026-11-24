@@ -1,7 +1,7 @@
 // Balance Lab 시세 중계 (Cloudflare Pages Function, 2026-11-13 사용자 확정)
 // 화면이 열려 있는 동안 1분마다 부름 → 네이버(비공식) 현재가를 받아 그대로 돌려줌. Claude 토큰 0, 주문 기능 없음, 키 없음.
 // 같은 주소라 Cloudflare Access 로그인 잠금이 그대로 적용된다.
-// GET /api/quote?codes=005930,000660&flows=1&world=1
+// GET /api/quote?codes=005930,000660&flows=1&world=1&night=1&hot=1
 const H = { "User-Agent": "Mozilla/5.0", "Referer": "https://finance.naver.com/" };
 const num = s => { const v = parseFloat(String(s ?? "").replace(/,/g, "")); return isNaN(v) ? null : v; };
 async function j(url) {
@@ -56,6 +56,26 @@ export async function onRequestGet({ request }) {
     ((W && W.datas) || []).forEach(x => { const s = SYM[x.reutersCode]; if (!s) return;
       out.world[s] = { price: num(x.closePrice), change_pct: num(x.fluctuationsRatio), open: num(x.openPrice), high: num(x.highPrice), low: num(x.lowPrice),
         status: x.marketStatus, at: (x.localTradedAt || "").slice(0, 16), delay: (x.stockExchangeType || {}).delayTime ?? null }; });
+  }
+  // 나스닥 100 선물 + EWY (2026-11-24): ?night=1 → 장중·장 종료 뒤에도 보는 값. 선물 = 네이버 해외선물(10분 지연), EWY = 야후(정규장 밖이면 시간외 가격, 마지막 정규장 종가 대비)
+  if (u.searchParams.get("night") === "1") {
+    const kst = t => new Date(t + 9 * 3600e3).toISOString().slice(0, 16).replace("T", " ");
+    const [F, E] = await Promise.all([j("https://polling.finance.naver.com/api/realtime/worldstock/futures/NQcv1"), j("https://query1.finance.yahoo.com/v8/finance/chart/EWY?interval=5m&range=1d&includePrePost=true")]);
+    out.night = { at: now };
+    const x = F && F.datas && F.datas[0];
+    if (x) out.night.nq = { price: num(x.closePrice), change_pct: num(x.fluctuationsRatio), status: x.marketStatus, at: x.localTradedAt ? kst(Date.parse(x.localTradedAt)) : "", delay: (x.stockExchangeType || {}).delayTime ?? null };
+    try {
+      const r = E.chart.result[0], m = r.meta, ts = r.timestamp || [], cl = r.indicators.quote[0].close || [];
+      let k = cl.length - 1; while (k >= 0 && !cl[k]) k--;
+      if (k >= 0) { const reg = (m.currentTradingPeriod || {}).regular || {}, inreg = ts[k] >= reg.start && ts[k] < reg.end, base = inreg ? m.chartPreviousClose : m.regularMarketPrice;
+        out.night.ewy = { price: Math.round(cl[k] * 100) / 100, change_pct: base ? Math.round((cl[k] / base - 1) * 10000) / 100 : null, at: kst(ts[k] * 1000), session: inreg ? "정규장" : "시간외" }; }
+    } catch (e) {}
+  }
+  // 지금 주목받는 종목 (2026-11-24): ?hot=1 → 네이버 검색 상위 30 (업종 묶음·내 목록 꼬리표는 화면이 붙임)
+  if (u.searchParams.get("hot") === "1") {
+    const T = await j("https://m.stock.naver.com/api/stocks/searchTop/all?page=1&pageSize=30");
+    const items = ((T && T.stocks) || []).map((s, i) => ({ rank: i + 1, code: s.itemCode, name: s.stockName, price: num(s.closePrice), chg: num(s.fluctuationsRatio), value_eok: Math.round((num(s.accumulatedTradingValue) || 0) / 100), end: s.stockEndType })).filter(s => s.end == "stock" && s.code);
+    if (items.length) out.hot = { made_at: now, items };
   }
   return new Response(JSON.stringify(out), { headers: { "content-type": "application/json; charset=utf-8", "cache-control": "no-store" } });
 }

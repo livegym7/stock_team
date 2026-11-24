@@ -637,3 +637,4 @@
 
 - 2026-11-24 매매 보드: app.html `tbRows`·`tbStrip`·`tradeBoard`(스트림 선택 `ui.tbf`), 옛 `setupTab`·`poolTab`·`signalStrip`·`sigTags`·`watchExtra`·`zoneCells` 삭제, 오늘 화면에 신호 줄, 옛 주소(관찰 풀)는 매매 보드로. 로컬에서 실제 자료(삼현 넘음 · 프로티나·삼성E&A 가까움)와 가짜 장중 시세로 PC·휴대폰·오늘 화면 확인.
 - 2026-11-24 최대 매물대 덩어리 계산(옆 칸 70%↑ 합침: screener.max_zone · app.html candleChart) + 55일 신고가를 매매 보드 전 종목으로(web_build._pool55). 확인: 삼현 11/23 신호 없음 · 11/24 매물대 돌파, 로컬 화면 캡처.
+- 2026-11-24 주목 탭(app.html hotTab) + 나스닥 선물·EWY(nightItems·nightLine·pollNight, functions/api/quote.js night/hot, tools/hot_now.py, web_build night·hot·grp). 확인: 도구 실행(선물·EWY·검색 상위 30 수신), 로컬 화면 PC 1280·1400·1720 / 휴대폰 캡처, 오류 0. 미확인: Cloudflare 함수의 실제 응답(배포 뒤). 남은 일: 감시 목록의 '오늘 종가'가 시간외 가격을 따라 움직이는 문제(사용자 결정 대기).
