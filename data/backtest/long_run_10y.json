@@ -1,0 +1,720 @@
+{
+ "made_at": "2026-11-24 15:06",
+ "years": 10.0,
+ "period": [
+  "20161125",
+  "20261124"
+ ],
+ "universe": {
+  "all": 2740,
+  "delisted": 355
+ },
+ "define": "쉬지 않고 오르는 종목을 잡는 방법 비교 (2026-11-24 사용자 요청, 비교 자료): 지금 규칙은 '쉬었다가 넘는 자리'만 잡아서 조정 없이 신고가를 이어 가는 구간에는 신호가 없다.\n진입 방식 = 쉬었다가 넘는 돌파(지금) / 55일 신고가 / 52주 신고가 / 달리는 종목의 20일선 눌림 뒤 재상승(최근 5일 안에 20일선 +2%까지 내려왔다가 어제 고가를 넘으며 상승, 52주 고점 −15% 이내).\n관문은 모두 같고(1개 미달 허용), 돌파류는 거래량 1.5배 + 세부 업종 동행, 눌림은 업종 동행만 요구한 것과 조건 없는 것을 함께 본다.",
+ "per_signal": {
+  "쉬었다가 넘는 돌파": {
+   "n": 1494,
+   "win_rate": 31.3,
+   "avg_r": 0.26,
+   "payoff": 2.98
+  },
+  "55일 신고가(기준가 돌파 아님)": {
+   "n": 2461,
+   "win_rate": 31.3,
+   "avg_r": 0.21,
+   "payoff": 2.82
+  },
+  "52주 신고가(기준가 돌파 아님)": {
+   "n": 2097,
+   "win_rate": 31.9,
+   "avg_r": 0.23,
+   "payoff": 2.81
+  },
+  "52주 신고가 · 기준가 없는 달리는 종목": {
+   "n": 1993,
+   "win_rate": 32.0,
+   "avg_r": 0.22,
+   "payoff": 2.78
+  },
+  "20일선 눌림 뒤 재상승 · 업종 동행": {
+   "n": 5347,
+   "win_rate": 29.6,
+   "avg_r": 0.2,
+   "payoff": 3.01
+  },
+  "20일선 눌림 뒤 재상승 · 나 홀로": {
+   "n": 12236,
+   "win_rate": 27.3,
+   "avg_r": 0.11,
+   "payoff": 3.06
+  },
+  "20일선 눌림 · 업종 동행 · 거래량 1.5배↑": {
+   "n": 2175,
+   "win_rate": 29.7,
+   "avg_r": 0.21,
+   "payoff": 3.04
+  }
+ },
+ "variants": [
+  {
+   "name": "쉬었다가 넘는 돌파 (지금)",
+   "signals": 1495,
+   "per_signal": {
+    "n": 1494,
+    "win_rate": 31.3,
+    "avg_r": 0.26,
+    "payoff": 2.98
+   },
+   "order": "rs",
+   "final": 2.893,
+   "total_ret_pct": 189.3,
+   "cagr_pct": 11.4,
+   "max_dd_pct": -48.6,
+   "taken": 405,
+   "skipped": 1046,
+   "win_rate": 30.4,
+   "avg_r": 0.22,
+   "max_loss_streak": 18,
+   "by_kind": {
+    "multi": 405
+   },
+   "random_total_ret_pct": {
+    "min": -13.7,
+    "median": 67.1,
+    "max": 218.9
+   },
+   "leaders_2y": {
+    "삼성전자": 0,
+    "SK하이닉스": 1,
+    "삼성전기": 1
+   }
+  },
+  {
+   "name": "쉬었다가 넘는 돌파 (지금) + 펀더 2점↑ + 코스피 20일선 위",
+   "signals": 503,
+   "per_signal": {
+    "n": 503,
+    "win_rate": 31.6,
+    "avg_r": 0.28,
+    "payoff": 3.0
+   },
+   "order": "rs",
+   "final": 6.015,
+   "total_ret_pct": 501.5,
+   "cagr_pct": 20.1,
+   "max_dd_pct": -33.5,
+   "taken": 254,
+   "skipped": 223,
+   "win_rate": 35.8,
+   "avg_r": 0.46,
+   "max_loss_streak": 19,
+   "by_kind": {
+    "multi": 254
+   },
+   "random_total_ret_pct": {
+    "min": 185.8,
+    "median": 308.8,
+    "max": 469.0
+   },
+   "leaders_2y": {
+    "삼성전자": 0,
+    "SK하이닉스": 1,
+    "삼성전기": 0
+   }
+  },
+  {
+   "name": "55일 신고가 돌파만",
+   "signals": 3745,
+   "per_signal": {
+    "n": 3745,
+    "win_rate": 31.3,
+    "avg_r": 0.23,
+    "payoff": 2.88
+   },
+   "order": "rs",
+   "final": 5.325,
+   "total_ret_pct": 432.5,
+   "cagr_pct": 18.6,
+   "max_dd_pct": -42.8,
+   "taken": 497,
+   "skipped": 3026,
+   "win_rate": 32.6,
+   "avg_r": 0.24,
+   "max_loss_streak": 16,
+   "by_kind": {
+    "multi": 497
+   },
+   "random_total_ret_pct": {
+    "min": 39.3,
+    "median": 215.3,
+    "max": 727.2
+   },
+   "leaders_2y": {
+    "삼성전자": 7,
+    "SK하이닉스": 5,
+    "삼성전기": 10
+   }
+  },
+  {
+   "name": "55일 신고가 돌파만 + 펀더 2점↑ + 코스피 20일선 위",
+   "signals": 1255,
+   "per_signal": {
+    "n": 1255,
+    "win_rate": 33.5,
+    "avg_r": 0.31,
+    "payoff": 2.86
+   },
+   "order": "rs",
+   "final": 5.182,
+   "total_ret_pct": 418.2,
+   "cagr_pct": 18.3,
+   "max_dd_pct": -41.6,
+   "taken": 350,
+   "skipped": 779,
+   "win_rate": 33.1,
+   "avg_r": 0.32,
+   "max_loss_streak": 12,
+   "by_kind": {
+    "multi": 350
+   },
+   "random_total_ret_pct": {
+    "min": 122.0,
+    "median": 329.1,
+    "max": 490.0
+   },
+   "leaders_2y": {
+    "삼성전자": 5,
+    "SK하이닉스": 5,
+    "삼성전기": 3
+   }
+  },
+  {
+   "name": "52주 신고가 돌파만",
+   "signals": 3113,
+   "per_signal": {
+    "n": 3113,
+    "win_rate": 32.6,
+    "avg_r": 0.28,
+    "payoff": 2.87
+   },
+   "order": "rs",
+   "final": 7.291,
+   "total_ret_pct": 629.1,
+   "cagr_pct": 22.5,
+   "max_dd_pct": -37.3,
+   "taken": 465,
+   "skipped": 2450,
+   "win_rate": 32.7,
+   "avg_r": 0.3,
+   "max_loss_streak": 15,
+   "by_kind": {
+    "multi": 465
+   },
+   "random_total_ret_pct": {
+    "min": 101.6,
+    "median": 303.4,
+    "max": 690.0
+   },
+   "leaders_2y": {
+    "삼성전자": 7,
+    "SK하이닉스": 5,
+    "삼성전기": 10
+   }
+  },
+  {
+   "name": "52주 신고가 돌파만 + 펀더 2점↑ + 코스피 20일선 위",
+   "signals": 1092,
+   "per_signal": {
+    "n": 1092,
+    "win_rate": 34.6,
+    "avg_r": 0.37,
+    "payoff": 2.91
+   },
+   "order": "rs",
+   "final": 4.804,
+   "total_ret_pct": 380.4,
+   "cagr_pct": 17.4,
+   "max_dd_pct": -30.3,
+   "taken": 307,
+   "skipped": 664,
+   "win_rate": 33.2,
+   "avg_r": 0.33,
+   "max_loss_streak": 9,
+   "by_kind": {
+    "multi": 307
+   },
+   "random_total_ret_pct": {
+    "min": 226.3,
+    "median": 421.5,
+    "max": 1353.3
+   },
+   "leaders_2y": {
+    "삼성전자": 5,
+    "SK하이닉스": 5,
+    "삼성전기": 3
+   }
+  },
+  {
+   "name": "지금 + 55일 신고가",
+   "signals": 3956,
+   "per_signal": {
+    "n": 3955,
+    "win_rate": 31.3,
+    "avg_r": 0.23,
+    "payoff": 2.88
+   },
+   "order": "rs",
+   "final": 5.577,
+   "total_ret_pct": 457.7,
+   "cagr_pct": 19.2,
+   "max_dd_pct": -42.3,
+   "taken": 490,
+   "skipped": 3236,
+   "win_rate": 32.7,
+   "avg_r": 0.24,
+   "max_loss_streak": 18,
+   "by_kind": {
+    "multi": 490
+   },
+   "random_total_ret_pct": {
+    "min": 9.4,
+    "median": 192.9,
+    "max": 994.0
+   },
+   "leaders_2y": {
+    "삼성전자": 7,
+    "SK하이닉스": 5,
+    "삼성전기": 10
+   }
+  },
+  {
+   "name": "지금 + 55일 신고가 + 펀더 2점↑ + 코스피 20일선 위",
+   "signals": 1329,
+   "per_signal": {
+    "n": 1329,
+    "win_rate": 33.0,
+    "avg_r": 0.29,
+    "payoff": 2.87
+   },
+   "order": "rs",
+   "final": 3.101,
+   "total_ret_pct": 210.1,
+   "cagr_pct": 12.2,
+   "max_dd_pct": -39.6,
+   "taken": 353,
+   "skipped": 848,
+   "win_rate": 30.9,
+   "avg_r": 0.23,
+   "max_loss_streak": 14,
+   "by_kind": {
+    "multi": 353
+   },
+   "random_total_ret_pct": {
+    "min": 45.6,
+    "median": 196.3,
+    "max": 466.7
+   },
+   "leaders_2y": {
+    "삼성전자": 5,
+    "SK하이닉스": 5,
+    "삼성전기": 3
+   }
+  },
+  {
+   "name": "지금 + 52주 신고가",
+   "signals": 3592,
+   "per_signal": {
+    "n": 3591,
+    "win_rate": 31.6,
+    "avg_r": 0.24,
+    "payoff": 2.88
+   },
+   "order": "rs",
+   "final": 7.169,
+   "total_ret_pct": 616.9,
+   "cagr_pct": 22.3,
+   "max_dd_pct": -45.4,
+   "taken": 475,
+   "skipped": 2908,
+   "win_rate": 34.6,
+   "avg_r": 0.29,
+   "max_loss_streak": 15,
+   "by_kind": {
+    "multi": 475
+   },
+   "random_total_ret_pct": {
+    "min": -48.3,
+    "median": 105.6,
+    "max": 366.4
+   },
+   "leaders_2y": {
+    "삼성전자": 7,
+    "SK하이닉스": 5,
+    "삼성전기": 10
+   }
+  },
+  {
+   "name": "지금 + 52주 신고가 + 펀더 2점↑ + 코스피 20일선 위",
+   "signals": 1237,
+   "per_signal": {
+    "n": 1237,
+    "win_rate": 33.5,
+    "avg_r": 0.32,
+    "payoff": 2.91
+   },
+   "order": "rs",
+   "final": 2.922,
+   "total_ret_pct": 192.2,
+   "cagr_pct": 11.6,
+   "max_dd_pct": -32.5,
+   "taken": 343,
+   "skipped": 773,
+   "win_rate": 31.8,
+   "avg_r": 0.22,
+   "max_loss_streak": 12,
+   "by_kind": {
+    "multi": 343
+   },
+   "random_total_ret_pct": {
+    "min": 176.0,
+    "median": 298.2,
+    "max": 576.8
+   },
+   "leaders_2y": {
+    "삼성전자": 5,
+    "SK하이닉스": 5,
+    "삼성전기": 3
+   }
+  },
+  {
+   "name": "지금 + 기준가 없는(달리는) 종목의 52주 신고가",
+   "signals": 3488,
+   "per_signal": {
+    "n": 3487,
+    "win_rate": 31.7,
+    "avg_r": 0.24,
+    "payoff": 2.87
+   },
+   "order": "rs",
+   "final": 8.376,
+   "total_ret_pct": 737.6,
+   "cagr_pct": 24.2,
+   "max_dd_pct": -38.2,
+   "taken": 452,
+   "skipped": 2830,
+   "win_rate": 35.5,
+   "avg_r": 0.33,
+   "max_loss_streak": 12,
+   "by_kind": {
+    "multi": 452
+   },
+   "random_total_ret_pct": {
+    "min": -4.6,
+    "median": 169.9,
+    "max": 563.7
+   },
+   "leaders_2y": {
+    "삼성전자": 7,
+    "SK하이닉스": 5,
+    "삼성전기": 10
+   }
+  },
+  {
+   "name": "지금 + 기준가 없는(달리는) 종목의 52주 신고가 + 펀더 2점↑ + 코스피 20일선 위",
+   "signals": 1211,
+   "per_signal": {
+    "n": 1211,
+    "win_rate": 33.5,
+    "avg_r": 0.33,
+    "payoff": 2.91
+   },
+   "order": "rs",
+   "final": 3.294,
+   "total_ret_pct": 229.4,
+   "cagr_pct": 12.9,
+   "max_dd_pct": -31.8,
+   "taken": 342,
+   "skipped": 747,
+   "win_rate": 32.5,
+   "avg_r": 0.24,
+   "max_loss_streak": 15,
+   "by_kind": {
+    "multi": 342
+   },
+   "random_total_ret_pct": {
+    "min": 151.6,
+    "median": 290.1,
+    "max": 662.5
+   },
+   "leaders_2y": {
+    "삼성전자": 5,
+    "SK하이닉스": 5,
+    "삼성전기": 3
+   }
+  },
+  {
+   "name": "20일선 눌림 뒤 재상승만 (업종 동행)",
+   "signals": 5348,
+   "per_signal": {
+    "n": 5347,
+    "win_rate": 29.6,
+    "avg_r": 0.2,
+    "payoff": 3.01
+   },
+   "order": "rs",
+   "final": 0.788,
+   "total_ret_pct": -21.2,
+   "cagr_pct": -2.4,
+   "max_dd_pct": -53.8,
+   "taken": 443,
+   "skipped": 4666,
+   "win_rate": 26.2,
+   "avg_r": 0.04,
+   "max_loss_streak": 21,
+   "by_kind": {
+    "multi": 443
+   },
+   "random_total_ret_pct": {
+    "min": -42.0,
+    "median": 9.9,
+    "max": 251.2
+   },
+   "leaders_2y": {
+    "삼성전자": 15,
+    "SK하이닉스": 13,
+    "삼성전기": 10
+   }
+  },
+  {
+   "name": "20일선 눌림 뒤 재상승만 (업종 동행) + 펀더 2점↑ + 코스피 20일선 위",
+   "signals": 1727,
+   "per_signal": {
+    "n": 1727,
+    "win_rate": 30.6,
+    "avg_r": 0.2,
+    "payoff": 2.9
+   },
+   "order": "rs",
+   "final": 1.216,
+   "total_ret_pct": 21.6,
+   "cagr_pct": 2.0,
+   "max_dd_pct": -49.2,
+   "taken": 300,
+   "skipped": 1301,
+   "win_rate": 27.7,
+   "avg_r": 0.09,
+   "max_loss_streak": 18,
+   "by_kind": {
+    "multi": 300
+   },
+   "random_total_ret_pct": {
+    "min": -40.3,
+    "median": 5.0,
+    "max": 126.5
+   },
+   "leaders_2y": {
+    "삼성전자": 11,
+    "SK하이닉스": 11,
+    "삼성전기": 1
+   }
+  },
+  {
+   "name": "20일선 눌림 뒤 재상승만 (조건 없음)",
+   "signals": 17603,
+   "per_signal": {
+    "n": 17583,
+    "win_rate": 28.0,
+    "avg_r": 0.14,
+    "payoff": 3.04
+   },
+   "order": "rs",
+   "final": 1.845,
+   "total_ret_pct": 84.5,
+   "cagr_pct": 6.4,
+   "max_dd_pct": -56.2,
+   "taken": 664,
+   "skipped": 16158,
+   "win_rate": 27.2,
+   "avg_r": 0.12,
+   "max_loss_streak": 15,
+   "by_kind": {
+    "multi": 664
+   },
+   "random_total_ret_pct": {
+    "min": -47.6,
+    "median": 29.5,
+    "max": 421.7
+   },
+   "leaders_2y": {
+    "삼성전자": 24,
+    "SK하이닉스": 32,
+    "삼성전기": 18
+   }
+  },
+  {
+   "name": "20일선 눌림 뒤 재상승만 (조건 없음) + 펀더 2점↑ + 코스피 20일선 위",
+   "signals": 5336,
+   "per_signal": {
+    "n": 5336,
+    "win_rate": 29.8,
+    "avg_r": 0.21,
+    "payoff": 3.03
+   },
+   "order": "rs",
+   "final": 1.003,
+   "total_ret_pct": 0.3,
+   "cagr_pct": 0.0,
+   "max_dd_pct": -49.2,
+   "taken": 386,
+   "skipped": 4477,
+   "win_rate": 25.1,
+   "avg_r": 0.06,
+   "max_loss_streak": 16,
+   "by_kind": {
+    "multi": 386
+   },
+   "random_total_ret_pct": {
+    "min": -80.8,
+    "median": 9.6,
+    "max": 117.1
+   },
+   "leaders_2y": {
+    "삼성전자": 16,
+    "SK하이닉스": 26,
+    "삼성전기": 1
+   }
+  },
+  {
+   "name": "지금 + 20일선 눌림 뒤 재상승(업종 동행)",
+   "signals": 6527,
+   "per_signal": {
+    "n": 6525,
+    "win_rate": 30.2,
+    "avg_r": 0.22,
+    "payoff": 3.0
+   },
+   "order": "rs",
+   "final": 1.273,
+   "total_ret_pct": 27.3,
+   "cagr_pct": 2.5,
+   "max_dd_pct": -48.0,
+   "taken": 463,
+   "skipped": 5768,
+   "win_rate": 28.4,
+   "avg_r": 0.11,
+   "max_loss_streak": 20,
+   "by_kind": {
+    "multi": 463
+   },
+   "random_total_ret_pct": {
+    "min": -62.3,
+    "median": 36.2,
+    "max": 234.4
+   },
+   "leaders_2y": {
+    "삼성전자": 15,
+    "SK하이닉스": 14,
+    "삼성전기": 11
+   }
+  },
+  {
+   "name": "지금 + 20일선 눌림 뒤 재상승(업종 동행) + 펀더 2점↑ + 코스피 20일선 위",
+   "signals": 2125,
+   "per_signal": {
+    "n": 2125,
+    "win_rate": 31.1,
+    "avg_r": 0.23,
+    "payoff": 2.92
+   },
+   "order": "rs",
+   "final": 1.394,
+   "total_ret_pct": 39.4,
+   "cagr_pct": 3.4,
+   "max_dd_pct": -53.0,
+   "taken": 332,
+   "skipped": 1635,
+   "win_rate": 28.9,
+   "avg_r": 0.11,
+   "max_loss_streak": 18,
+   "by_kind": {
+    "multi": 332
+   },
+   "random_total_ret_pct": {
+    "min": -31.2,
+    "median": 42.6,
+    "max": 163.7
+   },
+   "leaders_2y": {
+    "삼성전자": 11,
+    "SK하이닉스": 12,
+    "삼성전기": 1
+   }
+  },
+  {
+   "name": "지금 + 52주 신고가 + 20일선 눌림(업종 동행)",
+   "signals": 8624,
+   "per_signal": {
+    "n": 8622,
+    "win_rate": 30.6,
+    "avg_r": 0.22,
+    "payoff": 2.95
+   },
+   "order": "rs",
+   "final": 1.158,
+   "total_ret_pct": 15.8,
+   "cagr_pct": 1.5,
+   "max_dd_pct": -56.2,
+   "taken": 539,
+   "skipped": 7703,
+   "win_rate": 27.9,
+   "avg_r": 0.07,
+   "max_loss_streak": 13,
+   "by_kind": {
+    "multi": 539
+   },
+   "random_total_ret_pct": {
+    "min": -54.0,
+    "median": -7.5,
+    "max": 384.1
+   },
+   "leaders_2y": {
+    "삼성전자": 22,
+    "SK하이닉스": 18,
+    "삼성전기": 20
+   }
+  },
+  {
+   "name": "지금 + 52주 신고가 + 20일선 눌림(업종 동행) + 펀더 2점↑ + 코스피 20일선 위",
+   "signals": 2859,
+   "per_signal": {
+    "n": 2859,
+    "win_rate": 32.0,
+    "avg_r": 0.26,
+    "payoff": 2.9
+   },
+   "order": "rs",
+   "final": 0.941,
+   "total_ret_pct": -5.9,
+   "cagr_pct": -0.6,
+   "max_dd_pct": -57.6,
+   "taken": 380,
+   "skipped": 2263,
+   "win_rate": 26.8,
+   "avg_r": 0.04,
+   "max_loss_streak": 21,
+   "by_kind": {
+    "multi": 380
+   },
+   "random_total_ret_pct": {
+    "min": -19.9,
+    "median": 30.5,
+    "max": 341.8
+   },
+   "leaders_2y": {
+    "삼성전자": 16,
+    "SK하이닉스": 16,
+    "삼성전기": 4
+   }
+  }
+ ],
+ "seconds": 1015
+}
