@@ -120,11 +120,41 @@ def scan(stock, rows, rs_at, bench_ok, R, ia_at=None, require_ia=True, cap_at=No
     v = [r["volume"] for r in rows]
     h = [r["high"] for r in rows]
     c = [r["close"] for r in rows]
+    lo = [r["low"] for r in rows]
+    multi = S.RULES.get("breakout_mode") == "multi"
     for i in range(260, len(rows)):
         if i <= busy_until:
             continue
         vol50 = sum(v[i - 50:i]) / 50
         if not vol50 or c[i] <= c[i - 1]:
+            continue
+        if multi:
+            # 여러 진입 방식을 한 번에 모음 (2026-11-24 사용자 요청, backtest_long --run): 쉬었다가 넘는 돌파 / 55일·52주 신고가 / 달리는 종목의 20일선 눌림 뒤 재상승.
+            # 거래량·업종 조건은 걸지 않고 값만 적어 둔다(나중에 나눠 봄). 관문은 돌파와 같다(1개 미달 허용, RS·시총·거래대금 필수).
+            ma20 = sum(c[i - 19:i + 1]) / 20
+            hi250 = max(h[i - 250:i])
+            pull = (min(lo[i - 4:i + 1]) <= ma20 * 1.02 and c[i] > ma20 and c[i] > h[i - 1] and c[i] >= 0.85 * max(hi250, h[i]) and c[i] <= hi250)
+            if not (c[i] > max(h[i - 5:i]) or pull):
+                continue
+            hist = rows[max(0, i - 400):i + 1]
+            rs = rs_at(rows[i]["date"], stock["code"])
+            checks, _ = S.gate(hist, stock if cap_at is None else {**stock, "market_cap_eok": cap_at(i)}, rs)
+            prev = S.analyze(hist[:-1])
+            base = prev.get("base")
+            checks["1stage 상승"] = (base["stage1_pct"] if base else prev.get("run_pct", 0)) >= S.RULES["min_stage1"]
+            miss = [k for k, ok in checks.items() if not ok]
+            if any(k in miss for k in S.RULES.get("gate_must", ())) or len(miss) > S.RULES.get("gate_allow_miss", 0):
+                continue
+            setups = [s for s in prev.get("setups", []) if s in "ABCDEF"]
+            f_base = bool(base and setups and c[i] > prev.get("handle_high", base["pivot"]))
+            f_55, f_250 = c[i] > max(h[i - 55:i]), c[i] > hi250
+            if not (f_base or f_55 or pull):
+                continue
+            ia = ia_at(stock["code"], rows[i]["date"]) if ia_at else {"ia": "확인 불가"}
+            res = simulate(rows, i, R)
+            trades.append({**ia, "gate_miss": miss, "stock": stock["name"], "code": stock["code"], "date": rows[i]["date"], "entry": c[i], "kind": "multi", "setups": setups, "rs": rs,
+                           "vol_ratio": round(v[i] / vol50, 2), "market_ok": bench_ok.get(rows[i]["date"]), "cap_eok": round(cap_at(i)) if cap_at else None,
+                           "f_base": f_base, "f_55": f_55, "f_250": f_250, "f_pull": bool(pull), "nobase": base is None, **res})
             continue
         brk = c[i] > max(h[i - 5:i]) and v[i] >= S.RULES["breakout_vol"] * vol50
         downs = [v[k] for k in range(i - 10, i) if c[k] < c[k - 1]]

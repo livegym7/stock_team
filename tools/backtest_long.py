@@ -201,7 +201,7 @@ def run(years=5, limit=None, with_delisted=True, workers=6, portfolio=False, loo
                 if s.get("delisted") and not t["exit"]:
                     t["exit"], t["how"] = rows[-1]["date"], "상장폐지까지 보유"
                 sa = sector_at(t["code"], t["date"])
-                cand.append({**{k: t.get(k) for k in ("code", "stock", "date", "kind", "rs", "r", "exit", "be", "how", "market_ok", "vol_ratio", "ia_group", "pp_ok", "cap_eok", "ia", "ia_wide", "ia_wide_n", "ia_peers", "gate_miss")},
+                cand.append({**{k: t.get(k) for k in ("code", "stock", "date", "kind", "rs", "r", "exit", "be", "how", "market_ok", "vol_ratio", "ia_group", "pp_ok", "cap_eok", "ia", "ia_wide", "ia_wide_n", "ia_peers", "gate_miss", "f_base", "f_55", "f_250", "f_pull", "nobase")},
                              "sec_rank": sa[0] if sa else None, "sec_score": sa[1] if sa else None, "sec_n": sa[2] if sa else None})
         first = (datetime.strptime(last_day, "%Y%m%d") - timedelta(days=int(365 * years))).strftime("%Y%m%d")
         days = sorted({r["date"] for r in bench if r["date"] >= first})
@@ -585,6 +585,68 @@ def run_fwd(years=10, with_delisted=True):
     return {k: out[k] for k in ("made_at", "signals", "by_next", "by_past", "seconds")}
 
 
+def run_run(years=10, with_delisted=True):
+    """쉬지 않고 오르는 종목을 잡는 방법 비교 (2026-11-24 사용자 요청, 비교 자료): 지금 규칙은 '쉬었다가 넘는 자리'만 잡아서 조정 없이 신고가를 이어 가는 구간에는 신호가 없다.
+    진입 방식 = 쉬었다가 넘는 돌파(지금) / 55일 신고가 / 52주 신고가 / 달리는 종목의 20일선 눌림 뒤 재상승(최근 5일 안에 20일선 +2%까지 내려왔다가 어제 고가를 넘으며 상승, 52주 고점 −15% 이내).
+    관문은 모두 같고(1개 미달 허용), 돌파류는 거래량 1.5배 + 세부 업종 동행, 눌림은 업종 동행만 요구한 것과 조건 없는 것을 함께 본다."""
+    import dart_fin_hist as F
+    t0 = time.time()
+    cf = CACHE / f"long_cand_run{_sfx(years)}.json"
+    if cf.exists() and time.time() - cf.stat().st_mtime < 3 * 86400:
+        o = json.loads(cf.read_text()); cand, days, uni = o["cand"], o["days"], o["uni"]
+    else:
+        old = S.RULES.get("breakout_mode", "base")
+        S.RULES["breakout_mode"] = "multi"
+        try:
+            cand, days, uni = run(years, None, with_delisted, portfolio=True, loose_ia=True)
+        finally:
+            S.RULES["breakout_mode"] = old
+        cf.write_text(json.dumps({"cand": cand, "days": days, "uni": uni}, ensure_ascii=False))
+    print(f"후보 {len(cand)}건", flush=True)
+    vr = lambda t: t["vol_ratio"] or 0  # noqa: E731
+    ia = lambda t: t["ia"] == "동반 상승"  # noqa: E731
+    bo = lambda t: vr(t) >= 1.5 and ia(t)                        # 돌파류 공통 조건  # noqa: E731
+    V = [("쉬었다가 넘는 돌파 (지금)", lambda t: t["f_base"] and bo(t)),
+         ("55일 신고가 돌파만", lambda t: t["f_55"] and bo(t)),
+         ("52주 신고가 돌파만", lambda t: t["f_250"] and bo(t)),
+         ("지금 + 55일 신고가", lambda t: (t["f_base"] or t["f_55"]) and bo(t)),
+         ("지금 + 52주 신고가", lambda t: (t["f_base"] or t["f_250"]) and bo(t)),
+         ("지금 + 기준가 없는(달리는) 종목의 52주 신고가", lambda t: (t["f_base"] or (t["f_250"] and t["nobase"])) and bo(t)),
+         ("20일선 눌림 뒤 재상승만 (업종 동행)", lambda t: t["f_pull"] and ia(t)),
+         ("20일선 눌림 뒤 재상승만 (조건 없음)", lambda t: t["f_pull"]),
+         ("지금 + 20일선 눌림 뒤 재상승(업종 동행)", lambda t: (t["f_base"] and bo(t)) or (t["f_pull"] and ia(t))),
+         ("지금 + 52주 신고가 + 20일선 눌림(업종 동행)", lambda t: ((t["f_base"] or t["f_250"]) and bo(t)) or (t["f_pull"] and ia(t)))]
+    used = [t for t in cand if any(f(t) for _, f in V)]
+    print(f"조합에 쓰이는 신호 {len(used)}건 · 실적 받기 시작", flush=True)
+    F.fetch(F.needs([(t["code"], t["date"]) for t in used]), log=lambda m: print(m, flush=True))
+    for t in used:
+        sc = F.score_at(t["code"], t["date"])
+        t["fp"] = sc["pts"] if sc else None
+    st = lambda ts: {k: B.stats([{**t, "took": bool(t["be"]), "days": 0} for t in ts if t["exit"]]).get(k) for k in ("n", "win_rate", "avg_r", "payoff")}  # noqa: E731
+    ok = lambda t: (t.get("fp") or 0) >= 2 and t["market_ok"]  # noqa: E731
+    LEAD = {"005930": "삼성전자", "000660": "SK하이닉스", "009150": "삼성전기"}
+    two = (datetime.strptime(days[-1], "%Y%m%d") - timedelta(days=730)).strftime("%Y%m%d")
+    out = {"made_at": datetime.now(KST).strftime("%Y-%m-%d %H:%M"), "years": years, "period": [days[0], days[-1]], "universe": uni, "define": run_run.__doc__.strip(),
+           "per_signal": {"쉬었다가 넘는 돌파": st([t for t in used if t["f_base"] and bo(t)]),
+                          "55일 신고가(기준가 돌파 아님)": st([t for t in used if t["f_55"] and not t["f_base"] and bo(t)]),
+                          "52주 신고가(기준가 돌파 아님)": st([t for t in used if t["f_250"] and not t["f_base"] and bo(t)]),
+                          "52주 신고가 · 기준가 없는 달리는 종목": st([t for t in used if t["f_250"] and t["nobase"] and bo(t)]),
+                          "20일선 눌림 뒤 재상승 · 업종 동행": st([t for t in used if t["f_pull"] and ia(t)]),
+                          "20일선 눌림 뒤 재상승 · 나 홀로": st([t for t in used if t["f_pull"] and not ia(t)]),
+                          "20일선 눌림 · 업종 동행 · 거래량 1.5배↑": st([t for t in used if t["f_pull"] and ia(t) and vr(t) >= 1.5])},
+           "variants": []}
+    for name, f in V:
+        for tag, g in (("", lambda t: True), (" + 펀더 2점↑ + 코스피 20일선 위", ok)):
+            c = [t for t in used if f(t) and g(t)]
+            rr = sorted(account(c, days, "random", seed=k)["total_ret_pct"] for k in range(30))
+            v = account(c, days, "rs"); v.pop("curve", None); v.pop("by_year", None)
+            out["variants"].append({"name": name + tag, "signals": len(c), "per_signal": st(c), **v, "random_total_ret_pct": {"min": rr[0], "median": rr[15], "max": rr[-1]},
+                                    "leaders_2y": {n: sum(1 for t in c if t["code"] == code and t["date"] >= two) for code, n in LEAD.items()}})
+    out["seconds"] = round(time.time() - t0)
+    (DATA / "backtest" / f"long_run{_sfx(years)}.json").write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
+    return {k: out[k] for k in ("made_at", "per_signal", "seconds")}
+
+
 def run_cons(years=10, with_delisted=True):
     """진짜 컨센서스로 본 펀더 점수 (2026-11-24 사용자 요청, 비교 자료): 신호일에 실제로 나와 있던 증권사 추정치(tools/consensus_hist.py — 월말 기준, 2025-02부터)로
     ① 올해 영업이익 추정치가 작년보다 +20%↑(또는 흑자 전환) ② 올해 EPS 추정치가 작년보다 증가 ③ 올해 영업이익 추정치가 1개월 전보다 상향 — 을 매겨 신호 성적과 계좌를 본다.
@@ -715,8 +777,9 @@ if __name__ == "__main__":
     ap.add_argument("--ia", action="store_true", help="업종 동반 상승을 세부 업종/넓은 업종으로 볼 때 비교 → data/backtest/long_ia.json")
     ap.add_argument("--fwd", action="store_true", help="다음 분기 실제 실적을 컨센서스 자리에 넣은 최대치 비교 → data/backtest/long_fwd.json")
     ap.add_argument("--cons", action="store_true", help="진짜 컨센서스(2025-03~)로 매긴 펀더 점수 비교 → data/backtest/long_cons.json")
+    ap.add_argument("--run", action="store_true", help="쉬지 않고 오르는 종목 잡기 비교(신고가 돌파·20일선 눌림) → data/backtest/long_run.json")
     ap.add_argument("--vol", action="store_true", help="돌파 거래량 문턱 비교(1.5/1.2/1.0/없음 · 대형주 완화 · 포켓피봇 추가)")
     ap.add_argument("--zone", action="store_true", help="기준가 돌파와 매물대 돌파 비교 → data/backtest/long_zone.json")
     a = ap.parse_args()
-    res = run_cons(10) if a.cons else run_fwd(a.years, not a.no_delisted) if a.fwd else run_ia(a.years, not a.no_delisted) if a.ia else run_vol(a.years, not a.no_delisted) if a.vol else run_fund(a.years, not a.no_delisted) if a.fund else run_zone(a.years, not a.no_delisted) if a.zone else run_portfolio(a.years, not a.no_delisted) if a.portfolio else run(a.years, a.limit, not a.no_delisted)
+    res = run_run(a.years, not a.no_delisted) if a.run else run_cons(10) if a.cons else run_fwd(a.years, not a.no_delisted) if a.fwd else run_ia(a.years, not a.no_delisted) if a.ia else run_vol(a.years, not a.no_delisted) if a.vol else run_fund(a.years, not a.no_delisted) if a.fund else run_zone(a.years, not a.no_delisted) if a.zone else run_portfolio(a.years, not a.no_delisted) if a.portfolio else run(a.years, a.limit, not a.no_delisted)
     print(json.dumps(res, ensure_ascii=False, indent=1))
