@@ -1337,6 +1337,102 @@
    "drive_modified": null,
    "analyzed_at": "2026-11-23 20:18",
    "depth": "full"
+  },
+  "naver_industry_47062": {
+   "title": "PCB : 소캠2 = 이익 상향 2027년 주인공! (대신증권, 2026-11-18)",
+   "broker": "대신증권",
+   "date": "2026-11-18",
+   "kind": "산업",
+   "subject": "PCB·소캠2 모듈 (심텍·코리아써키트·티엘비)",
+   "one_line": "소캠2 모듈 공급 3사(심텍·코리아써키트·티엘비)의 영업이익이 4Q26 1,668억원(YoY +251%), 27년 6,648억원(+45.8%)으로 최고 실적을 낼 것이라는 PCB 비중확대 리포트입니다.",
+   "url": "https://stock.naver.com/research/industry/47062",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-24 20:18",
+   "depth": "full"
+  },
+  "naver_industry_47046": {
+   "title": "젠슨 황 사태: CEO는 바뀌어도 수요는 남는다 (한화투자증권, 2026-11-17)",
+   "broker": "한화투자증권",
+   "date": "2026-11-17",
+   "kind": "산업",
+   "subject": "엔비디아 CEO 교체와 메모리 수요",
+   "one_line": "벤더 파이낸싱 축소와 중국 수출규제 우려에도 엔비디아 최첨단 가속기 수요가 공급을 초과해 메모리 수요의 구조적 훼손 가능성은 낮다는 반도체 Positive 의견입니다.",
+   "url": "https://stock.naver.com/research/industry/47046",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-24 20:18",
+   "depth": "full"
+  },
+  "naver_invest_40924": {
+   "title": "[House View] 2027년 KOSPI 수정 전망과 생존전략 판단 (유안타증권, 2026-11-23)",
+   "broker": "유안타증권",
+   "date": "2026-11-23",
+   "kind": "전략",
+   "subject": "2027 KOSPI 전망 하향",
+   "one_line": "27년 KOSPI 밴드를 6,000~10,000에서 4,000~7,300으로 낮추되, 하향 사유는 실적이 아니라 심리·수급이며 분기별 계단식 저점 상승 경로를 가정합니다.",
+   "url": "https://stock.naver.com/research/invest/40924",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-24 20:18",
+   "depth": "full"
+  },
+  "naver_invest_40928": {
+   "title": "11/24, 실로 대단했던 젠슨황의 엔비디아 CEO 복귀 효과 (키움증권, 2026-11-24)",
+   "broker": "키움증권",
+   "date": "2026-11-24",
+   "kind": "전략",
+   "subject": "미국 AI주 급등과 코스피",
+   "one_line": "엔비디아 CEO 복귀 결정으로 11/23 미국 AI주가 급등해 지난주 폭락분의 약 60%를 하루 만에 복구했으나 10월 이후 근본 불안은 해소되지 않았다는 시황입니다.",
+   "url": "https://stock.naver.com/research/invest/40928",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-24 20:18",
+   "depth": "full"
+  },
+  "naver_industry_47100": {
+   "title": "한수위: 마스가 모멘텀, 당분간 어렵다 (SK증권, 2026-11-23)",
+   "broker": "SK증권",
+   "date": "2026-11-23",
+   "kind": "산업",
+   "subject": "조선 (MASGA)",
+   "one_line": "미 상원 FY27 세출안에 해외 조선소 건조 금지 단서가 있어 허가 관문이 풀려도 예산 관문이 남아 MASGA 모멘텀이 당분간 어렵다는 조선 주간 리포트입니다.",
+   "url": "https://stock.naver.com/research/industry/47100",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-24 20:18",
+   "depth": "full"
+  },
+  "naver_industry_47060": {
+   "title": "방위산업 달라진, 달라질 환경 (대신증권, 2026-11-18)",
+   "broker": "대신증권",
+   "date": "2026-11-18",
+   "kind": "산업",
+   "subject": "방위산업",
+   "one_line": "27년은 현지화 성과와 FCF 회복에 따라 밸류에이션이 차별화되며 유럽 재정 악화는 가격·납기 경쟁력이 있는 국내 업체에 유리하다는 방산 Overweight 의견입니다.",
+   "url": "https://stock.naver.com/research/industry/47060",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-24 20:18",
+   "depth": "full"
+  },
+  "naver_industry_47107": {
+   "title": "IT인플레이션 다음은? (SK증권, 2026-11-23)",
+   "broker": "SK증권",
+   "date": "2026-11-23",
+   "kind": "산업",
+   "subject": "IT하드웨어 2027 연간전망",
+   "one_line": "27년 IT 하드웨어는 디바이스 역성장, LTA 안전장치 한계, IT 인플레이션 이후 오더컷·CR 압박이 핵심이며 쇼티지가 명확한 부품만 가격 전가가 가능합니다.",
+   "url": "https://stock.naver.com/research/industry/47107",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-24 20:18",
+   "depth": "full"
+  },
+  "naver_industry_47180": {
+   "title": "2027년, 주가 반전의 조건들 (유진투자증권, 2026-11-24)",
+   "broker": "유진투자증권",
+   "date": "2026-11-24",
+   "kind": "산업",
+   "subject": "현대차그룹·글로벌 완성차 밸류에이션",
+   "one_line": "로보틱스 프리미엄이 사라져 현대차 27년 P/E 6배, 기아 4.5배의 레거시 OEM 평균으로 회귀했으며 주가 반전은 신뢰 회복과 본업 펀더멘털 회복에서 찾아야 한다는 리포트입니다.",
+   "url": "https://stock.naver.com/research/industry/47180",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-24 20:18",
+   "depth": "full"
   }
  },
  "skipped": {

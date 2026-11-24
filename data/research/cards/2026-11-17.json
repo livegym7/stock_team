@@ -6325,7 +6325,7 @@
    "유지하고 있다 일부",
    "유지하고 있으며 OCF"
   ],
-  "status": "card",
+  "status": "deep",
   "built_at": "2026-11-17 18:41",
   "error": null,
   "thesis": "NVIDIA 벤더 파이낸싱 축소와 중국 수출규제는 고객 구성에 영향을 주지만, 메모리 수요의 구조적 훼손으로 이어질 가능성은 낮다는 판단",
@@ -6355,7 +6355,9 @@
   ],
   "horizon": "2027~2028년 (NVIDIA 공급 부족 기간)",
   "filled_by": "haiku",
-  "filled_at": "2026-11-17 18:44"
+  "filled_at": "2026-11-17 18:44",
+  "deep_file": "naver_industry_47046",
+  "deep_at": "2026-11-24 20:18"
  },
  "industry:47047": {
   "nid": "47047",

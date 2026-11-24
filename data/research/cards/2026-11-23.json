@@ -1450,7 +1450,7 @@
    "예산조정 요청했으나 처리",
    "예산조정 처리에 달림"
   ],
-  "status": "card",
+  "status": "deep",
   "built_at": "2026-11-23 18:41",
   "error": null,
   "thesis": "MASGA 모멘텀은 미 상원 세출안 단서로 당분간 어렵다는 판단입니다",
@@ -1481,7 +1481,9 @@
   ],
   "horizon": "12월 타협안",
   "filled_by": "sonnet",
-  "filled_at": "2026-11-23 18:46"
+  "filled_at": "2026-11-23 18:46",
+  "deep_file": "naver_industry_47100",
+  "deep_at": "2026-11-24 20:18"
  },
  "industry:47101": {
   "nid": "47101",
@@ -4435,7 +4437,7 @@
    "연간전망 IT 인플레이션",
    "연결성이 높은 두산"
   ],
-  "status": "card",
+  "status": "deep",
   "built_at": "2026-11-23 18:41",
   "error": null,
   "thesis": "IT 인플레이션 다음은 디바이스 역성장·오더컷이며 쇼티지가 명확한 부품만 가격 전가가 가능합니다",
@@ -4465,7 +4467,9 @@
   ],
   "horizon": "2027",
   "filled_by": "sonnet",
-  "filled_at": "2026-11-23 18:46"
+  "filled_at": "2026-11-23 18:46",
+  "deep_file": "naver_industry_47107",
+  "deep_at": "2026-11-24 20:18"
  },
  "industry:47108": {
   "nid": "47108",
@@ -48648,7 +48652,7 @@
    "아닌 침체일로의 주가",
    "안정화 AI GPU"
   ],
-  "status": "card",
+  "status": "deep",
   "built_at": "2026-11-24 18:41",
   "error": null,
   "thesis": "유안타가 27년 KOSPI 밴드를 6,000~10,000에서 4,000~7,300으로 하향했습니다",
@@ -48673,7 +48677,9 @@
   "stocks_key": [],
   "horizon": "2027",
   "filled_by": "sonnet",
-  "filled_at": "2026-11-24 18:44"
+  "filled_at": "2026-11-24 18:44",
+  "deep_file": "naver_invest_40924",
+  "deep_at": "2026-11-24 20:18"
  },
  "invest:40925": {
   "nid": "40925",
