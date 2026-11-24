@@ -96,7 +96,7 @@ def delisted_shares(codes_rows, names):
     return cache
 
 
-def run(years=5, limit=None, with_delisted=True, workers=6, portfolio=False):
+def run(years=5, limit=None, with_delisted=True, workers=6, portfolio=False, loose_ia=False):
     t0 = time.time()
     R = B.rules()
     listed = [s for s in load_universe()["stocks"] if not B.is_etf(s["name"]) and s.get("market") not in ("KONEX", "2")]
@@ -154,12 +154,25 @@ def run(years=5, limit=None, with_delisted=True, workers=6, portfolio=False):
     for code, g in ind_of.items():
         by_ind[g].append(code)
 
+    wide_of, by_wide = {}, defaultdict(list)
+    if loose_ia:
+        import csv
+        with open(Path(__file__).resolve().parent.parent / "config" / "sector_map.csv", encoding="utf-8-sig") as f:
+            for r in csv.DictReader(f):
+                if r["티커"] in ind_of and r.get("wi26"):
+                    wide_of[r["티커"]] = r["wi26"]; by_wide[r["wi26"]].append(r["티커"])
+
     def ia_at(code, day):
         if code not in ind_of:
             return {"ia": "확인 불가", "ia_group": "상장폐지(업종 분류 없음)", "ia_peers": 0, "ia_up_share": None, "ia_median": None}
         xs = [chg[c][day] for c in by_ind[ind_of[code]] if c != code and day in chg[c] and (cap_on(c, day) or 0) >= MIN]
         label, share, med = S.industry_action(xs)
-        return {"ia": label, "ia_group": ind_of[code], "ia_peers": len(xs), "ia_up_share": share, "ia_median": med}
+        out = {"ia": label, "ia_group": ind_of[code], "ia_peers": len(xs), "ia_up_share": share, "ia_median": med}
+        if loose_ia:                   # 넓은 업종(sector_map.csv의 wi26 열, 예: 반도체 162종목)으로도 판정 — 세부 업종이 3~4종목뿐인 대형주 비교용
+            w = wide_of.get(code)
+            ws = [chg[c][day] for c in by_wide.get(w, []) if c != code and day in chg[c] and (cap_on(c, day) or 0) >= MIN]
+            out["ia_wide"], out["ia_wide_n"] = S.industry_action(ws)[0], len(ws)
+        return out
 
     if portfolio:                      # 계좌 시뮬레이션: 보유 여부와 상관없이 뜬 신호를 모두 모아 넘긴다
         # 그날의 주도 업종 순위 (2026-11-23 사용자 요청): 주도 섹터 레이더(sector_radar.score_on, 가격·거래대금만)를 5거래일마다 다시 계산.
@@ -184,11 +197,11 @@ def run(years=5, limit=None, with_delisted=True, workers=6, portfolio=False):
         for s, rows in data:
             sh = shares.get(s["code"])
             cap_at = (lambda i, rows=rows, sh=sh: sh * rows[i]["close"] / 1e8) if sh else (lambda i: MIN)
-            for t in B.scan(s, rows, rs_at, bench_ok, R, ia_at, require_ia=True, cap_at=cap_at, all_signals=True):
+            for t in B.scan(s, rows, rs_at, bench_ok, R, ia_at, require_ia=not loose_ia, cap_at=cap_at, all_signals=True):
                 if s.get("delisted") and not t["exit"]:
                     t["exit"], t["how"] = rows[-1]["date"], "상장폐지까지 보유"
                 sa = sector_at(t["code"], t["date"])
-                cand.append({**{k: t.get(k) for k in ("code", "stock", "date", "kind", "rs", "r", "exit", "be", "how", "market_ok", "vol_ratio", "ia_group", "pp_ok", "cap_eok")},
+                cand.append({**{k: t.get(k) for k in ("code", "stock", "date", "kind", "rs", "r", "exit", "be", "how", "market_ok", "vol_ratio", "ia_group", "pp_ok", "cap_eok", "ia", "ia_wide", "ia_wide_n", "ia_peers", "gate_miss")},
                              "sec_rank": sa[0] if sa else None, "sec_score": sa[1] if sa else None, "sec_n": sa[2] if sa else None})
         first = (datetime.strptime(last_day, "%Y%m%d") - timedelta(days=int(365 * years))).strftime("%Y%m%d")
         days = sorted({r["date"] for r in bench if r["date"] >= first})
@@ -519,6 +532,61 @@ def run_vol(years=10, with_delisted=True):
     return {k: out[k] for k in ("made_at", "by_vol", "seconds")}
 
 
+def run_ia(years=10, with_delisted=True):
+    """업종 동반 상승(인더스트리 액션)을 어느 묶음으로 볼 것인가 + 거래량 문턱 (2026-11-24 사용자 요청, 비교 자료).
+    삼성전자·SK하이닉스의 세부 업종 '반도체(메모리·대형)'은 4종목뿐이라 나머지 3종목 중 2종목이 +2% 올라야 '동반 상승'이 된다 → 반도체 전체가 오르는 날에도 '나 홀로'로 탈락.
+    거래량·업종 조건 없이 기준가 돌파를 모두 모아, 업종 판정을 세부 업종 / 넓은 업종(wi26) / 둘 중 하나 / 없음으로, 거래량을 1.5배 / 대형주만 완화로 나눠 본다."""
+    import dart_fin_hist as F
+    t0 = time.time()
+    cf = CACHE / f"long_cand_ia{_sfx(years)}.json"
+    if cf.exists() and time.time() - cf.stat().st_mtime < 3 * 86400:
+        o = json.loads(cf.read_text()); cand, days, uni = o["cand"], o["days"], o["uni"]
+    else:
+        old = S.RULES["breakout_vol"]
+        S.RULES["breakout_vol"] = 0
+        try:
+            cand, days, uni = run(years, None, with_delisted, portfolio=True, loose_ia=True)
+        finally:
+            S.RULES["breakout_vol"] = old
+        cf.write_text(json.dumps({"cand": cand, "days": days, "uni": uni}, ensure_ascii=False))
+    cand = [t for t in cand if t["kind"] == "돌파"]
+    print(f"기준가 돌파(거래량·업종 조건 없음) {len(cand)}건 · 실적 받기 시작", flush=True)
+    F.fetch(F.needs([(t["code"], t["date"]) for t in cand]), log=lambda m: print(m, flush=True))
+    for t in cand:
+        sc = F.score_at(t["code"], t["date"])
+        t["fp"] = sc["pts"] if sc else None
+    st = lambda ts: {k: B.stats([{**t, "took": bool(t["be"]), "days": 0} for t in ts if t["exit"]]).get(k) for k in ("n", "win_rate", "avg_r", "payoff")}  # noqa: E731
+    vr = lambda t: t["vol_ratio"] or 0  # noqa: E731
+    big = lambda t: (t["cap_eok"] or 0) >= 50000  # noqa: E731
+    fine = lambda t: t["ia"] == "동반 상승"  # noqa: E731
+    wide = lambda t: t.get("ia_wide") == "동반 상승"  # noqa: E731
+    IA = [("세부 업종 (지금)", fine), ("넓은 업종", wide), ("세부 또는 넓은 업종", lambda t: fine(t) or wide(t)),
+          ("세부 업종, 단 8종목 미만이면 넓은 업종", lambda t: fine(t) if (t.get("ia_peers") or 0) >= 7 else wide(t)), ("업종 조건 없음", lambda t: True)]
+    VOL = [("거래량 1.5배", lambda t: vr(t) >= 1.5), ("대형주만 1.0배", lambda t: vr(t) >= (1.0 if big(t) else 1.5))]
+    ok = lambda t: (t["fp"] or 0) >= 2 and t["market_ok"]  # noqa: E731
+    LEAD = {"005930": "삼성전자", "000660": "SK하이닉스", "009150": "삼성전기"}
+    two = (datetime.strptime(days[-1], "%Y%m%d") - timedelta(days=730)).strftime("%Y%m%d")
+    V15 = [t for t in cand if vr(t) >= 1.5]
+    out = {"made_at": datetime.now(KST).strftime("%Y-%m-%d %H:%M"), "years": years, "period": [days[0], days[-1]], "universe": uni, "define": run_ia.__doc__.strip(),
+           "by_ia": {"세부 동반 + 넓은 동반": st([t for t in V15 if fine(t) and wide(t)]), "세부만 동반": st([t for t in V15 if fine(t) and not wide(t)]),
+                     "넓은 업종만 동반": st([t for t in V15 if not fine(t) and wide(t)]), "둘 다 아님": st([t for t in V15 if not fine(t) and not wide(t)])},
+           "by_ia_big": {"세부 동반": st([t for t in V15 if big(t) and fine(t)]), "넓은 업종만 동반": st([t for t in V15 if big(t) and not fine(t) and wide(t)]),
+                         "둘 다 아님": st([t for t in V15 if big(t) and not fine(t) and not wide(t)])},
+           "variants": []}
+    for vn, vf in VOL:
+        for an, af in IA:
+            for tag, g in (("", lambda t: True), (" + 펀더 2점↑ + 코스피 20일선 위", ok)):
+                c = [t for t in cand if vf(t) and af(t) and g(t)]
+                rr = sorted(account(c, days, "random", seed=k)["total_ret_pct"] for k in range(30))
+                v = account(c, days, "rs"); v.pop("curve", None); v.pop("by_year", None)
+                lead = {n: [f"{t['date']} {t['r']:+.1f}R" for t in c if t["code"] == code and t["date"] >= two] for code, n in LEAD.items()}
+                out["variants"].append({"name": f"{vn} · 업종: {an}{tag}", "signals": len(c), "per_signal": st(c), **v, "random_total_ret_pct": {"min": rr[0], "median": rr[15], "max": rr[-1]},
+                                        "leaders_2y": {n: len(x) for n, x in lead.items()}, "leaders_2y_list": lead})
+    out["seconds"] = round(time.time() - t0)
+    (DATA / "backtest" / f"long_ia{_sfx(years)}.json").write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
+    return {k: out[k] for k in ("made_at", "by_ia", "seconds")}
+
+
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(description="긴 기간 백테스트 (상장폐지 종목 포함 · 그날 시총) — 비교 자료")
     ap.add_argument("--years", type=float, default=5)
@@ -526,8 +594,9 @@ if __name__ == "__main__":
     ap.add_argument("--no-delisted", action="store_true")
     ap.add_argument("--portfolio", action="store_true", help="계좌 하나를 실제처럼 굴리는 시뮬레이션 (동시 위험 6% · 고르는 순서 비교) → data/backtest/long_portfolio.json")
     ap.add_argument("--fund", action="store_true", help="발표된 실적으로 매긴 펀더 점수별 비교 → data/backtest/long_fund.json")
+    ap.add_argument("--ia", action="store_true", help="업종 동반 상승을 세부 업종/넓은 업종으로 볼 때 비교 → data/backtest/long_ia.json")
     ap.add_argument("--vol", action="store_true", help="돌파 거래량 문턱 비교(1.5/1.2/1.0/없음 · 대형주 완화 · 포켓피봇 추가)")
     ap.add_argument("--zone", action="store_true", help="기준가 돌파와 매물대 돌파 비교 → data/backtest/long_zone.json")
     a = ap.parse_args()
-    res = run_vol(a.years, not a.no_delisted) if a.vol else run_fund(a.years, not a.no_delisted) if a.fund else run_zone(a.years, not a.no_delisted) if a.zone else run_portfolio(a.years, not a.no_delisted) if a.portfolio else run(a.years, a.limit, not a.no_delisted)
+    res = run_ia(a.years, not a.no_delisted) if a.ia else run_vol(a.years, not a.no_delisted) if a.vol else run_fund(a.years, not a.no_delisted) if a.fund else run_zone(a.years, not a.no_delisted) if a.zone else run_portfolio(a.years, not a.no_delisted) if a.portfolio else run(a.years, a.limit, not a.no_delisted)
     print(json.dumps(res, ensure_ascii=False, indent=1))
