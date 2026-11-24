@@ -126,12 +126,41 @@ def _score(op, pop, sales, psales, ytd, pytd):
 _mem = {}
 
 
+NEXT = {"11013": "11012", "11012": "11014", "11014": "11011"}
+
+
+def next_report(day):
+    """신호일 기준 '다음에 발표될' 보고서 (연도, 코드) — 컨센서스가 완벽히 맞았다고 칠 때의 최대치 비교용(미래 자료)."""
+    y, rc = report_for(day)
+    return (y + 1, "11013") if rc == "11011" else (y, NEXT[rc])
+
+
+def needs_next(signals):
+    need = {}
+    for code, day in signals:
+        y, rc = next_report(day)
+        need.setdefault((y, rc), set()).add(code)
+        if rc == "11011":
+            need.setdefault((y, "11014"), set()).add(code)
+    return need
+
+
+def score_next(code, day):
+    """다음에 발표될 분기 실적으로 매긴 점수(미래를 미리 본 값 — 실전에서는 쓸 수 없고, 컨센서스 효과의 최대치를 가늠하는 용도). 아직 안 나온 분기면 None."""
+    y, rc = next_report(day)
+    return _score_report(code, y, rc, None)
+
+
 def score_at(code, day):
     """신호일에 나와 있던 보고서로 매긴 펀더 점수. 자료가 없거나 접수일이 신호일 이후면 None."""
     y, rc = report_for(day)
+    return _score_report(code, y, rc, day)
+
+
+def _score_report(code, y, rc, day):
     D = _mem.setdefault((y, rc), _load(y, rc))
     r = D.get(code)
-    if not r or r.get("o") is None or not r.get("filed") or r["filed"] >= day:
+    if not r or r.get("o") is None or not r.get("filed") or (day and r["filed"] >= day):
         return None
     if rc != "11011":
         op, pop, sales, psales = r.get("o"), r.get("po"), r.get("s"), r.get("ps")

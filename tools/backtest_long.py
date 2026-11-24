@@ -532,6 +532,59 @@ def run_vol(years=10, with_delisted=True):
     return {k: out[k] for k in ("made_at", "by_vol", "seconds")}
 
 
+def run_fwd(years=10, with_delisted=True):
+    """컨센서스를 넣으면 얼마나 달라질 수 있나 — 최대치 가늠 (2026-11-24 사용자 요청, 비교 자료).
+    과거 시점의 컨센서스는 구할 수 없어서, 신호일 기준 '다음에 발표될 분기의 실제 실적'을 컨센서스 자리에 넣는다. 미래를 미리 본 값이라 실전에서는 불가능하고,
+    '컨센서스가 완벽히 맞았다면'의 최대치다(실제 컨센서스는 틀리므로 효과는 이보다 작다). 신호는 지금 규칙의 기준가 돌파(거래량 1.5배 · 세부 업종 동반 상승)."""
+    import dart_fin_hist as F
+    t0 = time.time()
+    o = json.loads((CACHE / f"long_cand_vol{_sfx(years)}.json").read_text()); days, uni = o["days"], o["uni"]
+    cand = [t for t in o["cand"] if t["kind"] == "돌파" and (t["vol_ratio"] or 0) >= 1.5]
+    sig = [(t["code"], t["date"]) for t in cand]
+    need = F.needs(sig)
+    for k, v in F.needs_next(sig).items():
+        need.setdefault(k, set()).update(v)
+    print(f"기준가 돌파 {len(cand)}건 · 실적 받기 시작 ({sum(len(v) for v in need.values())}쌍)", flush=True)
+    F.fetch(need, log=lambda m: print(m, flush=True))
+    for t in cand:
+        a, b = F.score_at(t["code"], t["date"]), F.score_next(t["code"], t["date"])
+        t["fp"], t["fn"] = (a["pts"] if a else None), (b["pts"] if b else None)
+        bk = (b or {}).get("book") or {}
+        t["fn_op"], t["fn_net"] = bk.get("op"), bk.get("net")
+    st = lambda ts: {k: B.stats([{**t, "took": bool(t["be"]), "days": 0} for t in ts if t["exit"]]).get(k) for k in ("n", "win_rate", "avg_r", "payoff")}  # noqa: E731
+    lab = lambda v: "확인 불가" if v is None else f"{v}점"  # noqa: E731
+    labs = ["3점", "2점", "1점", "0점", "확인 불가"]
+    okp = lambda t: (t["fp"] or 0) >= 2  # noqa: E731
+    okn = lambda t: (t["fn"] or 0) >= 2  # noqa: E731
+    LEAD = {"005930": "삼성전자", "000660": "SK하이닉스", "009150": "삼성전기"}
+    two = (datetime.strptime(days[-1], "%Y%m%d") - timedelta(days=730)).strftime("%Y%m%d")
+    years_ = sorted({t["date"][:4] for t in cand})
+    out = {"made_at": datetime.now(KST).strftime("%Y-%m-%d %H:%M"), "years": years, "period": [days[0], days[-1]], "universe": uni, "signals": len(cand), "define": run_fwd.__doc__.strip(),
+           "score": "지난 점수 = 신호일에 발표돼 있던 분기 / 앞 점수 = 다음에 발표될 분기(미래 자료). 둘 다 ① 분기 영업이익 +20%↑/흑자전환 ② 영업이익률 개선 ③ 누적 영업이익 +20%↑/흑자전환",
+           "by_next": {b: st([t for t in cand if lab(t["fn"]) == b]) for b in labs},
+           "by_past": {b: st([t for t in cand if lab(t["fp"]) == b]) for b in labs},
+           "cross": {"지난 2점↑ · 앞 2점↑": st([t for t in cand if okp(t) and okn(t)]), "지난 2점↑ · 앞 0~1점(꺾임)": st([t for t in cand if okp(t) and t["fn"] is not None and not okn(t)]),
+                     "지난 0~1점 · 앞 2점↑(좋아지는 중)": st([t for t in cand if t["fp"] is not None and not okp(t) and okn(t)]),
+                     "지난 0~1점 · 앞 0~1점": st([t for t in cand if t["fp"] is not None and not okp(t) and t["fn"] is not None and not okn(t)])},
+           "next_ok_by_year": {y: st([t for t in cand if okn(t) and t["date"][:4] == y]) for y in years_},
+           "next_not_by_year": {y: st([t for t in cand if t["fn"] is not None and not okn(t) and t["date"][:4] == y]) for y in years_},
+           "variants": []}
+    V = [("기준가 돌파만", lambda t: True), ("지난 점수 2점↑ (지금 방식)", okp), ("앞 점수 2점↑ (컨센서스 최대치)", okn), ("앞 점수 3점", lambda t: t["fn"] == 3),
+         ("지난 또는 앞 점수 2점↑", lambda t: okp(t) or okn(t)), ("지난 2점↑ 그리고 앞 2점↑", lambda t: okp(t) and okn(t)),
+         ("앞 분기 영업이익 증가(문턱 없음)", lambda t: t["fn_op"] is True), ("앞 분기 순이익 증가(문턱 없음)", lambda t: t["fn_net"] is True),
+         ("앞 점수 0~1점 (반대 확인)", lambda t: t["fn"] is not None and not okn(t))]
+    for name, f in V:
+        for tag, g in (("", lambda t: True), (" + 코스피 20일선 위", lambda t: t["market_ok"])):
+            c = [t for t in cand if f(t) and g(t)]
+            rr = sorted(account(c, days, "random", seed=k)["total_ret_pct"] for k in range(30))
+            v = account(c, days, "rs"); v.pop("curve", None); v.pop("by_year", None)
+            out["variants"].append({"name": name + tag, "signals": len(c), "per_signal": st(c), **v, "random_total_ret_pct": {"min": rr[0], "median": rr[15], "max": rr[-1]},
+                                    "leaders_2y": {n: sum(1 for t in c if t["code"] == code and t["date"] >= two) for code, n in LEAD.items()}})
+    out["seconds"] = round(time.time() - t0)
+    (DATA / "backtest" / f"long_fwd{_sfx(years)}.json").write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
+    return {k: out[k] for k in ("made_at", "signals", "by_next", "by_past", "seconds")}
+
+
 def run_ia(years=10, with_delisted=True):
     """업종 동반 상승(인더스트리 액션)을 어느 묶음으로 볼 것인가 + 거래량 문턱 (2026-11-24 사용자 요청, 비교 자료).
     삼성전자·SK하이닉스의 세부 업종 '반도체(메모리·대형)'은 4종목뿐이라 나머지 3종목 중 2종목이 +2% 올라야 '동반 상승'이 된다 → 반도체 전체가 오르는 날에도 '나 홀로'로 탈락.
@@ -595,8 +648,9 @@ if __name__ == "__main__":
     ap.add_argument("--portfolio", action="store_true", help="계좌 하나를 실제처럼 굴리는 시뮬레이션 (동시 위험 6% · 고르는 순서 비교) → data/backtest/long_portfolio.json")
     ap.add_argument("--fund", action="store_true", help="발표된 실적으로 매긴 펀더 점수별 비교 → data/backtest/long_fund.json")
     ap.add_argument("--ia", action="store_true", help="업종 동반 상승을 세부 업종/넓은 업종으로 볼 때 비교 → data/backtest/long_ia.json")
+    ap.add_argument("--fwd", action="store_true", help="다음 분기 실제 실적을 컨센서스 자리에 넣은 최대치 비교 → data/backtest/long_fwd.json")
     ap.add_argument("--vol", action="store_true", help="돌파 거래량 문턱 비교(1.5/1.2/1.0/없음 · 대형주 완화 · 포켓피봇 추가)")
     ap.add_argument("--zone", action="store_true", help="기준가 돌파와 매물대 돌파 비교 → data/backtest/long_zone.json")
     a = ap.parse_args()
-    res = run_ia(a.years, not a.no_delisted) if a.ia else run_vol(a.years, not a.no_delisted) if a.vol else run_fund(a.years, not a.no_delisted) if a.fund else run_zone(a.years, not a.no_delisted) if a.zone else run_portfolio(a.years, not a.no_delisted) if a.portfolio else run(a.years, a.limit, not a.no_delisted)
+    res = run_fwd(a.years, not a.no_delisted) if a.fwd else run_ia(a.years, not a.no_delisted) if a.ia else run_vol(a.years, not a.no_delisted) if a.vol else run_fund(a.years, not a.no_delisted) if a.fund else run_zone(a.years, not a.no_delisted) if a.zone else run_portfolio(a.years, not a.no_delisted) if a.portfolio else run(a.years, a.limit, not a.no_delisted)
     print(json.dumps(res, ensure_ascii=False, indent=1))
