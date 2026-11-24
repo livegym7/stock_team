@@ -1465,6 +1465,33 @@ def write_html(data):
                 out[code] = {"t": f["type"], "p": f["pts"], "i": [[i["k"], i["ok"], i["t"]] for i in f["items"]]}
         return out
     data["fscore"] = safe(_fscores)
+    def _pool55():   # 관찰 풀 종목의 55일 신고가 (2026-11-24 사용자 확정, 표시·신호 줄 딱지용 — 매매 규칙 아님)
+        #   h = 마지막 거래일까지 55일 고점(다음 날 장중 비교용) · hp = 그 전날까지 55일 고점 · x = 마지막 거래일에 넘었는가 · v50·vr = 거래량 · peers = 같은 업종(동행 판정)
+        import tomllib
+        from common import CACHE
+        from screener import RULES
+        from sector_map import custom_map
+        from universe import load as _uni
+        cmap, peers = custom_map(), {}
+        for u in sorted((u for u in _uni()["stocks"] if (u.get("market_cap_eok") or 0) >= RULES["min_mcap_eok"]), key=lambda u: -(u.get("market_cap_eok") or 0)):
+            peers.setdefault(cmap.get(u["code"]) or "네이버:" + (u.get("industry") or ""), []).append(u["code"])
+        P = tomllib.loads((ROOT / "config" / "watch_pool.toml").read_text(encoding="utf-8"))
+        out = {}
+        for th in P.get("themes") or []:
+            for s in th.get("stocks") or []:
+                try:
+                    rows = json.loads((CACHE / "daily" / f"{s['code']}.json").read_text())["rows"]
+                except Exception:
+                    continue
+                if len(rows) < 60:
+                    continue
+                hi, c, v = [r["high"] for r in rows], [r["close"] for r in rows], [r["volume"] for r in rows]
+                hp, v50 = max(hi[-56:-1]), sum(v[-51:-1]) / 50
+                g = cmap.get(s["code"]) or ""
+                out[s["code"]] = {"h": max(hi[-55:]), "hp": hp, "c": c[-1], "d": rows[-1]["date"], "x": c[-2] <= hp < c[-1], "v50": round(v50),
+                                  "vr": round(v[-1] / v50, 2) if v50 else None, "peers": [p for p in peers.get(g, []) if p != s["code"]][:30]}
+        return out
+    data["pool55"] = safe(_pool55)
     # 깊이 모드 자료 (2026-11-20): 종목 메모(코드 → 메모)
     data["stock_memos"] = safe(lambda: {f.stem: json.loads(f.read_text(encoding="utf-8")) for f in (DATA / "stock_memos").glob("*.json")}, {})
     data["stock_checks"] = safe(lambda: json.loads((DATA / "stock_checks.json").read_text(encoding="utf-8")), {})   # 종목 점검표 (2026-11-23, tools/stock_check.py)
