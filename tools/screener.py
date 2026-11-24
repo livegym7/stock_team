@@ -71,9 +71,10 @@ def fetch_daily(code, days=400):
     if path.exists():
         d = json.loads(path.read_text())
         got = datetime.fromisoformat(d["fetched_at"]) if "fetched_at" in d else None
-        # 같은 날 받은 것만 재사용. 단 장마감(15:40) 전에 받은 건 오늘 봉이 미완성이라, 장마감 뒤에는 새로 받는다
-        closed = now.replace(hour=15, minute=40, second=0, microsecond=0)
-        if got and got.strftime("%Y%m%d") == today and (got >= closed or now < closed):
+        # 같은 날 받은 것만 재사용. 단 오늘 봉이 바뀌는 고비(15:40 정규장 마감 · 20:05 시간외·대체거래소 마감)를 사이에 두고 받은 것은 새로 받는다.
+        # 네이버 일봉의 '오늘 종가'는 20시 마감 가격으로 굳는다(2026-11-24 확인: 삼현 15:30 63,000 → 20:00 60,300) → 16:07 목록은 잠정, 21:10 회차가 확정
+        marks = [now.replace(hour=15, minute=40, second=0, microsecond=0), now.replace(hour=20, minute=5, second=0, microsecond=0)]
+        if got and got.strftime("%Y%m%d") == today and not any(got < m <= now for m in marks):
             return d["rows"]
     start = (datetime.now(KST) - timedelta(days=int(days * 1.5))).strftime("%Y%m%d")
     for attempt in range(3):
@@ -601,6 +602,8 @@ def main():
                 elif r["tier"] == "신호":
                     r["tier_note"] = "발굴"    # 풀 밖 신호는 등급을 낮춰 참고로
     payload = {"source": "네이버 일봉 (비공식)", "as_of": as_of, "made_at": datetime.now(KST).isoformat(timespec="seconds"),
+               # 확정 = 오늘 봉이 굳은 뒤(20:05 이후) 또는 지난 거래일 기준으로 만든 목록. 그 전(16:07 예약)은 잠정 — 종가가 시간외 가격을 따라 아직 움직인다 (2026-11-24 사용자 확정: 20시 뒤 다시 판정)
+               "final": as_of < datetime.now(KST).strftime("%Y%m%d") or datetime.now(KST).strftime("%H%M") >= "2005",
                "rules": RULES, "count": len(results), "scope": "pool" if a.pool else "all", "pool_size": len(pool_codes),
                "signals": [r for r in results if r["tier"] == "신호"],
                # 참고 신호(매물대 돌파): 관문 통과(RS·시총·거래대금 필수) + 관찰 풀이거나 풀 밖이면 RS 조건 충족. 정식 신호와 겹치면 정식 쪽에만.

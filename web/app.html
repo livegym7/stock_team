@@ -2431,7 +2431,7 @@ function tradeBoard(){const all=tbRows(),ths=((D.watch_pool||{}).themes||[]),f=u
    ${sec("🔴 오늘 넘음",A,"기준가·매물대·55일 신고가 중 넘은 선")}${sec("🟡 가까움",B,"가장 가까운 선까지 3% 이내")}
    ${!A.length&&!B.length?'<div class="empty">오늘 넘었거나 가까운 종목이 없습니다</div>':""}
    ${C.length?`<details class="fold" data-fold="tbWait" ${ui.tbWait?"open":""}><summary class="foldh">⚪ 기다림 <small class="muted">${C.length}종목 · 가장 가까운 선까지 3% 넘게 남음 · 가까운 순</small></summary><div class="tw"><table class="slist tbt">${head}${C.map(row).join("")}</table></div></details>`:""}
-   ${src("기준가·매물대·55일 신고가 = 그 선 대비 지금 가격(넘었으면 +빨강, 남았으면 −파랑, 색 딱지 = 오늘 넘음, 마우스를 올리면 선의 가격) · 거래량 = 예상 거래량 ÷ 50일 평균(1.5배↑ 빨강) · 업종 = 주도 섹터 순위(1~5위 🔥)와 동행 여부 · 펀더 = ● 통과 ○ 미달 ◌ 확인 불가 · 표시만, 판단은 본인 · 출처: 네이버 일봉·현재가(비공식)")}`}
+   ${src(`감시 목록 ${fmtYmd((D.watch||{}).as_of||"")} ${(D.watch||{}).final===false?"잠정(종가가 20시까지 움직임 · 21시쯤 확정)":"확정"} · `+"기준가·매물대·55일 신고가 = 그 선 대비 지금 가격(넘었으면 +빨강, 남았으면 −파랑, 색 딱지 = 오늘 넘음, 마우스를 올리면 선의 가격) · 거래량 = 예상 거래량 ÷ 50일 평균(1.5배↑ 빨강) · 업종 = 주도 섹터 순위(1~5위 🔥)와 동행 여부 · 펀더 = ● 통과 ○ 미달 ◌ 확인 불가 · 표시만, 판단은 본인 · 출처: 네이버 일봉·현재가(비공식)")}`}
 function viewStock(){
   const c=ui.sc&&stockByCode(ui.sc);
   if(!c&&ui.kt&&ui.kt!="list"){   // 종목 = 매매 보드·신고가·거래대금·실적·ETF·전체 목록

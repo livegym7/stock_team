@@ -23,7 +23,7 @@ tokens = "중간 (평일 5회, 체크포인트와 같은 회차)"
 check = "live"
 
 [[tasks]]
-name = "감시 목록 (관찰 풀 + RS 70↑ 한정)"
+name = "감시 목록 (관찰 풀 + RS 70↑ 한정) — 잠정"
 when = "평일 16:07"
 due = "16:07"
 runner = "claude"
@@ -83,6 +83,14 @@ runner = "claude"
 model = "Opus"
 tokens = "많음 (주 1회 25만~40만)"
 check = "strategy"
+
+[[tasks]]
+name = "감시 목록 확정 (20시 마감 가격으로 다시 판정 — 16:07 목록은 잠정)"
+when = "평일 21:10 (웹 배포 회차 안에서)"
+due = "21:10"
+runner = "actions"
+tokens = "0"
+check = "bus"
 
 [[tasks]]
 name = "웹 배포 (Cloudflare, balance-lab.pages.dev)"
