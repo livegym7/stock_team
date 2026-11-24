@@ -10,12 +10,12 @@
   python3 tools/strategy_tf.py tg                # 토요일 텔레그램 요약 → reports/날짜/strategy_tg.md
   python3 tools/strategy_tf.py render            # prep + narr → reports/날짜/strategy_tf.html + data/strategy/tf/latest.json(웹 조각)
 
-펀더 점수(3): 최근 분기 영업이익 YoY +20%↑/흑자전환 · 영업이익률 1년 전보다 높음 · 올해 영업이익 +20%↑(E, 없으면 최근 2분기 합)
+펀더 점수(2026-11-24): 이익(다음 분기 영업이익 추정 +20%↑/흑자전환) · EPS(올해 추정 증가) · 기대(올해 영업이익 추정치 한 달 전보다 상향) = 추정 점수 3점. 컨센서스 없으면 발표 점수 2점(참고). 핵심 후보에서 빼는 것은 추정 점수 0점뿐
 기술 점수(3): RS 80↑ · 기준가 10% 안 + 빠진 조건 없음 · 업종 동행(인더스트리 액션)
 펀더 점수는 순서를 정하는 참고다. 매매 규칙(docs/rules.md)은 2027-01-31까지 고정. 주문 기능 없음.
 """
 import argparse, glob, html, json, re, subprocess, sys
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -106,37 +106,104 @@ def _fa_la(d):
     return next((a for a in A if a["e"]), None), next((a for a in reversed(A) if not a["e"]), None)
 
 
+_REV = {}
+
+
+def _rev(code, fa):
+    """올해 영업이익 추정치가 한 달쯤 전(25일 넘게 지난 가장 가까운 기록)보다 얼마나 바뀌었나(%). 기록: 날마다 쌓는 data/cache/fund/_est.json 먼저, 없으면 월말 기록 data/consensus/hist.json."""
+    if not fa or not fa.get("op") or fa["op"] <= 0:
+        return None
+    if not _REV:
+        _REV["est"] = _j(CACHE / "fund" / "_est.json", {}) or {}
+        _REV["hist"] = _j(DATA / "consensus" / "hist.json", {}) or {}
+    now = datetime.now(KST)
+    cut = (now - timedelta(days=25)).strftime("%Y-%m-%d")
+    base = None
+    e = _REV["est"].get(code) or {}
+    old = [d for d in sorted(e) if d <= cut and e[d][0] == fa["p"] and e[d][2]]
+    if old:
+        base = (old[-1], e[old[-1]][2])
+    else:
+        s = (_REV["hist"].get(code) or {}).get(fa["p"][:4])
+        if s:
+            k = [i for i, d in enumerate(s["d"]) if d <= cut.replace("-", "") and s["op"][i]]
+            if k:
+                d = s["d"][k[-1]]
+                base = (f"{d[:4]}-{d[4:6]}-{d[6:]}", s["op"][k[-1]])
+    if not base or base[1] <= 0 or base[0] < (now - timedelta(days=70)).strftime("%Y-%m-%d"):
+        return None
+    return {"from": base[0], "pct": round((fa["op"] / base[1] - 1) * 100, 1)}
+
+
 def fscore(d, px):
+    """펀더 점수 (2026-11-24 사용자 확정, 표시·순서용 — 매매 규칙 아님). 서로 다른 것을 묻는 세 항목:
+      이익 = 다음 분기 영업이익 추정치가 1년 전 같은 분기보다 +20%↑(또는 흑자 전환)
+      EPS  = 올해 EPS 추정치가 작년보다 증가
+      기대 = 올해 영업이익 추정치가 한 달 전보다 상향(+0.5%↑)
+    type "E"(추정 점수, 3점 만점) = 다음 분기 컨센서스가 있는 종목. 없으면 type "A"(발표 점수, 2점 만점: 최근 발표 분기의 영업이익 +20%↑ · EPS 증가) — 참고용이고 감점하지 않는다.
+    근거(10년·21개월 비교 자료, docs/decisions.md 2026-11-24): 지난 실적 점수는 신호 성적을 못 가름 · 진짜 컨센서스로는 0점만 뚜렷이 나쁨 · 컨센서스 없는 종목은 나쁘지 않음 → 핵심 후보에서 빼는 것은 '추정 점수 0점'뿐(fok)."""
     if not d:
         return None
-    Q = [q for q in d.get("quarter") or [] if not q["e"] and q.get("op") is not None]
+    Qa = [q for q in d.get("quarter") or [] if q.get("op") is not None]
+    Q = [q for q in Qa if not q["e"]]
+    est = next((q for q in Qa if q["e"]), None)
     fa, la = _fa_la(d)
-    pts, why, yoy, opg = 0, [], None, None
+    yago = lambda q: next((x for x in Qa if x["p"] == str(int(q["p"][:4]) - 1) + q["p"][4:]), None)  # noqa: E731
+
+    def grow(cur, tag):
+        base = yago(cur)
+        if not base:
+            return None, "1년 전 분기 자료 없음", None
+        if base["op"] <= 0 < cur["op"]:
+            return True, f"{cur['p']} 영업이익 흑자 전환 ({tag})", "흑전"
+        if base["op"] > 0:
+            g = round((cur["op"] / base["op"] - 1) * 100)
+            return g >= 20, f"{cur['p']} 영업이익 {g:+d}% ({tag})", g
+        return False, f"{cur['p']} 영업이익 적자 ({tag})", None
+    items, yoy, opg = [], None, None
     if Q:
-        lq = Q[-1]; yq = next((q for q in Q if q["p"] == str(int(lq["p"][:4]) - 1) + lq["p"][4:]), None)
-        if yq is not None:
-            if yq["op"] <= 0 < lq["op"]:
-                yoy = "흑전"; pts += 1; why.append("최근 분기 흑자전환")
-            elif yq["op"] > 0:
-                yoy = round((lq["op"] / yq["op"] - 1) * 100)
-                if yoy >= 20:
-                    pts += 1; why.append(f"최근 분기 영업이익 {yoy:+d}%")
-            if lq.get("opm") is not None and yq.get("opm") is not None and lq["opm"] > yq["opm"]:
-                pts += 1; why.append(f"영업이익률 {yq['opm']:.1f}→{lq['opm']:.1f}%")
+        _, _, yoy = grow(Q[-1], "발표")
     if fa and la and fa.get("op") is not None and la.get("op") is not None:
-        if la["op"] <= 0 < fa["op"]:
-            opg = "흑전"; pts += 1; why.append("올해 흑자전환(E)")
-        elif la["op"] > 0:
-            opg = round((fa["op"] / la["op"] - 1) * 100)
-            if opg >= 20:
-                pts += 1; why.append(f"올해 영업이익 {opg:+d}%(E)")
-    elif len(Q) >= 6:
-        a = sum(q["op"] for q in Q[-2:]); b = sum(q["op"] for q in Q[-6:-4])
-        if b > 0 and a / b - 1 >= .2:
-            pts += 1; why.append("최근 2분기 합 +20%↑(컨센서스 없음)")
+        opg = "흑전" if la["op"] <= 0 < fa["op"] else round((fa["op"] / la["op"] - 1) * 100) if la["op"] > 0 else None
+    if est:
+        ok, t, _ = grow(est, "추정")
+        items.append({"k": "이익", "ok": ok, "t": t})
+        if fa and la and fa.get("eps") is not None and la.get("eps") is not None:
+            items.append({"k": "EPS", "ok": bool(fa["eps"] > la["eps"] and fa["eps"] > 0), "t": f"올해 EPS {la['eps']:,.0f} → {fa['eps']:,.0f}원 (추정)"})
+        else:
+            items.append({"k": "EPS", "ok": None, "t": "올해 EPS 추정치 없음"})
+        rv = _rev(d.get("code"), fa)
+        if rv:
+            items.append({"k": "기대", "ok": rv["pct"] >= 0.5, "t": f"올해 영업이익 추정치 {rv['from'][5:].replace('-', '/')}보다 {rv['pct']:+.1f}%"})
+        else:
+            items.append({"k": "기대", "ok": None, "t": "추정치 변화 기록 없음"})
+        typ = "E"
+    else:
+        typ = "A"
+        if Q:
+            ok, t, _ = grow(Q[-1], "발표")
+            items.append({"k": "이익", "ok": ok, "t": t})
+            b = yago(Q[-1])
+            if b and Q[-1].get("eps") is not None and b.get("eps") is not None:
+                items.append({"k": "EPS", "ok": bool(Q[-1]["eps"] > b["eps"] and Q[-1]["eps"] > 0), "t": f"{Q[-1]['p']} 분기 EPS {b['eps']:,.0f} → {Q[-1]['eps']:,.0f}원 (발표)"})
+            else:
+                items.append({"k": "EPS", "ok": None, "t": "EPS 자료 없음"})
+        else:
+            items += [{"k": "이익", "ok": None, "t": "실적 자료 없음"}, {"k": "EPS", "ok": None, "t": "EPS 자료 없음"}]
+    pts = sum(1 for i in items if i["ok"])
     per = px / fa["eps"] if fa and fa.get("eps") and fa["eps"] > 0 and px else None
-    return {"pts": pts, "why": why, "yoy": yoy, "opg": opg, "per": round(per, 1) if per else None,
+    return {"pts": pts, "max": len(items), "type": typ, "items": items, "why": [("✓ " if i["ok"] else "— " if i["ok"] is None else "✗ ") + i["t"] for i in items],
+            "yoy": yoy, "opg": opg, "per": round(per, 1) if per else None,
             "q": [[q["p"], q["sales"], q["op"], q["opm"]] for q in Q[-6:]], "consensus": bool(fa and fa.get("op") is not None)}
+
+
+def fok(f):
+    """핵심 후보에서 빼지 않는가: 추정 점수(type E) 0점만 뺀다. 컨센서스·자료가 없는 종목은 중립(통과). 옛 형식(type 없음)은 예전 기준 2점↑."""
+    if not f:
+        return True
+    if "type" not in f:
+        return f.get("pts", 0) >= 2
+    return not (f["type"] == "E" and f["pts"] == 0)
 
 
 def prep():
@@ -293,10 +360,11 @@ def core_list():
         g = grp_of.get(r["code"])
         items.append({"code": r["code"], "peers": [c for c in peers_of.get(g, []) if c != r["code"]][:30], "vol50": _vol50(r["code"]), "name": r["stock"], "zone_top": (mz or {}).get("top"), "zone_pct": (mz or {}).get("pct"), "group": r["group"], "rs": r["rs"], "close": r["close"], "breakout": lv.get("breakout"),
                       "stop": lv.get("stop_1r"), "dist": dist, "fp": fp, "tech": tech, "why": (f or {}).get("why") or [], "ia": r["ia"] == "동반 상승",
-                      "pool": r["pool"], "core": fp >= 2 and tech >= 2, "note": note})
-    items.sort(key=lambda x: (not x["core"], -x["fp"], x["dist"] if x["dist"] is not None else 99))
+                      "ftype": (f or {}).get("type"), "fmax": (f or {}).get("max", 3), "fitems": (f or {}).get("items"), "fbad": not fok(f),
+                      "pool": r["pool"], "core": fok(f) and tech >= 2, "note": note})
+    items.sort(key=lambda x: (not x["core"], x["fbad"], x["ftype"] != "E", -x["fp"], x["dist"] if x["dist"] is not None else 99))
     return {"as_of": sc.get("as_of"), "made_at": datetime.now(KST).strftime("%Y-%m-%d %H:%M"), "items": items[:20],
-            "n_core": sum(1 for x in items if x["core"]), "rule": "핵심 = 펀더 2/3↑ + 기술 2/3↑ (펀더: 분기 이익·이익률·올해 이익 / 기술: RS 80↑·기준가 10% 안·업종 동행)"}
+            "n_core": sum(1 for x in items if x["core"]), "rule": "핵심 = 기술 2/3↑ + 펀더 추정 점수 0점 아님 (펀더: 다음 분기 이익·올해 EPS·추정치 상향, 추정치 없으면 발표 실적 참고 / 기술: RS 80↑·기준가 10% 안·업종 동행)"}
 
 
 def topdown_brief():
@@ -315,7 +383,7 @@ def topdown_brief():
         out["sectors_week"] = {"as_of": P.get("date"), **{q: [f"{m['group']}({m['rank']}위, 이익 {m['opg']:+.0f}%)" for m in MT if quad(m) == q][:4] for q in ("리더", "모멘텀만", "기다림")}}
         out["breadth_week"] = {k: v for k, v in ((P.get("breadth") or [{}])[-1]).items() if k not in ("nh", "nl")}   # 신고가·신저가 수는 네이버 시장 집계 하나만 씀(⑫)
     c = core_list()
-    out["core"] = [{k: x[k] for k in ("name", "group", "breakout", "dist", "fp", "tech", "note")} for x in c["items"] if x["core"]][:6]
+    out["core"] = [{k: x[k] for k in ("name", "group", "breakout", "dist", "fp", "fmax", "ftype", "tech", "note")} for x in c["items"] if x["core"]][:6]
     out["core_rule"] = c["rule"]
     return out
 
@@ -485,15 +553,15 @@ def quad(m):
 
 
 def cat(b):
-    f = (b["fs"] or {}).get("pts", 0)
+    ok = fok(b["fs"])
     if b["list"] == "running":
         return 4, "달리는 중 · 첫 눌림 대기", "neu"
-    if f >= 2 and b["tech"] >= 2:
+    if ok and b["tech"] >= 2:
         return 0, "핵심 후보", "pos"
-    if f >= 2:
-        return 1, "펀더 OK·기술 대기", "neu"
+    if ok:
+        return 1, "펀더 OK·기술 대기" if (b["fs"] or {}).get("type", "E") == "E" else "추정치 없음·기술 대기", "neu"
     if b["tech"] >= 2:
-        return 2, "기술만 · 펀더 미확인", "warn"
+        return 2, "기술만 · 펀더 미달", "warn"
     return 3, "제외", "neg"
 
 
@@ -534,7 +602,7 @@ def auto_narr(P):
     if vix and vix.get("w1"):
         impl.append([f"VIX {vix['now']:.1f} ({vix['w1']:.1f}→)", "우호" if vix["now"] < vix["w1"] else "부담", "변동성이 내려가면 위험 선호가 돌아옵니다." if vix["now"] < vix["w1"] else "변동성 상승은 위험 회피 신호입니다.", "neu"])
     deep = core[0] if core else None
-    warns = [b for b in P["board"] if (b["fs"] or {}).get("pts", 0) <= 1 and (b["tech"] >= 2 or b["list"] == "running") and b["fs"]]
+    warns = [b for b in P["board"] if not fok(b["fs"]) and (b["tech"] >= 2 or b["list"] == "running") and b["fs"]]
     warns = sorted(warns, key=lambda b: (b["fs"]["pts"], -b["tech"]))[:3]
     lb = P["breadth"][-1] if P["breadth"] else {}
     dd = len(P["regime"]["dist_days"])
@@ -1090,7 +1158,7 @@ def body(P, N):
   <div><span>국면</span><b class="{ {"neg": "k-r", "pos": "k-g", "warn": "k-y"}.get(ltc, "")}">● {lt}</b><small>분산일 {dd} · 50일선 위 {lb["a50"]:.0f}%</small></div>
   <div><span>외국인 5일</span><b class="{cls(f5)}">{f5/10000:+.2f}조</b><small>기관 {i5/10000:+.2f}조 (코스피)</small></div>
   <div><span>{"큰 스트림" if "스트림" in polish(str(N.get("leaders_label") or "")) or "줄기" in str(N.get("leaders_label") or "") else "리더 업종"}</span>{leaders_html(N.get("leaders_label") or "·".join(leaders[:3]) or "없음")}<small>이익 +{XQ}%↑ + 강도 {YQ}↑</small></div>
-  <div><span>핵심 후보</span><b>{len(core)}종목</b><small>펀더 2/3↑ + 기술 2/3↑</small></div>
+  <div><span>핵심 후보</span><b>{len(core)}종목</b><small>기술 2/3↑ + 펀더 추정 0점 아님</small></div>
  </div>
  {compare_html(P, core)}
  <div class="cover">
@@ -1138,7 +1206,7 @@ def body(P, N):
 </article>
 <article class="page">
  <div class="mast"><h2 data-tl="🎯 종목"><i>STEP 5</i>종목 — 펀더 필터 → 기술 트리거</h2><span>감시 목록 {P["screener"].get("count") or "-"}종목 훑기 · 확정 신호 {P["screener"].get("signals", 0)}건 · {md(P["screener"].get("as_of") or asof)}</span></div>
- <p style="margin:0 0 6px;font-size:13px"><b>펀더 점수</b>(3): ① 최근 분기 영업이익 전년 대비 +20%↑ 또는 흑자전환 ② 영업이익률이 1년 전보다 높음 ③ 올해 영업이익 +20%↑(E, 없으면 최근 2분기 합). <b>기술 점수</b>(3): ① RS 80↑ ② 기준가 10% 안 + 빠진 조건 없음 ③ 업종 동행. 점에 마우스를 올리면 근거가 보입니다.</p>
+ <p style="margin:0 0 6px;font-size:13px"><b>펀더 점수</b>(추정 3): ① 다음 분기 영업이익 추정치가 1년 전 같은 분기보다 +20%↑ 또는 흑자전환 ② 올해 EPS 추정치가 작년보다 증가 ③ 올해 영업이익 추정치가 한 달 전보다 상향. 증권사 추정치가 없는 종목은 발표된 실적(분기 영업이익·EPS)으로 본 참고 점수 2점이고 감점하지 않습니다. 핵심 후보에서 빼는 것은 추정 점수 0점뿐입니다. <b>기술 점수</b>(3): ① RS 80↑ ② 기준가 10% 안 + 빠진 조건 없음 ③ 업종 동행. 점에 마우스를 올리면 근거가 보입니다.</p>
  <div class="tw"><table><thead><tr><th class="l">종목 <small>업종·순위</small></th><th>분류</th><th>펀더</th><th>기술</th><th>최근 분기</th><th>올해(E)</th><th>PER(E)</th><th>RS</th><th>기준가</th><th>거리</th><th>손절가</th><th>1R 수량</th><th>베이스</th><th>업종</th><th class="l">일정·빠진 조건</th></tr></thead><tbody>{"".join(brow)}</tbody></table></div>
  <div class="src">최근 분기·올해(E) = 영업이익 증가율 · 손절가 = 기준가 −8% · 1R 수량 = 30만 원 ÷ (기준가 − 손절가) · 🎯 관찰 풀 · 출처: 감시 목록(screener.py), 네이버 재무·컨센서스(비공식)</div>
  {counter_html(N, [(b["code"], b["name"], f'펀더 {(b["fs"] or {}).get("pts", 0)} · 기술 {b["tech"]}') for b in core], "핵심 후보 반론")}
@@ -1302,7 +1370,7 @@ def pool_board(date=None):
          "# 직접 고쳐도 됨(빼려면 줄 삭제, 넣으려면 같은 형식으로 추가). 감시 목록(screener --pool)은 이 풀 + RS 70↑만 본다. 주문 기능 없음.",
          f'updated = "{now}"', f'source = "테크노펀더 주간 {P["date"]}"', ""]
     for tid, name, stage, items in [
-        ("C1", "🎯 핵심 후보 — 펀더 2/3↑ + 기술 2/3↑ (기준가 돌파 대기)", "준비", [row(b["name"], b["code"], f"준비 · 기준가 {b['breakout']:,}" if b.get("breakout") else "준비", b["group"]) for b in core]),
+        ("C1", "🎯 핵심 후보 — 기술 2/3↑ + 펀더 추정 0점 아님 (기준가 돌파 대기)", "준비", [row(b["name"], b["code"], f"준비 · 기준가 {b['breakout']:,}" if b.get("breakout") else "준비", b["group"]) for b in core]),
         ("C2", "펀더 OK · 기술 대기 — 이익은 받쳐 주고 베이스·RS를 기다림", "관찰", [row(b["name"], b["code"], "관찰", b["group"]) for b in wait]),
         ("C3", "달리는 주도주 — 베이스 없음, 추격하지 않고 첫 눌림 대기", "첫 눌림 대기", [row(b["name"], b["code"], "눌림 대기", b["group"]) for b in run]),
         ("C4", "리더 업종 주도주 — 업종 이익 +20%↑ × 강도 65↑, 종목 펀더 2/3↑", "리더 업종", [row(x["name"], x["code"], "업종 리더", x["group"]) for x in lead])]:
@@ -1371,7 +1439,7 @@ def tg(date=None):
     L += ["", f"🚦 국면: 신호등 {lt} · 분산일 {len(P['regime']['dist_days'])}개 · 50일선 위 종목 {lb['a50']:.0f}% · 20일선 대비 {pc(P['regime']['gap20'])}",
           f"💰 수급(코스피 5일): 외국인 {f5/10000:+.2f}조 · 기관 {i5/10000:+.2f}조 · 업종 순매수 상위 {', '.join(s['group'] for s in FS[:2])}", "",
           f"🏭 업종 (이익 × 추세)", f"- 리더: {byq('리더')}", f"- 모멘텀만: {byq('모멘텀만')}", f"- 기다림: {byq('기다림')}", "",
-          f"🎯 핵심 후보 {len(core)}종목 (펀더 2/3↑ + 기술 2/3↑, 기준가까지)"]
+          f"🎯 핵심 후보 {len(core)}종목 (기술 2/3↑ + 펀더 추정 0점 아님, 기준가까지)"]
     L += [f"- {b['name']} 기준가 {w(b['breakout'])}원 ({b['dist']:.1f}%) · 펀더 {(b['fs'] or {}).get('pts', 0)}/3 · 기술 {b['tech']}/3" for b in core[:5]]
     pm = (N.get("red_team") or {}).get("premortem") or []
     if pm:

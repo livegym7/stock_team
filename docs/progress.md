@@ -626,3 +626,5 @@
 - 2026-11-23 기준가 선: `candleChart`에 `pv` 옵션, `pivotOf(code)`(셋업 보드 → 감시 목록 levels.breakout). 로컬에서 종목 페이지·팝업·휴대폰 화면 찍어 확인.
 
 - 2026-11-24 피어 지수 1분 갱신: functions/api/quote.js `world=1`, app.html `applyWorld`. 로컬에서 가짜 응답으로 오늘 봉 교체·카드 표시 확인. 실제 Cloudflare 함수 응답은 배포 뒤 확인 필요.
+
+- 2026-11-24 펀더 점수 개편: `strategy_tf.fscore`(추정 E 3점/발표 A 2점 + items) · `fok` · `_rev`(추정치 한 달 변화: _est.json 먼저, 없으면 consensus/hist.json) · `core_list`/`cat`/알림/체크포인트 문구 · `web_build` `D.fscore`(실적 있는 783종목) · app.html `fdots`·`fscoreBox`. 로컬에서 실제 자료로 셋업 보드·종목 페이지·휴대폰 화면 확인. 전략 보고서 지면(토)과 장중 알림 문구는 다음 실행 때 확인 필요.

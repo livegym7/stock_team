@@ -92,9 +92,9 @@ def breakout_watch(now, sent, limit=40):
         grade = "🔥" if x.get("pool") else ("참고" if x.get("pool") is False else "")   # 관찰 풀 안 🔥 / 밖 참고 (2026-11-10)
         cx = core.get(c) or {}
         if cx.get("core"):
-            grade = f"🎯핵심(펀더 {cx['fp']}/3) " + grade
-        elif cx and cx.get("fp", 0) <= 1:
-            grade = grade + "(펀더 미확인) "
+            grade = f"🎯핵심(펀더 {'추정' if cx.get('ftype') == 'E' else '발표'} {cx['fp']}/{cx.get('fmax', 3)}) " + grade
+        elif cx and cx.get("fbad", cx.get("fp", 0) <= 1):
+            grade = grade + "(펀더 추정 0점) "
         note = f"{grade}{tier} {x['stock']} {px:,.0f}원 ({r.get('chg') or 0:+.2f}%) · 기준가 {piv:,}"
         miss = f" · 부족: {', '.join(x.get('missing') or [])}" if x.get("missing") else ""
         # 장중 업종 동행 (screener.industry_action과 같은 규칙: 같은 업종 40%↑가 +2%↑ 또는 중앙값 +1.5%↑, 2026-11-18)

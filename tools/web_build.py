@@ -1456,6 +1456,15 @@ def write_html(data):
         opg = {m["group"]: m.get("opg") for m in (json.loads(fs[-1].read_text(encoding="utf-8")).get("matrix") or [])} if fs else {}
         return {"fp": fp, "opg": opg}
     data["secpop"] = safe(_secpop)
+    def _fscores():   # 종목 페이지 '펀더 점수' 칸 (2026-11-24): 실적 자료가 있는 모든 종목 {코드: {t: E|A, p: 점수, i: [[항목, 통과 여부, 근거]]}}
+        import strategy_tf as T
+        out = {}
+        for code, d in T._fund().items():
+            f = T.fscore(d, None)
+            if f:
+                out[code] = {"t": f["type"], "p": f["pts"], "i": [[i["k"], i["ok"], i["t"]] for i in f["items"]]}
+        return out
+    data["fscore"] = safe(_fscores)
     # 깊이 모드 자료 (2026-11-20): 종목 메모(코드 → 메모)
     data["stock_memos"] = safe(lambda: {f.stem: json.loads(f.read_text(encoding="utf-8")) for f in (DATA / "stock_memos").glob("*.json")}, {})
     data["stock_checks"] = safe(lambda: json.loads((DATA / "stock_checks.json").read_text(encoding="utf-8")), {})   # 종목 점검표 (2026-11-23, tools/stock_check.py)

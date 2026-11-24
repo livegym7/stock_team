@@ -52,6 +52,7 @@
 - **부품 통일**: 시장 탭의 그림·표는 카드 격자(수급은 그림 한 줄 + 순매수·순매도 표 나란히) · 보고서 안의 표·그림 제목도 화면과 같은 글꼴·머리줄 · 숫자 카드는 회색 바탕 한 가지(app.html 맨 끝 '부품 통일 레이어').
 - **종목 표는 한 모양**: 모든 종목 표는 "종목(이름 + 아래 작은 업종) · 현재가 · 오늘 · RS"로 시작하고 그 뒤 칸만 다르다. 업종 칸을 따로 두지 않는다.
 - **글자 크기는 8단계**(10.5 · 11 · 12 · 12.5 · 13 · 15 · 19 · 22px)만 쓴다. **휴대폰 기준 폭은 820px 하나**(그 아래에서 메뉴는 아래 탭, 표는 카드 — 카드 안 칸 수는 폭에 맞춰 자동).
+- **펀더 점수**(2026-11-24 사용자 확정, 표시·순서용 — 매매 규칙 아님, 계산은 `strategy_tf.fscore` 한 곳): **추정 점수 3점** = 이익(다음 분기 영업이익 추정치가 1년 전보다 +20%↑/흑자 전환) · EPS(올해 추정치가 작년보다 증가) · 기대(올해 영업이익 추정치가 한 달 전보다 상향). 증권사 추정치가 없는 종목은 **발표 점수 2점**(최근 분기 영업이익·EPS, 회색, 참고용·감점 없음). **핵심 후보 = 기술 2점↑ + 추정 점수 0점이 아님**(`fok`). 화면: 셋업 보드 펀더 칸(● 통과 ○ 미달 ◌ 확인 불가 + 추정/발표 꼬리표), 종목 페이지 실적 칸 위 '펀더 점수' 상자(항목별 근거). 근거는 비교 자료(`backtest_long.py --fund/--fwd/--cons`): 지난 실적 점수는 신호 성적을 못 가름 · 다음 분기 실적은 뚜렷이 가름(최대치) · 진짜 컨센서스로는 0점만 나쁨 · 컨센서스 없는 종목은 나쁘지 않음.
 - **종목 메모(종목 페이지)**: 성격 딱지(성장·턴어라운드·경기 사이클·우량) → 가설 → 점검표 카드 3장(희석 위험 · 이익의 질 · 주가에 반영된 기대: 숫자는 `stock_check.py`, 해석 한 문장은 메모) → 가격/물량·고객 → 근거/반대 근거 → 깨지는 조건/강해지는 조건 + 미리 알려 주는 지표 → 숫자·경쟁사. 실적 줄에는 발표 뒤 주가 반응(발표일 → 다음 날). 모두 점검·표시용이고 매매 규칙에는 들어가지 않는다.
 - 화면 이름은 Balance Lab. 심볼은 `web/brand/`.
 
@@ -98,10 +99,10 @@
 | 시세·기초 | `naver_quote.py`(국내 현재가·일봉·수급·지수) · `us_quote.py`(해외) · `universe.py`(종목 목록) · `common.py`(공용: 환경 변수·계좌·신호등) |
 | 채널 | `tg_channel.py collect\|summary\|show\|company\|images` · `disclosure_filter.py`(공시 채널 거르기) · `views.py`(전문가 견해) · `earnings.py`(잠정실적) · `news.py` · `dart.py` |
 | 리포트·자료실 | `naver_research.py`(목록·전문 글자, 원문 저장 안 함) · `research_cards.py`(카드 깔때기) · `research.py`(드라이브 딥리서치) · `report_digest.py`(리포트 재료 + 공용 현재가 함수) |
-| 종목 | `stock_profile.py`(기본 카드) · `stock_cards.py`(깊은 카드) · `stock_memo.py`(종목 메모) · `stock_check.py`(점검표: 희석 위험·이익의 질·주가에 반영된 기대, 토큰 0) · `fundamentals.py`(실적·컨센서스) · `flow_osc.py`(수급 오실레이터) |
+| 종목 | `stock_profile.py`(기본 카드) · `stock_cards.py`(깊은 카드) · `stock_memo.py`(종목 메모) · `stock_check.py`(점검표: 희석 위험·이익의 질·주가에 반영된 기대, 토큰 0) · `fundamentals.py`(실적·컨센서스) · `consensus_hist.py`(컨센서스 추이: 월말 기록 2025-02~, `data/consensus/hist.json`) · `flow_osc.py`(수급 오실레이터) |
 | 시장·업종 | `market_pulse.py`(시황·수급·경제지표) · `macro_board.py`(매크로 캔들·유동성) · `macro_extra.py`(수출·메모리·유동성) · `sector_radar.py`(주도 섹터 레이더) · `sector_track.py`(업종 발자취) · `sector_etf.py`(지수·섹터 ETF 통계) · `etf_board.py` · `value_top.py`(거래대금 상위) · `new_highs.py`(신고가) · `calendar_fetch.py`(일정) · `sector_map.py`(업종 분류 점검) |
 | 감시·매매 | `screener.py [--pool --send]`(감시 목록, 규칙 숫자 원본) · `alerts.py`(장중 알림) · `risk.py`(R·CR·E, 수량 계산) · `trades.py buy\|sell\|stop\|review` |
-| 검증실 | `backtest.py [--scorecard]`(돌파 규칙 3년 + 성적표·신호 건수) · `backtest_exit.py`(본전 손절 시점 비교) · `backtest_ibs.py`(부록 지수 되돌림) · `backtest_long.py`(5년·10년 · 상장폐지 종목 포함 · 그날 시총 · `--portfolio` 계좌 · `--zone` 매물대 · `--fund` 그때 발표된 실적, 재료 `dart_fin_hist.py`) — 모두 비교 자료 |
+| 검증실 | `backtest.py [--scorecard]`(돌파 규칙 3년 + 성적표·신호 건수) · `backtest_exit.py`(본전 손절 시점 비교) · `backtest_ibs.py`(부록 지수 되돌림) · `backtest_long.py`(5년·10년 · 상장폐지 종목 포함 · 그날 시총 · `--portfolio` 계좌 · `--zone` 매물대 · `--fund` 그때 발표된 실적 · `--fwd` 다음 분기 실적(컨센서스 최대치) · `--cons` 진짜 컨센서스(2025-03~) · `--vol` 거래량 문턱 · `--ia` 업종 묶음, 재료 `dart_fin_hist.py`·`consensus_hist.py`) — 모두 비교 자료 |
 | 글쓰기 재료 | `checkpoint.py prep\|save\|send` · `live_brief.py prep\|save` · `insight.py`(체크포인트 재료·형식 검사에 쓰임) · `strategy_prep.py prep\|score\|pool\|save` · `strategy_tf.py prep\|narr-template\|render\|pool\|tg` · `depth.py [set lean\|deep]` |
 | 웹·전송 | `web_build.py [--only channels\|analysis\|monitoring]` · `web_site.py` · `telegram_send.py [--test\|--file]` |
 

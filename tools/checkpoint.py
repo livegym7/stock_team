@@ -121,7 +121,7 @@ def md_prep(o):
         if bw:
             L.append(f"- 시장 폭: 50일선 위 {bw.get('a50')}% · 20일선 위 {bw.get('a20')}% ({bw.get('date')})")
         L.append(f"## 핵심 후보 (펀더 2/3↑ + 기술 2/3↑) — mine 칸에 기준가까지 %")
-        L += [f"- {x['name']} ({x['group']}) 기준가 {x['breakout']} · {x['dist']}% 남음 · 펀더 {x['fp']}/3 · 기술 {x['tech']}/3 {x.get('note') or ''}" for x in T.get("core") or []] or ["- 없음"]
+        L += [f"- {x['name']} ({x['group']}) 기준가 {x['breakout']} · {x['dist']}% 남음 · 펀더 {'발표' if x.get('ftype') == 'A' else '추정'} {x['fp']}/{x.get('fmax', 3)} · 기술 {x['tech']}/3 {x.get('note') or ''}" for x in T.get("core") or []] or ["- 없음"]
     L.append(f"## 관찰 풀 기준가 ±3% (감시 목록 {o.get('screener_as_of')})")
     L += [f"- {x['name']} ({x['tier']}) {x['close']} → 기준가 {x['breakout']} ({x['distance_pct']:+}%) 오늘 {x.get('today') or ''}" for x in o.get("pool_near") or []]
     if o.get("calendar"):
