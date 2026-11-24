@@ -6,7 +6,7 @@
   - 3R 이후 20일선 아래 (종가로 확인 필요)
   - 하루 등락 -5% 이하 / +7% 이상
   - 감시 목록(전날 16:07) 종목이 장중에 기준가나 최대 매물대를 넘으면 모두(2026-11-24 단순화: 조건은 딱지로만 — 기준가·매물대·거래량·동행·펀더, 웹 신호 줄과 같음) · 기준가 근접(−2% 이내)은 관찰 풀·핵심 후보만
-  - 보유 종목이 주인공인 채널 새 글 (기업·실적·리포트·정책 글, 중복·잡담·시황 나열 제외, 지난 확인 이후)
+  - 보유 종목이 주인공인 채널 새 글 (기업·실적·리포트·정책 글, 중복·잡담·시황 나열 제외, 지난 확인 이후) — 웹 알림 센터에만 남기고 텔레그램으로는 보내지 않음(2026-11-24)
 판단만 알린다. 매수·매도를 대신하지 않는다 (절대 규칙 1·4).
 
 사용법:
@@ -344,13 +344,12 @@ def main():
         state["log"] = log_before
     sent = False
     # 2026-11-24 사용자 확정: 하루 상한을 없애고, 종류별로 제목을 단 메시지를 따로 보낸다 (제목만 보고 무슨 알림인지 알 수 있게)
-    groups = group_msgs(msgs)
+    groups = [g for g in group_msgs(msgs) if g[2] != "post"]   # 보유 종목 소식(채널 글)은 텔레그램으로 보내지 않고 웹 알림 센터에만 남긴다 (2026-11-24 사용자 확정)
     if groups and not a.dry:
         from telegram_send import send
         for title, lines, kind in groups:
             foot = f"\n\n리스크: E {ev['E_pct']}% · CR {ev['CR_pct']}% (한도 {ev['CR_limit_pct']}%)" if kind == "hold" else ""
-            src = "출처: 채널 요약(2차 자료)" if kind == "post" else "출처: 네이버 현재가(비공식) · 판단은 본인이 합니다"
-            send(f"{title} · {now.strftime('%m/%d %H:%M')} · {len(lines)}건\n" + "\n".join(lines) + foot + "\n" + src)
+            send(f"{title} · {now.strftime('%m/%d %H:%M')} · {len(lines)}건\n" + "\n".join(lines) + foot + "\n출처: 네이버 현재가(비공식) · 판단은 본인이 합니다")
         sent = True
     if not a.dry:
         Path(a.state).parent.mkdir(parents=True, exist_ok=True)
