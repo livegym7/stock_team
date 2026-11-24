@@ -1,0 +1,684 @@
+{
+ "made_at": "2026-11-24 12:13",
+ "period": [
+  "20250304",
+  "20261124"
+ ],
+ "signals": 495,
+ "define": "진짜 컨센서스로 본 펀더 점수 (2026-11-24 사용자 요청, 비교 자료): 신호일에 실제로 나와 있던 증권사 추정치(tools/consensus_hist.py — 월말 기준, 2025-02부터)로\n① 올해 영업이익 추정치가 작년보다 +20%↑(또는 흑자 전환) ② 올해 EPS 추정치가 작년보다 증가 ③ 올해 영업이익 추정치가 1개월 전보다 상향 — 을 매겨 신호 성적과 계좌를 본다.\n기간이 2025-03부터라 21개월뿐이고 강세장 한 구간이다. 분기 추정치는 과거 기록이 없어 '다음 분기' 대신 '올해' 추정치를 쓴다. 신호는 지금 규칙의 기준가 돌파.",
+ "coverage": {
+  "컨센서스 있음": 387,
+  "없음": 108
+ },
+ "has_vs_none": {
+  "컨센서스 있음": {
+   "n": 387,
+   "win_rate": 35.7,
+   "avg_r": 0.49,
+   "payoff": 3.1
+  },
+  "컨센서스 없음": {
+   "n": 107,
+   "win_rate": 43.0,
+   "avg_r": 0.82,
+   "payoff": 3.17
+  }
+ },
+ "by_score": {
+  "3점": {
+   "n": 120,
+   "win_rate": 35.0,
+   "avg_r": 0.45,
+   "payoff": 3.1
+  },
+  "2점": {
+   "n": 159,
+   "win_rate": 39.0,
+   "avg_r": 0.63,
+   "payoff": 3.1
+  },
+  "1점": {
+   "n": 77,
+   "win_rate": 36.4,
+   "avg_r": 0.48,
+   "payoff": 3.01
+  },
+  "0점": {
+   "n": 31,
+   "win_rate": 19.4,
+   "avg_r": -0.1,
+   "payoff": 3.67
+  }
+ },
+ "items": {
+  "① 올해 영업이익 추정 +20%↑": {
+   "예": {
+    "n": 283,
+    "win_rate": 37.1,
+    "avg_r": 0.55,
+    "payoff": 3.11
+   },
+   "아니오": {
+    "n": 98,
+    "win_rate": 32.7,
+    "avg_r": 0.29,
+    "payoff": 2.89
+   }
+  },
+  "② 올해 EPS 추정 증가": {
+   "예": {
+    "n": 325,
+    "win_rate": 36.0,
+    "avg_r": 0.46,
+    "payoff": 3.01
+   },
+   "아니오": {
+    "n": 50,
+    "win_rate": 30.0,
+    "avg_r": 0.41,
+    "payoff": 3.64
+   }
+  },
+  "③ 1개월 전보다 상향": {
+   "예": {
+    "n": 147,
+    "win_rate": 38.1,
+    "avg_r": 0.63,
+    "payoff": 3.22
+   },
+   "아니오": {
+    "n": 223,
+    "win_rate": 34.5,
+    "avg_r": 0.41,
+    "payoff": 3.04
+   }
+  },
+  "(참고) 3개월 전보다 상향": {
+   "예": {
+    "n": 159,
+    "win_rate": 32.1,
+    "avg_r": 0.29,
+    "payoff": 2.97
+   },
+   "아니오": {
+    "n": 117,
+    "win_rate": 29.9,
+    "avg_r": 0.23,
+    "payoff": 3.09
+   }
+  },
+  "(참고) 1개월 전보다 하향": {
+   "예": {
+    "n": 84,
+    "win_rate": 33.3,
+    "avg_r": 0.5,
+    "payoff": 3.44
+   },
+   "아니오": {
+    "n": 286,
+    "win_rate": 36.7,
+    "avg_r": 0.5,
+    "payoff": 3.03
+   }
+  }
+ },
+ "cross_13": {
+  "①통과 · ③상향": {
+   "n": 127,
+   "win_rate": 37.8,
+   "avg_r": 0.61,
+   "payoff": 3.18
+  },
+  "①통과 · ③상향 아님": {
+   "n": 150,
+   "win_rate": 36.7,
+   "avg_r": 0.51,
+   "payoff": 3.07
+  },
+  "①미달 · ③상향": {
+   "n": 18,
+   "win_rate": 38.9,
+   "avg_r": 0.44,
+   "payoff": 2.63
+  },
+  "①미달 · ③상향 아님": {
+   "n": 71,
+   "win_rate": 31.0,
+   "avg_r": 0.25,
+   "payoff": 2.99
+  }
+ },
+ "same_window": {
+  "지난 실적 점수 2점↑": {
+   "n": 236,
+   "win_rate": 36.9,
+   "avg_r": 0.47,
+   "payoff": 2.92
+  },
+  "지난 실적 점수 0~1점": {
+   "n": 212,
+   "win_rate": 39.6,
+   "avg_r": 0.72,
+   "payoff": 3.26
+  },
+  "다음 분기 실제(최대치) 2점↑": {
+   "n": 259,
+   "win_rate": 41.3,
+   "avg_r": 0.77,
+   "payoff": 3.21
+  },
+  "다음 분기 실제(최대치) 0~1점": {
+   "n": 197,
+   "win_rate": 33.0,
+   "avg_r": 0.29,
+   "payoff": 2.86
+  }
+ },
+ "variants": [
+  {
+   "name": "기준가 돌파만",
+   "signals": 495,
+   "per_signal": {
+    "n": 494,
+    "win_rate": 37.2,
+    "avg_r": 0.56,
+    "payoff": 3.12
+   },
+   "order": "rs",
+   "final": 1.582,
+   "total_ret_pct": 58.2,
+   "cagr_pct": 31.1,
+   "max_dd_pct": -29.8,
+   "taken": 126,
+   "skipped": 358,
+   "win_rate": 30.4,
+   "avg_r": 0.26,
+   "max_loss_streak": 11,
+   "by_kind": {
+    "돌파": 126
+   },
+   "random_total_ret_pct": {
+    "min": 3.5,
+    "median": 57.9,
+    "max": 221.1
+   }
+  },
+  {
+   "name": "기준가 돌파만 + 코스피 20일선 위",
+   "signals": 423,
+   "per_signal": {
+    "n": 423,
+    "win_rate": 38.1,
+    "avg_r": 0.57,
+    "payoff": 3.05
+   },
+   "order": "rs",
+   "final": 1.238,
+   "total_ret_pct": 23.8,
+   "cagr_pct": 13.5,
+   "max_dd_pct": -21.8,
+   "taken": 96,
+   "skipped": 320,
+   "win_rate": 32.3,
+   "avg_r": 0.13,
+   "max_loss_streak": 10,
+   "by_kind": {
+    "돌파": 96
+   },
+   "random_total_ret_pct": {
+    "min": -7.4,
+    "median": 86.8,
+    "max": 169.9
+   }
+  },
+  {
+   "name": "지난 실적 점수 2점↑ (지금 방식)",
+   "signals": 237,
+   "per_signal": {
+    "n": 236,
+    "win_rate": 36.9,
+    "avg_r": 0.47,
+    "payoff": 2.92
+   },
+   "order": "rs",
+   "final": 1.98,
+   "total_ret_pct": 98.0,
+   "cagr_pct": 49.8,
+   "max_dd_pct": -15.3,
+   "taken": 92,
+   "skipped": 135,
+   "win_rate": 37.4,
+   "avg_r": 0.48,
+   "max_loss_streak": 7,
+   "by_kind": {
+    "돌파": 92
+   },
+   "random_total_ret_pct": {
+    "min": 21.5,
+    "median": 85.9,
+    "max": 129.2
+   }
+  },
+  {
+   "name": "지난 실적 점수 2점↑ (지금 방식) + 코스피 20일선 위",
+   "signals": 196,
+   "per_signal": {
+    "n": 196,
+    "win_rate": 37.2,
+    "avg_r": 0.44,
+    "payoff": 2.82
+   },
+   "order": "rs",
+   "final": 2.135,
+   "total_ret_pct": 113.5,
+   "cagr_pct": 56.6,
+   "max_dd_pct": -12.9,
+   "taken": 75,
+   "skipped": 114,
+   "win_rate": 44.0,
+   "avg_r": 0.6,
+   "max_loss_streak": 4,
+   "by_kind": {
+    "돌파": 75
+   },
+   "random_total_ret_pct": {
+    "min": 49.4,
+    "median": 82.5,
+    "max": 131.2
+   }
+  },
+  {
+   "name": "컨센서스 점수 2점↑",
+   "signals": 279,
+   "per_signal": {
+    "n": 279,
+    "win_rate": 37.3,
+    "avg_r": 0.55,
+    "payoff": 3.1
+   },
+   "order": "rs",
+   "final": 1.448,
+   "total_ret_pct": 44.8,
+   "cagr_pct": 24.5,
+   "max_dd_pct": -18.1,
+   "taken": 90,
+   "skipped": 180,
+   "win_rate": 34.4,
+   "avg_r": 0.27,
+   "max_loss_streak": 8,
+   "by_kind": {
+    "돌파": 90
+   },
+   "random_total_ret_pct": {
+    "min": -6.7,
+    "median": 54.2,
+    "max": 193.9
+   }
+  },
+  {
+   "name": "컨센서스 점수 2점↑ + 코스피 20일선 위",
+   "signals": 234,
+   "per_signal": {
+    "n": 234,
+    "win_rate": 38.0,
+    "avg_r": 0.59,
+    "payoff": 3.11
+   },
+   "order": "rs",
+   "final": 1.191,
+   "total_ret_pct": 19.1,
+   "cagr_pct": 10.9,
+   "max_dd_pct": -16.3,
+   "taken": 68,
+   "skipped": 160,
+   "win_rate": 32.4,
+   "avg_r": 0.14,
+   "max_loss_streak": 8,
+   "by_kind": {
+    "돌파": 68
+   },
+   "random_total_ret_pct": {
+    "min": -8.4,
+    "median": 42.8,
+    "max": 156.7
+   }
+  },
+  {
+   "name": "컨센서스 점수 3점",
+   "signals": 120,
+   "per_signal": {
+    "n": 120,
+    "win_rate": 35.0,
+    "avg_r": 0.45,
+    "payoff": 3.1
+   },
+   "order": "rs",
+   "final": 1.855,
+   "total_ret_pct": 85.5,
+   "cagr_pct": 44.1,
+   "max_dd_pct": -16.1,
+   "taken": 73,
+   "skipped": 41,
+   "win_rate": 37.0,
+   "avg_r": 0.53,
+   "max_loss_streak": 7,
+   "by_kind": {
+    "돌파": 73
+   },
+   "random_total_ret_pct": {
+    "min": 48.4,
+    "median": 91.5,
+    "max": 132.4
+   }
+  },
+  {
+   "name": "컨센서스 점수 3점 + 코스피 20일선 위",
+   "signals": 103,
+   "per_signal": {
+    "n": 103,
+    "win_rate": 35.0,
+    "avg_r": 0.42,
+    "payoff": 3.01
+   },
+   "order": "rs",
+   "final": 1.52,
+   "total_ret_pct": 52.0,
+   "cagr_pct": 28.1,
+   "max_dd_pct": -15.7,
+   "taken": 61,
+   "skipped": 39,
+   "win_rate": 36.1,
+   "avg_r": 0.42,
+   "max_loss_streak": 8,
+   "by_kind": {
+    "돌파": 61
+   },
+   "random_total_ret_pct": {
+    "min": 9.9,
+    "median": 42.4,
+    "max": 81.5
+   }
+  },
+  {
+   "name": "컨센서스 점수 0~1점 (반대 확인)",
+   "signals": 108,
+   "per_signal": {
+    "n": 108,
+    "win_rate": 31.5,
+    "avg_r": 0.31,
+    "payoff": 3.12
+   },
+   "order": "rs",
+   "final": 1.302,
+   "total_ret_pct": 30.2,
+   "cagr_pct": 16.9,
+   "max_dd_pct": -16.7,
+   "taken": 50,
+   "skipped": 54,
+   "win_rate": 30.0,
+   "avg_r": 0.34,
+   "max_loss_streak": 10,
+   "by_kind": {
+    "돌파": 50
+   },
+   "random_total_ret_pct": {
+    "min": 20.6,
+    "median": 25.8,
+    "max": 30.7
+   }
+  },
+  {
+   "name": "컨센서스 점수 0~1점 (반대 확인) + 코스피 20일선 위",
+   "signals": 97,
+   "per_signal": {
+    "n": 97,
+    "win_rate": 34.0,
+    "avg_r": 0.36,
+    "payoff": 2.93
+   },
+   "order": "rs",
+   "final": 1.362,
+   "total_ret_pct": 36.2,
+   "cagr_pct": 20.0,
+   "max_dd_pct": -9.7,
+   "taken": 40,
+   "skipped": 53,
+   "win_rate": 35.0,
+   "avg_r": 0.45,
+   "max_loss_streak": 6,
+   "by_kind": {
+    "돌파": 40
+   },
+   "random_total_ret_pct": {
+    "min": 26.1,
+    "median": 30.6,
+    "max": 36.7
+   }
+  },
+  {
+   "name": "컨센서스 없음만",
+   "signals": 108,
+   "per_signal": {
+    "n": 107,
+    "win_rate": 43.0,
+    "avg_r": 0.82,
+    "payoff": 3.17
+   },
+   "order": "rs",
+   "final": 3.193,
+   "total_ret_pct": 219.3,
+   "cagr_pct": 98.6,
+   "max_dd_pct": -14.7,
+   "taken": 77,
+   "skipped": 28,
+   "win_rate": 43.4,
+   "avg_r": 0.93,
+   "max_loss_streak": 6,
+   "by_kind": {
+    "돌파": 77
+   },
+   "random_total_ret_pct": {
+    "min": 185.5,
+    "median": 205.5,
+    "max": 232.0
+   }
+  },
+  {
+   "name": "컨센서스 없음만 + 코스피 20일선 위",
+   "signals": 92,
+   "per_signal": {
+    "n": 92,
+    "win_rate": 42.4,
+    "avg_r": 0.73,
+    "payoff": 3.02
+   },
+   "order": "rs",
+   "final": 2.324,
+   "total_ret_pct": 132.4,
+   "cagr_pct": 64.6,
+   "max_dd_pct": -12.4,
+   "taken": 63,
+   "skipped": 27,
+   "win_rate": 42.9,
+   "avg_r": 0.8,
+   "max_loss_streak": 5,
+   "by_kind": {
+    "돌파": 63
+   },
+   "random_total_ret_pct": {
+    "min": 100.4,
+    "median": 123.9,
+    "max": 137.8
+   }
+  },
+  {
+   "name": "컨센서스 2점↑ 또는 (컨센서스 없음 + 지난 실적 2점↑)",
+   "signals": 327,
+   "per_signal": {
+    "n": 326,
+    "win_rate": 37.7,
+    "avg_r": 0.53,
+    "payoff": 3.0
+   },
+   "order": "rs",
+   "final": 1.427,
+   "total_ret_pct": 42.7,
+   "cagr_pct": 23.4,
+   "max_dd_pct": -25.7,
+   "taken": 107,
+   "skipped": 212,
+   "win_rate": 32.1,
+   "avg_r": 0.24,
+   "max_loss_streak": 8,
+   "by_kind": {
+    "돌파": 107
+   },
+   "random_total_ret_pct": {
+    "min": 12.2,
+    "median": 48.3,
+    "max": 182.5
+   }
+  },
+  {
+   "name": "컨센서스 2점↑ 또는 (컨센서스 없음 + 지난 실적 2점↑) + 코스피 20일선 위",
+   "signals": 273,
+   "per_signal": {
+    "n": 273,
+    "win_rate": 38.8,
+    "avg_r": 0.58,
+    "payoff": 3.0
+   },
+   "order": "rs",
+   "final": 1.706,
+   "total_ret_pct": 70.6,
+   "cagr_pct": 37.1,
+   "max_dd_pct": -17.0,
+   "taken": 83,
+   "skipped": 181,
+   "win_rate": 37.3,
+   "avg_r": 0.39,
+   "max_loss_streak": 6,
+   "by_kind": {
+    "돌파": 83
+   },
+   "random_total_ret_pct": {
+    "min": 15.5,
+    "median": 86.5,
+    "max": 200.4
+   }
+  },
+  {
+   "name": "③ 1개월 상향만",
+   "signals": 147,
+   "per_signal": {
+    "n": 147,
+    "win_rate": 38.1,
+    "avg_r": 0.63,
+    "payoff": 3.22
+   },
+   "order": "rs",
+   "final": 2.284,
+   "total_ret_pct": 128.4,
+   "cagr_pct": 62.9,
+   "max_dd_pct": -17.4,
+   "taken": 77,
+   "skipped": 62,
+   "win_rate": 40.3,
+   "avg_r": 0.71,
+   "max_loss_streak": 8,
+   "by_kind": {
+    "돌파": 77
+   },
+   "random_total_ret_pct": {
+    "min": 102.2,
+    "median": 154.7,
+    "max": 202.4
+   }
+  },
+  {
+   "name": "③ 1개월 상향만 + 코스피 20일선 위",
+   "signals": 124,
+   "per_signal": {
+    "n": 124,
+    "win_rate": 37.1,
+    "avg_r": 0.52,
+    "payoff": 3.05
+   },
+   "order": "rs",
+   "final": 1.259,
+   "total_ret_pct": 25.9,
+   "cagr_pct": 14.6,
+   "max_dd_pct": -30.2,
+   "taken": 67,
+   "skipped": 52,
+   "win_rate": 32.8,
+   "avg_r": 0.23,
+   "max_loss_streak": 9,
+   "by_kind": {
+    "돌파": 67
+   },
+   "random_total_ret_pct": {
+    "min": 12.8,
+    "median": 37.0,
+    "max": 65.4
+   }
+  },
+  {
+   "name": "다음 분기 실제 2점↑ (최대치)",
+   "signals": 260,
+   "per_signal": {
+    "n": 259,
+    "win_rate": 41.3,
+    "avg_r": 0.77,
+    "payoff": 3.21
+   },
+   "order": "rs",
+   "final": 2.457,
+   "total_ret_pct": 145.7,
+   "cagr_pct": 70.1,
+   "max_dd_pct": -14.0,
+   "taken": 91,
+   "skipped": 155,
+   "win_rate": 41.1,
+   "avg_r": 0.67,
+   "max_loss_streak": 7,
+   "by_kind": {
+    "돌파": 91
+   },
+   "random_total_ret_pct": {
+    "min": 83.1,
+    "median": 125.1,
+    "max": 177.2
+   }
+  },
+  {
+   "name": "다음 분기 실제 2점↑ (최대치) + 코스피 20일선 위",
+   "signals": 224,
+   "per_signal": {
+    "n": 224,
+    "win_rate": 42.0,
+    "avg_r": 0.78,
+    "payoff": 3.15
+   },
+   "order": "rs",
+   "final": 2.085,
+   "total_ret_pct": 108.5,
+   "cagr_pct": 54.4,
+   "max_dd_pct": -14.9,
+   "taken": 81,
+   "skipped": 133,
+   "win_rate": 42.0,
+   "avg_r": 0.54,
+   "max_loss_streak": 5,
+   "by_kind": {
+    "돌파": 81
+   },
+   "random_total_ret_pct": {
+    "min": 33.7,
+    "median": 100.2,
+    "max": 171.2
+   }
+  }
+ ],
+ "seconds": 2
+}
