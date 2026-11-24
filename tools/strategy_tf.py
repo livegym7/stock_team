@@ -1426,7 +1426,7 @@ def tg(date=None):
     BD = sorted(P["board"], key=lambda b: (cat(b)[0], b["dist"] if b["dist"] is not None else 99))
     core = [b for b in BD if cat(b)[0] == 0]
     FS = sorted(P["flow_sectors"], key=lambda s: -((s["f5"] or 0) + (s["i5"] or 0)))
-    L = [f"📊 테크노펀더 주간 전략 · {P['date'][5:].replace('-', '/')} (시세 {md(P['regime']['date'])} 종가)", "",
+    L = [f"📊 [전략 보고서] 테크노펀더 주간 전략 · {P['date'][5:].replace('-', '/')} (시세 {md(P['regime']['date'])} 종가)", "",
          f"💡 {plain(N.get('title'))}", f"→ {plain(N.get('call'))}", ""]
     C = compare(P)
     if not C["first"]:

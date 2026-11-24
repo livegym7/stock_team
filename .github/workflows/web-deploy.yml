@@ -120,4 +120,4 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
-          python3 tools/telegram_send.py "⚠️ 웹 배포 실패 — Balance Lab 화면이 갱신되지 않았습니다. 깃허브 Actions '웹 배포' ${{ github.run_number }}번 기록을 확인하거나 Claude에게 '웹 배포 실패 확인해줘'라고 말해 주세요." || true
+          python3 tools/telegram_send.py "🛠 [점검 알림] 웹 배포 실패 — Balance Lab 화면이 갱신되지 않았습니다. 깃허브 Actions '웹 배포' ${{ github.run_number }}번 기록을 확인하거나 Claude에게 '웹 배포 실패 확인해줘'라고 말해 주세요." || true

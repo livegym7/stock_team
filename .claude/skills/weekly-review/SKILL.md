@@ -23,7 +23,7 @@ python3 tools/research.py context                                # 딥리서치 
 ## 2. 쓰기 — `reports/YYYY-MM-DD/weekly.md` (금요일 날짜)
 이모지 표기 `docs/brief-style.md`, 3,000~5,000자. **글은 `docs/brief-style.md`의 '읽기 쉬운 글쓰기' 규칙(한 문장 한 줄·짧게·의견 라벨 4줄)을 따른다.**
 ```
-🗓️ 주간 리뷰 · MM/DD~MM/DD
+🗓️ [주간 리뷰] MM/DD~MM/DD
 KODEX 200 ▲▼x% · 나스닥 ▲▼x% · 원/달러 (기준 시각·출처)
 
 💡 Claude 의견 3~5줄 — 이번 주 핵심과 다음 주에 주는 의미 (근거·반대 근거)

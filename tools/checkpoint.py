@@ -187,7 +187,7 @@ def save(path):
 
 def to_md(d):
     mark = {"맞음": "✅", "틀림": "❌", "진행": "⏳"}
-    L = [f"# 🧭 체크포인트 {SLOTS[d['slot']]} — {d['made_at'][5:10].replace('-', '/')}", ""]
+    L = [f"# 🧭 [체크포인트] {SLOTS[d['slot']]} — {d['made_at'][5:10].replace('-', '/')}", ""]
     if d.get("market"):
         L += [d["market"], ""]
     L += [f"💡 {d['title']}", ""]

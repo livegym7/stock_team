@@ -630,3 +630,5 @@
 - 2026-11-24 펀더 점수 개편: `strategy_tf.fscore`(추정 E 3점/발표 A 2점 + items) · `fok` · `_rev`(추정치 한 달 변화: _est.json 먼저, 없으면 consensus/hist.json) · `core_list`/`cat`/알림/체크포인트 문구 · `web_build` `D.fscore`(실적 있는 783종목) · app.html `fdots`·`fscoreBox`. 로컬에서 실제 자료로 셋업 보드·종목 페이지·휴대폰 화면 확인. 전략 보고서 지면(토)과 장중 알림 문구는 다음 실행 때 확인 필요.
 
 - 2026-11-24 셋업 보드 단순화: app.html `sigList`·`sigTags`·`signalStrip`(딱지 `.sgt t1~t5`)·`setupTab`(12칸, 신호 맨 위), `strategy_tf.fok`(0점 제외), `alerts.py`(넘은 종목 전부 + 딱지 문구). 로컬 확인: 가짜 장중 시세로 PC·휴대폰 화면, `alerts.py --dry --force`로 실제 문구(삼현·제이브이엠·프로티나·아모레퍼시픽 4건). 실제 텔레그램 발송과 web/core.json을 읽는 동행·펀더 딱지는 배포 환경에서 확인 필요.
+
+- 2026-11-24 텔레그램: `alerts.py` 상한 삭제 + `group_msgs`(종류별 제목), `features.toml alert_daily_cap` 삭제, 체크포인트·전략 보고서 요약·주간 리뷰(스킬)·배포 실패 알림 제목에 대괄호 종류. `group_msgs`를 가짜 줄로 시험. 실제 발송 모양은 다음 장중 알림·체크포인트 때 확인 필요.

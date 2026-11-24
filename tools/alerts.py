@@ -271,6 +271,23 @@ def check(state, now):
     return out, ev
 
 
+KINDS = [("hold", "🚨 [보유 종목 알림]", ("🚨", "⚠️", "🔵", "🔴")), ("brk", "🔔 [돌파 알림]", ("🔔",)), ("near", "👀 [기준가 근접]", ("👀",)),
+         ("addon", "🧩 [부록 알림]", ("🧩",)), ("post", "📡 [보유 종목 소식]", ("📡",)), ("sys", "🛠 [점검 알림]", ("(",))]
+
+
+def group_msgs(msgs):
+    """알림 줄을 종류별로 묶는다 → [(제목, [줄…], 종류)]. 종류는 줄 맨 앞 기호로 가른다(알림을 만드는 곳에서 붙이는 기호)."""
+    out = []
+    for kind, title, marks in KINDS:
+        L = [m for m in msgs if m.startswith(marks)]
+        if L:
+            out.append((title, L, kind))
+    rest = [m for m in msgs if not any(m.startswith(k[2]) for k in KINDS)]
+    if rest:
+        out.append(("🛠 [점검 알림]", rest, "sys"))
+    return out
+
+
 def live_snapshot(state, ev, now):
     """웹 화면용 장중 스냅샷 (2026-11-12, Balance Lab 2.0 X-03): 지수·수급·보유 손익·관찰 풀 가격·오늘 알림. 20분마다 site/live.json."""
     from report_digest import live_prices
@@ -326,17 +343,15 @@ def main():
     if a.dry:   # 연습 실행은 보낸 알림이 아니므로 알림 센터 기록에 남기지 않음
         state["log"] = log_before
     sent = False
-    cap = ((__import__("common").load_toml("features.toml") or {}).get("telegram") or {}).get("alert_daily_cap")
-    today = now.strftime("%Y-%m-%d")
-    over_cap = bool(cap) and (state.get("tg_count") or {}).get(today, 0) >= cap
-    if msgs and not a.dry and over_cap:
-        print(json.dumps({"capped": f"오늘 텔레그램 알림 {cap}회 상한 — 웹 알림 센터에만 기록"}, ensure_ascii=False))
-    if msgs and not a.dry and not over_cap:
-        state["tg_count"] = {today: (state.get("tg_count") or {}).get(today, 0) + 1}
+    # 2026-11-24 사용자 확정: 하루 상한을 없애고, 종류별로 제목을 단 메시지를 따로 보낸다 (제목만 보고 무슨 알림인지 알 수 있게)
+    groups = group_msgs(msgs)
+    if groups and not a.dry:
         from telegram_send import send
-        text = f"🔔 보유 종목 알림 · {now.strftime('%m/%d %H:%M')}\n" + "\n".join(msgs) + \
-               f"\n\n리스크: E {ev['E_pct']}% · CR {ev['CR_pct']}% (한도 {ev['CR_limit_pct']}%)\n출처: 네이버 현재가(비공식)·채널 요약(2차 자료) · 판단은 본인이 합니다"
-        send(text); sent = True
+        for title, lines, kind in groups:
+            foot = f"\n\n리스크: E {ev['E_pct']}% · CR {ev['CR_pct']}% (한도 {ev['CR_limit_pct']}%)" if kind == "hold" else ""
+            src = "출처: 채널 요약(2차 자료)" if kind == "post" else "출처: 네이버 현재가(비공식) · 판단은 본인이 합니다"
+            send(f"{title} · {now.strftime('%m/%d %H:%M')} · {len(lines)}건\n" + "\n".join(lines) + foot + "\n" + src)
+        sent = True
     if not a.dry:
         Path(a.state).parent.mkdir(parents=True, exist_ok=True)
         Path(a.state).write_text(json.dumps(state, ensure_ascii=False, indent=1), encoding="utf-8")
