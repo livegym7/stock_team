@@ -328,6 +328,12 @@ def check_topics(d):
         E.append("topics는 2~8개")
         T = T if isinstance(T, list) else []
     ends = lambda x: str(x).rstrip(" .\"'”)").endswith(("니다", "습니다"))   # noqa: E731
+    seen_nm, seen_one = set(), set()   # 같은 주제를 두 번 쓰지 못하게 (2026-11-25: 07시 회차에 '미국 조정·관세 재료' 카드가 똑같이 두 장 나옴)
+    for t in T:
+        k1, k2 = re.sub(r"\s+", "", str(t.get("name") or "")), re.sub(r"\s+", "", str(t.get("one") or ""))
+        if k1 in seen_nm or (k2 and k2 in seen_one):
+            E.append(f"{t.get('name')}: 같은 주제 카드가 두 번 들어 있습니다 — 하나로 합치세요")
+        seen_nm.add(k1); seen_one.add(k2)
     for t in T:
         nm = t.get("name") or "?"
         if t.get("stance") not in STANCE:
