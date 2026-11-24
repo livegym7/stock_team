@@ -394,7 +394,7 @@ details.fold summary{cursor:pointer;list-style:none}details.fold summary::-webki
 .tday{margin:14px 0 6px}.tdh{font-size:13px;color:var(--muted);font-weight:600;margin:0 0 6px 2px;position:sticky;top:44px;background:var(--bg);padding:4px 0;z-index:1}
 .v3sum .thesis{font-size:15px}
 /* ===== A안 피부 (2026-11-10 사용자 승인: 토스증권식 깔끔한 목록형) — 토큰·여백·둥글기만 바꾸고 구조는 그대로 ===== */
-:root{--primary:#3182f6;--accent:#3182f6;--accent-soft:#eaf2fe;--on-accent:#fff;--up:#f04452;--down:#3182f6;--bg:#ffffff;--background:#ffffff;--panel:#ffffff;--card:#ffffff;--line:#e5e8eb;--border:#e5e8eb;--input:#e5e8eb;--soft:#f2f4f6;--muted-bg:#f2f4f6;--fg:#191f28;--foreground:#191f28;--muted:#6b7684;--faint:#8b95a1;--tape:#ffffff;--rail:#ffffff}
+:root{--primary:#3182f6;--accent:#3182f6;--accent-soft:#eaf2fe;--on-accent:#fff;--up:#d92533;--down:#1b64da;--bg:#ffffff;--background:#ffffff;--panel:#ffffff;--card:#ffffff;--line:#e5e8eb;--border:#e5e8eb;--input:#e5e8eb;--soft:#f2f4f6;--muted-bg:#f2f4f6;--fg:#191f28;--foreground:#191f28;--muted:#5b6675;--faint:#6b7684;--tape:#ffffff;--rail:#ffffff}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--primary:#4f8df7;--accent:#4f8df7;--accent-soft:#1b2a44;--up:#ff6b6b;--down:#5aa2ff;--bg:#17171c;--background:#17171c;--panel:#17171c;--card:#17171c;--line:#2a2b33;--border:#2a2b33;--input:#2a2b33;--soft:#22232a;--muted-bg:#22232a;--fg:#e9ebf0;--foreground:#e9ebf0;--muted:#9aa1ac;--faint:#7b8290;--tape:#17171c;--rail:#17171c}}
 :root[data-theme="dark"]{--primary:#4f8df7;--accent:#4f8df7;--accent-soft:#1b2a44;--up:#ff6b6b;--down:#5aa2ff;--bg:#17171c;--background:#17171c;--panel:#17171c;--card:#17171c;--line:#2a2b33;--border:#2a2b33;--input:#2a2b33;--soft:#22232a;--muted-bg:#22232a;--fg:#e9ebf0;--foreground:#e9ebf0;--muted:#9aa1ac;--faint:#7b8290;--tape:#17171c;--rail:#17171c}
 body{letter-spacing:-.2px}
@@ -637,7 +637,7 @@ table.sortt th{cursor:pointer;user-select:none} table.sortt th:hover{color:var(-
 .fna{font-style:normal;color:var(--muted)}.ftag{font-size:10.5px;border-radius:4px;padding:0 4px;white-space:nowrap}.ftag.e{color:var(--accent);background:color-mix(in srgb,var(--accent) 12%,transparent)}.ftag.a{color:var(--muted);background:var(--line)}.sdots.fa{color:var(--muted)}
 .fsb{border:1px solid var(--line);border-radius:10px;padding:8px 12px;margin:10px 0}.fsh{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:13px;margin-bottom:4px}
 .fsr{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:12.5px;padding:3px 0;border-top:1px dashed var(--line)}.fsr b{min-width:128px}
-.fsm{font-size:11px;border-radius:999px;padding:1px 8px;min-width:54px;text-align:center}.fsm.on{background:#fde8e8;color:var(--up);font-weight:700}.fsm.off{background:#e8f0fe;color:var(--down)}.fsm.na{background:var(--line);color:var(--muted)}
+.fsm{font-size:11px;border-radius:999px;padding:1px 8px;min-width:54px;text-align:center}.fsm.on{background:color-mix(in srgb,var(--up) 12%,transparent);color:var(--up);font-weight:700}.fsm.off{background:color-mix(in srgb,var(--down) 12%,transparent);color:var(--down)}.fsm.na{background:var(--line);color:var(--muted)}
 .sgt{display:inline-block;font-size:11px;font-weight:700;border-radius:5px;padding:0 6px;margin-right:3px;color:#fff;white-space:nowrap}
 .sgt.t1{background:#d6336c}.sgt.t2{background:#e8590c}.sgt.t3{background:#7048e8}.sgt.t4{background:#2f9e6e}.sgt.t5{background:#1c7ed6}.sgt.t6{background:#0c8599}
 tr.sgrow>td{background:color-mix(in srgb,#d6336c 6%,transparent)}
@@ -756,6 +756,16 @@ html body .view table.tcrt th{white-space:nowrap}html body .view table.tcrt td.n
 .tchist{display:flex;align-items:center;justify-content:flex-end;gap:8px;margin:0 0 0 auto;font-size:12px}.tchist span{white-space:nowrap}html body .view .tchist select{width:auto;flex:none;max-width:140px}.tchist select{font:inherit;font-size:12px;border:1px solid var(--line);border-radius:8px;padding:3px 6px;background:var(--panel);color:var(--fg)}
 .tcslot{font-size:10.5px;color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:0 5px;white-space:nowrap}.tcslot.n{color:var(--tcp);border-color:var(--tcp);font-weight:700}
 @media(max-width:820px){.tcg,.tcrg,.tcog{grid-template-columns:minmax(0,1fr)}.tcrh span{margin-left:0;flex-basis:100%}html body .view table.tcrt td:first-child{white-space:normal}}
+/* 정돈 (2026-11-24 사용자 확정): 휴대폰 머리 줄이기(칩·탭은 한 줄로 옆으로 밀기) · 누름 높이 · 깨진 곳(오늘 넘음 카드 바탕, 종목 메모 숫자 표, 소식 딱지) · '오늘'은 내 계좌·보유 종목을 글보다 먼저 */
+@media(max-width:820px){
+ .chips{flex-wrap:nowrap!important;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;max-width:100%}.chips::-webkit-scrollbar{display:none}.chips>*{flex:0 0 auto;white-space:nowrap}.chips .chip{min-height:36px}
+ html body .view table.slist tr.sgrow{background:color-mix(in srgb,#d6336c 6%,var(--panel))}html body .view table.slist tr.sgrow>td{background:transparent}
+ .snr .pill{justify-self:start}
+ html body .view table.mnum,html body .view table.mnum tbody{display:block}html body .view table.mnum tr{display:block;padding:5px 2px;border-bottom:1px dashed var(--line)}html body .view table.mnum tr:last-child{border-bottom:0}html body .view table.mnum td{display:block;padding:1px 6px;white-space:normal;text-align:left}
+ .hg2{display:flex;flex-direction:column}.hg2>.hr2{order:-1}
+}
+details.trkfold{margin:0 0 12px}details.trkfold>summary{cursor:pointer;font-size:13px;font-weight:700;padding:8px 2px;list-style-position:inside}details.trkfold>summary small{font-weight:400}details.trkfold .trk{margin:6px 0 0}
+.view>.tbnm{margin:0 0 12px}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="bl-icon" viewBox="0 0 1024 1024"><defs><linearGradient id="blbg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#52525b"/><stop offset="1" stop-color="#18181b"/></linearGradient><linearGradient id="blgl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".16"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/></linearGradient></defs><rect width="1024" height="1024" rx="232" fill="url(#blbg)"/><rect width="1024" height="1024" rx="232" fill="url(#blgl)"/><path d="M352 262 V762 M352 262 H528 A122 122 0 0 1 528 506 H352 M352 506 H574 A128 128 0 0 1 574 762 H352" fill="none" stroke="#fff" stroke-linejoin="round" stroke-linecap="round" stroke-width="104"/><circle cx="742" cy="290" r="44" fill="#6d7dff"/></symbol></svg>
@@ -1593,17 +1603,18 @@ function trackerBar(){   // 국면 추적판 8칸(2026-11-15 ADR 추가) — 7�
   const k=((D.pulse||{}).markets||[]).find(m=>m.market=="KOSPI")||{};
   const lc={빨강:"var(--up)",노랑:"var(--warn)",초록:"var(--ok,#15803d)"}[T.light]||"inherit";
   const it=(n,v,extra,sub)=>`<div class="ti"><span>${n}</span><b>${v}</b>${extra||""}<small>${sub||""}</small></div>`;
-  return `<div class="trk">${it("신호등",`<span style="color:${lc}">● ${esc(T.light)}</span>`,"",`20일선 ${pc(T.gap20)} · 기울기 ${pc(T.slope20)}`)}
+  const open=ui.trkOpen??(innerWidth>820);   // 휴대폰은 한 줄로 접어 두고 PC는 펼침 (2026-11-24 정돈), 누르면 기억
+  return `<details class="trkfold" data-fold="trkOpen" ${open?"open":""}><summary>시장 상태 <small class="muted">분산일 ${T.dist}/25 · 랠리 시도 ${T.rally_day?T.rally_day+"일째":"-"} · 50일선 위 ${(+T.a50).toFixed(0)}%</small></summary><div class="trk">${it("신호등",`<span style="color:${lc}">● ${esc(T.light)}</span>`,"",`20일선 ${pc(T.gap20)} · 기울기 ${pc(T.slope20)}`)}
    ${it("분산일 (25일)",`${T.dist}<i>/25</i>`,`<div class="tdots">${Array.from({length:10},(_,i)=>`<i class="${i<T.dist?"on":""}"></i>`).join("")}</div>`,"5개↑ 압력 큼")}
    ${it("랠리 시도",T.rally_day?`${T.rally_day}일째`:"-",`<div class="tsteps">${Array.from({length:7},(_,i)=>`<i class="${i<T.rally_day?"on":""}"></i>`).join("")}</div>`,`저점 ${esc(fmtYmd(T.rally_low||""))} · 4~7일째 팔로스루`)}
    ${it("팔로스루",T.ftd?`<span class="up">${esc(fmtYmd(T.ftd))}</span>`:`<span class="muted">아직</span>`,"","코스피 +1.5%↑ + 거래량 증가")}
    ${it("50일선 위 종목",`${(+T.a50).toFixed(0)}%`,`<div class="tbar"><i style="width:${Math.min(100,T.a50)}%"></i><em></em></div>`,`20일선 위 ${(+T.a20).toFixed(0)}% · 50% 넘으면 확인`)}
    ${it("신고가 / 신저가",k.high52!=null?`${k.high52} / ${k.low52}`:"-","","코스피 · 네이버 집계")}
    ${T.adr!=null?it("ADR 20일 (코스피)",`<span class="${T.adr>=120?"up":T.adr<=75?"down":""}">${(+T.adr).toFixed(0)}</span>`,`<div class="tbar"><i style="width:${Math.min(100,Math.max(0,(T.adr-50)/100*100))}%"></i><em style="left:50%"></em></div>`,`${T.adr>=120?"과열":T.adr<=75?"침체(바닥권)":T.adr<90?"침체권 근처":"보통"}${T.adr_prev!=null?" · 5일 전 "+(+T.adr_prev).toFixed(0):""} · 120↑ 과열 75↓ 침체`):""}
-   ${it("외국인 5일",`<span class="${cls(T.f5)}">${(T.f5/10000>=0?"+":"")+(T.f5/10000).toFixed(2)}조</span>`,"",`기관 ${(T.i5/10000>=0?"+":"")+(T.i5/10000).toFixed(2)}조 · 코스피`)}</div>`}
+   ${it("외국인 5일",`<span class="${cls(T.f5)}">${(T.f5/10000>=0?"+":"")+(T.f5/10000).toFixed(2)}조</span>`,"",`기관 ${(T.i5/10000>=0?"+":"")+(T.i5/10000).toFixed(2)}조 · 코스피`)}</div></details>`}
 function viewHome2(){
   const op=latestOpinion();
-  return `${regimeHead()}${trackerBar()}
+  return `${regimeHead()}${tbStrip(tbRows(),1)}${trackerBar()}
   <div class="hg2">
    <div class="hl">
     ${statusBoard()}
@@ -1615,7 +1626,6 @@ function viewHome2(){
     ${acctBox()}
     ${holdBox()}
     ${src((D.risk?.source||"")+" · "+(D.risk?.at||"")+" · 수익률 = (실현+평가 손익) ÷ 원금, 매매 일지 기준")}
-    ${tbStrip(tbRows(),1)}
     ${coreBox()}
     ${highsLine()}
     ${alertLine()}
@@ -1977,7 +1987,7 @@ function viewFlow(){   // 2026-11-14 2차: 시장 = 매일 보는 탑다운(매�
   if(["digest","reports","channels","news"].includes(t)){if(t!="news")ui.nt=t;ui.ft="macro";save();setTimeout(()=>{location.hash="news"},0);t="macro"}
   if(!MKT_TABS.some(([v])=>v==t))t="macro";
   const body=t=="macro"?macroTab():t=="sectors"?sectorsTab():tfMarket(t);
-  return `<h1>시장</h1><div class="sub">탑다운: 매크로 → 국면·시장 폭 → 수급 → 업종 지도 · 숫자는 웹 갱신 때마다 자동(토큰 0) · 글로 된 소식은 '소식' 메뉴</div>
+  return `<h1>시장</h1>
   <div class="chips tabs" style="margin-bottom:10px">${MKT_TABS.map(([v,n])=>`<button class="chip ${t==v?"on":""}" data-ft="${v}">${n}</button>`).join("")}</div>${body}`;
 }
 /* ---------- ETF 시세판 (2026-11-13): 등락률 순, 코스피·코스닥 줄을 같은 표에 끼워 시장 대비 강약을 한눈에 ---------- */
@@ -2179,7 +2189,7 @@ function viewStrategy2(){
   let t=ui.st||"report"; if(t=="pool"){ui.st="report";ui.kt="setup";ui.sc=null;save();setTimeout(()=>{location.hash="stock"},0)}   // 옛 주소(전략 › 관찰 풀)는 새 자리로
   if(!tabs.some(([v])=>v==t))t="report";
   const body=t=="addon"?addonTab():t=="report"?tfReport():stripH1(viewResearch());
-  return `<h1>전략</h1><div class="sub">어디서 추세추종을 할 것인가 — 주 1회(토 09:07) 전략 보고서 → 관찰 풀 → 종목 › 매매 보드 · 자료실은 리포트 원문 요약 창고 · 행동은 관찰/준비/회피(매수·매도 권유 아님)</div>
+  return `<h1>전략</h1><div class="sub">행동은 관찰/준비/회피로만 적습니다 (매수·매도 권유 아님)</div>
   <div class="chips tabs">${tabs.map(([v,n])=>`<button class="chip ${t==v?"on":""}" data-st="${v}">${n}</button>`).join("")}</div>${body}`;
 }
 
@@ -2263,7 +2273,7 @@ document.addEventListener("click",e=>{const a=e.target.closest("[data-tt]");if(a
 /* ---------- ⑤ 더보기: 달력 · 자동 작업 · 출처 · 채널 목록 · 화면 모드 ---------- */
 function viewMore(){
   const MORE_T=[["alert","🔔 알림"],["cal","📅 일정"],["auto","⚙️ 자동 작업"],["src","출처·채널"]],mt=ui.mt=="ch"?"src":MORE_T.some(([k])=>k==ui.mt)?ui.mt:"alert";
-  return `<h1>더보기</h1><div class="sub">일정·자동 작업·데이터 출처·채널 목록 · 바꾸고 싶으면 Claude에게 말해 주세요 (보기 전용)</div>
+  return `<h1>더보기</h1>
   <div class="chips tabs">${MORE_T.map(([k,n])=>`<button class="chip ${mt==k?"on":""}" data-mt="${k}">${n}</button>`).join("")}<span class="tabgap"></span><button class="chip themeb" data-theme-t="1">${isDark()?"☀ 밝은 화면":"☾ 어두운 화면"}</button></div>
   <div class="src morenote">데이터 ${esc(D.built_at)} · 체크포인트·정리 평일 07·10·12·15·18시 · 주말 정리 12·20시 · 웹 갱신 평일 07:20·10:20·12:20·15:20·16:40·18:20·21:10 · 주말 12:40·20:40(글이 써진 뒤 약 20분) · 장중 가격 20분마다(화면은 1분 시세)</div>
   ${mt=="alert"?alertCenter():""}
@@ -2278,7 +2288,7 @@ function viewMore(){
 }
 
 /* ---------- 라우터 ---------- */
-function viewNews(){return `<h1>소식</h1><div class="sub">정리(체크포인트·장중 정리·마감) · 채널 원문 — 채널 글은 2차 자료, 판단은 본인 · 리포트 목록은 전략 › 자료실</div>${newsTab()}`}
+function viewNews(){return `<h1>소식</h1><div class="sub">채널 글은 2차 자료 · 판단은 본인</div>${newsTab()}`}
 const VIEWS={home:viewHome2,flow:viewFlow,news:viewNews,strategy:viewStrategy2,stock:viewStock,trade:viewTrade,more:viewMore};
 
 /* ---------- 기업 검색 (2026-11-12 사용자 요청) ---------- */
@@ -2365,7 +2375,7 @@ function alertCenter(){
 function alertLine(){const xs=alertsToday();if(!xs.length)return "";const a=xs[xs.length-1];return `<a class="bx albox" href="#more" data-al="1"><div class="bh">🔔 오늘 알림 ${xs.length}건<em>마지막 ${esc(a.t)}</em></div><div class="alrow"><span class="num">${esc(a.t)}</span><div>${esc(a.msg.split("\n")[0])}</div></div></a>`}
 
 /* ---------- Balance Lab 2.0 2단계 (2026-11-12): 종목 페이지 · 상태판 · 체크포인트 ---------- */
-const STOCK_SUB='<div class="sub">매매 보드(감시 목록 + 관찰 풀) · 주목(검색 상위) · 신고가 · 거래대금 · 실적 · ETF · 전체 목록 · 종목을 누르면 종목 페이지</div>';   // 탭 줄 위치가 탭마다 같도록 모든 탭에 같은 한 줄 (2026-11-19)
+const STOCK_SUB='';   // 탭 줄 위치가 탭마다 같도록 모든 탭에 같은 한 줄 (2026-11-19)
 function stockTabsBar(t){return `<div class="chips tabs" style="margin-bottom:10px">${STOCK_TABS.map(([v,n])=>`<button class="chip ${t==v?"on":""}" data-kt="${v}">${n}</button>`).join("")}</div>`}
 /* 셋업 보드 정리 (2026-11-17 시안): 옛 '감시 목록 원래 화면' 대신 ✅ 오늘 신호 줄 + 👀 후보·1stage·아깝게 빠짐 접힌 칸 + 📖 용어 */
 /* 업종 순위 표시 (2026-11-23 사용자 확정, 표시만): 그 종목의 업종이 주도 섹터 레이더에서 몇 위인지. 1~5위 = 주도 업종(🔥, 2026-11-23 10년 자료를 보고 1~10위에서 좁힘).
@@ -2474,23 +2484,11 @@ function todoItems(){
   calEvents().filter(e=>e.days==0&&(e.mine=="held"||e.mine=="watch")).slice(0,3).forEach(e=>out.push({lv:"l",t:`${e.time||"종일"} ${e.name}`,s:e.mine=="held"?"보유 종목 일정":"관찰 종목 일정"}));
   return out.slice(0,6);
 }
-function statusBoard(){
-  const R=(D.insights||{}).regime||{}, r=D.risk||{}, ps=r.positions||[], L={green:"초록",yellow:"노랑",red:"빨강"};
-  const near=ps.filter(p=>p.to_stop_pct!=null&&p.to_stop_pct>-3);
-  const hot=((D.insights||{}).hot||[]).slice(0,3);
-  const k=kstNow(),hm=String(k.getUTCHours()).padStart(2,"0")+":"+String(k.getUTCMinutes()).padStart(2,"0");
-  const ev=calEvents().filter(e=>e.days==0&&(!e.time||e.time>=hm)).slice(0,2);
-  const nx=((D.checkpoint||{}).watch||[]).slice(0,2);
-  const T=todoItems();
-  const row=(n,v,cl)=>`<div class="sbr ${cl||""}"><span class="k">${n}</span><span class="v">${v}</span></div>`;
-  return `<div class="bx sboard"><div class="bh">지금 상태<em>${ageTag((D.live&&D.live.at)||r.at,"가격")}</em></div>
-   ${row("시장",`<span class="badge ${R.light||""}">${L[R.light]||"-"}</span> 20일선 ${pc(R.gap20)} · 권장 노출(표시만) ${R.light=="green"?"신규 가능":R.light=="yellow"?"신규 1건":"신규 0 · 관찰만"}`)}
-   ${row("내 계좌",`보유 ${ps.length} · CR ${r.CR_pct??"-"}% / 한도 ${r.CR_limit_pct??6}%${near.length?` · <b class="up">손절 근접 ${near.length}</b>`:""}`,near.length?"hot":"")}
-   ${row("커지는 이야기",hot.length?hot.map(h=>`<button class="linkb" data-cq="${esc(h.stock)}">${esc(h.stock)}</button> <small class="muted">글 ${h.posts}</small>`).join(" · "):"<span class='muted'>-</span>")}
-   ${row("남은 일정",ev.length?ev.map(e=>`${esc(e.time||"종일")} ${esc(e.name)}`).join(" · "):"<span class='muted'>오늘 남은 일정 없음</span>")}
-   ${row("다음까지 볼 것",nx.length?nx.map(esc).join("<br>"):"<span class='muted'>체크포인트 대기</span>")}
-   <div class="bh" style="padding-top:12px">할 일 <em>규칙 계산 · 판단은 본인</em></div>
-   ${T.length?T.map(x=>`<a class="todo ${x.lv}" ${x.go=="addon"?'href="#strategy" data-st="addon"':x.code?`href="#s${x.code}"`:'href="#more"'}><b>${esc(x.t)}</b>${x.s?`<small>${esc(x.s)}</small>`:""}</a>`).join(""):`<div class="muted" style="padding:6px 16px 12px;font-size:13px">오늘 확인할 것 없음</div>`}
+function statusBoard(){   // 할 일만 (2026-11-24 정돈: 시장 신호·내 계좌·일정·다음까지 볼 것은 위 머리줄·내 계좌·일정·체크포인트에 이미 있어 뺌) + 커지는 이야기 한 줄
+  const hot=((D.insights||{}).hot||[]).slice(0,3),T=todoItems();
+  return `<div class="bx sboard"><div class="bh">할 일 <em>규칙 계산 · 판단은 본인</em></div>
+   ${T.length?T.map(x=>`<a class="todo ${x.lv}" ${x.go=="addon"?'href="#strategy" data-st="addon"':x.code?`href="#s${x.code}"`:'href="#more"'}><b>${esc(x.t)}</b>${x.s?`<small>${esc(x.s)}</small>`:""}</a>`).join(""):`<div class="muted" style="padding:6px 0 12px;font-size:13px">오늘 확인할 것 없음</div>`}
+   ${hot.length?`<div class="src">커지는 이야기: ${hot.map(h=>`<button class="linkb" data-cq="${esc(h.stock)}">${esc(h.stock)}</button> 글 ${h.posts}`).join(" · ")}</div>`:""}
   </div>`;
 }
 
