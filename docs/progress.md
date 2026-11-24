@@ -636,3 +636,4 @@
 - 2026-11-24 관찰 풀 → 종목 메뉴, 55일 신고가: `web_build._pool55`(D.pool55), app.html `p55`·`sigList`(nh)·`sigTags`(t6)·`poolTab`(칸·신호 줄)·STOCK_TABS·옛 주소 넘김. 로컬에서 가짜 장중 시세로 PC·휴대폰 확인. 배포 환경에서 D.pool55가 채워지는지는 배포 뒤 확인 필요.
 
 - 2026-11-24 매매 보드: app.html `tbRows`·`tbStrip`·`tradeBoard`(스트림 선택 `ui.tbf`), 옛 `setupTab`·`poolTab`·`signalStrip`·`sigTags`·`watchExtra`·`zoneCells` 삭제, 오늘 화면에 신호 줄, 옛 주소(관찰 풀)는 매매 보드로. 로컬에서 실제 자료(삼현 넘음 · 프로티나·삼성E&A 가까움)와 가짜 장중 시세로 PC·휴대폰·오늘 화면 확인.
+- 2026-11-24 최대 매물대 덩어리 계산(옆 칸 70%↑ 합침: screener.max_zone · app.html candleChart) + 55일 신고가를 매매 보드 전 종목으로(web_build._pool55). 확인: 삼현 11/23 신호 없음 · 11/24 매물대 돌파, 로컬 화면 캡처.

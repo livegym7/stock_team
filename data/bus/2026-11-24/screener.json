@@ -1,7 +1,7 @@
 {
  "source": "네이버 일봉 (비공식)",
  "as_of": "20261124",
- "made_at": "2026-11-24T16:11:55+09:00",
+ "made_at": "2026-11-24T17:45:28+09:00",
  "rules": {
   "min_mcap_eok": 2000,
   "min_value_eok": 100,
@@ -26,182 +26,11 @@
    120
   ]
  },
- "count": 756,
+ "count": 762,
  "scope": "pool",
  "pool_size": 16,
  "signals": [],
  "zone_signals": [
-  {
-   "stock": "심텍홀딩스",
-   "code": "036710",
-   "market": "KOSDAQ",
-   "sector": "반도체 기판·전자부품",
-   "group": "반도체 기판·전자부품",
-   "ia": "동반 상승",
-   "ia_up_share": 70,
-   "ia_median": 3.9,
-   "close": 6620.0,
-   "date": "20261124",
-   "rs": 96,
-   "value20_eok": 103,
-   "off_high_pct": -2.6,
-   "vol50": 1003229,
-   "checks": {
-    "정배열(일봉)": true,
-    "정배열(주봉)": true,
-    "RS": true,
-    "고점 위치": true,
-    "시총": true,
-    "거래대금": true,
-    "1stage 상승": true
-   },
-   "gate_score": 7,
-   "gate_miss": [],
-   "gate_strict": true,
-   "gate_pass": true,
-   "setups": [],
-   "run_pct": 226,
-   "base": null,
-   "today": [
-    "돌파",
-    "H",
-    "55일 신고가",
-    "매물대 돌파"
-   ],
-   "vol_ratio": 3.48,
-   "stage": "1stage 진행 중",
-   "max_zone": {
-    "top": 5846,
-    "pct": 18
-   },
-   "missing": [
-    "조정 구간 없음(1stage 진행 중)"
-   ],
-   "tier": "후보",
-   "pool": false
-  },
-  {
-   "stock": "와이씨",
-   "code": "232140",
-   "market": "KOSDAQ",
-   "sector": "반도체 테스트·후공정",
-   "group": "반도체 테스트·후공정",
-   "ia": "나 홀로",
-   "ia_up_share": 39,
-   "ia_median": 1.1,
-   "close": 16380.0,
-   "date": "20261124",
-   "rs": 93,
-   "value20_eok": 216,
-   "off_high_pct": -32.2,
-   "vol50": 2068910,
-   "checks": {
-    "정배열(일봉)": false,
-    "정배열(주봉)": true,
-    "RS": true,
-    "고점 위치": true,
-    "시총": true,
-    "거래대금": true,
-    "1stage 상승": true
-   },
-   "gate_score": 6,
-   "gate_miss": [
-    "정배열(일봉)"
-   ],
-   "gate_strict": false,
-   "gate_pass": true,
-   "setups": [],
-   "run_pct": null,
-   "base": {
-    "pivot": 18690,
-    "pivot_date": "20261006",
-    "days": 34,
-    "low": 9150,
-    "depth_pct": 51.0,
-    "stage1_pct": 174,
-    "giveback_pct": 80,
-    "pullbacks": [
-     36.0,
-     37.4
-    ],
-    "vol_dryup": 1.08,
-    "is_52w_high": false
-   },
-   "today": [
-    "매물대 돌파"
-   ],
-   "vol_ratio": 1.6,
-   "stage": "2stage 조정 중",
-   "levels": {
-    "breakout": 18690,
-    "alert": 18316,
-    "stop_1r": 17195,
-    "distance_pct": 14.1
-   },
-   "overhead_zone": [
-    20251,
-    21550
-   ],
-   "max_zone": {
-    "top": 15485,
-    "pct": 17
-   },
-   "missing": [
-    "정배열(일봉)",
-    "조정이 깊음(상승분 80% 반납)"
-   ],
-   "tier": "후보",
-   "pool": false
-  }
- ],
- "pp_signals": [],
- "candidates": [
-  {
-   "stock": "디케이티",
-   "code": "290550",
-   "market": "KOSDAQ",
-   "sector": "핸드셋/IT부품",
-   "group": "핸드셋/IT부품",
-   "ia": "동반 상승",
-   "ia_up_share": 90,
-   "ia_median": 3.9,
-   "close": 33000.0,
-   "date": "20261124",
-   "rs": 98,
-   "value20_eok": 160,
-   "off_high_pct": -7.7,
-   "vol50": 465041,
-   "checks": {
-    "정배열(일봉)": true,
-    "정배열(주봉)": true,
-    "RS": true,
-    "고점 위치": true,
-    "시총": true,
-    "거래대금": true,
-    "1stage 상승": true
-   },
-   "gate_score": 7,
-   "gate_miss": [],
-   "gate_strict": true,
-   "gate_pass": true,
-   "setups": [],
-   "run_pct": 395,
-   "base": null,
-   "today": [
-    "55일 신고가"
-   ],
-   "vol_ratio": 3.45,
-   "stage": "1stage 진행 중",
-   "max_zone": {
-    "top": 19538,
-    "pct": 18
-   },
-   "missing": [
-    "조정 구간 없음(1stage 진행 중)"
-   ],
-   "tier": "후보",
-   "pool": false
-  },
   {
    "stock": "삼현",
    "code": "437730",
@@ -210,13 +39,13 @@
    "group": "로봇",
    "ia": "동반 상승",
    "ia_up_share": 100,
-   "ia_median": 12.1,
-   "close": 63200.0,
+   "ia_median": 10.7,
+   "close": 62000.0,
    "date": "20261124",
    "rs": 97,
-   "value20_eok": 279,
-   "off_high_pct": -17.8,
-   "vol50": 533194,
+   "value20_eok": 278,
+   "off_high_pct": -19.4,
+   "vol50": 533670,
    "checks": {
     "정배열(일봉)": true,
     "정배열(주봉)": true,
@@ -258,20 +87,21 @@
    "today": [
     "돌파",
     "H",
-    "55일 신고가"
+    "55일 신고가",
+    "매물대 돌파"
    ],
-   "vol_ratio": 3.1,
+   "vol_ratio": 3.14,
    "stage": "2stage 조정 중",
    "levels": {
     "breakout": 66700,
     "alert": 65366,
     "stop_1r": 61364,
-    "distance_pct": 5.5
+    "distance_pct": 7.6
    },
    "overhead_zone": null,
    "max_zone": {
     "top": 56840,
-    "pct": 27
+    "pct": 51
    },
    "missing": [
     "조정이 깊음(상승분 73% 반납)"
@@ -280,6 +110,131 @@
    "pool": false
   },
   {
+   "stock": "와이씨",
+   "code": "232140",
+   "market": "KOSDAQ",
+   "sector": "반도체 테스트·후공정",
+   "group": "반도체 테스트·후공정",
+   "ia": "나 홀로",
+   "ia_up_share": 24,
+   "ia_median": 0.2,
+   "close": 16030.0,
+   "date": "20261124",
+   "rs": 93,
+   "value20_eok": 216,
+   "off_high_pct": -33.6,
+   "vol50": 2069983,
+   "checks": {
+    "정배열(일봉)": false,
+    "정배열(주봉)": true,
+    "RS": true,
+    "고점 위치": true,
+    "시총": true,
+    "거래대금": true,
+    "1stage 상승": true
+   },
+   "gate_score": 6,
+   "gate_miss": [
+    "정배열(일봉)"
+   ],
+   "gate_strict": false,
+   "gate_pass": true,
+   "setups": [],
+   "run_pct": null,
+   "base": {
+    "pivot": 18690,
+    "pivot_date": "20261006",
+    "days": 34,
+    "low": 9150,
+    "depth_pct": 51.0,
+    "stage1_pct": 174,
+    "giveback_pct": 80,
+    "pullbacks": [
+     36.0,
+     37.4
+    ],
+    "vol_dryup": 1.08,
+    "is_52w_high": false
+   },
+   "today": [
+    "매물대 돌파"
+   ],
+   "vol_ratio": 1.63,
+   "stage": "2stage 조정 중",
+   "levels": {
+    "breakout": 18690,
+    "alert": 18316,
+    "stop_1r": 17195,
+    "distance_pct": 16.6
+   },
+   "overhead_zone": [
+    20251,
+    21550
+   ],
+   "max_zone": {
+    "top": 17218,
+    "pct": 46
+   },
+   "missing": [
+    "정배열(일봉)",
+    "조정이 깊음(상승분 80% 반납)"
+   ],
+   "tier": "후보",
+   "pool": false
+  },
+  {
+   "stock": "심텍홀딩스",
+   "code": "036710",
+   "market": "KOSDAQ",
+   "sector": "반도체 기판·전자부품",
+   "group": "반도체 기판·전자부품",
+   "ia": "동반 상승",
+   "ia_up_share": 60,
+   "ia_median": 2.9,
+   "close": 6490.0,
+   "date": "20261124",
+   "rs": 96,
+   "value20_eok": 103,
+   "off_high_pct": -4.6,
+   "vol50": 1004293,
+   "checks": {
+    "정배열(일봉)": true,
+    "정배열(주봉)": true,
+    "RS": true,
+    "고점 위치": true,
+    "시총": true,
+    "거래대금": true,
+    "1stage 상승": true
+   },
+   "gate_score": 7,
+   "gate_miss": [],
+   "gate_strict": true,
+   "gate_pass": true,
+   "setups": [],
+   "run_pct": 220,
+   "base": null,
+   "today": [
+    "돌파",
+    "H",
+    "55일 신고가",
+    "매물대 돌파"
+   ],
+   "vol_ratio": 3.54,
+   "stage": "1stage 진행 중",
+   "max_zone": {
+    "top": 5846,
+    "pct": 34
+   },
+   "missing": [
+    "조정 구간 없음(1stage 진행 중)"
+   ],
+   "tier": "후보",
+   "pool": false
+  }
+ ],
+ "pp_signals": [],
+ "candidates": [
+  {
    "stock": "에스텍",
    "code": "069510",
    "market": "KOSDAQ",
@@ -287,13 +242,13 @@
    "group": "전자부품/장비",
    "ia": "동반 상승",
    "ia_up_share": 78,
-   "ia_median": 6.0,
-   "close": 23900.0,
+   "ia_median": 4.8,
+   "close": 23800.0,
    "date": "20261124",
    "rs": 97,
    "value20_eok": 35,
-   "off_high_pct": -0.4,
-   "vol50": 64102,
+   "off_high_pct": -0.8,
+   "vol50": 64103,
    "checks": {
     "정배열(일봉)": true,
     "정배열(주봉)": true,
@@ -311,7 +266,8 @@
    "gate_pass": false,
    "setups": [
     "A",
-    "E"
+    "E",
+    "F"
    ],
    "run_pct": null,
    "base": {
@@ -335,7 +291,8 @@
     "breakout": 24000,
     "alert": 23520,
     "stop_1r": 22080,
-    "distance_pct": 0.4
+    "distance_pct": 0.8,
+    "low_cheat_trigger": 23950
    },
    "overhead_zone": [
     23680,
@@ -352,20 +309,20 @@
    "pool": false
   },
   {
-   "stock": "심텍홀딩스",
-   "code": "036710",
+   "stock": "삼현",
+   "code": "437730",
    "market": "KOSDAQ",
-   "sector": "반도체 기판·전자부품",
-   "group": "반도체 기판·전자부품",
+   "sector": "로봇",
+   "group": "로봇",
    "ia": "동반 상승",
-   "ia_up_share": 70,
-   "ia_median": 3.9,
-   "close": 6620.0,
+   "ia_up_share": 100,
+   "ia_median": 10.7,
+   "close": 62000.0,
    "date": "20261124",
-   "rs": 96,
-   "value20_eok": 103,
-   "off_high_pct": -2.6,
-   "vol50": 1003229,
+   "rs": 97,
+   "value20_eok": 278,
+   "off_high_pct": -19.4,
+   "vol50": 533670,
    "checks": {
     "정배열(일봉)": true,
     "정배열(주봉)": true,
@@ -380,7 +337,85 @@
    "gate_strict": true,
    "gate_pass": true,
    "setups": [],
-   "run_pct": 226,
+   "run_pct": null,
+   "base": {
+    "pivot": 66700,
+    "pivot_date": "20260527",
+    "days": 122,
+    "low": 25900,
+    "depth_pct": 61.2,
+    "stage1_pct": 506,
+    "giveback_pct": 73,
+    "pullbacks": [
+     40.2,
+     46.1,
+     30.5,
+     28.5,
+     19.2,
+     28.6,
+     22.2,
+     21.5,
+     33.6,
+     36.1
+    ],
+    "vol_dryup": 1.64,
+    "is_52w_high": false
+   },
+   "today": [
+    "돌파",
+    "H",
+    "55일 신고가",
+    "매물대 돌파"
+   ],
+   "vol_ratio": 3.14,
+   "stage": "2stage 조정 중",
+   "levels": {
+    "breakout": 66700,
+    "alert": 65366,
+    "stop_1r": 61364,
+    "distance_pct": 7.6
+   },
+   "overhead_zone": null,
+   "max_zone": {
+    "top": 56840,
+    "pct": 51
+   },
+   "missing": [
+    "조정이 깊음(상승분 73% 반납)"
+   ],
+   "tier": "후보",
+   "pool": false
+  },
+  {
+   "stock": "심텍홀딩스",
+   "code": "036710",
+   "market": "KOSDAQ",
+   "sector": "반도체 기판·전자부품",
+   "group": "반도체 기판·전자부품",
+   "ia": "동반 상승",
+   "ia_up_share": 60,
+   "ia_median": 2.9,
+   "close": 6490.0,
+   "date": "20261124",
+   "rs": 96,
+   "value20_eok": 103,
+   "off_high_pct": -4.6,
+   "vol50": 1004293,
+   "checks": {
+    "정배열(일봉)": true,
+    "정배열(주봉)": true,
+    "RS": true,
+    "고점 위치": true,
+    "시총": true,
+    "거래대금": true,
+    "1stage 상승": true
+   },
+   "gate_score": 7,
+   "gate_miss": [],
+   "gate_strict": true,
+   "gate_pass": true,
+   "setups": [],
+   "run_pct": 220,
    "base": null,
    "today": [
     "돌파",
@@ -388,11 +423,11 @@
     "55일 신고가",
     "매물대 돌파"
    ],
-   "vol_ratio": 3.48,
+   "vol_ratio": 3.54,
    "stage": "1stage 진행 중",
    "max_zone": {
     "top": 5846,
-    "pct": 18
+    "pct": 34
    },
    "missing": [
     "조정 구간 없음(1stage 진행 중)"
@@ -407,14 +442,14 @@
    "sector": "헬스케어",
    "group": "헬스케어",
    "ia": "동반 상승",
-   "ia_up_share": 55,
-   "ia_median": 2.1,
-   "close": 11360.0,
+   "ia_up_share": 43,
+   "ia_median": 1.5,
+   "close": 11430.0,
    "date": "20261124",
    "rs": 94,
    "value20_eok": 5,
-   "off_high_pct": -19.3,
-   "vol50": 103168,
+   "off_high_pct": -18.8,
+   "vol50": 103175,
    "checks": {
     "정배열(일봉)": true,
     "정배열(주봉)": true,
@@ -461,7 +496,7 @@
     "breakout": 14080,
     "alert": 13798,
     "stop_1r": 12954,
-    "distance_pct": 23.9
+    "distance_pct": 23.2
    },
    "overhead_zone": null,
    "max_zone": {
@@ -475,75 +510,6 @@
    "pool": false
   },
   {
-   "stock": "코세스",
-   "code": "089890",
-   "market": "KOSDAQ",
-   "sector": "반도체 장비",
-   "group": "반도체 장비",
-   "ia": "동반 상승",
-   "ia_up_share": 64,
-   "ia_median": 3.3,
-   "close": 37400.0,
-   "date": "20261124",
-   "rs": 93,
-   "value20_eok": 168,
-   "off_high_pct": -27.2,
-   "vol50": 375731,
-   "checks": {
-    "정배열(일봉)": true,
-    "정배열(주봉)": true,
-    "RS": true,
-    "고점 위치": true,
-    "시총": true,
-    "거래대금": true,
-    "1stage 상승": true
-   },
-   "gate_score": 7,
-   "gate_miss": [],
-   "gate_strict": true,
-   "gate_pass": true,
-   "setups": [],
-   "run_pct": null,
-   "base": {
-    "pivot": 40900,
-    "pivot_date": "20261023",
-    "days": 22,
-    "low": 23050,
-    "depth_pct": 43.6,
-    "stage1_pct": 158,
-    "giveback_pct": 71,
-    "pullbacks": [
-     21.0,
-     40.2,
-     20.9
-    ],
-    "vol_dryup": 1.36,
-    "is_52w_high": false
-   },
-   "today": [],
-   "vol_ratio": 1.38,
-   "stage": "2stage 조정 중",
-   "levels": {
-    "breakout": 40900,
-    "alert": 40082,
-    "stop_1r": 37628,
-    "distance_pct": 9.4
-   },
-   "overhead_zone": [
-    34504,
-    38061
-   ],
-   "max_zone": {
-    "top": 26501,
-    "pct": 21
-   },
-   "missing": [
-    "조정이 깊음(상승분 71% 반납)"
-   ],
-   "tier": "후보",
-   "pool": false
-  },
-  {
    "stock": "롯데손해보험",
    "code": "000400",
    "market": "KOSPI",
@@ -551,13 +517,13 @@
    "group": "보험",
    "ia": "동반 상승",
    "ia_up_share": 70,
-   "ia_median": 4.1,
-   "close": 2525.0,
+   "ia_median": 3.7,
+   "close": 2540.0,
    "date": "20261124",
    "rs": 92,
    "value20_eok": 17,
-   "off_high_pct": -23.0,
-   "vol50": 1168417,
+   "off_high_pct": -22.6,
+   "vol50": 1168556,
    "checks": {
     "정배열(일봉)": true,
     "정배열(주봉)": true,
@@ -586,20 +552,19 @@
     "stage1_pct": 67,
     "giveback_pct": 22,
     "pullbacks": [
-     7.6,
-     6.1
+     8.7
     ],
     "vol_dryup": 0.57,
     "is_52w_high": false
    },
    "today": [],
-   "vol_ratio": 0.53,
+   "vol_ratio": 0.54,
    "stage": "2stage 조정 중",
    "levels": {
     "breakout": 2635,
     "alert": 2582,
     "stop_1r": 2424,
-    "distance_pct": 4.4
+    "distance_pct": 3.7
    },
    "overhead_zone": [
     2385,
@@ -622,14 +587,14 @@
    "sector": "인터넷·소프트웨어 > 게임",
    "group": "게임",
    "ia": "나 홀로",
-   "ia_up_share": 17,
-   "ia_median": 1.1,
-   "close": 12550.0,
+   "ia_up_share": 8,
+   "ia_median": 0.9,
+   "close": 12420.0,
    "date": "20261124",
    "rs": 91,
    "value20_eok": 68,
-   "off_high_pct": -31.9,
-   "vol50": 537189,
+   "off_high_pct": -32.6,
+   "vol50": 537249,
    "checks": {
     "정배열(일봉)": true,
     "정배열(주봉)": true,
@@ -671,7 +636,7 @@
     "breakout": 12930,
     "alert": 12671,
     "stop_1r": 11896,
-    "distance_pct": 3.0
+    "distance_pct": 4.1
    },
    "overhead_zone": [
     11444,
@@ -679,7 +644,7 @@
    ],
    "max_zone": {
     "top": 10278,
-    "pct": 24
+    "pct": 44
    },
    "missing": [
     "거래대금"
@@ -688,85 +653,14 @@
    "pool": false
   },
   {
-   "stock": "계룡건설",
-   "code": "013580",
-   "market": "KOSPI",
-   "sector": "소재·산업재 > 건설",
-   "group": "건설",
-   "ia": "동반 상승",
-   "ia_up_share": 50,
-   "ia_median": 2.1,
-   "close": 25300.0,
-   "date": "20261124",
-   "rs": 89,
-   "value20_eok": 19,
-   "off_high_pct": -24.0,
-   "vol50": 76871,
-   "checks": {
-    "정배열(일봉)": true,
-    "정배열(주봉)": true,
-    "RS": true,
-    "고점 위치": true,
-    "시총": true,
-    "거래대금": false,
-    "1stage 상승": true
-   },
-   "gate_score": 6,
-   "gate_miss": [
-    "거래대금"
-   ],
-   "gate_strict": false,
-   "gate_pass": false,
-   "setups": [
-    "A"
-   ],
-   "run_pct": null,
-   "base": {
-    "pivot": 27650,
-    "pivot_date": "20261116",
-    "days": 6,
-    "low": 23550,
-    "depth_pct": 14.8,
-    "stage1_pct": 70,
-    "giveback_pct": 36,
-    "pullbacks": [
-     14.8
-    ],
-    "vol_dryup": 1.07,
-    "is_52w_high": false
-   },
-   "today": [],
-   "vol_ratio": 0.52,
-   "stage": "2stage 조정 중",
-   "levels": {
-    "breakout": 27650,
-    "alert": 27097,
-    "stop_1r": 25438,
-    "distance_pct": 9.3
-   },
-   "overhead_zone": [
-    25650,
-    26500
-   ],
-   "max_zone": {
-    "top": 26500,
-    "pct": 27
-   },
-   "missing": [
-    "거래대금"
-   ],
-   "tier": "후보",
-   "pool": true
-  },
-  {
    "stock": "옵티코어",
    "code": "380540",
    "market": "KOSDAQ",
    "sector": "통신장비",
    "group": "통신장비",
    "ia": "동반 상승",
-   "ia_up_share": 100,
-   "ia_median": 5.5,
+   "ia_up_share": 86,
+   "ia_median": 4.7,
    "close": 8450.0,
    "date": "20260521",
    "rs": 97,
@@ -830,92 +724,19 @@
    "pool": false
   },
   {
-   "stock": "SFA반도체",
-   "code": "036540",
-   "market": "KOSDAQ",
-   "sector": "반도체 테스트·후공정",
-   "group": "반도체 테스트·후공정",
-   "ia": "동반 상승",
-   "ia_up_share": 44,
-   "ia_median": 1.2,
-   "close": 9000.0,
-   "date": "20261124",
-   "rs": 96,
-   "value20_eok": 361,
-   "off_high_pct": -27.2,
-   "vol50": 5853957,
-   "checks": {
-    "정배열(일봉)": false,
-    "정배열(주봉)": false,
-    "RS": true,
-    "고점 위치": true,
-    "시총": true,
-    "거래대금": true,
-    "1stage 상승": true
-   },
-   "gate_score": 5,
-   "gate_miss": [
-    "정배열(일봉)",
-    "정배열(주봉)"
-   ],
-   "gate_strict": false,
-   "gate_pass": false,
-   "setups": [
-    "A"
-   ],
-   "run_pct": null,
-   "base": {
-    "pivot": 9900,
-    "pivot_date": "20261113",
-    "days": 7,
-    "low": 7700,
-    "depth_pct": 22.2,
-    "stage1_pct": 165,
-    "giveback_pct": 36,
-    "pullbacks": [
-     22.2
-    ],
-    "vol_dryup": 0.89,
-    "is_52w_high": false
-   },
-   "today": [],
-   "vol_ratio": 0.84,
-   "stage": "2stage 조정 중",
-   "levels": {
-    "breakout": 9900,
-    "alert": 9702,
-    "stop_1r": 9108,
-    "distance_pct": 10.0
-   },
-   "overhead_zone": [
-    6973,
-    9132
-   ],
-   "max_zone": {
-    "top": 8916,
-    "pct": 21
-   },
-   "missing": [
-    "정배열(일봉)",
-    "정배열(주봉)"
-   ],
-   "tier": "후보",
-   "pool": false
-  },
-  {
    "stock": "케이아이엔엑스",
    "code": "093320",
    "market": "KOSDAQ",
    "sector": "IT/소프트웨어",
    "group": "IT/소프트웨어",
    "ia": "동반 상승",
-   "ia_up_share": 72,
-   "ia_median": 3.1,
-   "close": 173000.0,
+   "ia_up_share": 61,
+   "ia_median": 2.7,
+   "close": 172200.0,
    "date": "20261124",
-   "rs": 94,
+   "rs": 95,
    "value20_eok": 48,
-   "off_high_pct": -4.0,
+   "off_high_pct": -4.5,
    "vol50": 17309,
    "checks": {
     "정배열(일봉)": false,
@@ -962,7 +783,7 @@
     "breakout": 180300,
     "alert": 176694,
     "stop_1r": 165876,
-    "distance_pct": 4.2,
+    "distance_pct": 4.7,
     "low_cheat_trigger": 174900
    },
    "overhead_zone": [
@@ -987,13 +808,13 @@
    "sector": "IT/소프트웨어",
    "group": "IT/소프트웨어",
    "ia": "동반 상승",
-   "ia_up_share": 72,
-   "ia_median": 3.1,
-   "close": 48750.0,
+   "ia_up_share": 61,
+   "ia_median": 2.7,
+   "close": 48550.0,
    "date": "20261124",
    "rs": 93,
    "value20_eok": 13,
-   "off_high_pct": -6.2,
+   "off_high_pct": -6.6,
    "vol50": 50627,
    "checks": {
     "정배열(일봉)": false,
@@ -1038,7 +859,7 @@
     "breakout": 52000,
     "alert": 50960,
     "stop_1r": 47840,
-    "distance_pct": 6.7,
+    "distance_pct": 7.1,
     "low_cheat_trigger": 49200
    },
    "overhead_zone": null,
@@ -1060,14 +881,14 @@
    "sector": "반도체 테스트·후공정",
    "group": "반도체 테스트·후공정",
    "ia": "나 홀로",
-   "ia_up_share": 39,
-   "ia_median": 1.1,
-   "close": 16380.0,
+   "ia_up_share": 24,
+   "ia_median": 0.2,
+   "close": 16030.0,
    "date": "20261124",
    "rs": 93,
    "value20_eok": 216,
-   "off_high_pct": -32.2,
-   "vol50": 2068910,
+   "off_high_pct": -33.6,
+   "vol50": 2069983,
    "checks": {
     "정배열(일봉)": false,
     "정배열(주봉)": true,
@@ -1103,21 +924,21 @@
    "today": [
     "매물대 돌파"
    ],
-   "vol_ratio": 1.6,
+   "vol_ratio": 1.63,
    "stage": "2stage 조정 중",
    "levels": {
     "breakout": 18690,
     "alert": 18316,
     "stop_1r": 17195,
-    "distance_pct": 14.1
+    "distance_pct": 16.6
    },
    "overhead_zone": [
     20251,
     21550
    ],
    "max_zone": {
-    "top": 15485,
-    "pct": 17
+    "top": 17218,
+    "pct": 46
    },
    "missing": [
     "정배열(일봉)",
@@ -1134,13 +955,13 @@
    "group": "로봇",
    "ia": "동반 상승",
    "ia_up_share": 100,
-   "ia_median": 12.1,
-   "close": 90800.0,
+   "ia_median": 10.7,
+   "close": 89300.0,
    "date": "20261124",
-   "rs": 92,
+   "rs": 91,
    "value20_eok": 234,
-   "off_high_pct": -45.2,
-   "vol50": 295097,
+   "off_high_pct": -46.1,
+   "vol50": 295449,
    "checks": {
     "정배열(일봉)": false,
     "정배열(주봉)": false,
@@ -1179,16 +1000,15 @@
     "is_52w_high": false
    },
    "today": [
-    "돌파",
     "H"
    ],
-   "vol_ratio": 3.19,
+   "vol_ratio": 3.25,
    "stage": "2stage 조정 중",
    "levels": {
     "breakout": 109700,
     "alert": 107506,
     "stop_1r": 100924,
-    "distance_pct": 20.8
+    "distance_pct": 22.8
    },
    "overhead_zone": [
     73562,
@@ -1196,7 +1016,7 @@
    ],
    "max_zone": {
     "top": 113350,
-    "pct": 18
+    "pct": 33
    },
    "missing": [
     "정배열(일봉)",
@@ -1213,13 +1033,13 @@
    "group": "K-엔터",
    "ia": "동반 상승",
    "ia_up_share": 67,
-   "ia_median": 3.3,
-   "close": 96200.0,
+   "ia_median": 2.8,
+   "close": 95100.0,
    "date": "20261124",
-   "rs": 90,
+   "rs": 89,
    "value20_eok": 206,
-   "off_high_pct": -31.5,
-   "vol50": 163786,
+   "off_high_pct": -32.3,
+   "vol50": 163836,
    "checks": {
     "정배열(일봉)": true,
     "정배열(주봉)": true,
@@ -1261,25 +1081,25 @@
      10.5,
      11.5
     ],
-    "vol_dryup": 2.24,
+    "vol_dryup": 2.25,
     "is_52w_high": false
    },
    "today": [],
-   "vol_ratio": 1.18,
+   "vol_ratio": 1.19,
    "stage": "2stage 조정 중",
    "levels": {
     "breakout": 102600,
     "alert": 100548,
     "stop_1r": 94392,
-    "distance_pct": 6.7
+    "distance_pct": 7.9
    },
    "overhead_zone": [
     96412,
     98325
    ],
    "max_zone": {
-    "top": 82020,
-    "pct": 18
+    "top": 88060,
+    "pct": 50
    },
    "missing": [
     "1stage 상승",
@@ -1289,78 +1109,76 @@
    "pool": false
   },
   {
-   "stock": "이수스페셜티케미컬",
-   "code": "457190",
+   "stock": "IPARK현대산업개발",
+   "code": "294870",
    "market": "KOSPI",
-   "sector": "2차전지",
-   "group": "2차전지",
+   "sector": "소재·산업재 > 건설",
+   "group": "건설",
    "ia": "동반 상승",
-   "ia_up_share": 91,
-   "ia_median": 8.4,
-   "close": 81800.0,
+   "ia_up_share": 48,
+   "ia_median": 1.7,
+   "close": 23850.0,
    "date": "20261124",
-   "rs": 90,
-   "value20_eok": 187,
-   "off_high_pct": -37.9,
-   "vol50": 300696,
+   "rs": 88,
+   "value20_eok": 40,
+   "off_high_pct": -8.1,
+   "vol50": 148758,
    "checks": {
     "정배열(일봉)": false,
     "정배열(주봉)": true,
     "RS": true,
     "고점 위치": true,
     "시총": true,
-    "거래대금": true,
+    "거래대금": false,
     "1stage 상승": true
    },
-   "gate_score": 6,
+   "gate_score": 5,
    "gate_miss": [
-    "정배열(일봉)"
+    "정배열(일봉)",
+    "거래대금"
    ],
    "gate_strict": false,
-   "gate_pass": true,
-   "setups": [],
+   "gate_pass": false,
+   "setups": [
+    "A"
+   ],
    "run_pct": null,
    "base": {
-    "pivot": 92900,
-    "pivot_date": "20261014",
-    "days": 29,
-    "low": 57000,
-    "depth_pct": 38.6,
-    "stage1_pct": 109,
-    "giveback_pct": 74,
+    "pivot": 25950,
+    "pivot_date": "20261105",
+    "days": 13,
+    "low": 22700,
+    "depth_pct": 12.5,
+    "stage1_pct": 54,
+    "giveback_pct": 36,
     "pullbacks": [
-     26.0,
-     26.9,
-     20.4
+     12.5,
+     6.8,
+     10.5
     ],
-    "vol_dryup": 0.95,
-    "is_52w_high": false
+    "vol_dryup": 0.93,
+    "is_52w_high": true
    },
-   "today": [
-    "돌파"
-   ],
-   "vol_ratio": 1.83,
+   "today": [],
+   "vol_ratio": 0.78,
    "stage": "2stage 조정 중",
    "levels": {
-    "breakout": 92900,
-    "alert": 91042,
-    "stop_1r": 85468,
-    "distance_pct": 13.6
+    "breakout": 25950,
+    "alert": 25431,
+    "stop_1r": 23874,
+    "distance_pct": 8.8
    },
-   "overhead_zone": [
-    94655,
-    109950
-   ],
+   "overhead_zone": null,
    "max_zone": {
-    "top": 105580,
-    "pct": 20
+    "top": 24140,
+    "pct": 37
    },
    "missing": [
     "정배열(일봉)",
-    "조정이 깊음(상승분 74% 반납)"
+    "거래대금"
    ],
    "tier": "후보",
-   "pool": false
+   "pool": true
   },
   {
    "stock": "아시아나항공",
@@ -1369,14 +1187,14 @@
    "sector": "운송/물류",
    "group": "운송/물류",
    "ia": "동반 상승",
-   "ia_up_share": 50,
-   "ia_median": 2.3,
-   "close": 8390.0,
+   "ia_up_share": 45,
+   "ia_median": 1.9,
+   "close": 8380.0,
    "date": "20261124",
-   "rs": 87,
+   "rs": 88,
    "value20_eok": 14,
-   "off_high_pct": -6.7,
-   "vol50": 134065,
+   "off_high_pct": -6.8,
+   "vol50": 134077,
    "checks": {
     "정배열(일봉)": true,
     "정배열(주봉)": true,
@@ -1420,7 +1238,7 @@
     "breakout": 8990,
     "alert": 8810,
     "stop_1r": 8271,
-    "distance_pct": 7.2
+    "distance_pct": 7.3
    },
    "overhead_zone": null,
    "max_zone": {
@@ -1441,8 +1259,8 @@
    "sector": "화학",
    "group": "화학",
    "ia": "동반 상승",
-   "ia_up_share": 72,
-   "ia_median": 3.0,
+   "ia_up_share": 59,
+   "ia_median": 2.2,
    "close": 11840.0,
    "date": "20261124",
    "rs": 87,
@@ -1507,8 +1325,8 @@
     11945
    ],
    "max_zone": {
-    "top": 10448,
-    "pct": 26
+    "top": 11067,
+    "pct": 47
    },
    "missing": [
     "거래대금",
@@ -1525,13 +1343,13 @@
    "group": "지주사",
    "ia": "동반 상승",
    "ia_up_share": 62,
-   "ia_median": 3.7,
-   "close": 183700.0,
+   "ia_median": 3.0,
+   "close": 183500.0,
    "date": "20261124",
-   "rs": 85,
+   "rs": 86,
    "value20_eok": 595,
-   "off_high_pct": -8.6,
-   "vol50": 276704,
+   "off_high_pct": -8.7,
+   "vol50": 276708,
    "checks": {
     "정배열(일봉)": false,
     "정배열(주봉)": false,
@@ -1574,7 +1392,7 @@
     "breakout": 201000,
     "alert": 196980,
     "stop_1r": 184920,
-    "distance_pct": 9.4
+    "distance_pct": 9.5
    },
    "overhead_zone": [
     170000,
@@ -1598,14 +1416,14 @@
    "sector": "화장품",
    "group": "화장품",
    "ia": "동반 상승",
-   "ia_up_share": 75,
-   "ia_median": 2.8,
-   "close": 28150.0,
+   "ia_up_share": 60,
+   "ia_median": 2.4,
+   "close": 28050.0,
    "date": "20261124",
    "rs": 85,
    "value20_eok": 30,
-   "off_high_pct": -21.7,
-   "vol50": 108883,
+   "off_high_pct": -22.0,
+   "vol50": 108898,
    "checks": {
     "정배열(일봉)": true,
     "정배열(주봉)": true,
@@ -1638,7 +1456,7 @@
      9.5,
      5.3
     ],
-    "vol_dryup": 0.81,
+    "vol_dryup": 0.82,
     "is_52w_high": false
    },
    "today": [],
@@ -1648,7 +1466,7 @@
     "breakout": 28450,
     "alert": 27881,
     "stop_1r": 26174,
-    "distance_pct": 1.1
+    "distance_pct": 1.4
    },
    "overhead_zone": [
     24350,
@@ -1656,7 +1474,7 @@
    ],
    "max_zone": {
     "top": 27950,
-    "pct": 25
+    "pct": 47
    },
    "missing": [
     "거래대금",
@@ -1672,14 +1490,14 @@
    "sector": "기타자본재",
    "group": "기타자본재",
    "ia": "동반 상승",
-   "ia_up_share": 67,
-   "ia_median": 2.5,
-   "close": 14320.0,
+   "ia_up_share": 56,
+   "ia_median": 2.1,
+   "close": 14440.0,
    "date": "20261124",
-   "rs": 83,
+   "rs": 84,
    "value20_eok": 1,
-   "off_high_pct": -17.2,
-   "vol50": 33040,
+   "off_high_pct": -16.5,
+   "vol50": 33051,
    "checks": {
     "정배열(일봉)": false,
     "정배열(주봉)": true,
@@ -1715,21 +1533,21 @@
     "is_52w_high": false
    },
    "today": [],
-   "vol_ratio": 0.1,
+   "vol_ratio": 0.11,
    "stage": "2stage 조정 중",
    "levels": {
     "breakout": 15040,
     "alert": 14739,
     "stop_1r": 13837,
-    "distance_pct": 5.0
+    "distance_pct": 4.2
    },
    "overhead_zone": [
     15968,
     17078
    ],
    "max_zone": {
-    "top": 16412,
-    "pct": 26
+    "top": 17300,
+    "pct": 50
    },
    "missing": [
     "정배열(일봉)",
@@ -1745,14 +1563,14 @@
    "sector": "조선·해운 > 해운",
    "group": "운송/물류",
    "ia": "동반 상승",
-   "ia_up_share": 50,
-   "ia_median": 2.0,
+   "ia_up_share": 40,
+   "ia_median": 1.9,
    "close": 22150.0,
    "date": "20261124",
-   "rs": 81,
+   "rs": 82,
    "value20_eok": 276,
    "off_high_pct": -11.2,
-   "vol50": 1349474,
+   "vol50": 1349528,
    "checks": {
     "정배열(일봉)": true,
     "정배열(주봉)": true,
@@ -1815,13 +1633,13 @@
    "group": "로봇",
    "ia": "동반 상승",
    "ia_up_share": 100,
-   "ia_median": 12.1,
-   "close": 293000.0,
+   "ia_median": 10.7,
+   "close": 288000.0,
    "date": "20261124",
-   "rs": 89,
+   "rs": 88,
    "value20_eok": 683,
-   "off_high_pct": -36.9,
-   "vol50": 271100,
+   "off_high_pct": -37.9,
+   "vol50": 271308,
    "checks": {
     "정배열(일봉)": false,
     "정배열(주봉)": false,
@@ -1853,110 +1671,33 @@
      31.3,
      21.2
     ],
-    "vol_dryup": 1.22,
+    "vol_dryup": 1.23,
     "is_52w_high": false
    },
    "today": [
     "돌파",
-    "H",
-    "매물대 돌파"
+    "H"
    ],
-   "vol_ratio": 2.71,
+   "vol_ratio": 2.75,
    "stage": "2stage 조정 중",
    "levels": {
     "breakout": 324000,
     "alert": 317520,
     "stop_1r": 298080,
-    "distance_pct": 10.6
+    "distance_pct": 12.5
    },
    "overhead_zone": [
     232250,
     324950
    ],
    "max_zone": {
-    "top": 278600,
-    "pct": 24
+    "top": 309500,
+    "pct": 46
    },
    "missing": [
     "정배열(일봉)",
     "정배열(주봉)",
     "조정이 깊음(상승분 70% 반납)"
-   ],
-   "tier": "후보",
-   "pool": false
-  },
-  {
-   "stock": "글로벌텍스프리",
-   "code": "204620",
-   "market": "KOSDAQ",
-   "sector": "기타금융",
-   "group": "기타금융",
-   "ia": "동반 상승",
-   "ia_up_share": 40,
-   "ia_median": 1.0,
-   "close": 5870.0,
-   "date": "20261124",
-   "rs": 87,
-   "value20_eok": 56,
-   "off_high_pct": -18.8,
-   "vol50": 857616,
-   "checks": {
-    "정배열(일봉)": false,
-    "정배열(주봉)": true,
-    "RS": true,
-    "고점 위치": true,
-    "시총": true,
-    "거래대금": false,
-    "1stage 상승": true
-   },
-   "gate_score": 5,
-   "gate_miss": [
-    "정배열(일봉)",
-    "거래대금"
-   ],
-   "gate_strict": false,
-   "gate_pass": false,
-   "setups": [],
-   "run_pct": null,
-   "base": {
-    "pivot": 6450,
-    "pivot_date": "20261016",
-    "days": 27,
-    "low": 4740,
-    "depth_pct": 26.5,
-    "stage1_pct": 63,
-    "giveback_pct": 69,
-    "pullbacks": [
-     19.1,
-     6.5,
-     10.0,
-     19.0,
-     14.6
-    ],
-    "vol_dryup": 1.69,
-    "is_52w_high": false
-   },
-   "today": [],
-   "vol_ratio": 0.99,
-   "stage": "2stage 조정 중",
-   "levels": {
-    "breakout": 6450,
-    "alert": 6321,
-    "stop_1r": 5934,
-    "distance_pct": 9.9
-   },
-   "overhead_zone": [
-    5756,
-    5920
-   ],
-   "max_zone": {
-    "top": 5248,
-    "pct": 19
-   },
-   "missing": [
-    "정배열(일봉)",
-    "거래대금",
-    "조정이 깊음(상승분 69% 반납)"
    ],
    "tier": "후보",
    "pool": false
@@ -1968,14 +1709,14 @@
    "sector": "헬스케어",
    "group": "헬스케어",
    "ia": "동반 상승",
-   "ia_up_share": 55,
-   "ia_median": 2.1,
-   "close": 26400.0,
+   "ia_up_share": 43,
+   "ia_median": 1.5,
+   "close": 26300.0,
    "date": "20261124",
    "rs": 85,
    "value20_eok": 6,
-   "off_high_pct": -4.3,
-   "vol50": 19499,
+   "off_high_pct": -4.7,
+   "vol50": 19503,
    "checks": {
     "정배열(일봉)": true,
     "정배열(주봉)": true,
@@ -2026,14 +1767,16 @@
     "vol_dryup": 1.26,
     "is_52w_high": false
    },
-   "today": [],
-   "vol_ratio": 1.49,
+   "today": [
+    "매물대 돌파"
+   ],
+   "vol_ratio": 1.5,
    "stage": "2stage 조정 중",
    "levels": {
     "breakout": 26950,
     "alert": 26411,
     "stop_1r": 24794,
-    "distance_pct": 2.1
+    "distance_pct": 2.5
    },
    "overhead_zone": [
     26066,
@@ -2054,20 +1797,429 @@
  ],
  "watch": [
   {
+   "stock": "삼현",
+   "code": "437730",
+   "market": "KOSDAQ",
+   "sector": "로봇",
+   "group": "로봇",
+   "ia": "동반 상승",
+   "ia_up_share": 100,
+   "ia_median": 10.7,
+   "close": 62000.0,
+   "date": "20261124",
+   "rs": 97,
+   "value20_eok": 278,
+   "off_high_pct": -19.4,
+   "vol50": 533670,
+   "checks": {
+    "정배열(일봉)": true,
+    "정배열(주봉)": true,
+    "RS": true,
+    "고점 위치": true,
+    "시총": true,
+    "거래대금": true,
+    "1stage 상승": true
+   },
+   "gate_score": 7,
+   "gate_miss": [],
+   "gate_strict": true,
+   "gate_pass": true,
+   "setups": [],
+   "run_pct": null,
+   "base": {
+    "pivot": 66700,
+    "pivot_date": "20260527",
+    "days": 122,
+    "low": 25900,
+    "depth_pct": 61.2,
+    "stage1_pct": 506,
+    "giveback_pct": 73,
+    "pullbacks": [
+     40.2,
+     46.1,
+     30.5,
+     28.5,
+     19.2,
+     28.6,
+     22.2,
+     21.5,
+     33.6,
+     36.1
+    ],
+    "vol_dryup": 1.64,
+    "is_52w_high": false
+   },
+   "today": [
+    "돌파",
+    "H",
+    "55일 신고가",
+    "매물대 돌파"
+   ],
+   "vol_ratio": 3.14,
+   "stage": "2stage 조정 중",
+   "levels": {
+    "breakout": 66700,
+    "alert": 65366,
+    "stop_1r": 61364,
+    "distance_pct": 7.6
+   },
+   "overhead_zone": null,
+   "max_zone": {
+    "top": 56840,
+    "pct": 51
+   },
+   "missing": [
+    "조정이 깊음(상승분 73% 반납)"
+   ],
+   "tier": "후보",
+   "pool": false
+  },
+  {
+   "stock": "나노신소재",
+   "code": "121600",
+   "market": "KOSDAQ",
+   "sector": "2차전지",
+   "group": "2차전지",
+   "ia": "동반 상승",
+   "ia_up_share": 91,
+   "ia_median": 7.2,
+   "close": 64000.0,
+   "date": "20261124",
+   "rs": 87,
+   "value20_eok": 147,
+   "off_high_pct": -32.8,
+   "vol50": 141584,
+   "checks": {
+    "정배열(일봉)": false,
+    "정배열(주봉)": true,
+    "RS": true,
+    "고점 위치": true,
+    "시총": true,
+    "거래대금": true,
+    "1stage 상승": true
+   },
+   "gate_score": 6,
+   "gate_miss": [
+    "정배열(일봉)"
+   ],
+   "gate_strict": false,
+   "gate_pass": true,
+   "setups": [
+    "A"
+   ],
+   "run_pct": null,
+   "base": {
+    "pivot": 78000,
+    "pivot_date": "20261112",
+    "days": 8,
+    "low": 54700,
+    "depth_pct": 29.9,
+    "stage1_pct": 135,
+    "giveback_pct": 52,
+    "pullbacks": [
+     29.9
+    ],
+    "vol_dryup": 1.53,
+    "is_52w_high": false
+   },
+   "today": [],
+   "vol_ratio": 1.23,
+   "stage": "2stage 조정 중",
+   "levels": {
+    "breakout": 78000,
+    "alert": 76440,
+    "stop_1r": 71760,
+    "distance_pct": 21.9
+   },
+   "overhead_zone": [
+    58040,
+    73565
+   ],
+   "max_zone": {
+    "top": 76670,
+    "pct": 42
+   },
+   "missing": [
+    "정배열(일봉)"
+   ],
+   "tier": "대기",
+   "pool": false
+  },
+  {
+   "stock": "와이씨",
+   "code": "232140",
+   "market": "KOSDAQ",
+   "sector": "반도체 테스트·후공정",
+   "group": "반도체 테스트·후공정",
+   "ia": "나 홀로",
+   "ia_up_share": 24,
+   "ia_median": 0.2,
+   "close": 16030.0,
+   "date": "20261124",
+   "rs": 93,
+   "value20_eok": 216,
+   "off_high_pct": -33.6,
+   "vol50": 2069983,
+   "checks": {
+    "정배열(일봉)": false,
+    "정배열(주봉)": true,
+    "RS": true,
+    "고점 위치": true,
+    "시총": true,
+    "거래대금": true,
+    "1stage 상승": true
+   },
+   "gate_score": 6,
+   "gate_miss": [
+    "정배열(일봉)"
+   ],
+   "gate_strict": false,
+   "gate_pass": true,
+   "setups": [],
+   "run_pct": null,
+   "base": {
+    "pivot": 18690,
+    "pivot_date": "20261006",
+    "days": 34,
+    "low": 9150,
+    "depth_pct": 51.0,
+    "stage1_pct": 174,
+    "giveback_pct": 80,
+    "pullbacks": [
+     36.0,
+     37.4
+    ],
+    "vol_dryup": 1.08,
+    "is_52w_high": false
+   },
+   "today": [
+    "매물대 돌파"
+   ],
+   "vol_ratio": 1.63,
+   "stage": "2stage 조정 중",
+   "levels": {
+    "breakout": 18690,
+    "alert": 18316,
+    "stop_1r": 17195,
+    "distance_pct": 16.6
+   },
+   "overhead_zone": [
+    20251,
+    21550
+   ],
+   "max_zone": {
+    "top": 17218,
+    "pct": 46
+   },
+   "missing": [
+    "정배열(일봉)",
+    "조정이 깊음(상승분 80% 반납)"
+   ],
+   "tier": "후보",
+   "pool": false
+  },
+  {
+   "stock": "심텍홀딩스",
+   "code": "036710",
+   "market": "KOSDAQ",
+   "sector": "반도체 기판·전자부품",
+   "group": "반도체 기판·전자부품",
+   "ia": "동반 상승",
+   "ia_up_share": 60,
+   "ia_median": 2.9,
+   "close": 6490.0,
+   "date": "20261124",
+   "rs": 96,
+   "value20_eok": 103,
+   "off_high_pct": -4.6,
+   "vol50": 1004293,
+   "checks": {
+    "정배열(일봉)": true,
+    "정배열(주봉)": true,
+    "RS": true,
+    "고점 위치": true,
+    "시총": true,
+    "거래대금": true,
+    "1stage 상승": true
+   },
+   "gate_score": 7,
+   "gate_miss": [],
+   "gate_strict": true,
+   "gate_pass": true,
+   "setups": [],
+   "run_pct": 220,
+   "base": null,
+   "today": [
+    "돌파",
+    "H",
+    "55일 신고가",
+    "매물대 돌파"
+   ],
+   "vol_ratio": 3.54,
+   "stage": "1stage 진행 중",
+   "max_zone": {
+    "top": 5846,
+    "pct": 34
+   },
+   "missing": [
+    "조정 구간 없음(1stage 진행 중)"
+   ],
+   "tier": "후보",
+   "pool": false
+  },
+  {
+   "stock": "엑시콘",
+   "code": "092870",
+   "market": "KOSDAQ",
+   "sector": "반도체 > 반도체 테스트(소켓·프로브카드·검사)",
+   "group": "반도체 테스트·후공정",
+   "ia": "나 홀로",
+   "ia_up_share": 29,
+   "ia_median": 0.2,
+   "close": 53100.0,
+   "date": "20261124",
+   "rs": 99,
+   "value20_eok": 329,
+   "off_high_pct": -21.9,
+   "vol50": 497475,
+   "checks": {
+    "정배열(일봉)": false,
+    "정배열(주봉)": true,
+    "RS": true,
+    "고점 위치": true,
+    "시총": true,
+    "거래대금": true,
+    "1stage 상승": true
+   },
+   "gate_score": 6,
+   "gate_miss": [
+    "정배열(일봉)"
+   ],
+   "gate_strict": false,
+   "gate_pass": true,
+   "setups": [
+    "A"
+   ],
+   "run_pct": null,
+   "base": {
+    "pivot": 67000,
+    "pivot_date": "20261113",
+    "days": 7,
+    "low": 47050,
+    "depth_pct": 29.8,
+    "stage1_pct": 563,
+    "giveback_pct": 35,
+    "pullbacks": [
+     29.8
+    ],
+    "vol_dryup": 1.08,
+    "is_52w_high": false
+   },
+   "today": [],
+   "vol_ratio": 0.81,
+   "stage": "2stage 조정 중",
+   "levels": {
+    "breakout": 67000,
+    "alert": 65660,
+    "stop_1r": 61640,
+    "distance_pct": 26.2
+   },
+   "overhead_zone": [
+    50633,
+    53528
+   ],
+   "max_zone": {
+    "top": 33266,
+    "pct": 34
+   },
+   "missing": [
+    "정배열(일봉)"
+   ],
+   "tier": "대기",
+   "pool": true
+  },
+  {
+   "stock": "나무가",
+   "code": "190510",
+   "market": "KOSDAQ",
+   "sector": "핸드셋/IT부품",
+   "group": "핸드셋/IT부품",
+   "ia": "동반 상승",
+   "ia_up_share": 73,
+   "ia_median": 2.9,
+   "close": 16260.0,
+   "date": "20261124",
+   "rs": 85,
+   "value20_eok": 136,
+   "off_high_pct": -43.1,
+   "vol50": 408807,
+   "checks": {
+    "정배열(일봉)": true,
+    "정배열(주봉)": true,
+    "RS": true,
+    "고점 위치": true,
+    "시총": true,
+    "거래대금": true,
+    "1stage 상승": true
+   },
+   "gate_score": 7,
+   "gate_miss": [],
+   "gate_strict": true,
+   "gate_pass": true,
+   "setups": [
+    "A"
+   ],
+   "run_pct": null,
+   "base": {
+    "pivot": 19300,
+    "pivot_date": "20261117",
+    "days": 5,
+    "low": 14600,
+    "depth_pct": 24.4,
+    "stage1_pct": 75,
+    "giveback_pct": 57,
+    "pullbacks": [
+     24.4
+    ],
+    "vol_dryup": 2.53,
+    "is_52w_high": false
+   },
+   "today": [],
+   "vol_ratio": 2.9,
+   "stage": "2stage 조정 중",
+   "levels": {
+    "breakout": 19300,
+    "alert": 18914,
+    "stop_1r": 17756,
+    "distance_pct": 18.7
+   },
+   "overhead_zone": [
+    15876,
+    19386
+   ],
+   "max_zone": {
+    "top": 18775,
+    "pct": 48
+   },
+   "missing": [],
+   "tier": "대기",
+   "pool": false
+  },
+  {
    "stock": "한진",
    "code": "002320",
    "market": "KOSPI",
    "sector": "운송/물류",
    "group": "운송/물류",
    "ia": "동반 상승",
-   "ia_up_share": 50,
-   "ia_median": 2.0,
-   "close": 20250.0,
+   "ia_up_share": 40,
+   "ia_median": 1.9,
+   "close": 20650.0,
    "date": "20261124",
-   "rs": 90,
-   "value20_eok": 107,
-   "off_high_pct": -14.4,
-   "vol50": 239045,
+   "rs": 91,
+   "value20_eok": 109,
+   "off_high_pct": -12.7,
+   "vol50": 242924,
    "checks": {
     "정배열(일봉)": true,
     "정배열(주봉)": true,
@@ -2096,17 +2248,17 @@
     "pullbacks": [
      23.0
     ],
-    "vol_dryup": 2.09,
+    "vol_dryup": 2.14,
     "is_52w_high": false
    },
    "today": [],
-   "vol_ratio": 0.88,
+   "vol_ratio": 1.71,
    "stage": "2stage 조정 중",
    "levels": {
     "breakout": 22300,
     "alert": 21854,
     "stop_1r": 20516,
-    "distance_pct": 10.1
+    "distance_pct": 8.0
    },
    "overhead_zone": [
     18924,
@@ -2114,27 +2266,95 @@
    ],
    "max_zone": {
     "top": 20665,
-    "pct": 19
+    "pct": 20
    },
    "missing": [],
    "tier": "대기",
    "pool": false
   },
   {
-   "stock": "한미사이언스",
-   "code": "008930",
+   "stock": "삼성E&A",
+   "code": "028050",
    "market": "KOSPI",
-   "sector": "바이오",
-   "group": "바이오",
+   "sector": "소재·산업재 > 건설",
+   "group": "건설",
    "ia": "동반 상승",
-   "ia_up_share": 42,
-   "ia_median": 1.5,
-   "close": 52600.0,
+   "ia_up_share": 48,
+   "ia_median": 1.7,
+   "close": 59100.0,
    "date": "20261124",
-   "rs": 90,
-   "value20_eok": 121,
-   "off_high_pct": -23.2,
-   "vol50": 259009,
+   "rs": 95,
+   "value20_eok": 1772,
+   "off_high_pct": -15.9,
+   "vol50": 2698683,
+   "checks": {
+    "정배열(일봉)": false,
+    "정배열(주봉)": true,
+    "RS": true,
+    "고점 위치": true,
+    "시총": true,
+    "거래대금": true,
+    "1stage 상승": true
+   },
+   "gate_score": 6,
+   "gate_miss": [
+    "정배열(일봉)"
+   ],
+   "gate_strict": false,
+   "gate_pass": true,
+   "setups": [
+    "A"
+   ],
+   "run_pct": null,
+   "base": {
+    "pivot": 70300,
+    "pivot_date": "20261117",
+    "days": 5,
+    "low": 53000,
+    "depth_pct": 24.6,
+    "stage1_pct": 204,
+    "giveback_pct": 37,
+    "pullbacks": [
+     24.6
+    ],
+    "vol_dryup": 1.03,
+    "is_52w_high": true
+   },
+   "today": [],
+   "vol_ratio": 0.86,
+   "stage": "2stage 조정 중",
+   "levels": {
+    "breakout": 70300,
+    "alert": 68894,
+    "stop_1r": 64676,
+    "distance_pct": 19.0
+   },
+   "overhead_zone": null,
+   "max_zone": {
+    "top": 54200,
+    "pct": 43
+   },
+   "missing": [
+    "정배열(일봉)"
+   ],
+   "tier": "대기",
+   "pool": true
+  },
+  {
+   "stock": "안랩",
+   "code": "053800",
+   "market": "KOSDAQ",
+   "sector": "IT/소프트웨어",
+   "group": "IT/소프트웨어",
+   "ia": "동반 상승",
+   "ia_up_share": 56,
+   "ia_median": 2.3,
+   "close": 124600.0,
+   "date": "20261124",
+   "rs": 98,
+   "value20_eok": 729,
+   "off_high_pct": -9.2,
+   "vol50": 385341,
    "checks": {
     "정배열(일봉)": true,
     "정배열(주봉)": true,
@@ -2153,36 +2373,33 @@
    ],
    "run_pct": null,
    "base": {
-    "pivot": 60400,
-    "pivot_date": "20261111",
-    "days": 9,
-    "low": 49600,
-    "depth_pct": 17.9,
-    "stage1_pct": 136,
-    "giveback_pct": 31,
+    "pivot": 137300,
+    "pivot_date": "20261103",
+    "days": 15,
+    "low": 89100,
+    "depth_pct": 35.1,
+    "stage1_pct": 170,
+    "giveback_pct": 56,
     "pullbacks": [
-     16.1,
-     9.5
+     35.1,
+     23.8
     ],
-    "vol_dryup": 0.73,
-    "is_52w_high": false
+    "vol_dryup": 1.43,
+    "is_52w_high": true
    },
    "today": [],
-   "vol_ratio": 0.36,
+   "vol_ratio": 1.45,
    "stage": "2stage 조정 중",
    "levels": {
-    "breakout": 60400,
-    "alert": 59192,
-    "stop_1r": 55568,
-    "distance_pct": 14.8
+    "breakout": 137300,
+    "alert": 134554,
+    "stop_1r": 126316,
+    "distance_pct": 10.2
    },
-   "overhead_zone": [
-    41688,
-    54558
-   ],
+   "overhead_zone": null,
    "max_zone": {
-    "top": 47050,
-    "pct": 23
+    "top": 120000,
+    "pct": 26
    },
    "missing": [],
    "tier": "대기",
@@ -2194,15 +2411,15 @@
    "market": "KOSPI",
    "sector": "바이오·헬스케어 > 바이오시밀러·CDMO",
    "group": "바이오",
-   "ia": "동반 상승",
-   "ia_up_share": 42,
-   "ia_median": 1.5,
-   "close": 209000.0,
+   "ia": "나 홀로",
+   "ia_up_share": 35,
+   "ia_median": 1.4,
+   "close": 208000.0,
    "date": "20261124",
    "rs": 86,
    "value20_eok": 1280,
-   "off_high_pct": -12.6,
-   "vol50": 527391,
+   "off_high_pct": -13.1,
+   "vol50": 527460,
    "checks": {
     "정배열(일봉)": true,
     "정배열(주봉)": true,
@@ -2244,12 +2461,12 @@
     "breakout": 219000,
     "alert": 214620,
     "stop_1r": 201480,
-    "distance_pct": 4.8
+    "distance_pct": 5.3
    },
    "overhead_zone": null,
    "max_zone": {
-    "top": 182723,
-    "pct": 21
+    "top": 190798,
+    "pct": 42
    },
    "missing": [
     "1stage 상승"
@@ -2258,22 +2475,22 @@
    "pool": false
   },
   {
-   "stock": "아모레퍼시픽",
-   "code": "090430",
+   "stock": "한미사이언스",
+   "code": "008930",
    "market": "KOSPI",
-   "sector": "소비재 > 화장품",
-   "group": "화장품",
-   "ia": "동반 상승",
-   "ia_up_share": 75,
-   "ia_median": 2.8,
-   "close": 139500.0,
+   "sector": "바이오",
+   "group": "바이오",
+   "ia": "나 홀로",
+   "ia_up_share": 35,
+   "ia_median": 1.4,
+   "close": 52400.0,
    "date": "20261124",
-   "rs": 84,
-   "value20_eok": 240,
-   "off_high_pct": -17.5,
-   "vol50": 176872,
+   "rs": 90,
+   "value20_eok": 121,
+   "off_high_pct": -23.5,
+   "vol50": 259016,
    "checks": {
-    "정배열(일봉)": false,
+    "정배열(일봉)": true,
     "정배열(주봉)": true,
     "RS": true,
     "고점 위치": true,
@@ -2281,58 +2498,49 @@
     "거래대금": true,
     "1stage 상승": true
    },
-   "gate_score": 6,
-   "gate_miss": [
-    "정배열(일봉)"
-   ],
-   "gate_strict": false,
+   "gate_score": 7,
+   "gate_miss": [],
+   "gate_strict": true,
    "gate_pass": true,
    "setups": [
-    "A",
-    "C"
+    "A"
    ],
    "run_pct": null,
    "base": {
-    "pivot": 152500,
-    "pivot_date": "20260831",
-    "days": 57,
-    "low": 120500,
-    "depth_pct": 21.0,
-    "stage1_pct": 62,
-    "giveback_pct": 55,
+    "pivot": 60400,
+    "pivot_date": "20261111",
+    "days": 9,
+    "low": 49600,
+    "depth_pct": 17.9,
+    "stage1_pct": 136,
+    "giveback_pct": 31,
     "pullbacks": [
-     11.7,
-     13.7,
-     9.8,
-     15.1,
-     9.5,
-     7.0
+     16.1,
+     9.5
     ],
-    "vol_dryup": 0.99,
+    "vol_dryup": 0.73,
     "is_52w_high": false
    },
    "today": [],
-   "vol_ratio": 0.88,
+   "vol_ratio": 0.36,
    "stage": "2stage 조정 중",
    "levels": {
-    "breakout": 152500,
-    "alert": 149450,
-    "stop_1r": 140300,
-    "distance_pct": 9.3
+    "breakout": 60400,
+    "alert": 59192,
+    "stop_1r": 55568,
+    "distance_pct": 15.3
    },
    "overhead_zone": [
-    118375,
-    140875
+    41688,
+    54558
    ],
    "max_zone": {
-    "top": 139000,
+    "top": 47050,
     "pct": 23
    },
-   "missing": [
-    "정배열(일봉)"
-   ],
+   "missing": [],
    "tier": "대기",
-   "pool": true
+   "pool": false
   },
   {
    "stock": "코스맥스",
@@ -2341,14 +2549,14 @@
    "sector": "소비재 > 화장품",
    "group": "화장품",
    "ia": "동반 상승",
-   "ia_up_share": 75,
-   "ia_median": 2.8,
-   "close": 292000.0,
+   "ia_up_share": 60,
+   "ia_median": 2.4,
+   "close": 291500.0,
    "date": "20261124",
    "rs": 94,
    "value20_eok": 274,
-   "off_high_pct": -8.8,
-   "vol50": 100295,
+   "off_high_pct": -8.9,
+   "vol50": 100298,
    "checks": {
     "정배열(일봉)": false,
     "정배열(주봉)": true,
@@ -2393,12 +2601,89 @@
     "breakout": 320000,
     "alert": 313600,
     "stop_1r": 294400,
-    "distance_pct": 9.6
+    "distance_pct": 9.8
    },
    "overhead_zone": null,
    "max_zone": {
-    "top": 194700,
-    "pct": 19
+    "top": 212600,
+    "pct": 50
+   },
+   "missing": [
+    "정배열(일봉)"
+   ],
+   "tier": "대기",
+   "pool": true
+  },
+  {
+   "stock": "아모레퍼시픽",
+   "code": "090430",
+   "market": "KOSPI",
+   "sector": "소비재 > 화장품",
+   "group": "화장품",
+   "ia": "동반 상승",
+   "ia_up_share": 60,
+   "ia_median": 2.4,
+   "close": 139200.0,
+   "date": "20261124",
+   "rs": 84,
+   "value20_eok": 240,
+   "off_high_pct": -17.6,
+   "vol50": 176882,
+   "checks": {
+    "정배열(일봉)": false,
+    "정배열(주봉)": true,
+    "RS": true,
+    "고점 위치": true,
+    "시총": true,
+    "거래대금": true,
+    "1stage 상승": true
+   },
+   "gate_score": 6,
+   "gate_miss": [
+    "정배열(일봉)"
+   ],
+   "gate_strict": false,
+   "gate_pass": true,
+   "setups": [
+    "A",
+    "C"
+   ],
+   "run_pct": null,
+   "base": {
+    "pivot": 152500,
+    "pivot_date": "20260831",
+    "days": 57,
+    "low": 120500,
+    "depth_pct": 21.0,
+    "stage1_pct": 62,
+    "giveback_pct": 55,
+    "pullbacks": [
+     11.7,
+     13.7,
+     9.8,
+     15.1,
+     9.5,
+     7.0
+    ],
+    "vol_dryup": 0.99,
+    "is_52w_high": false
+   },
+   "today": [],
+   "vol_ratio": 0.89,
+   "stage": "2stage 조정 중",
+   "levels": {
+    "breakout": 152500,
+    "alert": 149450,
+    "stop_1r": 140300,
+    "distance_pct": 9.6
+   },
+   "overhead_zone": [
+    118375,
+    140875
+   ],
+   "max_zone": {
+    "top": 146500,
+    "pct": 59
    },
    "missing": [
     "정배열(일봉)"
@@ -2413,14 +2698,14 @@
    "sector": "헬스케어",
    "group": "헬스케어",
    "ia": "동반 상승",
-   "ia_up_share": 59,
-   "ia_median": 2.2,
-   "close": 15800.0,
+   "ia_up_share": 46,
+   "ia_median": 1.7,
+   "close": 15680.0,
    "date": "20261124",
-   "rs": 92,
+   "rs": 93,
    "value20_eok": 386,
-   "off_high_pct": -35.6,
-   "vol50": 1777255,
+   "off_high_pct": -36.1,
+   "vol50": 1777648,
    "checks": {
     "정배열(일봉)": true,
     "정배열(주봉)": true,
@@ -2454,13 +2739,13 @@
     "is_52w_high": false
    },
    "today": [],
-   "vol_ratio": 0.56,
+   "vol_ratio": 0.57,
    "stage": "2stage 조정 중",
    "levels": {
     "breakout": 17570,
     "alert": 17219,
     "stop_1r": 16164,
-    "distance_pct": 11.2
+    "distance_pct": 12.1
    },
    "overhead_zone": [
     14319,
@@ -2473,229 +2758,9 @@
    "missing": [],
    "tier": "대기",
    "pool": false
-  },
-  {
-   "stock": "삼현",
-   "code": "437730",
-   "market": "KOSDAQ",
-   "sector": "로봇",
-   "group": "로봇",
-   "ia": "동반 상승",
-   "ia_up_share": 100,
-   "ia_median": 12.1,
-   "close": 63200.0,
-   "date": "20261124",
-   "rs": 97,
-   "value20_eok": 279,
-   "off_high_pct": -17.8,
-   "vol50": 533194,
-   "checks": {
-    "정배열(일봉)": true,
-    "정배열(주봉)": true,
-    "RS": true,
-    "고점 위치": true,
-    "시총": true,
-    "거래대금": true,
-    "1stage 상승": true
-   },
-   "gate_score": 7,
-   "gate_miss": [],
-   "gate_strict": true,
-   "gate_pass": true,
-   "setups": [],
-   "run_pct": null,
-   "base": {
-    "pivot": 66700,
-    "pivot_date": "20260527",
-    "days": 122,
-    "low": 25900,
-    "depth_pct": 61.2,
-    "stage1_pct": 506,
-    "giveback_pct": 73,
-    "pullbacks": [
-     40.2,
-     46.1,
-     30.5,
-     28.5,
-     19.2,
-     28.6,
-     22.2,
-     21.5,
-     33.6,
-     36.1
-    ],
-    "vol_dryup": 1.64,
-    "is_52w_high": false
-   },
-   "today": [
-    "돌파",
-    "H",
-    "55일 신고가"
-   ],
-   "vol_ratio": 3.1,
-   "stage": "2stage 조정 중",
-   "levels": {
-    "breakout": 66700,
-    "alert": 65366,
-    "stop_1r": 61364,
-    "distance_pct": 5.5
-   },
-   "overhead_zone": null,
-   "max_zone": {
-    "top": 56840,
-    "pct": 27
-   },
-   "missing": [
-    "조정이 깊음(상승분 73% 반납)"
-   ],
-   "tier": "후보",
-   "pool": false
-  },
-  {
-   "stock": "이수스페셜티케미컬",
-   "code": "457190",
-   "market": "KOSPI",
-   "sector": "2차전지",
-   "group": "2차전지",
-   "ia": "동반 상승",
-   "ia_up_share": 91,
-   "ia_median": 8.4,
-   "close": 81800.0,
-   "date": "20261124",
-   "rs": 90,
-   "value20_eok": 187,
-   "off_high_pct": -37.9,
-   "vol50": 300696,
-   "checks": {
-    "정배열(일봉)": false,
-    "정배열(주봉)": true,
-    "RS": true,
-    "고점 위치": true,
-    "시총": true,
-    "거래대금": true,
-    "1stage 상승": true
-   },
-   "gate_score": 6,
-   "gate_miss": [
-    "정배열(일봉)"
-   ],
-   "gate_strict": false,
-   "gate_pass": true,
-   "setups": [],
-   "run_pct": null,
-   "base": {
-    "pivot": 92900,
-    "pivot_date": "20261014",
-    "days": 29,
-    "low": 57000,
-    "depth_pct": 38.6,
-    "stage1_pct": 109,
-    "giveback_pct": 74,
-    "pullbacks": [
-     26.0,
-     26.9,
-     20.4
-    ],
-    "vol_dryup": 0.95,
-    "is_52w_high": false
-   },
-   "today": [
-    "돌파"
-   ],
-   "vol_ratio": 1.83,
-   "stage": "2stage 조정 중",
-   "levels": {
-    "breakout": 92900,
-    "alert": 91042,
-    "stop_1r": 85468,
-    "distance_pct": 13.6
-   },
-   "overhead_zone": [
-    94655,
-    109950
-   ],
-   "max_zone": {
-    "top": 105580,
-    "pct": 20
-   },
-   "missing": [
-    "정배열(일봉)",
-    "조정이 깊음(상승분 74% 반납)"
-   ],
-   "tier": "후보",
-   "pool": false
-  },
-  {
-   "stock": "나노신소재",
-   "code": "121600",
-   "market": "KOSDAQ",
-   "sector": "2차전지",
-   "group": "2차전지",
-   "ia": "동반 상승",
-   "ia_up_share": 91,
-   "ia_median": 8.4,
-   "close": 64700.0,
-   "date": "20261124",
-   "rs": 88,
-   "value20_eok": 147,
-   "off_high_pct": -32.1,
-   "vol50": 141560,
-   "checks": {
-    "정배열(일봉)": false,
-    "정배열(주봉)": true,
-    "RS": true,
-    "고점 위치": true,
-    "시총": true,
-    "거래대금": true,
-    "1stage 상승": true
-   },
-   "gate_score": 6,
-   "gate_miss": [
-    "정배열(일봉)"
-   ],
-   "gate_strict": false,
-   "gate_pass": true,
-   "setups": [
-    "A"
-   ],
-   "run_pct": null,
-   "base": {
-    "pivot": 78000,
-    "pivot_date": "20261112",
-    "days": 8,
-    "low": 54700,
-    "depth_pct": 29.9,
-    "stage1_pct": 135,
-    "giveback_pct": 52,
-    "pullbacks": [
-     29.9
-    ],
-    "vol_dryup": 1.53,
-    "is_52w_high": false
-   },
-   "today": [],
-   "vol_ratio": 1.23,
-   "stage": "2stage 조정 중",
-   "levels": {
-    "breakout": 78000,
-    "alert": 76440,
-    "stop_1r": 71760,
-    "distance_pct": 20.6
-   },
-   "overhead_zone": [
-    58040,
-    73565
-   ],
-   "max_zone": {
-    "top": 76670,
-    "pct": 23
-   },
-   "missing": [
-    "정배열(일봉)"
-   ],
-   "tier": "대기",
-   "pool": false
-  },
+  }
+ ],
+ "running": [
   {
    "stock": "디케이티",
    "code": "290550",
@@ -2703,14 +2768,14 @@
    "sector": "핸드셋/IT부품",
    "group": "핸드셋/IT부품",
    "ia": "동반 상승",
-   "ia_up_share": 90,
-   "ia_median": 3.9,
-   "close": 33000.0,
+   "ia_up_share": 82,
+   "ia_median": 3.7,
+   "close": 32550.0,
    "date": "20261124",
    "rs": 98,
    "value20_eok": 160,
-   "off_high_pct": -7.7,
-   "vol50": 465041,
+   "off_high_pct": -9.0,
+   "vol50": 465400,
    "checks": {
     "정배열(일봉)": true,
     "정배열(주봉)": true,
@@ -2725,505 +2790,19 @@
    "gate_strict": true,
    "gate_pass": true,
    "setups": [],
-   "run_pct": 395,
+   "run_pct": 389,
    "base": null,
-   "today": [
-    "55일 신고가"
-   ],
-   "vol_ratio": 3.45,
+   "today": [],
+   "vol_ratio": 3.49,
    "stage": "1stage 진행 중",
    "max_zone": {
-    "top": 19538,
-    "pct": 18
-   },
-   "missing": [
-    "조정 구간 없음(1stage 진행 중)"
-   ],
-   "tier": "후보",
-   "pool": false
-  },
-  {
-   "stock": "나무가",
-   "code": "190510",
-   "market": "KOSDAQ",
-   "sector": "핸드셋/IT부품",
-   "group": "핸드셋/IT부품",
-   "ia": "동반 상승",
-   "ia_up_share": 80,
-   "ia_median": 3.7,
-   "close": 16360.0,
-   "date": "20261124",
-   "rs": 85,
-   "value20_eok": 135,
-   "off_high_pct": -42.8,
-   "vol50": 408188,
-   "checks": {
-    "정배열(일봉)": true,
-    "정배열(주봉)": true,
-    "RS": true,
-    "고점 위치": true,
-    "시총": true,
-    "거래대금": true,
-    "1stage 상승": true
-   },
-   "gate_score": 7,
-   "gate_miss": [],
-   "gate_strict": true,
-   "gate_pass": true,
-   "setups": [
-    "A"
-   ],
-   "run_pct": null,
-   "base": {
-    "pivot": 19300,
-    "pivot_date": "20261117",
-    "days": 5,
-    "low": 14600,
-    "depth_pct": 24.4,
-    "stage1_pct": 75,
-    "giveback_pct": 57,
-    "pullbacks": [
-     24.4
-    ],
-    "vol_dryup": 2.52,
-    "is_52w_high": false
-   },
-   "today": [
-    "H"
-   ],
-   "vol_ratio": 2.82,
-   "stage": "2stage 조정 중",
-   "levels": {
-    "breakout": 19300,
-    "alert": 18914,
-    "stop_1r": 17756,
-    "distance_pct": 18.0
-   },
-   "overhead_zone": [
-    15876,
-    19386
-   ],
-   "max_zone": {
-    "top": 17230,
-    "pct": 26
-   },
-   "missing": [],
-   "tier": "대기",
-   "pool": false
-  },
-  {
-   "stock": "안랩",
-   "code": "053800",
-   "market": "KOSDAQ",
-   "sector": "IT/소프트웨어",
-   "group": "IT/소프트웨어",
-   "ia": "동반 상승",
-   "ia_up_share": 67,
-   "ia_median": 2.7,
-   "close": 124000.0,
-   "date": "20261124",
-   "rs": 98,
-   "value20_eok": 724,
-   "off_high_pct": -9.7,
-   "vol50": 383844,
-   "checks": {
-    "정배열(일봉)": true,
-    "정배열(주봉)": true,
-    "RS": true,
-    "고점 위치": true,
-    "시총": true,
-    "거래대금": true,
-    "1stage 상승": true
-   },
-   "gate_score": 7,
-   "gate_miss": [],
-   "gate_strict": true,
-   "gate_pass": true,
-   "setups": [
-    "A"
-   ],
-   "run_pct": null,
-   "base": {
-    "pivot": 137300,
-    "pivot_date": "20261103",
-    "days": 15,
-    "low": 89100,
-    "depth_pct": 35.1,
-    "stage1_pct": 170,
-    "giveback_pct": 56,
-    "pullbacks": [
-     35.1,
-     23.8
-    ],
-    "vol_dryup": 1.41,
-    "is_52w_high": true
-   },
-   "today": [],
-   "vol_ratio": 1.25,
-   "stage": "2stage 조정 중",
-   "levels": {
-    "breakout": 137300,
-    "alert": 134554,
-    "stop_1r": 126316,
-    "distance_pct": 10.7
-   },
-   "overhead_zone": null,
-   "max_zone": {
-    "top": 120000,
-    "pct": 26
-   },
-   "missing": [],
-   "tier": "대기",
-   "pool": false
-  },
-  {
-   "stock": "삼성E&A",
-   "code": "028050",
-   "market": "KOSPI",
-   "sector": "소재·산업재 > 건설",
-   "group": "건설",
-   "ia": "동반 상승",
-   "ia_up_share": 50,
-   "ia_median": 2.1,
-   "close": 59800.0,
-   "date": "20261124",
-   "rs": 95,
-   "value20_eok": 1772,
-   "off_high_pct": -14.9,
-   "vol50": 2698337,
-   "checks": {
-    "정배열(일봉)": false,
-    "정배열(주봉)": true,
-    "RS": true,
-    "고점 위치": true,
-    "시총": true,
-    "거래대금": true,
-    "1stage 상승": true
-   },
-   "gate_score": 6,
-   "gate_miss": [
-    "정배열(일봉)"
-   ],
-   "gate_strict": false,
-   "gate_pass": true,
-   "setups": [
-    "A"
-   ],
-   "run_pct": null,
-   "base": {
-    "pivot": 70300,
-    "pivot_date": "20261117",
-    "days": 5,
-    "low": 53000,
-    "depth_pct": 24.6,
-    "stage1_pct": 204,
-    "giveback_pct": 37,
-    "pullbacks": [
-     24.6
-    ],
-    "vol_dryup": 1.03,
-    "is_52w_high": true
-   },
-   "today": [],
-   "vol_ratio": 0.85,
-   "stage": "2stage 조정 중",
-   "levels": {
-    "breakout": 70300,
-    "alert": 68894,
-    "stop_1r": 64676,
-    "distance_pct": 17.6
-   },
-   "overhead_zone": null,
-   "max_zone": {
-    "top": 50175,
-    "pct": 23
-   },
-   "missing": [
-    "정배열(일봉)"
-   ],
-   "tier": "대기",
-   "pool": true
-  },
-  {
-   "stock": "심텍홀딩스",
-   "code": "036710",
-   "market": "KOSDAQ",
-   "sector": "반도체 기판·전자부품",
-   "group": "반도체 기판·전자부품",
-   "ia": "동반 상승",
-   "ia_up_share": 70,
-   "ia_median": 3.9,
-   "close": 6620.0,
-   "date": "20261124",
-   "rs": 96,
-   "value20_eok": 103,
-   "off_high_pct": -2.6,
-   "vol50": 1003229,
-   "checks": {
-    "정배열(일봉)": true,
-    "정배열(주봉)": true,
-    "RS": true,
-    "고점 위치": true,
-    "시총": true,
-    "거래대금": true,
-    "1stage 상승": true
-   },
-   "gate_score": 7,
-   "gate_miss": [],
-   "gate_strict": true,
-   "gate_pass": true,
-   "setups": [],
-   "run_pct": 226,
-   "base": null,
-   "today": [
-    "돌파",
-    "H",
-    "55일 신고가",
-    "매물대 돌파"
-   ],
-   "vol_ratio": 3.48,
-   "stage": "1stage 진행 중",
-   "max_zone": {
-    "top": 5846,
-    "pct": 18
-   },
-   "missing": [
-    "조정 구간 없음(1stage 진행 중)"
-   ],
-   "tier": "후보",
-   "pool": false
-  },
-  {
-   "stock": "엑시콘",
-   "code": "092870",
-   "market": "KOSDAQ",
-   "sector": "반도체 > 반도체 테스트(소켓·프로브카드·검사)",
-   "group": "반도체 테스트·후공정",
-   "ia": "나 홀로",
-   "ia_up_share": 39,
-   "ia_median": 1.1,
-   "close": 53700.0,
-   "date": "20261124",
-   "rs": 99,
-   "value20_eok": 329,
-   "off_high_pct": -21.0,
-   "vol50": 497383,
-   "checks": {
-    "정배열(일봉)": false,
-    "정배열(주봉)": true,
-    "RS": true,
-    "고점 위치": true,
-    "시총": true,
-    "거래대금": true,
-    "1stage 상승": true
-   },
-   "gate_score": 6,
-   "gate_miss": [
-    "정배열(일봉)"
-   ],
-   "gate_strict": false,
-   "gate_pass": true,
-   "setups": [
-    "A"
-   ],
-   "run_pct": null,
-   "base": {
-    "pivot": 67000,
-    "pivot_date": "20261113",
-    "days": 7,
-    "low": 47050,
-    "depth_pct": 29.8,
-    "stage1_pct": 563,
-    "giveback_pct": 35,
-    "pullbacks": [
-     29.8
-    ],
-    "vol_dryup": 1.08,
-    "is_52w_high": false
-   },
-   "today": [],
-   "vol_ratio": 0.8,
-   "stage": "2stage 조정 중",
-   "levels": {
-    "breakout": 67000,
-    "alert": 65660,
-    "stop_1r": 61640,
-    "distance_pct": 24.8
-   },
-   "overhead_zone": null,
-   "max_zone": {
-    "top": 33266,
+    "top": 22240,
     "pct": 34
-   },
-   "missing": [
-    "정배열(일봉)"
-   ],
-   "tier": "대기",
-   "pool": true
-  },
-  {
-   "stock": "와이씨",
-   "code": "232140",
-   "market": "KOSDAQ",
-   "sector": "반도체 테스트·후공정",
-   "group": "반도체 테스트·후공정",
-   "ia": "나 홀로",
-   "ia_up_share": 39,
-   "ia_median": 1.1,
-   "close": 16380.0,
-   "date": "20261124",
-   "rs": 93,
-   "value20_eok": 216,
-   "off_high_pct": -32.2,
-   "vol50": 2068910,
-   "checks": {
-    "정배열(일봉)": false,
-    "정배열(주봉)": true,
-    "RS": true,
-    "고점 위치": true,
-    "시총": true,
-    "거래대금": true,
-    "1stage 상승": true
-   },
-   "gate_score": 6,
-   "gate_miss": [
-    "정배열(일봉)"
-   ],
-   "gate_strict": false,
-   "gate_pass": true,
-   "setups": [],
-   "run_pct": null,
-   "base": {
-    "pivot": 18690,
-    "pivot_date": "20261006",
-    "days": 34,
-    "low": 9150,
-    "depth_pct": 51.0,
-    "stage1_pct": 174,
-    "giveback_pct": 80,
-    "pullbacks": [
-     36.0,
-     37.4
-    ],
-    "vol_dryup": 1.08,
-    "is_52w_high": false
-   },
-   "today": [
-    "매물대 돌파"
-   ],
-   "vol_ratio": 1.6,
-   "stage": "2stage 조정 중",
-   "levels": {
-    "breakout": 18690,
-    "alert": 18316,
-    "stop_1r": 17195,
-    "distance_pct": 14.1
-   },
-   "overhead_zone": [
-    20251,
-    21550
-   ],
-   "max_zone": {
-    "top": 15485,
-    "pct": 17
-   },
-   "missing": [
-    "정배열(일봉)",
-    "조정이 깊음(상승분 80% 반납)"
-   ],
-   "tier": "후보",
-   "pool": false
-  }
- ],
- "running": [
-  {
-   "stock": "한진칼",
-   "code": "180640",
-   "market": "KOSPI",
-   "sector": "운송/물류",
-   "group": "운송/물류",
-   "ia": "동반 상승",
-   "ia_up_share": 50,
-   "ia_median": 2.0,
-   "close": 228000.0,
-   "date": "20261124",
-   "rs": 98,
-   "value20_eok": 1413,
-   "off_high_pct": -7.3,
-   "vol50": 323195,
-   "checks": {
-    "정배열(일봉)": true,
-    "정배열(주봉)": true,
-    "RS": true,
-    "고점 위치": true,
-    "시총": true,
-    "거래대금": true,
-    "1stage 상승": true
-   },
-   "gate_score": 7,
-   "gate_miss": [],
-   "gate_strict": true,
-   "gate_pass": true,
-   "setups": [],
-   "run_pct": 145,
-   "base": null,
-   "today": [],
-   "vol_ratio": 0.68,
-   "stage": "1stage 진행 중",
-   "max_zone": {
-    "top": 115410,
-    "pct": 26
    },
    "missing": [
     "조정 구간 없음(1stage 진행 중)"
    ],
    "tier": null,
-   "pool": false
-  },
-  {
-   "stock": "디케이티",
-   "code": "290550",
-   "market": "KOSDAQ",
-   "sector": "핸드셋/IT부품",
-   "group": "핸드셋/IT부품",
-   "ia": "동반 상승",
-   "ia_up_share": 90,
-   "ia_median": 3.9,
-   "close": 33000.0,
-   "date": "20261124",
-   "rs": 98,
-   "value20_eok": 160,
-   "off_high_pct": -7.7,
-   "vol50": 465041,
-   "checks": {
-    "정배열(일봉)": true,
-    "정배열(주봉)": true,
-    "RS": true,
-    "고점 위치": true,
-    "시총": true,
-    "거래대금": true,
-    "1stage 상승": true
-   },
-   "gate_score": 7,
-   "gate_miss": [],
-   "gate_strict": true,
-   "gate_pass": true,
-   "setups": [],
-   "run_pct": 395,
-   "base": null,
-   "today": [
-    "55일 신고가"
-   ],
-   "vol_ratio": 3.45,
-   "stage": "1stage 진행 중",
-   "max_zone": {
-    "top": 19538,
-    "pct": 18
-   },
-   "missing": [
-    "조정 구간 없음(1stage 진행 중)"
-   ],
-   "tier": "후보",
    "pool": false
   },
   {
@@ -3233,14 +2812,14 @@
    "sector": "IT/소프트웨어",
    "group": "IT/소프트웨어",
    "ia": "동반 상승",
-   "ia_up_share": 72,
-   "ia_median": 3.1,
-   "close": 35950.0,
+   "ia_up_share": 61,
+   "ia_median": 2.7,
+   "close": 35650.0,
    "date": "20261124",
    "rs": 98,
-   "value20_eok": 938,
-   "off_high_pct": -20.1,
-   "vol50": 1486346,
+   "value20_eok": 939,
+   "off_high_pct": -20.8,
+   "vol50": 1488284,
    "checks": {
     "정배열(일봉)": true,
     "정배열(주봉)": true,
@@ -3255,14 +2834,58 @@
    "gate_strict": true,
    "gate_pass": true,
    "setups": [],
-   "run_pct": 227,
+   "run_pct": 224,
    "base": null,
    "today": [],
-   "vol_ratio": 1.01,
+   "vol_ratio": 1.08,
    "stage": "1stage 진행 중",
    "max_zone": {
     "top": 34800,
     "pct": 24
+   },
+   "missing": [
+    "조정 구간 없음(1stage 진행 중)"
+   ],
+   "tier": null,
+   "pool": false
+  },
+  {
+   "stock": "한진칼",
+   "code": "180640",
+   "market": "KOSPI",
+   "sector": "운송/물류",
+   "group": "운송/물류",
+   "ia": "동반 상승",
+   "ia_up_share": 40,
+   "ia_median": 1.9,
+   "close": 227000.0,
+   "date": "20261124",
+   "rs": 98,
+   "value20_eok": 1413,
+   "off_high_pct": -7.7,
+   "vol50": 323236,
+   "checks": {
+    "정배열(일봉)": true,
+    "정배열(주봉)": true,
+    "RS": true,
+    "고점 위치": true,
+    "시총": true,
+    "거래대금": true,
+    "1stage 상승": true
+   },
+   "gate_score": 7,
+   "gate_miss": [],
+   "gate_strict": true,
+   "gate_pass": true,
+   "setups": [],
+   "run_pct": 144,
+   "base": null,
+   "today": [],
+   "vol_ratio": 0.69,
+   "stage": "1stage 진행 중",
+   "max_zone": {
+    "top": 129920,
+    "pct": 50
    },
    "missing": [
     "조정 구간 없음(1stage 진행 중)"
@@ -3277,14 +2900,14 @@
    "sector": "소재·산업재 > 운송·물류",
    "group": "운송/물류",
    "ia": "동반 상승",
-   "ia_up_share": 50,
+   "ia_up_share": 45,
    "ia_median": 2.0,
-   "close": 8000.0,
+   "close": 7890.0,
    "date": "20261124",
    "rs": 97,
    "value20_eok": 137,
-   "off_high_pct": -14.6,
-   "vol50": 1064251,
+   "off_high_pct": -15.8,
+   "vol50": 1064682,
    "checks": {
     "정배열(일봉)": true,
     "정배열(주봉)": true,
@@ -3299,10 +2922,10 @@
    "gate_strict": true,
    "gate_pass": true,
    "setups": [],
-   "run_pct": 101,
+   "run_pct": 98,
    "base": null,
    "today": [],
-   "vol_ratio": 1.51,
+   "vol_ratio": 1.53,
    "stage": "1stage 진행 중",
    "max_zone": {
     "top": 5600,
@@ -3315,14 +2938,63 @@
    "pool": false
   },
   {
+   "stock": "심텍홀딩스",
+   "code": "036710",
+   "market": "KOSDAQ",
+   "sector": "반도체 기판·전자부품",
+   "group": "반도체 기판·전자부품",
+   "ia": "동반 상승",
+   "ia_up_share": 60,
+   "ia_median": 2.9,
+   "close": 6490.0,
+   "date": "20261124",
+   "rs": 96,
+   "value20_eok": 103,
+   "off_high_pct": -4.6,
+   "vol50": 1004293,
+   "checks": {
+    "정배열(일봉)": true,
+    "정배열(주봉)": true,
+    "RS": true,
+    "고점 위치": true,
+    "시총": true,
+    "거래대금": true,
+    "1stage 상승": true
+   },
+   "gate_score": 7,
+   "gate_miss": [],
+   "gate_strict": true,
+   "gate_pass": true,
+   "setups": [],
+   "run_pct": 220,
+   "base": null,
+   "today": [
+    "돌파",
+    "H",
+    "55일 신고가",
+    "매물대 돌파"
+   ],
+   "vol_ratio": 3.54,
+   "stage": "1stage 진행 중",
+   "max_zone": {
+    "top": 5846,
+    "pct": 34
+   },
+   "missing": [
+    "조정 구간 없음(1stage 진행 중)"
+   ],
+   "tier": "후보",
+   "pool": false
+  },
+  {
    "stock": "롯데렌탈",
    "code": "089860",
    "market": "KOSPI",
    "sector": "운송/물류",
    "group": "운송/물류",
    "ia": "동반 상승",
-   "ia_up_share": 55,
-   "ia_median": 2.3,
+   "ia_up_share": 45,
+   "ia_median": 2.0,
    "close": 58600.0,
    "date": "20261124",
    "rs": 96,
@@ -3359,113 +3031,20 @@
    "pool": false
   },
   {
-   "stock": "심텍홀딩스",
-   "code": "036710",
-   "market": "KOSDAQ",
-   "sector": "반도체 기판·전자부품",
-   "group": "반도체 기판·전자부품",
-   "ia": "동반 상승",
-   "ia_up_share": 70,
-   "ia_median": 3.9,
-   "close": 6620.0,
-   "date": "20261124",
-   "rs": 96,
-   "value20_eok": 103,
-   "off_high_pct": -2.6,
-   "vol50": 1003229,
-   "checks": {
-    "정배열(일봉)": true,
-    "정배열(주봉)": true,
-    "RS": true,
-    "고점 위치": true,
-    "시총": true,
-    "거래대금": true,
-    "1stage 상승": true
-   },
-   "gate_score": 7,
-   "gate_miss": [],
-   "gate_strict": true,
-   "gate_pass": true,
-   "setups": [],
-   "run_pct": 226,
-   "base": null,
-   "today": [
-    "돌파",
-    "H",
-    "55일 신고가",
-    "매물대 돌파"
-   ],
-   "vol_ratio": 3.48,
-   "stage": "1stage 진행 중",
-   "max_zone": {
-    "top": 5846,
-    "pct": 18
-   },
-   "missing": [
-    "조정 구간 없음(1stage 진행 중)"
-   ],
-   "tier": "후보",
-   "pool": false
-  },
-  {
-   "stock": "진에어",
-   "code": "272450",
-   "market": "KOSPI",
-   "sector": "운송/물류",
-   "group": "운송/물류",
-   "ia": "동반 상승",
-   "ia_up_share": 55,
-   "ia_median": 2.3,
-   "close": 7470.0,
-   "date": "20261124",
-   "rs": 91,
-   "value20_eok": 119,
-   "off_high_pct": -13.1,
-   "vol50": 673647,
-   "checks": {
-    "정배열(일봉)": true,
-    "정배열(주봉)": true,
-    "RS": true,
-    "고점 위치": true,
-    "시총": true,
-    "거래대금": true,
-    "1stage 상승": true
-   },
-   "gate_score": 7,
-   "gate_miss": [],
-   "gate_strict": true,
-   "gate_pass": true,
-   "setups": [],
-   "run_pct": 59,
-   "base": null,
-   "today": [],
-   "vol_ratio": 0.54,
-   "stage": "1stage 진행 중",
-   "max_zone": {
-    "top": 8211,
-    "pct": 39
-   },
-   "missing": [
-    "조정 구간 없음(1stage 진행 중)"
-   ],
-   "tier": null,
-   "pool": false
-  },
-  {
    "stock": "대한항공",
    "code": "003490",
    "market": "KOSPI",
    "sector": "운송/물류",
    "group": "운송/물류",
    "ia": "동반 상승",
-   "ia_up_share": 50,
-   "ia_median": 2.0,
-   "close": 31200.0,
+   "ia_up_share": 40,
+   "ia_median": 1.9,
+   "close": 31150.0,
    "date": "20261124",
    "rs": 91,
    "value20_eok": 892,
-   "off_high_pct": -5.3,
-   "vol50": 2699201,
+   "off_high_pct": -5.5,
+   "vol50": 2699543,
    "checks": {
     "정배열(일봉)": true,
     "정배열(주봉)": true,
@@ -3482,10 +3061,10 @@
    "gate_strict": false,
    "gate_pass": true,
    "setups": [],
-   "run_pct": 49,
+   "run_pct": 48,
    "base": null,
    "today": [],
-   "vol_ratio": 0.72,
+   "vol_ratio": 0.73,
    "stage": "1stage 진행 중",
    "max_zone": {
     "top": 25285,
@@ -3497,56 +3076,53 @@
    ],
    "tier": null,
    "pool": false
-  }
- ],
- "near_miss": [
+  },
   {
-   "stock": "바이오비쥬",
-   "code": "489460",
-   "market": "KOSDAQ",
-   "sector": "화장품",
-   "group": "화장품",
+   "stock": "진에어",
+   "code": "272450",
+   "market": "KOSPI",
+   "sector": "운송/물류",
+   "group": "운송/물류",
    "ia": "동반 상승",
-   "ia_up_share": 75,
-   "ia_median": 2.8,
-   "close": 17010.0,
+   "ia_up_share": 45,
+   "ia_median": 2.0,
+   "close": 7410.0,
    "date": "20261124",
-   "rs": 97,
-   "value20_eok": 19,
-   "off_high_pct": -0.8,
-   "vol50": 111008,
+   "rs": 91,
+   "value20_eok": 119,
+   "off_high_pct": -13.8,
+   "vol50": 673790,
    "checks": {
     "정배열(일봉)": true,
     "정배열(주봉)": true,
     "RS": true,
     "고점 위치": true,
     "시총": true,
-    "거래대금": false,
+    "거래대금": true,
     "1stage 상승": true
    },
-   "gate_score": 6,
-   "gate_miss": [
-    "거래대금"
-   ],
-   "gate_strict": false,
-   "gate_pass": false,
+   "gate_score": 7,
+   "gate_miss": [],
+   "gate_strict": true,
+   "gate_pass": true,
    "setups": [],
-   "run_pct": 225,
+   "run_pct": 57,
    "base": null,
    "today": [],
-   "vol_ratio": 1.18,
+   "vol_ratio": 0.56,
    "stage": "1stage 진행 중",
    "max_zone": {
-    "top": 12382,
-    "pct": 18
+    "top": 8211,
+    "pct": 39
    },
    "missing": [
-    "거래대금",
     "조정 구간 없음(1stage 진행 중)"
    ],
    "tier": null,
    "pool": false
-  },
+  }
+ ],
+ "near_miss": [
   {
    "stock": "에스텍",
    "code": "069510",
@@ -3555,13 +3131,13 @@
    "group": "전자부품/장비",
    "ia": "동반 상승",
    "ia_up_share": 78,
-   "ia_median": 6.0,
-   "close": 23900.0,
+   "ia_median": 4.8,
+   "close": 23800.0,
    "date": "20261124",
    "rs": 97,
    "value20_eok": 35,
-   "off_high_pct": -0.4,
-   "vol50": 64102,
+   "off_high_pct": -0.8,
+   "vol50": 64103,
    "checks": {
     "정배열(일봉)": true,
     "정배열(주봉)": true,
@@ -3579,7 +3155,8 @@
    "gate_pass": false,
    "setups": [
     "A",
-    "E"
+    "E",
+    "F"
    ],
    "run_pct": null,
    "base": {
@@ -3603,7 +3180,8 @@
     "breakout": 24000,
     "alert": 23520,
     "stop_1r": 22080,
-    "distance_pct": 0.4
+    "distance_pct": 0.8,
+    "low_cheat_trigger": 23950
    },
    "overhead_zone": [
     23680,
@@ -3620,20 +3198,20 @@
    "pool": false
   },
   {
-   "stock": "펌텍코리아",
-   "code": "251970",
+   "stock": "바이오비쥬",
+   "code": "489460",
    "market": "KOSDAQ",
-   "sector": "소비재 > 화장품",
-   "group": "포장재",
+   "sector": "화장품",
+   "group": "화장품",
    "ia": "동반 상승",
-   "ia_up_share": 80,
-   "ia_median": 2.3,
-   "close": 76600.0,
+   "ia_up_share": 60,
+   "ia_median": 2.4,
+   "close": 16900.0,
    "date": "20261124",
-   "rs": 95,
-   "value20_eok": 73,
-   "off_high_pct": -5.9,
-   "vol50": 106852,
+   "rs": 97,
+   "value20_eok": 19,
+   "off_high_pct": -1.5,
+   "vol50": 111049,
    "checks": {
     "정배열(일봉)": true,
     "정배열(주봉)": true,
@@ -3650,21 +3228,21 @@
    "gate_strict": false,
    "gate_pass": false,
    "setups": [],
-   "run_pct": 144,
+   "run_pct": 223,
    "base": null,
    "today": [],
-   "vol_ratio": 0.78,
+   "vol_ratio": 1.2,
    "stage": "1stage 진행 중",
    "max_zone": {
-    "top": 61400,
-    "pct": 16
+    "top": 13574,
+    "pct": 33
    },
    "missing": [
     "거래대금",
     "조정 구간 없음(1stage 진행 중)"
    ],
    "tier": null,
-   "pool": true
+   "pool": false
   },
   {
    "stock": "DB",
@@ -3674,13 +3252,13 @@
    "group": "지주사",
    "ia": "동반 상승",
    "ia_up_share": 69,
-   "ia_median": 3.7,
-   "close": 2340.0,
+   "ia_median": 3.0,
+   "close": 2335.0,
    "date": "20261124",
    "rs": 95,
    "value20_eok": 30,
-   "off_high_pct": -11.4,
-   "vol50": 1302354,
+   "off_high_pct": -11.6,
+   "vol50": 1302443,
    "checks": {
     "정배열(일봉)": true,
     "정배열(주봉)": true,
@@ -3724,12 +3302,12 @@
     "breakout": 2640,
     "alert": 2587,
     "stop_1r": 2429,
-    "distance_pct": 12.8
+    "distance_pct": 13.1
    },
    "overhead_zone": null,
    "max_zone": {
-    "top": 1948,
-    "pct": 20
+    "top": 2087,
+    "pct": 36
    },
    "missing": [
     "거래대금"
@@ -3738,20 +3316,20 @@
    "pool": false
   },
   {
-   "stock": "한국공항",
-   "code": "005430",
-   "market": "KOSPI",
-   "sector": "운송/물류",
-   "group": "운송/물류",
+   "stock": "펌텍코리아",
+   "code": "251970",
+   "market": "KOSDAQ",
+   "sector": "소비재 > 화장품",
+   "group": "포장재",
    "ia": "동반 상승",
-   "ia_up_share": 55,
-   "ia_median": 2.3,
-   "close": 104200.0,
+   "ia_up_share": 60,
+   "ia_median": 2.1,
+   "close": 76000.0,
    "date": "20261124",
-   "rs": 94,
-   "value20_eok": 15,
-   "off_high_pct": -7.7,
-   "vol50": 9174,
+   "rs": 95,
+   "value20_eok": 73,
+   "off_high_pct": -6.6,
+   "vol50": 106863,
    "checks": {
     "정배열(일봉)": true,
     "정배열(주봉)": true,
@@ -3768,21 +3346,21 @@
    "gate_strict": false,
    "gate_pass": false,
    "setups": [],
-   "run_pct": 92,
+   "run_pct": 142,
    "base": null,
    "today": [],
-   "vol_ratio": 1.45,
+   "vol_ratio": 0.78,
    "stage": "1stage 진행 중",
    "max_zone": {
-    "top": 83550,
-    "pct": 22
+    "top": 66400,
+    "pct": 30
    },
    "missing": [
     "거래대금",
     "조정 구간 없음(1stage 진행 중)"
    ],
    "tier": null,
-   "pool": false
+   "pool": true
   },
   {
    "stock": "인피니트헬스케어",
@@ -3791,14 +3369,14 @@
    "sector": "헬스케어",
    "group": "헬스케어",
    "ia": "동반 상승",
-   "ia_up_share": 55,
-   "ia_median": 2.1,
-   "close": 11360.0,
+   "ia_up_share": 43,
+   "ia_median": 1.5,
+   "close": 11430.0,
    "date": "20261124",
    "rs": 94,
    "value20_eok": 5,
-   "off_high_pct": -19.3,
-   "vol50": 103168,
+   "off_high_pct": -18.8,
+   "vol50": 103175,
    "checks": {
     "정배열(일봉)": true,
     "정배열(주봉)": true,
@@ -3845,7 +3423,7 @@
     "breakout": 14080,
     "alert": 13798,
     "stop_1r": 12954,
-    "distance_pct": 23.9
+    "distance_pct": 23.2
    },
    "overhead_zone": null,
    "max_zone": {
@@ -3859,19 +3437,66 @@
    "pool": false
   },
   {
+   "stock": "한국공항",
+   "code": "005430",
+   "market": "KOSPI",
+   "sector": "운송/물류",
+   "group": "운송/물류",
+   "ia": "동반 상승",
+   "ia_up_share": 45,
+   "ia_median": 2.0,
+   "close": 103900.0,
+   "date": "20261124",
+   "rs": 94,
+   "value20_eok": 15,
+   "off_high_pct": -8.0,
+   "vol50": 9174,
+   "checks": {
+    "정배열(일봉)": true,
+    "정배열(주봉)": true,
+    "RS": true,
+    "고점 위치": true,
+    "시총": true,
+    "거래대금": false,
+    "1stage 상승": true
+   },
+   "gate_score": 6,
+   "gate_miss": [
+    "거래대금"
+   ],
+   "gate_strict": false,
+   "gate_pass": false,
+   "setups": [],
+   "run_pct": 92,
+   "base": null,
+   "today": [],
+   "vol_ratio": 1.45,
+   "stage": "1stage 진행 중",
+   "max_zone": {
+    "top": 89420,
+    "pct": 42
+   },
+   "missing": [
+    "거래대금",
+    "조정 구간 없음(1stage 진행 중)"
+   ],
+   "tier": null,
+   "pool": false
+  },
+  {
    "stock": "에스원",
    "code": "012750",
    "market": "KOSPI",
    "sector": "기타자본재",
    "group": "기타자본재",
    "ia": "동반 상승",
-   "ia_up_share": 67,
-   "ia_median": 2.5,
-   "close": 101800.0,
+   "ia_up_share": 56,
+   "ia_median": 2.1,
+   "close": 102200.0,
    "date": "20261124",
    "rs": 93,
    "value20_eok": 91,
-   "off_high_pct": -5.4,
+   "off_high_pct": -5.0,
    "vol50": 97394,
    "checks": {
     "정배열(일봉)": true,
@@ -3889,7 +3514,7 @@
    "gate_strict": false,
    "gate_pass": false,
    "setups": [],
-   "run_pct": 52,
+   "run_pct": 53,
    "base": null,
    "today": [],
    "vol_ratio": 1.29,
@@ -3913,13 +3538,13 @@
    "group": "보험",
    "ia": "동반 상승",
    "ia_up_share": 70,
-   "ia_median": 4.1,
-   "close": 2525.0,
+   "ia_median": 3.7,
+   "close": 2540.0,
    "date": "20261124",
    "rs": 92,
    "value20_eok": 17,
-   "off_high_pct": -23.0,
-   "vol50": 1168417,
+   "off_high_pct": -22.6,
+   "vol50": 1168556,
    "checks": {
     "정배열(일봉)": true,
     "정배열(주봉)": true,
@@ -3948,20 +3573,19 @@
     "stage1_pct": 67,
     "giveback_pct": 22,
     "pullbacks": [
-     7.6,
-     6.1
+     8.7
     ],
     "vol_dryup": 0.57,
     "is_52w_high": false
    },
    "today": [],
-   "vol_ratio": 0.53,
+   "vol_ratio": 0.54,
    "stage": "2stage 조정 중",
    "levels": {
     "breakout": 2635,
     "alert": 2582,
     "stop_1r": 2424,
-    "distance_pct": 4.4
+    "distance_pct": 3.7
    },
    "overhead_zone": [
     2385,
@@ -3984,14 +3608,14 @@
    "sector": "인터넷·소프트웨어 > 게임",
    "group": "게임",
    "ia": "나 홀로",
-   "ia_up_share": 17,
-   "ia_median": 1.1,
-   "close": 12550.0,
+   "ia_up_share": 8,
+   "ia_median": 0.9,
+   "close": 12420.0,
    "date": "20261124",
    "rs": 91,
    "value20_eok": 68,
-   "off_high_pct": -31.9,
-   "vol50": 537189,
+   "off_high_pct": -32.6,
+   "vol50": 537249,
    "checks": {
     "정배열(일봉)": true,
     "정배열(주봉)": true,
@@ -4033,7 +3657,7 @@
     "breakout": 12930,
     "alert": 12671,
     "stop_1r": 11896,
-    "distance_pct": 3.0
+    "distance_pct": 4.1
    },
    "overhead_zone": [
     11444,
@@ -4041,7 +3665,7 @@
    ],
    "max_zone": {
     "top": 10278,
-    "pct": 24
+    "pct": 44
    },
    "missing": [
     "거래대금"
@@ -4056,14 +3680,14 @@
    "sector": "소재·산업재 > 건설",
    "group": "건설",
    "ia": "동반 상승",
-   "ia_up_share": 50,
-   "ia_median": 2.1,
-   "close": 25300.0,
+   "ia_up_share": 52,
+   "ia_median": 2.2,
+   "close": 24950.0,
    "date": "20261124",
    "rs": 89,
    "value20_eok": 19,
-   "off_high_pct": -24.0,
-   "vol50": 76871,
+   "off_high_pct": -25.1,
+   "vol50": 76881,
    "checks": {
     "정배열(일봉)": true,
     "정배열(주봉)": true,
@@ -4104,7 +3728,7 @@
     "breakout": 27650,
     "alert": 27097,
     "stop_1r": 25438,
-    "distance_pct": 9.3
+    "distance_pct": 10.8
    },
    "overhead_zone": [
     25650,
@@ -4117,7 +3741,7 @@
    "missing": [
     "거래대금"
    ],
-   "tier": "후보",
+   "tier": null,
    "pool": true
   },
   {
@@ -4127,14 +3751,14 @@
    "sector": "IT/소프트웨어",
    "group": "IT/소프트웨어",
    "ia": "동반 상승",
-   "ia_up_share": 67,
+   "ia_up_share": 61,
    "ia_median": 2.7,
-   "close": 5430.0,
+   "close": 5350.0,
    "date": "20261124",
-   "rs": 81,
+   "rs": 80,
    "value20_eok": 10,
-   "off_high_pct": -29.9,
-   "vol50": 344748,
+   "off_high_pct": -31.0,
+   "vol50": 344789,
    "checks": {
     "정배열(일봉)": true,
     "정배열(주봉)": true,
@@ -4172,13 +3796,13 @@
     "is_52w_high": false
    },
    "today": [],
-   "vol_ratio": 0.38,
+   "vol_ratio": 0.39,
    "stage": "2stage 조정 중",
    "levels": {
     "breakout": 6090,
     "alert": 5968,
     "stop_1r": 5603,
-    "distance_pct": 12.2
+    "distance_pct": 13.8
    },
    "overhead_zone": [
     5864,

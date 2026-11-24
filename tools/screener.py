@@ -142,9 +142,11 @@ def volume_zones(rows, nb=40):
     return [(round(lo + a * step), round(lo + (z + 1) * step)) for a, z in zones]
 
 
-def max_zone(rows, nb=10):
+def max_zone(rows, nb=10, merge=0.7):
     """최대 매물대 = 웹 차트(app.html candleChart의 매물대, 키움 MTS 방식)와 같은 계산:
     최근 200봉 · 저가~고가 10칸 · 거래량을 종가 칸에 · 가장 큰 칸(차트의 빨간 막대)의 상단 가격과 비중%.
+    가장 큰 칸 바로 옆 칸이 그 70% 이상이면 한 덩어리로 본다(2026-11-24 사용자 확정: 두 칸이 비슷하면 봉 한두 개 차이로
+    빨간 막대가 옆 칸으로 옮겨 가 신호 날짜가 틀어짐 — 삼현 11/23). top = 덩어리의 맨 위, pct = 덩어리 비중.
     (2026-11-18 사용자 요청: 차트 빨간 막대 상단 기준 · 표시만, 매매 규칙 아님)"""
     rows = rows[-200:]
     if len(rows) < 60:
@@ -157,7 +159,8 @@ def max_zone(rows, nb=10):
     for r in rows:
         b[min(nb - 1, max(0, int((r["close"] - lo) / bs)))] += r["volume"]
     k = b.index(max(b))
-    return {"top": round(lo + (k + 1) * bs), "pct": round(b[k] / (sum(b) or 1) * 100)}
+    hot = [j for j in (k - 1, k, k + 1) if 0 <= j < nb and b[j] >= b[k] * merge]
+    return {"top": round(lo + (max(hot) + 1) * bs), "pct": round(sum(b[j] for j in hot) / (sum(b) or 1) * 100)}
 
 
 def swing_pullbacks(h, l, start, k=3):

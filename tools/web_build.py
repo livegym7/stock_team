@@ -1465,7 +1465,7 @@ def write_html(data):
                 out[code] = {"t": f["type"], "p": f["pts"], "i": [[i["k"], i["ok"], i["t"]] for i in f["items"]]}
         return out
     data["fscore"] = safe(_fscores)
-    def _pool55():   # 관찰 풀 종목의 55일 신고가 (2026-11-24 사용자 확정, 표시·신호 줄 딱지용 — 매매 규칙 아님)
+    def _pool55():   # 매매 보드 종목(관찰 풀 + 감시 목록)의 55일 신고가 (2026-11-24 사용자 확정, 표시·신호 줄 딱지용 — 매매 규칙 아님)
         #   h = 마지막 거래일까지 55일 고점(다음 날 장중 비교용) · hp = 그 전날까지 55일 고점 · x = 마지막 거래일에 넘었는가 · v50·vr = 거래량 · peers = 같은 업종(동행 판정)
         import tomllib
         from common import CACHE
@@ -1477,8 +1477,10 @@ def write_html(data):
             peers.setdefault(cmap.get(u["code"]) or "네이버:" + (u.get("industry") or ""), []).append(u["code"])
         P = tomllib.loads((ROOT / "config" / "watch_pool.toml").read_text(encoding="utf-8"))
         out = {}
-        for th in P.get("themes") or []:
-            for s in th.get("stocks") or []:
+        codes = [s["code"] for th in P.get("themes") or [] for s in th.get("stocks") or []]
+        codes += [x["code"] for x in (data.get("tf_core") or {}).get("items") or [] if x.get("breakout")]   # 매매 보드의 풀 밖 종목도 (2026-11-24)
+        for code in dict.fromkeys(codes):
+            for s in ({"code": code},):
                 try:
                     rows = json.loads((CACHE / "daily" / f"{s['code']}.json").read_text())["rows"]
                 except Exception:
