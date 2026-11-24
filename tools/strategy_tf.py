@@ -10,7 +10,7 @@
   python3 tools/strategy_tf.py tg                # 토요일 텔레그램 요약 → reports/날짜/strategy_tg.md
   python3 tools/strategy_tf.py render            # prep + narr → reports/날짜/strategy_tf.html + data/strategy/tf/latest.json(웹 조각)
 
-펀더 점수(2026-11-24): 이익(다음 분기 영업이익 추정 +20%↑/흑자전환) · EPS(올해 추정 증가) · 기대(올해 영업이익 추정치 한 달 전보다 상향) = 추정 점수 3점. 컨센서스 없으면 발표 점수 2점(참고). 핵심 후보에서 빼는 것은 추정 점수 0점뿐
+펀더 점수(2026-11-24): 이익(다음 분기 영업이익 추정 +20%↑/흑자전환) · EPS(올해 추정 증가) · 기대(올해 영업이익 추정치 한 달 전보다 상향) = 추정 점수 3점. 컨센서스 없으면 발표 점수 2점. 핵심 후보에서 빼는 것은 펀더 0점(추정·발표 모두)
 기술 점수(3): RS 80↑ · 기준가 10% 안 + 빠진 조건 없음 · 업종 동행(인더스트리 액션)
 펀더 점수는 순서를 정하는 참고다. 매매 규칙(docs/rules.md)은 2027-01-31까지 고정. 주문 기능 없음.
 """
@@ -141,7 +141,7 @@ def fscore(d, px):
       EPS  = 올해 EPS 추정치가 작년보다 증가
       기대 = 올해 영업이익 추정치가 한 달 전보다 상향(+0.5%↑)
     type "E"(추정 점수, 3점 만점) = 다음 분기 컨센서스가 있는 종목. 없으면 type "A"(발표 점수, 2점 만점: 최근 발표 분기의 영업이익 +20%↑ · EPS 증가) — 참고용이고 감점하지 않는다.
-    근거(10년·21개월 비교 자료, docs/decisions.md 2026-11-24): 지난 실적 점수는 신호 성적을 못 가름 · 진짜 컨센서스로는 0점만 뚜렷이 나쁨 · 컨센서스 없는 종목은 나쁘지 않음 → 핵심 후보에서 빼는 것은 '추정 점수 0점'뿐(fok)."""
+    근거(10년·21개월 비교 자료, docs/decisions.md 2026-11-24): 지난 실적 점수는 신호 성적을 못 가름 · 진짜 컨센서스로는 0점만 뚜렷이 나쁨 · 컨센서스 없는 종목은 나쁘지 않음 → 점수 높낮이로 줄 세우지 않고, 핵심 후보에서 빼는 것은 펀더 0점뿐(fok — 추정·발표 모두, 2026-11-24 사용자 확정)."""
     if not d:
         return None
     Qa = [q for q in d.get("quarter") or [] if q.get("op") is not None]
@@ -198,12 +198,12 @@ def fscore(d, px):
 
 
 def fok(f):
-    """핵심 후보에서 빼지 않는가: 추정 점수(type E) 0점만 뺀다. 컨센서스·자료가 없는 종목은 중립(통과). 옛 형식(type 없음)은 예전 기준 2점↑."""
+    """핵심 후보에서 빼지 않는가 (2026-11-24 사용자 확정): 펀더 0점(추정·발표 모두)이면 뺀다. 실적 자료가 아예 없는 종목은 중립(통과). 옛 형식(type 없음)은 예전 기준 2점↑."""
     if not f:
         return True
     if "type" not in f:
         return f.get("pts", 0) >= 2
-    return not (f["type"] == "E" and f["pts"] == 0)
+    return f["pts"] > 0
 
 
 def prep():
@@ -364,7 +364,7 @@ def core_list():
                       "pool": r["pool"], "core": fok(f) and tech >= 2, "note": note})
     items.sort(key=lambda x: (not x["core"], x["fbad"], x["ftype"] != "E", -x["fp"], x["dist"] if x["dist"] is not None else 99))
     return {"as_of": sc.get("as_of"), "made_at": datetime.now(KST).strftime("%Y-%m-%d %H:%M"), "items": items[:20],
-            "n_core": sum(1 for x in items if x["core"]), "rule": "핵심 = 기술 2/3↑ + 펀더 추정 점수 0점 아님 (펀더: 다음 분기 이익·올해 EPS·추정치 상향, 추정치 없으면 발표 실적 참고 / 기술: RS 80↑·기준가 10% 안·업종 동행)"}
+            "n_core": sum(1 for x in items if x["core"]), "rule": "핵심 = 기술 2/3↑ + 펀더 0점 아님 (펀더: 다음 분기 이익·올해 EPS·추정치 상향, 추정치 없으면 발표 실적 / 기술: RS 80↑·기준가 10% 안·업종 동행)"}
 
 
 def topdown_brief():
@@ -559,9 +559,9 @@ def cat(b):
     if ok and b["tech"] >= 2:
         return 0, "핵심 후보", "pos"
     if ok:
-        return 1, "펀더 OK·기술 대기" if (b["fs"] or {}).get("type", "E") == "E" else "추정치 없음·기술 대기", "neu"
+        return 1, "기술 대기", "neu"
     if b["tech"] >= 2:
-        return 2, "기술만 · 펀더 미달", "warn"
+        return 2, "기술만 · 펀더 0점", "warn"
     return 3, "제외", "neg"
 
 
@@ -1158,7 +1158,7 @@ def body(P, N):
   <div><span>국면</span><b class="{ {"neg": "k-r", "pos": "k-g", "warn": "k-y"}.get(ltc, "")}">● {lt}</b><small>분산일 {dd} · 50일선 위 {lb["a50"]:.0f}%</small></div>
   <div><span>외국인 5일</span><b class="{cls(f5)}">{f5/10000:+.2f}조</b><small>기관 {i5/10000:+.2f}조 (코스피)</small></div>
   <div><span>{"큰 스트림" if "스트림" in polish(str(N.get("leaders_label") or "")) or "줄기" in str(N.get("leaders_label") or "") else "리더 업종"}</span>{leaders_html(N.get("leaders_label") or "·".join(leaders[:3]) or "없음")}<small>이익 +{XQ}%↑ + 강도 {YQ}↑</small></div>
-  <div><span>핵심 후보</span><b>{len(core)}종목</b><small>기술 2/3↑ + 펀더 추정 0점 아님</small></div>
+  <div><span>핵심 후보</span><b>{len(core)}종목</b><small>기술 2/3↑ + 펀더 0점 아님</small></div>
  </div>
  {compare_html(P, core)}
  <div class="cover">
@@ -1206,7 +1206,7 @@ def body(P, N):
 </article>
 <article class="page">
  <div class="mast"><h2 data-tl="🎯 종목"><i>STEP 5</i>종목 — 펀더 필터 → 기술 트리거</h2><span>감시 목록 {P["screener"].get("count") or "-"}종목 훑기 · 확정 신호 {P["screener"].get("signals", 0)}건 · {md(P["screener"].get("as_of") or asof)}</span></div>
- <p style="margin:0 0 6px;font-size:13px"><b>펀더 점수</b>(추정 3): ① 다음 분기 영업이익 추정치가 1년 전 같은 분기보다 +20%↑ 또는 흑자전환 ② 올해 EPS 추정치가 작년보다 증가 ③ 올해 영업이익 추정치가 한 달 전보다 상향. 증권사 추정치가 없는 종목은 발표된 실적(분기 영업이익·EPS)으로 본 참고 점수 2점이고 감점하지 않습니다. 핵심 후보에서 빼는 것은 추정 점수 0점뿐입니다. <b>기술 점수</b>(3): ① RS 80↑ ② 기준가 10% 안 + 빠진 조건 없음 ③ 업종 동행. 점에 마우스를 올리면 근거가 보입니다.</p>
+ <p style="margin:0 0 6px;font-size:13px"><b>펀더 점수</b>(추정 3): ① 다음 분기 영업이익 추정치가 1년 전 같은 분기보다 +20%↑ 또는 흑자전환 ② 올해 EPS 추정치가 작년보다 증가 ③ 올해 영업이익 추정치가 한 달 전보다 상향. 증권사 추정치가 없는 종목은 발표된 실적(분기 영업이익·EPS)으로 본 참고 점수 2점이고 감점하지 않습니다. 핵심 후보에서 빼는 것은 펀더 0점(추정·발표 모두)입니다. <b>기술 점수</b>(3): ① RS 80↑ ② 기준가 10% 안 + 빠진 조건 없음 ③ 업종 동행. 점에 마우스를 올리면 근거가 보입니다.</p>
  <div class="tw"><table><thead><tr><th class="l">종목 <small>업종·순위</small></th><th>분류</th><th>펀더</th><th>기술</th><th>최근 분기</th><th>올해(E)</th><th>PER(E)</th><th>RS</th><th>기준가</th><th>거리</th><th>손절가</th><th>1R 수량</th><th>베이스</th><th>업종</th><th class="l">일정·빠진 조건</th></tr></thead><tbody>{"".join(brow)}</tbody></table></div>
  <div class="src">최근 분기·올해(E) = 영업이익 증가율 · 손절가 = 기준가 −8% · 1R 수량 = 30만 원 ÷ (기준가 − 손절가) · 🎯 관찰 풀 · 출처: 감시 목록(screener.py), 네이버 재무·컨센서스(비공식)</div>
  {counter_html(N, [(b["code"], b["name"], f'펀더 {(b["fs"] or {}).get("pts", 0)} · 기술 {b["tech"]}') for b in core], "핵심 후보 반론")}
@@ -1370,7 +1370,7 @@ def pool_board(date=None):
          "# 직접 고쳐도 됨(빼려면 줄 삭제, 넣으려면 같은 형식으로 추가). 감시 목록(screener --pool)은 이 풀 + RS 70↑만 본다. 주문 기능 없음.",
          f'updated = "{now}"', f'source = "테크노펀더 주간 {P["date"]}"', ""]
     for tid, name, stage, items in [
-        ("C1", "🎯 핵심 후보 — 기술 2/3↑ + 펀더 추정 0점 아님 (기준가 돌파 대기)", "준비", [row(b["name"], b["code"], f"준비 · 기준가 {b['breakout']:,}" if b.get("breakout") else "준비", b["group"]) for b in core]),
+        ("C1", "🎯 핵심 후보 — 기술 2/3↑ + 펀더 0점 아님 (기준가 돌파 대기)", "준비", [row(b["name"], b["code"], f"준비 · 기준가 {b['breakout']:,}" if b.get("breakout") else "준비", b["group"]) for b in core]),
         ("C2", "펀더 OK · 기술 대기 — 이익은 받쳐 주고 베이스·RS를 기다림", "관찰", [row(b["name"], b["code"], "관찰", b["group"]) for b in wait]),
         ("C3", "달리는 주도주 — 베이스 없음, 추격하지 않고 첫 눌림 대기", "첫 눌림 대기", [row(b["name"], b["code"], "눌림 대기", b["group"]) for b in run]),
         ("C4", "리더 업종 주도주 — 업종 이익 +20%↑ × 강도 65↑, 종목 펀더 2/3↑", "리더 업종", [row(x["name"], x["code"], "업종 리더", x["group"]) for x in lead])]:
@@ -1439,7 +1439,7 @@ def tg(date=None):
     L += ["", f"🚦 국면: 신호등 {lt} · 분산일 {len(P['regime']['dist_days'])}개 · 50일선 위 종목 {lb['a50']:.0f}% · 20일선 대비 {pc(P['regime']['gap20'])}",
           f"💰 수급(코스피 5일): 외국인 {f5/10000:+.2f}조 · 기관 {i5/10000:+.2f}조 · 업종 순매수 상위 {', '.join(s['group'] for s in FS[:2])}", "",
           f"🏭 업종 (이익 × 추세)", f"- 리더: {byq('리더')}", f"- 모멘텀만: {byq('모멘텀만')}", f"- 기다림: {byq('기다림')}", "",
-          f"🎯 핵심 후보 {len(core)}종목 (기술 2/3↑ + 펀더 추정 0점 아님, 기준가까지)"]
+          f"🎯 핵심 후보 {len(core)}종목 (기술 2/3↑ + 펀더 0점 아님, 기준가까지)"]
     L += [f"- {b['name']} 기준가 {w(b['breakout'])}원 ({b['dist']:.1f}%) · 펀더 {(b['fs'] or {}).get('pts', 0)}/3 · 기술 {b['tech']}/3" for b in core[:5]]
     pm = (N.get("red_team") or {}).get("premortem") or []
     if pm:

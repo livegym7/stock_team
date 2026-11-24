@@ -5,8 +5,7 @@
   - 3R 도달 (50% 익절 + 남은 물량 손절가 본전 규칙)
   - 3R 이후 20일선 아래 (종가로 확인 필요)
   - 하루 등락 -5% 이하 / +7% 이상
-  - 감시 목록(전날 16:07) 중 관찰 풀·핵심 후보의 기준가 근접(−2% 이내)·장중 돌파 (예상 거래량 배수 포함) · 풀 밖은 규칙을 다 채운 돌파(✅)만 (2026-11-20) · 핵심 후보(펀더+기술, core.json)는 🎯로 먼저 (2026-11-14)
-  - 최대 매물대(차트 빨간 막대 상단) 장중 돌파 + 장중 업종 동행(같은 업종 종목 1분 전 시세) · 기준가 돌파+거래량+업종 동행이면 ✅ 규칙 충족 (2026-11-18)
+  - 감시 목록(전날 16:07) 종목이 장중에 기준가나 최대 매물대를 넘으면 모두(2026-11-24 단순화: 조건은 딱지로만 — 기준가·매물대·거래량·동행·펀더, 웹 신호 줄과 같음) · 기준가 근접(−2% 이내)은 관찰 풀·핵심 후보만
   - 보유 종목이 주인공인 채널 새 글 (기업·실적·리포트·정책 글, 중복·잡담·시황 나열 제외, 지난 확인 이후)
 판단만 알린다. 매수·매도를 대신하지 않는다 (절대 규칙 1·4).
 
@@ -94,7 +93,7 @@ def breakout_watch(now, sent, limit=40):
         if cx.get("core"):
             grade = f"🎯핵심(펀더 {'추정' if cx.get('ftype') == 'E' else '발표'} {cx['fp']}/{cx.get('fmax', 3)}) " + grade
         elif cx and cx.get("fbad", cx.get("fp", 0) <= 1):
-            grade = grade + "(펀더 추정 0점) "
+            grade = grade + "(펀더 0점) "
         note = f"{grade}{tier} {x['stock']} {px:,.0f}원 ({r.get('chg') or 0:+.2f}%) · 기준가 {piv:,}"
         miss = f" · 부족: {', '.join(x.get('missing') or [])}" if x.get("missing") else ""
         # 장중 업종 동행 (screener.industry_action과 같은 규칙: 같은 업종 40%↑가 +2%↑ 또는 중앙값 +1.5%↑, 2026-11-18)
@@ -105,10 +104,7 @@ def breakout_watch(now, sent, limit=40):
             from screener import IA_RULE   # 숫자는 screener 한 곳에서만 (2026-11-20, 여기 따로 적혀 있던 40·1.5를 없앰)
             share, med = round(sum(1 for v in ch if v >= IA_RULE["up"] * 100) / len(ch) * 100), statistics.median(ch)
             ia = (share >= IA_RULE["min_up_share"] or med >= IA_RULE["min_median"], share)
-        iatxt = " · 업종 " + (("동행 ✓" if ia[0] else "나 홀로") + f" {ia[1]}%" if ia else "확인 불가")
         rk = sec_rank.get(x.get("group") or cx.get("group"))     # 주도 섹터 레이더 순위 (2026-11-23: 표시만) — 1~5위면 '주도'
-        if rk:
-            iatxt += f" · 업종 {rk}위" + ("(주도)" if rk <= 5 else "")
         # 매물대 돌파: 어제 종가 ≤ 최대 매물대(차트 빨간 막대 상단) < 현재가 (2026-11-18 사용자 요청)
         zt = cx.get("zone_top") or (x.get("max_zone") or {}).get("top")
         yc = x.get("close")
@@ -116,21 +112,23 @@ def breakout_watch(now, sent, limit=40):
         bo = px > piv
         vok = vr is not None and vr >= 1.5
         rule = bo and vok and bool(ia and ia[0])
-        # 2026-11-20 사용자 확정: 웹 셋업 보드와 같은 기준으로 좁힘 — 관찰 풀·핵심 후보는 근접·돌파 모두, 풀 밖은 규칙을 다 채운 돌파(✅)만.
-        # (전에는 풀 밖·조건 부족 후보의 '기준가 근접'까지 "참고"로 보내 하루 5건 한도를 채웠음)
+        # 2026-11-24 사용자 확정(단순화): 웹 신호 줄과 같게 — 오늘 기준가나 최대 매물대를 넘은 감시 목록 종목은 모두 알리고, 조건은 딱지(켜짐 ✓ / 꺼짐 ✗)로만 적는다. 살지 말지는 본인이 판단.
+        # 기준가 근접(👀)은 전처럼 관찰 풀·핵심 후보만. 정식 신호(기준가 + 거래량 1.5배 + 업종 동행)를 세는 기준은 그대로다.
         mine = bool(x.get("pool")) or bool(cx.get("core"))
-        if not mine and not (rule and not x.get("missing")):
-            continue
         if bo or zb:
-            what = " + ".join(([f"기준가 {piv:,}"] if bo else []) + ([f"매물대 {zt:,}"] if zb else []))
-            head = f"🔔 {grade}{tier} {x['stock']} {px:,.0f}원 ({r.get('chg') or 0:+.2f}%) · {what} 돌파{vtxt}{' ✓' if vok else ''}{iatxt}"
-            tail = " — ✅ 규칙 충족(장중), 종가로 확정" if rule else (" — 매물대 돌파(참고 신호, 정식 신호 아님)" if not bo else " — 종가 유지·거래량 1.5배·업종 동행 확인 필요")
-            if bo and mine:
-                out.append((f"brk:{c}", head + tail + miss))
-            if zb and mine:
-                out.append((f"zb:{c}", head + tail + miss))
-            if rule:   # 처음엔 업종이 안 따라왔다가 나중에 규칙을 채우면 한 번 더
-                out.append((f"rule:{c}", head + tail + miss))
+            ftxt = f"펀더 {'추정' if cx.get('ftype') == 'E' else '발표'} {cx['fp']}/{cx.get('fmax', 3)}{' ✓' if cx.get('fp') else ' ✗'}" if cx.get("ftype") else "펀더 확인 불가"
+            tags = [f"기준가 {piv:,} ✓"] if bo else []
+            tags += [f"매물대 {zt:,} ✓"] if zb else []
+            tags += [f"거래량 {vr:.1f}배 {'✓' if vok else '✗'}" if vr else "거래량 확인 불가", ("동행 ✓" if ia[0] else "나 홀로 ✗") if ia else "업종 확인 불가", ftxt]
+            if rk:
+                tags.append(f"업종 {rk}위" + ("(주도)" if rk <= 5 else ""))
+            head = f"🔔 {'🎯' if cx.get('core') else ''}{x['stock']} {px:,.0f}원 ({r.get('chg') or 0:+.2f}%) · " + " · ".join(tags)
+            tail = " — 다섯 조건 중 기준가·거래량·동행 충족(장중), 종가로 확정" if rule else " — 종가로 확정, 판단은 본인"
+            out.append((f"sig:{c}", head + tail))
+            if rule:   # 처음엔 조건이 덜 켜졌다가 나중에 기준가·거래량·동행이 모두 켜지면 한 번 더
+                out.append((f"rule:{c}", head + tail))
+        elif not mine:
+            continue
         elif px >= alert_px:
             out.append((f"near:{c}", f"👀 {note}까지 {(piv / px - 1) * 100:.1f}% 남음{vtxt}{miss}"))
     return out
