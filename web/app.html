@@ -624,7 +624,7 @@ table.sortt th{cursor:pointer;user-select:none} table.sortt th:hover{color:var(-
  .adflow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:12px} .adflow div{border:1px solid var(--line);border-radius:10px;padding:6px 10px;display:flex;flex-direction:column} .adflow b{font-size:12.5px} .adflow span{font-size:12px;color:var(--muted)} .adflow i{color:var(--muted);font-style:normal}
  @media(max-width:820px){.adgrid{grid-template-columns:1fr 1fr} html body .view table.slist td.ibscell{grid-column:1/-1;min-width:0!important;padding:2px 0 4px!important} .adflow i{display:none} .adt{font-size:15px}}
  .pill.pp{background:var(--accent);color:#fff;font-weight:700;font-size:11px;padding:0 6px} .pill.brkt{background:var(--up);color:#fff;font-weight:700;font-size:11px;padding:0 6px} .pill.nvb{font-size:11px;padding:0 6px;text-decoration:none;white-space:nowrap} .pill.nvw{font-size:10.5px;padding:0 5px;margin-left:3px;color:var(--muted);white-space:nowrap} .rday{padding:6px 12px;font-size:12px;font-weight:600;color:var(--muted);background:var(--bg);border-top:1px solid var(--line)} .rsec{display:inline-block;font-size:10.5px;color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:0 4px;margin-right:4px} .rnew{font-size:11px;margin-right:3px} .dtabs{display:flex;gap:6px;overflow-x:auto;padding:8px 0 4px;scrollbar-width:thin} .dtab{flex:0 0 auto;white-space:nowrap;text-align:left;border:1px solid var(--rule);background:var(--panel);color:inherit;border-radius:999px;padding:4px 11px;cursor:pointer;font-size:12.5px;line-height:1.4} .dtab:hover{border-color:var(--accent)} .dtab.on{border-color:var(--accent);background:var(--accent);color:#fff} .dtab.on small{color:#fff;opacity:.85} .sigstrip{border:1px solid var(--accent);background:var(--accent-bg,rgba(47,111,222,.06));border-radius:10px;padding:8px 12px;margin:0 0 10px;font-size:13px;display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center} .sigstrip.none{border-color:var(--rule);background:transparent;color:var(--muted)} .sigc{white-space:nowrap}.sigc.dim{opacity:.6}.secr{font-size:11px;color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}.secr.hot{color:var(--up);font-weight:700}.refsig{font-size:10.5px;color:var(--muted);border:1px dashed var(--line);border-radius:6px;padding:0 5px}.pill.zref{background:none;border:1px solid var(--up);color:var(--up);font-weight:700;font-size:11px;padding:0 6px}.sigtip{font-size:11px;color:var(--muted);margin:-4px 0 10px;line-height:1.6}
-@media(max-width:820px){.sigc{white-space:normal}} .pill.sm{font-size:10.5px;padding:0 5px;color:var(--muted)}
+ .pill.sm{font-size:10.5px;padding:0 5px;color:var(--muted)}
 .corebx .cbr{display:grid;grid-template-columns:auto 1fr auto auto auto;gap:4px 8px;align-items:center;padding:5px 12px;border-top:1px solid var(--line);font-size:12.5px}
 .corebx .cbr small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.corebx .cbd{font-size:10.5px;color:var(--accent);letter-spacing:-1px;white-space:nowrap}.corebx .cbd i{font-style:normal;color:var(--faint);letter-spacing:0;margin-right:4px}
 /* 2026-11-14 2차: ⚙ · 국면 추적판 · 셋업 보드 · 휴대폰 카드 표 */
@@ -640,8 +640,10 @@ table.sortt th{cursor:pointer;user-select:none} table.sortt th:hover{color:var(-
 .fsm{font-size:11px;border-radius:999px;padding:1px 8px;min-width:54px;text-align:center}.fsm.on{background:#fde8e8;color:var(--up);font-weight:700}.fsm.off{background:#e8f0fe;color:var(--down)}.fsm.na{background:var(--line);color:var(--muted)}
 .sgt{display:inline-block;font-size:11px;font-weight:700;border-radius:5px;padding:0 6px;margin-right:3px;color:#fff;white-space:nowrap}
 .sgt.t1{background:#d6336c}.sgt.t2{background:#e8590c}.sgt.t3{background:#7048e8}.sgt.t4{background:#2f9e6e}.sgt.t5{background:#1c7ed6}.sgt.t6{background:#0c8599}
-.sgt.off{background:transparent;color:var(--muted);font-weight:400;box-shadow:inset 0 0 0 1px var(--line)}
 tr.sgrow>td{background:color-mix(in srgb,#d6336c 6%,transparent)}
+.tbh{margin:14px 0 6px;font-size:15px}
+.tbnm{display:flex;gap:6px 14px;align-items:center;flex-wrap:wrap;padding:8px 12px;border:1px solid var(--line);border-radius:10px;font-size:13px}.tbnm .nm{text-decoration:none;color:inherit;white-space:nowrap}
+.tbnm.none{color:var(--muted)}.tbnm .more{margin-left:auto;color:var(--accent)}
 .sdots{color:var(--accent);letter-spacing:-1px;font-size:11px;white-space:nowrap}
 @media(max-width:860px){.trk{grid-template-columns:repeat(2,minmax(0,1fr))}.trk .ti{border-bottom:1px solid var(--line)}}
 @media(max-width:820px){
@@ -663,7 +665,6 @@ tr.sgrow>td{background:color-mix(in srgb,#d6336c 6%,transparent)}
 .issbar{display:flex;gap:6px;align-items:center;overflow-x:auto;padding:0 0 8px;margin-bottom:6px;scrollbar-width:none}.issbar::-webkit-scrollbar{display:none}.issbar>span{font-size:12px;white-space:nowrap;margin-right:2px}.issbar .chip{white-space:nowrap;flex:none}.issbar .chip small{opacity:.7}
 .issban{display:flex;gap:8px;align-items:center;flex-wrap:wrap;background:color-mix(in srgb,#e8a33d 14%,var(--panel));border:1px solid #e8a33d;border-radius:8px;padding:8px 12px;margin-bottom:10px;font-size:12.5px}.issban a{margin-left:auto;font-weight:600}
 .seckp{font-size:12px;color:var(--muted);margin-bottom:6px;line-height:1.6}.seckp b{color:var(--fg)}
-@media(min-width:821px){table.sbt{table-layout:fixed;width:100%;min-width:1180px}table.sbt td,table.sbt th{overflow:hidden;text-overflow:ellipsis}}
 .memo .memot{font-size:15px;font-weight:700;line-height:1.5;margin:2px 0 4px}.memo .memob{font-size:12.5px;margin-bottom:10px}
 .memo2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}.memo2>div{border:1px solid var(--line);border-radius:10px;padding:8px 12px;min-width:0}
 .memo ul{margin:4px 0 0;padding-left:18px}.memo li{margin:3px 0;line-height:1.55}.mbull{border-left:3px solid var(--up)!important}.mbear{border-left:3px solid var(--down)!important}
@@ -773,7 +774,7 @@ try{const c=JSON.parse(localStorage.getItem("tr-data")||"null");if(c&&D&&c.built
 const MENU=[["home","오늘","◎"],["flow","시장","≡"],["news","소식","✉"],["stock","종목","◇"],["strategy","전략","◐"],["trade","내 매매","₩"],["more","더보기","⚙"]];   // 2026-11-14 2차: 탑다운 순서(오늘·시장·종목·전략·내 매매), 더보기는 ⚙   // 2026-11-12 Balance Lab 2.0: 종목 메뉴 신설, 흐름 → 시장
 // 옛 메뉴 id → 새 메뉴 + 탭 (기존 링크·data-go 호환)
 const ALIAS={briefs:["news",null,"digest"],channels:["news",null,"channels"],reports:["strategy","research"],portfolio:["trade",null],companies:["stock","list"],research:["strategy","research"],watch:["stock","setup"],sectors:["flow","sectors"],lab:["stock","setup"],config:["more",null]};
-const STOCK_TABS=[["setup","셋업 보드"],["pool","관찰 풀"],["highs","신고가"],["vtop","거래대금"],["earn","실적"],["etf","ETF"],["list","전체 목록"]];
+const STOCK_TABS=[["setup","매매 보드"],["highs","신고가"],["vtop","거래대금"],["earn","실적"],["etf","ETF"],["list","전체 목록"]];
 const MKT_TABS=[["macro","매크로"],["regime","국면·시장 폭"],["flows","수급"],["sectors","업종 지도"]];   // 소식은 메뉴로 분리 (2026-11-15 A안)
 const TABS=["home","flow","news","stock","strategy","trade"];   // 소식 분리 (2026-11-15 A안)
 const $=s=>document.querySelector(s);
@@ -1612,6 +1613,7 @@ function viewHome2(){
     ${acctBox()}
     ${holdBox()}
     ${src((D.risk?.source||"")+" · "+(D.risk?.at||"")+" · 수익률 = (실현+평가 손익) ÷ 원금, 매매 일지 기준")}
+    ${tbStrip(tbRows(),1)}
     ${coreBox()}
     ${highsLine()}
     ${alertLine()}
@@ -2039,7 +2041,7 @@ function coreBox(){   // 핵심 후보 매일 갱신: 기술 2/3↑ + 펀더 0�
      <span class="cbd">${x.fitems?x.fitems.map(i=>i.ok?"●":i.ok===false?"○":"◌").join(""):"●".repeat(x.fp)+"○".repeat(3-x.fp)} <i>펀더${x.ftype=="A"?"(발표)":""}</i> ${"●".repeat(x.tech)}${"○".repeat(3-x.tech)} <i>기술</i></span>
      <span class="num cpx">${px?w(px):"-"} <small class="${cls(nowPx(x.code).chg)}">${nowPx(x.code).chg!=null?pc(nowPx(x.code).chg,2):""}</small></span>
      <span class="num ${d!=null&&d<=3?"up":""}" title="기준가 ${x.breakout?w(x.breakout):"-"}까지">${d==null?"-":(d<=0?"돌파 ":"")+Math.abs(d).toFixed(1)+"%"}</span></div>`};
-  return `<div class="bx corebx"><div class="bh">🎯 핵심 후보 <em>펀더+기술 · 현재가·오늘 · 기준가까지 · 셋업 보드 ${esc(fmtYmd(C.as_of||""))}</em></div>
+  return `<div class="bx corebx"><div class="bh">🎯 핵심 후보 <em>펀더+기술 · 현재가·오늘 · 기준가까지 · 감시 목록 ${esc(fmtYmd(C.as_of||""))}</em></div>
    ${L.map(row).join("")}
    <div style="padding:4px 12px 0">${mktEvLine()}</div>
    <div class="src" style="padding:4px 12px 8px">핵심 ${C.n_core}종목 · ${esc(C.rule)} · 종목에 마우스를 올리면 근거 · 참고용, 매매 규칙은 그대로</div></div>`}
@@ -2072,18 +2074,7 @@ function highsTab(){
   ${src((live?"* 거래량 배수 = 지금까지 거래량 ÷ (20일 평균 × 이 시각까지 보통 지나는 비율), 시간 보정 추정 · 🟢 버팀 = 현재가도 직전 60일 최고가 위, ⚪ 밀림 = 고가만 넘고 내려옴 · 🆕 = 직전 20분 회차 이후 새로 들어옴 · ":"20일 내 횟수 = 최근 20거래일 동안 이 신고가가 몇 번 나왔나(1 = 처음) · ")+"⭐ 보유 🎯 관찰 풀 · 종목에 마우스를 올리면 차트 · 출처: 네이버 일봉·현재가(비공식) · 판단은 본인")}`;
 }
 
-/* ---------- ③ 전략: 보고서 · 자료실 · 부록 (관찰 풀 표 poolTab은 종목 › 관찰 풀에서 씀) ---------- */
-function poolTab(){
-  const P=D.watch_pool, comp=Object.fromEntries((D.companies||[]).map(c=>[c.code,c])), W=D.watch||{};
-  if(!P||!(P.themes||[]).length)return `<div class="empty">관찰 풀이 아직 없습니다. 토요일 전략 보고서가 만들거나, Claude에게 "전략 보고서 써줘"라고 하세요</div>`;
-  const wmap={}; ["signals","candidates","watch","running","near_miss"].forEach(k=>(W[k]||[]).forEach(x=>{wmap[x.code]=wmap[x.code]||{...x,tier:x.tier||k}}));
-  return `<div class="sub" style="margin-top:-6px">${esc(P.source||"전략 보고서")} · ${esc(P.updated||"")} 갱신 · 55일 신고가를 넘으면 신호 줄에 뜹니다</div>
-  ${signalStrip()}
-  ${P.themes.map(th=>`<div class="panel" style="margin-bottom:12px"><h3>${esc(th.id)} ${esc(th.name)} <span class="pill">${esc(th.stage||"")}</span></h3>
-   <div class="tw"><table class="slist"><tr><th class="l">종목</th><th class="l">역할</th><th>현재가</th><th>오늘</th><th>RS</th><th>1주</th><th>1개월</th><th>고점 대비</th><th title="최근 55거래일 고점까지 남은 % · 넘으면 신호 줄에 '55일 신고가' 딱지">55일 신고가까지</th><th>20일선</th><th>수급</th><th class="l">감시 목록</th><th>리포트 31일</th></tr>
-   ${(th.stocks||[]).map(s=>{const c=comp[s.code]||{},wx=wmap[s.code],u=(D.uni||{})[s.code],t=c.trend||(u?{rs:u[2]??(wx||{}).rs,r1m:u[7],off_high:u[8]}:{rs:(wx||{}).rs,off_high:(wx||{}).off_high_pct});const n5=p55(s.code),d5=n5?(n5.base/n5.px-1)*100:null;return `<tr class="click ${n5&&n5.x?"sgrow":""}" data-cq="${esc(s.name)}"><td class="l"><b>${esc(s.name)}</b>${n5&&n5.x?' <span class="sgt t6">신호</span>':""}<br><small class="muted">${esc(s.group||"")}</small></td><td class="l"><small>${esc(s.role||"")}</small></td>${pxCells(s.code)}<td class="num">${t.rs??"-"}</td><td class="num ${cls(t.r1w)}">${pc(t.r1w)}</td><td class="num ${cls(t.r1m)}">${pc(t.r1m)}</td><td class="num">${pc(t.off_high)}</td><td class="num ${d5!=null&&d5<=3?"up":""}" title="55일 고점 ${n5?w(n5.base):"-"}">${d5==null?"-":d5<=0?"돌파 +"+(-d5).toFixed(1)+"%":d5.toFixed(1)+"%"}</td><td>${t.above20==null?"-":t.above20?'<span class="up">위</span>':'<span class="down">아래</span>'}</td><td>${flowTag(s.code)||"-"}</td><td class="l"><small>${wx?esc(wx.tier)+(wx.setups&&wx.setups.length?" · 셋업 "+esc(wx.setups.join(",")):"")+(wx.levels&&wx.levels.pivot?` · 기준가 ${w(wx.levels.pivot)} (${pc(wx.levels.distance_pct)})`:""):'<span class="muted">-</span>'}</small></td><td class="num">${c.n_reports?`<span class="up">🔴${c.up}</span> <span class="down">🔵${c.down}</span>`:'<span class="muted">-</span>'}</td></tr>`}).join("")}</table></div></div>`).join("")}
-  ${src("RS·수익률 = 네이버 일봉(비공식) · 55일 신고가까지 = 최근 55거래일 고점까지 남은 %(넘으면 '돌파', 표시만 · 매매 규칙 아님) · 감시 목록(평일 16:07)은 이 풀 + RS 70↑만 봄 · 감시 목록 칸은 가장 최근 결과 · 직접 고치려면 config/watch_pool.toml · 종목을 누르면 종목 페이지")}`;
-}
+/* ---------- ③ 전략: 보고서 · 자료실 · 부록 (관찰 풀은 종목 › 매매 보드에 합침) ---------- */
 /* 발간호 칩 (2026-11-15 사용자 확정 A안): 최근 8호 + 전체 목록, 지난 호는 r/날짜.json을 누를 때만 받음 */
 const ISS={};
 function issueBar(){const I=D.strategy_issues||[];if(I.length<2)return "";const sel=ui.si||I[0].date,L=ui.siAll?I:I.slice(0,8);
@@ -2166,11 +2157,11 @@ function addonTab(){const B=D.ibs_board;if(!B)return `<div class="empty">부록 
    ${addonBook()}
    ${src("검증실 부록(tools/backtest_ibs.py) · 깡토 '지수이지' 공개 설명을 재구성(조건 숫자 비공개라 IBS 0.2·ATR 상위 30%로 고정) · 백테스트는 종가 진입이라 실제(15:00~15:20)보다 조금 좋게 나옴 · 수익이 2026년에 쏠림(2026 제외 +288%) · 레버리지라 하루 손실이 큼 · 본 매매 규칙과 별개, 표시만 · 출처: 네이버 일봉·현재가(비공식)")}`}
 function viewStrategy2(){
-  const tabs=[["report","보고서"],["research","자료실"],["addon","🧩 부록 · 지수 되돌림"]];   // 감시 목록은 종목 › 셋업 보드로(2026-11-14), 관찰 풀은 종목 › 관찰 풀로(2026-11-24 사용자 확정) 옮김
-  let t=ui.st||"report"; if(t=="pool"){ui.st="report";ui.kt="pool";ui.sc=null;save();setTimeout(()=>{location.hash="stock"},0)}   // 옛 주소(전략 › 관찰 풀)는 새 자리로
+  const tabs=[["report","보고서"],["research","자료실"],["addon","🧩 부록 · 지수 되돌림"]];   // 감시 목록은 종목 › 셋업 보드로(2026-11-14), 관찰 풀은 종목 › 매매 보드로(2026-11-24 사용자 확정) 합침
+  let t=ui.st||"report"; if(t=="pool"){ui.st="report";ui.kt="setup";ui.sc=null;save();setTimeout(()=>{location.hash="stock"},0)}   // 옛 주소(전략 › 관찰 풀)는 새 자리로
   if(!tabs.some(([v])=>v==t))t="report";
   const body=t=="addon"?addonTab():t=="report"?tfReport():stripH1(viewResearch());
-  return `<h1>전략</h1><div class="sub">어디서 추세추종을 할 것인가 — 주 1회(토 09:07) 전략 보고서 → 관찰 풀 → 셋업 보드 · 자료실은 리포트 원문 요약 창고 · 행동은 관찰/준비/회피(매수·매도 권유 아님)</div>
+  return `<h1>전략</h1><div class="sub">어디서 추세추종을 할 것인가 — 주 1회(토 09:07) 전략 보고서 → 관찰 풀 → 종목 › 매매 보드 · 자료실은 리포트 원문 요약 창고 · 행동은 관찰/준비/회피(매수·매도 권유 아님)</div>
   <div class="chips tabs">${tabs.map(([v,n])=>`<button class="chip ${t==v?"on":""}" data-st="${v}">${n}</button>`).join("")}</div>${body}`;
 }
 
@@ -2225,7 +2216,8 @@ function viewTrade(){
   if(t=="log")return bar+`${noT(journal())}${addonJournal()}`;
   if(t=="rule")return bar+`<div class="grid g2">
    <div class="panel"><h2>계좌·리스크 규칙</h2><table><tr><td class="l">지금 계좌</td><td class="num">${w(acc.capital)}원<br><small class="muted">시작 ${w(acc.start_capital||acc.capital)} + 실현 − 비용</small></td></tr><tr><td class="l">1R (1회 손실 한도)</td><td class="num">${(acc.risk_per_trade||0)*100}% = ${w((acc.capital||0)*(acc.risk_per_trade||0))}원</td></tr><tr><td class="l">처음 손절</td><td class="num">−${(acc.stop_pct||0)*100}%</td></tr><tr><td class="l">본전 손절로 올리는 때</td><td class="num">${acc.breakeven_at_r}R</td></tr><tr><td class="l">총 위험(CR) 한도</td><td class="num">${r.CR_limit_pct??"-"}%</td></tr></table></div>
-   <div class="panel"><h2>기록하는 법</h2><div class="insrow">"OO 10주 12,000에 샀어 / 팔았어"</div><div class="insrow">"OO 손절가 본전으로 올렸어"</div><div class="insrow">"부록 OO 샀어" (지수 되돌림)</div><div class="src">Claude에게 말하면 기록됩니다 · 기록만 하며 주문은 하지 않습니다</div></div></div>${rulesCard()}`;
+   <div class="panel"><h2>기록하는 법</h2><div class="insrow">"OO 10주 12,000에 샀어 / 팔았어"</div><div class="insrow">"OO 손절가 본전으로 올렸어"</div><div class="insrow">"부록 OO 샀어" (지수 되돌림)</div><div class="src">Claude에게 말하면 기록됩니다 · 기록만 하며 주문은 하지 않습니다</div></div></div>${rulesCard()}
+   <details class="fold" data-fold="glOpen" ${ui.glOpen?"open":""}><summary class="foldh">📖 용어 <small class="muted">신호·셋업 A~G·관문 7개·RS·기준가</small></summary>${glossary(true)}</details>`;
   return bar+`${acctSummary("cards")}${alerts(r)}<div style="margin-top:10px">${riskKpis(r,true)}</div>
   ${ps.length?`<h2 style="margin-top:18px">보유 종목</h2>
   <div class="tw"><table><tr><th class="l">종목</th><th>수량</th><th>평균가</th><th>현재가</th><th>오늘</th><th>평가손익</th><th>평가금액·비중</th><th>손절가·거리</th><th>1R</th><th>진행 R</th><th>3R 가격</th><th>CR</th></tr>
@@ -2236,7 +2228,7 @@ function viewTrade(){
    <td class="num ${cls(p.r_multiple)}"><b>${p.r_multiple==null?"-":(p.r_multiple>0?"+":"")+p.r_multiple.toFixed(2)+"R"}</b><div class="rbar" title="−1R ~ 3R"><i style="width:${bar}%"></i></div></td>
    <td class="num">${w(p.breakeven_price_at_3r)}<br><small class="muted">${pc(p.to_3r_pct)}</small></td><td class="num">${w(p.cr_won)}</td></tr>`}).join("")}</table></div>
   <h2 style="margin-top:18px">다음 액션 · 가격별 규칙</h2><div class="acts">${ps.map(p=>actionCard(p)).join("")}</div>`
-  :`<div class="panel" style="margin-top:12px"><b>보유 종목 없음.</b> 새 위험 여유 ${man(r.room_for_new_risk_won)}원 · 관찰 풀은 <a href="#stock" data-kt="pool">종목 › 관찰 풀</a>에서</div>`}
+  :`<div class="panel" style="margin-top:12px"><b>보유 종목 없음.</b> 새 위험 여유 ${man(r.room_for_new_risk_won)}원 · 관찰 풀은 <a href="#stock" data-kt="setup">종목 › 매매 보드</a>에서</div>`}
   <div style="margin-top:16px">
    <div class="panel"><h2>살 수 있는 수량 계산</h2>
     <div class="calc"><label for="cEntry">매수 예정가<input id="cEntry" inputmode="numeric" value="${ui.cEntry||50000}"></label><label for="cStop">손절가<input id="cStop" inputmode="numeric" value="${ui.cStop||46000}"></label><label for="cPct">손절 %로 넣기<input id="cPct" inputmode="decimal" value="${ui.cPct||8}"></label></div>
@@ -2341,11 +2333,9 @@ function alertCenter(){
 function alertLine(){const xs=alertsToday();if(!xs.length)return "";const a=xs[xs.length-1];return `<a class="bx albox" href="#more" data-al="1"><div class="bh">🔔 오늘 알림 ${xs.length}건<em>마지막 ${esc(a.t)}</em></div><div class="alrow"><span class="num">${esc(a.t)}</span><div>${esc(a.msg.split("\n")[0])}</div></div></a>`}
 
 /* ---------- Balance Lab 2.0 2단계 (2026-11-12): 종목 페이지 · 상태판 · 체크포인트 ---------- */
-const STOCK_SUB='<div class="sub">발굴: 셋업 보드 · 관찰 풀(큰 스트림의 기업 지도) · 신고가 · 거래대금 · 실적 · ETF · 전체 목록 · 종목을 누르면 종목 페이지</div>';   // 탭 줄 위치가 탭마다 같도록 모든 탭에 같은 한 줄 (2026-11-19)
+const STOCK_SUB='<div class="sub">매매 보드(감시 목록 + 관찰 풀) · 신고가 · 거래대금 · 실적 · ETF · 전체 목록 · 종목을 누르면 종목 페이지</div>';   // 탭 줄 위치가 탭마다 같도록 모든 탭에 같은 한 줄 (2026-11-19)
 function stockTabsBar(t){return `<div class="chips tabs" style="margin-bottom:10px">${STOCK_TABS.map(([v,n])=>`<button class="chip ${t==v?"on":""}" data-kt="${v}">${n}</button>`).join("")}</div>`}
 /* 셋업 보드 정리 (2026-11-17 시안): 옛 '감시 목록 원래 화면' 대신 ✅ 오늘 신호 줄 + 👀 후보·1stage·아깝게 빠짐 접힌 칸 + 📖 용어 */
-/* 신호 줄 하나 (2026-11-19 사용자 확정): 장중 돌파(1분 시세)와 마감 확정 신호를 한 줄에, 딱지 이름 통일 — 기준가 돌파 · 매물대 돌파 · 포켓피봇 */
-const SETUP_KO={A:"박스",B:"컵핸들",C:"VCP",D:"HTF",E:"신고가 대기",F:"로우치트"};
 /* 업종 순위 표시 (2026-11-23 사용자 확정, 표시만): 그 종목의 업종이 주도 섹터 레이더에서 몇 위인지. 1~5위 = 주도 업종(🔥, 2026-11-23 10년 자료를 보고 1~10위에서 좁힘).
    근거는 5년·10년 비교 자료(data/backtest/long_portfolio*.json·long_zone*.json) — 매매 규칙은 그대로 */
 function secRank(g){const x=((D.radar||{}).groups||[]).find(r=>r.group==g);return x?x.rank:null}
@@ -2368,28 +2358,6 @@ function p55(code){const p=(D.pool55||{})[code];if(!p)return null;const q=liveQu
     let ia=null;if(ch.length>=3){const s=[...ch].sort((a,b)=>a-b),m=s.length%2?s[(s.length-1)/2]:(s[s.length/2-1]+s[s.length/2])/2;ia=ch.filter(v=>v>=2).length/ch.length*100>=40||m>=1.5}
     return {live,px:q.price,base:p.h,x:p.c<=p.h&&q.price>p.h,vr:q.vol&&p.v50?q.vol/fr/p.v50:null,ia}}
   return {live:false,px:p.c,base:p.hp,x:p.x,vr:p.vr,ia:null}}
-function sigTags(s){const t=(on,c,txt,tip)=>on==null?"":`<span class="sgt ${on?c:"off"}" title="${tip}">${txt}</span>`;
-  return t(s.bo||null,"t1","기준가","기준가를 넘음")+t(s.zb||null,"t2","매물대","최대 매물대(차트 빨간 막대) 상단을 넘음")+t(s.nh||null,"t6","55일 신고가","최근 55거래일 고점을 넘음(관찰 풀 종목)")
-    +t(s.vr!=null?s.vr>=1.5:null,"t3",`거래량 ${s.vr!=null?s.vr.toFixed(1):"-"}배`,"50일 평균의 1.5배 이상이면 켜짐")
-    +t(s.ia,"t4",s.ia?"동행":"나 홀로","같은 업종이 함께 오르면 켜짐")+(s.f?t(s.f.ok,"t5","펀더 "+s.f.t,"펀더 점수 0점이 아니면 켜짐"):"")}
-function signalStrip(){const L=sigList();
-  if(!L.length)return `<div class="sigstrip none">🔔 신호 없음 <small class="muted">· 오늘 기준가·최대 매물대·55일 신고가를 넘은 종목이 없습니다</small></div>`;
-  return `<div class="sigstrip">🔔 <b>신호 ${L.length}</b> ${L.map(s=>`<span class="sigc"><b data-pop="${esc(s.name)}">${esc(s.name)}</b> <span class="num">${s.px?w(s.px):""}</span> ${sigTags(s)} <small class="pill sm">${esc(s.when)}</small></span>`).join("")}</div>
-   <div class="sigtip">딱지가 켜지면 조건 충족, 회색이면 미충족 · 기준가·매물대·55일 신고가(관찰 풀) = 오늘 넘은 선 · 거래량 = 50일 평균의 1.5배↑ · 동행 = 같은 업종이 함께 오름 · 펀더 = 0점 아님 · 장중 판정은 종가로 확정 · 판단은 본인</div>`}
-/* 셋업 보드와 대기 목록의 칸 너비를 같게 (2026-11-20 사용자 확정): 두 표가 같은 colgroup을 씀 */
-const SB_COLS=`<colgroup>${[17,12,9,7,7,6,5,9,6,9,7,6].map(w=>`<col style="width:${w}%">`).join("")}</colgroup>`;
-function watchExtra(){const W=D.watch||{},pool=new Set(((D.watch_pool||{}).themes||[]).flatMap(th=>(th.stocks||[]).map(s=>s.code))),on=new Set(((D.tf_core||{}).items||[]).filter(x=>x.breakout).map(x=>x.code));
-  const rows=[];const add=(kind,cls,x,why)=>{if(on.has(x.code)||rows.some(r=>r.code==x.code))return;rows.push({code:x.code,h:`<tr data-go-s="${x.code}" class="click"><td class="l"><b data-pop="${esc(x.stock)}" class="stk">${esc(x.stock)}</b>${pool.has(x.code)?" 🎯":""}<br><small class="muted">${esc(x.group||x.sector||"")}</small></td><td><span class="pill ${cls}">${kind}</span></td>${pxCells(x.code)}<td>${FT[x.code]?dots(FT[x.code].fp):'<span class="muted">-</span>'}</td><td>${FT[x.code]?dots(FT[x.code].tech):'<span class="muted">-</span>'}</td><td class="num">${x.rs??"-"}</td><td class="num">${bo(x)?`<b>${w(bo(x))}</b>`:"-"}</td><td class="num">${dist(x)}</td>${zoneCells({zone_top:(x.max_zone||{}).top||(FT[x.code]||{}).zone_top},pxOf(x))}<td class="l" style="white-space:normal"><small class="muted">${why}</small></td></tr>`})};
-  const pxOf=x=>{const q=liveQuote(x.code);return (q&&q.price)||x.close||(FT[x.code]||{}).close},shortWhy=m=>m=="거래대금"?"거래대금 부족":m=="1stage 상승"?"상승폭 부족":m=="정배열(일봉)"?"일봉 정배열 아님":m=="정배열(주봉)"?"주봉 정배열 아님":/^조정이 깊음/.test(m)?"조정 깊음 "+((m.match(/(\d+)%/)||[])[1]||"")+"%":/^조정 구간 없음/.test(m)?"쉬는 구간 없음":m;
-  const FT=Object.fromEntries((((D.tf_core||{}).items)||[]).map(i=>[i.code,i])),dots=k=>`<span class="sdots">${"●".repeat(k||0)}${"○".repeat(3-(k||0))}</span>`,bo=x=>(x.levels||{}).breakout,dist=x=>{const q=liveQuote(x.code),px=(q&&q.price)||x.close||(FT[x.code]||{}).close,b=bo(x);if(!b||!px)return "-";const d=(b/px-1)*100;return (d<=0?"돌파 ":"")+Math.abs(d).toFixed(1)+"%"};
-  (W.running||[]).forEach(x=>add("기준가 대기","ok",x,`신고가 행진 +${x.run_pct??"-"}% · 쉬는 구간 대기`));
-  (W.candidates||[]).forEach(x=>add("조건 부족","warn",x,esc((x.missing||[]).map(shortWhy).join(" · ")||"셋업 애매")));
-  (W.near_miss||[]).forEach(x=>add("아깝게 빠짐","",x,esc((x.gate_miss||x.missing||[]).map(shortWhy).join(" · "))));
-  if(!rows.length)return "";
-  return `<details class="fold" data-fold="wxOpen" ${ui.wxOpen?"open":""}><summary class="foldh">⏳ 대기 목록 <small class="muted">${rows.length}종목 · 아직 셋업 보드에 못 올라온 종목과 이유 — 눌러서 펼치기</small></summary>
-   <div class="tw"><table class="slist sbt">${SB_COLS}<tr><th class="l">종목</th><th>구분</th><th>현재가</th><th>오늘</th><th>펀더</th><th>기술</th><th>RS</th><th>기준가</th><th>거리</th><th title="종목 차트 매물대의 빨간 막대(최근 200봉 최대 매물대) 상단">최대 매물대</th><th>매물대까지</th><th class="l">왜 대기인가</th></tr>${rows.map(r=>r.h).join("")}</table></div></details>
-   <details class="fold" data-fold="glOpen" ${ui.glOpen?"open":""}><summary class="foldh">📖 용어 <small class="muted">신호·셋업 A~G·관문 7개·RS·기준가</small></summary>${glossary(true)}</details>`}
-document.addEventListener("click",e=>{const b=e.target.closest("[data-wx]");if(b){ui.wx=b.dataset.wx;ui.wxOpen=true;save();render()}});
 /* 장중 규칙 확인 (2026-11-18 사용자 요청): 오늘 오르는데 어제 업종 판정을 쓰면 안 맞음 → 1분 시세로 다시 계산
    업종 동행 = 같은 업종(시총 2천억↑) 40%↑가 +2%↑ 또는 중앙값 +1.5%↑ (screener.industry_action과 같은 규칙), 3종목 미만이면 판정 불가
    돌파 = 어제 종가 ≤ 기준가 < 현재가 · 매물대 돌파 = 어제 종가 ≤ 차트 빨간 막대 상단 < 현재가 · 거래량 = 예상 거래량(지금까지 ÷ 장 경과 비율) ÷ 50일 평균 */
@@ -2403,31 +2371,40 @@ function liveSig(x){const q=liveQuote(x.code);if(!liveOn()||!q||!q.price||!x.clo
   if(!bo&&!zb)return null;const k=kstNow(),fr=Math.min(1,Math.max(.05,((k.getUTCHours()-9)*60+k.getUTCMinutes())/390)),vr=q.vol&&x.vol50?q.vol/fr/x.vol50:null,ia=liveIA(x);   // 예상 거래량 = 지금까지 ÷ 장 경과 비율 (텔레그램 알림과 같음)
   return {x,px,bo,zb,vr,ia,rule:bo&&vr!=null&&vr>=1.5&&ia&&ia.ok}}
 function liveSigs(){return ((D.tf_core||{}).items||[]).map(liveSig).filter(Boolean).sort((a,b)=>(b.rule-a.rule)||((b.bo&&b.zb)-(a.bo&&a.zb)))}
-/* 최대 매물대 = 종목 차트 빨간 막대 상단 (2026-11-18 사용자 확정, 표시만): 기준가 거리와 같은 방식
-   아래면 상단까지 남은 % · 넘었으면 상단보다 몇 % 위인지 빨간 +% */
-function zoneCells(x,px){const t=x.zone_top;if(!t||!px)return `<td class="num">-</td><td class="num">-</td>`;
-  const up=px>t,d=up?(px/t-1)*100:(t/px-1)*100;
-  return `<td class="num">${w(t)}</td><td class="num ${up||d<=3?"up":""}">${up?"+":""}${d.toFixed(1)}%</td>`}
-function setupTab(){   // 셋업 보드 = 감시 목록 × 펀더·기술 점수 (2026-11-14 2차, 매일 core_list)
-  const C=D.tf_core||{},L=(C.items||[]).filter(x=>x.breakout);   // 2026-11-19 사용자 확정: 기준가 없는 1stage 종목은 보드에서 빼고 아래 '대기 목록'으로
-  const dots=k=>`<span class="sdots">${"●".repeat(k)}${"○".repeat(3-k)}</span>`;
-  const SG=Object.fromEntries(sigList().map(s=>[s.code,s]));
-  L.sort((a,b)=>(!!SG[b.code]-!!SG[a.code]));   // 신호가 뜬 종목을 맨 위로 (나머지는 원래 순서)
-  const rows=L.map(x=>{const q=liveQuote(x.code),px=(q&&q.price)||x.close,d=x.breakout&&px?(x.breakout/px-1)*100:x.dist;
-    const bad=x.fbad!=null?x.fbad:x.fp<2,cat=x.core?["핵심 후보","ok"]:bad?(x.tech>=2?["기술만 · 펀더 0점","warn"]:["제외",""]):["기술 대기",""];
-    return `<tr class="${x.core?"rdy":""} ${SG[x.code]?"sgrow":""}" data-go-s="${x.code}"><td class="l"><b data-pop="${esc(x.name)}" class="stk">${esc(x.name)}</b>${x.pool?" 🎯":""}${SG[x.code]?' <span class="sgt t1">신호</span>':""}<br><small class="muted">${esc(x.group)}</small></td><td><span class="pill ${cat[1]}">${cat[0]}</span></td>${pxCells(x.code)}
-     <td title="${esc((x.why||[]).join("\n"))}">${fdots(x,1)}</td><td>${dots(x.tech)}</td><td class="num">${x.rs??"-"}</td><td class="num"><b>${w(x.breakout)}</b></td><td class="num ${d!=null&&d<=3?"up":""}">${d==null?"-":(d<=0?"돌파 ":"")+Math.abs(d).toFixed(1)+"%"}</td>
-     ${zoneCells(x,px)}${(()=>{const L=liveIA(x);return L?`<td title="장중 1분 시세 · 같은 업종 ${L.n}종목 중 +2%↑ ${L.share}% · 중앙값 ${L.med}%">${secTag(x.group,1)}<br><small class="${L.ok?"up":"down"}">${L.ok?"동행":"나 홀로"}</small></td>`:`<td title="동행 여부는 어제 마감 기준">${secTag(x.group,1)}<br><small class="${x.ia?"up":"down"}">${x.ia?"동행":"나 홀로"}</small></td>`})()}</tr>`}).join("");
-  return `<div class="sub" style="margin-top:-4px">감시 목록(${esc(fmtYmd(C.as_of||""))} 16:07) · 핵심 후보 ${C.n_core||0}종목(기술 2점↑ + 펀더 0점 아님) · 종목을 누르면 종목 페이지</div>
-   ${signalStrip()}
-   ${L.length?`<div class="tw"><table class="slist sbt">${SB_COLS}<tr><th class="l">종목</th><th>분류</th><th>현재가</th><th>오늘</th><th>펀더</th><th>기술</th><th>RS</th><th>기준가</th><th>거리</th><th title="종목 차트 매물대의 빨간 막대(최근 200봉 최대 매물대) 상단">최대 매물대</th><th>매물대까지</th><th title="주도 섹터 레이더 순위(1~5위 🔥) · 같은 업종 동반 상승 여부">업종 순위</th></tr>${rows}</table></div>`:`<div class="empty">감시 목록이 아직 없습니다</div>`}
-   ${watchExtra()}
-   ${src("최대 매물대 = 종목 차트 매물대의 빨간 막대 상단(최근 200봉·10칸, 키움 MTS 방식) · 매물대까지 = 아직 아래면 상단까지 남은 %, 넘었으면 상단보다 몇 % 위인지(빨간 +%) · 신호 = 오늘 기준가나 최대 매물대를 넘은 종목(맨 위) · 표시만, 매매 규칙 아님 · 펀더 점수는 순서를 정하는 참고이고 매매 규칙(docs/rules.md)은 2027-01-31까지 고정 · 출처: 감시 목록(screener.py), 네이버 재무·컨센서스(비공식)")}`}
+/* ---------- 매매 보드 (2026-11-24 사용자 확정): 셋업 보드 + 관찰 풀을 한 표로. 묶음 = 오늘 넘음 / 가까움(다음 선까지 3% 이내) / 기다림(접힘), 기준가·매물대·55일 신고가 칸은 그 선 대비 지금 가격(+빨강 넘음 / −파랑 남음, 색 딱지 = 오늘 넘음) ---------- */
+function tbRows(){const pool={};((D.watch_pool||{}).themes||[]).forEach(th=>(th.stocks||[]).forEach(s=>{pool[s.code]={name:s.name,group:s.group,th:th.id,thn:(th.name||"").replace(/^🌳\s*/,"")}}));
+  const comp=Object.fromEntries((D.companies||[]).map(c=>[c.code,c])),core=Object.fromEntries(((D.tf_core||{}).items||[]).map(x=>[x.code,x])),codes=[...new Set([...Object.keys(core).filter(c=>core[c].breakout),...Object.keys(pool)])];
+  const SG=Object.fromEntries(sigList().map(s=>[s.code,s])),k=kstNow(),fr=Math.min(1,Math.max(.05,((k.getUTCHours()-9)*60+k.getUTCMinutes())/390));
+  return codes.map(code=>{const x=core[code]||{},pl=pool[code],n5=p55(code),q=liveQuote(code),px=(q&&q.price)||x.close||(n5&&n5.px)||nowPx(code).p,u=(D.uni||{})[code],sg=SG[code];
+    const lines=[["기준가",x.breakout],["매물대",x.zone_top],["55일 신고가",n5&&n5.base]].filter(l=>l[1]&&px).map(([n,v])=>({n,v,d:(v/px-1)*100}));
+    const above=lines.filter(l=>l.d>0).sort((a,b)=>a.d-b.d),next=above[0]||null;
+    const lv=liveOn()&&q&&q.vol,vr=sg&&sg.vr!=null?sg.vr:lv&&(x.vol50||(D.pool55||{})[code]&&D.pool55[code].v50)?q.vol/fr/(x.vol50||D.pool55[code].v50):n5&&!n5.live?n5.vr:null;
+    const L=x.code?liveIA(x):null,ia=sg&&sg.ia!=null?sg.ia:L?L.ok:x.code?!!x.ia:n5?n5.ia:null;
+    return {code,name:x.name||(pl||{}).name||code,group:x.group||(pl||{}).group||"",pl,px,rs:x.rs??(u&&u[2]!=null?u[2]:((comp[code]||{}).trend||{}).rs??null),next,lines,vr,ia,sg,st:sg?0:next&&next.d<=3?1:2}})
+   .sort((a,b)=>a.st-b.st||((a.next?a.next.d:999)-(b.next?b.next.d:999)))}
+function tbStrip(R,home){const S=R.filter(r=>r.sg),more=home?' <a class="nm more" href="#stock" data-kt="setup">매매 보드 ›</a>':"";   // 신호 줄 (2026-11-24 사용자 확정 B안): 이름과 오늘 등락만, 조건은 아래 표에서
+  if(!S.length)return `<div class="tbnm none">🔔 오늘 선을 넘은 종목이 없습니다${more}</div>`;
+  return `<div class="tbnm">🔔 <b>오늘 넘음 ${S.length}</b> ${S.map(r=>{const n=nowPx(r.code);return `<a href="#s${r.code}" class="nm"><b>${esc(r.name)}</b> <span class="${cls(n.chg)}">${pc(n.chg,1)}</span></a>`}).join("")}${more}</div>`}
+function tradeBoard(){const all=tbRows(),ths=((D.watch_pool||{}).themes||[]),f=ui.tbf||"all",R=all.filter(r=>f=="all"||(f=="out"?!r.pl:r.pl&&r.pl.th==f));
+  const fd=c=>{const s=(D.fscore||{})[c];return s?fdots({ftype:s.t,fitems:s.i.map(([k,ok,t])=>({k,ok,t}))},1):'<span class="muted">-</span>'};
+  const row=r=>`<tr class="${r.sg?"sgrow":""}" data-go-s="${r.code}"><td class="l"><b data-pop="${esc(r.name)}" class="stk">${esc(r.name)}</b><br><small class="muted">${esc(r.group)}${r.pl?` · ${esc(r.pl.th)} ${esc(r.pl.thn)}`:""}</small></td>${pxCells(r.code)}<td class="num">${r.rs??"-"}</td>
+    ${[["기준가","bo","t1"],["매물대","zb","t2"],["55일 신고가","nh","t6"]].map(([n,k,c])=>{const l=r.lines.find(x=>x.n==n);if(!l)return `<td class="num muted">-</td>`;const g=-l.d,hit=r.sg&&r.sg[k];
+      return `<td class="num" title="${n} ${w(l.v)}">${hit?`<span class="sgt ${c}">${g>=0?"+":""}${g.toFixed(1)}%</span>`:`<span class="${g>=0?"up":"down"}">${g>=0?"+":""}${g.toFixed(1)}%</span>`}</td>`}).join("")}
+    <td class="num ${r.vr!=null&&r.vr>=1.5?"up":""}">${r.vr!=null?r.vr.toFixed(1)+"배":"-"}</td><td>${secTag(r.group,1)||'<span class="muted">-</span>'}${r.ia==null?"":` <small class="${r.ia?"up":"down"}">${r.ia?"동행":"나 홀로"}</small>`}</td><td>${fd(r.code)}</td></tr>`;
+  const head=`<colgroup>${[24,10,8,6,9,9,10,8,9,7].map(x=>`<col style="width:${x}%">`).join("")}</colgroup><tr><th class="l">종목</th><th>현재가</th><th>오늘</th><th>RS</th><th title="기준가 대비 현재가 · 넘으면 +빨강, 남았으면 −파랑">기준가</th><th title="최대 매물대(차트 빨간 막대) 상단 대비">매물대</th><th title="최근 55거래일 고점 대비(관찰 풀 종목)">55일 신고가</th><th title="오늘 예상 거래량 ÷ 50일 평균">거래량</th><th>업종</th><th>펀더</th></tr>`;
+  const sec=(t,L,sub)=>L.length?`<h3 class="tbh">${t} <small class="muted">${L.length}종목${sub?" · "+sub:""}</small></h3><div class="tw"><table class="slist tbt">${head}${L.map(row).join("")}</table></div>`:"";
+  const A=R.filter(r=>r.st==0),B=R.filter(r=>r.st==1),C=R.filter(r=>r.st==2);
+  return `<div style="margin:2px 0 8px"><div class="chips">${[["all","전체"],...ths.map(t=>[t.id,t.id+" "+(t.name||"").replace(/^🌳\s*/,"")]),["out","풀 밖 발굴"]].map(([v,n])=>`<button class="chip ${f==v?"on":""}" data-tbf="${esc(v)}">${esc(n)}</button>`).join("")}</div></div>
+   ${tbStrip(R)}
+   ${sec("🔴 오늘 넘음",A,"기준가·매물대·55일 신고가 중 넘은 선")}${sec("🟡 가까움",B,"가장 가까운 선까지 3% 이내")}
+   ${!A.length&&!B.length?'<div class="empty">오늘 넘었거나 가까운 종목이 없습니다</div>':""}
+   ${C.length?`<details class="fold" data-fold="tbWait" ${ui.tbWait?"open":""}><summary class="foldh">⚪ 기다림 <small class="muted">${C.length}종목 · 가장 가까운 선까지 3% 넘게 남음 · 가까운 순</small></summary><div class="tw"><table class="slist tbt">${head}${C.map(row).join("")}</table></div></details>`:""}
+   ${src("기준가·매물대·55일 신고가 = 그 선 대비 지금 가격(넘었으면 +빨강, 남았으면 −파랑, 색 딱지 = 오늘 넘음, 마우스를 올리면 선의 가격) · 55일 신고가는 관찰 풀 종목만 · 거래량 = 예상 거래량 ÷ 50일 평균(1.5배↑ 빨강) · 업종 = 주도 섹터 순위(1~5위 🔥)와 동행 여부 · 펀더 = ● 통과 ○ 미달 ◌ 확인 불가 · 표시만, 판단은 본인 · 출처: 네이버 일봉·현재가(비공식)")}`}
 function viewStock(){
   const c=ui.sc&&stockByCode(ui.sc);
-  if(!c&&ui.kt&&ui.kt!="list"){   // 2026-11-14 2차: 종목 = 발굴(셋업 보드·신고가·거래대금·실적·ETF·전체 목록)
+  if(!c&&ui.kt&&ui.kt!="list"){   // 종목 = 매매 보드·신고가·거래대금·실적·ETF·전체 목록
     const t=STOCK_TABS.some(([v])=>v==ui.kt)?ui.kt:"setup";
-    let body=t=="setup"?setupTab():t=="pool"?poolTab():t=="highs"?highsTab():t=="vtop"?vtopTab():t=="earn"?earnTab():etfTab(),bar="";
+    let body=t=="setup"?tradeBoard():t=="highs"?highsTab():t=="vtop"?vtopTab():t=="earn"?earnTab():etfTab(),bar="";
     body=body.replace(/<!--bar-->([\s\S]*?)<!--\/bar-->/,(m,x)=>{bar=x;return ""});
     return `<h1>종목</h1>${STOCK_SUB}${stockTabsBar(t)}${bar?`<div class="flowbar" style="margin-top:-4px">${bar}</div>`:""}${body}`}
   if(!c){const L=viewCompanies().replace(/^<h1>기업<\/h1>/,"<h1>종목</h1>"+STOCK_SUB+stockTabsBar("list"));
@@ -2733,7 +2710,7 @@ function quoteCodes(){const s=new Set(((D.risk||{}).positions||[]).map(p=>p.code
   if(route()=="stock"&&!ui.sc&&(!ui.kt||ui.kt=="list"))LIST_CODES.forEach(c=>s.add(c));
   if(route()=="stock"&&ui.kt=="etf")((D.etfb||{}).items||[]).forEach(x=>s.add(x.code));
   if(route()=="stock"&&ui.kt=="setup")((D.tf_core||{}).items||[]).forEach(x=>s.add(x.code));
-  if(route()=="stock"&&(ui.kt=="pool"||ui.kt=="setup"))Object.values(D.pool55||{}).forEach(p=>(p.peers||[]).slice(0,12).forEach(c=>s.add(c)));   // 관찰 풀: 55일 신고가 신호의 업종 동행 판정용 같은 업종 종목   // ETF 시세판을 보고 있으면 ETF도 (2026-11-13)   // 종목 목록을 보고 있으면 목록 위쪽 종목도 (2026-11-13)
+  if(route()=="home"||(route()=="stock"&&ui.kt=="setup"))Object.values(D.pool55||{}).forEach(p=>(p.peers||[]).slice(0,12).forEach(c=>s.add(c)));   // 관찰 풀: 55일 신고가 신호의 업종 동행 판정용 같은 업종 종목   // ETF 시세판을 보고 있으면 ETF도 (2026-11-13)   // 종목 목록을 보고 있으면 목록 위쪽 종목도 (2026-11-13)
   ((D.tf_core||{}).items||[]).slice(0,12).forEach(x=>(x.peers||[]).forEach(c=>s.add(c)));
   ((D.ibs_board||{}).etfs||[]).forEach(e=>s.add(e.code));   // 부록 · 지수 되돌림 ETF 4종 (2026-11-18)   // 장중 업종 동행 판정용 같은 업종 종목 (2026-11-18)
   return [...s].filter(Boolean).slice(0,400)}
@@ -2829,6 +2806,7 @@ document.addEventListener("click",e=>{
   const ft=e.target.closest("[data-ft]"); if(ft){const v=ft.dataset.ft;
     if(STOCK_TABS.some(([k])=>k==v)){ui.kt=v;ui.sc=null;save();if(v=="vtop"||v=="etf")setTimeout(()=>pollQuotes(),50);e.preventDefault();if(location.hash!="#stock")location.hash="stock";else render();return}   // 옛 시장 탭(신고가·거래대금·실적·ETF) → 종목
     if(["digest","reports","channels","news"].includes(v)){if(v!="news")ui.nt=v;save();e.preventDefault();location.hash="news";return}else ui.ft=v;save();if(ft.tagName=="A"){e.preventDefault();location.hash="flow"}render();return}
+  const tbf=e.target.closest("[data-tbf]"); if(tbf){ui.tbf=tbf.dataset.tbf;save();render();return}
   const kt=e.target.closest("[data-kt]"); if(kt){ui.kt=kt.dataset.kt;ui.sc=null;save();if(ui.kt=="vtop"||ui.kt=="etf")setTimeout(()=>pollQuotes(),50);if(location.hash!="#stock")location.hash="stock";else render();return}
   const nt=e.target.closest("[data-nt]"); if(nt){ui.nt=nt.dataset.nt;save();render();return}
   const hk=e.target.closest("[data-hk]"); if(hk){ui[hk.dataset.hk]=hk.dataset.hv;save();render();return}

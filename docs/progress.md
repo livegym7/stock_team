@@ -634,3 +634,5 @@
 - 2026-11-24 텔레그램: `alerts.py` 상한 삭제 + `group_msgs`(종류별 제목), `features.toml alert_daily_cap` 삭제, 체크포인트·전략 보고서 요약·주간 리뷰(스킬)·배포 실패 알림 제목에 대괄호 종류. `group_msgs`를 가짜 줄로 시험. 실제 발송 모양은 다음 장중 알림·체크포인트 때 확인 필요.
 
 - 2026-11-24 관찰 풀 → 종목 메뉴, 55일 신고가: `web_build._pool55`(D.pool55), app.html `p55`·`sigList`(nh)·`sigTags`(t6)·`poolTab`(칸·신호 줄)·STOCK_TABS·옛 주소 넘김. 로컬에서 가짜 장중 시세로 PC·휴대폰 확인. 배포 환경에서 D.pool55가 채워지는지는 배포 뒤 확인 필요.
+
+- 2026-11-24 매매 보드: app.html `tbRows`·`tbStrip`·`tradeBoard`(스트림 선택 `ui.tbf`), 옛 `setupTab`·`poolTab`·`signalStrip`·`sigTags`·`watchExtra`·`zoneCells` 삭제, 오늘 화면에 신호 줄, 옛 주소(관찰 풀)는 매매 보드로. 로컬에서 실제 자료(삼현 넘음 · 프로티나·삼성E&A 가까움)와 가짜 장중 시세로 PC·휴대폰·오늘 화면 확인.
