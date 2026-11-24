@@ -170,6 +170,7 @@ def scan(stock, rows, rs_at, bench_ok, R, ia_at=None, require_ia=True, cap_at=No
         res = simulate(rows, i, R)
         trades.append({**ia, "gate_miss": miss, "stock": stock["name"], "code": stock["code"], "date": rows[i]["date"], "entry": c[i], "kind": kind,
                        "setups": setups, "rs": rs, "vol_ratio": round(v[i] / vol50, 2), "market_ok": bench_ok.get(rows[i]["date"]),
+                       "pp_ok": bool(gate_pp and pp), "cap_eok": round(cap_at(i)) if cap_at else None,
                        **res})
         if not all_signals:
             busy_until = i + res["days"]

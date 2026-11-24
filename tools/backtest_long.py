@@ -188,7 +188,7 @@ def run(years=5, limit=None, with_delisted=True, workers=6, portfolio=False):
                 if s.get("delisted") and not t["exit"]:
                     t["exit"], t["how"] = rows[-1]["date"], "상장폐지까지 보유"
                 sa = sector_at(t["code"], t["date"])
-                cand.append({**{k: t.get(k) for k in ("code", "stock", "date", "kind", "rs", "r", "exit", "be", "how", "market_ok", "vol_ratio", "ia_group")},
+                cand.append({**{k: t.get(k) for k in ("code", "stock", "date", "kind", "rs", "r", "exit", "be", "how", "market_ok", "vol_ratio", "ia_group", "pp_ok", "cap_eok")},
                              "sec_rank": sa[0] if sa else None, "sec_score": sa[1] if sa else None, "sec_n": sa[2] if sa else None})
         first = (datetime.strptime(last_day, "%Y%m%d") - timedelta(days=int(365 * years))).strftime("%Y%m%d")
         days = sorted({r["date"] for r in bench if r["date"] >= first})
@@ -460,6 +460,65 @@ def run_fund(years=10, with_delisted=True):
     return {k: out[k] for k in ("made_at", "signals", "coverage", "by_score", "seconds")}
 
 
+def run_vol(years=10, with_delisted=True):
+    """돌파 거래량 문턱 비교 (2026-11-24 사용자 요청, 비교 자료): 삼성전자·SK하이닉스·삼성전기 같은 초대형 주도주가 기준가를 넘고도 '거래량 1.5배'에 걸려 신호가 거의 없었다.
+    거래량 조건 없이 기준가 돌파를 모두 모은 뒤(그날 배수·그날 시총을 적어 둠) 문턱을 1.5 / 1.2 / 1.0 / 없음, 대형주만 완화, 주도 업종·대형주 포켓피봇 추가로 나눠 신호 성적과 계좌를 본다."""
+    import dart_fin_hist as F
+    t0 = time.time()
+    cf = CACHE / f"long_cand_vol{_sfx(years)}.json"
+    if cf.exists() and time.time() - cf.stat().st_mtime < 3 * 86400:
+        o = json.loads(cf.read_text()); cand, days, uni = o["cand"], o["days"], o["uni"]
+    else:
+        old = S.RULES["breakout_vol"]
+        S.RULES["breakout_vol"] = 0
+        try:
+            cand, days, uni = run(years, None, with_delisted, portfolio=True)
+        finally:
+            S.RULES["breakout_vol"] = old
+        cf.write_text(json.dumps({"cand": cand, "days": days, "uni": uni}, ensure_ascii=False))
+    print(f"신호 {len(cand)}건 · 실적 받기 시작", flush=True)
+    F.fetch(F.needs([(t["code"], t["date"]) for t in cand]), log=lambda m: print(m, flush=True))
+    for t in cand:
+        sc = F.score_at(t["code"], t["date"])
+        t["fp"] = sc["pts"] if sc else None
+    st = lambda ts: {k: B.stats([{**t, "took": bool(t["be"]), "days": 0} for t in ts if t["exit"]]).get(k) for k in ("n", "win_rate", "avg_r", "payoff")}  # noqa: E731
+    vr = lambda t: t["vol_ratio"] or 0  # noqa: E731
+    cap = lambda t: t["cap_eok"] or 0  # noqa: E731
+    BIG = 50000                                                   # 대형주 = 그날 시총 5조 원 이상
+    brk = lambda t, thr=1.5: t["kind"] == "돌파" and vr(t) >= thr  # noqa: E731
+    pp = lambda t: t["pp_ok"] and not brk(t)                      # 지금 규칙의 포켓피봇(돌파 신호가 아닌 날)  # noqa: E731
+    top5 = lambda t: (t["sec_rank"] or 99) <= 5  # noqa: E731
+    V = [("거래량 1.5배 (지금)", lambda t: brk(t)), ("거래량 1.2배", lambda t: brk(t, 1.2)), ("거래량 1.0배(평균 이상)", lambda t: brk(t, 1.0)), ("거래량 조건 없음", lambda t: brk(t, 0)),
+         ("대형주(시총 5조↑)만 1.0배, 나머지 1.5배", lambda t: brk(t, 1.0 if cap(t) >= BIG else 1.5)),
+         ("대형주(시총 5조↑)만 조건 없음, 나머지 1.5배", lambda t: brk(t, 0 if cap(t) >= BIG else 1.5)),
+         ("주도 업종 1~5위만 1.0배, 나머지 1.5배", lambda t: brk(t, 1.0 if top5(t) else 1.5)),
+         ("1.5배 + 주도 업종 1~5위 포켓피봇", lambda t: brk(t) or (pp(t) and top5(t))),
+         ("1.5배 + 대형주 포켓피봇", lambda t: brk(t) or (pp(t) and cap(t) >= BIG)),
+         ("1.5배 + 주도 업종 1~5위의 대형주 포켓피봇", lambda t: brk(t) or (pp(t) and top5(t) and cap(t) >= BIG))]
+    ok = lambda t: (t["fp"] or 0) >= 2 and t["market_ok"]  # noqa: E731
+    LEAD = {"005930": "삼성전자", "000660": "SK하이닉스", "009150": "삼성전기"}
+    two = (datetime.strptime(days[-1], "%Y%m%d") - timedelta(days=730)).strftime("%Y%m%d")
+    B_ = [t for t in cand if t["kind"] == "돌파"]
+    out = {"made_at": datetime.now(KST).strftime("%Y-%m-%d %H:%M"), "years": years, "period": [days[0], days[-1]], "universe": uni, "define": run_vol.__doc__.strip(),
+           "by_vol": {k: st([t for t in B_ if lo <= vr(t) < hi]) for k, lo, hi in (("1.0배 미만", 0, 1.0), ("1.0~1.2배", 1.0, 1.2), ("1.2~1.5배", 1.2, 1.5), ("1.5~2배", 1.5, 2), ("2배 이상", 2, 1e9))},
+           "by_vol_big": {k: st([t for t in B_ if cap(t) >= BIG and lo <= vr(t) < hi]) for k, lo, hi in (("1.0배 미만", 0, 1.0), ("1.0~1.5배", 1.0, 1.5), ("1.5배 이상", 1.5, 1e9))},
+           "by_vol_top5": {k: st([t for t in B_ if top5(t) and lo <= vr(t) < hi]) for k, lo, hi in (("1.0배 미만", 0, 1.0), ("1.0~1.5배", 1.0, 1.5), ("1.5배 이상", 1.5, 1e9))},
+           "pp": {"전체": st([t for t in cand if pp(t)]), "주도 업종 1~5위": st([t for t in cand if pp(t) and top5(t)]), "대형주": st([t for t in cand if pp(t) and cap(t) >= BIG]),
+                  "주도 업종 1~5위의 대형주": st([t for t in cand if pp(t) and top5(t) and cap(t) >= BIG])},
+           "variants": []}
+    for name, f in V:
+        for tag, g in (("", lambda t: True), (" + 펀더 2점↑ + 코스피 20일선 위", ok)):
+            c = [t for t in cand if f(t) and g(t)]
+            rr = sorted(account(c, days, "random", seed=k)["total_ret_pct"] for k in range(30))
+            v = account(c, days, "rs"); v.pop("curve", None); v.pop("by_year", None)
+            lead = {n: [f"{t['date']} {t['r']:+.1f}R" for t in c if t["code"] == code and t["date"] >= two] for code, n in LEAD.items()}
+            out["variants"].append({"name": name + tag, "signals": len(c), "per_signal": st(c), **v, "random_total_ret_pct": {"min": rr[0], "median": rr[15], "max": rr[-1]},
+                                    "leaders_2y": {n: len(x) for n, x in lead.items()}, "leaders_2y_list": lead})
+    out["seconds"] = round(time.time() - t0)
+    (DATA / "backtest" / f"long_vol{_sfx(years)}.json").write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
+    return {k: out[k] for k in ("made_at", "by_vol", "seconds")}
+
+
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(description="긴 기간 백테스트 (상장폐지 종목 포함 · 그날 시총) — 비교 자료")
     ap.add_argument("--years", type=float, default=5)
@@ -467,7 +526,8 @@ if __name__ == "__main__":
     ap.add_argument("--no-delisted", action="store_true")
     ap.add_argument("--portfolio", action="store_true", help="계좌 하나를 실제처럼 굴리는 시뮬레이션 (동시 위험 6% · 고르는 순서 비교) → data/backtest/long_portfolio.json")
     ap.add_argument("--fund", action="store_true", help="발표된 실적으로 매긴 펀더 점수별 비교 → data/backtest/long_fund.json")
+    ap.add_argument("--vol", action="store_true", help="돌파 거래량 문턱 비교(1.5/1.2/1.0/없음 · 대형주 완화 · 포켓피봇 추가)")
     ap.add_argument("--zone", action="store_true", help="기준가 돌파와 매물대 돌파 비교 → data/backtest/long_zone.json")
     a = ap.parse_args()
-    res = run_fund(a.years, not a.no_delisted) if a.fund else run_zone(a.years, not a.no_delisted) if a.zone else run_portfolio(a.years, not a.no_delisted) if a.portfolio else run(a.years, a.limit, not a.no_delisted)
+    res = run_vol(a.years, not a.no_delisted) if a.vol else run_fund(a.years, not a.no_delisted) if a.fund else run_zone(a.years, not a.no_delisted) if a.zone else run_portfolio(a.years, not a.no_delisted) if a.portfolio else run(a.years, a.limit, not a.no_delisted)
     print(json.dumps(res, ensure_ascii=False, indent=1))
