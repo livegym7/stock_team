@@ -1843,7 +1843,7 @@ function mcCard(x,o){o=o||{};const r=x.rows||[];if(r.length<30)return `<div clas
   const big=ui.mcz==x.symbol;
   return `<div class="mcc ${big?"big":""}" data-mcz="${esc(x.symbol)}" title="누르면 크게"><div class="mch"><b>${esc(x.name)}</b><span class="num">${x.close>=1000?w(x.close):x.close}</span><span class="num ${cls(o.inv?-x.d1:x.d1)}">${pc(x.d1,2)}</span></div>
    <div class="mcs num"><span>1주 <b class="${cls(x.w1)}">${pc(x.w1,1)}</b></span><span>1개월 <b class="${cls(x.m1)}">${pc(x.m1,1)}</b></span><span>고점 대비 ${pc(x.off_high,1)}</span><span>20일선 ${x.above20?'<b class="up">위</b>':'<b class="down">아래</b>'}</span></div>
-   ${candleChart(r,{w:big?900:360,h:big?320:170,n:200,ma:big?[20,60,120]:[20,60],vp:false,vol:false,fs:big?11:10})}${o.note?`<div class="mcn">${o.note}</div>`:""}</div>`}
+   ${candleChart(r,{w:big?900:360,h:big?320:170,n:200,ma:big?[20,60,120]:[20,60],vp:false,vol:false,fs:big?11:10})}${o.note?`<div class="mcn">${o.note}</div>`:""}${x.live_at?`<div class="mcn">${x.live_open?"장중":"마감"} ${x.live_at} 현지 시각 · 네이버 ${x.live_delay||15}분 지연 · 1분마다 갱신</div>`:""}</div>`}
 function mcGrid(L,o){return `<div class="mcg">${L.map(x=>mcCard(x,typeof o=="function"?o(x):o)).join("")}</div>`}
 function relChart(){const M=D.macro_board||{},K=(D.index_daily||{}).KOSPI||[],f=(sym)=>(([...(M.index||[]),...(M.peers||[])].find(x=>x.symbol==sym)||{}).rows||[]).map(r=>r[4]);
   const S=[["코스피",K.map(r=>r[4]),"var(--accent)",2.6],["대만 가권",f("^TWII"),"#2bb3a3",1.5],["닛케이",f("^N225"),"#e58a3a",1.5],["S&P 500",f("^GSPC"),"#8b7cf6",1.5]].map(([n,c,col,sw])=>{const a=c.slice(-200);return {n,col,sw,v:a.map(x=>(x/a[0]-1)*100)}}).filter(x=>x.v.length>10);
@@ -1888,7 +1888,7 @@ function macroTab(){const M=D.macro_board;if(!M)return tfMarket("macro");const t
      <div class="ixh" style="margin:2px 0 6px"><b>코스피 · 코스닥</b><span style="margin-left:auto" class="cg2"><button class="chip ${mode=="d"?"on":""}" data-mkw="d">일봉 200일</button><button class="chip ${mode=="w"?"on":""}" data-mkw="w">주봉 1년</button></span></div>
      <div class="grid g2">${bigIndex("KOSPI","코스피")}${bigIndex("KOSDAQ","코스닥")}</div>
      ${H("한국이 강한가","코스피를 대만·일본·미국과 같은 출발점에 놓고 비교")}<div class="panel">${relChart()}</div>
-     ${H("피어그룹","한국과 비교할 시장 · 일봉 200일 · 20·60일선 · 누르면 크게")}${mcGrid(M.peers||[])}`
+     ${H("피어그룹","한국과 비교할 시장 · 일봉 200일 · 20·60일선 · 누르면 크게 · 닛케이·대만·상해는 장중 1분마다 갱신(15~20분 지연), EWY는 간밤 종가")}${mcGrid(M.peers||[])}`
    :t=="us"?`${H("주요 지수","일봉 200일 · 20·60일선 · 누르면 크게")}${mcGrid(M.index||[])}
      ${H("미국 산업 지도","간밤 강한 순 · 산업을 누르면 대표 종목 캔들이 펼쳐집니다")}${usSectors()}`
    :`${H("금리 · 환율 · 원자재","일봉 200일 · 누르면 크게")}${mcGrid(M.rates||[],x=>({note:{"KRW=X":"오르면 원화 약세 → 외국인 수급에 부담","DX-Y.NYB":"오르면 달러 강세 → 신흥국 자금에 부담","^TNX":"오르면 성장주 할인율 부담","^VIX":"20 넘으면 경계 · 30 넘으면 공포","CL=F":"내리면 항공·화학에 우호, 정유에 부담"}[x.symbol]}))}
@@ -2715,12 +2715,20 @@ function applyQuote(j){
   const rk={...Object.fromEntries(["E_pct","invested_won","CR_won","CR_pct","CR_limit_pct","room_for_new_risk_won"].filter(k=>k in R0).map(k=>[k,R0[k]])),invested_won:inv,...(acct?{E_pct:Math.round(inv/acct*1000)/10}:{})};
   applyLive({at:j.at,markets:j.markets,quotes:j.quotes,risk:rk,positions:pos.filter(p=>p.price),alerts:(D.live||{}).alerts});
 }
+/* 피어 지수 장중 값 (2026-11-24 사용자 요청): 닛케이·대만 가권·상해종합의 오늘 봉을 1분마다 바꿔 끼움(네이버 해외 지수, 15~20분 지연). 장이 열리기 전(시가 없음)이면 그대로 둠 */
+function applyWorld(W){const M=D.macro_board||{};(M.peers||[]).forEach(x=>{const q=W[x.symbol],r=x.rows||[];if(!q||!q.price||!q.open||r.length<30)return;
+  const day=q.at.slice(0,10).replace(/-/g,""),l=r[r.length-1];if(day<l[0])return;
+  const row=[day,q.open,Math.max(q.high||q.price,q.price),Math.min(q.low||q.price,q.price),q.price,0];
+  if(l[0]==day)r[r.length-1]=row;else r.push(row);
+  const c=r.map(v=>v[4]),ret=n=>c.length>n?Math.round((c[c.length-1]/c[c.length-1-n]-1)*1000)/10:null,ma20=c.slice(-20).reduce((a,b)=>a+b,0)/20;
+  Object.assign(x,{close:q.price,d1:q.change_pct,w1:ret(5),m1:ret(21),above20:q.price>ma20,off_high:Math.round((q.price/Math.max(...r.slice(-200).map(v=>v[2]))-1)*1000)/10,
+    live_at:q.at.slice(11,16),live_delay:q.delay,live_open:q.status=="OPEN"})})}
 function pollQuotes(force){
   if(!/^https?:/.test(location.protocol)||document.hidden)return;
   const k=kstNow(),hm=k.getUTCHours()*100+k.getUTCMinutes(),wd=k.getUTCDay();
   if(!force&&(wd==0||wd==6||hm<855||hm>1545))return;
   const top=route()=="stock"&&ui.kt=="vtop";   // 거래대금 탭을 보고 있으면 순위도 함께 (2026-11-13)
-  fetch("api/quote?flows=1"+(top?"&top=1":"")+"&codes="+quoteCodes().join(","),{cache:"no-store"}).then(r=>r.ok?r.json():null).then(j=>{if(j&&j.top&&j.top.length)D.vtopLive={made_at:j.at,items:j.top};if(j&&j.markets&&j.markets.length){applyQuote(j);if(!busy())liveRender()}}).catch(()=>{});
+  fetch("api/quote?flows=1&world=1"+(top?"&top=1":"")+"&codes="+quoteCodes().join(","),{cache:"no-store"}).then(r=>r.ok?r.json():null).then(j=>{if(j&&j.top&&j.top.length)D.vtopLive={made_at:j.at,items:j.top};if(j&&j.world)applyWorld(j.world);if(j&&j.markets&&j.markets.length){applyQuote(j);if(!busy())liveRender()}}).catch(()=>{});
 }
 /* 1분 시세가 들어올 때 다시 그리기 (2026-11-16): 소식(정리·채널 원문)은 가격이 없어 띠만 바꾸고 화면은 그대로,
    다른 화면은 펼쳐 둔 칸(details)과 스크롤 위치를 기억했다가 다시 그린 뒤 되돌림 → 읽던 리포트 정리가 접히던 문제 */

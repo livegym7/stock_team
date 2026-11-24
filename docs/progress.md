@@ -624,3 +624,5 @@
 - 포켓피봇 참고 신호화(screener grade·pp_signals, web_build 전달, 신호 줄 참고 칩, 규칙 카드·용어·rules.md, backtest all = 돌파만 + all_with_pp), 푸시 때마다 배포 복구(web-deploy.yml), 분기 실적 그래프 숫자(qBars: 분기 아래 매출·영업이익). 엑시콘 종목 페이지 PC·휴대폰 확인. 포켓피봇 참고 칩은 내일 16:07 감시 목록부터 실제 자료로 나옴(오늘은 예시로만 확인).
 
 - 2026-11-23 기준가 선: `candleChart`에 `pv` 옵션, `pivotOf(code)`(셋업 보드 → 감시 목록 levels.breakout). 로컬에서 종목 페이지·팝업·휴대폰 화면 찍어 확인.
+
+- 2026-11-24 피어 지수 1분 갱신: functions/api/quote.js `world=1`, app.html `applyWorld`. 로컬에서 가짜 응답으로 오늘 봉 교체·카드 표시 확인. 실제 Cloudflare 함수 응답은 배포 뒤 확인 필요.

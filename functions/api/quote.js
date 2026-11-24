@@ -1,7 +1,7 @@
 // Balance Lab 시세 중계 (Cloudflare Pages Function, 2026-11-13 사용자 확정)
 // 화면이 열려 있는 동안 1분마다 부름 → 네이버(비공식) 현재가를 받아 그대로 돌려줌. Claude 토큰 0, 주문 기능 없음, 키 없음.
 // 같은 주소라 Cloudflare Access 로그인 잠금이 그대로 적용된다.
-// GET /api/quote?codes=005930,000660&flows=1
+// GET /api/quote?codes=005930,000660&flows=1&world=1
 const H = { "User-Agent": "Mozilla/5.0", "Referer": "https://finance.naver.com/" };
 const num = s => { const v = parseFloat(String(s ?? "").replace(/,/g, "")); return isNaN(v) ? null : v; };
 async function j(url) {
@@ -47,6 +47,15 @@ export async function onRequestGet({ request }) {
       value_eok: Math.round((num(x.accumulatedTradingValue) || 0) / 100), cap_eok: num(x.marketValue), at: (x.localTradedAt || "").slice(0, 16).replace("T", " ") })));
     const seen = new Set();
     out.top = rows.sort((a, b) => b.value_eok - a.value_eok).filter(r => !seen.has(r.code) && seen.add(r.code)).slice(0, 100);
+  }
+  // 피어 지수 장중 값 (2026-11-24): ?world=1 → 닛케이·대만 가권·상해종합 (네이버 해외 지수, 거래소 규정상 15~20분 지연)
+  if (u.searchParams.get("world") === "1") {
+    const W = await j("https://polling.finance.naver.com/api/realtime/worldstock/index/.N225,.TWII,.SSEC");
+    const SYM = { ".N225": "^N225", ".TWII": "^TWII", ".SSEC": "000001.SS" };
+    out.world = {};
+    ((W && W.datas) || []).forEach(x => { const s = SYM[x.reutersCode]; if (!s) return;
+      out.world[s] = { price: num(x.closePrice), change_pct: num(x.fluctuationsRatio), open: num(x.openPrice), high: num(x.highPrice), low: num(x.lowPrice),
+        status: x.marketStatus, at: (x.localTradedAt || "").slice(0, 16), delay: (x.stockExchangeType || {}).delayTime ?? null }; });
   }
   return new Response(JSON.stringify(out), { headers: { "content-type": "application/json; charset=utf-8", "cache-control": "no-store" } });
 }
