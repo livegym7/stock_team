@@ -640,3 +640,4 @@
 - 2026-11-24 주목 탭(app.html hotTab) + 나스닥 선물·EWY(nightItems·nightLine·pollNight, functions/api/quote.js night/hot, tools/hot_now.py, web_build night·hot·grp). 확인: 도구 실행(선물·EWY·검색 상위 30 수신), 로컬 화면 PC 1280·1400·1720 / 휴대폰 캡처, 오류 0. 미확인: Cloudflare 함수의 실제 응답(배포 뒤). 남은 일: 감시 목록의 '오늘 종가'가 시간외 가격을 따라 움직이는 문제(사용자 결정 대기).
 - 2026-11-24 감시 목록 확정 회차: screener.fetch_daily 캐시 고비에 20:05 추가 · payload final · web-deploy.yml 21시 회차가 screener --pool 뒤 data/bus 커밋·푸시(contents: write) · 매매 보드 각주에 잠정/확정. 확인: 문법 검사만. 미확인: 깃허브에서 실제 푸시가 되는지(내일 21:10 회차 뒤 확인 필요).
 - 2026-11-24 화면 정돈 묶음 1·2·3 + 5 일부(app.html CSS 정돈 레이어, viewHome2·trackerBar·statusBoard, 메뉴 설명 줄). 확인: 26개 화면 × PC·휴대폰 × 밝게·어둡게 다시 찍음(오류 0, 대비 미달 2,517 → 397, 휴대폰 '오늘' 길이 4,699 → 3,951px). 안 한 것: 묶음 4(종목 페이지 메모 접기 — 시안 먼저), 안 쓰는 CSS 22개 삭제, 전략 보고서 지면 글자 크기 8단계 맞춤, 강조색 바탕 딱지(흰 글씨 대비 3.6), 같은 업종 표의 휴대폰 가로 넘침.
+- 2026-11-24 지수 차트 크게 보기(app.html ixZoom). 확인: 로컬 PC·휴대폰에서 누르면 열리고 Esc·바깥 누름으로 닫힘, 오류 0. 종목 페이지 메모 접기(묶음 4)는 시안만 보냄.
