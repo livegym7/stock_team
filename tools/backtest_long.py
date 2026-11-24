@@ -585,6 +585,71 @@ def run_fwd(years=10, with_delisted=True):
     return {k: out[k] for k in ("made_at", "signals", "by_next", "by_past", "seconds")}
 
 
+def run_cons(years=10, with_delisted=True):
+    """진짜 컨센서스로 본 펀더 점수 (2026-11-24 사용자 요청, 비교 자료): 신호일에 실제로 나와 있던 증권사 추정치(tools/consensus_hist.py — 월말 기준, 2025-02부터)로
+    ① 올해 영업이익 추정치가 작년보다 +20%↑(또는 흑자 전환) ② 올해 EPS 추정치가 작년보다 증가 ③ 올해 영업이익 추정치가 1개월 전보다 상향 — 을 매겨 신호 성적과 계좌를 본다.
+    기간이 2025-03부터라 21개월뿐이고 강세장 한 구간이다. 분기 추정치는 과거 기록이 없어 '다음 분기' 대신 '올해' 추정치를 쓴다. 신호는 지금 규칙의 기준가 돌파."""
+    import consensus_hist as C
+    import dart_fin_hist as F
+    t0 = time.time()
+    o = json.loads((CACHE / f"long_cand_vol{_sfx(years)}.json").read_text())
+    FROM = "20250301"
+    days = [d for d in o["days"] if d >= FROM]
+    cand = [t for t in o["cand"] if t["kind"] == "돌파" and (t["vol_ratio"] or 0) >= 1.5 and t["date"] >= FROM]
+    H = C.load()
+    act = {}
+
+    def prev_actual(code, fy):
+        if code not in act:
+            try:
+                act[code] = {a["p"][:4]: a for a in json.loads((CACHE / "fund" / f"{code}.json").read_text()).get("annual") or [] if not a["e"]}
+            except Exception:
+                act[code] = {}
+        return act[code].get(str(fy - 1))
+    for t in cand:
+        c = C.at(t["code"], t["date"], H)
+        a, b = F.score_at(t["code"], t["date"]), F.score_next(t["code"], t["date"])
+        t["fp"], t["fn"] = (a["pts"] if a else None), (b["pts"] if b else None)
+        t["cs"] = None
+        if not c:
+            continue
+        pa = prev_actual(t["code"], c["fy"]) or {}
+        pop = pa.get("op") if pa.get("op") is not None else c.get("prev_op")
+        peps = pa.get("eps") if pa.get("eps") is not None else c.get("prev_eps")
+        t["c_op"] = None if pop is None else bool((pop <= 0 < c["op"]) or (pop > 0 and c["op"] / pop - 1 >= 0.2))
+        t["c_eps"] = None if peps is None or c["eps"] is None else bool(c["eps"] > peps and c["eps"] > 0)
+        t["c_up1"] = None if c["op_m1"] is None else c["op_m1"] > 0.5
+        t["c_up3"] = None if c["op_m3"] is None else c["op_m3"] > 0.5
+        t["c_dn1"] = None if c["op_m1"] is None else c["op_m1"] < -0.5
+        t["cs"] = sum(bool(t[k]) for k in ("c_op", "c_eps", "c_up1"))
+    st = lambda ts: {k: B.stats([{**t, "took": bool(t["be"]), "days": 0} for t in ts if t["exit"]]).get(k) for k in ("n", "win_rate", "avg_r", "payoff")}  # noqa: E731
+    has = lambda t: t["cs"] is not None  # noqa: E731
+    yn = lambda k: {"예": st([t for t in cand if has(t) and t.get(k) is True]), "아니오": st([t for t in cand if has(t) and t.get(k) is False])}  # noqa: E731
+    out = {"made_at": datetime.now(KST).strftime("%Y-%m-%d %H:%M"), "period": [days[0], days[-1]], "signals": len(cand), "define": run_cons.__doc__.strip(),
+           "coverage": {"컨센서스 있음": sum(1 for t in cand if has(t)), "없음": sum(1 for t in cand if not has(t))},
+           "has_vs_none": {"컨센서스 있음": st([t for t in cand if has(t)]), "컨센서스 없음": st([t for t in cand if not has(t)])},
+           "by_score": {f"{k}점": st([t for t in cand if t["cs"] == k]) for k in (3, 2, 1, 0)},
+           "items": {"① 올해 영업이익 추정 +20%↑": yn("c_op"), "② 올해 EPS 추정 증가": yn("c_eps"), "③ 1개월 전보다 상향": yn("c_up1"), "(참고) 3개월 전보다 상향": yn("c_up3"), "(참고) 1개월 전보다 하향": yn("c_dn1")},
+           "cross_13": {"①통과 · ③상향": st([t for t in cand if t.get("c_op") and t.get("c_up1")]), "①통과 · ③상향 아님": st([t for t in cand if t.get("c_op") and t.get("c_up1") is False]),
+                        "①미달 · ③상향": st([t for t in cand if t.get("c_op") is False and t.get("c_up1")]), "①미달 · ③상향 아님": st([t for t in cand if t.get("c_op") is False and t.get("c_up1") is False])},
+           "same_window": {"지난 실적 점수 2점↑": st([t for t in cand if (t["fp"] or 0) >= 2]), "지난 실적 점수 0~1점": st([t for t in cand if t["fp"] is not None and t["fp"] < 2]),
+                           "다음 분기 실제(최대치) 2점↑": st([t for t in cand if (t["fn"] or 0) >= 2]), "다음 분기 실제(최대치) 0~1점": st([t for t in cand if t["fn"] is not None and t["fn"] < 2])},
+           "variants": []}
+    V = [("기준가 돌파만", lambda t: True), ("지난 실적 점수 2점↑ (지금 방식)", lambda t: (t["fp"] or 0) >= 2), ("컨센서스 점수 2점↑", lambda t: (t["cs"] or 0) >= 2), ("컨센서스 점수 3점", lambda t: t["cs"] == 3),
+         ("컨센서스 점수 0~1점 (반대 확인)", lambda t: has(t) and t["cs"] <= 1), ("컨센서스 없음만", lambda t: not has(t)),
+         ("컨센서스 2점↑ 또는 (컨센서스 없음 + 지난 실적 2점↑)", lambda t: (t["cs"] or 0) >= 2 or (not has(t) and (t["fp"] or 0) >= 2)),
+         ("③ 1개월 상향만", lambda t: t.get("c_up1") is True), ("다음 분기 실제 2점↑ (최대치)", lambda t: (t["fn"] or 0) >= 2)]
+    for name, f in V:
+        for tag, g in (("", lambda t: True), (" + 코스피 20일선 위", lambda t: t["market_ok"])):
+            c = [t for t in cand if f(t) and g(t)]
+            rr = sorted(account(c, days, "random", seed=k)["total_ret_pct"] for k in range(30))
+            v = account(c, days, "rs"); v.pop("curve", None); v.pop("by_year", None)
+            out["variants"].append({"name": name + tag, "signals": len(c), "per_signal": st(c), **v, "random_total_ret_pct": {"min": rr[0], "median": rr[15], "max": rr[-1]}})
+    out["seconds"] = round(time.time() - t0)
+    (DATA / "backtest" / "long_cons.json").write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
+    return {k: out[k] for k in ("made_at", "signals", "coverage", "by_score", "seconds")}
+
+
 def run_ia(years=10, with_delisted=True):
     """업종 동반 상승(인더스트리 액션)을 어느 묶음으로 볼 것인가 + 거래량 문턱 (2026-11-24 사용자 요청, 비교 자료).
     삼성전자·SK하이닉스의 세부 업종 '반도체(메모리·대형)'은 4종목뿐이라 나머지 3종목 중 2종목이 +2% 올라야 '동반 상승'이 된다 → 반도체 전체가 오르는 날에도 '나 홀로'로 탈락.
@@ -649,8 +714,9 @@ if __name__ == "__main__":
     ap.add_argument("--fund", action="store_true", help="발표된 실적으로 매긴 펀더 점수별 비교 → data/backtest/long_fund.json")
     ap.add_argument("--ia", action="store_true", help="업종 동반 상승을 세부 업종/넓은 업종으로 볼 때 비교 → data/backtest/long_ia.json")
     ap.add_argument("--fwd", action="store_true", help="다음 분기 실제 실적을 컨센서스 자리에 넣은 최대치 비교 → data/backtest/long_fwd.json")
+    ap.add_argument("--cons", action="store_true", help="진짜 컨센서스(2025-03~)로 매긴 펀더 점수 비교 → data/backtest/long_cons.json")
     ap.add_argument("--vol", action="store_true", help="돌파 거래량 문턱 비교(1.5/1.2/1.0/없음 · 대형주 완화 · 포켓피봇 추가)")
     ap.add_argument("--zone", action="store_true", help="기준가 돌파와 매물대 돌파 비교 → data/backtest/long_zone.json")
     a = ap.parse_args()
-    res = run_fwd(a.years, not a.no_delisted) if a.fwd else run_ia(a.years, not a.no_delisted) if a.ia else run_vol(a.years, not a.no_delisted) if a.vol else run_fund(a.years, not a.no_delisted) if a.fund else run_zone(a.years, not a.no_delisted) if a.zone else run_portfolio(a.years, not a.no_delisted) if a.portfolio else run(a.years, a.limit, not a.no_delisted)
+    res = run_cons(10) if a.cons else run_fwd(a.years, not a.no_delisted) if a.fwd else run_ia(a.years, not a.no_delisted) if a.ia else run_vol(a.years, not a.no_delisted) if a.vol else run_fund(a.years, not a.no_delisted) if a.fund else run_zone(a.years, not a.no_delisted) if a.zone else run_portfolio(a.years, not a.no_delisted) if a.portfolio else run(a.years, a.limit, not a.no_delisted)
     print(json.dumps(res, ensure_ascii=False, indent=1))
