@@ -38,7 +38,9 @@
      "tone": "neg",
      "text": "코스피 4,869.96(-5.21%)·코스닥 645.68(-5.71%) 마감, 반도체 투매에 사이드카 발동, 4,900선 하회",
      "src": "ked_epic_ai",
-     "new": true
+     "new": true,
+     "url": "https://t.me/ked_epic_ai/39630",
+     "via": "채널"
     },
     {
      "t": "15:06",
@@ -52,28 +54,36 @@
      "tone": "neg",
      "text": "코스피 시총이 고점 대비 약 3,500조 원 줄었다며 정부 대응을 촉구한 글(개인 의견)",
      "src": "FastStockNews",
-     "new": true
+     "new": true,
+     "url": "https://t.me/FastStockNews/128249",
+     "via": "채널"
     },
     {
      "t": "15:04",
      "tone": "neg",
      "text": "LME 3개월 구리 -3%대로 3월 이후 최저, 주간 낙폭 약 -9%(10년 내 코로나·관세 때를 빼면 최대)",
      "src": "TNBfolio",
-     "new": true
+     "new": true,
+     "url": "https://t.me/TNBfolio/72079",
+     "via": "채널"
     },
     {
      "t": "15:48",
      "tone": "neu",
      "text": "올해 상승률(1/1~11/20) 코스피 +16%, 대만 +24%, 코스닥 -30%, 나스닥 +3%",
      "src": "one_going(개인 정리)",
-     "new": true
+     "new": true,
+     "url": "https://t.me/one_going/4548",
+     "via": "채널"
     },
     {
      "t": "15:48",
      "tone": "neg",
      "text": "증시 하락을 막으려 담보비율을 낮춰 반대매매를 유예한 대책을 비판한 글(개인 의견)",
      "src": "corevalue",
-     "new": true
+     "new": true,
+     "url": "https://t.me/corevalue/47756",
+     "via": "채널"
     },
     {
      "t": "14:41",
@@ -142,28 +152,36 @@
      "tone": "neg",
      "text": "SK하이닉스 BNK 목표가 1,050,000원으로 하향, 의견 보유 유지(DRAM 공급 과잉 우려·내년 2Q부터 가격 하락 가능성)",
      "src": "butler_works·2개 채널",
-     "new": true
+     "new": true,
+     "url": "https://t.me/butler_works/33226",
+     "via": "채널"
     },
     {
      "t": "16:54",
      "tone": "neu",
      "text": "트렌드포스 낸드 계약가 하락은 한 분기 앞당겨졌지만 DRAM은 하락 전환이 아니라 상승률 하향 조정이라는 해석",
      "src": "nje2e(개인 의견)",
-     "new": true
+     "new": true,
+     "url": "https://t.me/nje2e/45733",
+     "via": "채널"
     },
     {
      "t": "16:22",
      "tone": "pos",
      "text": "SK하이닉스가 키옥시아 투자 CB를 주식으로 전환해 지분 14.1%를 간접 보유하게 됩니다",
      "src": "FastStockNews",
-     "new": true
+     "new": true,
+     "url": "http://edaily.co.kr/news/newspath.asp?newsid=03673606645647688",
+     "via": "기사"
     },
     {
      "t": "16:28",
      "tone": "pos",
      "text": "제주반도체가 베트남 OSAT 법인(지분 65%) 260억 원 취득을 결정했습니다",
      "src": "darthacking 공시",
-     "new": true
+     "new": true,
+     "url": "https://t.me/darthacking/159475",
+     "via": "채널"
     },
     {
      "t": "12:34",
@@ -242,14 +260,18 @@
      "tone": "neg",
      "text": "AMD의 중국 연계 의혹으로 대중 규제 추가 강화 가능성이 부각됐고 로이터는 AMD도 규제 당국 조사를 받을 것으로 전했다는 정리",
      "src": "shmstory",
-     "new": true
+     "new": true,
+     "url": "https://t.me/shmstory/9244",
+     "via": "채널"
     },
     {
      "t": "15:31",
      "tone": "pos",
      "text": "삼성증권: 중간선거 이후 AI 데이터센터 투자 테마가 전력·에너지(규제 유틸리티·온사이트 발전·ESS)로 확산될 전망",
      "src": "butler_works",
-     "new": true
+     "new": true,
+     "url": "https://t.me/butler_works/33216",
+     "via": "채널"
     },
     {
      "t": "13:22",
@@ -324,14 +346,18 @@
      "tone": "pos",
      "text": "KODEX 웹툰&드라마 ETF가 전날 ETF 수익률 1위(+14%), 스튜디오드래곤·CJ ENM 비중이 높습니다",
      "src": "FastStockNews",
-     "new": true
+     "new": true,
+     "url": "https://n.news.naver.com/mnews/article/015/0005356348?sid=101",
+     "via": "기사"
     },
     {
      "t": "16:20",
      "tone": "neu",
      "text": "'중국 움직이나' 8년 만에 바뀐 기류를 다룬 기사",
      "src": "FastStockNews",
-     "new": true
+     "new": true,
+     "url": "https://n.news.naver.com/mnews/article/050/0000113552?sid=101",
+     "via": "기사"
     },
     {
      "t": "12:02",
@@ -389,7 +415,9 @@
      "tone": "neu",
      "text": "이번 주 정부여당의 민주유공자법 단독 통과·대법원장 탄핵 추진 등 정치 변수를 짚은 글(개인 의견)",
      "src": "corevalue",
-     "new": true
+     "new": true,
+     "url": "https://m.wikitree.co.kr/articles/1176265",
+     "via": "기사"
     },
     {
      "t": "14:19",
@@ -649,28 +677,36 @@
      "tone": "pos",
      "text": "금호건설 서울주택도시개발공사 장지차고지 입체화 공사 1,753억 원(매출 대비 8.68%)",
      "src": "darthacking 공시",
-     "new": true
+     "new": true,
+     "url": "https://t.me/darthacking/159472",
+     "via": "채널"
     },
     {
      "t": "16:02",
      "tone": "pos",
      "text": "금양그린파워 AI 데이터센터 전기·통신 공사 2,300억 원(지난해 매출의 86.87%)",
      "src": "FastStockNews",
-     "new": true
+     "new": true,
+     "url": "https://cbci.co.kr/news/articleView.html?idxno=629143",
+     "via": "기사"
     },
     {
      "t": "16:38",
      "tone": "pos",
      "text": "한컴라이프케어 방위사업청 K5 방독면 10차 양산 190억 원(매출 대비 20.6%)",
      "src": "FastStockNews",
-     "new": true
+     "new": true,
+     "url": "https://t.me/FastStockNews/128258",
+     "via": "채널"
     },
     {
      "t": "16:43",
      "tone": "pos",
      "text": "큐라티스 임상 의약품 공급 24억 원, 올해 첫 계약 공시",
      "src": "FastStockNews",
-     "new": true
+     "new": true,
+     "url": "https://datatooza.com/article/20261120163414535452ef3c3919_80",
+     "via": "기사"
     },
     {
      "t": "13:38",
@@ -718,21 +754,27 @@
      "tone": "pos",
      "text": "HLB생명과학 +16%: HLB가 HLB생명과학을 흡수합병하기로 의결했습니다",
      "src": "ked_epic_ai",
-     "new": true
+     "new": true,
+     "url": "https://t.me/ked_epic_ai/39631",
+     "via": "채널"
     },
     {
      "t": "14:56",
      "tone": "pos",
      "text": "알테오젠: 키트루다SC 독일 판매금지 가처분이 취소돼 기술료 수입이 주목받습니다",
      "src": "FastStockNews",
-     "new": true
+     "new": true,
+     "url": "https://v.daum.net/v/20261120145429960",
+     "via": "기사"
     },
     {
      "t": "16:02",
      "tone": "neu",
      "text": "KB금융 이재근 회장 선임(찬성 97.69%), 11/21 임기 시작·11/23 취임식",
      "src": "ked_epic_ai",
-     "new": true
+     "new": true,
+     "url": "https://t.me/ked_epic_ai/39632",
+     "via": "채널"
     },
     {
      "t": "11:22",

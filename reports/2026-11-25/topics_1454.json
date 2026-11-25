@@ -33,84 +33,108 @@
      "tone": "pos",
      "text": "샌디스크: NAND 하락 위험 전혀 없음, AI 스토리지 수요 견조, 중국 시장이 공급 증가분을 충분히 흡수할 수 있다는 투자자 교류회 발언",
      "src": "FastStockNews",
-     "new": true
+     "new": true,
+     "url": "https://wallstreetcn.com/articles/3786651",
+     "via": "기사"
     },
     {
      "t": "12:22",
      "tone": "neg",
      "text": "CoreWeave 회사채 가격이 화요일 사상 최저로 떨어졌다는 보도",
      "src": "TNBfolio",
-     "new": true
+     "new": true,
+     "url": "https://t.me/TNBfolio/72124",
+     "via": "채널"
     },
     {
      "t": "12:59",
      "tone": "neg",
      "text": "미국 재무부가 사이버 공격을 받았다는 속보, CIA·ODNI 해킹에 이어짐",
      "src": "FastStockNews",
-     "new": true
+     "new": true,
+     "url": "https://disclose.tv/id/1wdfhm0yj5",
+     "via": "기사"
     },
     {
      "t": "13:41",
      "tone": "neg",
      "text": "오늘 PCE도 높게 나올 것 같다는 글(개인 의견)",
      "src": "nje2e",
-     "new": true
+     "new": true,
+     "url": "https://t.me/nje2e/45894",
+     "via": "채널"
     },
     {
      "t": "10:48",
      "tone": "pos",
      "text": "대만 ODM 업체들에 따르면 엔비디아 AI GPU 신규 주문 납기가 대폭 늘어 AI 제품 공급 부족이 심화",
      "src": "bornlupin",
-     "new": false
+     "new": false,
+     "url": "https://ctee.com.tw/news/20261125700183-430501",
+     "via": "기사"
     },
     {
      "t": "10:18",
      "tone": "neg",
      "text": "롭 본타 캘리포니아 법무장관이 젠슨 황 복귀와 상관없이 엔비디아에 대한 자체 조사를 계속하겠다고 밝힘",
      "src": "TNBfolio",
-     "new": false
+     "new": false,
+     "url": "https://t.me/TNBfolio/72122",
+     "via": "채널"
     },
     {
      "t": "11:33",
      "tone": "neu",
      "text": "젠슨 황이 복귀 후 첫 전사 회의에서 매일 90분 심리 상담을 받는다고 밝히고 자신의 경영 방식이 직원들에게 부담이 됐을 수 있다고 언급(WIRED 전언)",
      "src": "nje2e",
-     "new": false
+     "new": false,
+     "url": "https://t.me/nje2e/45886",
+     "via": "채널"
     },
     {
      "t": "07:24",
      "tone": "pos",
      "text": "델 어닝콜: 수요 환경은 여전히 강력하고 AI 서버 수요가 계속 가속화",
      "src": "bornlupin",
-     "new": false
+     "new": false,
+     "url": "https://t.me/bornlupin/21267",
+     "via": "채널"
     },
     {
      "t": "08:20",
      "tone": "pos",
      "text": "델 어닝콜: 2027년 서버용 DRAM·기업용 NAND 가격 하락 징후 없음, HBM 확대로 공급 부족과 에이전틱 AI 수요 지속",
      "src": "bornlupin",
-     "new": false
+     "new": false,
+     "url": "https://x.com/DrNHJ/status/2125368955120611333?a=deNhwaFcKY2m9icZhDU&s=20",
+     "via": "기사"
     },
     {
      "t": "08:58",
      "tone": "neg",
      "text": "Ambarella CEO: 전례 없는 메모리 가격 상승과 공급 부족으로 컨슈머 IoT 중심 주문 취소와 납기 이연이 늘고 있다는 언급",
      "src": "bornlupin",
-     "new": false
+     "new": false,
+     "url": "https://t.me/bornlupin/21274",
+     "via": "채널"
     },
     {
      "t": "08:20",
      "tone": "neu",
      "text": "GS: 달러 성과는 AI 관련 주식과 연동돼 왔고 AI 급락과 미국 외 증시 아웃퍼폼은 달러 약세 촉매가 될 수 있다는 시각(개인 의견)",
      "src": "Jstockclass",
-     "new": false
+     "new": false,
+     "url": "https://t.me/Jstockclass/15567",
+     "via": "채널"
     },
     {
      "t": "07:59",
      "tone": "neu",
      "text": "FT: 스페이스X와 테슬라가 전량 주식 교환 방식 합병을 협상 중이며 양사 모두 연내 완료를 원함",
      "src": "nje2e",
-     "new": false
+     "new": false,
+     "url": "https://ft.com/content/2585e45e-9133-4215-a2d8-e1275e1033b9?syn-25a6b1a6=1",
+     "via": "기사"
     }
    ]
   },
@@ -136,35 +160,45 @@
      "tone": "pos",
      "text": "베센트 CBS: 엔비디아는 위대한 기업이고 AI 칩 수요는 사실상 무제한, 순환금융 구조를 당장 우려하지 않는다",
      "src": "bornlupin",
-     "new": false
+     "new": false,
+     "url": "https://t.me/bornlupin/21237",
+     "via": "채널"
     },
     {
      "t": "08:21",
      "tone": "neg",
      "text": "빌 애크먼: 연준이 12월 9일 또 실수를 하려 한다, 금융 여건이 매우 긴축적이라는 발언",
      "src": "bornlupin",
-     "new": false
+     "new": false,
+     "url": "https://t.me/bornlupin/21239",
+     "via": "채널"
     },
     {
      "t": "08:55",
      "tone": "neg",
      "text": "유진투자 건설: 트럼프의 해외 데이터센터 과세 경고가 건설업에 미칠 영향 분석",
      "src": "butler_works",
-     "new": false
+     "new": false,
+     "url": "https://t.me/butler_works/33324",
+     "via": "채널"
     },
     {
      "t": "21:03",
      "tone": "pos",
      "text": "(11/22) PJM이 데이터센터 전력망 접속 심사를 2년에서 1년으로 줄이는 신속 절차 개정안을 FERC에 제출",
      "src": "nje2e",
-     "new": false
+     "new": false,
+     "url": "https://t.me/nje2e/45793",
+     "via": "채널"
     },
     {
      "t": "20:57",
      "tone": "neu",
      "text": "(11/22) 이란 대통령 \"전쟁도 평화도 아닌 상황에서 벗어나야 한다\", 외무부 \"외교의 창은 열려 있다\"",
      "src": "bornlupin",
-     "new": false
+     "new": false,
+     "url": "https://t.me/bornlupin/21232",
+     "via": "채널"
     },
     {
      "t": "09:13",
@@ -178,7 +212,9 @@
      "tone": "neg",
      "text": "트럼프 \"美 기업, 해외 데이터센터 건설 금지\" 속보",
      "src": "nje2e",
-     "new": false
+     "new": false,
+     "url": "https://x.com/DrNHJ/status/2125368955120611333?a=deNhwaFcKY2m9icZhDU&s=20",
+     "via": "기사"
     },
     {
      "t": "06:54",
@@ -230,84 +266,108 @@
      "tone": "neg",
      "text": "트렌드포스가 중국 서버 DRAM 수요 축소와 미국 데이터센터 정책 불확실성을 반영해 2027년 DRAM 가격 상승률 전망을 하향",
      "src": "nje2e",
-     "new": true
+     "new": true,
+     "url": "https://trendforce.com/research/download/RP261125ZA",
+     "via": "기사"
     },
     {
      "t": "13:12",
      "tone": "neu",
      "text": "구글이 HBM 2위 큰손으로 부상하며 엔비디아 중심 시장이 재편되고 삼성·SK에 시험대라는 분석",
      "src": "FastStockNews",
-     "new": true
+     "new": true,
+     "url": "https://t.me/FastStockNews/128470",
+     "via": "채널"
     },
     {
      "t": "12:42",
      "tone": "pos",
      "text": "삼성전자가 펫 돌봄 로봇 세척·살균 미국 특허를 등록했다는 단독 보도",
      "src": "FastStockNews",
-     "new": true
+     "new": true,
+     "url": "https://v.daum.net/v/20261125123825006",
+     "via": "기사"
     },
     {
      "t": "11:31",
      "tone": "pos",
      "text": "서진시스템이 Bloom Energy와 1,656억 원(매출 대비 15.53%) SOFC 공급계약을 공시",
      "src": "FastStockNews",
-     "new": false
+     "new": false,
+     "url": "https://t.me/FastStockNews/128459",
+     "via": "채널"
     },
     {
      "t": "09:55",
      "tone": "pos",
      "text": "HT로보틱스가 AI 데이터센터 전력 부품을 첫 출하, 협력사 등록 3개월 만",
      "src": "FastStockNews",
-     "new": false
+     "new": false,
+     "url": "https://n.news.naver.com/mnews/article/008/0005445990?sid=101",
+     "via": "기사"
     },
     {
      "t": "11:05",
      "tone": "pos",
      "text": "대성하이텍이 중국 JIANGSU HANCHUANG와 공작기계 225억 원(매출 대비 23.63%) 공급계약을 공시",
      "src": "FastStockNews",
-     "new": false
+     "new": false,
+     "url": "https://t.me/FastStockNews/128456",
+     "via": "채널"
     },
     {
      "t": "07:47",
      "tone": "pos",
      "text": "삼성전자·SK하이닉스가 미국 차세대 AI칩 광(光)연결에 1억 달러를 동반 투자한다는 단독 보도",
      "src": "FastStockNews",
-     "new": false
+     "new": false,
+     "url": "https://newsverse.kr/news/articleView.html?idxno=12032",
+     "via": "기사"
     },
     {
      "t": "09:37",
      "tone": "neu",
      "text": "마이크론 연차보고서(11/24): AI 메모리 공급 부족 지속, 신규 내용은 아니고 10월 10-K 기반 자료",
      "src": "bornlupin",
-     "new": false
+     "new": false,
+     "url": "https://t.me/bornlupin/21275",
+     "via": "채널"
     },
     {
      "t": "08:28",
      "tone": "pos",
      "text": "삼성전자 휴머노이드 밸류체인에서 레인보우로보틱스에 감속기를 공급하는 업체가 확인돼 부품업체 새 판이 열린다는 분석",
      "src": "FastStockNews",
-     "new": false
+     "new": false,
+     "url": "https://news.einfomax.co.kr/news/articleView.html?idxno=4446354",
+     "via": "기사"
     },
     {
      "t": "06:08",
      "tone": "neu",
      "text": "iM증권: 마이크론 코멘트로 과거 다운사이클을 재현하면 LTA 훼손까지는 60% 수준의 가격 하락이 필요(11/4 자료)",
      "src": "nje2e",
-     "new": false
+     "new": false,
+     "url": "https://t.me/nje2e/45874",
+     "via": "채널"
     },
     {
      "t": "23:30",
      "tone": "pos",
      "text": "엑시콘: 삼성 DRAM 검사장비 국산화가 본격화되며 CLT 검사장비가 기존 장비의 22.5배를 동시 검사한다는 분석",
      "src": "nje2e",
-     "new": false
+     "new": false,
+     "url": "https://t.me/nje2e/45866",
+     "via": "채널"
     },
     {
      "t": "23:30",
      "tone": "pos",
      "text": "JPM: 로보틱스·피지컬 AI 섹터가 기술·정책·상업화 전반에서 모멘텀이 쌓이며 새 가속화 국면에 진입",
      "src": "nje2e",
-     "new": false
+     "new": false,
+     "url": "https://t.me/nje2e/45867",
+     "via": "채널"
     }
    ]
   },
@@ -360,84 +420,108 @@
      "tone": "neu",
      "text": "오늘 외국인 매도가 2.3조 원에 이르는데 증안펀드 10조 원은 규모가 작아 급락 때 쓸 것이고 최소 30조 원 이상이어야 의미가 있다는 글(개인 의견)",
      "src": "one_going",
-     "new": true
+     "new": true,
+     "url": "https://t.me/one_going/4575",
+     "via": "채널"
     },
     {
      "t": "14:49",
      "tone": "neu",
      "text": "코스피가 6% 급락한 날 정부가 증안펀드 확대를 추진한다는 단독 보도(미확정)",
      "src": "FastStockNews",
-     "new": true
+     "new": true,
+     "url": "https://hankyung.com/article/202611259509i?sicode=01",
+     "via": "기사"
     },
     {
      "t": "14:30",
      "tone": "neu",
      "text": "대만은 -8%에서 -4%대로 반등했고 정부 개입 효과라는 평가, 한국은 정부와 삼성전자 모두 구경만 한다는 글(개인 의견)",
      "src": "corevalue",
-     "new": true
+     "new": true,
+     "url": "https://t.me/corevalue/47798",
+     "via": "채널"
     },
     {
      "t": "13:58",
      "tone": "neg",
      "text": "젠슨 황 복귀 효과가 하루 만에 사라져 대만 가권이 장중 -8.6%, 코스피는 장중 -6.4%, 삼성전자·SK하이닉스는 각각 9% 넘게 하락",
      "src": "TNBfolio",
-     "new": true
+     "new": true,
+     "url": "https://t.me/TNBfolio/72126",
+     "via": "채널"
     },
     {
      "t": "13:46",
      "tone": "pos",
      "text": "보안주들이 집단 상한가를 기록",
      "src": "FastStockNews",
-     "new": true
+     "new": true,
+     "url": "https://t.me/FastStockNews/128473",
+     "via": "채널"
     },
     {
      "t": "14:03",
      "tone": "neg",
      "text": "라쿠텐그룹이 약 1,500억 엔 채권 발행을 철회해 신용위험이 2025년 4월 이후 가장 크게 상승",
      "src": "TNBfolio",
-     "new": true
+     "new": true,
+     "url": "https://t.me/TNBfolio/72127",
+     "via": "채널"
     },
     {
      "t": "11:50",
      "tone": "neu",
      "text": "터톤캐피탈이 에스텍 공개매수에 제동을 걸며 추산 적정가치를 55,600원으로 제시(에스텍은 관찰 풀)",
      "src": "FastStockNews",
-     "new": false
+     "new": false,
+     "url": "https://v.daum.net/v/20261125114433420",
+     "via": "기사"
     },
     {
      "t": "11:27",
      "tone": "neg",
      "text": "일본 개인 투자자의 신용 매수 포지션 평균 평가손실률이 화요일 19.7%로 반대매매 위험선 20%에 근접",
      "src": "TNBfolio",
-     "new": false
+     "new": false,
+     "url": "https://t.me/TNBfolio/72123",
+     "via": "채널"
     },
     {
      "t": "10:47",
      "tone": "neg",
      "text": "자영업 손님이 최근 2주간 급격히 줄었다는 지인들 이야기, 10월 하락과 11월 급락 이후 소비를 줄였다는 해석(개인 의견)",
      "src": "nje2e",
-     "new": false
+     "new": false,
+     "url": "https://t.me/nje2e/45885",
+     "via": "채널"
     },
     {
      "t": "10:31",
      "tone": "pos",
      "text": "40조 원 국민성장펀드가 양자 산업 등 코스닥 소부장으로 향한다는 보도",
      "src": "FastStockNews",
-     "new": false
+     "new": false,
+     "url": "https://newspim.com/news/view/20261125000360",
+     "via": "기사"
     },
     {
      "t": "10:46",
      "tone": "pos",
      "text": "오전 상승 종목: 안랩 +18.4%(미국 CIA·FBI 해킹 사건에 따른 사이버 보안 수요 기대) 등",
      "src": "nje2e",
-     "new": false
+     "new": false,
+     "url": "https://t.me/nje2e/45884",
+     "via": "채널"
     },
     {
      "t": "08:42",
      "tone": "neg",
      "text": "장전: 미국은 다우 +0.85%·나스닥 -1.48%로 차별화, PCE·관세 발표를 앞두고 변동성 확대 가능성",
      "src": "ked_epic_ai",
-     "new": false
+     "new": false,
+     "url": "https://t.me/ked_epic_ai/39761",
+     "via": "채널"
     }
    ]
   },
@@ -462,84 +546,108 @@
      "tone": "pos",
      "text": "K뷰티가 중국 진출을 확대하고 유통업계는 한한령 해제에 촉각, 단체 관광객 유치 기대",
      "src": "FastStockNews",
-     "new": true
+     "new": true,
+     "url": "https://n.news.naver.com/mnews/article/016/0002728325?sid=101",
+     "via": "기사"
     },
     {
      "t": "11:59",
      "tone": "neu",
      "text": "하나증권 화장품 바닥 잡기 3선: 공급 부족과 환율 영향으로 실적이 엇갈리는 구간",
      "src": "nje2e",
-     "new": true
+     "new": true,
+     "url": "https://t.me/nje2e/45887",
+     "via": "채널"
     },
     {
      "t": "10:11",
      "tone": "pos",
      "text": "제주항공 1~10월 외국인 탑승객이 276만 명으로 역대 최대, 지방 수요 증가",
      "src": "FastStockNews",
-     "new": false
+     "new": false,
+     "url": "https://n.news.naver.com/mnews/article/421/0009308651?ntype=RANKING&rc=N&sid=001",
+     "via": "기사"
     },
     {
      "t": "08:03",
      "tone": "neu",
      "text": "5,000원 화장품에 다이소에 이어 마트·편의점도 초저가 뷰티 경쟁에 가세",
      "src": "FastStockNews",
-     "new": false
+     "new": false,
+     "url": "https://n.news.naver.com/mnews/article/277/0005847338?sid=101",
+     "via": "기사"
     },
     {
      "t": "09:46",
      "tone": "pos",
      "text": "노랑풍선이 한중 FTA 타결로 중국 관광객 직접 모객 가능, 여행상품 판매 준비로 강세",
      "src": "FastStockNews",
-     "new": false
+     "new": false,
+     "url": "https://gamefocus.co.kr/detail.php?number=180742",
+     "via": "기사"
     },
     {
      "t": "21:04",
      "tone": "pos",
      "text": "하나증권 화장품: 수출이 30% 이상 늘어 ODM은 호황이지만 브랜드사는 환율 하락으로 수익성이 악화, 바닥 잡기 3선 제시",
      "src": "butler_works",
-     "new": false
+     "new": false,
+     "url": "https://t.me/butler_works/33573",
+     "via": "채널"
     },
     {
      "t": "22:04",
      "tone": "pos",
      "text": "키움 화장품 2027 전망(비중확대): K뷰티가 권역 확장 단계를 지나 더마·헤어케어 등 카테고리 확장으로 이동",
      "src": "butler_works",
-     "new": false
+     "new": false,
+     "url": "https://t.me/butler_works/33577",
+     "via": "채널"
     },
     {
      "t": "10:34",
      "tone": "pos",
      "text": "미래에셋증권 화장품 업종 비중확대: K-뷰티 수출이 미국·유럽 중심으로 사상 최고치를 경신, 코스맥스 목표가 380,000원 매수",
      "src": "butler_works",
-     "new": false
+     "new": false,
+     "url": "https://t.me/butler_works/33533",
+     "via": "채널"
     },
     {
      "t": "10:35",
      "tone": "pos",
      "text": "메리츠 연료전지: AI 데이터센터 주민 수용성 문제의 해법으로 연료전지가 부상",
      "src": "butler_works",
-     "new": false
+     "new": false,
+     "url": "https://t.me/butler_works/33535",
+     "via": "채널"
     },
     {
      "t": "20:05",
      "tone": "neu",
      "text": "(11/23) 키움 게임: AI로 개발 진입 장벽이 낮아져 캐릭터·스토리 차별화가 중요, 시프트업 최선호주",
      "src": "butler_works",
-     "new": false
+     "new": false,
+     "url": "https://t.me/butler_works/33421",
+     "via": "채널"
     },
     {
      "t": "17:21",
      "tone": "pos",
      "text": "IBK투자증권: 한중 FTA 후속협상 타결로 중국인 관광객 유입과 현지 유통 진출 여건이 개선, 화장품 투자심리 개선 기대",
      "src": "butler_works",
-     "new": false
+     "new": false,
+     "url": "https://t.me/butler_works/33407",
+     "via": "채널"
     },
     {
      "t": "15:31",
      "tone": "pos",
      "text": "LS증권: 한중 정상회담을 계기로 8년 만에 한한령이 해제 수순에 들어가 국적사 중국 노선 실적 성장 기대",
      "src": "butler_works",
-     "new": false
+     "new": false,
+     "url": "https://t.me/butler_works/33395",
+     "via": "채널"
     }
    ]
   }
@@ -675,14 +783,18 @@
      "tone": "pos",
      "text": "(11/20) 금호건설 장지차고지 입체화 공사 1,753억 원(매출 대비 8.68%)",
      "src": "darthacking",
-     "new": false
+     "new": false,
+     "url": "https://t.me/darthacking/159472",
+     "via": "채널"
     },
     {
      "t": "16:02",
      "tone": "pos",
      "text": "(11/20) 금양그린파워 AI 데이터센터 전기·통신 공사 2,300억 원",
      "src": "FastStockNews",
-     "new": false
+     "new": false,
+     "url": "https://cbci.co.kr/news/articleView.html?idxno=629143",
+     "via": "기사"
     }
    ]
   },
@@ -694,14 +806,18 @@
      "tone": "neu",
      "text": "(11/20) KB금융 이재근 회장 21일 임기 시작, 23일 취임식",
      "src": "ked_epic_ai",
-     "new": false
+     "new": false,
+     "url": "https://t.me/ked_epic_ai/39632",
+     "via": "채널"
     },
     {
      "t": "16:02",
      "tone": "neg",
      "text": "(11/20) 리노공업 장중 52주 최저가, 종가 -15.07%",
      "src": "ked_epic_ai",
-     "new": false
+     "new": false,
+     "url": "https://t.me/ked_epic_ai/39632",
+     "via": "채널"
     }
    ]
   },
@@ -713,7 +829,9 @@
      "tone": "neu",
      "text": "과학기술기본법·전파법 개정안 입법예고(수능 전파차단장치 허용 등)",
      "src": "ked_epic_ai",
-     "new": false
+     "new": false,
+     "url": "https://t.me/ked_epic_ai/39756",
+     "via": "채널"
     }
    ]
   }

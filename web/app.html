@@ -743,6 +743,7 @@ html body .view table.tcrt,html body .view table.tcrt tbody{display:block}html b
 .tcl{border-top:1px solid var(--line);margin-top:8px;padding-top:8px}
 .tclh{font-size:11px;color:var(--muted);font-weight:700;margin-bottom:4px;display:flex;justify-content:space-between;gap:8px}
 .tci{display:grid;grid-template-columns:38px 14px minmax(0,1fr);gap:0 6px;padding:3px 0;border-bottom:1px dotted var(--line);font-size:12.5px}.tci:last-of-type{border-bottom:0}
+.tci a.tcia{color:inherit;text-decoration:none}.tci a.tcia:hover{text-decoration:underline}.tci a.tcia i{font-style:normal;color:var(--accent);font-size:11px;margin-left:3px}
 .tci time{color:var(--muted);font-size:11px;font-variant-numeric:tabular-nums;padding-top:2px}.tci em{font-style:normal;font-size:10.5px;padding-top:3px}.tci.n time{color:var(--tcp);font-weight:700}.tci.n>div{font-weight:500}.tci small{color:var(--muted);font-size:11px}
 .tcrl{display:block;margin-top:8px;padding:6px 10px;border-radius:9px;background:var(--soft);font-size:12px;color:var(--fg);cursor:pointer;text-decoration:none}
 .tcrg{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:20px;border-top:1px solid var(--line);margin-top:8px;padding-top:10px}
@@ -1676,7 +1677,7 @@ const SECN={checkpoint:"체크포인트",channels:"장중 정리 · 채널",repo
 const TC_ST={"긍정":["pos","🔴 긍정 우세"],"부정":["neg","🔵 부정 우세"],"엇갈림":["mix","⚖️ 엇갈림"],"중립":["","⚪ 중립"]},TC_TONE={pos:"🔴",neg:"🔵",neu:"⚪"},TC_DIR={up:"🔴",down:"🔵",new:"🆕",note:"⚪"};
 let TC_FIRST={};   // 소식 한 줄이 처음 들어온 회차 (그날 회차들을 비교해서 계산) — 회차 버튼 대신 줄마다 "12시"처럼 표시
 function tcFirst(TP){const m={};(TP||[]).forEach((T,i)=>{const put=x=>{const k=(x.t||"")+"|"+(x.text||"");if(!(k in m))m[k]=i?T.hm.slice(0,2)+"시":""};(T.topics||[]).forEach(t=>(t.items||[]).forEach(put));(T.others||[]).forEach(g=>(g.items||[]).forEach(put))});return m}
-function tcItems(L,key,lim){const n=moreN(key,lim||7);return L.slice(0,n).map(x=>{const s=TC_FIRST[(x.t||"")+"|"+(x.text||"")];return `<div class="tci ${x.new?"n":""}"><time>${esc(x.t||"")}</time><em>${TC_TONE[x.tone]||"⚪"}</em><div>${tint(x.text||"")}${x.src?` <small>${esc(x.src)}</small>`:""}${x.new?` <span class="tcslot n">🆕 ${esc(s||"")}</span>`:s?` <span class="tcslot">${esc(s)}</span>`:""}</div></div>`}).join("")+moreBtn(key,Math.min(n,L.length),L.length,20)}
+function tcItems(L,key,lim){const n=moreN(key,lim||7);return L.slice(0,n).map(x=>{const s=TC_FIRST[(x.t||"")+"|"+(x.text||"")];return `<div class="tci ${x.new?"n":""}"><time>${esc(x.t||"")}</time><em>${TC_TONE[x.tone]||"⚪"}</em><div>${/^https?:\/\//.test(x.url||"")?`<a class="tcia" href="${esc(x.url)}" target="_blank" rel="noopener" title="${x.via=="기사"?"기사 원문":"채널 원문"} 새 창으로 열기">${tint(x.text||"")}<i>↗</i></a>`:tint(x.text||"")}${x.src?` <small>${esc(x.src)}</small>`:""}${x.new?` <span class="tcslot n">🆕 ${esc(s||"")}</span>`:s?` <span class="tcslot">${esc(s)}</span>`:""}</div></div>`}).join("")+moreBtn(key,Math.min(n,L.length),L.length,20)}
 function tcPct(t){return esc(t).replace(/([+−-]\d[\d.,]*%)/g,(m)=>`<b class="${/^\+/.test(m)?"up":"down"}">${m}</b>`)}
 function tcPickGo(x,fd){
   const ext=(u,n)=>[`href="${esc(u)}" target="_blank" rel="noopener"`,n],bk=b=>String(b||"").replace(/증권|투자|금융/g,"").trim().slice(0,2);

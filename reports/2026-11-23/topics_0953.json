@@ -33,84 +33,108 @@
      "tone": "pos",
      "text": "텍사스가 VoltaGrid 2.58GW 온사이트 가스발전 대기배출 허가를 11/19 최종 발급",
      "src": "FastStockNews",
-     "new": true
+     "new": true,
+     "url": "https://records.tceq.texas.gov/cs/idcplg?IdcService=TCEQ_EXTERNAL_SEARCH_GET_FILE&Rendition=Web&dID=10265116&searchType=External",
+     "via": "기사"
     },
     {
      "t": "08:45",
      "tone": "pos",
      "text": "LS전선·대한전선이 뉴욕주 4.5조 원 규모 전력망 프로젝트 공급업체로 선정됐다는 단독 보도(LS전선 약 7,000억 원 대미 수출)",
      "src": "FastStockNews",
-     "new": true
+     "new": true,
+     "url": "https://n.news.naver.com/mnews/article/018/0006413922?ntype=RANKING&rc=N&sid=001",
+     "via": "기사"
     },
     {
      "t": "06:08",
      "tone": "neg",
      "text": "11/23 시황: 엔비디아 SEC 회계 조사에 FBI 등 동시 다발 조사가 진행 중이라는 정리, 나스닥은 연간 하락 전환·주간 -9%",
      "src": "shmstory",
-     "new": false
+     "new": false,
+     "url": "https://t.me/shmstory/9249",
+     "via": "채널"
     },
     {
      "t": "22:29",
      "tone": "pos",
      "text": "(11/22) JPM: 아시아 테크는 25~30% EPS 하향을 이미 주가에 반영 중이고 실제 하향은 5~10%에 그칠 전망, 2~3개월 내 20~30% 이익 컷이 없다면 20%+ 반등 가능(개인 의견)",
      "src": "Jstockclass",
-     "new": false
+     "new": false,
+     "url": "https://t.me/Jstockclass/15546",
+     "via": "채널"
     },
     {
      "t": "21:05",
      "tone": "neg",
      "text": "(11/22) LME 구리가 주간 -9%로 2025년 4월 이후 최대 낙폭, 상하이 거래소 재고 스퀴즈 뒤 급락",
      "src": "TNBfolio",
-     "new": false
+     "new": false,
+     "url": "https://t.me/TNBfolio/72095",
+     "via": "채널"
     },
     {
      "t": "22:34",
      "tone": "neg",
      "text": "(11/22) 미국 민주당이 내년 의회 장악 뒤 트럼프 관세·감세 되돌리기 청문회를 추진한다는 보도",
      "src": "TNBfolio·bornlupin",
-     "new": false
+     "new": false,
+     "url": "https://t.me/TNBfolio/72096",
+     "via": "채널"
     },
     {
      "t": "21:11",
      "tone": "pos",
      "text": "(11/22) 비트코인이 6만 달러 위로 회복, 위험자산 회피 심리가 조금 진정됐다는 글",
      "src": "nje2e",
-     "new": false
+     "new": false,
+     "url": "https://t.me/nje2e/45796",
+     "via": "채널"
     },
     {
      "t": "12:32",
      "tone": "neg",
      "text": "머스크가 내년 AI 업계에 심각한 현금 부족이 올 것이라고 경고, 운전자본으로 수천억 달러가 더 필요하다는 추산",
      "src": "TNBfolio",
-     "new": false
+     "new": false,
+     "url": "https://t.me/TNBfolio/72094",
+     "via": "채널"
     },
     {
      "t": "12:44",
      "tone": "pos",
      "text": "앤디 제시(아마존): 미국이 데이터센터 건설을 멈추고 중국이 AI 규범을 정하게 두는 것은 역사적 실수라는 발언",
      "src": "nje2e",
-     "new": false
+     "new": false,
+     "url": "https://t.me/nje2e/45783",
+     "via": "채널"
     },
     {
      "t": "14:08",
      "tone": "neu",
      "text": "주요 일정: 11/25 PCE, 12/1 젠슨 황 하원 조사(비공개), 12/4 고용, 12/10 FOMC·CPI",
      "src": "bornlupin",
-     "new": false
+     "new": false,
+     "url": "https://t.me/bornlupin/21228",
+     "via": "채널"
     },
     {
      "t": "12:43",
      "tone": "pos",
      "text": "VIX 28~33일 때는 이후 6개월 평균 수익률이 약 +10%였다는 과거 통계(개인 의견)",
      "src": "nje2e",
-     "new": false
+     "new": false,
+     "url": "https://t.me/nje2e/45808",
+     "via": "채널"
     },
     {
      "t": "19:08",
      "tone": "pos",
      "text": "오라클이 오픈AI 계약 이행 자금을 전액 확보했다고 공식 발표(이달 초 마지막 조달 완료, 벤더 파이낸싱 포함)",
      "src": "nje2e·bornlupin",
-     "new": false
+     "new": false,
+     "url": "https://t.me/nje2e/45769",
+     "via": "채널"
     }
    ]
   },
@@ -136,70 +160,90 @@
      "tone": "pos",
      "text": "베센트 CBS: 엔비디아는 위대한 기업이고 AI 칩 수요는 사실상 무제한, 순환금융 구조를 당장 우려하지 않는다",
      "src": "bornlupin",
-     "new": true
+     "new": true,
+     "url": "https://t.me/bornlupin/21237",
+     "via": "채널"
     },
     {
      "t": "08:21",
      "tone": "neg",
      "text": "빌 애크먼: 연준이 12월 9일 또 실수를 하려 한다, 금융 여건이 매우 긴축적이라는 발언",
      "src": "bornlupin",
-     "new": true
+     "new": true,
+     "url": "https://t.me/bornlupin/21239",
+     "via": "채널"
     },
     {
      "t": "08:55",
      "tone": "neg",
      "text": "유진투자 건설: 트럼프의 해외 데이터센터 과세 경고가 건설업에 미칠 영향 분석",
      "src": "butler_works",
-     "new": true
+     "new": true,
+     "url": "https://t.me/butler_works/33324",
+     "via": "채널"
     },
     {
      "t": "21:03",
      "tone": "pos",
      "text": "(11/22) PJM이 데이터센터 전력망 접속 심사를 2년에서 1년으로 줄이는 신속 절차 개정안을 FERC에 제출",
      "src": "nje2e",
-     "new": false
+     "new": false,
+     "url": "https://t.me/nje2e/45793",
+     "via": "채널"
     },
     {
      "t": "20:57",
      "tone": "neu",
      "text": "(11/22) 이란 대통령 \"전쟁도 평화도 아닌 상황에서 벗어나야 한다\", 외무부 \"외교의 창은 열려 있다\"",
      "src": "bornlupin",
-     "new": false
+     "new": false,
+     "url": "https://t.me/bornlupin/21232",
+     "via": "채널"
     },
     {
      "t": "09:13",
      "tone": "neu",
      "text": "백악관 기자회견 10개 쟁점 정리: 해외 데이터센터 제한, 중국 구형 칩만 판매, 젠슨 황 복귀, 시진핑과 AI 가드레일, 연준 금리 인하 요구",
      "src": "bornlupin·nje2e",
-     "new": false
+     "new": false,
+     "url": "https://t.me/bornlupin/21218",
+     "via": "채널"
     },
     {
      "t": "05:37",
      "tone": "neg",
      "text": "트럼프 \"美 기업, 해외 데이터센터 건설 금지\" 속보",
      "src": "nje2e",
-     "new": false
+     "new": false,
+     "url": "https://fnnews.com/news/202611210250254111",
+     "via": "기사"
     },
     {
      "t": "06:54",
      "tone": "neu",
      "text": "트럼프가 젠슨 황 복귀를 촉구하며 \"두 번째 기회를 줘야 한다\"고 발언",
      "src": "nje2e·FastStockNews",
-     "new": false
+     "new": false,
+     "url": "http://x.com/firesidealpha/status/2123844322324074635?a=ZuqbfU95BTP_1nabSJ0&s=19",
+     "via": "기사"
     },
     {
      "t": "07:17",
      "tone": "neu",
      "text": "베센트: H200 중국 판매 정책 변화 없음, 젠슨 황은 중국 논의에서 언급되지 않았다",
      "src": "nje2e",
-     "new": false
+     "new": false,
+     "url": "http://x.com/firesidealpha/status/2123816024399372400?a=7mmjtvF0Ew1HN6ENJU4&s=19",
+     "via": "기사"
     },
     {
      "t": "07:09",
      "tone": "pos",
      "text": "게빈 베이커: 엔비디아가 투자·보증을 줄일 것이라는 우려는 기우, 경쟁사가 그 자리를 노려 오히려 유리한 조건을 내놓는다는 견해(개인 의견)",
      "src": "nje2e",
-     "new": false
+     "new": false,
+     "url": "http://x.com/GavinSBaker/status/2123826938498146439?a=-yOl0EPwRaKWTVpCtmw&s=19",
+     "via": "기사"
     }
    ]
   },
@@ -228,84 +272,108 @@
      "tone": "neu",
      "text": "메리츠 김선우: 소프트뱅크의 SK하이닉스 인수 검토 보도와 초장기 LTA를 함께 다룬 반도체 리포트",
      "src": "butler_works",
-     "new": true
+     "new": true,
+     "url": "https://t.me/butler_works/33336",
+     "via": "채널"
     },
     {
      "t": "08:48",
      "tone": "pos",
      "text": "JPM SK하이닉스: 에이전틱 AI가 HBM을 넘어 전 메모리 계층으로 수요를 번지게 한다는 시각",
      "src": "bornlupin·nje2e",
-     "new": true
+     "new": true,
+     "url": "https://t.me/bornlupin/21241",
+     "via": "채널"
     },
     {
      "t": "07:40",
      "tone": "neu",
      "text": "하나증권 반도체·소부장 Weekly: 극대화된 공포심리(비중확대)",
      "src": "butler_works",
-     "new": true
+     "new": true,
+     "url": "https://t.me/butler_works/33275",
+     "via": "채널"
     },
     {
      "t": "07:28",
      "tone": "neu",
      "text": "Jay: 반도체 기업 실적 추정치 하향 조정이 바닥으로 가는 마지막 관문이라는 글(개인 의견)",
      "src": "Jstockclass",
-     "new": true
+     "new": true,
+     "url": "https://t.me/Jstockclass/15548",
+     "via": "채널"
     },
     {
      "t": "22:20",
      "tone": "neu",
      "text": "(11/22) GS: 현재 주가는 2028년 AI capex 성장 제로와 ASP 추가 40% 하락을 반영한 수준, DRAM 2028년 가격 전망은 -5%에서 -19%로 하향(개인 의견)",
      "src": "Jstockclass",
-     "new": false
+     "new": false,
+     "url": "https://t.me/Jstockclass/15545",
+     "via": "채널"
     },
     {
      "t": "22:50",
      "tone": "neg",
      "text": "(11/22) 씨티: AI 수요 불확실성으로 2027년 상반기 메모리 현물 가격 약세, 하반기 반등 예상(개인 의견)",
      "src": "bornlupin",
-     "new": false
+     "new": false,
+     "url": "https://t.me/bornlupin/21236",
+     "via": "채널"
     },
     {
      "t": "06:01",
      "tone": "neu",
      "text": "역사적으로 다운사이클 저점은 SK하이닉스 PBR 0.8배, 삼성전자 0.9~1.0배라는 시각, 삼성전자 PBR 0.9배는 약 15만 4천 원(개인 의견)",
      "src": "nje2e",
-     "new": false
+     "new": false,
+     "url": "https://t.me/nje2e/45799",
+     "via": "채널"
     },
     {
      "t": "21:13",
      "tone": "neg",
      "text": "(11/22) 머스크: 메모리·스토리지 가격이 급등해 AI4 비용이 이전보다 두 배로 늘었다는 발언",
      "src": "bornlupin",
-     "new": false
+     "new": false,
+     "url": "https://t.me/bornlupin/21234",
+     "via": "채널"
     },
     {
      "t": "21:36",
      "tone": "pos",
      "text": "(11/22) 하나증권 반도체: 2027년 AI 데이터센터 신규 수요 약 27GW 대비 GPU 공급 능력 약 24GW로 공급 부족 전망(비중확대)",
      "src": "butler_works",
-     "new": false
+     "new": false,
+     "url": "https://t.me/butler_works/33260",
+     "via": "채널"
     },
     {
      "t": "18:41",
      "tone": "pos",
      "text": "삼성전자가 메모리 생산능력의 60~70%를 고객 선수금 기반 장기계약으로 확보 추진, 2027~2029년 물량 상당 부분 소진(모건스탠리 전언)",
      "src": "nje2e",
-     "new": false
+     "new": false,
+     "url": "https://t.me/nje2e/45792",
+     "via": "채널"
     },
     {
      "t": "16:35",
      "tone": "pos",
      "text": "삼성전자·SK하이닉스 모두 2029년까지 완판 선언이라는 정리(채널 요약)",
      "src": "nje2e",
-     "new": false
+     "new": false,
+     "url": "https://t.me/nje2e/45788",
+     "via": "채널"
     },
     {
      "t": "19:10",
      "tone": "pos",
      "text": "델·HPE 등 서버 업체가 계약 후에도 AI 서버 가격을 최대 45% 인상 요구, 원인은 메모리 가격 급등(JP모건 조사 인용)",
      "src": "bornlupin",
-     "new": false
+     "new": false,
+     "url": "https://ft.com/content/dd2a6594-6146-4ff1-ac8e-54749c1fc99f?utm",
+     "via": "기사"
     }
    ]
   },
@@ -335,84 +403,108 @@
      "tone": "neu",
      "text": "청와대 재정보좌관이 \"증시 충격은 일시적일 수 있다\"는 낙관론을 폈고, 시점 기준이 모호하다는 반응이 붙음",
      "src": "FastStockNews",
-     "new": true
+     "new": true,
+     "url": "https://n.news.naver.com/mnews/article/015/0005356924?sid=101",
+     "via": "기사"
     },
     {
      "t": "09:14",
      "tone": "pos",
      "text": "관세청 11/1~20 수출 774억 달러(전년 대비 +101.5%)로 1~20일 기준 역대 최대, 올해 누적 1조 76억 달러",
      "src": "FastStockNews",
-     "new": true
+     "new": true,
+     "url": "https://n.news.naver.com/article/018/0006413943",
+     "via": "기사"
     },
     {
      "t": "07:30",
      "tone": "neg",
      "text": "MSCI 한국 ETF -8.42%, MSCI 신흥국 ETF -5.13%, 필라델피아 반도체 -10.73%를 정리한 장전 시황",
      "src": "FastStockNews",
-     "new": true
+     "new": true,
+     "url": "https://t.me/FastStockNews/128284",
+     "via": "채널"
     },
     {
      "t": "07:32",
      "tone": "neg",
      "text": "장전 브리핑: 미 기술주 급락과 VIX 급등에 국내 증시 하락 출발 전망",
      "src": "maddingStock",
-     "new": true
+     "new": true,
+     "url": "https://stockeasy.intellio.kr/briefing/366",
+     "via": "기사"
     },
     {
      "t": "06:07",
      "tone": "neu",
      "text": "주말 대책 정리: 한국 10조 원 규모 안정화 펀드 준비·자사주 한도 3개월 완화, 중국 융자증거금 100%→80% 등",
      "src": "nje2e",
-     "new": false
+     "new": false,
+     "url": "https://t.me/nje2e/45800",
+     "via": "채널"
     },
     {
      "t": "06:18",
      "tone": "neu",
      "text": "특집 모닝 브리핑: 주말 속보 총정리, 증안펀드 등판 예고와 효과, 바닥까지 얼마나 남았는지 분석 방송 요약",
      "src": "shmstory",
-     "new": false
+     "new": false,
+     "url": "https://t.me/shmstory/9250",
+     "via": "채널"
     },
     {
      "t": "21:07",
      "tone": "pos",
      "text": "(11/22) 중국도 증시 안정화 3대 조치 발표(융자증거금 비율 100%→80% 11/30 시행, 창업판 시장조성자 도입 등)",
      "src": "FastStockNews·nje2e",
-     "new": false
+     "new": false,
+     "url": "https://t.me/FastStockNews/128283",
+     "via": "채널"
     },
     {
      "t": "22:48",
      "tone": "neg",
      "text": "(11/22) 대만 증시 지난주 -6.23%로 1991년 이후 최악의 주간 하락, 중국 증시 검은 금요일이라는 한국 뉴스 정리",
      "src": "TNBfolio",
-     "new": false
+     "new": false,
+     "url": "https://naver.me/x3cEgWwH",
+     "via": "기사"
     },
     {
      "t": "21:56",
      "tone": "neu",
      "text": "(11/22) 주말 사이 KORU·SOXL·코인이 조금 반등, 지수 -3~-4% 수준에서 시작할 가능성이지만 열려 봐야 안다는 글(개인 의견)",
      "src": "one_going",
-     "new": false
+     "new": false,
+     "url": "https://t.me/one_going/4558",
+     "via": "채널"
     },
     {
      "t": "23:25",
      "tone": "neu",
      "text": "(11/22) 증안기금은 서둘러야 하지만 조성 방식과 시점이 문제라는 지적(개인 의견)",
      "src": "nje2e",
-     "new": false
+     "new": false,
+     "url": "https://t.me/nje2e/45797",
+     "via": "채널"
     },
     {
      "t": "19:16",
      "tone": "neu",
      "text": "F4 회의 결과: 증안펀드(10조 원 규모) 즉시 가동 준비, 상장사 자사주 매수 주문 한도 3개월 완화, 불법 공매도 3개월 특별 감시(자금 투입이 확정된 것은 아님)",
      "src": "bornlupin·corevalue·FastStockNews",
-     "new": false
+     "new": false,
+     "url": "https://hankookilbo.com/news/article/A2026112218200000122?did=NA",
+     "via": "기사"
     },
     {
      "t": "19:50",
      "tone": "pos",
      "text": "대책 보도 뒤 코스피 연동 지표(하이퍼리퀴드 기준)와 SK하이닉스 ADR이 반등: 코스피 지표 -8.4%→-5.1%, ADR -13.1%→-8% 수준(비공식 24시간 거래 지표)",
      "src": "shmstory",
-     "new": false
+     "new": false,
+     "url": "https://t.me/shmstory/9248",
+     "via": "채널"
     }
    ]
   },
@@ -437,42 +529,54 @@
      "tone": "pos",
      "text": "하나증권: 한한령 해제에 따른 화장품 직접 수혜를 짚은 Weekly(화장품 업종은 오늘 +1.5%)",
      "src": "butler_works",
-     "new": true
+     "new": true,
+     "url": "https://t.me/butler_works/33276",
+     "via": "채널"
     },
     {
      "t": "09:47",
      "tone": "pos",
      "text": "키움 엔터 Weekly: 한중 FTA 서비스·투자 협상 타결 소식에 엔터 섹터 반응",
      "src": "butler_works",
-     "new": true
+     "new": true,
+     "url": "https://t.me/butler_works/33372",
+     "via": "채널"
     },
     {
      "t": "21:42",
      "tone": "pos",
      "text": "(11/22) 하나증권 화장품: K뷰티가 미국을 넘어 유럽·중남미로 확장하고 ODM·용기 공급 부족은 지속될 전망(비중확대)",
      "src": "butler_works",
-     "new": false
+     "new": false,
+     "url": "https://t.me/butler_works/33265",
+     "via": "채널"
     },
     {
      "t": "18:51",
      "tone": "pos",
      "text": "(11/20) 하나증권 엔터/미디어/레저 2027 전망: 하이브·하나투어 최선호, 엔터 역사적 저평가",
      "src": "butler_works",
-     "new": false
+     "new": false,
+     "url": "https://t.me/butler_works/33239",
+     "via": "채널"
     },
     {
      "t": "18:50",
      "tone": "pos",
      "text": "(11/20) 대신증권 미디어 주간: 한한령 해제 기대로 컨텐츠 업종 강세",
      "src": "butler_works",
-     "new": false
+     "new": false,
+     "url": "https://t.me/butler_works/33238",
+     "via": "채널"
     },
     {
      "t": "19:13",
      "tone": "pos",
      "text": "(11/20) GKL 유안타 BUY 11,000원 유지, 中 한한령 해지 수혜 기대",
      "src": "butler_works",
-     "new": false
+     "new": false,
+     "url": "https://t.me/butler_works/33248",
+     "via": "채널"
     }
    ]
   }
@@ -595,14 +699,18 @@
      "tone": "pos",
      "text": "(11/20) 금호건설 장지차고지 입체화 공사 1,753억 원(매출 대비 8.68%)",
      "src": "darthacking",
-     "new": false
+     "new": false,
+     "url": "https://t.me/darthacking/159472",
+     "via": "채널"
     },
     {
      "t": "16:02",
      "tone": "pos",
      "text": "(11/20) 금양그린파워 AI 데이터센터 전기·통신 공사 2,300억 원",
      "src": "FastStockNews",
-     "new": false
+     "new": false,
+     "url": "https://cbci.co.kr/news/articleView.html?idxno=629143",
+     "via": "기사"
     }
    ]
   },
@@ -614,14 +722,18 @@
      "tone": "neu",
      "text": "(11/20) KB금융 이재근 회장 21일 임기 시작, 23일 취임식",
      "src": "ked_epic_ai",
-     "new": false
+     "new": false,
+     "url": "https://t.me/ked_epic_ai/39632",
+     "via": "채널"
     },
     {
      "t": "16:02",
      "tone": "neg",
      "text": "(11/20) 리노공업 장중 52주 최저가, 종가 -15.07%",
      "src": "ked_epic_ai",
-     "new": false
+     "new": false,
+     "url": "https://t.me/ked_epic_ai/39632",
+     "via": "채널"
     }
    ]
   },
@@ -633,7 +745,9 @@
      "tone": "neu",
      "text": "과학기술기본법·전파법 개정안 입법예고(수능 전파차단장치 허용 등)",
      "src": "ked_epic_ai",
-     "new": false
+     "new": false,
+     "url": "https://t.me/ked_epic_ai/39638",
+     "via": "채널"
     }
    ]
   }

@@ -33,56 +33,72 @@
      "tone": "neg",
      "text": "미 증시는 전일 급등한 기술주 중심 매물에 혼조, AI 업종 하락 속 다우는 상승, 엔비디아는 큰 폭 하락",
      "src": "shmstory",
-     "new": true
+     "new": true,
+     "url": "https://t.me/shmstory/9260",
+     "via": "채널"
     },
     {
      "t": "06:07",
      "tone": "neg",
      "text": "WSJ: 트럼프 행정부가 중국·EU·한국 등 16개 경제권에 '과잉생산 관세'를 추진, 한국 적용 세율이 12.5%에서 15%로 오를 수 있다는 보도(미확정)",
      "src": "nje2e·TNBfolio",
-     "new": true
+     "new": true,
+     "url": "https://wsj.com/economy/trade/u-s-prepares-to-raise-tariffs-on-china-and-other-countries-37981740",
+     "via": "기사"
     },
     {
      "t": "06:14",
      "tone": "pos",
      "text": "델 FY27 3분기: 매출 549억 달러(+103%), 조정 EPS 9.45달러, AI 수주 602억 달러, 연간 가이던스 상향",
      "src": "bornlupin",
-     "new": true
+     "new": true,
+     "url": "https://t.me/bornlupin/21266",
+     "via": "채널"
     },
     {
      "t": "06:35",
      "tone": "neg",
      "text": "모닝 브리핑: 마이크론 급락을 부른 수상한 보고서, 관세·AI 안전성 논란, 채권 논란이 재부각",
      "src": "shmstory",
-     "new": true
+     "new": true,
+     "url": "https://youtu.be/cTPgWOZjBew",
+     "via": "기사"
     },
     {
      "t": "22:12",
      "tone": "neg",
      "text": "앤트로픽·OpenAI 내부에서 미공개 모델이 너무 강력해 공개하기 어렵다는 우려가 커진다는 보도",
      "src": "TNBfolio",
-     "new": true
+     "new": true,
+     "url": "https://t.me/TNBfolio/72117",
+     "via": "채널"
     },
     {
      "t": "21:48",
      "tone": "neg",
      "text": "앤트로픽이 프리마켓에서 82달러로 IPO 공모가 83달러를 밑돌며 3거래일 연속 하락 가능성",
      "src": "TNBfolio",
-     "new": true
+     "new": true,
+     "url": "https://t.me/TNBfolio/72116",
+     "via": "채널"
     },
     {
      "t": "00:50",
      "tone": "neu",
      "text": "스탠 드러켄밀러: 수익보다 자산 보존에 집중, 앞으로 12개월 전망이 이렇게 불확실한 적은 없었다",
      "src": "TNBfolio",
-     "new": true
+     "new": true,
+     "url": "https://t.me/TNBfolio/72120",
+     "via": "채널"
     },
     {
      "t": "22:17",
      "tone": "neu",
      "text": "SOXL이 개장 전 젠슨 황 복귀 시점 수준으로 돌아갔고 오늘은 엔비디아가 덜 빠져야 한다는 글(개인 의견)",
      "src": "one_going",
-     "new": true
+     "new": true,
+     "url": "https://t.me/one_going/4574",
+     "via": "채널"
     }
    ]
   },
@@ -108,35 +124,45 @@
      "tone": "pos",
      "text": "베센트 CBS: 엔비디아는 위대한 기업이고 AI 칩 수요는 사실상 무제한, 순환금융 구조를 당장 우려하지 않는다",
      "src": "bornlupin",
-     "new": false
+     "new": false,
+     "url": "https://t.me/bornlupin/21237",
+     "via": "채널"
     },
     {
      "t": "08:21",
      "tone": "neg",
      "text": "빌 애크먼: 연준이 12월 9일 또 실수를 하려 한다, 금융 여건이 매우 긴축적이라는 발언",
      "src": "bornlupin",
-     "new": false
+     "new": false,
+     "url": "https://t.me/bornlupin/21239",
+     "via": "채널"
     },
     {
      "t": "08:55",
      "tone": "neg",
      "text": "유진투자 건설: 트럼프의 해외 데이터센터 과세 경고가 건설업에 미칠 영향 분석",
      "src": "butler_works",
-     "new": false
+     "new": false,
+     "url": "https://t.me/butler_works/33324",
+     "via": "채널"
     },
     {
      "t": "21:03",
      "tone": "pos",
      "text": "(11/22) PJM이 데이터센터 전력망 접속 심사를 2년에서 1년으로 줄이는 신속 절차 개정안을 FERC에 제출",
      "src": "nje2e",
-     "new": false
+     "new": false,
+     "url": "https://t.me/nje2e/45793",
+     "via": "채널"
     },
     {
      "t": "20:57",
      "tone": "neu",
      "text": "(11/22) 이란 대통령 \"전쟁도 평화도 아닌 상황에서 벗어나야 한다\", 외무부 \"외교의 창은 열려 있다\"",
      "src": "bornlupin",
-     "new": false
+     "new": false,
+     "url": "https://t.me/bornlupin/21232",
+     "via": "채널"
     },
     {
      "t": "09:13",
@@ -150,7 +176,9 @@
      "tone": "neg",
      "text": "트럼프 \"美 기업, 해외 데이터센터 건설 금지\" 속보",
      "src": "nje2e",
-     "new": false
+     "new": false,
+     "url": "https://x.com/DrNHJ/status/2125368955120611333?a=deNhwaFcKY2m9icZhDU&s=20",
+     "via": "기사"
     },
     {
      "t": "06:54",
@@ -200,84 +228,108 @@
      "tone": "neu",
      "text": "iM증권: 마이크론 코멘트로 과거 다운사이클을 재현하면 LTA 훼손까지는 60% 수준의 가격 하락이 필요(11/4 자료)",
      "src": "nje2e",
-     "new": true
+     "new": true,
+     "url": "https://t.me/nje2e/45874",
+     "via": "채널"
     },
     {
      "t": "23:30",
      "tone": "pos",
      "text": "엑시콘: 삼성 DRAM 검사장비 국산화가 본격화되며 CLT 검사장비가 기존 장비의 22.5배를 동시 검사한다는 분석",
      "src": "nje2e",
-     "new": true
+     "new": true,
+     "url": "https://t.me/nje2e/45866",
+     "via": "채널"
     },
     {
      "t": "23:30",
      "tone": "pos",
      "text": "JPM: 로보틱스·피지컬 AI 섹터가 기술·정책·상업화 전반에서 모멘텀이 쌓이며 새 가속화 국면에 진입",
      "src": "nje2e",
-     "new": true
+     "new": true,
+     "url": "https://t.me/nje2e/45867",
+     "via": "채널"
     },
     {
      "t": "22:05",
      "tone": "pos",
      "text": "유안타 반도체: 엔비디아 CEO 복귀로 리더십 공백 우려가 해소되고 AI 투자 펀더멘털은 견조",
      "src": "butler_works",
-     "new": true
+     "new": true,
+     "url": "https://t.me/butler_works/33578",
+     "via": "채널"
     },
     {
      "t": "17:09",
      "tone": "pos",
      "text": "삼성전자가 시안 X2 낸드 팹을 2027년 말까지 V9 중심으로 전환, V9 월 생산능력을 약 1만 장에서 5만 장으로 확대(서울경제 인용)",
      "src": "nje2e",
-     "new": false
+     "new": false,
+     "url": "https://t.me/nje2e/45855",
+     "via": "채널"
     },
     {
      "t": "15:00",
      "tone": "pos",
      "text": "삼성중공업이 미국 테서와 대서양 원자력 LNG선 독점 개발을 추진",
      "src": "FastStockNews",
-     "new": false
+     "new": false,
+     "url": "https://g-enews.com/article/Global-Biz/2026/11/2026112414530024352bd56fbc3c_1",
+     "via": "기사"
     },
     {
      "t": "15:59",
      "tone": "pos",
      "text": "로봇 로드맵: 삼성전자 2027년 1월 CES 자체 휴머노이드 공개, LG전자 2027년 1분기 엔비디아 협력 휴머노이드 공개",
      "src": "one_going",
-     "new": false
+     "new": false,
+     "url": "https://t.me/one_going/4571",
+     "via": "채널"
     },
     {
      "t": "12:30",
      "tone": "pos",
      "text": "혜인이 용인 반도체 팹 고객사들과 비상발전기 공급을 협의 중, 15GW 메가클러스터 겨냥",
      "src": "FastStockNews",
-     "new": false
+     "new": false,
+     "url": "https://datatooza.com/article/202611241208069128afd33d0cda_80",
+     "via": "기사"
     },
     {
      "t": "14:17",
      "tone": "pos",
      "text": "미국 변압기 PPI 10월 +5.6% Y/Y, 독일 +3.5%로 모두 역대 최대치",
      "src": "ked_epic_ai",
-     "new": false
+     "new": false,
+     "url": "https://t.me/ked_epic_ai/39729",
+     "via": "채널"
     },
     {
      "t": "10:32",
      "tone": "pos",
      "text": "KH바텍이 +29.96% 상한가, 젠슨 황 복귀와 삼성전자 로봇 담당 임원 관련 보도가 배경",
      "src": "ked_epic_ai",
-     "new": false
+     "new": false,
+     "url": "https://t.me/ked_epic_ai/39770",
+     "via": "채널"
     },
     {
      "t": "11:36",
      "tone": "pos",
      "text": "SFA반도체가 국내 DDR5 패키징 양산에 착수하고 필리핀 테스트 매출도 확대",
      "src": "FastStockNews",
-     "new": false
+     "new": false,
+     "url": "https://datatooza.com/article/202611191729573970afd33d0cda_80",
+     "via": "기사"
     },
     {
      "t": "09:56",
      "tone": "pos",
      "text": "다올증권이 심텍(170,000원), 티엘비(65,000원)에 매수 의견, 삼성전자는 300,000원 매수 의견(목표가 변경 여부는 확인 필요)",
      "src": "butler_works",
-     "new": false
+     "new": false,
+     "url": "https://t.me/butler_works/33681",
+     "via": "채널"
     }
    ]
   },
@@ -325,84 +377,108 @@
      "tone": "neg",
      "text": "한국은행 11월 제조업 기업심리지수 104.8(-0.8p), 비제조업 102.5(-0.7p)",
      "src": "ked_epic_ai",
-     "new": true
+     "new": true,
+     "url": "https://t.me/ked_epic_ai/39738",
+     "via": "채널"
     },
     {
      "t": "23:38",
      "tone": "neg",
      "text": "한국 뉴스 정리: 증시 급락 여파로 소비심리·집값 상승 기대가 동반 하락, 다올투자증권 최대주주 지분 경영권 매각 추진",
      "src": "TNBfolio",
-     "new": true
+     "new": true,
+     "url": "https://naver.me/GdTZfMZ0",
+     "via": "기사"
     },
     {
      "t": "18:30",
      "tone": "pos",
      "text": "증안펀드가 이르면 이달 투입되며 코스피200·코스닥150에 투자할 가능성이라는 보도(미확정)",
      "src": "FastStockNews",
-     "new": true
+     "new": true,
+     "url": "https://n.news.naver.com/mnews/article/011/0004685702?sid=101",
+     "via": "기사"
     },
     {
      "t": "20:19",
      "tone": "pos",
      "text": "젠슨 황 복귀 첫날 상승률: 엔비디아 +31%, 코어위브 +22%, 델 +21%, 마이크론 +19%, TSMC +16%, 샌디스크 +11%",
      "src": "one_going",
-     "new": true
+     "new": true,
+     "url": "https://t.me/one_going/4573",
+     "via": "채널"
     },
     {
      "t": "15:51",
      "tone": "pos",
      "text": "코스피 5,006.03(+6.32%)·코스닥 665.88(+4.79%) 마감, 반도체·로봇 강세, 외국인·기관 동반 순매수로 5,000선을 지킴",
      "src": "ked_epic_ai·maddingStock",
-     "new": false
+     "new": false,
+     "url": "https://t.me/ked_epic_ai/39780",
+     "via": "채널"
     },
     {
      "t": "16:01",
      "tone": "pos",
      "text": "현대오토에버가 +29.93% 상한가(36만 2,500원), 젠슨 황 복귀에 따른 AI·로봇 기대가 배경",
      "src": "ked_epic_ai",
-     "new": false
+     "new": false,
+     "url": "https://t.me/ked_epic_ai/39733",
+     "via": "채널"
     },
     {
      "t": "16:00",
      "tone": "neu",
      "text": "남은 일정: 수요일 PCE(밤 10시 반), 목요일 한국은행 금리인상 전망·미국 휴장, 금요일 미국 반일 개장, 금요일 삼성전자 배당 1주당 4,601원(개인 정리)",
      "src": "one_going",
-     "new": false
+     "new": false,
+     "url": "https://t.me/one_going/4572",
+     "via": "채널"
     },
     {
      "t": "15:20",
      "tone": "neu",
      "text": "마감 시황: 코스피는 3거래일 만에 5,000선을 장중 회복했고 막판 급매물로 변동성이 커졌으며 코스닥은 650선을 다시 돌파",
      "src": "shmstory",
-     "new": false
+     "new": false,
+     "url": "https://t.me/shmstory/9258",
+     "via": "채널"
     },
     {
      "t": "16:20",
      "tone": "neu",
      "text": "젠슨 황 효과는 일단 여기까지라는 시각과 곧 큰 고비가 온다는 분석, 외국인 컴백·수급 변화 방송 요약",
      "src": "shmstory",
-     "new": false
+     "new": false,
+     "url": "https://t.me/shmstory/9259",
+     "via": "채널"
     },
     {
      "t": "15:14",
      "tone": "neu",
      "text": "다올투자증권이 M&A 매물로 나왔고 이병철 회장이 지분 매각을 추진한다는 단독 보도",
      "src": "FastStockNews",
-     "new": false
+     "new": false,
+     "url": "https://t.me/FastStockNews/128414",
+     "via": "채널"
     },
     {
      "t": "12:43",
      "tone": "pos",
      "text": "대만이 증시 안정을 위해 국가금융안정기금을 2배로 확대하는 방안을 검토",
      "src": "FastStockNews",
-     "new": false
+     "new": false,
+     "url": "https://yna.co.kr/view/AKR20261124096100009?input=1195m",
+     "via": "기사"
     },
     {
      "t": "12:39",
      "tone": "pos",
      "text": "대만 지수가 오늘 +9%",
      "src": "FastStockNews",
-     "new": false
+     "new": false,
+     "url": "https://t.me/FastStockNews/128398",
+     "via": "채널"
     }
    ]
   },
@@ -427,84 +503,108 @@
      "tone": "pos",
      "text": "하나증권 화장품: 수출이 30% 이상 늘어 ODM은 호황이지만 브랜드사는 환율 하락으로 수익성이 악화, 바닥 잡기 3선 제시",
      "src": "butler_works",
-     "new": true
+     "new": true,
+     "url": "https://t.me/butler_works/33573",
+     "via": "채널"
     },
     {
      "t": "22:04",
      "tone": "pos",
      "text": "키움 화장품 2027 전망(비중확대): K뷰티가 권역 확장 단계를 지나 더마·헤어케어 등 카테고리 확장으로 이동",
      "src": "butler_works",
-     "new": true
+     "new": true,
+     "url": "https://t.me/butler_works/33577",
+     "via": "채널"
     },
     {
      "t": "10:34",
      "tone": "pos",
      "text": "미래에셋증권 화장품 업종 비중확대: K-뷰티 수출이 미국·유럽 중심으로 사상 최고치를 경신, 코스맥스 목표가 380,000원 매수",
      "src": "butler_works",
-     "new": false
+     "new": false,
+     "url": "https://t.me/butler_works/33533",
+     "via": "채널"
     },
     {
      "t": "10:35",
      "tone": "pos",
      "text": "메리츠 연료전지: AI 데이터센터 주민 수용성 문제의 해법으로 연료전지가 부상",
      "src": "butler_works",
-     "new": false
+     "new": false,
+     "url": "https://t.me/butler_works/33535",
+     "via": "채널"
     },
     {
      "t": "20:05",
      "tone": "neu",
      "text": "(11/23) 키움 게임: AI로 개발 진입 장벽이 낮아져 캐릭터·스토리 차별화가 중요, 시프트업 최선호주",
      "src": "butler_works",
-     "new": false
+     "new": false,
+     "url": "https://t.me/butler_works/33421",
+     "via": "채널"
     },
     {
      "t": "17:21",
      "tone": "pos",
      "text": "IBK투자증권: 한중 FTA 후속협상 타결로 중국인 관광객 유입과 현지 유통 진출 여건이 개선, 화장품 투자심리 개선 기대",
      "src": "butler_works",
-     "new": false
+     "new": false,
+     "url": "https://t.me/butler_works/33407",
+     "via": "채널"
     },
     {
      "t": "15:31",
      "tone": "pos",
      "text": "LS증권: 한중 정상회담을 계기로 8년 만에 한한령이 해제 수순에 들어가 국적사 중국 노선 실적 성장 기대",
      "src": "butler_works",
-     "new": false
+     "new": false,
+     "url": "https://t.me/butler_works/33395",
+     "via": "채널"
     },
     {
      "t": "12:34",
      "tone": "pos",
      "text": "삼성증권: 11/1~20 화장품 수출 8억 2,936만 달러(+61.7%), 미국·캐나다 +108%, 유럽 +116%가 주도",
      "src": "butler_works",
-     "new": false
+     "new": false,
+     "url": "https://t.me/butler_works/33389",
+     "via": "채널"
     },
     {
      "t": "11:02",
      "tone": "pos",
      "text": "텐센트뮤직이 K팝 레이블과 공연 전략에 합의했다는 보도, 한한령 완화 기대",
      "src": "FastStockNews",
-     "new": false
+     "new": false,
+     "url": "https://sports.khan.co.kr/article/202611231057003",
+     "via": "기사"
     },
     {
      "t": "10:39",
      "tone": "neu",
      "text": "SK증권 엔터 2027 전망: 메가 IP 공백으로 외형은 줄지만 저연차 IP 확대로 이익 체력은 강화(JYP Ent. 포함)",
      "src": "butler_works",
-     "new": false
+     "new": false,
+     "url": "https://t.me/butler_works/33385",
+     "via": "채널"
     },
     {
      "t": "07:40",
      "tone": "pos",
      "text": "하나증권: 한한령 해제에 따른 화장품 직접 수혜를 짚은 Weekly(화장품 업종은 오늘 +1.5%)",
      "src": "butler_works",
-     "new": false
+     "new": false,
+     "url": "https://t.me/butler_works/33276",
+     "via": "채널"
     },
     {
      "t": "09:47",
      "tone": "pos",
      "text": "키움 엔터 Weekly: 한중 FTA 서비스·투자 협상 타결 소식에 엔터 섹터 반응",
      "src": "butler_works",
-     "new": false
+     "new": false,
+     "url": "https://t.me/butler_works/33372",
+     "via": "채널"
     }
    ]
   }
@@ -589,14 +689,18 @@
      "tone": "pos",
      "text": "(11/20) 금호건설 장지차고지 입체화 공사 1,753억 원(매출 대비 8.68%)",
      "src": "darthacking",
-     "new": false
+     "new": false,
+     "url": "https://t.me/darthacking/159472",
+     "via": "채널"
     },
     {
      "t": "16:02",
      "tone": "pos",
      "text": "(11/20) 금양그린파워 AI 데이터센터 전기·통신 공사 2,300억 원",
      "src": "FastStockNews",
-     "new": false
+     "new": false,
+     "url": "https://cbci.co.kr/news/articleView.html?idxno=629143",
+     "via": "기사"
     }
    ]
   },
@@ -608,14 +712,18 @@
      "tone": "neu",
      "text": "(11/20) KB금융 이재근 회장 21일 임기 시작, 23일 취임식",
      "src": "ked_epic_ai",
-     "new": false
+     "new": false,
+     "url": "https://t.me/ked_epic_ai/39632",
+     "via": "채널"
     },
     {
      "t": "16:02",
      "tone": "neg",
      "text": "(11/20) 리노공업 장중 52주 최저가, 종가 -15.07%",
      "src": "ked_epic_ai",
-     "new": false
+     "new": false,
+     "url": "https://t.me/ked_epic_ai/39632",
+     "via": "채널"
     }
    ]
   },
@@ -627,7 +735,9 @@
      "tone": "neu",
      "text": "과학기술기본법·전파법 개정안 입법예고(수능 전파차단장치 허용 등)",
      "src": "ked_epic_ai",
-     "new": false
+     "new": false,
+     "url": "https://t.me/ked_epic_ai/39756",
+     "via": "채널"
     }
    ]
   }

@@ -396,6 +396,54 @@ def topics_to_text(d):
     return "\n".join(A).strip() + "\n", ("\n".join(B).strip() + "\n") if B else ""
 
 
+def link_items(d, day):
+    """개별 소식마다 원문 주소를 붙인다 (2026-11-25 사용자 요청: 소식을 누르면 원문으로, 토큰 0).
+    채널 글 기록(data/telegram/*.jsonl)에서 같은 채널(src)·같은 시각(t)의 글을 찾고, 여럿이면 글자가 가장 많이 겹치는 것을 고른다.
+    같은 시각 글이 없으면 그날 그 채널 글 중 글자가 충분히 겹치는 것(겹침 35%↑)만 쓰고, 앞선 사흘의 글은 시각이 같고 겹침 15%↑일 때만 쓴다. 못 찾으면 비워 둔다(억지로 붙이지 않음).
+    url = 글에 걸린 기사 주소(있으면) 아니면 채널 글 주소, via = "기사" | "채널"."""
+    from common import DATA
+    posts = {}
+
+    def load(ch):
+        if ch not in posts:
+            posts[ch] = []
+            f = DATA / "telegram" / f"{ch}.jsonl"
+            if f.exists():
+                for line in f.read_text(encoding="utf-8").splitlines()[-4000:]:
+                    try:
+                        posts[ch].append(json.loads(line))
+                    except ValueError:
+                        pass
+        return posts[ch]
+    grams = lambda s: {x[i:i + 2] for x in [re.sub(r"[^0-9A-Za-z가-힣]", "", s or "")] for i in range(len(x) - 1)}  # noqa: E731
+    n = hit = 0
+    for it in [x for t in d.get("topics") or [] for x in t.get("items") or []] + [x for g in d.get("others") or [] for x in g.get("items") or []]:
+        n += 1
+        m = re.match(r"\((\d+)/(\d+)\)", it.get("text") or "")      # 지난 날에서 이어받은 줄은 "(11/20) …"
+        dd = f"{day[:4]}-{int(m[1]):02d}-{int(m[2]):02d}" if m else day
+        g, best, score = grams(it.get("text")), None, 0.0
+        lo = (datetime.strptime(dd, "%Y-%m-%d") - timedelta(days=3)).strftime("%Y-%m-%d")
+        for ch in re.split(r"[^0-9A-Za-z_]+", it.get("src") or ""):
+            for p in load(ch) if ch else []:
+                pd = p.get("time", "")[:10]
+                if not (lo <= pd <= dd):
+                    continue
+                ov = len(g & grams((p.get("text") or "") + ((p.get("link") or {}).get("title") or ""))) / (len(g) or 1)
+                same_t = p["time"][11:16] == it.get("t")
+                # 그날 글: 같은 시각이거나 글자 겹침 35%↑ / 앞선 사흘의 글(이어받은 줄): 같은 시각 + 겹침 15%↑
+                ok = (same_t or ov >= 0.35) if pd == dd else (same_t and ov >= 0.15)
+                sc = ov + (1 if same_t else 0) + (0.5 if pd == dd else 0)
+                if ok and sc > score:
+                    best, score = p, sc
+        if best:
+            art = (best.get("link") or {}).get("url")
+            it["url"], it["via"] = (art, "기사") if art else (best.get("url"), "채널")
+            hit += bool(it["url"])
+        else:
+            it.pop("url", None); it.pop("via", None)
+    return n, hit
+
+
 def save(kind, file, at=None):
     # 파일 이름 시각 = 정리에 쓴 데이터 시각 (그 뒤에 수집된 글은 다음 정리가 '새 글'로 받는다)
     at = at or json.loads(LAST.read_text(encoding="utf-8")).get("built_at") or datetime.now(KST).strftime("%Y-%m-%d %H:%M")
@@ -407,13 +455,14 @@ def save(kind, file, at=None):
         if err:
             raise SystemExit("주제 카드 형식 오류:\n- " + "\n- ".join(err[:12]))
         d["at"] = at
+        ln, lh = link_items(d, at[:10])   # 개별 소식 → 원문 주소 (기사 > 채널 글)
         (folder / f"topics_{hm}.json").write_text(json.dumps(d, ensure_ascii=False, indent=1), encoding="utf-8")
         a, b = topics_to_text(d)
         (folder / f"channels_{hm}.md").write_text(a, encoding="utf-8")
         if b:
             (folder / f"report_live_{hm}.md").write_text(b, encoding="utf-8")
         res = {"saved": f"reports/{at[:10]}/topics_{hm}.json", "topics": len(d["topics"]), "items": sum(len(t.get("items") or []) for t in d["topics"]),
-               "also": [f"channels_{hm}.md"] + ([f"report_live_{hm}.md"] if b else [])}
+               "also": [f"channels_{hm}.md"] + ([f"report_live_{hm}.md"] if b else []), "linked": f"{lh}/{ln}"}
         if d.get("views"):
             try:
                 import tempfile
@@ -436,9 +485,18 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser(description=__doc__)
     sub = ap.add_subparsers(dest="cmd", required=True)
     sub.add_parser("prep")
+    lk = sub.add_parser("link", help="이미 저장된 주제 카드 파일에 원문 주소를 다시 붙인다")
+    lk.add_argument("files", nargs="+")
     s = sub.add_parser("save")
     s.add_argument("--kind", choices=list(PREFIX), required=True)
     s.add_argument("--file", required=True)
     s.add_argument("--at", help="지난 회차를 다시 쓸 때만: 'YYYY-MM-DD HH:MM' (기본은 마지막 데이터 시각)")
     a = ap.parse_args()
-    prep() if a.cmd == "prep" else save(a.kind, a.file, a.at)
+    if a.cmd == "link":
+        for f in a.files:
+            d = json.loads(Path(f).read_text(encoding="utf-8"))
+            n, h = link_items(d, (d.get("at") or Path(f).parent.name)[:10])
+            Path(f).write_text(json.dumps(d, ensure_ascii=False, indent=1), encoding="utf-8")
+            print(json.dumps({"file": f, "linked": f"{h}/{n}"}, ensure_ascii=False))
+    else:
+        prep() if a.cmd == "prep" else save(a.kind, a.file, a.at)

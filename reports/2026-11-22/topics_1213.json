@@ -33,84 +33,108 @@
      "tone": "pos",
      "text": "오라클이 오픈AI 계약 이행 자금을 전액 확보했다고 공식 발표(이달 초 마지막 조달 완료, 벤더 파이낸싱 포함)",
      "src": "nje2e·bornlupin",
-     "new": false
+     "new": false,
+     "url": "https://t.me/nje2e/45769",
+     "via": "채널"
     },
     {
      "t": "16:21",
      "tone": "pos",
      "text": "어플라이드 디지털 공동 창업자가 시장 우려와 달리 사업은 탄탄하다고 밝힘(회사 측 주장)",
      "src": "bornlupin",
-     "new": false
+     "new": false,
+     "url": "https://t.me/bornlupin/21224",
+     "via": "채널"
     },
     {
      "t": "18:47",
      "tone": "neu",
      "text": "닷컴 버블 정점과 AI 주도주(금요일 기준) PER을 비교한 그래프",
      "src": "FastStockNews",
-     "new": false
+     "new": false,
+     "url": "https://t.me/FastStockNews/128270",
+     "via": "채널"
     },
     {
      "t": "13:31",
      "tone": "neu",
      "text": "기술주 순 노출도가 2022년 약세장 저점보다 낮아졌다는 단신",
      "src": "FastStockNews",
-     "new": false
+     "new": false,
+     "url": "https://t.me/FastStockNews/128266",
+     "via": "채널"
     },
     {
      "t": "16:11",
      "tone": "neu",
      "text": "TPU 생산량 추정치는 전력 제약을 고려하면 과도했고, 한 달 전 하향 이후 추가 감축은 없다는 정리",
      "src": "bornlupin",
-     "new": false
+     "new": false,
+     "url": "https://t.me/bornlupin/21222",
+     "via": "채널"
     },
     {
      "t": "07:07",
      "tone": "neg",
      "text": "나스닥100 금요일 -5.6%, 주간 -10.4%로 코로나 이후 최악, 엔비디아 -14%, VIX 40까지 상승",
      "src": "TNBfolio",
-     "new": false
+     "new": false,
+     "url": "https://t.me/TNBfolio/72089",
+     "via": "채널"
     },
     {
      "t": "08:29",
      "tone": "neg",
      "text": "SOX 주간 -17.1%로 2001년 9월 이후 최악, 구성 30종목이 금요일 모두 -5% 이상",
      "src": "TNBfolio",
-     "new": false
+     "new": false,
+     "url": "https://t.me/TNBfolio/72090",
+     "via": "채널"
     },
     {
      "t": "06:50",
      "tone": "neg",
      "text": "S&P500 7거래일 연속 하락(팬데믹 이후 처음), 한 주 시총 약 6조 달러 증발, 마이크론 -24%·AMD -21%",
      "src": "FastStockNews",
-     "new": false
+     "new": false,
+     "url": "https://t.me/FastStockNews/128261",
+     "via": "채널"
     },
     {
      "t": "06:04",
      "tone": "neg",
      "text": "나스닥100 약세장 직전(-19.5%), 10년물 금리 4.91%까지 하락, 안전자산 선호",
      "src": "shmstory",
-     "new": false
+     "new": false,
+     "url": "https://t.me/shmstory/9245",
+     "via": "채널"
     },
     {
      "t": "07:00",
      "tone": "neg",
      "text": "SEC가 엔비디아 회계 처리 관행을 조사 중이라는 보도, 보도 뒤 주가 낙폭 확대(조사가 곧 위법은 아님)",
      "src": "TNBfolio",
-     "new": false
+     "new": false,
+     "url": "https://t.me/TNBfolio/72088",
+     "via": "채널"
     },
     {
      "t": "06:49",
      "tone": "neg",
      "text": "VIX가 3월 고점 수준까지 상승",
      "src": "nje2e",
-     "new": false
+     "new": false,
+     "url": "https://t.me/nje2e/45742",
+     "via": "채널"
     },
     {
      "t": "07:18",
      "tone": "neu",
      "text": "마이클 버리가 엔비디아 풋옵션 절반을 매도했다는 단신",
      "src": "nje2e",
-     "new": false
+     "new": false,
+     "url": "https://t.me/nje2e/45749",
+     "via": "채널"
     }
    ]
   },
@@ -136,35 +160,45 @@
      "tone": "neu",
      "text": "백악관 기자회견 10개 쟁점 정리: 해외 데이터센터 제한, 중국 구형 칩만 판매, 젠슨 황 복귀, 시진핑과 AI 가드레일, 연준 금리 인하 요구",
      "src": "bornlupin·nje2e",
-     "new": false
+     "new": false,
+     "url": "https://t.me/bornlupin/21218",
+     "via": "채널"
     },
     {
      "t": "05:37",
      "tone": "neg",
      "text": "트럼프 \"美 기업, 해외 데이터센터 건설 금지\" 속보",
      "src": "nje2e",
-     "new": false
+     "new": false,
+     "url": "https://fnnews.com/news/202611210250254111",
+     "via": "기사"
     },
     {
      "t": "06:54",
      "tone": "neu",
      "text": "트럼프가 젠슨 황 복귀를 촉구하며 \"두 번째 기회를 줘야 한다\"고 발언",
      "src": "nje2e·FastStockNews",
-     "new": false
+     "new": false,
+     "url": "http://x.com/firesidealpha/status/2123844322324074635?a=ZuqbfU95BTP_1nabSJ0&s=19",
+     "via": "기사"
     },
     {
      "t": "07:17",
      "tone": "neu",
      "text": "베센트: H200 중국 판매 정책 변화 없음, 젠슨 황은 중국 논의에서 언급되지 않았다",
      "src": "nje2e",
-     "new": false
+     "new": false,
+     "url": "http://x.com/firesidealpha/status/2123816024399372400?a=7mmjtvF0Ew1HN6ENJU4&s=19",
+     "via": "기사"
     },
     {
      "t": "07:09",
      "tone": "pos",
      "text": "게빈 베이커: 엔비디아가 투자·보증을 줄일 것이라는 우려는 기우, 경쟁사가 그 자리를 노려 오히려 유리한 조건을 내놓는다는 견해(개인 의견)",
      "src": "nje2e",
-     "new": false
+     "new": false,
+     "url": "http://x.com/GavinSBaker/status/2123826938498146439?a=-yOl0EPwRaKWTVpCtmw&s=19",
+     "via": "기사"
     }
    ]
   },
@@ -191,84 +225,108 @@
      "tone": "pos",
      "text": "(11/21) 삼성전자가 2029년까지 메모리를 사실상 완판했고 2027년 범용 D램 공급도 사실상 완판, 2031년 장기 공급계약도 추진한다는 단독 보도(미확인)",
      "src": "nje2e 등 2개 채널",
-     "new": true
+     "new": true,
+     "url": "https://economytribune.co.kr/news/articleView.html?idxno=3904497",
+     "via": "기사"
     },
     {
      "t": "21:21",
      "tone": "pos",
      "text": "(11/21) 11/1~20 프로브카드 수출 8,511만 달러(전월 대비 +62.9%), 수출단가 +30.0%",
      "src": "nje2e (메리츠 인용, TRASS)",
-     "new": true
+     "new": true,
+     "url": "https://t.me/nje2e/45773",
+     "via": "채널"
     },
     {
      "t": "11:02",
      "tone": "pos",
      "text": "CPU가 2027년에도 서버 핵심 공급 병목이며 재고 조정은 수요 둔화가 아닌 부품 수급 불균형이라는 기관 시각(개인 의견)",
      "src": "bornlupin",
-     "new": true
+     "new": true,
+     "url": "https://money.udn.com/money/story/5607/9893219",
+     "via": "기사"
     },
     {
      "t": "22:54",
      "tone": "pos",
      "text": "(11/21) 하나증권이 반도체 숨 고르기 이후 2027년 차기 주도주로 LS ELECTRIC·삼성전기를 제시",
      "src": "corevalue",
-     "new": true
+     "new": true,
+     "url": "https://naver.me/G7NjlVdo",
+     "via": "기사"
     },
     {
      "t": "17:41",
      "tone": "neu",
      "text": "SK하이닉스 인수 보도 후속: 소프트뱅크는 \"더 이상 적극 검토 대상이 아니다\", SK하이닉스는 \"알지 못한다\", 외국 기업 인수는 정부 사전 승인이 필요(디인포메이션 보도 인용)",
      "src": "TNBfolio",
-     "new": false
+     "new": false,
+     "url": "https://t.me/TNBfolio/72091",
+     "via": "채널"
     },
     {
      "t": "17:23",
      "tone": "neu",
      "text": "삼성전기 목표가 280만 원 전망 기사, 240만 원 고점 뒤 66% 하락 이력 언급",
      "src": "FastStockNews",
-     "new": false
+     "new": false,
+     "url": "https://n.news.naver.com/mnews/article/016/0002726556",
+     "via": "기사"
     },
     {
      "t": "09:54",
      "tone": "pos",
      "text": "11/1~20 잠정 수출: 반도체 주요 품목 모두 사상 최대(DRAM +574%, 낸드 +217%, SSD +447%, HBM +275%, PCB +34%)",
      "src": "ked_epic_ai",
-     "new": false
+     "new": false,
+     "url": "https://t.me/ked_epic_ai/39640",
+     "via": "채널"
     },
     {
      "t": "10:28",
      "tone": "pos",
      "text": "DRAM 수출단가 $75,349/kg(모듈 포함) 전년 대비 +350%, 전월 대비 +22%로 사상 최대",
      "src": "ked_epic_ai",
-     "new": false
+     "new": false,
+     "url": "https://t.me/ked_epic_ai/39650",
+     "via": "채널"
     },
     {
      "t": "11:54",
      "tone": "neu",
      "text": "소프트뱅크 손정의가 SK하이닉스 1조 달러 인수 자금 조달을 월가에 타진했다는 보도, 소프트뱅크는 적극 검토 중은 아니라고 밝힘(단독 보도, 미확인)",
      "src": "bornlupin",
-     "new": false
+     "new": false,
+     "url": "https://theinformation.com/articles/softbanks-masayoshi-son-explored-1-trillion-moonshot-buyout-sk-hynix",
+     "via": "기사"
     },
     {
      "t": "17:06",
      "tone": "neg",
      "text": "(11/20) SK하이닉스 BNK 목표가 1,050,000원 하향, 의견 보유(18시 정리에 반영)",
      "src": "butler_works",
-     "new": false
+     "new": false,
+     "url": "https://t.me/butler_works/33226",
+     "via": "채널"
     },
     {
      "t": "16:28",
      "tone": "pos",
      "text": "(11/20) 제주반도체 베트남 OSAT 법인 지분 65% 260억 원 취득 결정",
      "src": "darthacking",
-     "new": false
+     "new": false,
+     "url": "https://t.me/darthacking/159475",
+     "via": "채널"
     },
     {
      "t": "08:17",
      "tone": "neu",
      "text": "레오폴드 13F: 샌디스크 $5.67B·마이크론 $5.57B 청산 전 평가액, 콜옵션 신규 편입",
      "src": "nje2e",
-     "new": false
+     "new": false,
+     "url": "https://t.me/nje2e/45757",
+     "via": "채널"
     }
    ]
   },
@@ -294,28 +352,36 @@
      "tone": "neu",
      "text": "이형일 부총리가 오늘(22일) 오후 긴급 시장상황점검회의(F4)를 소집해 증시 안정 대책을 논의합니다(한은 총재·금융위원장·금감원장 참석)",
      "src": "FastStockNews",
-     "new": true
+     "new": true,
+     "url": "https://news.einfomax.co.kr/news/articleView.html?idxno=4445881",
+     "via": "기사"
     },
     {
      "t": "22:05",
      "tone": "neu",
      "text": "(11/21) 추가 하락 시 정부 카드 정리: 담보유지비율 한시 면제, 자사주 매수 한도 완화, 공매도 과열종목 확대, 한시 공매도 금지, 증안펀드 조기 가동(개인 정리)",
      "src": "one_going",
-     "new": true
+     "new": true,
+     "url": "https://t.me/one_going/4551",
+     "via": "채널"
     },
     {
      "t": "06:52",
      "tone": "neu",
      "text": "특집 증시 전망대 방송 요약: 급락 원인, 역대 약세장 비교, 최고·최악 시나리오, 외국인 컴백 가능성, 대만 대책",
      "src": "shmstory",
-     "new": true
+     "new": true,
+     "url": "https://youtu.be/2sdbyFT3Dus",
+     "via": "기사"
     },
     {
      "t": "19:41",
      "tone": "neu",
      "text": "대만이 급락장 대응으로 전일 종가보다 낮은 가격의 공매도 주문을 막는 조치를 쓴다는 글(개인 의견: 한국도 고려할 만함)",
      "src": "FastStockNews",
-     "new": false
+     "new": false,
+     "url": "https://t.me/FastStockNews/128272",
+     "via": "채널"
     },
     {
      "t": "12:15",
@@ -329,35 +395,45 @@
      "tone": "neu",
      "text": "다음 주 일정: 23일 미국 11월 PMI, 24일 델 실적, 25일 베이지북·PCE·GDP, 26일 한국은행 금리결정(미장 휴장), 27일 미장 조기폐장",
      "src": "bornlupin",
-     "new": false
+     "new": false,
+     "url": "https://t.me/bornlupin/21217",
+     "via": "채널"
     },
     {
      "t": "11:40",
      "tone": "neu",
      "text": "Jay: 지금은 분석이 아니라 냉정이 필요한 시간, 반등도 가장 먼저 빠진 한국에서 시작돼야 한다는 견해(개인 의견)",
      "src": "Jstockclass",
-     "new": false
+     "new": false,
+     "url": "https://t.me/Jstockclass/15544",
+     "via": "채널"
     },
     {
      "t": "10:06",
      "tone": "neu",
      "text": "낙폭 비교는 의미 없고 살아남으면 기회가 온다는 소회(개인 의견)",
      "src": "nje2e",
-     "new": false
+     "new": false,
+     "url": "https://t.me/nje2e/45763",
+     "via": "채널"
     },
     {
      "t": "09:39",
      "tone": "neu",
      "text": "BofA 펀드매니저 설문: 1년 뒤 글로벌 CPI 하락 예상 32%로 2024년 10월 이후 최저",
      "src": "nje2e",
-     "new": false
+     "new": false,
+     "url": "https://t.me/nje2e/45760",
+     "via": "채널"
     },
     {
      "t": "08:16",
      "tone": "neu",
      "text": "대만 신용잔고와 가권지수 비교 차트",
      "src": "nje2e",
-     "new": false
+     "new": false,
+     "url": "https://t.me/nje2e/45755",
+     "via": "채널"
     }
    ]
   },
@@ -382,21 +458,27 @@
      "tone": "pos",
      "text": "(11/20) 하나증권 엔터/미디어/레저 2027 전망: 하이브·하나투어 최선호, 엔터 역사적 저평가",
      "src": "butler_works",
-     "new": false
+     "new": false,
+     "url": "https://t.me/butler_works/33239",
+     "via": "채널"
     },
     {
      "t": "18:50",
      "tone": "pos",
      "text": "(11/20) 대신증권 미디어 주간: 한한령 해제 기대로 컨텐츠 업종 강세",
      "src": "butler_works",
-     "new": false
+     "new": false,
+     "url": "https://t.me/butler_works/33238",
+     "via": "채널"
     },
     {
      "t": "19:13",
      "tone": "pos",
      "text": "(11/20) GKL 유안타 BUY 11,000원 유지, 中 한한령 해지 수혜 기대",
      "src": "butler_works",
-     "new": false
+     "new": false,
+     "url": "https://t.me/butler_works/33248",
+     "via": "채널"
     }
    ]
   }
@@ -508,14 +590,18 @@
      "tone": "pos",
      "text": "(11/20) 금호건설 장지차고지 입체화 공사 1,753억 원(매출 대비 8.68%)",
      "src": "darthacking",
-     "new": false
+     "new": false,
+     "url": "https://t.me/darthacking/159472",
+     "via": "채널"
     },
     {
      "t": "16:02",
      "tone": "pos",
      "text": "(11/20) 금양그린파워 AI 데이터센터 전기·통신 공사 2,300억 원",
      "src": "FastStockNews",
-     "new": false
+     "new": false,
+     "url": "https://cbci.co.kr/news/articleView.html?idxno=629143",
+     "via": "기사"
     }
    ]
   },
@@ -527,14 +613,18 @@
      "tone": "neu",
      "text": "(11/20) KB금융 이재근 회장 21일 임기 시작, 23일 취임식",
      "src": "ked_epic_ai",
-     "new": false
+     "new": false,
+     "url": "https://t.me/ked_epic_ai/39632",
+     "via": "채널"
     },
     {
      "t": "16:02",
      "tone": "neg",
      "text": "(11/20) 리노공업 장중 52주 최저가, 종가 -15.07%",
      "src": "ked_epic_ai",
-     "new": false
+     "new": false,
+     "url": "https://t.me/ked_epic_ai/39632",
+     "via": "채널"
     }
    ]
   },
@@ -546,7 +636,9 @@
      "tone": "neu",
      "text": "과학기술기본법·전파법 개정안 입법예고(수능 전파차단장치 허용 등)",
      "src": "ked_epic_ai",
-     "new": false
+     "new": false,
+     "url": "https://t.me/ked_epic_ai/39638",
+     "via": "채널"
     }
    ]
   }
