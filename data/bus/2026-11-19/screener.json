@@ -29,7 +29,206 @@
  "count": 798,
  "scope": "pool",
  "pool_size": 23,
- "signals": [],
+ "signals": [
+  {
+   "stock": "동국제약",
+   "code": "086450",
+   "market": "KOSDAQ",
+   "sector": "바이오·헬스케어 > 제약",
+   "group": "바이오",
+   "ia": "동반 상승",
+   "ia_up_share": 44,
+   "ia_median": 1.7,
+   "close": 26600.0,
+   "date": "20261119",
+   "rs": 93,
+   "value20_eok": 120,
+   "off_high_pct": -14.9,
+   "vol50": 542938,
+   "checks": {
+    "정배열(일봉)": true,
+    "정배열(주봉)": true,
+    "RS": true,
+    "고점 위치": true,
+    "시총": true,
+    "거래대금": true,
+    "1stage 상승": true
+   },
+   "gate_score": 7,
+   "gate_miss": [],
+   "gate_strict": true,
+   "gate_pass": true,
+   "setups": [],
+   "run_pct": null,
+   "base": {
+    "pivot": 31250,
+    "pivot_date": "20260406",
+    "days": 153,
+    "low": 16460,
+    "depth_pct": 47.3,
+    "stage1_pct": 116,
+    "giveback_pct": 88,
+    "pullbacks": [
+     22.7,
+     12.5,
+     17.8,
+     14.3,
+     27.3,
+     17.6,
+     13.7,
+     20.2,
+     21.2,
+     18.0,
+     10.0,
+     7.2,
+     12.2,
+     8.4,
+     11.6,
+     22.1
+    ],
+    "vol_dryup": 1.05,
+    "is_52w_high": true
+   },
+   "today": [
+    "돌파",
+    "55일 신고가"
+   ],
+   "vol_ratio": 1.63,
+   "stage": "2stage 조정 중",
+   "broke": {
+    "pivot": 26050,
+    "setups": [
+     "A"
+    ],
+    "base": {
+     "pivot": 26050,
+     "pivot_date": "20261111",
+     "days": 5,
+     "low": 20300,
+     "depth_pct": 22.1,
+     "stage1_pct": 60,
+     "giveback_pct": 59,
+     "pullbacks": [
+      22.1
+     ],
+     "vol_dryup": 0.98,
+     "is_52w_high": false
+    }
+   },
+   "levels": {
+    "breakout": 31250,
+    "alert": 30625,
+    "stop_1r": 28750,
+    "distance_pct": 17.5
+   },
+   "overhead_zone": null,
+   "max_zone": {
+    "top": 19418,
+    "pct": 20
+   },
+   "missing": [],
+   "tier": "신호",
+   "pool": false,
+   "tier_note": "발굴",
+   "tier_fix": "2026-11-25 판정 바로잡음(20시 마감 값 기준 — 16:07에는 업종 동행이 덜 켜져 빠졌음)"
+  },
+  {
+   "stock": "아모레퍼시픽",
+   "code": "090430",
+   "market": "KOSPI",
+   "sector": "소비재 > 화장품",
+   "group": "화장품",
+   "ia": "동반 상승",
+   "ia_up_share": 45,
+   "ia_median": 1.1,
+   "close": 141000.0,
+   "date": "20261119",
+   "rs": 85,
+   "value20_eok": 222,
+   "off_high_pct": -16.6,
+   "vol50": 182281,
+   "checks": {
+    "정배열(일봉)": false,
+    "정배열(주봉)": true,
+    "RS": true,
+    "고점 위치": true,
+    "시총": true,
+    "거래대금": true,
+    "1stage 상승": true
+   },
+   "gate_score": 6,
+   "gate_miss": [
+    "정배열(일봉)"
+   ],
+   "gate_strict": false,
+   "gate_pass": true,
+   "setups": [
+    "A"
+   ],
+   "run_pct": null,
+   "base": {
+    "pivot": 152500,
+    "pivot_date": "20260831",
+    "days": 54,
+    "low": 120500,
+    "depth_pct": 21.0,
+    "stage1_pct": 62,
+    "giveback_pct": 55,
+    "pullbacks": [
+     11.7,
+     13.7,
+     9.8,
+     15.1,
+     9.5
+    ],
+    "vol_dryup": 0.9,
+    "is_52w_high": false
+   },
+   "today": [
+    "돌파",
+    "매물대 돌파"
+   ],
+   "vol_ratio": 2.68,
+   "stage": "2stage 조정 중",
+   "broke": {
+    "pivot": 137100,
+    "setups": [
+     "A"
+    ],
+    "base": {
+     "pivot": 137100,
+     "pivot_date": "20261105",
+     "days": 9,
+     "low": 124100,
+     "depth_pct": 9.5,
+     "stage1_pct": 46,
+     "giveback_pct": 30,
+     "pullbacks": [
+      9.5
+     ],
+     "vol_dryup": 0.8,
+     "is_52w_high": false
+    }
+   },
+   "levels": {
+    "breakout": 152500,
+    "alert": 149450,
+    "stop_1r": 140300,
+    "distance_pct": 8.2
+   },
+   "overhead_zone": null,
+   "max_zone": {
+    "top": 146500,
+    "pct": 60
+   },
+   "missing": [
+    "정배열(일봉)"
+   ],
+   "tier": "신호",
+   "pool": true,
+   "tier_fix": "2026-11-25 판정 바로잡음(20시 마감 값 기준 — 16:07에는 업종 동행이 덜 켜져 빠졌음)"
+  }
+ ],
  "candidates": [
   {
    "stock": "디케이티",
@@ -933,89 +1132,6 @@
    "missing": [
     "거래대금",
     "조정 구간 없음(1stage 진행 중)"
-   ],
-   "tier": "후보",
-   "pool": false
-  },
-  {
-   "stock": "동국제약",
-   "code": "086450",
-   "market": "KOSDAQ",
-   "sector": "바이오",
-   "group": "바이오",
-   "ia": "나 홀로",
-   "ia_up_share": 39,
-   "ia_median": 1.2,
-   "close": 26600.0,
-   "date": "20261119",
-   "rs": 94,
-   "value20_eok": 119,
-   "off_high_pct": -14.9,
-   "vol50": 541821,
-   "checks": {
-    "정배열(일봉)": true,
-    "정배열(주봉)": true,
-    "RS": true,
-    "고점 위치": true,
-    "시총": true,
-    "거래대금": true,
-    "1stage 상승": true
-   },
-   "gate_score": 7,
-   "gate_miss": [],
-   "gate_strict": true,
-   "gate_pass": true,
-   "setups": [],
-   "run_pct": null,
-   "base": {
-    "pivot": 31250,
-    "pivot_date": "20260406",
-    "days": 153,
-    "low": 16460,
-    "depth_pct": 47.3,
-    "stage1_pct": 116,
-    "giveback_pct": 88,
-    "pullbacks": [
-     22.7,
-     12.5,
-     17.8,
-     14.3,
-     27.3,
-     17.6,
-     13.7,
-     20.2,
-     21.2,
-     18.0,
-     10.0,
-     7.2,
-     12.2,
-     8.4,
-     11.6,
-     22.1
-    ],
-    "vol_dryup": 1.04,
-    "is_52w_high": true
-   },
-   "today": [
-    "돌파(업종 무반응)",
-    "55일 신고가"
-   ],
-   "vol_ratio": 1.52,
-   "stage": "2stage 조정 중",
-   "levels": {
-    "breakout": 31250,
-    "alert": 30625,
-    "stop_1r": 28750,
-    "distance_pct": 17.5
-   },
-   "overhead_zone": null,
-   "max_zone": {
-    "top": 19418,
-    "pct": 20
-   },
-   "missing": [
-    "조정이 깊음(상승분 88% 반납)",
-    "업종 무반응(바이오 39%만 +2%↑)"
    ],
    "tier": "후보",
    "pool": false
@@ -2739,7 +2855,7 @@
     "조정이 깊음(상승분 88% 반납)",
     "업종 무반응(바이오 39%만 +2%↑)"
    ],
-   "tier": "후보",
+   "tier": "신호",
    "pool": false
   },
   {
@@ -3027,7 +3143,7 @@
     "정배열(일봉)",
     "업종 무반응(화장품 30%만 +2%↑)"
    ],
-   "tier": "대기",
+   "tier": "신호",
    "pool": false
   },
   {

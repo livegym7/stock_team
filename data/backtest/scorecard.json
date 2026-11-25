@@ -7,6 +7,20 @@
    "setups": []
   },
   {
+   "day": "20261119",
+   "stock": "아모레퍼시픽",
+   "code": "090430",
+   "setups": [
+    "A"
+   ]
+  },
+  {
+   "day": "20261119",
+   "stock": "동국제약",
+   "code": "086450",
+   "setups": []
+  },
+  {
    "day": "20261118",
    "stock": "원익홀딩스",
    "code": "030530",
@@ -47,10 +61,10 @@
    "setups": []
   }
  ],
- "signals_n": 7,
+ "signals_n": 9,
  "signals_target": 30,
  "signals_since": "2026-11-03",
- "made_at": "2026-11-25 18:01",
+ "made_at": "2026-11-25 18:26",
  "lists": 14,
  "rows": [
   {

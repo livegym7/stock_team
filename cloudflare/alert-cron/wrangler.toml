@@ -1,8 +1,8 @@
-# 평일 장중 20분마다(한국 09:00~15:40 = UTC 00:00~06:40) 깃허브 알림 작업을 깨우는 작은 Cloudflare Worker
+# 10분마다 시각을 보고 제시각에 깃허브의 장중 알림·웹 배포 작업을 깨우는 작은 Cloudflare Worker (시각표는 worker.js)
 name = "balance-lab-alert-cron"
 main = "worker.js"
 compatibility_date = "2026-01-01"
 workers_dev = false
 
 [triggers]
-crons = ["*/20 0-6 * * MON-FRI"]
+crons = ["*/10 * * * *"]

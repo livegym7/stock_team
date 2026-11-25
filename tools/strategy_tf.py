@@ -337,7 +337,7 @@ def core_list():
 
     def _vol50(code):
         try:
-            rows = json.loads((CACHE / "daily" / f"{code}.json").read_text())["rows"]
+            rows = [x for x in json.loads((CACHE / "daily" / f"{code}.json").read_text())["rows"] if x["date"] <= (sc.get("as_of") or "9")]   # 목록 기준일까지만 (오늘의 덜 찬 거래량을 넣지 않는다, 2026-11-25)
             v = [x["volume"] for x in rows[-50:]]
             return round(sum(v) / len(v)) if v else None
         except Exception:

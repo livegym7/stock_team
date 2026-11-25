@@ -44,6 +44,7 @@ def breakout_watch(now, sent, limit=40):
     근접: 알림가(기준가 −2%) 이상 / 돌파 중: 기준가 이상 → 예상 거래량(지금까지 거래량 ÷ 장 경과 비율)이 50일 평균의 몇 배인지 함께."""
     import glob
     from common import http_get
+    from screener import RULES
     files = sorted(glob.glob(str(DATA / "bus" / "*" / "screener.json")))
     if not files:
         return []
@@ -52,7 +53,7 @@ def breakout_watch(now, sent, limit=40):
     for tier, key in (("✅신호", "signals"), ("👀후보", "candidates"), ("대기", "watch")):
         for x in d.get(key) or []:
             lv = x.get("levels") or {}
-            if lv.get("breakout"):
+            if lv.get("breakout") or (x.get("max_zone") or {}).get("top"):   # 기준가가 없어도 최대 매물대가 있으면 본다 — 웹 '오늘 넘음'과 같은 대상 (2026-11-25)
                 items.append((tier, x))
     core = {}
     for cp in (os.environ.get("CORE_JSON") or "", str(Path(__file__).resolve().parent.parent / "web" / "core.json")):   # 핵심 후보(펀더 2/3↑+기술 2/3↑, 2026-11-14)
@@ -81,11 +82,12 @@ def breakout_watch(now, sent, limit=40):
     frac = min(1.0, max(0.05, (now - opened).total_seconds() / (390 * 60)))   # 장 경과 비율 (9:00~15:30)
     out = []
     for tier, x in items:
-        c, lv, r = x["code"], x["levels"], q.get(x["code"]) or {}
+        c, lv, r = x["code"], x.get("levels") or {}, q.get(x["code"]) or {}
         px = r.get("price")
         if not px:
             continue
-        piv, alert_px = lv["breakout"], lv.get("alert") or lv["breakout"] * 0.98
+        piv = lv.get("breakout")
+        alert_px = (lv.get("alert") or piv * 0.98) if piv else None
         vr = (r["vol"] / frac / x["vol50"]) if r.get("vol") and x.get("vol50") else None
         vtxt = f" · 예상 거래량 {vr:.1f}배" if vr else ""
         grade = "🔥" if x.get("pool") else ("참고" if x.get("pool") is False else "")   # 관찰 풀 안 🔥 / 밖 참고 (2026-11-10)
@@ -94,7 +96,7 @@ def breakout_watch(now, sent, limit=40):
             grade = f"🎯핵심(펀더 {'추정' if cx.get('ftype') == 'E' else '발표'} {cx['fp']}/{cx.get('fmax', 3)}) " + grade
         elif cx and cx.get("fbad", cx.get("fp", 0) <= 1):
             grade = grade + "(펀더 0점) "
-        note = f"{grade}{tier} {x['stock']} {px:,.0f}원 ({r.get('chg') or 0:+.2f}%) · 기준가 {piv:,}"
+        note = f"{grade}{tier} {x['stock']} {px:,.0f}원 ({r.get('chg') or 0:+.2f}%)" + (f" · 기준가 {piv:,}" if piv else "")
         miss = f" · 부족: {', '.join(x.get('missing') or [])}" if x.get("missing") else ""
         # 장중 업종 동행 (screener.industry_action과 같은 규칙: 같은 업종 40%↑가 +2%↑ 또는 중앙값 +1.5%↑, 2026-11-18)
         ch = [q[pc]["chg"] for pc in (cx.get("peers") or []) if (q.get(pc) or {}).get("chg") is not None]
@@ -109,8 +111,8 @@ def breakout_watch(now, sent, limit=40):
         zt = cx.get("zone_top") or (x.get("max_zone") or {}).get("top")
         yc = x.get("close")
         zb = bool(zt and yc and yc <= zt < px)
-        bo = px > piv
-        vok = vr is not None and vr >= 1.5
+        bo = bool(piv and px > piv)
+        vok = vr is not None and vr >= RULES["breakout_vol"]
         rule = bo and vok and bool(ia and ia[0])
         # 2026-11-24 사용자 확정(단순화): 웹 신호 줄과 같게 — 오늘 기준가나 최대 매물대를 넘은 감시 목록 종목은 모두 알리고, 조건은 딱지(켜짐 ✓ / 꺼짐 ✗)로만 적는다. 살지 말지는 본인이 판단.
         # 기준가 근접(👀)은 전처럼 관찰 풀·핵심 후보만. 정식 신호(기준가 + 거래량 1.5배 + 업종 동행)를 세는 기준은 그대로다.
@@ -129,7 +131,7 @@ def breakout_watch(now, sent, limit=40):
                 out.append((f"rule:{c}", head + tail))
         elif not mine:
             continue
-        elif px >= alert_px:
+        elif alert_px and px >= alert_px:
             out.append((f"near:{c}", f"👀 {note}까지 {(piv / px - 1) * 100:.1f}% 남음{vtxt}{miss}"))
     return out
 

@@ -164,6 +164,14 @@ def max_zone(rows, nb=10, merge=0.7):
     return {"top": round(lo + (max(hot) + 1) * bs), "pct": round(sum(b[j] for j in hot) / (sum(b) or 1) * 100)}
 
 
+def settled(rows, now=None):
+    """굳은 봉만: 오늘 봉은 20:05(시간외·대체거래소 마감) 전까지 움직이므로 그 전에는 뺀다. 선·평균을 만드는 곳은 모두 이 함수를 거친다 (2026-11-25)."""
+    now = now or datetime.now(KST)
+    if rows and rows[-1]["date"] == now.strftime("%Y%m%d") and now.strftime("%H%M") < "2005":
+        return rows[:-1]
+    return rows
+
+
 def swing_pullbacks(h, l, start, k=3):
     """start(피벗) 이후 고점→저점 되돌림 폭(%)들을 순서대로. 고점·저점은 앞뒤 k일 안 최고·최저."""
     n = len(h)
@@ -640,7 +648,7 @@ def main():
     (out_dir / "screener.json").write_text(json.dumps(payload, ensure_ascii=False, indent=1), encoding="utf-8")
     try:  # 주도 섹터 레이더 (같은 일봉 캐시 재사용, 몇 초)
         import sector_radar
-        radar = sector_radar.build()
+        radar = sector_radar.build(as_of)   # 감시 목록과 같은 기준일로 (2026-11-25: 전에는 가진 봉 중 가장 최근 날짜 — 굳지 않은 오늘 봉이 섞였음)
         print("[레이더 상위: " + ", ".join(f"{x['group']} {x['score']}" for x in radar["groups"][:3]) + "]", file=sys.stderr)
     except Exception as e:
         radar = None

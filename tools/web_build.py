@@ -258,6 +258,11 @@ def schedule(now, brief_rows):
     return out
 
 
+def _ia_rule():
+    from screener import IA_RULE
+    return IA_RULE
+
+
 def watch():
     files = sorted(glob.glob(str(DATA / "bus" / "*" / "screener.json")))
     if not files:
@@ -272,7 +277,7 @@ def watch():
         y["broke"] = (x.get("broke") or {}).get("pivot")   # 목록 기준일에 넘은 기준가(어제까지의 선)
         y["base"] = {k: b.get(k) for k in ("pivot", "pivot_date", "days", "depth_pct", "stage1_pct", "giveback_pct", "vol_dryup")} if b else None
         return y
-    return {"as_of": d.get("as_of"), "made_at": d.get("made_at"), "count": d.get("count"), "rules": d.get("rules"),
+    return {"as_of": d.get("as_of"), "made_at": d.get("made_at"), "count": d.get("count"), "rules": d.get("rules"), "ia_rule": _ia_rule(),
             "source": d.get("source"), "watch": [slim(x) for x in d.get("watch", [])],
             "running": [slim(x) for x in d.get("running", [])], "near_miss": [slim(x) for x in d.get("near_miss", [])[:15]],
             "signals": [slim(x) for x in d.get("signals", [])], "zone_signals": [slim(x) for x in d.get("zone_signals", [])], "pp_signals": [slim(x) for x in d.get("pp_signals", [])], "candidates": [slim(x) for x in d.get("candidates", [])]}
@@ -1480,7 +1485,7 @@ def write_html(data):
         #   h = 마지막 거래일까지 55일 고점(다음 날 장중 비교용) · hp = 그 전날까지 55일 고점 · x = 마지막 거래일에 넘었는가 · v50·vr = 거래량 · peers = 같은 업종(동행 판정)
         import tomllib
         from common import CACHE
-        from screener import RULES
+        from screener import RULES, settled
         from sector_map import custom_map
         from universe import load as _uni
         cmap, peers = custom_map(), {}
@@ -1497,6 +1502,7 @@ def write_html(data):
                     rows = json.loads((CACHE / "daily" / f"{s['code']}.json").read_text())["rows"]
                 except Exception:
                     continue
+                rows = settled(rows)   # 굳지 않은 오늘 봉을 넣으면 화면이 '오늘 자료가 이미 있다'고 보고 장중 값을 다시 계산하지 않았다 (2026-11-25)
                 if len(rows) < 60:
                     continue
                 hi, c, v = [r["high"] for r in rows], [r["close"] for r in rows], [r["volume"] for r in rows]
