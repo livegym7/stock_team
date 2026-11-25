@@ -11,6 +11,7 @@
 사용법:
     python3 tools/hot_now.py night
     python3 tools/hot_now.py hot
+    python3 tools/hot_now.py themes      # 오늘 급등 테마(업종 안 +10%↑ 3종목 이상) — 소식 정리·체크포인트 재료
 """
 import json
 import sys
@@ -94,6 +95,57 @@ def hot():
     return {"made_at": datetime.now(KST).strftime("%Y-%m-%d %H:%M"), "source": "네이버 금융 검색 상위(비공식)", "items": items}
 
 
+def themes(min_up=10.0, min_n=3, top=25):
+    """오늘 급등 테마 (2026-11-25 사용자 지적: 보안주가 집단 상한가인데 소식 정리에 카드가 없었음 — 토큰 0, 10초쯤).
+    네이버 테마(시장에서 부르는 이름: '보안주(정보)' 등) 가운데 평균 등락 상위 25개를 보고, 그 안에서 +10%↑ 종목이 3개 이상인 테마만 고른다.
+    시총이 작은 종목도 포함한다(감시 대상 2천억↑만 보면 소형주 테마가 안 잡힌다). 내 목록(보유·관찰 풀) 종목은 표시한다.
+    글을 쓰는 쪽(소식 정리·체크포인트)이 '오늘 시장에서 실제로 움직인 것'을 놓치지 않게 하는 재료다. 글감용이며 매매 규칙이 아니다."""
+    import tomllib
+    root = Path(__file__).resolve().parent.parent
+    mine = set()
+    try:
+        mine |= {s["code"] for th in tomllib.loads((root / "config" / "watch_pool.toml").read_text(encoding="utf-8")).get("themes") or [] for s in th.get("stocks") or []}
+        from common import positions
+        mine |= {p["code"] for p in positions()}
+    except Exception:
+        pass
+    out, at = [], ""
+    for g in (_get(f"https://m.stock.naver.com/api/stocks/theme?page=1&pageSize={top}").get("groups") or []):
+        try:
+            d = _get(f"https://m.stock.naver.com/api/stocks/theme/{g['no']}?page=1&pageSize=12")
+        except Exception:
+            continue
+        st = [(_num(x.get("fluctuationsRatio")) or 0, x.get("stockName"), x.get("itemCode"), _num(x.get("marketValue")),
+               ((x.get("compareToPreviousPrice") or {}).get("name") == "UPPER_LIMIT")) for x in d.get("stocks") or []]
+        at = max([at] + [(x.get("localTradedAt") or "")[:16].replace("T", " ") for x in d.get("stocks") or []])
+        up = [x for x in st if x[0] >= min_up]
+        if len(up) >= min_n:
+            out.append({"theme": g.get("name"), "avg": _num(g.get("changeRate")), "n": g.get("totalCount"), "rise": g.get("riseCount"), "up_n": len(up),
+                        "limit_up": sum(1 for x in up if x[4]),
+                        "stocks": [{"name": n, "code": c, "chg": chg, "cap_eok": cap, "mine": c in mine} for chg, n, c, cap, _ in up[:6]]})
+    out.sort(key=lambda x: (-x["limit_up"], -x["up_n"], -(x["avg"] or 0)))
+    seen, uniq = set(), []          # 같은 종목들로 이뤄진 테마가 여러 이름으로 겹치면 앞의 것만
+    for x in out:
+        k = {s["code"] for s in x["stocks"]}
+        if len(k & seen) * 3 < len(k) * 2:      # 종목의 3분의 2 이상이 앞 테마와 겹치면 같은 움직임으로 본다
+            uniq.append(x)
+        seen |= k
+    return {"at": at, "source": "네이버 테마(비공식)", "rule": f"테마 안에서 +{min_up:g}%↑ 종목이 {min_n}개 이상", "themes": uniq[:5]}
+
+
+def themes_line():
+    """글쓰기 재료용 요약 (없으면 '없음')."""
+    try:
+        t = themes()
+    except Exception as e:
+        return f"집계 실패({type(e).__name__})"
+    if not t["themes"]:
+        return f"없음 ({t['rule']} 기준 · {t['at']})"
+    return " / ".join(f"{x['theme']}(평균 {x['avg']:+.1f}%, {x['n']}종목 중 오른 종목 {x['rise']}): +10%↑ {x['up_n']}종목·상한가 {x['limit_up']} — "
+                      + ", ".join(f"{s['name']} {s['chg']:+.1f}%{' [내 목록]' if s['mine'] else ''}" for s in x["stocks"])
+                      for x in t["themes"]) + f" (출처: {t['source']} {t['at']})"
+
+
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else "night"
-    print(json.dumps(night() if cmd == "night" else hot(), ensure_ascii=False, indent=1))
+    print(json.dumps(night() if cmd == "night" else themes() if cmd == "themes" else hot(), ensure_ascii=False, indent=1))

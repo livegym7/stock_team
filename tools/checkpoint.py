@@ -48,6 +48,15 @@ def prep(slot):
         o["account"] = {k: ev.get(k) for k in ("CR_pct", "CR_limit_pct", "E_pct", "room_for_new_risk_won")}
     except Exception as e:
         o["holdings_error"] = type(e).__name__
+    try:   # 오늘 급등 테마 (2026-11-25: 보안주 집단 상한가가 체크포인트·소식 정리에 빠졌음) — 장중·마감 회차만
+        from datetime import datetime as _dt
+        from naver_quote import KST as _K
+        _n = _dt.now(_K)
+        if _n.weekday() < 5 and _n.strftime("%H:%M") >= "09:20":
+            import hot_now
+            o["themes_today"] = hot_now.themes()
+    except Exception as e:
+        o["themes_today_error"] = type(e).__name__
     try:   # 관찰 풀 기준가 근접 (마지막 확정 감시 목록 기준)
         import glob
         fs = sorted(glob.glob(str(ROOT / "data" / "bus" / "*" / "screener.json")))
@@ -122,6 +131,10 @@ def md_prep(o):
             L.append(f"- 시장 폭: 50일선 위 {bw.get('a50')}% · 20일선 위 {bw.get('a20')}% ({bw.get('date')})")
         L.append(f"## 핵심 후보 (펀더 2/3↑ + 기술 2/3↑) — mine 칸에 기준가까지 %")
         L += [f"- {x['name']} ({x['group']}) 기준가 {x['breakout']} · {x['dist']}% 남음 · 펀더 {'발표' if x.get('ftype') == 'A' else '추정'} {x['fp']}/{x.get('fmax', 3)} · 기술 {x['tech']}/3 {x.get('note') or ''}" for x in T.get("core") or []] or ["- 없음"]
+    TT = o.get("themes_today") or {}
+    if TT.get("themes"):
+        L.append(f"## 오늘 급등 테마 (자동 집계 · {TT.get('source')} {TT.get('at')}) — '바뀐 것'에 한 줄로 꼭 넣는다(원인은 채널 글에서, 못 찾으면 '원인 확인 안 됨')")
+        L += [f"- {x['theme']}: +10%↑ {x['up_n']}종목(상한가 {x['limit_up']}) — " + ", ".join(f"{s['name']} {s['chg']:+.1f}%{' [내 목록]' if s['mine'] else ''}" for s in x["stocks"]) for x in TT["themes"]]
     L.append(f"## 관찰 풀 기준가 ±3% (감시 목록 {o.get('screener_as_of')})")
     L += [f"- {x['name']} ({x['tier']}) {x['close']} → 기준가 {x['breakout']} ({x['distance_pct']:+}%) 오늘 {x.get('today') or ''}" for x in o.get("pool_near") or []]
     if o.get("calendar"):
