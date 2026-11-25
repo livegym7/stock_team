@@ -20,7 +20,7 @@ from naver_quote import KST
 
 WEB = ROOT / "web"
 SCHEDULE = [("06:55", "아침 브리핑", "morning"),
-            ("14:53", "리포트 브리핑", "report_brief_pm"), ("15:47", "마감 리뷰", "close"), ("16:07", "감시 목록", "watchlist")]
+            ("14:53", "리포트 브리핑", "report_brief_pm"), ("15:47", "마감 리뷰", "close"), ("21:10", "감시 목록 확정", "watchlist")]
 KIND = {"morning": "아침 브리핑", "report_brief_am": "리포트 브리핑 · 오전", "report_brief_pm": "리포트 브리핑 · 오후",
         "channels": "채널 정리", "report_live": "리포트 정리", "close": "마감 리뷰", "weekly": "주간 리뷰",
         "strategy": "전략 보고서", "deep_research": "딥리서치", "checkpoint": "체크포인트"}
@@ -244,11 +244,9 @@ def _pick_links(day, T):
 def schedule(now, brief_rows):
     today = now.strftime("%Y-%m-%d")
     have = {b["kind"] for b in brief_rows if b["date"] == today}
-    # 감시 목록은 장 마감 뒤(16시 이후) 만든 것만 '완료'로 본다 (장중 "모니터링 새로고침" 결과는 제외)
-    for f in (ROOT / "reports" / today / "watchlist.png", DATA / "bus" / today / "screener.json"):
-        ft = file_time(f)
-        if ft and ft[:10] == today and ft[11:] >= "16:00":
-            have.add("watchlist")
+    # 감시 목록은 오늘 기준일 폴더가 생겼으면 '완료' (20시 마감 가격이 굳은 뒤에만 만들어진다 — 2026-11-25)
+    if (DATA / "bus" / today / "screener.json").exists():
+        have.add("watchlist")
     out = []
     mon = (load_toml("features.toml") or {}).get("monitoring", True)
     for t, name, kind in SCHEDULE:
@@ -271,6 +269,7 @@ def watch():
     def slim(x):
         y = {k: x.get(k) for k in keep}
         b = x.get("base") or {}
+        y["broke"] = (x.get("broke") or {}).get("pivot")   # 목록 기준일에 넘은 기준가(어제까지의 선)
         y["base"] = {k: b.get(k) for k in ("pivot", "pivot_date", "days", "depth_pct", "stage1_pct", "giveback_pct", "vol_dryup")} if b else None
         return y
     return {"as_of": d.get("as_of"), "made_at": d.get("made_at"), "count": d.get("count"), "rules": d.get("rules"),
@@ -1247,7 +1246,7 @@ def main():
         "account": {**load_toml("account.toml"), **__import__("common").account_state()},   # capital = 지금 계좌(시작 + 실현 손익 − 비용, 2026-11-18)
         "schedule": schedule(now, brief_rows),
         "briefs": brief_rows,
-        "watch": watch(),   # 감시 목록 파일만 읽음 (계산은 모니터링 새로고침·16:07 예약)
+        "watch": watch(),   # 감시 목록 파일만 읽음 (계산은 웹 배포 회차의 screener --ensure · 모니터링 새로고침)
         "sectors_etf": None,
         "report_flow": flow,
         "companies": comp_list,
@@ -1490,7 +1489,8 @@ def write_html(data):
         P = tomllib.loads((ROOT / "config" / "watch_pool.toml").read_text(encoding="utf-8"))
         out = {}
         codes = [s["code"] for th in P.get("themes") or [] for s in th.get("stocks") or []]
-        codes += [x["code"] for x in (data.get("tf_core") or {}).get("items") or [] if x.get("breakout")]   # 매매 보드의 풀 밖 종목도 (2026-11-24)
+        codes += [x["code"] for x in (data.get("tf_core") or {}).get("items") or [] if x.get("breakout") or x.get("broke")]   # 매매 보드의 풀 밖 종목도 (2026-11-24)
+        codes += [x["code"] for x in (data.get("watch") or {}).get("running") or [] if (x.get("rs") or 0) >= RULES["min_rs"]]   # 쉬는 구간 없이 달리는 종목도 기다림 묶음에 (2026-11-25)
         for code in dict.fromkeys(codes):
             for s in ({"code": code},):
                 try:

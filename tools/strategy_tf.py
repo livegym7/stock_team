@@ -358,7 +358,8 @@ def core_list():
             except Exception:
                 mz = None
         g = grp_of.get(r["code"])
-        items.append({"code": r["code"], "peers": [c for c in peers_of.get(g, []) if c != r["code"]][:30], "vol50": _vol50(r["code"]), "name": r["stock"], "zone_top": (mz or {}).get("top"), "zone_pct": (mz or {}).get("pct"), "group": r["group"], "rs": r["rs"], "close": r["close"], "breakout": lv.get("breakout"),
+        items.append({"code": r["code"], "peers": [c for c in peers_of.get(g, []) if c != r["code"]][:30], "vol50": _vol50(r["code"]), "name": r["stock"], "zone_top": (mz or {}).get("top"), "zone_pct": (mz or {}).get("pct"), "group": r["group"], "rs": r["rs"], "close": r["close"], "breakout": lv.get("breakout"), "broke": (r.get("broke") or {}).get("pivot"),   # broke = 목록 기준일에 넘은 어제까지의 기준가(그날은 이 선을 보여 줌)
+                     
                       "stop": lv.get("stop_1r"), "dist": dist, "fp": fp, "tech": tech, "why": (f or {}).get("why") or [], "ia": r["ia"] == "동반 상승",
                       "ftype": (f or {}).get("type"), "fmax": (f or {}).get("max", 3), "fitems": (f or {}).get("items"), "fbad": not fok(f),
                       "pool": r["pool"], "core": fok(f) and tech >= 2, "note": note})

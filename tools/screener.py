@@ -72,7 +72,7 @@ def fetch_daily(code, days=400):
         d = json.loads(path.read_text())
         got = datetime.fromisoformat(d["fetched_at"]) if "fetched_at" in d else None
         # 같은 날 받은 것만 재사용. 단 오늘 봉이 바뀌는 고비(15:40 정규장 마감 · 20:05 시간외·대체거래소 마감)를 사이에 두고 받은 것은 새로 받는다.
-        # 네이버 일봉의 '오늘 종가'는 20시 마감 가격으로 굳는다(2026-11-24 확인: 삼현 15:30 63,000 → 20:00 60,300) → 16:07 목록은 잠정, 21:10 회차가 확정
+        # 네이버 일봉의 '오늘 종가'는 20시 마감 가격으로 굳는다(2026-11-24 확인: 삼현 15:30 63,000 → 20:00 60,300) → 감시 목록은 20:05 뒤에만 오늘 봉을 쓴다(main의 cut)
         marks = [now.replace(hour=15, minute=40, second=0, microsecond=0), now.replace(hour=20, minute=5, second=0, microsecond=0)]
         if got and got.strftime("%Y%m%d") == today and not any(got < m <= now for m in marks):
             return d["rows"]
@@ -308,9 +308,12 @@ def rs_raw(c):
     return 0.2 * r12 + 0.3 * r6 + 0.5 * r3
 
 
-def run(codes_info, workers=4):
+def run(codes_info, workers=4, cut=None):
+    """cut(YYYYMMDD)을 주면 그날까지의 봉만 쓴다 — 아직 굳지 않은 오늘 봉을 빼고 마지막 확정 거래일 기준으로 판정할 때."""
     def one(s):
         rows = fetch_daily(s["code"])
+        if cut:
+            rows = [r for r in rows if r["date"] <= cut]
         time.sleep(0.2)
         return s, rows
     with ThreadPoolExecutor(workers) as ex:
@@ -365,6 +368,11 @@ def run(codes_info, workers=4):
             "setups": a.get("setups", []), "run_pct": a.get("run_pct"), "base": a.get("base"), "today": ev, "vol_ratio": vr,
             "stage": "1stage 진행 중" if not a.get("base") else "2stage 조정 중",
         }
+        # 오늘 넘은 선 = 어제까지 정해진 기준가 (2026-11-25 사용자 확정): 오늘 봉을 넣어 다시 판정하면 넘는 순간 쉬는 구간과 셋업이 사라져
+        #   정식 신호가 빠졌다(안랩 11/25 · 심텍홀딩스 11/24 · 원익홀딩스 11/18). 돌파한 날의 기준가·셋업은 어제까지의 판정(prev)으로 본다 — 백테스트와 같음
+        pb = prev.get("base")
+        if pb and any(e.startswith("돌파") for e in ev):
+            item["broke"] = {"pivot": prev.get("handle_high", pb["pivot"]), "setups": prev.get("setups", []), "base": pb}
         b = a.get("base")
         if b:
             pivot = a.get("handle_high", b["pivot"])
@@ -399,8 +407,9 @@ def tiers(results):
     for r in results:
         g = grade(r)
         miss = list(r.get("gate_miss", []))
-        b = r.get("base") or {}
-        if b and not r["setups"] and b.get("giveback_pct", 0) > RULES["max_giveback"]:
+        k = r.get("broke") or {}
+        b = k.get("base") or r.get("base") or {}
+        if b and not (k.get("setups") or r["setups"]) and b.get("giveback_pct", 0) > RULES["max_giveback"]:
             miss.append(f"조정이 깊음(상승분 {b['giveback_pct']}% 반납)")
         if "돌파(업종 무반응)" in r["today"]:
             miss.append(f"업종 무반응({r.get('group')} {r.get('ia_up_share') or 0}%만 +2%↑)")
@@ -421,7 +430,7 @@ def tiers(results):
 
 def grade(it):
     core = set(it["setups"]) & set("ABCDE")
-    if it["gate_pass"] and "돌파" in it["today"] and core:      # 2026-11-23 사용자 확정: 포켓피봇(G)은 정식 신호에서 빼고 참고 신호로 (5년·10년 비교 자료에서 수익 기여 없음)
+    if it["gate_pass"] and "돌파" in it["today"] and set((it.get("broke") or {}).get("setups") or []) & set("ABCDE"):   # 돌파한 날의 셋업은 어제까지의 판정      # 2026-11-23 사용자 확정: 포켓피봇(G)은 정식 신호에서 빼고 참고 신호로 (5년·10년 비교 자료에서 수익 기여 없음)
         return "✅"  # '돌파'는 인더스트리 액션(업종 동반 상승)까지 확인된 것만 (무반응이면 '돌파(업종 무반응)')
     if it["gate_pass"] and (core or "F" in it["setups"]):
         d = (it.get("levels") or {}).get("distance_pct")
@@ -572,6 +581,8 @@ def main():
     p.add_argument("--stock", help="한 종목만 (종목코드)")
     p.add_argument("--send", action="store_true", help="텔레그램으로 감시 목록 보내기")
     p.add_argument("--workers", type=int, default=4)
+    p.add_argument("--ensure", action="store_true", help="마지막 확정 거래일의 목록이 이미 있으면 아무것도 하지 않는다 (웹 배포 회차가 매번 부름)")
+    p.add_argument("--asof", help="그날(YYYYMMDD)까지의 봉으로 판정 (확인용)")
     p.add_argument("--pool", action="store_true", help="관찰 풀 한정: config/watch_pool.toml 종목은 모두 표시, 풀 밖은 RS 70↑ 신호만('발굴') (2026-11-10)")
     a = p.parse_args()
 
@@ -586,9 +597,19 @@ def main():
         print(json.dumps(res, ensure_ascii=False, indent=1))
         return
     t0 = time.time()
-    results = run(pool, a.workers)
+    # 감시 목록은 굳은 봉으로만 만든다 (2026-11-25 사용자 확정): 네이버 일봉의 오늘 봉은 20시(시간외·대체거래소 마감)까지 움직인다
+    #   → 20:05 전에는 오늘 봉을 빼고 마지막 확정 거래일 기준으로 판정한다. 화면의 선(기준가·매물대)이 하루 동안 움직이지 않는다
+    now = datetime.now(KST)
+    cut = a.asof or (None if now.strftime("%H%M") >= "2005" else (now - timedelta(days=1)).strftime("%Y%m%d"))
+    if a.ensure:
+        last = [r["date"] for r in fetch_daily("005930") if not cut or r["date"] <= cut][-1:]
+        f = last and ROOT / "data" / "bus" / f"{last[0][:4]}-{last[0][4:6]}-{last[0][6:]}" / "screener.json"
+        if f and f.exists() and json.loads(f.read_text(encoding="utf-8")).get("as_of") == last[0]:
+            print(f"[확정 목록 {last[0]} 이미 있음 — 건너뜀]", file=sys.stderr)
+            return
+    results = run(pool, a.workers, cut)
     as_of = max(r["date"] for r in results)
-    out_dir = ROOT / "data" / "bus" / datetime.now(KST).strftime("%Y-%m-%d")
+    out_dir = ROOT / "data" / "bus" / f"{as_of[:4]}-{as_of[4:6]}-{as_of[6:]}"     # 폴더 = 목록의 기준일
     out_dir.mkdir(parents=True, exist_ok=True)
     tiers(results)
     pool_codes = set()
@@ -602,8 +623,7 @@ def main():
                 elif r["tier"] == "신호":
                     r["tier_note"] = "발굴"    # 풀 밖 신호는 등급을 낮춰 참고로
     payload = {"source": "네이버 일봉 (비공식)", "as_of": as_of, "made_at": datetime.now(KST).isoformat(timespec="seconds"),
-               # 확정 = 오늘 봉이 굳은 뒤(20:05 이후) 또는 지난 거래일 기준으로 만든 목록. 그 전(16:07 예약)은 잠정 — 종가가 시간외 가격을 따라 아직 움직인다 (2026-11-24 사용자 확정: 20시 뒤 다시 판정)
-               "final": as_of < datetime.now(KST).strftime("%Y%m%d") or datetime.now(KST).strftime("%H%M") >= "2005",
+               "final": True,   # 굳은 봉으로만 만든다(위 cut). 옛 16:07 잠정 목록(final=false)은 2026-11-25에 없앰
                "rules": RULES, "count": len(results), "scope": "pool" if a.pool else "all", "pool_size": len(pool_codes),
                "signals": [r for r in results if r["tier"] == "신호"],
                # 참고 신호(매물대 돌파): 관문 통과(RS·시총·거래대금 필수) + 관찰 풀이거나 풀 밖이면 RS 조건 충족. 정식 신호와 겹치면 정식 쪽에만.

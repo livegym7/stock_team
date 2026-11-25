@@ -23,7 +23,7 @@ on:
     - cron: "20 1 * * 1-5"      # 평일 10:20
     - cron: "20 3 * * 1-5"      # 평일 12:20
     - cron: "20 6 * * 1-5"      # 평일 15:20
-    - cron: "40 7 * * 1-5"      # 평일 16:40 (마감 확정 · 감시 목록 16:07 뒤)
+    - cron: "40 7 * * 1-5"      # 평일 16:40 (정규장 마감 뒤)
     - cron: "20 9 * * 1-5"      # 평일 18:20 (18시 체크포인트 뒤)
     - cron: "10 12 * * 1-5"     # 평일 21:10 (리포트 카드 18:40 · 종목 메모 20:10 · 깊이 읽기 20:15 뒤)
     - cron: "30 1 * * 6"        # 토 10:30 (전략 보고서 뒤)
@@ -76,16 +76,14 @@ jobs:
           # 수급 오실레이터 (2026-11-13): 외국인·기관 순매수 받기 — 회차마다 4분 안에서 오래된 것부터(처음 채우기는 몇 회차에 나눠), 19시 회차가 저녁 확정치로 갱신
           timeout 300 python3 tools/flow_osc.py update --budget 240 || true
           timeout 150 python3 tools/stock_profile.py update --budget 100 || true   # 기본 카드: 새 상장·60일 지난 기업 개요만 (보통 몇 초)
-          # 감시 목록 확정 (2026-11-24 사용자 확정): 네이버 일봉의 오늘 종가는 20시(시간외·대체거래소 마감)에 굳는다 → 16:07 목록은 잠정,
-          # 평일 21시 회차가 굳은 값으로 다시 판정해 저장소에 올린다(토큰 0). GITHUB_TOKEN 푸시는 배포를 다시 부르지 않는다
-          if [ "$H" = "21" ] && [ "$(TZ=Asia/Seoul date +%u)" -le 5 ] && [ "${{ github.event_name }}" = "schedule" ]; then
-            D=$(TZ=Asia/Seoul date +%F)
-            if timeout 600 python3 tools/screener.py --pool > /dev/null; then
-              for f in data/bus/$D data/radar/latest.json reports/$D/watchlist.html reports/$D/watchlist.png; do [ -e "$f" ] && git add "$f"; done
-              if ! git diff --cached --quiet; then
-                git -c user.name="balance-lab-bot" -c user.email="bot@users.noreply.github.com" commit -qm "감시 목록 $D 확정 (20시 마감 가격으로 다시 판정)" || true
-                git push -q origin HEAD:main || { git stash -q; git pull -q --rebase origin main && git push -q origin HEAD:main; git stash pop -q; } || echo "확정 목록 푸시 실패"
-              fi
+          # 감시 목록 확정 (2026-11-24 · 11-25 사용자 확정): 감시 목록은 굳은 봉(20시 마감 가격)으로만 만든다 — 16:07 잠정 목록은 없앰.
+          # 회차마다 '마지막 확정 거래일의 목록이 있는가'만 확인하고(--ensure, 있으면 몇 초), 없으면 만들어 저장소에 올린다(토큰 0).
+          # 평일 21:10 회차가 보통 만들고, 그 회차가 늦거나 빠지면 다음 회차가 대신 만든다. GITHUB_TOKEN 푸시는 배포를 다시 부르지 않는다
+          if timeout 900 python3 tools/screener.py --pool --ensure > /dev/null; then
+            for f in data/bus data/radar/latest.json; do [ -e "$f" ] && git add "$f"; done
+            if ! git diff --cached --quiet; then
+              git -c user.name="balance-lab-bot" -c user.email="bot@users.noreply.github.com" commit -qm "감시 목록 확정 (20시 마감 가격 기준)" || true
+              git push -q origin HEAD:main || { git stash -q; git pull -q --rebase origin main && git push -q origin HEAD:main; git stash pop -q; } || echo "확정 목록 푸시 실패"
             fi
           fi
           timeout 120 python3 tools/backtest.py --scorecard > /dev/null || true   # 감시 목록 성적표 + '실제 신호 30건' 세기 (2026-11-20, 11/5 이후 멈춰 있던 것)

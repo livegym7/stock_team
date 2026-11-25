@@ -48,7 +48,7 @@ def prep(slot):
         o["account"] = {k: ev.get(k) for k in ("CR_pct", "CR_limit_pct", "E_pct", "room_for_new_risk_won")}
     except Exception as e:
         o["holdings_error"] = type(e).__name__
-    try:   # 관찰 풀 기준가 근접 (전날 16:07 감시 목록 기준)
+    try:   # 관찰 풀 기준가 근접 (마지막 확정 감시 목록 기준)
         import glob
         fs = sorted(glob.glob(str(ROOT / "data" / "bus" / "*" / "screener.json")))
         w = json.loads(Path(fs[-1]).read_text(encoding="utf-8")) if fs else {}

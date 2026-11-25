@@ -99,6 +99,99 @@
    "missing": [],
    "tier": "신호",
    "pool": true
+  },
+  {
+   "stock": "원익홀딩스",
+   "code": "030530",
+   "market": "KOSDAQ",
+   "sector": "반도체 장비",
+   "group": "반도체 장비",
+   "ia": "동반 상승",
+   "ia_up_share": 69,
+   "ia_median": 3.0,
+   "close": 35450.0,
+   "date": "20261118",
+   "rs": 95,
+   "value20_eok": 1189,
+   "off_high_pct": -29.9,
+   "vol50": 2895721,
+   "checks": {
+    "정배열(일봉)": true,
+    "정배열(주봉)": true,
+    "RS": true,
+    "고점 위치": true,
+    "시총": true,
+    "거래대금": true,
+    "1stage 상승": true
+   },
+   "gate_score": 7,
+   "gate_miss": [],
+   "gate_strict": true,
+   "gate_pass": true,
+   "setups": [],
+   "run_pct": null,
+   "base": {
+    "pivot": 37300,
+    "pivot_date": "20260504",
+    "days": 133,
+    "low": 13210,
+    "depth_pct": 64.6,
+    "stage1_pct": 819,
+    "giveback_pct": 72,
+    "pullbacks": [
+     36.2,
+     37.4,
+     39.8,
+     26.9,
+     28.0,
+     32.2,
+     13.9,
+     12.3,
+     16.1,
+     31.9,
+     14.0,
+     19.6,
+     14.5,
+     33.5,
+     12.7,
+     32.0
+    ],
+    "vol_dryup": 1.35,
+    "is_52w_high": false
+   },
+   "today": [
+    "돌파",
+    "H",
+    "55일 신고가"
+   ],
+   "vol_ratio": 3.5,
+   "stage": "2stage 조정 중",
+   "levels": {
+    "breakout": 37300,
+    "alert": 36554,
+    "stop_1r": 34316,
+    "distance_pct": 5.2
+   },
+   "overhead_zone": [
+    27231,
+    36579
+   ],
+   "max_zone": {
+    "top": 29005,
+    "pct": 25
+   },
+   "missing": [
+    "조정이 깊음(상승분 72% 반납)"
+   ],
+   "tier": "신호",
+   "pool": true,
+   "broke": {
+    "pivot": 34500,
+    "setups": [
+     "A"
+    ]
+   },
+   "tier_fix": "2026-11-25 판정 바로잡음(돌파한 날의 셋업은 어제까지의 모양)"
   }
  ],
  "candidates": [
@@ -443,92 +536,6 @@
    ],
    "tier": "후보",
    "pool": false
-  },
-  {
-   "stock": "원익홀딩스",
-   "code": "030530",
-   "market": "KOSDAQ",
-   "sector": "반도체 장비",
-   "group": "반도체 장비",
-   "ia": "동반 상승",
-   "ia_up_share": 69,
-   "ia_median": 3.0,
-   "close": 35450.0,
-   "date": "20261118",
-   "rs": 95,
-   "value20_eok": 1189,
-   "off_high_pct": -29.9,
-   "vol50": 2895721,
-   "checks": {
-    "정배열(일봉)": true,
-    "정배열(주봉)": true,
-    "RS": true,
-    "고점 위치": true,
-    "시총": true,
-    "거래대금": true,
-    "1stage 상승": true
-   },
-   "gate_score": 7,
-   "gate_miss": [],
-   "gate_strict": true,
-   "gate_pass": true,
-   "setups": [],
-   "run_pct": null,
-   "base": {
-    "pivot": 37300,
-    "pivot_date": "20260504",
-    "days": 133,
-    "low": 13210,
-    "depth_pct": 64.6,
-    "stage1_pct": 819,
-    "giveback_pct": 72,
-    "pullbacks": [
-     36.2,
-     37.4,
-     39.8,
-     26.9,
-     28.0,
-     32.2,
-     13.9,
-     12.3,
-     16.1,
-     31.9,
-     14.0,
-     19.6,
-     14.5,
-     33.5,
-     12.7,
-     32.0
-    ],
-    "vol_dryup": 1.35,
-    "is_52w_high": false
-   },
-   "today": [
-    "돌파",
-    "H",
-    "55일 신고가"
-   ],
-   "vol_ratio": 3.5,
-   "stage": "2stage 조정 중",
-   "levels": {
-    "breakout": 37300,
-    "alert": 36554,
-    "stop_1r": 34316,
-    "distance_pct": 5.2
-   },
-   "overhead_zone": [
-    27231,
-    36579
-   ],
-   "max_zone": {
-    "top": 29005,
-    "pct": 25
-   },
-   "missing": [
-    "조정이 깊음(상승분 72% 반납)"
-   ],
-   "tier": "후보",
-   "pool": true
   },
   {
    "stock": "삼현",
@@ -3377,8 +3384,15 @@
    "missing": [
     "조정이 깊음(상승분 72% 반납)"
    ],
-   "tier": "후보",
-   "pool": true
+   "tier": "신호",
+   "pool": true,
+   "broke": {
+    "pivot": 34500,
+    "setups": [
+     "A"
+    ]
+   },
+   "tier_fix": "2026-11-25 판정 바로잡음(돌파한 날의 셋업은 어제까지의 모양)"
   },
   {
    "stock": "프로티나",

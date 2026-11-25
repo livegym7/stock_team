@@ -1,7 +1,7 @@
 {
  "source": "네이버 일봉 (비공식)",
  "as_of": "20261124",
- "made_at": "2026-11-24T22:12:27+09:00",
+ "made_at": "2026-11-25T17:57:24+09:00",
  "final": true,
  "rules": {
   "min_mcap_eok": 2000,
@@ -30,7 +30,76 @@
  "count": 762,
  "scope": "pool",
  "pool_size": 16,
- "signals": [],
+ "signals": [
+  {
+   "stock": "심텍홀딩스",
+   "code": "036710",
+   "market": "KOSDAQ",
+   "sector": "반도체 기판·전자부품",
+   "group": "반도체 기판·전자부품",
+   "ia": "동반 상승",
+   "ia_up_share": 40,
+   "ia_median": 0.7,
+   "close": 6290.0,
+   "date": "20261124",
+   "rs": 96,
+   "value20_eok": 103,
+   "off_high_pct": -7.5,
+   "vol50": 1006374,
+   "checks": {
+    "정배열(일봉)": true,
+    "정배열(주봉)": true,
+    "RS": true,
+    "고점 위치": true,
+    "시총": true,
+    "거래대금": true,
+    "1stage 상승": true
+   },
+   "gate_score": 7,
+   "gate_miss": [],
+   "gate_strict": true,
+   "gate_pass": true,
+   "setups": [],
+   "run_pct": 210,
+   "base": null,
+   "today": [
+    "돌파",
+    "H",
+    "55일 신고가",
+    "매물대 돌파"
+   ],
+   "vol_ratio": 3.65,
+   "stage": "1stage 진행 중",
+   "broke": {
+    "pivot": 6270,
+    "setups": [
+     "A"
+    ],
+    "base": {
+     "pivot": 6270,
+     "pivot_date": "20261113",
+     "days": 6,
+     "low": 5240,
+     "depth_pct": 16.4,
+     "stage1_pct": 209,
+     "giveback_pct": 24,
+     "pullbacks": [
+      16.4
+     ],
+     "vol_dryup": 3.2,
+     "is_52w_high": false
+    }
+   },
+   "max_zone": {
+    "top": 5846,
+    "pct": 34
+   },
+   "missing": [],
+   "tier": "신호",
+   "pool": false,
+   "tier_note": "발굴"
+  }
+ ],
  "zone_signals": [
   {
    "stock": "삼현",
@@ -104,55 +173,6 @@
    },
    "missing": [
     "조정이 깊음(상승분 73% 반납)"
-   ],
-   "tier": "후보",
-   "pool": false
-  },
-  {
-   "stock": "심텍홀딩스",
-   "code": "036710",
-   "market": "KOSDAQ",
-   "sector": "반도체 기판·전자부품",
-   "group": "반도체 기판·전자부품",
-   "ia": "동반 상승",
-   "ia_up_share": 40,
-   "ia_median": 0.7,
-   "close": 6290.0,
-   "date": "20261124",
-   "rs": 96,
-   "value20_eok": 103,
-   "off_high_pct": -7.5,
-   "vol50": 1006374,
-   "checks": {
-    "정배열(일봉)": true,
-    "정배열(주봉)": true,
-    "RS": true,
-    "고점 위치": true,
-    "시총": true,
-    "거래대금": true,
-    "1stage 상승": true
-   },
-   "gate_score": 7,
-   "gate_miss": [],
-   "gate_strict": true,
-   "gate_pass": true,
-   "setups": [],
-   "run_pct": 210,
-   "base": null,
-   "today": [
-    "돌파",
-    "H",
-    "55일 신고가",
-    "매물대 돌파"
-   ],
-   "vol_ratio": 3.65,
-   "stage": "1stage 진행 중",
-   "max_zone": {
-    "top": 5846,
-    "pct": 34
-   },
-   "missing": [
-    "조정 구간 없음(1stage 진행 중)"
    ],
    "tier": "후보",
    "pool": false
@@ -378,55 +398,6 @@
    "pool": false
   },
   {
-   "stock": "심텍홀딩스",
-   "code": "036710",
-   "market": "KOSDAQ",
-   "sector": "반도체 기판·전자부품",
-   "group": "반도체 기판·전자부품",
-   "ia": "동반 상승",
-   "ia_up_share": 40,
-   "ia_median": 0.7,
-   "close": 6290.0,
-   "date": "20261124",
-   "rs": 96,
-   "value20_eok": 103,
-   "off_high_pct": -7.5,
-   "vol50": 1006374,
-   "checks": {
-    "정배열(일봉)": true,
-    "정배열(주봉)": true,
-    "RS": true,
-    "고점 위치": true,
-    "시총": true,
-    "거래대금": true,
-    "1stage 상승": true
-   },
-   "gate_score": 7,
-   "gate_miss": [],
-   "gate_strict": true,
-   "gate_pass": true,
-   "setups": [],
-   "run_pct": 210,
-   "base": null,
-   "today": [
-    "돌파",
-    "H",
-    "55일 신고가",
-    "매물대 돌파"
-   ],
-   "vol_ratio": 3.65,
-   "stage": "1stage 진행 중",
-   "max_zone": {
-    "top": 5846,
-    "pct": 34
-   },
-   "missing": [
-    "조정 구간 없음(1stage 진행 중)"
-   ],
-   "tier": "후보",
-   "pool": false
-  },
-  {
    "stock": "인피니트헬스케어",
    "code": "071200",
    "market": "KOSDAQ",
@@ -434,7 +405,7 @@
    "group": "헬스케어",
    "ia": "나 홀로",
    "ia_up_share": 39,
-   "ia_median": 0.8,
+   "ia_median": 1.0,
    "close": 11410.0,
    "date": "20261124",
    "rs": 95,
@@ -724,7 +695,7 @@
    "group": "IT/소프트웨어",
    "ia": "나 홀로",
    "ia_up_share": 28,
-   "ia_median": 1.0,
+   "ia_median": 1.1,
    "close": 172200.0,
    "date": "20261124",
    "rs": 95,
@@ -802,7 +773,7 @@
    "group": "IT/소프트웨어",
    "ia": "나 홀로",
    "ia_up_share": 28,
-   "ia_median": 1.0,
+   "ia_median": 1.1,
    "close": 48850.0,
    "date": "20261124",
    "rs": 94,
@@ -1700,7 +1671,7 @@
    "group": "헬스케어",
    "ia": "나 홀로",
    "ia_up_share": 39,
-   "ia_median": 0.8,
+   "ia_median": 1.0,
    "close": 26300.0,
    "date": "20261124",
    "rs": 86,
@@ -1973,15 +1944,34 @@
    ],
    "vol_ratio": 3.65,
    "stage": "1stage 진행 중",
+   "broke": {
+    "pivot": 6270,
+    "setups": [
+     "A"
+    ],
+    "base": {
+     "pivot": 6270,
+     "pivot_date": "20261113",
+     "days": 6,
+     "low": 5240,
+     "depth_pct": 16.4,
+     "stage1_pct": 209,
+     "giveback_pct": 24,
+     "pullbacks": [
+      16.4
+     ],
+     "vol_dryup": 3.2,
+     "is_52w_high": false
+    }
+   },
    "max_zone": {
     "top": 5846,
     "pct": 34
    },
-   "missing": [
-    "조정 구간 없음(1stage 진행 중)"
-   ],
-   "tier": "후보",
-   "pool": false
+   "missing": [],
+   "tier": "신호",
+   "pool": false,
+   "tier_note": "발굴"
   },
   {
    "stock": "나무가",
@@ -2133,9 +2123,9 @@
    "close": 57900.0,
    "date": "20261124",
    "rs": 95,
-   "value20_eok": 1772,
+   "value20_eok": 1773,
    "off_high_pct": -17.6,
-   "vol50": 2700261,
+   "vol50": 2700476,
    "checks": {
     "정배열(일봉)": false,
     "정배열(주봉)": true,
@@ -2553,13 +2543,13 @@
    "group": "헬스케어",
    "ia": "동반 상승",
    "ia_up_share": 43,
-   "ia_median": 1.2,
+   "ia_median": 1.4,
    "close": 15590.0,
    "date": "20261124",
    "rs": 93,
-   "value20_eok": 386,
+   "value20_eok": 387,
    "off_high_pct": -36.5,
-   "vol50": 1779216,
+   "vol50": 1779423,
    "checks": {
     "정배열(일봉)": true,
     "정배열(주봉)": true,
@@ -2667,7 +2657,7 @@
    "group": "IT/소프트웨어",
    "ia": "나 홀로",
    "ia_up_share": 28,
-   "ia_median": 1.0,
+   "ia_median": 1.1,
    "close": 34500.0,
    "date": "20261124",
    "rs": 98,
@@ -2830,15 +2820,34 @@
    ],
    "vol_ratio": 3.65,
    "stage": "1stage 진행 중",
+   "broke": {
+    "pivot": 6270,
+    "setups": [
+     "A"
+    ],
+    "base": {
+     "pivot": 6270,
+     "pivot_date": "20261113",
+     "days": 6,
+     "low": 5240,
+     "depth_pct": 16.4,
+     "stage1_pct": 209,
+     "giveback_pct": 24,
+     "pullbacks": [
+      16.4
+     ],
+     "vol_dryup": 3.2,
+     "is_52w_high": false
+    }
+   },
    "max_zone": {
     "top": 5846,
     "pct": 34
    },
-   "missing": [
-    "조정 구간 없음(1stage 진행 중)"
-   ],
-   "tier": "후보",
-   "pool": false
+   "missing": [],
+   "tier": "신호",
+   "pool": false,
+   "tier_note": "발굴"
   },
   {
    "stock": "롯데렌탈",
@@ -3227,7 +3236,7 @@
    "group": "헬스케어",
    "ia": "나 홀로",
    "ia_up_share": 39,
-   "ia_median": 0.8,
+   "ia_median": 1.0,
    "close": 11410.0,
    "date": "20261124",
    "rs": 95,
@@ -3611,7 +3620,7 @@
    "group": "IT/소프트웨어",
    "ia": "나 홀로",
    "ia_up_share": 28,
-   "ia_median": 1.0,
+   "ia_median": 1.1,
    "close": 5300.0,
    "date": "20261124",
    "rs": 81,

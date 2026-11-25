@@ -1,6 +1,18 @@
 {
  "signals": [
   {
+   "day": "20261124",
+   "stock": "심텍홀딩스",
+   "code": "036710",
+   "setups": []
+  },
+  {
+   "day": "20261118",
+   "stock": "원익홀딩스",
+   "code": "030530",
+   "setups": []
+  },
+  {
    "day": "20261118",
    "stock": "안랩",
    "code": "053800",
@@ -35,12 +47,193 @@
    "setups": []
   }
  ],
- "signals_n": 5,
+ "signals_n": 7,
  "signals_target": 30,
  "signals_since": "2026-11-03",
- "made_at": "2026-11-23 17:18",
- "lists": 13,
+ "made_at": "2026-11-25 18:01",
+ "lists": 14,
  "rows": [
+  {
+   "list_day": "20261124",
+   "stock": "루닛",
+   "code": "328130",
+   "pivot": 17570,
+   "setups": [
+    "A"
+   ],
+   "days_after": 1,
+   "broke": false,
+   "max_up_pct": 9.7,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261124",
+   "stock": "아모레퍼시픽",
+   "code": "090430",
+   "pivot": 152500,
+   "setups": [
+    "A",
+    "C"
+   ],
+   "days_after": 1,
+   "broke": false,
+   "max_up_pct": 7.9,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261124",
+   "stock": "코스맥스",
+   "code": "192820",
+   "pivot": 320000,
+   "setups": [
+    "A"
+   ],
+   "days_after": 1,
+   "broke": true,
+   "break_day": "20261125",
+   "entry": 322500.0,
+   "result_r": -0.03,
+   "how": "보유 중(평가)"
+  },
+  {
+   "list_day": "20261124",
+   "stock": "한미사이언스",
+   "code": "008930",
+   "pivot": 60400,
+   "setups": [
+    "A"
+   ],
+   "days_after": 1,
+   "broke": false,
+   "max_up_pct": 5.8,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261124",
+   "stock": "셀트리온",
+   "code": "068270",
+   "pivot": 219000,
+   "setups": [
+    "A"
+   ],
+   "days_after": 1,
+   "broke": false,
+   "max_up_pct": 4.8,
+   "low_vs_stop": false
+  },
+  {
+   "list_day": "20261124",
+   "stock": "안랩",
+   "code": "053800",
+   "pivot": 137300,
+   "setups": [
+    "A"
+   ],
+   "days_after": 1,
+   "broke": true,
+   "break_day": "20261125",
+   "entry": 157900.0,
+   "result_r": -0.03,
+   "how": "보유 중(평가)"
+  },
+  {
+   "list_day": "20261124",
+   "stock": "삼성E&A",
+   "code": "028050",
+   "pivot": 70300,
+   "setups": [
+    "A"
+   ],
+   "days_after": 1,
+   "broke": false,
+   "max_up_pct": 3.8,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261124",
+   "stock": "한진",
+   "code": "002320",
+   "pivot": 22300,
+   "setups": [
+    "A"
+   ],
+   "days_after": 1,
+   "broke": false,
+   "max_up_pct": 6.9,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261124",
+   "stock": "나무가",
+   "code": "190510",
+   "pivot": 19300,
+   "setups": [
+    "A"
+   ],
+   "days_after": 1,
+   "broke": false,
+   "max_up_pct": 6.5,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261124",
+   "stock": "나노신소재",
+   "code": "121600",
+   "pivot": 78000,
+   "setups": [
+    "A"
+   ],
+   "days_after": 1,
+   "broke": false,
+   "max_up_pct": 3.8,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261124",
+   "stock": "삼현",
+   "code": "437730",
+   "pivot": 66700,
+   "setups": [],
+   "days_after": 1,
+   "broke": false,
+   "max_up_pct": 6.8,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261123",
+   "stock": "디케이티",
+   "code": "290550",
+   "pivot": 34950,
+   "setups": [],
+   "days_after": 2,
+   "broke": false,
+   "max_up_pct": 10.5,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261123",
+   "stock": "한진",
+   "code": "002320",
+   "pivot": 22300,
+   "setups": [
+    "A"
+   ],
+   "days_after": 2,
+   "broke": false,
+   "max_up_pct": 15.5,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261123",
+   "stock": "삼현",
+   "code": "437730",
+   "pivot": 60300,
+   "setups": [],
+   "days_after": 2,
+   "broke": false,
+   "max_up_pct": 19.3,
+   "low_vs_stop": false
+  },
   {
    "list_day": "20261123",
    "stock": "안랩",
@@ -49,47 +242,12 @@
    "setups": [
     "A"
    ],
-   "days_after": 0,
-   "broke": false,
-   "max_up_pct": 0.0,
-   "low_vs_stop": false
-  },
-  {
-   "list_day": "20261123",
-   "stock": "디케이티",
-   "code": "290550",
-   "pivot": 34950,
-   "setups": [],
-   "days_after": 0,
-   "broke": false,
-   "max_up_pct": 0.0,
-   "low_vs_stop": false
-  },
-  {
-   "list_day": "20261123",
-   "stock": "루닛",
-   "code": "328130",
-   "pivot": 17570,
-   "setups": [
-    "A"
-   ],
-   "days_after": 0,
-   "broke": false,
-   "max_up_pct": 0.0,
-   "low_vs_stop": false
-  },
-  {
-   "list_day": "20261123",
-   "stock": "코스맥스",
-   "code": "192820",
-   "pivot": 320000,
-   "setups": [
-    "A"
-   ],
-   "days_after": 0,
-   "broke": false,
-   "max_up_pct": 0.0,
-   "low_vs_stop": false
+   "days_after": 2,
+   "broke": true,
+   "break_day": "20261125",
+   "entry": 157900.0,
+   "result_r": -0.03,
+   "how": "보유 중(평가)"
   },
   {
    "list_day": "20261123",
@@ -100,23 +258,25 @@
     "A",
     "C"
    ],
-   "days_after": 0,
+   "days_after": 2,
    "broke": false,
-   "max_up_pct": 0.0,
-   "low_vs_stop": false
+   "max_up_pct": 10.7,
+   "low_vs_stop": true
   },
   {
    "list_day": "20261123",
-   "stock": "프로티나",
-   "code": "468530",
-   "pivot": 62800,
+   "stock": "코스맥스",
+   "code": "192820",
+   "pivot": 320000,
    "setups": [
     "A"
    ],
-   "days_after": 0,
-   "broke": false,
-   "max_up_pct": 0.0,
-   "low_vs_stop": false
+   "days_after": 2,
+   "broke": true,
+   "break_day": "20261125",
+   "entry": 322500.0,
+   "result_r": -0.03,
+   "how": "보유 중(평가)"
   },
   {
    "list_day": "20261123",
@@ -126,23 +286,38 @@
    "setups": [
     "A"
    ],
-   "days_after": 0,
+   "days_after": 2,
    "broke": false,
-   "max_up_pct": 0.0,
-   "low_vs_stop": false
+   "max_up_pct": 8.5,
+   "low_vs_stop": true
   },
   {
    "list_day": "20261123",
-   "stock": "한진",
-   "code": "002320",
-   "pivot": 22300,
+   "stock": "프로티나",
+   "code": "468530",
+   "pivot": 62800,
    "setups": [
     "A"
    ],
-   "days_after": 0,
+   "days_after": 2,
+   "broke": true,
+   "break_day": "20261125",
+   "entry": 65100.0,
+   "result_r": -0.03,
+   "how": "보유 중(평가)"
+  },
+  {
+   "list_day": "20261123",
+   "stock": "루닛",
+   "code": "328130",
+   "pivot": 17570,
+   "setups": [
+    "A"
+   ],
+   "days_after": 2,
    "broke": false,
-   "max_up_pct": 0.0,
-   "low_vs_stop": false
+   "max_up_pct": 8.1,
+   "low_vs_stop": true
   },
   {
    "list_day": "20261120",
@@ -152,10 +327,12 @@
    "setups": [
     "A"
    ],
-   "days_after": 1,
-   "broke": false,
-   "max_up_pct": 6.8,
-   "low_vs_stop": true
+   "days_after": 3,
+   "broke": true,
+   "break_day": "20261125",
+   "entry": 65100.0,
+   "result_r": -0.03,
+   "how": "보유 중(평가)"
   },
   {
    "list_day": "20261120",
@@ -165,9 +342,9 @@
    "setups": [
     "A"
    ],
-   "days_after": 1,
+   "days_after": 3,
    "broke": false,
-   "max_up_pct": 0.9,
+   "max_up_pct": 7.3,
    "low_vs_stop": true
   },
   {
@@ -178,10 +355,12 @@
    "setups": [
     "A"
    ],
-   "days_after": 1,
-   "broke": false,
-   "max_up_pct": 4.3,
-   "low_vs_stop": true
+   "days_after": 3,
+   "broke": true,
+   "break_day": "20261125",
+   "entry": 322500.0,
+   "result_r": -0.03,
+   "how": "보유 중(평가)"
   },
   {
    "list_day": "20261120",
@@ -191,9 +370,9 @@
    "setups": [
     "A"
    ],
-   "days_after": 1,
+   "days_after": 3,
    "broke": false,
-   "max_up_pct": 0.0,
+   "max_up_pct": 6.0,
    "low_vs_stop": true
   },
   {
@@ -204,9 +383,9 @@
    "setups": [
     "A"
    ],
-   "days_after": 1,
+   "days_after": 3,
    "broke": false,
-   "max_up_pct": 11.0,
+   "max_up_pct": 20.6,
    "low_vs_stop": true
   },
   {
@@ -217,10 +396,12 @@
    "setups": [
     "A"
    ],
-   "days_after": 1,
-   "broke": false,
-   "max_up_pct": 6.3,
-   "low_vs_stop": true
+   "days_after": 3,
+   "broke": true,
+   "break_day": "20261125",
+   "entry": 157900.0,
+   "result_r": -0.03,
+   "how": "보유 중(평가)"
   },
   {
    "list_day": "20261120",
@@ -230,7 +411,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 1,
+   "days_after": 3,
    "broke": false,
    "max_up_pct": 0.0,
    "low_vs_stop": true
@@ -243,7 +424,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 1,
+   "days_after": 3,
    "broke": false,
    "max_up_pct": 0.8,
    "low_vs_stop": true
@@ -256,9 +437,9 @@
    "setups": [
     "A"
    ],
-   "days_after": 1,
+   "days_after": 3,
    "broke": false,
-   "max_up_pct": 1.2,
+   "max_up_pct": 5.9,
    "low_vs_stop": true
   },
   {
@@ -269,10 +450,12 @@
    "setups": [
     "A"
    ],
-   "days_after": 2,
-   "broke": false,
-   "max_up_pct": 4.3,
-   "low_vs_stop": true
+   "days_after": 4,
+   "broke": true,
+   "break_day": "20261125",
+   "entry": 65100.0,
+   "result_r": -0.03,
+   "how": "보유 중(평가)"
   },
   {
    "list_day": "20261119",
@@ -282,9 +465,9 @@
    "setups": [
     "A"
    ],
-   "days_after": 2,
+   "days_after": 4,
    "broke": false,
-   "max_up_pct": -0.4,
+   "max_up_pct": 7.1,
    "low_vs_stop": true
   },
   {
@@ -295,9 +478,9 @@
    "setups": [
     "A"
    ],
-   "days_after": 2,
+   "days_after": 4,
    "broke": false,
-   "max_up_pct": 2.6,
+   "max_up_pct": 6.3,
    "low_vs_stop": true
   },
   {
@@ -308,10 +491,12 @@
    "setups": [
     "A"
    ],
-   "days_after": 2,
-   "broke": false,
-   "max_up_pct": 2.1,
-   "low_vs_stop": true
+   "days_after": 4,
+   "broke": true,
+   "break_day": "20261125",
+   "entry": 322500.0,
+   "result_r": -0.03,
+   "how": "보유 중(평가)"
   },
   {
    "list_day": "20261119",
@@ -321,9 +506,9 @@
    "setups": [
     "A"
    ],
-   "days_after": 2,
+   "days_after": 4,
    "broke": false,
-   "max_up_pct": -4.8,
+   "max_up_pct": 0.5,
    "low_vs_stop": true
   },
   {
@@ -334,9 +519,9 @@
    "setups": [
     "A"
    ],
-   "days_after": 2,
+   "days_after": 4,
    "broke": false,
-   "max_up_pct": 6.3,
+   "max_up_pct": 7.2,
    "low_vs_stop": true
   },
   {
@@ -345,9 +530,9 @@
    "code": "086450",
    "pivot": 31250,
    "setups": [],
-   "days_after": 2,
+   "days_after": 4,
    "broke": false,
-   "max_up_pct": 0.0,
+   "max_up_pct": 0.2,
    "low_vs_stop": true
   },
   {
@@ -358,9 +543,9 @@
    "setups": [
     "A"
    ],
-   "days_after": 2,
+   "days_after": 4,
    "broke": false,
-   "max_up_pct": 14.7,
+   "max_up_pct": 16.1,
    "low_vs_stop": true
   },
   {
@@ -369,9 +554,9 @@
    "code": "290550",
    "pivot": 34950,
    "setups": [],
-   "days_after": 2,
+   "days_after": 4,
    "broke": false,
-   "max_up_pct": 5.5,
+   "max_up_pct": 14.8,
    "low_vs_stop": true
   },
   {
@@ -382,10 +567,12 @@
    "setups": [
     "A"
    ],
-   "days_after": 2,
-   "broke": false,
-   "max_up_pct": 1.5,
-   "low_vs_stop": true
+   "days_after": 4,
+   "broke": true,
+   "break_day": "20261125",
+   "entry": 157900.0,
+   "result_r": -0.03,
+   "how": "보유 중(평가)"
   },
   {
    "list_day": "20261119",
@@ -395,7 +582,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 2,
+   "days_after": 4,
    "broke": false,
    "max_up_pct": -3.9,
    "low_vs_stop": true
@@ -408,7 +595,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 2,
+   "days_after": 4,
    "broke": false,
    "max_up_pct": 2.3,
    "low_vs_stop": true
@@ -421,10 +608,12 @@
    "setups": [
     "A"
    ],
-   "days_after": 3,
-   "broke": false,
-   "max_up_pct": 16.6,
-   "low_vs_stop": true
+   "days_after": 5,
+   "broke": true,
+   "break_day": "20261125",
+   "entry": 65100.0,
+   "result_r": -0.03,
+   "how": "보유 중(평가)"
   },
   {
    "list_day": "20261118",
@@ -432,9 +621,9 @@
    "code": "030530",
    "pivot": 37300,
    "setups": [],
-   "days_after": 3,
+   "days_after": 5,
    "broke": false,
-   "max_up_pct": 0.1,
+   "max_up_pct": 3.9,
    "low_vs_stop": true
   },
   {
@@ -445,9 +634,9 @@
    "setups": [
     "A"
    ],
-   "days_after": 3,
+   "days_after": 5,
    "broke": false,
-   "max_up_pct": -0.9,
+   "max_up_pct": 3.4,
    "low_vs_stop": true
   },
   {
@@ -458,10 +647,12 @@
    "setups": [
     "A"
    ],
-   "days_after": 3,
-   "broke": false,
-   "max_up_pct": 5.4,
-   "low_vs_stop": true
+   "days_after": 5,
+   "broke": true,
+   "break_day": "20261125",
+   "entry": 322500.0,
+   "result_r": -0.03,
+   "how": "보유 중(평가)"
   },
   {
    "list_day": "20261118",
@@ -471,9 +662,9 @@
    "setups": [
     "A"
    ],
-   "days_after": 3,
+   "days_after": 5,
    "broke": false,
-   "max_up_pct": 4.0,
+   "max_up_pct": 5.0,
    "low_vs_stop": true
   },
   {
@@ -484,7 +675,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 3,
+   "days_after": 5,
    "broke": true,
    "break_day": "20261119",
    "entry": 26600.0,
@@ -500,7 +691,7 @@
     "A",
     "E"
    ],
-   "days_after": 3,
+   "days_after": 5,
    "broke": false,
    "max_up_pct": 5.3,
    "low_vs_stop": true
@@ -513,9 +704,9 @@
    "setups": [
     "A"
    ],
-   "days_after": 3,
+   "days_after": 5,
    "broke": false,
-   "max_up_pct": 10.6,
+   "max_up_pct": 11.9,
    "low_vs_stop": true
   },
   {
@@ -524,9 +715,9 @@
    "code": "290550",
    "pivot": 34950,
    "setups": [],
-   "days_after": 3,
+   "days_after": 5,
    "broke": false,
-   "max_up_pct": 10.4,
+   "max_up_pct": 20.2,
    "low_vs_stop": true
   },
   {
@@ -537,10 +728,12 @@
    "setups": [
     "A"
    ],
-   "days_after": 3,
-   "broke": false,
-   "max_up_pct": 13.1,
-   "low_vs_stop": true
+   "days_after": 5,
+   "broke": true,
+   "break_day": "20261125",
+   "entry": 157900.0,
+   "result_r": -0.03,
+   "how": "보유 중(평가)"
   },
   {
    "list_day": "20261118",
@@ -550,7 +743,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 3,
+   "days_after": 5,
    "broke": false,
    "max_up_pct": 1.1,
    "low_vs_stop": true
@@ -561,9 +754,9 @@
    "code": "437730",
    "pivot": 60300,
    "setups": [],
-   "days_after": 3,
+   "days_after": 5,
    "broke": false,
-   "max_up_pct": 4.9,
+   "max_up_pct": 22.0,
    "low_vs_stop": true
   },
   {
@@ -574,7 +767,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 3,
+   "days_after": 5,
    "broke": false,
    "max_up_pct": 5.3,
    "low_vs_stop": true
@@ -587,9 +780,9 @@
    "setups": [
     "A"
    ],
-   "days_after": 3,
+   "days_after": 5,
    "broke": false,
-   "max_up_pct": 1.5,
+   "max_up_pct": 2.1,
    "low_vs_stop": true
   },
   {
@@ -600,7 +793,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 4,
+   "days_after": 6,
    "broke": true,
    "break_day": "20261118",
    "entry": 35800.0,
@@ -615,9 +808,9 @@
    "setups": [
     "A"
    ],
-   "days_after": 4,
+   "days_after": 6,
    "broke": false,
-   "max_up_pct": 10.4,
+   "max_up_pct": 12.3,
    "low_vs_stop": true
   },
   {
@@ -628,10 +821,12 @@
    "setups": [
     "A"
    ],
-   "days_after": 4,
-   "broke": false,
-   "max_up_pct": 7.6,
-   "low_vs_stop": true
+   "days_after": 6,
+   "broke": true,
+   "break_day": "20261125",
+   "entry": 322500.0,
+   "result_r": -0.03,
+   "how": "보유 중(평가)"
   },
   {
    "list_day": "20261117",
@@ -641,7 +836,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 4,
+   "days_after": 6,
    "broke": true,
    "break_day": "20261119",
    "entry": 26600.0,
@@ -657,7 +852,7 @@
     "A",
     "E"
    ],
-   "days_after": 4,
+   "days_after": 6,
    "broke": false,
    "max_up_pct": 3.3,
    "low_vs_stop": true
@@ -670,9 +865,9 @@
    "setups": [
     "A"
    ],
-   "days_after": 4,
+   "days_after": 6,
    "broke": false,
-   "max_up_pct": 15.0,
+   "max_up_pct": 16.4,
    "low_vs_stop": true
   },
   {
@@ -683,10 +878,12 @@
    "setups": [
     "A"
    ],
-   "days_after": 4,
-   "broke": false,
-   "max_up_pct": 17.3,
-   "low_vs_stop": true
+   "days_after": 6,
+   "broke": true,
+   "break_day": "20261125",
+   "entry": 157900.0,
+   "result_r": -0.03,
+   "how": "보유 중(평가)"
   },
   {
    "list_day": "20261117",
@@ -696,7 +893,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 4,
+   "days_after": 6,
    "broke": false,
    "max_up_pct": 4.7,
    "low_vs_stop": true
@@ -709,7 +906,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 5,
+   "days_after": 7,
    "broke": true,
    "break_day": "20261118",
    "entry": 35800.0,
@@ -724,9 +921,9 @@
    "setups": [
     "A"
    ],
-   "days_after": 5,
+   "days_after": 7,
    "broke": false,
-   "max_up_pct": -0.4,
+   "max_up_pct": 1.4,
    "low_vs_stop": true
   },
   {
@@ -737,10 +934,12 @@
    "setups": [
     "A"
    ],
-   "days_after": 5,
-   "broke": false,
-   "max_up_pct": 10.6,
-   "low_vs_stop": true
+   "days_after": 7,
+   "broke": true,
+   "break_day": "20261125",
+   "entry": 322500.0,
+   "result_r": -0.03,
+   "how": "보유 중(평가)"
   },
   {
    "list_day": "20261116",
@@ -751,7 +950,7 @@
     "A",
     "E"
    ],
-   "days_after": 5,
+   "days_after": 7,
    "broke": true,
    "break_day": "20261119",
    "entry": 58600.0,
@@ -766,10 +965,12 @@
    "setups": [
     "A"
    ],
-   "days_after": 5,
-   "broke": false,
-   "max_up_pct": 12.6,
-   "low_vs_stop": true
+   "days_after": 7,
+   "broke": true,
+   "break_day": "20261125",
+   "entry": 157900.0,
+   "result_r": -0.03,
+   "how": "보유 중(평가)"
   },
   {
    "list_day": "20261116",
@@ -779,7 +980,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 5,
+   "days_after": 7,
    "broke": false,
    "max_up_pct": 4.2,
    "low_vs_stop": true
@@ -792,7 +993,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 6,
+   "days_after": 8,
    "broke": false,
    "max_up_pct": 0.1,
    "low_vs_stop": true
@@ -805,7 +1006,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 6,
+   "days_after": 8,
    "broke": true,
    "break_day": "20261118",
    "entry": 35800.0,
@@ -820,7 +1021,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 6,
+   "days_after": 8,
    "broke": false,
    "max_up_pct": -1.1,
    "low_vs_stop": true
@@ -833,7 +1034,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 6,
+   "days_after": 8,
    "broke": false,
    "max_up_pct": 0.6,
    "low_vs_stop": true
@@ -846,7 +1047,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 6,
+   "days_after": 8,
    "broke": false,
    "max_up_pct": 0.9,
    "low_vs_stop": true
@@ -859,7 +1060,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 6,
+   "days_after": 8,
    "broke": false,
    "max_up_pct": 1.8,
    "low_vs_stop": true
@@ -872,10 +1073,12 @@
    "setups": [
     "A"
    ],
-   "days_after": 6,
-   "broke": false,
-   "max_up_pct": 11.8,
-   "low_vs_stop": true
+   "days_after": 8,
+   "broke": true,
+   "break_day": "20261125",
+   "entry": 322500.0,
+   "result_r": -0.03,
+   "how": "보유 중(평가)"
   },
   {
    "list_day": "20261113",
@@ -885,7 +1088,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 6,
+   "days_after": 8,
    "broke": true,
    "break_day": "20261119",
    "entry": 26600.0,
@@ -901,7 +1104,7 @@
     "A",
     "B"
    ],
-   "days_after": 6,
+   "days_after": 8,
    "broke": false,
    "max_up_pct": 2.6,
    "low_vs_stop": false
@@ -914,7 +1117,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 6,
+   "days_after": 8,
    "broke": false,
    "max_up_pct": 10.8,
    "low_vs_stop": true
@@ -929,7 +1132,7 @@
     "E",
     "F"
    ],
-   "days_after": 6,
+   "days_after": 8,
    "broke": true,
    "break_day": "20261119",
    "entry": 58600.0,
@@ -944,11 +1147,11 @@
    "setups": [
     "A"
    ],
-   "days_after": 6,
+   "days_after": 8,
    "broke": true,
    "break_day": "20261116",
    "entry": 102600.0,
-   "result_r": -0.0,
+   "result_r": 0.09,
    "how": "보유 중(평가)"
   },
   {
@@ -959,10 +1162,12 @@
    "setups": [
     "A"
    ],
-   "days_after": 6,
-   "broke": false,
-   "max_up_pct": 7.0,
-   "low_vs_stop": true
+   "days_after": 8,
+   "broke": true,
+   "break_day": "20261125",
+   "entry": 157900.0,
+   "result_r": -0.03,
+   "how": "보유 중(평가)"
   },
   {
    "list_day": "20261113",
@@ -972,7 +1177,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 6,
+   "days_after": 8,
    "broke": false,
    "max_up_pct": 3.6,
    "low_vs_stop": true
@@ -983,7 +1188,7 @@
    "code": "002990",
    "pivot": 15390,
    "setups": [],
-   "days_after": 6,
+   "days_after": 8,
    "broke": false,
    "max_up_pct": 12.4,
    "low_vs_stop": true
@@ -996,7 +1201,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 7,
+   "days_after": 9,
    "broke": true,
    "break_day": "20261113",
    "entry": 91900.0,
@@ -1011,7 +1216,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 7,
+   "days_after": 9,
    "broke": false,
    "max_up_pct": 6.1,
    "low_vs_stop": true
@@ -1024,7 +1229,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 7,
+   "days_after": 9,
    "broke": true,
    "break_day": "20261118",
    "entry": 35800.0,
@@ -1039,10 +1244,12 @@
    "setups": [
     "A"
    ],
-   "days_after": 7,
-   "broke": false,
-   "max_up_pct": 13.4,
-   "low_vs_stop": true
+   "days_after": 9,
+   "broke": true,
+   "break_day": "20261125",
+   "entry": 322500.0,
+   "result_r": -0.03,
+   "how": "보유 중(평가)"
   },
   {
    "list_day": "20261112",
@@ -1050,7 +1257,7 @@
    "code": "263860",
    "pivot": 35200,
    "setups": [],
-   "days_after": 7,
+   "days_after": 9,
    "broke": true,
    "break_day": "20261117",
    "entry": 36600.0,
@@ -1065,10 +1272,12 @@
    "setups": [
     "A"
    ],
-   "days_after": 7,
-   "broke": false,
-   "max_up_pct": 6.4,
-   "low_vs_stop": true
+   "days_after": 9,
+   "broke": true,
+   "break_day": "20261125",
+   "entry": 157900.0,
+   "result_r": -0.03,
+   "how": "보유 중(평가)"
   },
   {
    "list_day": "20261112",
@@ -1078,11 +1287,11 @@
    "setups": [
     "A"
    ],
-   "days_after": 7,
+   "days_after": 9,
    "broke": true,
    "break_day": "20261116",
    "entry": 102600.0,
-   "result_r": -0.0,
+   "result_r": 0.09,
    "how": "보유 중(평가)"
   },
   {
@@ -1093,7 +1302,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 7,
+   "days_after": 9,
    "broke": true,
    "break_day": "20261119",
    "entry": 26600.0,
@@ -1109,7 +1318,7 @@
     "A",
     "B"
    ],
-   "days_after": 7,
+   "days_after": 9,
    "broke": false,
    "max_up_pct": 4.8,
    "low_vs_stop": false
@@ -1120,7 +1329,7 @@
    "code": "253590",
    "pivot": 18960,
    "setups": [],
-   "days_after": 8,
+   "days_after": 10,
    "broke": false,
    "max_up_pct": 9.6,
    "low_vs_stop": true
@@ -1133,7 +1342,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 8,
+   "days_after": 10,
    "broke": true,
    "break_day": "20261113",
    "entry": 91900.0,
@@ -1148,7 +1357,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 8,
+   "days_after": 10,
    "broke": false,
    "max_up_pct": 6.1,
    "low_vs_stop": true
@@ -1161,7 +1370,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 8,
+   "days_after": 10,
    "broke": false,
    "max_up_pct": 4.4,
    "low_vs_stop": true
@@ -1174,7 +1383,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 8,
+   "days_after": 10,
    "broke": true,
    "break_day": "20261118",
    "entry": 35800.0,
@@ -1187,7 +1396,7 @@
    "code": "121600",
    "pivot": 95300,
    "setups": [],
-   "days_after": 8,
+   "days_after": 10,
    "broke": false,
    "max_up_pct": 4.1,
    "low_vs_stop": true
@@ -1200,7 +1409,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 8,
+   "days_after": 10,
    "broke": false,
    "max_up_pct": 1.8,
    "low_vs_stop": true
@@ -1211,11 +1420,11 @@
    "code": "437730",
    "pivot": 52400,
    "setups": [],
-   "days_after": 8,
+   "days_after": 10,
    "broke": true,
    "break_day": "20261118",
    "entry": 53200.0,
-   "result_r": 0.23,
+   "result_r": 1.49,
    "how": "보유 중(평가)"
   },
   {
@@ -1226,7 +1435,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 8,
+   "days_after": 10,
    "broke": false,
    "max_up_pct": 5.2,
    "low_vs_stop": true
@@ -1237,7 +1446,7 @@
    "code": "263860",
    "pivot": 35200,
    "setups": [],
-   "days_after": 8,
+   "days_after": 10,
    "broke": true,
    "break_day": "20261117",
    "entry": 36600.0,
@@ -1252,10 +1461,12 @@
    "setups": [
     "A"
    ],
-   "days_after": 8,
-   "broke": false,
-   "max_up_pct": 4.5,
-   "low_vs_stop": true
+   "days_after": 10,
+   "broke": true,
+   "break_day": "20261125",
+   "entry": 157900.0,
+   "result_r": -0.03,
+   "how": "보유 중(평가)"
   },
   {
    "list_day": "20261111",
@@ -1265,7 +1476,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 8,
+   "days_after": 10,
    "broke": false,
    "max_up_pct": 9.2,
    "low_vs_stop": false
@@ -1278,7 +1489,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 8,
+   "days_after": 10,
    "broke": true,
    "break_day": "20261119",
    "entry": 26600.0,
@@ -1293,7 +1504,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 9,
+   "days_after": 11,
    "broke": true,
    "break_day": "20261113",
    "entry": 91900.0,
@@ -1308,7 +1519,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 9,
+   "days_after": 11,
    "broke": false,
    "max_up_pct": 3.3,
    "low_vs_stop": true
@@ -1321,7 +1532,7 @@
    "setups": [
     "E"
    ],
-   "days_after": 9,
+   "days_after": 11,
    "broke": true,
    "break_day": "20261111",
    "entry": 80300.0,
@@ -1336,7 +1547,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 9,
+   "days_after": 11,
    "broke": false,
    "max_up_pct": 4.1,
    "low_vs_stop": true
@@ -1347,7 +1558,7 @@
    "code": "263860",
    "pivot": 35200,
    "setups": [],
-   "days_after": 9,
+   "days_after": 11,
    "broke": true,
    "break_day": "20261117",
    "entry": 36600.0,
@@ -1362,10 +1573,12 @@
    "setups": [
     "A"
    ],
-   "days_after": 9,
-   "broke": false,
-   "max_up_pct": 19.1,
-   "low_vs_stop": true
+   "days_after": 11,
+   "broke": true,
+   "break_day": "20261125",
+   "entry": 157900.0,
+   "result_r": -0.03,
+   "how": "보유 중(평가)"
   },
   {
    "list_day": "20261110",
@@ -1375,7 +1588,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 9,
+   "days_after": 11,
    "broke": false,
    "max_up_pct": 9.8,
    "low_vs_stop": true
@@ -1388,7 +1601,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 9,
+   "days_after": 11,
    "broke": true,
    "break_day": "20261119",
    "entry": 26600.0,
@@ -1403,7 +1616,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 13,
+   "days_after": 15,
    "broke": false,
    "max_up_pct": 4.1,
    "low_vs_stop": true
@@ -1416,7 +1629,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 13,
+   "days_after": 15,
    "broke": false,
    "max_up_pct": 10.0,
    "low_vs_stop": true
@@ -1429,11 +1642,11 @@
    "setups": [
     "A"
    ],
-   "days_after": 13,
+   "days_after": 15,
    "broke": true,
    "break_day": "20261105",
    "entry": 215000.0,
-   "result_r": -0.81,
+   "result_r": 0.03,
    "how": "보유 중(평가)"
   },
   {
@@ -1445,7 +1658,7 @@
     "A",
     "C"
    ],
-   "days_after": 13,
+   "days_after": 15,
    "broke": true,
    "break_day": "20261119",
    "entry": 26600.0,
@@ -1458,7 +1671,7 @@
    "code": "091580",
    "pivot": 31550,
    "setups": [],
-   "days_after": 13,
+   "days_after": 15,
    "broke": false,
    "max_up_pct": 3.1,
    "low_vs_stop": true
@@ -1471,7 +1684,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 13,
+   "days_after": 15,
    "broke": false,
    "max_up_pct": 9.5,
    "low_vs_stop": true
@@ -1485,7 +1698,7 @@
     "A",
     "B"
    ],
-   "days_after": 13,
+   "days_after": 15,
    "broke": false,
    "max_up_pct": 0.6,
    "low_vs_stop": true
@@ -1498,7 +1711,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 13,
+   "days_after": 15,
    "broke": false,
    "max_up_pct": 0.7,
    "low_vs_stop": true
@@ -1511,7 +1724,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 13,
+   "days_after": 15,
    "broke": false,
    "max_up_pct": 7.5,
    "low_vs_stop": true
@@ -1524,7 +1737,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 13,
+   "days_after": 15,
    "broke": false,
    "max_up_pct": 2.0,
    "low_vs_stop": true
@@ -1537,7 +1750,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 13,
+   "days_after": 15,
    "broke": false,
    "max_up_pct": -5.6,
    "low_vs_stop": true
@@ -1550,7 +1763,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 13,
+   "days_after": 15,
    "broke": false,
    "max_up_pct": 25.0,
    "low_vs_stop": true
@@ -1563,7 +1776,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 13,
+   "days_after": 15,
    "broke": false,
    "max_up_pct": 8.9,
    "low_vs_stop": true
@@ -1576,7 +1789,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 13,
+   "days_after": 15,
    "broke": false,
    "max_up_pct": 1.5,
    "low_vs_stop": true
@@ -1589,7 +1802,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 13,
+   "days_after": 15,
    "broke": false,
    "max_up_pct": -2.8,
    "low_vs_stop": true
@@ -1602,7 +1815,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 13,
+   "days_after": 15,
    "broke": false,
    "max_up_pct": 0.5,
    "low_vs_stop": true
@@ -1615,7 +1828,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 13,
+   "days_after": 15,
    "broke": false,
    "max_up_pct": 2.2,
    "low_vs_stop": true
@@ -1629,7 +1842,7 @@
     "A",
     "E"
    ],
-   "days_after": 13,
+   "days_after": 15,
    "broke": true,
    "break_day": "20261113",
    "entry": 69400.0,
@@ -1644,7 +1857,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 14,
+   "days_after": 16,
    "broke": false,
    "max_up_pct": 5.4,
    "low_vs_stop": true
@@ -1657,7 +1870,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 14,
+   "days_after": 16,
    "broke": false,
    "max_up_pct": 11.0,
    "low_vs_stop": true
@@ -1670,7 +1883,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 14,
+   "days_after": 16,
    "broke": true,
    "break_day": "20261113",
    "entry": 69400.0,
@@ -1686,7 +1899,7 @@
     "A",
     "B"
    ],
-   "days_after": 14,
+   "days_after": 16,
    "broke": false,
    "max_up_pct": 2.2,
    "low_vs_stop": true
@@ -1699,7 +1912,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 14,
+   "days_after": 16,
    "broke": false,
    "max_up_pct": 7.8,
    "low_vs_stop": true
@@ -1712,7 +1925,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 14,
+   "days_after": 16,
    "broke": false,
    "max_up_pct": 2.6,
    "low_vs_stop": true
@@ -1726,7 +1939,7 @@
     "A",
     "C"
    ],
-   "days_after": 14,
+   "days_after": 16,
    "broke": false,
    "max_up_pct": 4.6,
    "low_vs_stop": true
@@ -1740,11 +1953,11 @@
     "A",
     "F"
    ],
-   "days_after": 14,
+   "days_after": 16,
    "broke": true,
    "break_day": "20261105",
    "entry": 215000.0,
-   "result_r": -0.81,
+   "result_r": 0.03,
    "how": "보유 중(평가)"
   },
   {
@@ -1755,7 +1968,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 14,
+   "days_after": 16,
    "broke": true,
    "break_day": "20261119",
    "entry": 26600.0,
@@ -1770,7 +1983,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 14,
+   "days_after": 16,
    "broke": false,
    "max_up_pct": 10.4,
    "low_vs_stop": true
@@ -1783,7 +1996,7 @@
    "setups": [
     "E"
    ],
-   "days_after": 14,
+   "days_after": 16,
    "broke": true,
    "break_day": "20261104",
    "entry": 187800.0,
@@ -1798,7 +2011,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 15,
+   "days_after": 17,
    "broke": false,
    "max_up_pct": 15.8,
    "low_vs_stop": true
@@ -1811,7 +2024,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 15,
+   "days_after": 17,
    "broke": true,
    "break_day": "20261119",
    "entry": 26600.0,
@@ -1826,7 +2039,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 15,
+   "days_after": 17,
    "broke": false,
    "max_up_pct": -1.5,
    "low_vs_stop": true
@@ -1839,7 +2052,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 15,
+   "days_after": 17,
    "broke": false,
    "max_up_pct": 5.8,
    "low_vs_stop": true
@@ -1852,7 +2065,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 15,
+   "days_after": 17,
    "broke": false,
    "max_up_pct": -4.3,
    "low_vs_stop": true
@@ -1863,9 +2076,9 @@
    "code": "030530",
    "pivot": 37300,
    "setups": [],
-   "days_after": 15,
+   "days_after": 17,
    "broke": false,
-   "max_up_pct": 9.1,
+   "max_up_pct": 9.3,
    "low_vs_stop": true
   },
   {
@@ -1876,12 +2089,12 @@
    "setups": [
     "A"
    ],
-   "days_after": 15,
+   "days_after": 17,
    "broke": false,
    "max_up_pct": 0.3,
    "low_vs_stop": true
   }
  ],
- "broke": 31,
- "total": 138
+ "broke": 55,
+ "total": 150
 }
