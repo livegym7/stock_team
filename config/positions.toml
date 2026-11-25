@@ -28,14 +28,6 @@ initial_stop = 262660   # 처음 손절가 = 1R 기준
 stop = 262660
 
 [[positions]]
-name = "삼성전자"
-code = "005930"
-qty = 5
-avg_price = 180700
-initial_stop = 166244   # 처음 손절가 = 1R 기준
-stop = 166244
-
-[[positions]]
 name = "심텍"
 code = "222800"
 qty = 9
