@@ -40,7 +40,7 @@ def fetch():
     return {"fetched_at": datetime.now().isoformat(timespec="seconds"), "stocks": list(stocks.values())}
 
 
-def load(max_age_days=7, refresh=False):
+def load(max_age_days=1, refresh=False):   # 하루에 한 번 새로 받는다 (2026-11-26: 7일이면 급등한 종목의 시총이 묵은 값으로 보였음 — 안랩 +30% 뒤에도 그대로)
     if not refresh and PATH.exists():
         d = json.loads(PATH.read_text(encoding="utf-8"))
         if datetime.now() - datetime.fromisoformat(d["fetched_at"]) < timedelta(days=max_age_days):
