@@ -689,6 +689,81 @@ def run_ext(years=10, with_delisted=True):
     return out
 
 
+def _sim_clx(rows, i, R, clx=None, act=None):
+    """backtest.simulate와 같은 청산 + '끝물 급등 날'(clx(rows, i, j)가 참인 날)의 행동. act = all(그날 종가에 전부) / half(남은 물량의 절반) / tight(그날부터 5일선 종가 이탈 시 전부)."""
+    entry = rows[i]["close"]; unit = entry * R["one_r"]; stop = entry - unit; target = entry + R["take_r"] * unit
+    c = [r["close"] for r in rows]
+    took, realized, left, tight, hit = False, 0.0, 1.0, False, None
+    fee = lambda frac, px: frac * px * R.get("cost", 0.0) / unit  # noqa: E731
+    sell = lambda frac, px: frac * (px - entry) / unit - fee(frac, px)  # noqa: E731
+    for j in range(i + 1, len(rows)):
+        r = rows[j]
+        if r["low"] <= stop:
+            return {"r": round(realized + sell(left, min(r["open"], stop)), 2), "exit": r["date"], "days": j - i, "took": took, "hit": hit}
+        if not took and r["high"] >= target:
+            realized += sell(R["take_pct"], max(r["open"], target)); left -= R["take_pct"]; took, stop = True, entry
+        if clx and hit is None and clx(rows, i, j):
+            hit = r["date"]
+            if act == "all":
+                return {"r": round(realized + sell(left, c[j]), 2), "exit": r["date"], "days": j - i, "took": took, "hit": hit}
+            if act == "half":
+                realized += sell(left / 2, c[j]); left /= 2
+            if act == "tight":
+                tight = True
+        ma = lambda n: sum(c[j - n + 1:j + 1]) / n  # noqa: E731
+        if (took and c[j] < ma(R["trail_ma"])) or (tight and c[j] < ma(5)):
+            return {"r": round(realized + sell(left, c[j]), 2), "exit": r["date"], "days": j - i, "took": took, "hit": hit}
+    return {"r": round(realized + sell(left, rows[-1]["close"]), 2), "exit": None, "days": len(rows) - 1 - i, "took": took, "hit": hit}
+
+
+def run_clx(years=10, with_delisted=True):
+    """보유 중 끝물 급등(클라이맥스)이 나오면 파는 것과 지금 규칙대로 드는 것 비교 (2026-11-25 사용자 요청, 비교 자료). 진입은 지금 규칙 신호 그대로, 청산만 바꾼다.
+    끝물 급등 날의 정의 두 가지 — 과열형: 종가가 60일선보다 50%↑ 위 + 하루 +10%↑ + 거래량 50일 평균의 3배↑ / 최대 급등형: 산 값보다 20%↑ 오른 상태에서 하루 +10%↑이고 그 상승률과 거래량이 모두 산 뒤 최대(5일 이상 보유).
+    행동 세 가지 — 그날 종가에 전부 매도 / 남은 물량의 절반 매도 / 그날부터 5일선 종가 이탈 시 전부 매도. 첫 번째 끝물 급등 날에만 적용한다."""
+    t0 = time.time()
+    cf = CACHE / f"long_cand_run{_sfx(years)}.json"
+    if not cf.exists():
+        run_run(years, with_delisted)
+    o = json.loads(cf.read_text()); cand, days, uni = o["cand"], o["days"], o["uni"]
+    used = [t for t in cand if t["f_base"] and (t["vol_ratio"] or 0) >= 1.5 and t["ia"] == "동반 상승"]
+    R = B.rules()
+    def hot(rows, i, j):
+        if j < 60 or not rows[j - 1]["close"]:
+            return False
+        c = rows[j]["close"]; v50 = sum(x["volume"] for x in rows[j - 50:j]) / 50
+        return c / rows[j - 1]["close"] >= 1.10 and v50 and rows[j]["volume"] >= 3 * v50 and c / (sum(x["close"] for x in rows[j - 59:j + 1]) / 60) >= 1.5
+    def peak(rows, i, j):
+        if j - i < 5 or not rows[j - 1]["close"]:
+            return False
+        g = rows[j]["close"] / rows[j - 1]["close"]
+        return (rows[j]["close"] >= rows[i]["close"] * 1.2 and g >= 1.10 and rows[j]["volume"] >= max(x["volume"] for x in rows[i:j])
+                and all(g >= rows[k]["close"] / rows[k - 1]["close"] for k in range(i + 1, j) if rows[k - 1]["close"]))
+    V = [("지금 규칙", None, None)] + [(f"{dn} → {an}", d, a) for dn, d in (("과열형", hot), ("최대 급등형", peak)) for an, a in (("그날 종가 전부 매도", "all"), ("절반 매도", "half"), ("5일선 이탈 시 매도", "tight"))]
+    cache, res = {}, {n: [] for n, _, _ in V}
+    for t in used:
+        if t["code"] not in cache:
+            r = fetch(t["code"], years); cache[t["code"]] = (r, {x["date"]: k for k, x in enumerate(r)})
+        rows, ix = cache[t["code"]]; i = ix.get(t["date"])
+        if i is None:
+            continue
+        for n, d, a in V:
+            res[n].append({**_sim_clx(rows, i, R, d, a), "code": t["code"], "date": t["date"], "market_ok": t["market_ok"]})
+    st = lambda ts: {k: B.stats([x for x in ts if x["exit"]]).get(k) for k in ("n", "win_rate", "avg_r", "payoff", "total_r", "avg_days", "max_dd_r")}  # noqa: E731
+    base = res["지금 규칙"]
+    out = {"made_at": datetime.now(KST).strftime("%Y-%m-%d %H:%M"), "years": years, "period": [days[0], days[-1]], "universe": uni, "define": run_clx.__doc__.strip(), "variants": []}
+    for n, d, a in V:
+        ts = res[n]; v = {"name": n, **st(ts)}
+        if d:
+            idx = [k for k, x in enumerate(ts) if x["hit"] and x["exit"] and base[k]["exit"]]
+            v["끝물 급등이 나온 거래"] = {"n": len(idx), "이 방식 평균 R": round(sum(ts[k]["r"] for k in idx) / len(idx), 2) if idx else None,
+                                   "지금 규칙 평균 R": round(sum(base[k]["r"] for k in idx) / len(idx), 2) if idx else None,
+                                   "이 방식이 더 나았던 비율": round(sum(ts[k]["r"] > base[k]["r"] for k in idx) / len(idx) * 100, 1) if idx else None}
+        out["variants"].append(v)
+    out["seconds"] = round(time.time() - t0)
+    (DATA / "backtest" / f"long_clx{_sfx(years)}.json").write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
+    return out
+
+
 def run_cons(years=10, with_delisted=True):
     """진짜 컨센서스로 본 펀더 점수 (2026-11-24 사용자 요청, 비교 자료): 신호일에 실제로 나와 있던 증권사 추정치(tools/consensus_hist.py — 월말 기준, 2025-02부터)로
     ① 올해 영업이익 추정치가 작년보다 +20%↑(또는 흑자 전환) ② 올해 EPS 추정치가 작년보다 증가 ③ 올해 영업이익 추정치가 1개월 전보다 상향 — 을 매겨 신호 성적과 계좌를 본다.
@@ -820,9 +895,10 @@ if __name__ == "__main__":
     ap.add_argument("--fwd", action="store_true", help="다음 분기 실제 실적을 컨센서스 자리에 넣은 최대치 비교 → data/backtest/long_fwd.json")
     ap.add_argument("--cons", action="store_true", help="진짜 컨센서스(2025-03~)로 매긴 펀더 점수 비교 → data/backtest/long_cons.json")
     ap.add_argument("--run", action="store_true", help="쉬지 않고 오르는 종목 잡기 비교(신고가 돌파·20일선 눌림) → data/backtest/long_run.json")
+    ap.add_argument("--clx", action="store_true", help="보유 중 끝물 급등이 나오면 파는 것과 지금 규칙 비교 → data/backtest/long_clx.json")
     ap.add_argument("--ext", action="store_true", help="끝물 급등 가려내기: 돌파 신호를 이미 올라온 폭으로 나눠 비교 → data/backtest/long_ext.json")
     ap.add_argument("--vol", action="store_true", help="돌파 거래량 문턱 비교(1.5/1.2/1.0/없음 · 대형주 완화 · 포켓피봇 추가)")
     ap.add_argument("--zone", action="store_true", help="기준가 돌파와 매물대 돌파 비교 → data/backtest/long_zone.json")
     a = ap.parse_args()
-    res = run_ext(a.years, not a.no_delisted) if a.ext else run_run(a.years, not a.no_delisted) if a.run else run_cons(10) if a.cons else run_fwd(a.years, not a.no_delisted) if a.fwd else run_ia(a.years, not a.no_delisted) if a.ia else run_vol(a.years, not a.no_delisted) if a.vol else run_fund(a.years, not a.no_delisted) if a.fund else run_zone(a.years, not a.no_delisted) if a.zone else run_portfolio(a.years, not a.no_delisted) if a.portfolio else run(a.years, a.limit, not a.no_delisted)
+    res = run_clx(a.years, not a.no_delisted) if a.clx else run_ext(a.years, not a.no_delisted) if a.ext else run_run(a.years, not a.no_delisted) if a.run else run_cons(10) if a.cons else run_fwd(a.years, not a.no_delisted) if a.fwd else run_ia(a.years, not a.no_delisted) if a.ia else run_vol(a.years, not a.no_delisted) if a.vol else run_fund(a.years, not a.no_delisted) if a.fund else run_zone(a.years, not a.no_delisted) if a.zone else run_portfolio(a.years, not a.no_delisted) if a.portfolio else run(a.years, a.limit, not a.no_delisted)
     print(json.dumps(res, ensure_ascii=False, indent=1))
