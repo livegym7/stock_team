@@ -323,11 +323,10 @@ def core_list():
     #   → 웹이 1분 시세로 '동행/나 홀로'와 거래량 배수를 장중에 다시 계산 (판정 규칙은 screener.industry_action과 같음)
     peers_of, grp_of = {}, {}
     try:
-        from universe import load as _uni
         from sector_map import custom_map
-        from screener import RULES as _R
+        from screener import universe_pool
         cmap = custom_map()
-        U = [u for u in _uni()["stocks"] if (u.get("market_cap_eok") or 0) >= _R["min_mcap_eok"] and u.get("market") not in ("KONEX", "2")]
+        U = universe_pool()   # 감시 목록과 같은 대상·같은 업종 구성 (2026-11-25: 전에는 큰 순 30개만 — 바이오 80종목에서 판정이 갈렸음)
         for u in sorted(U, key=lambda u: -(u.get("market_cap_eok") or 0)):
             g = cmap.get(u["code"]) or "네이버:" + (u.get("industry") or "")
             grp_of[u["code"]] = g
@@ -358,7 +357,7 @@ def core_list():
             except Exception:
                 mz = None
         g = grp_of.get(r["code"])
-        items.append({"code": r["code"], "peers": [c for c in peers_of.get(g, []) if c != r["code"]][:30], "vol50": _vol50(r["code"]), "name": r["stock"], "zone_top": (mz or {}).get("top"), "zone_pct": (mz or {}).get("pct"), "group": r["group"], "rs": r["rs"], "close": r["close"], "breakout": lv.get("breakout"), "broke": (r.get("broke") or {}).get("pivot"),   # broke = 목록 기준일에 넘은 어제까지의 기준가(그날은 이 선을 보여 줌)
+        items.append({"code": r["code"], "peers": [c for c in peers_of.get(g, []) if c != r["code"]][:120], "zone_prev": (r.get("max_zone_prev") or {}).get("top"), "vol50": _vol50(r["code"]), "name": r["stock"], "zone_top": (mz or {}).get("top"), "zone_pct": (mz or {}).get("pct"), "group": r["group"], "rs": r["rs"], "close": r["close"], "breakout": lv.get("breakout"), "broke": (r.get("broke") or {}).get("pivot"),   # broke = 목록 기준일에 넘은 어제까지의 기준가(그날은 이 선을 보여 줌)
                      
                       "stop": lv.get("stop_1r"), "dist": dist, "fp": fp, "tech": tech, "why": (f or {}).get("why") or [], "ia": r["ia"] == "동반 상승",
                       "ftype": (f or {}).get("type"), "fmax": (f or {}).get("max", 3), "fitems": (f or {}).get("items"), "fbad": not fok(f),

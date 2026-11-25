@@ -72,8 +72,9 @@ ETF_BRANDS = ("KODEX", "TIGER", "RISE", "ACE", "SOL", "KBSTAR", "HANARO", "PLUS"
 def is_etf(name):
     """ETF·ETN과 우선주·스팩·리츠 (개별 성장주가 아닌 것)."""
     import re
-    return name.upper().startswith(tuple(b.upper() for b in ETF_BRANDS)) or bool(
-        re.search(r"ETN|우$|우B$|우\(|스팩|리츠|액티브|채권|머니마켓|인프라$|리얼티$", name))
+    # 상표 뒤에 빈칸이 있어야 ETF("KODEX 200"), 리츠는 이름 끝이 '리츠'일 때만 (2026-11-25: 'BNK금융지주'·'메리츠금융지주'가 잘못 빠져 있었음)
+    return name.upper().startswith(tuple(b.upper() + " " for b in ETF_BRANDS)) or bool(
+        re.search(r"ETN|우$|우B$|우\(|스팩|리츠$|액티브|채권|머니마켓|인프라$|리얼티$", name))
 
 
 def rules():

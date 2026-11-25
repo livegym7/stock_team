@@ -19,8 +19,6 @@ from common import DATA, ROOT, channels, http_get, load_toml, positions
 from naver_quote import KST
 
 WEB = ROOT / "web"
-SCHEDULE = [("06:55", "아침 브리핑", "morning"),
-            ("14:53", "리포트 브리핑", "report_brief_pm"), ("15:47", "마감 리뷰", "close"), ("21:10", "감시 목록 확정", "watchlist")]
 KIND = {"morning": "아침 브리핑", "report_brief_am": "리포트 브리핑 · 오전", "report_brief_pm": "리포트 브리핑 · 오후",
         "channels": "채널 정리", "report_live": "리포트 정리", "close": "마감 리뷰", "weekly": "주간 리뷰",
         "strategy": "전략 보고서", "deep_research": "딥리서치", "checkpoint": "체크포인트"}
@@ -239,23 +237,6 @@ def _pick_links(day, T):
             best = max(by.get(x.get("t") or "", []), key=lambda q: sum(k in (q.get("text") or "") for k in keys if k), default=None)
             if best and any(k and k in (best.get("text") or "") for k in keys):
                 x["url"] = best["url"]
-
-
-def schedule(now, brief_rows):
-    today = now.strftime("%Y-%m-%d")
-    have = {b["kind"] for b in brief_rows if b["date"] == today}
-    # 감시 목록은 오늘 기준일 폴더가 생겼으면 '완료' (20시 마감 가격이 굳은 뒤에만 만들어진다 — 2026-11-25)
-    if (DATA / "bus" / today / "screener.json").exists():
-        have.add("watchlist")
-    out = []
-    mon = (load_toml("features.toml") or {}).get("monitoring", True)
-    for t, name, kind in SCHEDULE:
-        if kind == "watchlist" and not mon:
-            continue
-        due = now.weekday() < 5 and now.strftime("%H:%M") >= t
-        out.append({"time": t, "name": name, "kind": kind, "done": kind in have,
-                    "state": "완료" if kind in have else ("늦음·확인 필요" if due else ("예정" if now.weekday() < 5 else "휴장"))})
-    return out
 
 
 def _ia_rule():
@@ -1249,7 +1230,6 @@ def main():
         "watch_pool": load_toml("watch_pool.toml"),                    # 관찰 풀 (전략 보고서가 고른 종목)
         "equity": safe(lambda: equity(risk_now)),
         "account": {**load_toml("account.toml"), **__import__("common").account_state()},   # capital = 지금 계좌(시작 + 실현 손익 − 비용, 2026-11-18)
-        "schedule": schedule(now, brief_rows),
         "briefs": brief_rows,
         "watch": watch(),   # 감시 목록 파일만 읽음 (계산은 웹 배포 회차의 screener --ensure · 모니터링 새로고침)
         "sectors_etf": None,
@@ -1481,15 +1461,14 @@ def write_html(data):
                 out[code] = {"t": f["type"], "p": f["pts"], "i": [[i["k"], i["ok"], i["t"]] for i in f["items"]]}
         return out
     data["fscore"] = safe(_fscores)
-    def _pool55():   # 매매 보드 종목(관찰 풀 + 감시 목록)의 55일 신고가 (2026-11-24 사용자 확정, 표시·신호 줄 딱지용 — 매매 규칙 아님)
-        #   h = 마지막 거래일까지 55일 고점(다음 날 장중 비교용) · hp = 그 전날까지 55일 고점 · x = 마지막 거래일에 넘었는가 · v50·vr = 거래량 · peers = 같은 업종(동행 판정)
+    def _pool55():   # 매매 보드 종목(관찰 풀 + 감시 목록)의 60일 신고가 (2026-11-24 사용자 확정, 표시·신호 줄 딱지용 — 매매 규칙 아님 · 11-25 신고가 탭과 같은 60일로 통일)
+        #   h = 마지막 거래일까지 60일 고점(다음 날 장중 비교용) · hp = 그 전날까지 60일 고점 · x = 마지막 거래일에 넘었는가 · v50·vr = 거래량 · peers = 같은 업종(동행 판정)
         import tomllib
         from common import CACHE
-        from screener import RULES, settled
+        from screener import NH_DAYS, RULES, settled, universe_pool
         from sector_map import custom_map
-        from universe import load as _uni
         cmap, peers = custom_map(), {}
-        for u in sorted((u for u in _uni()["stocks"] if (u.get("market_cap_eok") or 0) >= RULES["min_mcap_eok"]), key=lambda u: -(u.get("market_cap_eok") or 0)):
+        for u in sorted(universe_pool(), key=lambda u: -(u.get("market_cap_eok") or 0)):
             peers.setdefault(cmap.get(u["code"]) or "네이버:" + (u.get("industry") or ""), []).append(u["code"])
         P = tomllib.loads((ROOT / "config" / "watch_pool.toml").read_text(encoding="utf-8"))
         out = {}
@@ -1506,10 +1485,10 @@ def write_html(data):
                 if len(rows) < 60:
                     continue
                 hi, c, v = [r["high"] for r in rows], [r["close"] for r in rows], [r["volume"] for r in rows]
-                hp, v50 = max(hi[-56:-1]), sum(v[-51:-1]) / 50
+                hp, v50 = max(hi[-(NH_DAYS + 1):-1]), sum(v[-51:-1]) / 50
                 g = cmap.get(s["code"]) or ""
-                out[s["code"]] = {"h": max(hi[-55:]), "hp": hp, "c": c[-1], "d": rows[-1]["date"], "x": c[-2] <= hp < c[-1], "v50": round(v50),
-                                  "vr": round(v[-1] / v50, 2) if v50 else None, "peers": [p for p in peers.get(g, []) if p != s["code"]][:30]}
+                out[s["code"]] = {"h": max(hi[-NH_DAYS:]), "hp": hp, "c": c[-1], "d": rows[-1]["date"], "x": c[-2] <= hp < c[-1], "v50": round(v50),
+                                  "vr": round(v[-1] / v50, 2) if v50 else None, "peers": [p for p in peers.get(g, []) if p != s["code"]][:120]}
         return out
     data["pool55"] = safe(_pool55)
     # 나스닥 선물·EWY + 지금 주목받는 종목(검색 상위 30) + 업종 묶음표 (2026-11-24, tools/hot_now.py — 화면이 열려 있으면 /api/quote가 1분마다 갈아 끼움)
@@ -1577,7 +1556,6 @@ def partial(part, now):
         data["research"] = safe(lambda: research(data["companies"], allp))   # 자료실 새 요약도 바로 보이게
         rows = briefs()   # 매시간 채널·리포트 정리가 막 저장됐을 수 있어 목록도 새로
         data["briefs"] = rows
-        data["schedule"] = schedule(now, rows)
         data["trade_review"] = safe(lambda: __import__("trades").review())
         data["watch_pool"] = load_toml("watch_pool.toml")
         data.setdefault("parts", {})["channels"] = stamp

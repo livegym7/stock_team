@@ -48,6 +48,7 @@ RULES = {
 # 인더스트리 액션 (사용자 확정 2026-11-03: 돌파 신호의 필수 조건, 포켓피봇은 제외)
 # 같은 업종(config/sector_map.csv custom → 없으면 네이버 업종, 시총 2천억↑) 종목 중
 # 40% 이상이 +2%↑ 이거나 업종 중앙값이 +1.5%↑ 이면 '동반 상승'. 비교할 종목이 3개 미만이면 '확인 불가'(=통과 못 함).
+NH_DAYS = 60   # 신고가 선의 기간(표시용): 매매 보드 · 신고가 탭 모두 60일 (2026-11-25 통일)
 IA_RULE = {"up": 0.02, "min_up_share": 40, "min_median": 1.5, "min_peers": 3}
 
 
@@ -162,6 +163,14 @@ def max_zone(rows, nb=10, merge=0.7):
     k = b.index(max(b))
     hot = [j for j in (k - 1, k, k + 1) if 0 <= j < nb and b[j] >= b[k] * merge]
     return {"top": round(lo + (max(hot) + 1) * bs), "pct": round(sum(b[j] for j in hot) / (sum(b) or 1) * 100)}
+
+
+def universe_pool(uni=None):
+    """감시 대상 = 시총 2천억↑ 개별 종목(ETF·ETN·우선주·스팩·리츠·코넥스 제외). 감시 목록·업종 동행 비교 대상(화면·알림)이 모두 이 한 곳을 쓴다 (2026-11-25)."""
+    from backtest import is_etf
+    uni = uni if uni is not None else load_universe()["stocks"]
+    return [s for s in uni if (s.get("market_cap_eok") or 0) >= RULES["min_mcap_eok"] and not is_etf(s["name"])
+            and s.get("market") not in ("KONEX", "2") and not re.search(r"우$|우B$|우\(|스팩|리츠$|ETN", s["name"])]
 
 
 def settled(rows, now=None):
@@ -348,10 +357,10 @@ def run(codes_info, workers=4, cut=None):
         ia, ia_share, ia_med = industry_action([day_chg[c] for c in members[grp[s["code"]]] if c != s["code"] and c in day_chg])
         if "돌파" in ev and ia != "동반 상승":
             ev = ["돌파(업종 무반응)" if e == "돌파" else e for e in ev]  # 인더스트리 액션 없으면 돌파 신호로 치지 않음
-        # 참고 이벤트: 55일(분기) 신고가 돌파 — 규칙 신호는 아니고 후보 판단용 (2026-11-03)
-        hi55 = max(r["high"] for r in rows[-56:-1]) if len(rows) > 56 else None
-        if hi55 and rows[-1]["close"] > hi55 and vr and vr >= RULES["breakout_vol"]:
-            ev.append("55일 신고가")
+        # 참고 이벤트: 60일 신고가 돌파 — 규칙 신호는 아니고 후보 판단용 (2026-11-03 · 11-25 사용자 확정: 신고가 탭과 같은 60일로 통일, 전에는 55일)
+        hi60 = max(r["high"] for r in rows[-(NH_DAYS + 1):-1]) if len(rows) > NH_DAYS + 1 else None
+        if hi60 and rows[-1]["close"] > hi60 and vr and vr >= RULES["breakout_vol"]:
+            ev.append("60일 신고가")
         # 참고 신호: 매물대 돌파 — 어제 종가 ≤ 최대 매물대(차트 빨간 막대, 어제까지 200봉) 상단 < 오늘 종가 + 거래량 1.5배 (2026-11-23 사용자 확정: 참고 신호, 정식 신호·30건에 넣지 않음)
         pz_prev = max_zone(rows[:-1]) if len(rows) > 61 else None
         if pz_prev and rows[-2]["close"] <= pz_prev["top"] < rows[-1]["close"] and vr and vr >= RULES["breakout_vol"]:
@@ -395,6 +404,7 @@ def run(codes_info, workers=4, cut=None):
             item["overhead_zone"] = above[0] if above else None
         pz = max_zone(rows)
         if pz:
+            item["max_zone_prev"] = pz_prev   # 어제까지의 최대 매물대 — 목록 기준일에 넘었는지 본 선(그날은 화면이 이 선을 보여 줌, 2026-11-25)
             item["max_zone"] = pz   # 차트 빨간 막대(200봉·10칸 최대 매물대) 상단·비중 (2026-11-18 표시만, 규칙 아님)
         results.append(item)
     return results
@@ -424,7 +434,7 @@ def tiers(results):
         if not b:
             miss.append("조정 구간 없음(1stage 진행 중)")
         r["missing"] = miss
-        hot = any(e in r["today"] for e in ("돌파", "돌파(업종 무반응)", "55일 신고가", "매물대 돌파", "G", "H"))
+        hot = any(e in r["today"] for e in ("돌파", "돌파(업종 무반응)", "60일 신고가", "매물대 돌파", "G", "H"))
         near = (r.get("levels") or {}).get("distance_pct")
         if g == "✅":
             r["tier"] = "신호"
@@ -594,11 +604,7 @@ def main():
     p.add_argument("--pool", action="store_true", help="관찰 풀 한정: config/watch_pool.toml 종목은 모두 표시, 풀 밖은 RS 70↑ 신호만('발굴') (2026-11-10)")
     a = p.parse_args()
 
-    uni = load_universe()["stocks"]
-    from backtest import is_etf  # ETF·ETN은 개별 종목이 아니라 감시 목록에서 뺀다 (2026-11-03)
-    pool = [s for s in uni if s["market_cap_eok"] >= RULES["min_mcap_eok"] and not is_etf(s["name"])
-            and s.get("market") not in ("KONEX", "2")  # 코넥스는 거래가 적어 제외 (2026-11-03)
-            and not re.search(r"우$|우B$|우\(|스팩|리츠|ETN", s["name"])]
+    pool = universe_pool()
     if a.stock:
         # RS 백분위를 매기려면 비교 대상이 필요하므로 전체를 쓰되 (캐시 활용) 한 종목만 출력
         res = [r for r in run(pool, a.workers) if r["code"] == a.stock]
