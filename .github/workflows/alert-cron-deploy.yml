@@ -1,0 +1,38 @@
+# 알림 깨우기(Cloudflare Worker) 올리기 — cloudflare/alert-cron 이 바뀌거나 손으로 돌릴 때만. Claude 토큰 0.
+# 필요한 비밀 값: CLOUDFLARE_API_TOKEN(Workers 편집 권한 포함) · CLOUDFLARE_ACCOUNT_ID · ALERT_DISPATCH_TOKEN(이 저장소 Actions 읽기·쓰기만 되는 깃허브 열쇠)
+name: 알림 깨우기 올리기 (Cloudflare)
+
+on:
+  push:
+    branches: [main]
+    paths: ["cloudflare/alert-cron/**", ".github/workflows/alert-cron-deploy.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: 열쇠가 준비됐는지
+        id: key
+        env:
+          T: ${{ secrets.ALERT_DISPATCH_TOKEN }}
+        run: |
+          if [ -n "$T" ]; then echo "ready=1" >> "$GITHUB_OUTPUT"; else echo "ready=0" >> "$GITHUB_OUTPUT"; echo "::warning::ALERT_DISPATCH_TOKEN 비밀 값이 아직 없습니다 — 올리지 않고 끝냅니다"; fi
+      - name: Worker 올리기 + 열쇠 넣기
+        if: steps.key.outputs.ready == '1'
+        working-directory: cloudflare/alert-cron
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          GH_DISPATCH: ${{ secrets.ALERT_DISPATCH_TOKEN }}
+        run: |
+          npx --yes wrangler@3.90.0 deploy
+          printf '%s' "$GH_DISPATCH" | npx --yes wrangler@3.90.0 secret put GH_TOKEN

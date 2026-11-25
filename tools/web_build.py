@@ -1097,10 +1097,22 @@ def automation(now, data, allp):
 
 
 def _alerts_backup(now):
+    """장중 알림 예비 확인: 깃허브 20분 확인(alerts.yml)이 최근 40분 안에 돌았으면 건너뛴다.
+    두 길의 '보낸 알림' 기록이 따로라 둘 다 돌면 같은 알림이 두 번 간다 (2026-11-25: Cloudflare가 20분마다 깨우게 하면서 넣음)."""
     import alerts
     if not alerts.market_open(now):
         return
     import subprocess
+    try:
+        subprocess.run(["git", "fetch", "-q", "origin", "alert-state"], cwd=ROOT, capture_output=True, timeout=30)
+        st = json.loads(subprocess.run(["git", "show", "origin/alert-state:state.json"], cwd=ROOT, capture_output=True, text=True, timeout=15).stdout or "{}")
+        last = datetime.fromisoformat(st.get("last_check"))
+        if last.tzinfo is None:
+            last = last.replace(tzinfo=now.tzinfo)
+        if (now - last).total_seconds() < 40 * 60:
+            return
+    except Exception:
+        pass
     subprocess.run(["python3", "tools/alerts.py"], cwd=ROOT, capture_output=True, timeout=180)
 
 

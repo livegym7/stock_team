@@ -645,3 +645,4 @@
 - 2026-11-25 live_brief.check_topics 중복 주제 검사 추가. 확인: 고친 파일 통과, 일부러 중복을 넣으면 걸림. 남은 것: 07시 '엔터·한한령' 카드의 한 줄 결론이 화장품 내용, '다음 주 일정'·'월요일에는' 같은 지난 회차 문구가 남아 있음(12시 회차에서 다시 묶일 때 확인).
 - 2026-11-25 전략 보고서 요약 장 순서(tfTidy) + 이번 주 매매 대상(tradeTargets). 확인: 로컬 PC·휴대폰·어두운 화면 캡처, '전부 펼치기' 동작(16 → 25줄), 화면 오류 0. 남은 것: 글 다듬기 지침(③), 업종 지도 이름 겹침·발간호 단추·옛 형식 원본(④), 국면 표현(②).
 - 2026-11-25 전략 ③④: SKILL '글 다듬기' 절, strategy_prep.save 검사, strategy_tf.chart_matrix 이름 고르기·겹침 처리·leaders_html, app.html issueBar(정식 호만)·v3 원본 삭제. 확인: 로컬 PC·휴대폰 캡처, 오류 0. 제7호 파일은 그림·'큰 스트림' 칸만 바꿔 넣음(다시 렌더하면 그 뒤 바뀐 펀더 기준·가격이 섞여서 내용은 그대로 둠). 미확인: 다음 호(11/28)에서 검사에 걸리는지.
+- 2026-11-25 알림 깨우기: cloudflare/alert-cron(worker.js·wrangler.toml), .github/workflows/alert-cron-deploy.yml, web_build._alerts_backup 겹침 방지. 확인: 문법 검사만. 미확인: 실제 배포·깨우기(사용자가 열쇠를 넣은 뒤) · Cloudflare 열쇠에 Workers 권한이 있는지.
