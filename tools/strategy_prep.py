@@ -562,6 +562,14 @@ def save(path):
         n_against = len([x for x in (th.get("against") or []) if str(x).strip()])
         if n_against < 3:
             raise SystemExit(f"스트림 {th.get('id')} 반론이 {n_against}개 — 3개 이상 필요 (반론가 단계를 다시 하세요)")
+    # 글 다듬기 검사 (2026-11-25 사용자 확정): 만드는 사람용 말·파일 경로는 저장 거부, 요약 줄이 너무 길거나 숫자가 많으면 고치라고 알림
+    js = json.dumps(d, ensure_ascii=False)
+    inner = [w for w in ("general-purpose", "보조 에이전트", "data/cache/", ".json", "strategy_tf ", "draft T") if w in js]
+    if inner:
+        raise SystemExit(f"만드는 사람용 말·파일 경로가 들어 있습니다 {inner} — 출처는 '네이버 재무 11/21'처럼 사람이 읽는 말로 쓰세요")
+    longb = [b[:30] for b in (d.get("summary") or {}).get("bullets") or [] if len(re.findall(r"\d[\d,.]*", re.sub(r"\d{1,2}/\d{1,2}|\(\D*\d{1,2}/\d{1,2}\)", "", str(b)))) > 6 or len(str(b)) > 160]
+    if longb:
+        raise SystemExit(f"요약 줄이 길거나 숫자가 너무 많습니다(줄마다 숫자 6개·160자까지): {longb} — 나누거나 덜어 내세요")
     if not d.get("red_team"):
         raise SystemExit("red_team 칸 없음 — 반론가 보조 에이전트 결과(누가·몇 개·확신도 조정)를 적으세요 (SKILL 2단계)")
     HIST.mkdir(parents=True, exist_ok=True)

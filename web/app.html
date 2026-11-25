@@ -2127,8 +2127,9 @@ function highsTab(){
 /* ---------- ③ 전략: 보고서 · 자료실 · 부록 (관찰 풀은 종목 › 매매 보드에 합침) ---------- */
 /* 발간호 칩 (2026-11-15 사용자 확정 A안): 최근 8호 + 전체 목록, 지난 호는 r/날짜.json을 누를 때만 받음 */
 const ISS={};
-function issueBar(){const I=D.strategy_issues||[];if(I.length<2)return "";const sel=ui.si||I[0].date,L=ui.siAll?I:I.slice(0,8);
-  return `<div class="issbar"><span class="muted">발간호</span>${L.map((x,i)=>`<button class="chip ${x.date==sel?"on":""}" data-si="${esc(x.date)}" title="${esc(x.title)}">${esc(x.date.slice(5).replace("-","/"))}${x.issue?" "+esc(x.issue):""}${i==0&&I[0]===x?" <small>최신</small>":""}</button>`).join("")}${I.length>8?`<button class="chip" data-si="__all">${ui.siAll?"접기":"전체 목록 ("+I.length+")"}</button>`:""}</div>`}
+function issueBar(){const I=D.strategy_issues||[];if(I.length<2)return "";const sel=ui.si||I[0].date;   // 2026-11-25: 정식 호(토요일)와 최신 호만 칩으로, 그 밖(만드는 중에 낸 호)은 '그 밖 n'을 눌러야 보임
+  const sat=x=>new Date(x.date+"T00:00:00Z").getUTCDay()==6,main=I.filter((x,i)=>i==0||sat(x)||x.date==sel),rest=I.filter(x=>!main.includes(x)),L=ui.siAll?I:main;
+  return `<div class="issbar"><span class="muted">발간호</span>${L.map((x,i)=>`<button class="chip ${x.date==sel?"on":""}" data-si="${esc(x.date)}" title="${esc(x.title)}">${esc(x.date.slice(5).replace("-","/"))}${x.issue?" "+esc(x.issue):""}${I[0]===x?" <small>최신</small>":""}</button>`).join("")}${rest.length?`<button class="chip" data-si="__all">${ui.siAll?"정식 호만":"그 밖 "+rest.length}</button>`:""}</div>`}
 function pastReport(date){
   const I=D.strategy_issues||[],meta=I.find(x=>x.date==date)||{},J=ISS[date];
   const ban=`<div class="issban">📂 <span><b>지난 호(${esc(date.slice(5).replace("-","/"))}${meta.issue?" "+esc(meta.issue):""})</b>를 보고 있습니다. 숫자는 그날 기준입니다.</span><a href="#strategy" data-si="${esc(I[0].date)}">최신 호로 ›</a></div>`;
@@ -2137,7 +2138,7 @@ function pastReport(date){
     return ban+`<div class="muted" style="padding:20px">불러오는 중…</div>`}
   if(J.err)return ban+`<div class="empty">이 호의 본문 파일을 찾지 못했습니다</div>`;
   const v3=()=>{if(!J.v3)return "";const keep=D.strategy;D.strategy=J.v3;try{return stripH1(viewStrategy())}finally{D.strategy=keep}};
-  return ban+(J.tf&&J.tf.html?`<style>${J.tf.css||""}</style>${J.tf.html}<details class="fold"><summary class="foldh">📄 같은 호 옛 형식(v3) <small class="muted">눌러서 펼치기</small></summary>${v3()}</details>`:v3()||`<div class="empty">본문 없음</div>`)}
+  return ban+(J.tf&&J.tf.html?`<style>${J.tf.css||""}</style>${J.tf.html}`:v3()||`<div class="empty">본문 없음</div>`)}
 function foldPages(html){   // 보고서가 너무 길어(13,000px) 요약 장만 펼치고 STEP 1~6은 접어 둠 — 제목 줄을 누르면 펼쳐짐 (2026-11-20 사용자 확정)
   const P=html.split('<article class="page">');if(P.length<3)return html;
   return P[0]+'<article class="page">'+P[1]+P.slice(2).map((x,i)=>{const m=x.match(/<h2 data-tl="([^"]+)">([\s\S]*?)<\/h2><span>([\s\S]*?)<\/span>/),e=x.lastIndexOf("</article>");
@@ -2176,8 +2177,7 @@ function tfReport(){   // 테크노펀더멘탈 · 탑다운 주간 보고서(20
 /* 2026-11-20 사용자 확정: 탭 줄 간격 하나로 · 종목 칸 두 줄 */
 html body .view .chips.tabs{margin-bottom:12px!important;align-items:center}.tabgap{flex:1}.morenote{margin:-4px 0 12px}
 html body .view table.slist td.l small.muted{font-size:11px}
-</style>${foldPages(tfTidy(T.html))}
-   <details class="fold" data-fold="oldRpt" ${ui.oldRpt?"open":""}><summary class="foldh">📄 지난 형식(애널리스트 v3) 보고서 · 관찰 풀·가설 성적표 원본 <small class="muted">눌러서 펼치기</small></summary>${stripH1(viewStrategy())}</details>`}
+</style>${foldPages(tfTidy(T.html))}`}
 /* ---------- 부록 · 지수 되돌림 현황판 (2026-11-18 시안): 깡토 '지수이지' 재구성, 검증실 backtest_ibs.py · 본 매매 규칙과 별개(표시만) ----------
    조건 = 코스피 20일선 아래(🔴) + ETF IBS < 0.2 (그날 범위 하위 20%에서 끝남) + 흔들림(ATR 14일, 종가 대비) 지난 250일 중 상위 30% → 15:00~15:20 매수, 다음 날 종가 매도 */
 function ibsNow(e){const q=liveQuote(e.code),today=kstNow().toISOString().slice(0,10).replace(/-/g,""),live=q&&q.price&&q.high&&q.low&&String(q.at||"").replace(/-/g,"").slice(0,8)==today;

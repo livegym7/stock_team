@@ -752,7 +752,18 @@ def chart_matrix(P):
     g += [f'<text x="{W-R-6}" y="{T+14}" class="quad" text-anchor="end">① 리더 — 이익 ↑ · 추세 ↑</text>', f'<text x="{W-R-6}" y="{cy(YQ)+16:.1f}" class="quad" text-anchor="end">② 기다림 — 이익 ↑ · 추세 아직</text>',
           f'<text x="{L+6}" y="{T+28}" class="quad">③ 모멘텀만 — 추세 ↑ · 이익 약함</text>', f'<text x="{L+6}" y="{H-B-6}" class="quad">④ 회피</text>']
     placed = []
-    show = {m["group"] for m in sorted(MT, key=lambda m: m["rank"])[:14]} | {m["group"] for m in MT if quad(m) == "기다림" and m["rank"] <= 25}
+    # 이름은 강도 1~5위 + 리더 + 내 스트림(관찰 풀) 업종에만 붙인다 — 나머지는 점만(마우스를 올리면 이름). 2026-11-25: 14개 넘게 붙어 서로 겹쳐 읽을 수 없었음
+    try:
+        import tomllib
+        from sector_map import custom_map
+        _cm = custom_map()
+        _pool = tomllib.loads((ROOT / "config" / "watch_pool.toml").read_text(encoding="utf-8"))
+        mine = {_cm.get(x.get("code")) for th in _pool.get("themes") or [] for x in th.get("stocks") or []} - {None}
+    except Exception:
+        mine = set()
+    show = {m["group"] for m in MT if m["rank"] <= 5 or quad(m) == "리더" or m["group"] in mine}
+    # 축 글씨·사분면 이름 자리는 미리 비워 둔다(이름이 그 위에 겹치지 않게)
+    placed += [(L, L + 150, T + 10), (L, L + 190, T + 28), (L, W - R, H - B + 14), (W - R - 170, W - R, T + 14), (W - R - 190, W - R, cy(YQ) + 16), (L, L + 60, H - B - 6)]
     for m in sorted(MT, key=lambda m: m["rank"]):
         X, Y = cx(m["opg"]), cy(m["score"]); lead = quad(m) == "리더"
         g.append(f'<circle cx="{X:.1f}" cy="{Y:.1f}" r="{4 + min(10, m["n"]/3):.1f}" class="{"dot hot" if lead else "dot"}"><title>{E(m["group"])} · 강도 {m["score"]}({m["rank"]}위) · 올해 영업이익 {pc(m["opg"])} · PER(E) {m.get("per")}</title></circle>')
@@ -760,9 +771,13 @@ def chart_matrix(P):
             left = X > W - R - 110; ly = Y + 3
             txt = f"{m['group']} {m['rank']}위"; tw = len(txt) * 6.6
             x0, x1 = ((X - 8 - tw), X - 8) if left else (X + 8, X + 8 + tw)
-            for _ in range(8):   # 글자 상자가 겹치면 아래로
-                if any(abs(ly - py) < 12 and not (x1 < a0 or x0 > a1) for a0, a1, py in placed):
-                    ly += 12
+            hit = lambda yy: yy < T + 2 or yy > H - B - 2 or any(abs(yy - py) < 12 and not (x1 < a0 or x0 > a1) for a0, a1, py in placed)   # noqa: E731
+            for dy in (0, 12, -12, 24, -24, -36):   # 겹치면 아래·위로 조금씩, 그래도 겹치면 이름을 빼고 점만
+                if not hit(Y + 3 + dy):
+                    ly = Y + 3 + dy
+                    break
+            else:
+                continue
             placed.append((x0, x1, ly))
             g.append(f'<text x="{(X-8) if left else (X+8):.1f}" y="{ly:.1f}" class="lbl{" hotl" if lead else ""}" text-anchor="{"end" if left else "start"}">{E(m["group"])} {m["rank"]}위</text>')
     return f'<svg viewBox="0 0 {W} {H}" class="chart" role="img" aria-label="업종 테크노펀더멘탈 지도">{"".join(g)}</svg>'
@@ -805,8 +820,8 @@ def sub_html(t):
 
 def leaders_html(t):
     """리더 칸: '큰 줄기:'(옛 말) 머리말은 라벨로 올리고, 항목은 한 줄에 하나씩."""
-    t = re.sub(r"^\s*큰\s*(줄기|스트림|띔)\s*[:：]\s*", "", str(t))
-    items = [x.strip() for x in re.split(r"\s*[·,]\s*", t) if x.strip()]
+    t = re.sub(r"^\s*(큰\s*)?(줄기|스트림|띔)\s*[:：]\s*", "", str(t))
+    items = [x.strip() for x in re.split(r"\s+·\s+|\s*,\s*", t) if x.strip()]   # 띄어 쓴 ' · '로만 나눔 — '메모리 대형·기판'은 한 항목 (2026-11-25)
     return '<b class="txt k-a">' + "".join(f"<i>{E(x)}</i>" for x in items) + "</b>"
 
 
