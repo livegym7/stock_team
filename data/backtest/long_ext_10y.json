@@ -1,0 +1,470 @@
+{
+ "made_at": "2026-11-25 16:20",
+ "years": 10.0,
+ "period": [
+  "20161125",
+  "20261124"
+ ],
+ "universe": {
+  "all": 2740,
+  "delisted": 355
+ },
+ "define": "끝물 급등(클라이맥스) 가려내기 비교 (2026-11-25 사용자 요청, 비교 자료): 돌파 신호가 '이미 얼마나 올라온 뒤'에 나왔는지로 나눠 성적을 본다.\n재는 것(모두 신호일 종가 기준) = 60일선 대비 거리 · 60일 저점 대비 상승 폭 · 최근 20일 수익률 · 신호일 하루 상승률 · 신호일 거래량 배수.\n신호 = 지금 규칙(쉬었다가 넘는 돌파 + 거래량 1.5배 + 업종 동행)과, 표본을 늘린 55일 신고가 돌파(같은 조건). 후보는 --run이 만든 것을 그대로 쓴다.",
+ "지금 규칙(쉬었다가 넘는 돌파)": {
+  "60일선 대비 거리": [
+   {
+    "range": "10 미만",
+    "n": 110,
+    "win_rate": 29.1,
+    "avg_r": 0.16,
+    "payoff": 2.95,
+    "reach_3r_pct": 29.1
+   },
+   {
+    "range": "10~20",
+    "n": 346,
+    "win_rate": 31.8,
+    "avg_r": 0.29,
+    "payoff": 3.01,
+    "reach_3r_pct": 31.8
+   },
+   {
+    "range": "20~30",
+    "n": 351,
+    "win_rate": 25.6,
+    "avg_r": 0.05,
+    "payoff": 3.1,
+    "reach_3r_pct": 25.6
+   },
+   {
+    "range": "30~50",
+    "n": 404,
+    "win_rate": 32.4,
+    "avg_r": 0.39,
+    "payoff": 3.25,
+    "reach_3r_pct": 32.4
+   },
+   {
+    "range": "50 이상",
+    "n": 283,
+    "win_rate": 36.7,
+    "avg_r": 0.3,
+    "payoff": 2.51,
+    "reach_3r_pct": 36.7
+   }
+  ],
+  "60일 저점 대비 상승 폭": [
+   {
+    "range": "30 미만",
+    "n": 196,
+    "win_rate": 28.1,
+    "avg_r": 0.16,
+    "payoff": 3.12,
+    "reach_3r_pct": 28.1
+   },
+   {
+    "range": "30~50",
+    "n": 386,
+    "win_rate": 29.8,
+    "avg_r": 0.24,
+    "payoff": 3.12,
+    "reach_3r_pct": 29.8
+   },
+   {
+    "range": "50~80",
+    "n": 436,
+    "win_rate": 31.0,
+    "avg_r": 0.27,
+    "payoff": 3.06,
+    "reach_3r_pct": 31.0
+   },
+   {
+    "range": "80~120",
+    "n": 243,
+    "win_rate": 30.9,
+    "avg_r": 0.31,
+    "payoff": 3.2,
+    "reach_3r_pct": 30.9
+   },
+   {
+    "range": "120 이상",
+    "n": 233,
+    "win_rate": 37.3,
+    "avg_r": 0.28,
+    "payoff": 2.39,
+    "reach_3r_pct": 37.3
+   }
+  ],
+  "최근 20일 수익률": [
+   {
+    "range": "10 미만",
+    "n": 179,
+    "win_rate": 30.7,
+    "avg_r": 0.27,
+    "payoff": 3.11,
+    "reach_3r_pct": 30.7
+   },
+   {
+    "range": "10~20",
+    "n": 415,
+    "win_rate": 27.0,
+    "avg_r": 0.12,
+    "payoff": 3.15,
+    "reach_3r_pct": 27.0
+   },
+   {
+    "range": "20~35",
+    "n": 406,
+    "win_rate": 35.0,
+    "avg_r": 0.36,
+    "payoff": 2.83,
+    "reach_3r_pct": 35.0
+   },
+   {
+    "range": "35~50",
+    "n": 230,
+    "win_rate": 27.4,
+    "avg_r": 0.09,
+    "payoff": 2.95,
+    "reach_3r_pct": 27.4
+   },
+   {
+    "range": "50 이상",
+    "n": 264,
+    "win_rate": 36.0,
+    "avg_r": 0.44,
+    "payoff": 2.94,
+    "reach_3r_pct": 36.0
+   }
+  ],
+  "신호일 하루 상승률": [
+   {
+    "range": "5 미만",
+    "n": 170,
+    "win_rate": 31.2,
+    "avg_r": 0.44,
+    "payoff": 3.57,
+    "reach_3r_pct": 31.2
+   },
+   {
+    "range": "5~10",
+    "n": 485,
+    "win_rate": 27.4,
+    "avg_r": 0.1,
+    "payoff": 2.99,
+    "reach_3r_pct": 27.4
+   },
+   {
+    "range": "10~15",
+    "n": 317,
+    "win_rate": 30.6,
+    "avg_r": 0.29,
+    "payoff": 3.18,
+    "reach_3r_pct": 30.6
+   },
+   {
+    "range": "15~25",
+    "n": 298,
+    "win_rate": 29.2,
+    "avg_r": 0.12,
+    "payoff": 2.83,
+    "reach_3r_pct": 29.2
+   },
+   {
+    "range": "25 이상",
+    "n": 224,
+    "win_rate": 43.3,
+    "avg_r": 0.58,
+    "payoff": 2.6,
+    "reach_3r_pct": 43.3
+   }
+  ],
+  "신호일 거래량 배수": [
+   {
+    "range": "2 미만",
+    "n": 253,
+    "win_rate": 34.4,
+    "avg_r": 0.33,
+    "payoff": 2.83,
+    "reach_3r_pct": 34.4
+   },
+   {
+    "range": "2~3",
+    "n": 356,
+    "win_rate": 28.9,
+    "avg_r": 0.21,
+    "payoff": 3.14,
+    "reach_3r_pct": 28.9
+   },
+   {
+    "range": "3~5",
+    "n": 356,
+    "win_rate": 29.5,
+    "avg_r": 0.15,
+    "payoff": 2.88,
+    "reach_3r_pct": 29.5
+   },
+   {
+    "range": "5~8",
+    "n": 258,
+    "win_rate": 35.3,
+    "avg_r": 0.45,
+    "payoff": 3.06,
+    "reach_3r_pct": 35.3
+   },
+   {
+    "range": "8 이상",
+    "n": 271,
+    "win_rate": 29.9,
+    "avg_r": 0.19,
+    "payoff": 2.97,
+    "reach_3r_pct": 29.9
+   }
+  ],
+  "끝물 급등 모양(60일 저점 +80%↑ · 하루 +10%↑ · 거래량 3배↑)": {
+   "해당": {
+    "n": 293,
+    "win_rate": 36.5,
+    "avg_r": 0.38,
+    "payoff": 2.72,
+    "reach_3r_pct": 36.5
+   },
+   "그 밖": {
+    "n": 1201,
+    "win_rate": 30.0,
+    "avg_r": 0.23,
+    "payoff": 3.06,
+    "reach_3r_pct": 30.0
+   }
+  }
+ },
+ "55일 신고가 돌파(표본 넓힘)": {
+  "60일선 대비 거리": [
+   {
+    "range": "10 미만",
+    "n": 41,
+    "win_rate": 26.8,
+    "avg_r": 0.01,
+    "payoff": 2.78,
+    "reach_3r_pct": 26.8
+   },
+   {
+    "range": "10~20",
+    "n": 452,
+    "win_rate": 29.4,
+    "avg_r": 0.22,
+    "payoff": 3.1,
+    "reach_3r_pct": 29.4
+   },
+   {
+    "range": "20~30",
+    "n": 731,
+    "win_rate": 26.7,
+    "avg_r": 0.09,
+    "payoff": 3.08,
+    "reach_3r_pct": 26.7
+   },
+   {
+    "range": "30~50",
+    "n": 1139,
+    "win_rate": 34.0,
+    "avg_r": 0.4,
+    "payoff": 3.06,
+    "reach_3r_pct": 34.0
+   },
+   {
+    "range": "50 이상",
+    "n": 1382,
+    "win_rate": 32.4,
+    "avg_r": 0.17,
+    "payoff": 2.57,
+    "reach_3r_pct": 32.4
+   }
+  ],
+  "60일 저점 대비 상승 폭": [
+   {
+    "range": "30 미만",
+    "n": 194,
+    "win_rate": 24.7,
+    "avg_r": -0.03,
+    "payoff": 2.92,
+    "reach_3r_pct": 24.7
+   },
+   {
+    "range": "30~50",
+    "n": 699,
+    "win_rate": 29.3,
+    "avg_r": 0.16,
+    "payoff": 2.92,
+    "reach_3r_pct": 29.3
+   },
+   {
+    "range": "50~80",
+    "n": 1054,
+    "win_rate": 32.9,
+    "avg_r": 0.38,
+    "payoff": 3.13,
+    "reach_3r_pct": 32.9
+   },
+   {
+    "range": "80~120",
+    "n": 804,
+    "win_rate": 32.7,
+    "avg_r": 0.32,
+    "payoff": 2.98,
+    "reach_3r_pct": 32.7
+   },
+   {
+    "range": "120 이상",
+    "n": 994,
+    "win_rate": 31.3,
+    "avg_r": 0.09,
+    "payoff": 2.47,
+    "reach_3r_pct": 31.3
+   }
+  ],
+  "최근 20일 수익률": [
+   {
+    "range": "10 미만",
+    "n": 155,
+    "win_rate": 25.2,
+    "avg_r": 0.01,
+    "payoff": 3.0,
+    "reach_3r_pct": 25.2
+   },
+   {
+    "range": "10~20",
+    "n": 578,
+    "win_rate": 26.1,
+    "avg_r": 0.06,
+    "payoff": 3.05,
+    "reach_3r_pct": 26.1
+   },
+   {
+    "range": "20~35",
+    "n": 960,
+    "win_rate": 32.1,
+    "avg_r": 0.25,
+    "payoff": 2.87,
+    "reach_3r_pct": 32.1
+   },
+   {
+    "range": "35~50",
+    "n": 711,
+    "win_rate": 33.2,
+    "avg_r": 0.31,
+    "payoff": 2.9,
+    "reach_3r_pct": 33.2
+   },
+   {
+    "range": "50 이상",
+    "n": 1341,
+    "win_rate": 32.8,
+    "avg_r": 0.26,
+    "payoff": 2.8,
+    "reach_3r_pct": 32.8
+   }
+  ],
+  "신호일 하루 상승률": [
+   {
+    "range": "5 미만",
+    "n": 638,
+    "win_rate": 29.8,
+    "avg_r": 0.22,
+    "payoff": 3.07,
+    "reach_3r_pct": 29.8
+   },
+   {
+    "range": "5~10",
+    "n": 1225,
+    "win_rate": 30.4,
+    "avg_r": 0.19,
+    "payoff": 2.88,
+    "reach_3r_pct": 30.4
+   },
+   {
+    "range": "10~15",
+    "n": 699,
+    "win_rate": 30.2,
+    "avg_r": 0.25,
+    "payoff": 3.1,
+    "reach_3r_pct": 30.2
+   },
+   {
+    "range": "15~25",
+    "n": 702,
+    "win_rate": 30.1,
+    "avg_r": 0.14,
+    "payoff": 2.77,
+    "reach_3r_pct": 30.1
+   },
+   {
+    "range": "25 이상",
+    "n": 481,
+    "win_rate": 39.5,
+    "avg_r": 0.43,
+    "payoff": 2.54,
+    "reach_3r_pct": 39.5
+   }
+  ],
+  "신호일 거래량 배수": [
+   {
+    "range": "2 미만",
+    "n": 692,
+    "win_rate": 31.8,
+    "avg_r": 0.25,
+    "payoff": 2.88,
+    "reach_3r_pct": 31.8
+   },
+   {
+    "range": "2~3",
+    "n": 901,
+    "win_rate": 30.6,
+    "avg_r": 0.2,
+    "payoff": 2.88,
+    "reach_3r_pct": 30.6
+   },
+   {
+    "range": "3~5",
+    "n": 901,
+    "win_rate": 29.9,
+    "avg_r": 0.11,
+    "payoff": 2.7,
+    "reach_3r_pct": 29.9
+   },
+   {
+    "range": "5~8",
+    "n": 580,
+    "win_rate": 36.2,
+    "avg_r": 0.51,
+    "payoff": 3.09,
+    "reach_3r_pct": 36.2
+   },
+   {
+    "range": "8 이상",
+    "n": 671,
+    "win_rate": 29.7,
+    "avg_r": 0.16,
+    "payoff": 2.88,
+    "reach_3r_pct": 29.7
+   }
+  ],
+  "끝물 급등 모양(60일 저점 +80%↑ · 하루 +10%↑ · 거래량 3배↑)": {
+   "해당": {
+    "n": 929,
+    "win_rate": 32.3,
+    "avg_r": 0.22,
+    "payoff": 2.74,
+    "reach_3r_pct": 32.3
+   },
+   "그 밖": {
+    "n": 2816,
+    "win_rate": 31.0,
+    "avg_r": 0.23,
+    "payoff": 2.93,
+    "reach_3r_pct": 31.0
+   }
+  }
+ },
+ "seconds": 25
+}

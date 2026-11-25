@@ -647,6 +647,48 @@ def run_run(years=10, with_delisted=True):
     return {k: out[k] for k in ("made_at", "per_signal", "seconds")}
 
 
+def run_ext(years=10, with_delisted=True):
+    """끝물 급등(클라이맥스) 가려내기 비교 (2026-11-25 사용자 요청, 비교 자료): 돌파 신호가 '이미 얼마나 올라온 뒤'에 나왔는지로 나눠 성적을 본다.
+    재는 것(모두 신호일 종가 기준) = 60일선 대비 거리 · 60일 저점 대비 상승 폭 · 최근 20일 수익률 · 신호일 하루 상승률 · 신호일 거래량 배수.
+    신호 = 지금 규칙(쉬었다가 넘는 돌파 + 거래량 1.5배 + 업종 동행)과, 표본을 늘린 55일 신고가 돌파(같은 조건). 후보는 --run이 만든 것을 그대로 쓴다."""
+    t0 = time.time()
+    cf = CACHE / f"long_cand_run{_sfx(years)}.json"
+    if not cf.exists():
+        run_run(years, with_delisted)
+    o = json.loads(cf.read_text()); cand, days, uni = o["cand"], o["days"], o["uni"]
+    bo = lambda t: (t["vol_ratio"] or 0) >= 1.5 and t["ia"] == "동반 상승"  # noqa: E731
+    used = [t for t in cand if (t["f_base"] or t["f_55"]) and bo(t) and t["exit"]]
+    rows = {}
+    for t in used:
+        if t["code"] not in rows:
+            r = fetch(t["code"], years); rows[t["code"]] = (r, {x["date"]: i for i, x in enumerate(r)})
+        r, ix = rows[t["code"]]; i = ix.get(t["date"])
+        if i is None or i < 60:
+            continue
+        c = r[i]["close"]
+        t["x60"] = (c / (sum(x["close"] for x in r[i - 59:i + 1]) / 60) - 1) * 100
+        t["up60"] = (c / min(x["low"] for x in r[i - 59:i + 1] if x["low"]) - 1) * 100
+        t["ret20"] = (c / r[i - 20]["close"] - 1) * 100
+        t["day"] = (c / r[i - 1]["close"] - 1) * 100
+    used = [t for t in used if "x60" in t]
+    st = lambda ts: {k: B.stats([{**t, "took": bool(t["be"]), "days": 0} for t in ts]).get(k) for k in ("n", "win_rate", "avg_r", "payoff", "reach_3r_pct")}  # noqa: E731
+    CUT = {"x60": ("60일선 대비 거리", [10, 20, 30, 50]), "up60": ("60일 저점 대비 상승 폭", [30, 50, 80, 120]), "ret20": ("최근 20일 수익률", [10, 20, 35, 50]),
+           "day": ("신호일 하루 상승률", [5, 10, 15, 25]), "vol_ratio": ("신호일 거래량 배수", [2, 3, 5, 8])}
+    def table(ts):
+        out = {}
+        for k, (lab, cuts) in CUT.items():
+            b = [-1e9] + cuts + [1e9]
+            out[lab] = [{"range": (f"{cuts[0]} 미만" if j == 0 else f"{b[j]} 이상" if j == len(cuts) else f"{b[j]}~{b[j + 1]}"), **st([t for t in ts if b[j] <= (t[k] or 0) < b[j + 1]])} for j in range(len(b) - 1)]
+        hot = lambda t: t["up60"] >= 80 and t["day"] >= 10 and (t["vol_ratio"] or 0) >= 3  # noqa: E731
+        out["끝물 급등 모양(60일 저점 +80%↑ · 하루 +10%↑ · 거래량 3배↑)"] = {"해당": st([t for t in ts if hot(t)]), "그 밖": st([t for t in ts if not hot(t)])}
+        return out
+    out = {"made_at": datetime.now(KST).strftime("%Y-%m-%d %H:%M"), "years": years, "period": [days[0], days[-1]], "universe": uni, "define": run_ext.__doc__.strip(),
+           "지금 규칙(쉬었다가 넘는 돌파)": table([t for t in used if t["f_base"]]), "55일 신고가 돌파(표본 넓힘)": table([t for t in used if t["f_55"]]),
+           "seconds": round(time.time() - t0)}
+    (DATA / "backtest" / f"long_ext{_sfx(years)}.json").write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
+    return out
+
+
 def run_cons(years=10, with_delisted=True):
     """진짜 컨센서스로 본 펀더 점수 (2026-11-24 사용자 요청, 비교 자료): 신호일에 실제로 나와 있던 증권사 추정치(tools/consensus_hist.py — 월말 기준, 2025-02부터)로
     ① 올해 영업이익 추정치가 작년보다 +20%↑(또는 흑자 전환) ② 올해 EPS 추정치가 작년보다 증가 ③ 올해 영업이익 추정치가 1개월 전보다 상향 — 을 매겨 신호 성적과 계좌를 본다.
@@ -778,8 +820,9 @@ if __name__ == "__main__":
     ap.add_argument("--fwd", action="store_true", help="다음 분기 실제 실적을 컨센서스 자리에 넣은 최대치 비교 → data/backtest/long_fwd.json")
     ap.add_argument("--cons", action="store_true", help="진짜 컨센서스(2025-03~)로 매긴 펀더 점수 비교 → data/backtest/long_cons.json")
     ap.add_argument("--run", action="store_true", help="쉬지 않고 오르는 종목 잡기 비교(신고가 돌파·20일선 눌림) → data/backtest/long_run.json")
+    ap.add_argument("--ext", action="store_true", help="끝물 급등 가려내기: 돌파 신호를 이미 올라온 폭으로 나눠 비교 → data/backtest/long_ext.json")
     ap.add_argument("--vol", action="store_true", help="돌파 거래량 문턱 비교(1.5/1.2/1.0/없음 · 대형주 완화 · 포켓피봇 추가)")
     ap.add_argument("--zone", action="store_true", help="기준가 돌파와 매물대 돌파 비교 → data/backtest/long_zone.json")
     a = ap.parse_args()
-    res = run_run(a.years, not a.no_delisted) if a.run else run_cons(10) if a.cons else run_fwd(a.years, not a.no_delisted) if a.fwd else run_ia(a.years, not a.no_delisted) if a.ia else run_vol(a.years, not a.no_delisted) if a.vol else run_fund(a.years, not a.no_delisted) if a.fund else run_zone(a.years, not a.no_delisted) if a.zone else run_portfolio(a.years, not a.no_delisted) if a.portfolio else run(a.years, a.limit, not a.no_delisted)
+    res = run_ext(a.years, not a.no_delisted) if a.ext else run_run(a.years, not a.no_delisted) if a.run else run_cons(10) if a.cons else run_fwd(a.years, not a.no_delisted) if a.fwd else run_ia(a.years, not a.no_delisted) if a.ia else run_vol(a.years, not a.no_delisted) if a.vol else run_fund(a.years, not a.no_delisted) if a.fund else run_zone(a.years, not a.no_delisted) if a.zone else run_portfolio(a.years, not a.no_delisted) if a.portfolio else run(a.years, a.limit, not a.no_delisted)
     print(json.dumps(res, ensure_ascii=False, indent=1))

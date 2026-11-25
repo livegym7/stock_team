@@ -648,3 +648,4 @@
 - 2026-11-25 알림 깨우기: cloudflare/alert-cron(worker.js·wrangler.toml), .github/workflows/alert-cron-deploy.yml, web_build._alerts_backup 겹침 방지. 확인: 문법 검사만. 미확인: 실제 배포·깨우기(사용자가 열쇠를 넣은 뒤) · Cloudflare 열쇠에 Workers 권한이 있는지.
 
 - 2026-11-25 차트 크게 보기 통일: `zoomBox` 하나로 지수·매크로 카드 공용, 카드의 제자리 넓히기(`ui.mcz`) 삭제, 누르면 닫힘. 휴대폰 크기 화면에서 열기·닫기 직접 확인(오류 0). 실제 사이트는 로그인 뒤라 확인 못 함.
+- 2026-11-25 `backtest_long.py --ext --years 10` 실행(25초, 후보는 --run 캐시 재사용) → `data/backtest/long_ext_10y.json`. 한계: 신호일 종가 진입 가정(상한가 날은 실제로 사기 어려움) · 칸마다 200~400건이라 ±0.15R쯤은 우연.
