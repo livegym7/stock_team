@@ -4,7 +4,7 @@
   1. 1개월 상대 강도: 업종 종목 1개월 수익률 중앙값 − 전체 중앙값
   2. 1주 상대 강도: 같은 방식, 1주
   3. 확산도: 업종 종목 중 20일선 위 비율
-  4. 신고가: 최근 5일 안에 55일(분기) 신고가를 낸 종목 비율
+  4. 신고가: 최근 5일 안에 60일 신고가를 낸 종목 비율 (2026-11-25 사용자 확정: 신고가 탭·매매 보드와 같은 60일로 통일, 전에는 55일 — 기간은 screener.NH_DAYS)
   5. 돈의 쏠림: 업종 거래대금 최근 5일 평균 ÷ 직전 60일 평균
 (지금 시점에는 채널 언급·리포트 상향 수를 참고로 붙인다 — 점수에는 넣지 않음)
 
@@ -55,6 +55,7 @@ def pct_rank(vals):
 
 def score_on(data, day, min_members=4):
     per = {}
+    from screener import NH_DAYS
     for code, d in data.items():
         i = d["idx"].get(day)
         if i is None or i < 65:
@@ -62,7 +63,7 @@ def score_on(data, day, min_members=4):
         r = d["rows"]
         c = [x["close"] for x in r]
         ma20 = sum(c[i - 19:i + 1]) / 20
-        hi55 = [max(x["high"] for x in r[k - 55:k]) for k in range(i - 4, i + 1)]
+        hi55 = [max(x["high"] for x in r[k - NH_DAYS:k]) for k in range(i - 4, i + 1)]
         nh = any(r[k]["close"] > hi55[j] for j, k in enumerate(range(i - 4, i + 1)))
         val5 = sum(x["close"] * x["volume"] for x in r[i - 4:i + 1]) / 5
         val60 = sum(x["close"] * x["volume"] for x in r[i - 64:i - 4]) / 60
@@ -182,7 +183,7 @@ def _build(data, day=None):
     out = {"made_at": datetime.now(KST).strftime("%Y-%m-%d %H:%M"), "as_of": day, "groups": now, "history": hist,
            "confirmed": leading.get("sectors", []), "confirmed_at": leading.get("set_at"), "confirmed_note": leading.get("note", ""),
            "source": "네이버 일봉(비공식) · 업종 = 사용자 분류(custom) · 계산 Claude",
-           "how": "점수 = 1개월·1주 상대 강도, 20일선 위 비율, 55일 신고가 비율, 거래대금 쏠림의 업종 간 순위 평균(0~100)"}
+           "how": "점수 = 1개월·1주 상대 강도, 20일선 위 비율, 60일 신고가 비율, 거래대금 쏠림의 업종 간 순위 평균(0~100)"}
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "latest.json").write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
     return out
