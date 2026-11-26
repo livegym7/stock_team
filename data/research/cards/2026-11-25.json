@@ -3307,7 +3307,7 @@
    "언론 보도 기준",
    "언론 보도가 관찰되었다"
   ],
-  "status": "card",
+  "status": "deep",
   "built_at": "2026-11-25 18:41",
   "error": null,
   "thesis": "삼성전자 휴머노이드는 외부 판매보다 자사 AI 자율공장 투입이 먼저라고 봅니다",
@@ -3336,7 +3336,9 @@
   ],
   "horizon": "2027 CES",
   "filled_by": "sonnet",
-  "filled_at": "2026-11-25 18:44"
+  "filled_at": "2026-11-25 18:44",
+  "deep_file": "naver_industry_47203",
+  "deep_at": "2026-11-26 20:17"
  },
  "industry:47204": {
   "nid": "47204",
@@ -4790,7 +4792,7 @@
    "수는 7개에서 9개로",
    "수렴 범용 22"
   ],
-  "status": "card",
+  "status": "deep",
   "built_at": "2026-11-25 18:41",
   "error": null,
   "thesis": "MLCC는 리드타임이 4번째 계단식 확장돼 가격이 오르나 주가는 하락 중이라고 봅니다",
@@ -4819,7 +4821,9 @@
   ],
   "horizon": "2026 4Q~2027",
   "filled_by": "sonnet",
-  "filled_at": "2026-11-25 18:44"
+  "filled_at": "2026-11-25 18:44",
+  "deep_file": "naver_industry_47206",
+  "deep_at": "2026-11-26 20:17"
  },
  "industry:47207": {
   "nid": "47207",
@@ -12662,7 +12666,7 @@
    "였다 그림2 40",
    "예고한 사례는 여섯"
   ],
-  "status": "card",
+  "status": "deep",
   "built_at": "2026-11-25 18:41",
   "error": null,
   "thesis": "증안펀드 발표가 곧 바닥은 아니며 과거 6번 중 1년 뒤 상승은 5번이라고 정리합니다",
@@ -12689,7 +12693,9 @@
   "stocks_key": [],
   "horizon": "2027",
   "filled_by": "sonnet",
-  "filled_at": "2026-11-25 18:44"
+  "filled_at": "2026-11-25 18:44",
+  "deep_file": "naver_industry_47224",
+  "deep_at": "2026-11-26 20:17"
  },
  "industry:47225": {
   "nid": "47225",

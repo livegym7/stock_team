@@ -1529,6 +1529,102 @@
    "drive_modified": null,
    "analyzed_at": "2026-11-25 20:18",
    "depth": "full"
+  },
+  "naver_industry_47238": {
+   "title": "중국 리스크 소화 기간 (유진투자증권, 2026-11-26)",
+   "broker": "유진투자증권",
+   "date": "2026-11-26",
+   "kind": "산업",
+   "subject": "반도체 · 대중국 수출통제",
+   "one_line": "BIS 원격접근 규정과 미 의회 수출통제 법안이 중국향 메모리 수요 공백을 만들지만 북미 고객이 물량을 흡수할 수 있어 시장이 리스크를 소화하면 반등할 수 있다는 반도체 리포트입니다.",
+   "url": "https://stock.naver.com/research/industry/47238",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-26 20:17",
+   "depth": "full"
+  },
+  "naver_industry_47224": {
+   "title": "[ESG] 증안펀드가 나오면 바닥일까 (한화투자증권, 2026-11-24)",
+   "broker": "한화투자증권",
+   "date": "2026-11-24",
+   "kind": "전략",
+   "subject": "증안펀드 · 코스피 하락 국면",
+   "one_line": "증안펀드를 실제로 쓴 세 번은 발표 뒤에도 코스피가 최대 27.5% 더 빠졌고 이번 낙폭 48.3%는 과거 발표 때보다 깊어 발표가 곧 바닥은 아니라는 리포트입니다.",
+   "url": "https://stock.naver.com/research/industry/47224",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-26 20:17",
+   "depth": "full"
+  },
+  "naver_industry_47230": {
+   "title": "27년 전망: 가능성을 팔던 시대, 경쟁력을 파는 시대 (키움증권, 2026-11-26)",
+   "broker": "키움증권",
+   "date": "2026-11-26",
+   "kind": "산업",
+   "subject": "제약·바이오",
+   "one_line": "기술이전은 역대급인데 코스닥 제약 지수는 고점 대비 -60%라 투자심리가 기초체력보다 더 나빴고 대형사가 먼저 방어주·성장주 역할을 한 뒤 바이오텍이 이어받는다는 제약·바이오 전망입니다.",
+   "url": "https://stock.naver.com/research/industry/47230",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-26 20:17",
+   "depth": "full"
+  },
+  "naver_industry_47152": {
+   "title": "의심하지 말지어다 (하나증권, 2026-11-23)",
+   "broker": "하나증권",
+   "date": "2026-11-23",
+   "kind": "산업",
+   "subject": "전기전자 · AI 부품",
+   "one_line": "하이퍼스케일러 4개사 2027년 Capex가 +24% $7,440억으로 늘고 ASIC 출하는 +106%여서 AI 부품(기판·MLCC)은 수요를 의심할 필요가 없지만 스마트폰은 메모리 가격 때문에 회복이 제한된다는 전기전자 리포트입니다.",
+   "url": "https://stock.naver.com/research/industry/47152",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-26 20:17",
+   "depth": "full"
+  },
+  "naver_industry_47206": {
+   "title": "MLCC Tracker #5 길어지는 납기, 오르는 가격, 하락하는 주가 (iM증권, 2026-11-25)",
+   "broker": "iM증권",
+   "date": "2026-11-25",
+   "kind": "산업",
+   "subject": "MLCC",
+   "one_line": "MLCC 리드타임이 11월 초 네 번째 계단식으로 늘고 삼성전기·Yageo가 5개월 연속 가격을 올렸는데 한중일 MLCC 업체 주가는 고점 대비 -64%라 멀티플만 빠졌다는 리포트입니다.",
+   "url": "https://stock.naver.com/research/industry/47206",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-26 20:17",
+   "depth": "full"
+  },
+  "naver_industry_47164": {
+   "title": "리레이팅은 상선 밖에서 (SK증권, 2026-11-23)",
+   "broker": "SK증권",
+   "date": "2026-11-23",
+   "kind": "산업",
+   "subject": "조선",
+   "one_line": "조선 3사 합산 영업이익은 26E 9.7조·27E 11.7조·28E 13.6조원으로 사상 최대인데 시총은 고점 대비 -61%라 상선 피크아웃 우려는 반영됐고 27년 리레이팅 트리거는 엔진·FDC·MASGA 같은 상선 밖에서 나온다는 리포트입니다.",
+   "url": "https://stock.naver.com/research/industry/47164",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-26 20:17",
+   "depth": "full"
+  },
+  "naver_industry_47166": {
+   "title": "쌓여가는 수요, 이제는 계약의 시간 (SK증권, 2026-11-23)",
+   "broker": "SK증권",
+   "date": "2026-11-23",
+   "kind": "산업",
+   "subject": "방산",
+   "one_line": "방산 5사 잔고는 136조원으로 -18%인데 대형 파이프라인 110~124조원 중 4Q26~27 서명 기대분 60~70조원의 계약 전환 속도가 주가를 가른다는 방산 전망입니다.",
+   "url": "https://stock.naver.com/research/industry/47166",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-26 20:17",
+   "depth": "full"
+  },
+  "naver_industry_47203": {
+   "title": "삼성전자가 휴머노이드를 만든다면? (iM증권, 2026-11-25)",
+   "broker": "iM증권",
+   "date": "2026-11-25",
+   "kind": "산업",
+   "subject": "삼성전자 휴머노이드 · 로봇 부품",
+   "one_line": "삼성전자 휴머노이드는 스마트폰 조립 수준의 정밀 작업을 겨냥해 힘줄(Tendon) 방식에서 직구동으로 바뀌었고 신규 업체 진입 가능성이 높지만 공급 관계가 확정된 곳은 에스피지뿐이라는 리포트입니다.",
+   "url": "https://stock.naver.com/research/industry/47203",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-26 20:17",
+   "depth": "full"
   }
  },
  "skipped": {

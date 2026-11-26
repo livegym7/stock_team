@@ -24398,7 +24398,7 @@
    "없는 AI 투자",
    "역량 강화를 강조했으며"
   ],
-  "status": "card",
+  "status": "deep",
   "built_at": "2026-11-23 18:41",
   "error": null,
   "thesis": "AI Capex 확대가 이어지는 가운데 다중적층 MLB 전환 이수페타시스를 최선호주로 제시합니다",
@@ -24430,7 +24430,9 @@
   ],
   "horizon": "2027",
   "filled_by": "sonnet",
-  "filled_at": "2026-11-23 18:46"
+  "filled_at": "2026-11-23 18:46",
+  "deep_file": "naver_industry_47152",
+  "deep_at": "2026-11-26 20:17"
  },
  "industry:47153": {
   "nid": "47153",
@@ -30262,7 +30264,7 @@
    "육상 엔진 실적",
    "의견과 함께 최선호주로"
   ],
-  "status": "card",
+  "status": "deep",
   "built_at": "2026-11-23 18:41",
   "error": null,
   "thesis": "조선 리레이팅은 상선 밖(FDC·데이터센터·MASGA)에서 나오며 HD현대중공업을 최선호주로 제시합니다",
@@ -30293,7 +30295,9 @@
   ],
   "horizon": "2027",
   "filled_by": "sonnet",
-  "filled_at": "2026-11-23 18:46"
+  "filled_at": "2026-11-23 18:46",
+  "deep_file": "naver_industry_47164",
+  "deep_at": "2026-11-26 20:17"
  },
  "industry:47165": {
   "nid": "47165",
@@ -31240,7 +31244,7 @@
    "이란 휴전 발표",
    "이란과의 합의가 필요"
   ],
-  "status": "card",
+  "status": "deep",
   "built_at": "2026-11-23 18:41",
   "error": null,
   "thesis": "27년 방산은 수주 실적이 주가를 결정하며 LIG D&A를 최선호주로 제시합니다",
@@ -31270,7 +31274,9 @@
   ],
   "horizon": "4Q26~2027",
   "filled_by": "sonnet",
-  "filled_at": "2026-11-23 18:46"
+  "filled_at": "2026-11-23 18:46",
+  "deep_file": "naver_industry_47166",
+  "deep_at": "2026-11-26 20:17"
  },
  "industry:47167": {
   "nid": "47167",
