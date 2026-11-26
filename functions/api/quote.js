@@ -71,10 +71,10 @@ export async function onRequestGet({ request }) {
         out.night.ewy = { price: Math.round(cl[k] * 100) / 100, change_pct: base ? Math.round((cl[k] / base - 1) * 10000) / 100 : null, at: kst(ts[k] * 1000), session: inreg ? "정규장" : "시간외" }; }
     } catch (e) {}
   }
-  // 지금 주목받는 종목 (2026-11-24): ?hot=1 → 네이버 검색 상위 30 (업종 묶음·내 목록 꼬리표는 화면이 붙임)
+  // 지금 주목받는 종목 (2026-11-24): ?hot=1 → 네이버 검색 상위 100, ETF·우선주 제외 (업종 묶음·내 목록 꼬리표는 화면이 붙임)
   if (u.searchParams.get("hot") === "1") {
-    const T = await j("https://m.stock.naver.com/api/stocks/searchTop/all?page=1&pageSize=30");
-    const items = ((T && T.stocks) || []).map((s, i) => ({ rank: i + 1, code: s.itemCode, name: s.stockName, price: num(s.closePrice), chg: num(s.fluctuationsRatio), value_eok: Math.round((num(s.accumulatedTradingValue) || 0) / 100), end: s.stockEndType })).filter(s => s.end == "stock" && s.code);
+    const T = await j("https://m.stock.naver.com/api/stocks/searchTop/all?page=1&pageSize=100");
+    const items = ((T && T.stocks) || []).map((s, i) => ({ rank: i + 1, code: s.itemCode, name: s.stockName, price: num(s.closePrice), chg: num(s.fluctuationsRatio), value_eok: Math.round((num(s.accumulatedTradingValue) || 0) / 100), end: s.stockEndType })).filter(s => s.end == "stock" && s.code && /0$/.test(s.code));
     if (items.length) out.hot = { made_at: now, items };
   }
   return new Response(JSON.stringify(out), { headers: { "content-type": "application/json; charset=utf-8", "cache-control": "no-store" } });

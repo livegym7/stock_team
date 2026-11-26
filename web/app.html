@@ -2081,17 +2081,30 @@ function hotPop(a,ev){const g=a.dataset.hotg,P=$("#pop"),L=hotItems().filter(o=>
 function popAt(P,a,ev){const pw=Math.min(330,innerWidth-16);P.style.width=pw+"px";P.hidden=false;const ph=P.offsetHeight,r=a.getBoundingClientRect();
   let left=(ev&&ev.clientX?ev.clientX:r.right)+16;if(left+pw>innerWidth-8)left=Math.max(8,(ev&&ev.clientX?ev.clientX:r.left)-16-pw);
   P.style.left=left+"px";P.style.top=Math.min(Math.max(8,(ev&&ev.clientY?ev.clientY:r.top)-ph/2),innerHeight-ph-8)+"px"}
+/* 주목 탭 (2026-11-26 사용자 요청: 검색 상위 30 → 100) — 3종목 이상 모인 업종만 표로(표마다 5종목 + 더 보기), 1~2종목 업종은 '기타'로 접음.
+   순서 = 등락 합(종목 수 × 평균 등락)이 큰 순: 수만 많은 업종(대형주가 늘 끼는 업종)보다 같이 오르는 업종이 앞에 온다. 맨 위에 오늘 급등 테마 줄. */
+function hotThemes(){const L=(D.live||{}).hot_themes,B=D.hot_themes||{};return L&&(L.themes||[]).length&&String(L.at||"")>=String(B.at||"")?L:B}
+function hotThPop(a,ev){const T=hotThemes(),x=(T.themes||[]).find(t=>t.theme==a.dataset.hotth),P=$("#pop");if(!P||!x)return;popFor="hotth"+x.theme;
+  P.innerHTML=`<div class="pph"><b>${esc(x.theme)}</b> <small class="muted">+10%↑ ${x.up_n}종목${x.limit_up?` · 상한가 ${x.limit_up}`:""} · 테마 평균 <span class="${cls(x.avg)}">${pc(x.avg,1)}</span></small></div>
+   <table class="etfh"><tr><th class="l">종목</th><th>오늘</th><th>시총</th><th>내 목록</th></tr>${(x.stocks||[]).map(o=>{const c=stockByCode(o.code);
+     return `<tr><td class="l">${c?`<span class="esub" data-sub="${esc(o.code)}"><b>${esc(o.name)}</b></span>`:`<b>${esc(o.name)}</b>`}</td><td class="num ${cls(o.chg)}">${pc(o.chg,2)}</td><td class="num">${o.cap_eok?w(o.cap_eok)+"억":"-"}</td><td class="num">${o.mine?'<span class="htag h1">내 목록</span>':""}</td></tr>`}).join("")}</table>
+   <div class="src" style="margin-top:4px">오른 순 6종목까지 · 소형주 포함 · ${esc(T.at||"")} · 출처: 네이버 테마(비공식)</div>`;
+  popAt(P,a,ev)}
 function hotTab(){const items=hotItems();
   if(!items.length)return `<div class="empty">주목 종목 자료가 아직 없습니다 (다음 웹 배포 때 채워집니다)</div>`;
   const G={};items.forEach(o=>(G[o.g]=G[o.g]||[]).push(o));
-  const gs=Object.entries(G).map(([g,v])=>({g,v,avg:v.reduce((a,o)=>a+(o.chg||0),0)/v.length})).sort((a,b)=>b.v.length-a.v.length||b.avg-a.avg);
-  const big=gs.filter(x=>x.v.length>=2),rest=gs.filter(x=>x.v.length<2).flatMap(x=>x.v).sort((a,b)=>a.rank-b.rank);
+  const gs=Object.entries(G).map(([g,v])=>({g,v:v.sort((a,b)=>a.rank-b.rank),avg:v.reduce((a,o)=>a+(o.chg||0),0)/v.length,sum:v.reduce((a,o)=>a+(o.chg||0),0)})).sort((a,b)=>b.sum-a.sum||b.v.length-a.v.length);
+  const big=gs.filter(x=>x.v.length>=3&&x.g!="분류 없음"),rest=gs.filter(x=>!big.includes(x)).flatMap(x=>x.v).sort((a,b)=>((b.chg||0)>=5)-((a.chg||0)>=5)||((a.chg||0)>=5?(b.chg||0)-(a.chg||0):a.rank-b.rank));
   const head=`<colgroup>${[30,14,12,8,12,12,12].map(x=>`<col style="width:${x}%">`).join("")}</colgroup><tr><th class="l">종목</th><th>현재가</th><th>오늘</th><th>RS</th><th>검색 순위</th><th>거래대금</th><th>내 목록</th></tr>`;
   const row=o=>`<tr data-go-s="${o.code}"><td class="l"><b data-pop="${esc(o.name)}" class="stk">${esc(o.name)}</b><br><small class="muted">${esc(o.g)}</small></td><td class="num"><b>${w(o.price)}</b></td><td class="num ${cls(o.chg)}">${pc(o.chg,2)}</td><td class="num">${o.rs??"-"}</td><td class="num">${o.rank}위</td><td class="num">${o.value_eok?w(o.value_eok)+"억":"-"}</td><td class="num"><span class="htag h${["보유","관찰 풀","감시 목록","목록 밖"].indexOf(o.tag)}">${o.tag}</span></td></tr>`;
-  const sec=(t,n,rows)=>`<h3 class="tbh">${t} <small class="muted">${n}</small></h3><div class="tw"><table class="slist hott">${head}${rows.map(row).join("")}</table></div>`;
-  return `<div class="tbnm">🔥 <b>지금 몰리는 업종</b> ${big.slice(0,5).map(x=>`<span class="nm hotg" data-hotg="${esc(x.g)}" role="button" tabindex="0" title="누르면 종목 목록"><b>${esc(x.g)} ${x.v.length}</b> <span class="${cls(x.avg)}">${pc(x.avg,1)}</span></span>`).join("")||'<span class="muted">두 종목 이상 모인 업종이 없습니다</span>'}</div>
-   ${big.map(x=>sec(esc(x.g),`${x.v.length}종목 · 평균 <span class="${cls(x.avg)}">${pc(x.avg,1)}</span>`,x.v)).join("")}${rest.length?sec("그 밖",`${rest.length}종목 · 업종에 한 종목씩`,rest):""}
-   ${src(`검색 상위 30 · ${((D.hotLive&&(D.hotLive.items||[]).length?D.hotLive:D.hot)||{}).made_at||""} · 업종 = 내 분류 · 내 목록 = 보유 / 관찰 풀 / 감시 목록 / 목록 밖 · 화면이 열려 있으면 1분마다 갱신 · 표시만, 판단은 본인 · 출처: 네이버 금융 검색 상위(비공식)`)}`}
+  const tbl=(rows,key,base)=>{const n=moreN(key,base);return `<div class="tw"><table class="slist hott">${head}${rows.slice(0,n).map(row).join("")}</table></div>${moreBtn(key,Math.min(n,rows.length),rows.length,10)}`};
+  const sec=(x,i)=>`<h3 class="tbh">${esc(x.g)} <small class="muted">${x.v.length}종목 · 평균 <span class="${cls(x.avg)}">${pc(x.avg,1)}</span></small></h3>${tbl(x.v,"hot_"+x.g,5)}`;
+  const TH=hotThemes(),th=TH.themes||[];
+  return `${th.length?`<div class="tbnm">⚡ <b>오늘 급등 테마</b> ${th.map(x=>`<span class="nm hotg" data-hotth="${esc(x.theme)}" role="button" tabindex="0" title="누르면 종목 목록"><b>${esc(x.theme)}</b> <span class="up">${x.limit_up?`상한가 ${x.limit_up} · `:""}+10%↑ ${x.up_n}</span></span>`).join("")} <small class="muted">${esc(String(TH.at||"").slice(5))}</small></div>`:""}
+   <div class="tbnm">🔥 <b>지금 몰리는 업종</b> ${big.filter(x=>x.sum>0).slice(0,8).map(x=>`<span class="nm hotg" data-hotg="${esc(x.g)}" role="button" tabindex="0" title="누르면 종목 목록"><b>${esc(x.g)} ${x.v.length}</b> <span class="${cls(x.avg)}">${pc(x.avg,1)}</span></span>`).join("")||'<span class="muted">같이 오르는 업종이 없습니다</span>'}</div>
+   ${big.map(sec).join("")}
+   ${rest.length?`<details class="fold" data-fold="hotEtc" ${ui.hotEtc?"open":""}><summary class="foldh">기타 <small class="muted">${rest.length}종목 · 한두 종목뿐인 업종 · +5%↑ 종목 먼저</small></summary>${tbl(rest,"hot_etc",10)}</details>`:""}
+   ${src(`검색 상위 100(ETF·우선주 제외) · ${((D.hotLive&&(D.hotLive.items||[]).length?D.hotLive:D.hot)||{}).made_at||""} · 업종 = 내 분류, 3종목 이상 모인 업종만 표로 · 순서 = 종목 수 × 평균 등락 · 내 목록 = 보유 / 관찰 풀 / 감시 목록 / 목록 밖 · 화면이 열려 있으면 1분마다 갱신 · 급등 테마 = 네이버 테마 안에서 +10%↑ 3종목 이상(소형주 포함, 배포 때 + 장중 20분마다) · 표시만, 판단은 본인 · 출처: 네이버 금융(비공식)`)}`}
 function vtopTab(){
   const B=D.vtop||{},L=D.vtopLive,base=Object.fromEntries((B.items||[]).map(x=>[x.code,x]));
   const live=L&&String(L.made_at||"").slice(0,10)==kstNow().toISOString().slice(0,10)&&(L.items||[]).length;
@@ -2820,6 +2833,7 @@ document.addEventListener("mouseover",e=>{if(!HOVER)return;
     if(st)pop2T=setTimeout(()=>{if(pop2For!=st.c.code)showPop(st,1)},220);else if(pop2For)pop2T=setTimeout(hidePop2,300);return}
   const ea=e.target.closest("[data-etf]");if(ea){clearTimeout(popT);popT=setTimeout(()=>{if(popFor!="etf"+ea.dataset.etf)etfPop(ea,e)},250);return}
   const hg=e.target.closest("[data-hotg]");if(hg){clearTimeout(popT);popT=setTimeout(()=>{if(popFor!="hot"+hg.dataset.hotg)hotPop(hg,e)},250);return}
+  const ht=e.target.closest("[data-hotth]");if(ht){clearTimeout(popT);popT=setTimeout(()=>{if(popFor!="hotth"+ht.dataset.hotth)hotThPop(ht,e)},250);return}
   const bk=e.target.closest("[data-brk]");if(bk){clearTimeout(popT);popT=setTimeout(()=>{if(popFor!="brk"+bk.dataset.brk)brkPop(bk,bk.dataset.brk,e)},250);return}
   const fg=e.target.closest("[data-fgp]");if(fg){clearTimeout(popT);popT=setTimeout(()=>{if(popFor!="fgp"+fg.dataset.fgp)fgrpPop(fg,fg.dataset.fgp,e)},280);return}
   const t=popTarget(e.target);clearTimeout(popT);
@@ -2831,6 +2845,7 @@ document.addEventListener("click",e=>{
   if(e.target.closest("#pop")){const st=subTarget(e.target);if(st){e.preventDefault();if(pop2For==st.c.code)hidePop2();else showPop(st,1);return}if(e.target.closest(".ppl")||!HOVER)hidePop();return}   // 휴대폰: 카드를 한 번 더 누르면 닫힘 (2026-11-13)
   if(!HOVER){const ea=e.target.closest("[data-etf]");if(ea){e.preventDefault();e.stopPropagation();if(popFor=="etf"+ea.dataset.etf)hidePop();else etfPop(ea,e);return}
     const hg=e.target.closest("[data-hotg]");if(hg){e.preventDefault();e.stopPropagation();if(popFor=="hot"+hg.dataset.hotg)hidePop();else hotPop(hg,e);return}
+    const ht=e.target.closest("[data-hotth]");if(ht){e.preventDefault();e.stopPropagation();if(popFor=="hotth"+ht.dataset.hotth)hidePop();else hotThPop(ht,e);return}
     const bk=e.target.closest("[data-brk]");if(bk){e.preventDefault();e.stopPropagation();if(popFor=="brk"+bk.dataset.brk)hidePop();else brkPop(bk,bk.dataset.brk,e);return}
     const fr=e.target.closest("tr[data-fgrp]");if(fr&&fr.dataset.fgrp){e.preventDefault();e.stopPropagation();const g=fr.dataset.fgrp;if(popFor=="fgp"+g)hidePop();else fgrpPop(fr.querySelector("[data-fgp]")||fr,g,e);return}
     const t=popTarget(e.target);if(t&&popFor!=t.c.code){e.preventDefault();e.stopPropagation();showPop(t);return}

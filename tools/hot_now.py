@@ -3,7 +3,7 @@
 
 1) night: 나스닥 100 선물(네이버 해외선물, 10분 지연) + EWY(미국 상장 한국 ETF, 야후 — 정규장 밖이면 시간외 가격)
    코스피 야간선물은 무료로 받을 곳을 찾지 못해 EWY로 대신한다.
-2) hot: 네이버 검색 상위 30종목 — 지금 주목받는 종목. 화면이 내 업종 분류로 묶어 보여 준다(종목 › 주목).
+2) hot: 네이버 검색 상위 100종목(ETF·우선주 제외) — 지금 주목받는 종목. 화면이 내 업종 분류로 묶어 보여 준다(종목 › 주목).
 
 화면이 열려 있는 동안에는 Cloudflare 함수(functions/api/quote.js ?night=1&hot=1)가 같은 값을 1분마다 준다.
 이 도구는 웹을 만들 때 넣는 첫 값이다.
@@ -24,7 +24,7 @@ KST = timezone(timedelta(hours=9))
 UA = {"User-Agent": "Mozilla/5.0", "Referer": "https://m.stock.naver.com/"}
 NQ = "https://polling.finance.naver.com/api/realtime/worldstock/futures/NQcv1"
 EWY = "https://query1.finance.yahoo.com/v8/finance/chart/EWY?interval=5m&range=1d&includePrePost=true"
-TOP = "https://m.stock.naver.com/api/stocks/searchTop/all?page=1&pageSize=30"
+TOP = "https://m.stock.naver.com/api/stocks/searchTop/all?page=1&pageSize=100"
 
 
 def _get(url):
@@ -76,7 +76,7 @@ def night():
 
 
 def hot():
-    """검색 상위 30. 업종(g) = 내 분류(sector_map) 먼저, 없으면 네이버 업종. rs = 레이더의 RS(있을 때)."""
+    """검색 상위 100(2026-11-26 사용자 요청: 30 → 100, 더 많은 테마가 잡히게 · ETF·우선주(코드 끝자리가 0이 아님)는 뺀다). 업종(g) = 내 분류(sector_map) 먼저, 없으면 네이버 업종. rs = 레이더의 RS(있을 때)."""
     from sector_map import custom_map
     from universe import load
     cm, uni = custom_map(), {u["code"]: u for u in load()["stocks"]}
@@ -87,7 +87,7 @@ def hot():
     items = []
     for i, s in enumerate(_get(TOP).get("stocks") or []):
         c = s.get("itemCode")
-        if s.get("stockEndType") != "stock" or not c:
+        if s.get("stockEndType") != "stock" or not c or not c.endswith("0"):
             continue
         items.append({"rank": i + 1, "code": c, "name": s.get("stockName"), "price": _num(s.get("closePrice")), "chg": _num(s.get("fluctuationsRatio")),
                       "value_eok": round((_num(s.get("accumulatedTradingValue")) or 0) / 100), "g": cm.get(c) or (uni.get(c) or {}).get("industry") or "",

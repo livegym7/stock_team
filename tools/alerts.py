@@ -308,6 +308,11 @@ def live_snapshot(state, ev, now):
         pool += [s.get("code") for s in th.get("stocks", []) if s.get("code")]
     out["quotes"] = live_prices(pool + [p["code"] for p in ev["positions"]])
     out["alerts"] = (state.get("log") or {}).get(now.strftime("%Y-%m-%d"), [])
+    try:                                   # 주목 탭 '오늘 급등 테마' 줄 (2026-11-26, 토큰 0 · 10초쯤)
+        import hot_now
+        out["hot_themes"] = hot_now.themes()
+    except Exception as e:
+        out["hot_themes_error"] = type(e).__name__
     return out
 
 

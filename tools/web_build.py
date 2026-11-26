@@ -1494,6 +1494,7 @@ def write_html(data):
     # 나스닥 선물·EWY + 지금 주목받는 종목(검색 상위 30) + 업종 묶음표 (2026-11-24, tools/hot_now.py — 화면이 열려 있으면 /api/quote가 1분마다 갈아 끼움)
     data["night"] = safe(lambda: __import__("hot_now").night())
     data["hot"] = safe(lambda: __import__("hot_now").hot())
+    data["hot_themes"] = safe(lambda: __import__("hot_now").themes())     # 주목 탭 맨 위 '오늘 급등 테마' 줄 (장중에는 20분 스냅샷 live.json이 새 값을 실어 줌)
     data["grp"] = safe(lambda: __import__("sector_map").custom_map(), {})
     # 깊이 모드 자료 (2026-11-20): 종목 메모(코드 → 메모)
     data["stock_memos"] = safe(lambda: {f.stem: json.loads(f.read_text(encoding="utf-8")) for f in (DATA / "stock_memos").glob("*.json")}, {})
