@@ -1,0 +1,959 @@
+{
+ "at": "2026-11-26 14:49",
+ "opinion": {
+  "title": "코스피 +1.35%지만 외국인은 순매도로 바뀌었고 기관이 받쳤습니다",
+  "lines": [
+   "14:47 코스피는 4,761.15(+1.35%), 코스닥은 664.2(+2.08%)로 오전보다 올랐습니다. 기준은 네이버 14:47입니다.",
+   "외국인이 순매도로 바뀌었고 기관 순매수가 지수를 받쳤으며, 우주항공·스페이스X 테마와 창업투자·통신장비가 강했습니다.",
+   "내 종목은 동국제약이 손절가까지 -5.1%로 여유가 늘었고 코스맥스는 3R 가격까지 5.7% 남았습니다. JYP Ent.는 미국 미리캐피탈의 지분이 7.87%로 늘었다는 공시가 나왔습니다.",
+   "반대 근거는 한은 총재의 반도체 밸류에이션 경계 발언, 외국인 순매도, 조선·지주 목표가 대량 하향입니다."
+  ],
+  "delta": "12시 이후 외국인이 순매도로 바뀌었고 한은 총재 발언, 중국발 PCB 오더컷 코멘트, JYP 대량보유 공시, 우주항공 계약 공시가 새로 나왔습니다."
+ },
+ "topics": [
+  {
+   "name": "미국 조정·관세 재료",
+   "stance": "부정",
+   "scope": "시장 전체 · 메인 스트림 영향",
+   "mine": true,
+   "one": "JP모건은 AI 슈퍼사이클 지속을 전제로 2027년 S&P500 8,200을 제시했고, 금리는 50bp 인상 가능성이 사라졌습니다.",
+   "pro": [
+    "USTR가 한국·일본·EU 관세 15% 상한 유지를 밝혔고 GDP가 예상(3.4%)을 크게 웃돈 4.3%였습니다 (nje2e, 채널 요약)",
+    "델 FY27 3분기 매출 549억 달러(예상 493.2억), AI 수주 602억 달러로 실적은 강했다는 정리 (bornlupin 전달)",
+    "최근 급락으로 테크 밸류가 2025년 4월·2020년 3월보다 낮아졌고 내년 EPS 하향은 크지 않다는 정리 (nje2e, 개인 의견)"
+   ],
+   "con": [
+    "근원 PCE YoY 3.3%가 예상을 웃돌아 금리 인하 기대가 약해질 수 있다는 부담입니다 (nje2e, 채널 요약)",
+    "미국 증시가 성장주와 가치주 멀티플이 같아지는 건 2007~2008년뿐이라는 지적 (nje2e, 개인 의견)",
+    "스탠 드러켄밀러는 앞으로 12개월 전망이 이렇게 불확실한 적은 없었다고 밝혔습니다 (TNBfolio 정리)"
+   ],
+   "so": "관세 15% 상한은 수출주에 부담을 덜어 주지만 근원 PCE가 높아 한국은행·연준 금리 경로를 계속 봐야 합니다.",
+   "new": false,
+   "items": [
+    {
+     "t": "10:39",
+     "tone": "neg",
+     "text": "코어위브가 메타향 GPU 담보 45억 달러 대출을 추진, CDS 1,300bp·기존 회사채 수익률 18%",
+     "src": "nje2e",
+     "new": false,
+     "url": "https://finance.yahoo.com/markets/stocks/articles/coreweave-banks-sell-4-5-172523161.html",
+     "via": "기사"
+    },
+    {
+     "t": "10:11",
+     "tone": "neg",
+     "text": "미국 AI 칩 수출 규제 강화로 씨티·DBS 등이 아시아 데이터센터 대출을 재검토",
+     "src": "TNBfolio",
+     "new": false,
+     "url": "https://t.me/TNBfolio/72141",
+     "via": "채널"
+    },
+    {
+     "t": "08:39",
+     "tone": "pos",
+     "text": "JP모건이 AI 슈퍼사이클이 이어진다며 2027년 S&P500 목표치를 8,200으로 제시",
+     "src": "bornlupin",
+     "new": false,
+     "url": "https://t.me/bornlupin/21287",
+     "via": "채널"
+    },
+    {
+     "t": "08:26",
+     "tone": "neu",
+     "text": "PCE 뒤 12월 25bp 인상 확률은 소폭 올랐고 50bp 확률은 사라졌으며 동결 확률이 2%로 새로 생김, 내년까지 인상 예상은 3회에서 2회로 감소",
+     "src": "nje2e",
+     "new": false,
+     "url": "https://t.me/nje2e/45922",
+     "via": "채널"
+    },
+    {
+     "t": "07:17",
+     "tone": "neu",
+     "text": "머스크가 젠슨 황의 엔비디아 CEO 복귀를 추진하는 데 핵심 역할을 했고 복귀 전 트럼프와 대화했다는 보도",
+     "src": "bornlupin",
+     "new": false,
+     "url": "https://t.me/bornlupin/21282",
+     "via": "채널"
+    },
+    {
+     "t": "22:38",
+     "tone": "neu",
+     "text": "(11/25) 미국 10월 PCE: 헤드라인 MoM +0.3%·YoY +3.8%(예상과 동일), 근원 YoY +3.3%는 예상을 상회, 3분기 GDP 4.3%(예상 3.4%), 신규 실업수당 청구는 예상 하회",
+     "src": "nje2e",
+     "new": false,
+     "url": "https://t.me/nje2e/45917",
+     "via": "채널"
+    },
+    {
+     "t": "22:35",
+     "tone": "pos",
+     "text": "(11/25) USTR \"한국·일본·EU 등 관세 15% 상한 유지\", 그리어 대표는 새 관세율이 발효되기까지 몇 달이 걸리고 기존 무역협정 세율에 근접할 것이라고 발언",
+     "src": "nje2e·bornlupin",
+     "new": false,
+     "url": "https://mk.co.kr/news/world/12218737",
+     "via": "기사"
+    },
+    {
+     "t": "06:05",
+     "tone": "neu",
+     "text": "미 증시 혼조: 다우는 초반 -1,200p 하락을 뒤집고 상승 전환, 엔비디아·마이크론 약세로 나스닥은 하락",
+     "src": "shmstory",
+     "new": false,
+     "url": "https://t.me/shmstory/9265",
+     "via": "채널"
+    },
+    {
+     "t": "06:15",
+     "tone": "pos",
+     "text": "마이클 버리가 나스닥100 풋옵션을 전량 청산하고 거의 전면 롱으로 전환, 현금 약 25%, 지난 금요일 매수한 엔비디아 콜옵션은 이미 두 배",
+     "src": "bornlupin",
+     "new": false,
+     "url": "https://t.me/bornlupin/21281",
+     "via": "채널"
+    },
+    {
+     "t": "22:29",
+     "tone": "neg",
+     "text": "(11/25) CNN 공포·탐욕지수가 15 이하(기준일 11/20)로 과거 극단 구간에 들어섰다는 정리",
+     "src": "nje2e",
+     "new": false,
+     "url": "https://t.me/nje2e/45911",
+     "via": "채널"
+    },
+    {
+     "t": "16:00",
+     "tone": "pos",
+     "text": "미국 백악관에서 나트륨 배터리 개발 회의가 열려 업계 역량을 결집",
+     "src": "FastStockNews",
+     "new": false,
+     "url": "https://theguru.co.kr/news/article.html?no=110195",
+     "via": "기사"
+    },
+    {
+     "t": "17:22",
+     "tone": "neu",
+     "text": "메타와 아마존이 광고·검색 이슈로 Muse 쇼핑봇 차단 해제를 논의(포춘)",
+     "src": "FastStockNews",
+     "new": false,
+     "url": "https://x.com/FirstSquawk/status/2125502761810997328",
+     "via": "기사"
+    }
+   ]
+  },
+  {
+   "name": "트럼프 기자회견·정책",
+   "stance": "엇갈림",
+   "scope": "시장 전체 · AI 인프라",
+   "mine": true,
+   "one": "해외 데이터센터에 '막대한 세금', 젠슨 황 복귀 촉구, 에너지 인허가법 강조가 한꺼번에 나왔습니다.",
+   "pro": [
+    "베센트 재무장관: H200 중국 판매 정책 변화는 예상하지 않고, 중국은 H200 주문이 부족하다고 밝혔습니다 (nje2e 전달)",
+    "트럼프: 에너지 인허가 개혁법이 가계에 연간 최소 1,300달러를 돌려줄 것이라고 강조했습니다 (채널 요약)"
+   ],
+   "con": [
+    "미국 기업의 해외 데이터센터 건설에 막대한 세금을 부과하겠다는 발언은 Equinix 등 해외 투자 기업에 부담입니다 (TNBfolio 정리)",
+    "중국에는 구형 반도체만 팔겠다는 발언으로 수출 규제 강화 우려가 남았습니다 (bornlupin 정리)"
+   ],
+   "so": "AI 인프라 스트림은 미국 내 데이터센터·전력 쪽 수혜와 해외 건설 기업 부담이 엇갈립니다.",
+   "new": false,
+   "items": [
+    {
+     "t": "07:46",
+     "tone": "pos",
+     "text": "베센트 CBS: 엔비디아는 위대한 기업이고 AI 칩 수요는 사실상 무제한, 순환금융 구조를 당장 우려하지 않는다",
+     "src": "bornlupin",
+     "new": false,
+     "url": "https://t.me/bornlupin/21237",
+     "via": "채널"
+    },
+    {
+     "t": "08:21",
+     "tone": "neg",
+     "text": "빌 애크먼: 연준이 12월 9일 또 실수를 하려 한다, 금융 여건이 매우 긴축적이라는 발언",
+     "src": "bornlupin",
+     "new": false,
+     "url": "https://t.me/bornlupin/21239",
+     "via": "채널"
+    },
+    {
+     "t": "08:55",
+     "tone": "neg",
+     "text": "유진투자 건설: 트럼프의 해외 데이터센터 과세 경고가 건설업에 미칠 영향 분석",
+     "src": "butler_works",
+     "new": false,
+     "url": "https://t.me/butler_works/33324",
+     "via": "채널"
+    },
+    {
+     "t": "21:03",
+     "tone": "pos",
+     "text": "(11/22) PJM이 데이터센터 전력망 접속 심사를 2년에서 1년으로 줄이는 신속 절차 개정안을 FERC에 제출",
+     "src": "nje2e",
+     "new": false,
+     "url": "https://t.me/nje2e/45793",
+     "via": "채널"
+    },
+    {
+     "t": "20:57",
+     "tone": "neu",
+     "text": "(11/22) 이란 대통령 \"전쟁도 평화도 아닌 상황에서 벗어나야 한다\", 외무부 \"외교의 창은 열려 있다\"",
+     "src": "bornlupin",
+     "new": false,
+     "url": "https://t.me/bornlupin/21232",
+     "via": "채널"
+    },
+    {
+     "t": "09:13",
+     "tone": "neu",
+     "text": "백악관 기자회견 10개 쟁점 정리: 해외 데이터센터 제한, 중국 구형 칩만 판매, 젠슨 황 복귀, 시진핑과 AI 가드레일, 연준 금리 인하 요구",
+     "src": "bornlupin·nje2e",
+     "new": false
+    },
+    {
+     "t": "05:37",
+     "tone": "neg",
+     "text": "트럼프 \"美 기업, 해외 데이터센터 건설 금지\" 속보",
+     "src": "nje2e",
+     "new": false,
+     "url": "https://californiaglobe.com/fr/spacex-details-self-contained-power-and-water-plan-for-arizona-ai-site-as-progressive-ngo-mobilizes-opposition",
+     "via": "기사"
+    },
+    {
+     "t": "06:54",
+     "tone": "neu",
+     "text": "트럼프가 젠슨 황 복귀를 촉구하며 \"두 번째 기회를 줘야 한다\"고 발언",
+     "src": "nje2e·FastStockNews",
+     "new": false
+    },
+    {
+     "t": "07:17",
+     "tone": "neu",
+     "text": "베센트: H200 중국 판매 정책 변화 없음, 젠슨 황은 중국 논의에서 언급되지 않았다",
+     "src": "nje2e",
+     "new": false
+    },
+    {
+     "t": "07:09",
+     "tone": "pos",
+     "text": "게빈 베이커: 엔비디아가 투자·보증을 줄일 것이라는 우려는 기우, 경쟁사가 그 자리를 노려 오히려 유리한 조건을 내놓는다는 견해(개인 의견)",
+     "src": "nje2e",
+     "new": false
+    }
+   ]
+  },
+  {
+   "name": "메모리·반도체(한국)",
+   "stance": "엇갈림",
+   "scope": "메인 스트림 · AI 인프라",
+   "mine": true,
+   "one": "LTA 파기 소문은 근거 없다는 글과 삼성 500단 낸드 공개, 키옥시아 급등이 나왔고 반도체는 +3.8%로 반등했습니다.",
+   "pro": [
+    "외국인 +2,430억·기관 +546억 순매수, 오른 종목 531 대 내린 종목 323입니다 (네이버 09:51)",
+    "SK하이닉스: 2026년 주주환원 100조 원, 순현금 99조 원이라는 발표입니다 (nje2e, 채널 요약)",
+    "샌디스크: NAND 하락 위험이 전혀 없고 AI 스토리지 수요가 견조하다는 발언입니다 (FastStockNews, 채널 요약)",
+    "메리츠: 중국발 PCB 오더컷 우려에도 국내 메모리 기판업체가 고객사와 판가 인상에 합의했다는 채널체크입니다 (butler_works, 채널 요약)"
+   ],
+   "con": [
+    "개인이 -3,473억 순매도하고 한국은행 금통위 인상 가능성이 변수입니다 (네이버 09:51, 채널 요약)",
+    "공매도 143% 폭증과 HBM 수요 다변화로 엔비디아 의존도가 낮아진다는 정리입니다 (FastStockNews·nje2e)",
+    "BNP: 마이크론을 매수에서 보유로 낮추고 목표가를 1,700에서 775로 대폭 하향했다는 정리입니다 (shmstory, 채널 요약)",
+    "트렌드포스: 중국 서버 DRAM 수요 축소로 2027년 DRAM 가격 상승률 전망을 하향했습니다 (nje2e, 채널 요약)"
+   ],
+   "so": "삼현·동국제약·심텍은 손절가 위입니다. 동국제약만 -3.6%로 가깝고 나머지는 거리가 넓어졌습니다.",
+   "new": true,
+   "items": [
+    {
+     "t": "14:45",
+     "tone": "pos",
+     "text": "AI 서버 수요로 PCB 부족이 2028년 중반까지 완화되기 어렵다는 대만 보도",
+     "src": "corevalue",
+     "new": true,
+     "url": "https://ctee.com.tw/news/20261126701134-430502",
+     "via": "기사"
+    },
+    {
+     "t": "14:11",
+     "tone": "neg",
+     "text": "엔비디아가 동남아(말레이·싱가포르·태국·인도네시아) 서버 배송을 중단하라고 지시했다는 소식",
+     "src": "shmstory",
+     "new": true,
+     "url": "https://ft.com/content/7838a715-07d4-4605-aa60-21f5af2b2370?syn-25a6b1a6=1",
+     "via": "기사"
+    },
+    {
+     "t": "14:06",
+     "tone": "pos",
+     "text": "파두가 해외 낸드 제조사와 기업용 SSD 컨트롤러 204억 원 공급 계약",
+     "src": "FastStockNews",
+     "new": true,
+     "url": "https://t.me/FastStockNews/128562",
+     "via": "채널"
+    },
+    {
+     "t": "13:33",
+     "tone": "pos",
+     "text": "메리츠: 중국발 PCB 오더컷 우려에도 국내 메모리 기판업체가 판가 인상에 합의",
+     "src": "butler_works",
+     "new": true,
+     "url": "https://t.me/butler_works/33816",
+     "via": "채널"
+    },
+    {
+     "t": "12:35",
+     "tone": "pos",
+     "text": "엑시콘이 삼성전자와 CLT 인터페이스 보드 80억 원 공급 계약(핵심 후보)",
+     "src": "FastStockNews·darthacking",
+     "new": true,
+     "url": "https://t.me/FastStockNews/128548",
+     "via": "채널"
+    },
+    {
+     "t": "10:30",
+     "tone": "neu",
+     "text": "메리츠: 중국 클라우드 수요 감소로 메모리 가격 전망 하향, DDR4 현물가 하락",
+     "src": "butler_works",
+     "new": false,
+     "url": "https://t.me/butler_works/33812",
+     "via": "채널"
+    },
+    {
+     "t": "10:39",
+     "tone": "neu",
+     "text": "SpaceX가 블랙웰 임대료를 20~35% 인하, 스팟 GPU 희소성 프리미엄 소멸이라는 해석",
+     "src": "nje2e",
+     "new": false,
+     "url": "https://t.me/nje2e/45930",
+     "via": "채널"
+    },
+    {
+     "t": "08:47",
+     "tone": "neu",
+     "text": "전일 반도체 급락 때 돈 'LTA 파기' 소문은 알아본 결과 그런 움직임이 없다는 글, BNP의 마이크론 목표가 하향이 돌고 돌며 여의도에 여진을 일으켰다는 해석(개인 의견)",
+     "src": "FastStockNews",
+     "new": false,
+     "url": "https://youtube.com/watch?v=BwTXD4bzMsc",
+     "via": "기사"
+    },
+    {
+     "t": "08:55",
+     "tone": "pos",
+     "text": "삼성전자가 세계 최초 500단급 낸드 기술을 공개",
+     "src": "FastStockNews",
+     "new": false,
+     "url": "https://news.einfomax.co.kr/news/articleView.html?idxno=4446594",
+     "via": "기사"
+    },
+    {
+     "t": "09:37",
+     "tone": "pos",
+     "text": "키옥시아가 +14%로 개장해 상한가에 근접",
+     "src": "bornlupin",
+     "new": false,
+     "url": "https://t.me/bornlupin/21289",
+     "via": "채널"
+    },
+    {
+     "t": "09:19",
+     "tone": "pos",
+     "text": "원익QnC가 삼성·하이닉스 물량에 북미 L사 물량 폭증까지, 자회사 가치를 0원으로 쳐도 PER 6배라는 분석",
+     "src": "FastStockNews",
+     "new": false,
+     "url": "http://newsprime.co.kr/news/article.html?no=756564",
+     "via": "기사"
+    },
+    {
+     "t": "08:50",
+     "tone": "pos",
+     "text": "미너비니: 한 가지 지표는 반도체가 이미 상대적 저점을 찍었을 수 있음을 보여 준다는 글(개인 의견)",
+     "src": "bornlupin·nje2e",
+     "new": false,
+     "url": "https://t.me/bornlupin/21288",
+     "via": "채널"
+    }
+   ]
+  },
+  {
+   "name": "한은 금리 인상·한국 증시",
+   "stance": "부정",
+   "scope": "시장 전체 · 내 종목",
+   "mine": true,
+   "one": "한은 총재가 반도체 밸류에이션과 주식시장 침체의 소비 영향을 언급했고 외국인은 순매도로 바뀌었습니다.",
+   "pro": [
+    "한은이 올해 성장률을 3.9%, 내년 4.1%로 올려 수출·투자 호조를 근거로 삼았습니다 (한은 경제전망, ked_epic_ai 요약)",
+    "당정이 주가누르기 방지법에 잠정 합의했고 최종 입법은 진통이 예상됩니다 (FastStockNews, 채널 요약)",
+    "기관이 대규모 순매수로 지수를 받쳤습니다 (네이버 14:47)"
+   ],
+   "con": [
+    "한은 총재가 \"반도체 시총 2000조, 수익은 3배밖에 안 돼 설명 불가\"라고 밝혀 밸류에이션 경계 신호입니다 (FastStockNews, 채널 요약)",
+    "외국인이 순매도로 바뀌었고 개인이 순매수 규모 이상으로 받는 구도입니다 (네이버 14:47)",
+    "금리 민감 업종인 자동차·무선통신·항공사가 약합니다 (네이버 업종)"
+   ],
+   "so": "동국제약·삼현·심텍 모두 손절가와 -5~-7% 거리이고, 외국인 수급이 바뀐 점은 마감 리뷰에서 다시 봅니다.",
+   "new": true,
+   "items": [
+    {
+     "t": "13:32",
+     "tone": "pos",
+     "text": "한은 11월 경제전망: 올해 3.9%, 내년 4.1% 성장, 반도체 수출 호조가 긍정 요인",
+     "src": "ked_epic_ai",
+     "new": true,
+     "url": "https://t.me/ked_epic_ai/39831",
+     "via": "채널"
+    },
+    {
+     "t": "13:08",
+     "tone": "pos",
+     "text": "당정이 주가누르기 방지법에 잠정 합의, 최종 입법은 진통 예상",
+     "src": "FastStockNews",
+     "new": true,
+     "url": "https://n.news.naver.com/article/011/0004686443?sid=101",
+     "via": "기사"
+    },
+    {
+     "t": "12:59",
+     "tone": "neg",
+     "text": "[속보] 한은 총재 \"주식시장 침체가 민간 소비에 영향 미쳐\"",
+     "src": "FastStockNews",
+     "new": true,
+     "url": "https://n.news.naver.com/mnews/article/015/0005358520?sid=101",
+     "via": "기사"
+    },
+    {
+     "t": "12:19",
+     "tone": "neg",
+     "text": "[속보] 한은 총재 \"반도체 시총 2000조, 수익 3배밖에 안 돼 설명 불가\"",
+     "src": "FastStockNews",
+     "new": true,
+     "url": "https://n.news.naver.com/mnews/article/015/0005358535?ntype=RANKING&rc=N&sid=001",
+     "via": "기사"
+    },
+    {
+     "t": "13:08",
+     "tone": "neu",
+     "text": "국장의 당장 핵심은 외국인 매도가 언제 완화되느냐라는 정리 (개인 의견)",
+     "src": "one_going",
+     "new": true,
+     "url": "https://blog.naver.com/egzion/224492666209",
+     "via": "기사"
+    },
+    {
+     "t": "10:32",
+     "tone": "neu",
+     "text": "한은 통화정책방향: 기준금리 3.00→3.25% 인상, 국내경제는 수출·투자 호조로 높은 성장세",
+     "src": "ked_epic_ai",
+     "new": false,
+     "url": "https://t.me/ked_epic_ai/39830",
+     "via": "채널"
+    },
+    {
+     "t": "09:52",
+     "tone": "neu",
+     "text": "[속보] 한은, 기준금리 연 3.25%로 0.25%p 인상",
+     "src": "FastStockNews·bornlupin",
+     "new": false,
+     "url": "https://n.news.naver.com/mnews/article/082/0001409047",
+     "via": "기사"
+    },
+    {
+     "t": "10:10",
+     "tone": "pos",
+     "text": "한은, 올해 성장률 3.3→3.9% 상향, 내년 4.1% 전망",
+     "src": "TNBfolio",
+     "new": false,
+     "url": "https://newspim.com/news/view/20261126000333",
+     "via": "기사"
+    },
+    {
+     "t": "10:28",
+     "tone": "neg",
+     "text": "[단독] 국민연금 손실이 182조에서 240조로 확대, 한 달 새 60조 추가",
+     "src": "FastStockNews",
+     "new": false,
+     "url": "https://biz.newdaily.co.kr/site/data/html/2026/11/26/2026112650092.html",
+     "via": "기사"
+    },
+    {
+     "t": "11:40",
+     "tone": "pos",
+     "text": "자사주 매입한도 완화가 삼성전자·SK하이닉스 증안펀드와 시너지를 낼 수 있다는 정리",
+     "src": "corevalue",
+     "new": false,
+     "url": "https://naver.me/x4lEKZRI",
+     "via": "기사"
+    },
+    {
+     "t": "11:10",
+     "tone": "pos",
+     "text": "중국 PCB 테마가 강세를 이어가 다수 종목이 상한가",
+     "src": "nje2e",
+     "new": false,
+     "url": "https://t.me/nje2e/45934",
+     "via": "채널"
+    }
+   ]
+  },
+  {
+   "name": "엔터·한한령",
+   "stance": "긍정",
+   "scope": "관심 주제 · 보유 JYP Ent.",
+   "mine": true,
+   "one": "JYP Ent.는 한화투자가 목표가를 90,000→60,000원으로 낮췄고 화장품은 아모레퍼시픽 매수 유지입니다.",
+   "pro": [
+    "미국 미리캐피탈매니지먼트가 JYP Ent. 지분을 6.31%→7.87%로 늘렸다는 대량보유 공시입니다 (darthacking, 14:39)",
+    "하나증권: 엔터·미디어는 역사적 저평가 구간이며 최선호주는 하이브·하나투어입니다 (채널 요약, 개인 의견)",
+    "대신증권: 한한령 해제 기대와 3분기 실적 개선으로 컨텐츠 업종이 강세입니다 (채널 요약)"
+   ],
+   "con": [
+    "한화투자: JYP Ent. 목표가 90,000→60,000원(매수 유지), TWICE·SKZ 공백으로 내년 실적 하향 (ked_epic_ai, 채널 요약)",
+    "GKL은 3Q26 실적이 컨센서스를 크게 하회했습니다 (유안타 BUY 11,000원 유지)"
+   ],
+   "so": "JYP Ent.는 보유 종목이라 손절가 41,446원까지 -15% 거리지만 목표가 하향을 점검할 구간입니다.",
+   "new": true,
+   "items": [
+    {
+     "t": "14:39",
+     "tone": "pos",
+     "text": "JYP Ent. 미국 미리캐피탈이 지분을 6.31%에서 7.87%로 확대(일반투자 목적)",
+     "src": "darthacking",
+     "new": true,
+     "url": "https://t.me/darthacking/159762",
+     "via": "채널"
+    },
+    {
+     "t": "10:13",
+     "tone": "neg",
+     "text": "한화투자증권이 JYP Ent. 목표가를 90,000→60,000원으로 하향, 매수 의견은 유지",
+     "src": "ked_epic_ai·bornlupin",
+     "new": false,
+     "url": "https://t.me/ked_epic_ai/39827",
+     "via": "채널"
+    },
+    {
+     "t": "09:06",
+     "tone": "pos",
+     "text": "신영증권 아모레퍼시픽 목표가 190,000원 유지, 더마·헤어케어 확장 강조",
+     "src": "butler_works",
+     "new": false,
+     "url": "https://t.me/butler_works/33776",
+     "via": "채널"
+    },
+    {
+     "t": "09:45",
+     "tone": "pos",
+     "text": "신영증권 한국콜마 목표가 180,000원 유지, 13:30 IR 예정",
+     "src": "butler_works",
+     "new": false,
+     "url": "https://t.me/butler_works/33800",
+     "via": "채널"
+    },
+    {
+     "t": "15:15",
+     "tone": "pos",
+     "text": "코스닥은 제약 업종 강세로 상대적으로 선방",
+     "src": "shmstory",
+     "new": false,
+     "url": "https://t.me/shmstory/9262",
+     "via": "채널"
+    },
+    {
+     "t": "13:18",
+     "tone": "pos",
+     "text": "K뷰티가 중국 진출을 확대하고 유통업계는 한한령 해제에 촉각, 단체 관광객 유치 기대",
+     "src": "FastStockNews",
+     "new": false,
+     "url": "https://n.news.naver.com/mnews/article/016/0002728325?sid=101",
+     "via": "기사"
+    },
+    {
+     "t": "11:59",
+     "tone": "neu",
+     "text": "하나증권 화장품 바닥 잡기 3선: 공급 부족과 환율 영향으로 실적이 엇갈리는 구간",
+     "src": "nje2e",
+     "new": false,
+     "url": "https://t.me/nje2e/45887",
+     "via": "채널"
+    },
+    {
+     "t": "10:11",
+     "tone": "pos",
+     "text": "제주항공 1~10월 외국인 탑승객이 276만 명으로 역대 최대, 지방 수요 증가",
+     "src": "FastStockNews",
+     "new": false,
+     "url": "https://n.news.naver.com/mnews/article/421/0009308651?ntype=RANKING&rc=N&sid=001",
+     "via": "기사"
+    },
+    {
+     "t": "08:03",
+     "tone": "neu",
+     "text": "5,000원 화장품에 다이소에 이어 마트·편의점도 초저가 뷰티 경쟁에 가세",
+     "src": "FastStockNews",
+     "new": false,
+     "url": "https://n.news.naver.com/mnews/article/277/0005847338?sid=101",
+     "via": "기사"
+    }
+   ]
+  },
+  {
+   "name": "우주항공·스페이스X 급등",
+   "stance": "긍정",
+   "scope": "관심 주제 · 급등 테마",
+   "mine": false,
+   "one": "우주항공·스페이스X 테마가 장중 계속 강하고 상한가 종목이 나왔습니다. 내 목록 종목은 없습니다.",
+   "pro": [
+    "우주항공 +10%↑ 7종목, 스페이스X 테마 5종목이 올랐습니다 (네이버 테마 14:49, 비공식)",
+    "FCC의 스페이스X 위성 100만 기 승인과 애리조나 6GW AI 데이터센터 전력 조달 구체화가 재료입니다 (nje2e, 채널 요약)"
+   ],
+   "con": [
+    "소형주 중심 급등이라 변동성이 큽니다. 머스크가 모든 미국 어린이 계좌에 스페이스X 주식을 주겠다고 한 것도 테마 재료입니다 (bornlupin, 채널 요약)"
+   ],
+   "so": "내 스트림과 직접 관련은 없어 관찰만 하는 테마입니다.",
+   "new": true,
+   "items": [
+    {
+     "t": "14:27",
+     "tone": "pos",
+     "text": "와이지-원이 스페이스X 100만 기 우주 데이터센터 수혜로 엔드밀 공급 확대 기대",
+     "src": "FastStockNews",
+     "new": true,
+     "url": "https://newsprime.co.kr/news/article?no=756678&sec_no=67",
+     "via": "기사"
+    },
+    {
+     "t": "14:24",
+     "tone": "pos",
+     "text": "에이치브이엠이 해외 우주항공 금속 유통사와 슈퍼 알로이 110억 원 공급 계약",
+     "src": "FastStockNews",
+     "new": true,
+     "url": "https://t.me/FastStockNews/128563",
+     "via": "채널"
+    },
+    {
+     "t": "12:38",
+     "tone": "pos",
+     "text": "美 스페이스X 우주 데이터센터 승인, 국내 전극 소재 업체 수혜 분석(대주전자재료·나노신소재)",
+     "src": "FastStockNews",
+     "new": true,
+     "url": "https://dealsite.co.kr/articles/173571",
+     "via": "기사"
+    },
+    {
+     "t": "11:14",
+     "tone": "pos",
+     "text": "나노팀이 美스페이스X 차세대 발사체용 고열전도 방열패드를 본격 납품",
+     "src": "FastStockNews",
+     "new": false,
+     "url": "https://datatooza.com/article/202611261058335531661c44de84_80",
+     "via": "기사"
+    },
+    {
+     "t": "11:05",
+     "tone": "pos",
+     "text": "DS투자: SpaceX 애리조나 6GW AIDC, 500억 달러 이상 투자와 외부 전력 조달 계획",
+     "src": "nje2e",
+     "new": false,
+     "url": "https://californiaglobe.com/fr/spacex-details-self-contained-power-and-water-plan-for-arizona-ai-site-as-progressive-ngo-mobilizes-opposition",
+     "via": "기사"
+    },
+    {
+     "t": "10:32",
+     "tone": "pos",
+     "text": "미래에셋벤처투자가 스페이스X 위성 승인 소식에 +23%대 급등",
+     "src": "ked_epic_ai",
+     "new": false,
+     "url": "https://t.me/ked_epic_ai/39828",
+     "via": "채널"
+    },
+    {
+     "t": "07:59",
+     "tone": "pos",
+     "text": "미국 FCC가 스페이스X의 우주 AI 데이터센터 위성 최대 100만 기 배치를 승인",
+     "src": "nje2e·bornlupin",
+     "new": false,
+     "url": "https://t.me/nje2e/45919",
+     "via": "채널"
+    },
+    {
+     "t": "09:12",
+     "tone": "pos",
+     "text": "데이터센터도 우주로: 스페이스X가 위성 100만 개 배치 허가를 받았다는 기사",
+     "src": "FastStockNews",
+     "new": false,
+     "url": "https://etoday.co.kr/news/view/2653118",
+     "via": "기사"
+    }
+   ],
+   "report_link": ""
+  }
+ ],
+ "reports": {
+  "counts": {
+   "total": 115,
+   "up": 4,
+   "down": 35,
+   "new": 0,
+   "keep": 28
+  },
+  "one": "12시 이후 새 리포트는 적었고 신영증권 한화엔진 목표가 85,000→51,000원 하향이 나왔습니다. 메리츠는 PCB 오더컷 코멘트를 냈습니다.",
+  "mine": "보유 종목의 새 목표가 변경은 없고 JYP Ent. 대량보유 공시만 나왔습니다.",
+  "note": "신규 개시는 모두 매수라 목표가 괴리가 큽니다. 같은 날 조선·지주 하향과 엇갈립니다.",
+  "new": true,
+  "sectors": [
+   {
+    "dir": "new",
+    "name": "전기전자(신영 신규)",
+    "n": 6,
+    "text": "LG이노텍 410,000 · 이수페타시스 130,000 · 대덕전자 120,000 · 심텍 160,000 · 티엘비 54,000 · LG전자 180,000",
+    "new": false
+   },
+   {
+    "dir": "down",
+    "name": "조선·기자재",
+    "n": 12,
+    "text": "한화오션 신영 170,000→95,000 · 한국카본 37,000→16,000 · 한화엔진 85,000→47,000 · STX엔진 60,000→17,000 · HD현대중공업 1,000,000→760,000 등",
+    "new": false
+   },
+   {
+    "dir": "down",
+    "name": "지주",
+    "n": 7,
+    "text": "SK 대신 880,000→580,000 · CJ 210,000→132,000 · 두산 1,030,000→740,000 · HD현대 210,000→120,000 · LG 120,000→100,000 · 한화 110,000→74,000",
+    "new": false
+   },
+   {
+    "dir": "down",
+    "name": "방산·소재",
+    "n": 3,
+    "text": "LIG디펜스 DB 1,200,000→600,000 · 한화솔루션 유안타 35,900→21,000 · 롯데케미칼 신영 120,000→73,000",
+    "new": false
+   },
+   {
+    "dir": "up",
+    "name": "콘텐츠·바이오",
+    "n": 4,
+    "text": "셀트리온 키움 250,000→290,000 · 스튜디오드래곤 대신 35,000→45,000 · 신한 30,000→39,000 · CJ ENM 신한 50,000→61,000",
+    "new": false
+   }
+  ],
+  "picks": [
+   {
+    "dir": "down",
+    "name": "한화엔진",
+    "broker": "신영증권",
+    "t": "14:47",
+    "change": "85,000 → 51,000 (-40%)",
+    "why": "조선 업종 전반의 하향 흐름 안에서 낮췄고 매수 의견은 유지했습니다.",
+    "url": "",
+    "new": true
+   },
+   {
+    "dir": "new",
+    "name": "심텍",
+    "broker": "신영증권",
+    "t": "10:05",
+    "change": "신규 160,000 (+52%)",
+    "why": "SOCAMM 모듈 PCB 퍼스트 벤더로 4분기 SOCAMM 매출 970억 전망이라는 근거입니다.",
+    "url": "https://t.me/bornlupin/21292",
+    "new": false
+   },
+   {
+    "dir": "down",
+    "name": "JYP Ent.",
+    "broker": "한화투자",
+    "t": "10:13",
+    "change": "90,000 → 60,000 (-33%)",
+    "why": "TWICE·SKZ 공백으로 내년 실적을 낮췄고 매수 의견은 유지했습니다.",
+    "url": "",
+    "new": false
+   },
+   {
+    "dir": "down",
+    "name": "LIG디펜스앤에어로스페이스",
+    "broker": "DB증권",
+    "t": "11-26",
+    "change": "1,200,000 → 600,000 (−50%)",
+    "why": "목표가를 절반으로 낮췄습니다.",
+    "url": "",
+    "new": false
+   },
+   {
+    "dir": "down",
+    "name": "한화오션",
+    "broker": "신영증권",
+    "t": "11-26",
+    "change": "170,000 → 95,000 (−44%)",
+    "why": "신영이 조선·기자재 목표가를 일제히 큰 폭으로 낮췄습니다.",
+    "url": "",
+    "new": false
+   },
+   {
+    "dir": "down",
+    "name": "SK",
+    "broker": "대신증권",
+    "t": "11-26",
+    "change": "880,000 → 580,000 (−34%)",
+    "why": "대신이 지주사 목표가를 한꺼번에 낮췄습니다.",
+    "url": "",
+    "new": false
+   },
+   {
+    "dir": "down",
+    "name": "에이피알",
+    "broker": "DS투자증권",
+    "t": "11-26",
+    "change": "610,000 → 530,000 (−13%)",
+    "why": "화장품 대표주의 목표가를 낮췄습니다.",
+    "url": "",
+    "new": false
+   },
+   {
+    "dir": "up",
+    "name": "셀트리온",
+    "broker": "키움증권",
+    "t": "11-26",
+    "change": "250,000 → 290,000 (+16%)",
+    "why": "목표가를 상향했습니다.",
+    "url": "",
+    "new": false
+   }
+  ]
+ },
+ "others": [
+  {
+   "group": "계약·수주",
+   "items": [
+    {
+     "t": "14:06",
+     "tone": "pos",
+     "text": "파두 204억 원 SSD 컨트롤러 공급 계약(매출 대비 22.1%)",
+     "src": "FastStockNews",
+     "new": true,
+     "url": "https://t.me/FastStockNews/128562",
+     "via": "채널"
+    },
+    {
+     "t": "14:24",
+     "tone": "pos",
+     "text": "에이치브이엠 110억 원 슈퍼 알로이 공급 계약",
+     "src": "FastStockNews",
+     "new": true,
+     "url": "https://t.me/FastStockNews/128563",
+     "via": "채널"
+    },
+    {
+     "t": "10:45",
+     "tone": "pos",
+     "text": "우원개발이 한화와 1,528억 원 철도 토공 계약(매출 대비 40.59%)",
+     "src": "FastStockNews",
+     "new": false,
+     "url": "https://t.me/FastStockNews/128539",
+     "via": "채널"
+    },
+    {
+     "t": "11:29",
+     "tone": "pos",
+     "text": "알테오젠이 MSD로부터 ALT-B4 판매 마일스톤 수령 예정이라고 공시",
+     "src": "darthacking",
+     "new": false,
+     "url": "https://t.me/darthacking/159745",
+     "via": "채널"
+    },
+    {
+     "t": "16:16",
+     "tone": "pos",
+     "text": "(11/20) 금호건설 장지차고지 입체화 공사 1,753억 원(매출 대비 8.68%)",
+     "src": "darthacking",
+     "new": false,
+     "url": "https://t.me/darthacking/159472",
+     "via": "채널"
+    },
+    {
+     "t": "16:02",
+     "tone": "pos",
+     "text": "(11/20) 금양그린파워 AI 데이터센터 전기·통신 공사 2,300억 원",
+     "src": "FastStockNews",
+     "new": false,
+     "url": "https://cbci.co.kr/news/articleView.html?idxno=629143",
+     "via": "기사"
+    }
+   ]
+  },
+  {
+   "group": "기업",
+   "items": [
+    {
+     "t": "13:44",
+     "tone": "neu",
+     "text": "테스가 51억 원 규모 자기주식 소각을 결정, 예정일 12/04",
+     "src": "darthacking",
+     "new": true,
+     "url": "https://t.me/darthacking/159752",
+     "via": "채널"
+    },
+    {
+     "t": "10:47",
+     "tone": "pos",
+     "text": "삼성SDI가 3,451억 원 자사주 소각을 결정, 예정일 12/03",
+     "src": "darthacking",
+     "new": false,
+     "url": "https://t.me/darthacking/159741",
+     "via": "채널"
+    },
+    {
+     "t": "16:02",
+     "tone": "neu",
+     "text": "(11/20) KB금융 이재근 회장 21일 임기 시작, 23일 취임식",
+     "src": "ked_epic_ai",
+     "new": false,
+     "url": "https://t.me/ked_epic_ai/39632",
+     "via": "채널"
+    },
+    {
+     "t": "16:02",
+     "tone": "neg",
+     "text": "(11/20) 리노공업 장중 52주 최저가, 종가 -15.07%",
+     "src": "ked_epic_ai",
+     "new": false,
+     "url": "https://t.me/ked_epic_ai/39632",
+     "via": "채널"
+    }
+   ]
+  },
+  {
+   "group": "정책",
+   "items": [
+    {
+     "t": "08:30",
+     "tone": "neu",
+     "text": "과학기술기본법·전파법 개정안 입법예고(수능 전파차단장치 허용 등)",
+     "src": "ked_epic_ai",
+     "new": false,
+     "url": "https://t.me/ked_epic_ai/39806",
+     "via": "채널"
+    }
+   ]
+  }
+ ],
+ "views": [
+  {
+   "channel": "FastStockNews",
+   "id": 128545,
+   "who": "한국은행 총재 (FastStockNews 속보)",
+   "topic": "반도체",
+   "stance": "경계",
+   "view": "반도체 시총은 2000조인데 수익은 3배뿐이라 설명하기 어렵다는 발언입니다.",
+   "reason": "속보 요약, 채널 2차 자료",
+   "horizon": "중기"
+  },
+  {
+   "channel": "butler_works",
+   "id": 33816,
+   "who": "메리츠증권 양승수 (butler_works)",
+   "topic": "반도체",
+   "stance": "긍정",
+   "view": "중국발 PCB 오더컷 우려에도 국내 메모리 기판업체는 판가 인상에 합의했다는 코멘트입니다.",
+   "reason": "채널체크 기반 리포트 요약",
+   "horizon": "중기"
+  }
+ ],
+ "sources": "텔레그램 채널 요약(2차 자료) · 국내 네이버 11/26 09:51 · 네이버 테마(비공식) · 해외 Yahoo 비공식 · 견해는 개인 의견 · 판단은 본인"
+}
