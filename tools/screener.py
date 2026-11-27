@@ -282,6 +282,32 @@ def analyze(rows):
     return out
 
 
+TRIG_NAMES = ["거래량", "업종 동행", "윗꼬리 없음", "장대양봉", "VCP", "52주 신고가", "시장"]
+TRIG_DCR = 70        # 윗꼬리 없음 = 종가가 그날 범위의 위쪽 70% 이상에서 끝남(DCR)
+
+
+def atr20(rows):
+    """평균 하루 변동폭(ATR, 마지막 20봉 · 전일 종가 포함 범위)."""
+    tr = [max(rows[k]["high"], rows[k - 1]["close"]) - min(rows[k]["low"], rows[k - 1]["close"]) for k in range(max(1, len(rows) - 20), len(rows))]
+    return round(sum(tr) / len(tr)) if tr else None
+
+
+def triggers(rows, prev, vol_ok=None, ia_ok=None, market_ok=None):
+    """돌파 날의 트리거 7개 (2026-11-27 사용자 요청 — 깡토 5강 '진짜 돌파·베이지안': 여러 트리거가 같은 방향이면 확률이 오른다).
+    표시·비교용이고 매매 규칙(정식 신호 조건)은 아니다. rows = 오늘 봉까지, prev = 어제까지로 판정한 analyze 결과.
+    ① 거래량 1.5배↑ ② 업종 동행 ③ 윗꼬리 없음(DCR 70%↑) ④ 장대양봉(양봉 몸통 ≥ 평균 하루 변동폭 ATR20)
+    ⑤ VCP(어제 판정 셋업 C) ⑥ 52주 신고가(종가 > 지난 250일 고가) ⑦ 시장(코스피 20일선 위). 모르는 값은 None."""
+    t = rows[-1]
+    rng = t["high"] - t["low"]
+    dcr = round((t["close"] - t["low"]) / rng * 100) if rng > 0 else 100
+    atr = atr20(rows[:-1])     # 어제까지 20봉
+    body = t["close"] - t["open"]
+    hi250 = max(r["high"] for r in rows[-251:-1]) if len(rows) > 1 else None
+    vals = [vol_ok, ia_ok, dcr >= TRIG_DCR, bool(atr and body > 0 and body >= atr), "C" in (prev.get("setups") or []),
+            bool(hi250 and t["close"] > hi250), market_ok]
+    return {"dcr": dcr, "atr20": atr, "trig": vals, "trig_n": sum(1 for x in vals if x), "trig_known": sum(1 for x in vals if x is not None)}
+
+
 def today_events(rows, prev):
     """오늘 봉에서 일어난 일: 돌파 / 포켓 피봇 / 이벤트. prev = 어제까지로 판정한 analyze 결과."""
     c = [r["close"] for r in rows]; v = [r["volume"] for r in rows]
@@ -352,6 +378,14 @@ def run(codes_info, workers=4, cut=None):
     for code, g in grp.items():
         members.setdefault(g, []).append(code)
     results = []
+    mkt_ok = None   # 시장 트리거 = 코스피가 목록 기준일에 20일선 위 (2026-11-27 트리거 표시용)
+    try:
+        import sector_etf
+        kr = [r for r in sector_etf.daily("KOSPI", "코스피", 60)["rows"] if not cut or r["date"] <= cut]
+        kc = [r["close"] for r in kr]
+        mkt_ok = kc[-1] > sum(kc[-20:]) / 20 if len(kc) >= 20 else None
+    except Exception:
+        pass
     for s, rows in data:
         rs = pct(raws[s["code"]])
         checks, extra = gate(rows, s, rs)
@@ -378,7 +412,7 @@ def run(codes_info, workers=4, cut=None):
             "sector": f"{card['sector']} > {card['detail']}" if card else (cmap.get(s["code"]) or s["industry"]),
             "group": cmap.get(s["code"]) or s["industry"],  # 인더스트리 액션용 업종 (사용자 분류 우선)
             "ia": ia, "ia_up_share": ia_share, "ia_median": ia_med,
-            "close": rows[-1]["close"], "date": rows[-1]["date"], "rs": rs, **extra,
+            "close": rows[-1]["close"], "prev_close": rows[-2]["close"] if len(rows) > 1 else None, "date": rows[-1]["date"], "rs": rs, **extra,
             "vol50": round(sum(r["volume"] for r in rows[-50:]) / min(50, len(rows))),   # 장중 돌파 알림의 거래량 비교용
             "checks": checks, "gate_score": sum(checks.values()),
             # 관문: 돌파용은 1개 미달 허용(단 시총·거래대금·RS는 필수), 포켓피봇은 7/7 (사용자 확정 2026-11-03)
@@ -388,6 +422,9 @@ def run(codes_info, workers=4, cut=None):
                           and all(checks.get(k, True) for k in RULES["gate_must"])),
             "setups": a.get("setups", []), "run_pct": a.get("run_pct"), "base": a.get("base"), "today": ev, "vol_ratio": vr,
             "stage": "1stage 진행 중" if not a.get("base") else "2stage 조정 중",
+            # 트리거 (2026-11-27, 표시·비교용): trig = 목록 기준일 봉의 트리거 7개, tg_next = 다음 거래일 장중에 화면·알림이 다시 셀 재료
+            "trig": triggers(rows, prev, bool(vr and vr >= RULES["breakout_vol"]), ia == "동반 상승", mkt_ok),
+            "tg_next": {"atr20": atr20(rows), "hi250": max(r["high"] for r in rows[-250:]), "vcp": "C" in (a.get("setups") or []), "mkt": mkt_ok},
         }
         # 오늘 넘은 선 = 어제까지 정해진 기준가 (2026-11-25 사용자 확정): 오늘 봉을 넣어 다시 판정하면 넘는 순간 쉬는 구간과 셋업이 사라져
         #   정식 신호가 빠졌다(안랩 11/25 · 심텍홀딩스 11/24 · 원익홀딩스 11/18). 돌파한 날의 기준가·셋업은 어제까지의 판정(prev)으로 본다 — 백테스트와 같음
@@ -640,17 +677,40 @@ def main():
                     r["tier"] = None          # 풀 밖 + RS 미달은 감시하지 않음
                 elif r["tier"] == "신호":
                     r["tier_note"] = "발굴"    # 풀 밖 신호는 등급을 낮춰 참고로
+    # 재돌파 재료 (2026-11-27): 최근 10개 목록의 정식 신호 선(broke.pivot) — 지금 종가가 그 선 아래면 다시 넘을 선으로 들고 다닌다
+    recent = {}
+    for f in sorted((ROOT / "data" / "bus").glob("*/screener.json"))[-11:]:
+        if f.parent.name.replace("-", "") >= as_of:
+            continue
+        try:
+            for x in json.loads(f.read_text(encoding="utf-8")).get("signals") or []:
+                p = (x.get("broke") or {}).get("pivot") or (x.get("levels") or {}).get("breakout")
+                if p:
+                    recent[x["code"]] = {"pivot": p, "date": f.parent.name.replace("-", "")}
+        except Exception:
+            pass
+    for r in results:
+        rb = recent.get(r["code"])
+        if not rb or r.get("tier") == "신호":
+            continue
+        crossed = r.get("prev_close") is not None and r["prev_close"] <= rb["pivot"] < r["close"]
+        if r["close"] < rb["pivot"] or crossed:
+            r["rebreak"] = rb
+            if crossed and (r.get("vol_ratio") or 0) >= RULES["breakout_vol"]:
+                r["today"] = list(r["today"]) + ["재돌파"]
     payload = {"source": "네이버 일봉 (비공식)", "as_of": as_of, "made_at": datetime.now(KST).isoformat(timespec="seconds"),
                "final": True,   # 굳은 봉으로만 만든다(위 cut). 옛 16:07 잠정 목록(final=false)은 2026-11-25에 없앰
                "rules": RULES, "count": len(results), "scope": "pool" if a.pool else "all", "pool_size": len(pool_codes),
                "signals": [r for r in results if r["tier"] == "신호"],
+               # 참고: 재돌파 — 최근 10개 목록에서 정식 신호가 났다가 종가가 그 선 아래로 밀린 종목이 다시 선을 종가로 넘음 + 거래량 1.5배 (2026-11-27, 깡토 5강 '손절 뒤 다시 돌파하면 재진입' — 표시만)
+               "re_signals": [r for r in results if "재돌파" in r["today"]],
                # 참고 신호(매물대 돌파): 관문 통과(RS·시총·거래대금 필수) + 관찰 풀이거나 풀 밖이면 RS 조건 충족. 정식 신호와 겹치면 정식 쪽에만.
                "zone_signals": [r for r in results if "매물대 돌파" in r["today"] and r["gate_pass"] and r["tier"] != "신호"],
                # 참고 신호(포켓피봇): 관문 7개 모두 통과한 포켓피봇. 정식 신호와 겹치면 정식 쪽에만 (2026-11-23)
                "pp_signals": [r for r in results if "G" in r["today"] and r.get("gate_strict") and r["tier"] != "신호"],
                "candidates": sorted((r for r in results if r["tier"] == "후보"),
                                     key=lambda r: (len(r["missing"]), -(r["rs"] or 0)))[:40],
-               "watch": [r for r in results if r["gate_pass"] and (r["setups"] or r["today"])],
+               "watch": [r for r in results if (r["gate_pass"] and (r["setups"] or r["today"])) or r.get("rebreak")],
                "running": sorted((r for r in results if r["gate_pass"] and r["stage"] == "1stage 진행 중"),
                                  key=lambda r: -(r["rs"] or 0)),
                "near_miss": sorted((r for r in results if r["gate_score"] == 6 and not r["gate_pass"]),

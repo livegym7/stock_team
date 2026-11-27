@@ -1,7 +1,7 @@
 {
  "source": "네이버 일봉 (비공식)",
  "as_of": "20261127",
- "made_at": "2026-11-27T23:52:13+09:00",
+ "made_at": "2026-11-28T07:22:08+09:00",
  "final": true,
  "rules": {
   "min_mcap_eok": 2000,
@@ -41,6 +41,7 @@
    "ia_up_share": 100,
    "ia_median": 9.0,
    "close": 86600.0,
+   "prev_close": 81400.0,
    "date": "20261127",
    "rs": 90,
    "value20_eok": 210,
@@ -85,6 +86,27 @@
    ],
    "vol_ratio": 1.66,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 74,
+    "atr20": 6962,
+    "trig": [
+     true,
+     true,
+     true,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 3,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 7068,
+    "hi250": 131800.0,
+    "vcp": false,
+    "mkt": false
+   },
    "broke": {
     "pivot": 84700,
     "setups": [
@@ -132,6 +154,7 @@
    "tier_note": "발굴"
   }
  ],
+ "re_signals": [],
  "zone_signals": [
   {
    "stock": "라온시큐어",
@@ -143,6 +166,7 @@
    "ia_up_share": 70,
    "ia_median": 3.0,
    "close": 18830.0,
+   "prev_close": 15880.0,
    "date": "20261127",
    "rs": 98,
    "value20_eok": 305,
@@ -186,6 +210,27 @@
    ],
    "vol_ratio": 1.58,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 73,
+    "atr20": 1947,
+    "trig": [
+     true,
+     true,
+     true,
+     true,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 4,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 2000,
+    "hi250": 22450.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 22450,
     "alert": 22001,
@@ -220,6 +265,7 @@
    "ia_up_share": 97,
    "ia_median": 8.4,
    "close": 15220.0,
+   "prev_close": 12700.0,
    "date": "20261127",
    "rs": 94,
    "value20_eok": 153,
@@ -276,6 +322,27 @@
    ],
    "vol_ratio": 9.15,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 75,
+    "atr20": 1306,
+    "trig": [
+     true,
+     true,
+     true,
+     true,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 4,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 1313,
+    "hi250": 23950.0,
+    "vcp": false,
+    "mkt": false
+   },
    "broke": {
     "pivot": 14080,
     "setups": [],
@@ -334,6 +401,7 @@
    "ia_up_share": 85,
    "ia_median": 5.8,
    "close": 221000.0,
+   "prev_close": 216500.0,
    "date": "20261127",
    "rs": 88,
    "value20_eok": 1338,
@@ -392,6 +460,27 @@
    ],
    "vol_ratio": 1.23,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 60,
+    "atr20": 8900,
+    "trig": [
+     false,
+     true,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 1,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 8960,
+    "hi250": 239244.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 239244,
     "alert": 234459,
@@ -425,6 +514,7 @@
    "ia_up_share": 50,
    "ia_median": 1.7,
    "close": 21650.0,
+   "prev_close": 20300.0,
    "date": "20261127",
    "rs": 92,
    "value20_eok": 117,
@@ -463,6 +553,27 @@
    "today": [],
    "vol_ratio": 0.97,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 59,
+    "atr20": 2006,
+    "trig": [
+     false,
+     true,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 1,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 2088,
+    "hi250": 23650.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 22400,
     "alert": 21952,
@@ -492,6 +603,7 @@
    "ia_up_share": 70,
    "ia_median": 3.0,
    "close": 174000.0,
+   "prev_close": 163300.0,
    "date": "20261127",
    "rs": 99,
    "value20_eok": 973,
@@ -518,6 +630,27 @@
    ],
    "vol_ratio": 3.05,
    "stage": "1stage 진행 중",
+   "trig": {
+    "dcr": 40,
+    "atr20": 15565,
+    "trig": [
+     true,
+     true,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 2,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 15380,
+    "hi250": 188000.0,
+    "vcp": false,
+    "mkt": false
+   },
    "max_zone_prev": {
     "top": 125260,
     "pct": 41
@@ -542,6 +675,7 @@
    "ia_up_share": 70,
    "ia_median": 3.0,
    "close": 18830.0,
+   "prev_close": 15880.0,
    "date": "20261127",
    "rs": 98,
    "value20_eok": 305,
@@ -585,6 +719,27 @@
    ],
    "vol_ratio": 1.58,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 73,
+    "atr20": 1947,
+    "trig": [
+     true,
+     true,
+     true,
+     true,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 4,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 2000,
+    "hi250": 22450.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 22450,
     "alert": 22001,
@@ -619,6 +774,7 @@
    "ia_up_share": 82,
    "ia_median": 6.4,
    "close": 36000.0,
+   "prev_close": 33750.0,
    "date": "20261127",
    "rs": 98,
    "value20_eok": 192,
@@ -646,6 +802,27 @@
    ],
    "vol_ratio": 1.74,
    "stage": "1stage 진행 중",
+   "trig": {
+    "dcr": 61,
+    "atr20": 3128,
+    "trig": [
+     true,
+     true,
+     false,
+     false,
+     false,
+     true,
+     false
+    ],
+    "trig_n": 3,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 3201,
+    "hi250": 37350.0,
+    "vcp": false,
+    "mkt": false
+   },
    "broke": {
     "pivot": 35750,
     "setups": [],
@@ -703,6 +880,7 @@
    "ia_up_share": 100,
    "ia_median": 4.0,
    "close": 78000.0,
+   "prev_close": 80100.0,
    "date": "20261127",
    "rs": 96,
    "value20_eok": 71,
@@ -747,6 +925,27 @@
    "today": [],
    "vol_ratio": 0.77,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 28,
+    "atr20": 5615,
+    "trig": [
+     false,
+     true,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 1,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 5625,
+    "hi250": 81400.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 81400,
     "alert": 79772,
@@ -778,6 +977,7 @@
    "ia_up_share": null,
    "ia_median": null,
    "close": 9000.0,
+   "prev_close": 8450.0,
    "date": "20261127",
    "rs": 95,
    "value20_eok": 3,
@@ -825,6 +1025,27 @@
    ],
    "vol_ratio": 2.88,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 64,
+    "atr20": 621,
+    "trig": [
+     true,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 1,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 536,
+    "hi250": 10300.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 10300,
     "alert": 10094,
@@ -856,6 +1077,7 @@
    "ia_up_share": 81,
    "ia_median": 6.2,
    "close": 2335.0,
+   "prev_close": 2265.0,
    "date": "20261127",
    "rs": 94,
    "value20_eok": 25,
@@ -898,6 +1120,27 @@
    "today": [],
    "vol_ratio": 0.46,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 86,
+    "atr20": 171,
+    "trig": [
+     false,
+     true,
+     true,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 2,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 166,
+    "hi250": 2640.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 2510,
     "alert": 2460,
@@ -929,6 +1172,7 @@
    "ia_up_share": 97,
    "ia_median": 8.4,
    "close": 49400.0,
+   "prev_close": 45350.0,
    "date": "20261127",
    "rs": 94,
    "value20_eok": 25,
@@ -971,6 +1215,27 @@
    "today": [],
    "vol_ratio": 1.33,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 92,
+    "atr20": 3888,
+    "trig": [
+     false,
+     true,
+     true,
+     true,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 3,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 3875,
+    "hi250": 53500.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 53500,
     "alert": 52430,
@@ -1002,6 +1267,7 @@
    "ia_up_share": 77,
    "ia_median": 6.0,
    "close": 11190.0,
+   "prev_close": 11210.0,
    "date": "20261127",
    "rs": 93,
    "value20_eok": 5,
@@ -1046,6 +1312,27 @@
    "today": [],
    "vol_ratio": 0.34,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 80,
+    "atr20": 706,
+    "trig": [
+     false,
+     true,
+     true,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 2,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 705,
+    "hi250": 14080.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 12000,
     "alert": 11760,
@@ -1077,6 +1364,7 @@
    "ia_up_share": 50,
    "ia_median": 1.7,
    "close": 105200.0,
+   "prev_close": 103100.0,
    "date": "20261127",
    "rs": 92,
    "value20_eok": 16,
@@ -1119,6 +1407,27 @@
    "today": [],
    "vol_ratio": 0.49,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 100,
+    "atr20": 6665,
+    "trig": [
+     false,
+     true,
+     true,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 2,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 6725,
+    "hi250": 112900.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 112900,
     "alert": 110642,
@@ -1150,6 +1459,7 @@
    "ia_up_share": 50,
    "ia_median": 3.4,
    "close": 101900.0,
+   "prev_close": 102700.0,
    "date": "20261127",
    "rs": 91,
    "value20_eok": 90,
@@ -1192,6 +1502,27 @@
    "today": [],
    "vol_ratio": 0.6,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 51,
+    "atr20": 3195,
+    "trig": [
+     false,
+     true,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 1,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 3265,
+    "hi250": 107600.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 107600,
     "alert": 105448,
@@ -1223,6 +1554,7 @@
    "ia_up_share": 66,
    "ia_median": 3.0,
    "close": 25950.0,
+   "prev_close": 25800.0,
    "date": "20261127",
    "rs": 89,
    "value20_eok": 19,
@@ -1265,6 +1597,27 @@
    "today": [],
    "vol_ratio": 1.07,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 29,
+    "atr20": 1702,
+    "trig": [
+     false,
+     true,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 1,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 1650,
+    "hi250": 33300.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 27650,
     "alert": 27097,
@@ -1299,6 +1652,7 @@
    "ia_up_share": 70,
    "ia_median": 2.9,
    "close": 2540.0,
+   "prev_close": 2535.0,
    "date": "20261127",
    "rs": 89,
    "value20_eok": 18,
@@ -1342,6 +1696,27 @@
    "today": [],
    "vol_ratio": 0.57,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 85,
+    "atr20": 101,
+    "trig": [
+     false,
+     true,
+     true,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 2,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 100,
+    "hi250": 3280.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 2635,
     "alert": 2582,
@@ -1376,6 +1751,7 @@
    "ia_up_share": 85,
    "ia_median": 5.8,
    "close": 221000.0,
+   "prev_close": 216500.0,
    "date": "20261127",
    "rs": 88,
    "value20_eok": 1338,
@@ -1434,6 +1810,27 @@
    ],
    "vol_ratio": 1.23,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 60,
+    "atr20": 8900,
+    "trig": [
+     false,
+     true,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 1,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 8960,
+    "hi250": 239244.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 239244,
     "alert": 234459,
@@ -1465,6 +1862,7 @@
    "ia_up_share": 70,
    "ia_median": 3.5,
    "close": 5740.0,
+   "prev_close": 5590.0,
    "date": "20261127",
    "rs": 82,
    "value20_eok": 11,
@@ -1507,6 +1905,27 @@
    "today": [],
    "vol_ratio": 0.76,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 100,
+    "atr20": 303,
+    "trig": [
+     false,
+     true,
+     true,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 2,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 299,
+    "hi250": 7750.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 5830,
     "alert": 5713,
@@ -1541,6 +1960,7 @@
    "ia_up_share": 100,
    "ia_median": 12.6,
    "close": 8450.0,
+   "prev_close": 8450.0,
    "date": "20260521",
    "rs": 97,
    "value20_eok": 0,
@@ -1582,6 +2002,27 @@
    "today": [],
    "vol_ratio": null,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 100,
+    "atr20": 0,
+    "trig": [
+     false,
+     true,
+     true,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 2,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 0,
+    "hi250": 11100.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 8450,
     "alert": 8281,
@@ -1617,6 +2058,7 @@
    "ia_up_share": 100,
    "ia_median": 7.3,
    "close": 209000.0,
+   "prev_close": 203000.0,
    "date": "20261127",
    "rs": 97,
    "value20_eok": 240,
@@ -1666,6 +2108,27 @@
    ],
    "vol_ratio": 0.5,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 100,
+    "atr20": 19980,
+    "trig": [
+     false,
+     true,
+     true,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 2,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 19830,
+    "hi250": 359500.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 359500,
     "alert": 352310,
@@ -1701,6 +2164,7 @@
    "ia_up_share": 85,
    "ia_median": 5.5,
    "close": 10130.0,
+   "prev_close": 8150.0,
    "date": "20261127",
    "rs": 96,
    "value20_eok": 40,
@@ -1750,6 +2214,27 @@
    ],
    "vol_ratio": 3.39,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 87,
+    "atr20": 830,
+    "trig": [
+     true,
+     true,
+     true,
+     true,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 4,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 872,
+    "hi250": 10500.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 10500,
     "alert": 10290,
@@ -1782,6 +2267,7 @@
    "ia_up_share": 75,
    "ia_median": 3.5,
    "close": 172000.0,
+   "prev_close": 171200.0,
    "date": "20261127",
    "rs": 95,
    "value20_eok": 30,
@@ -1829,6 +2315,27 @@
    "today": [],
    "vol_ratio": 0.37,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 53,
+    "atr20": 2640,
+    "trig": [
+     false,
+     true,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 1,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 2610,
+    "hi250": 180300.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 180300,
     "alert": 176694,
@@ -1865,6 +2372,7 @@
    "ia_up_share": 97,
    "ia_median": 8.4,
    "close": 15220.0,
+   "prev_close": 12700.0,
    "date": "20261127",
    "rs": 94,
    "value20_eok": 153,
@@ -1921,6 +2429,27 @@
    ],
    "vol_ratio": 9.15,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 75,
+    "atr20": 1306,
+    "trig": [
+     true,
+     true,
+     true,
+     true,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 4,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 1313,
+    "hi250": 23950.0,
+    "vcp": false,
+    "mkt": false
+   },
    "broke": {
     "pivot": 14080,
     "setups": [],
@@ -1977,6 +2506,7 @@
    "ia_up_share": 75,
    "ia_median": 3.5,
    "close": 48050.0,
+   "prev_close": 48000.0,
    "date": "20261127",
    "rs": 92,
    "value20_eok": 7,
@@ -2024,6 +2554,27 @@
    "today": [],
    "vol_ratio": 0.74,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 100,
+    "atr20": 715,
+    "trig": [
+     false,
+     true,
+     true,
+     false,
+     true,
+     false,
+     false
+    ],
+    "trig_n": 3,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 698,
+    "hi250": 52000.0,
+    "vcp": true,
+    "mkt": false
+   },
    "levels": {
     "breakout": 52000,
     "alert": 50960,
@@ -2057,6 +2608,7 @@
    "ia_up_share": 70,
    "ia_median": 3.0,
    "close": 60000.0,
+   "prev_close": 53100.0,
    "date": "20261127",
    "rs": 91,
    "value20_eok": 299,
@@ -2100,6 +2652,27 @@
    ],
    "vol_ratio": 2.47,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 80,
+    "atr20": 7952,
+    "trig": [
+     true,
+     true,
+     true,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 3,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 8352,
+    "hi250": 89100.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 89100,
     "alert": 87318,
@@ -2135,6 +2708,7 @@
    "ia_up_share": null,
    "ia_median": null,
    "close": 10580.0,
+   "prev_close": 10040.0,
    "date": "20261127",
    "rs": 91,
    "value20_eok": 6,
@@ -2164,6 +2738,27 @@
    ],
    "vol_ratio": 2.22,
    "stage": "1stage 진행 중",
+   "trig": {
+    "dcr": 92,
+    "atr20": 330,
+    "trig": [
+     true,
+     false,
+     true,
+     true,
+     false,
+     true,
+     false
+    ],
+    "trig_n": 4,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 350,
+    "hi250": 10630.0,
+    "vcp": false,
+    "mkt": false
+   },
    "max_zone_prev": {
     "top": 8826,
     "pct": 45
@@ -2189,6 +2784,7 @@
    "ia_up_share": 77,
    "ia_median": 6.0,
    "close": 25000.0,
+   "prev_close": 25850.0,
    "date": "20261127",
    "rs": 90,
    "value20_eok": 4,
@@ -2240,6 +2836,27 @@
    "today": [],
    "vol_ratio": 0.87,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 42,
+    "atr20": 1255,
+    "trig": [
+     false,
+     true,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 1,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 1250,
+    "hi250": 29150.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 26450,
     "alert": 25921,
@@ -2272,6 +2889,7 @@
    "ia_up_share": 60,
    "ia_median": 2.4,
    "close": 6610.0,
+   "prev_close": 6530.0,
    "date": "20261127",
    "rs": 90,
    "value20_eok": 74,
@@ -2340,6 +2958,27 @@
    "today": [],
    "vol_ratio": 1.67,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 60,
+    "atr20": 398,
+    "trig": [
+     true,
+     true,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 2,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 404,
+    "hi250": 7230.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 7230,
     "alert": 7085,
@@ -2372,6 +3011,7 @@
    "ia_up_share": null,
    "ia_median": null,
    "close": 13250.0,
+   "prev_close": 12690.0,
    "date": "20261127",
    "rs": 88,
    "value20_eok": 4,
@@ -2417,6 +3057,27 @@
    "today": [],
    "vol_ratio": 0.68,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 100,
+    "atr20": 850,
+    "trig": [
+     false,
+     false,
+     true,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 1,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 852,
+    "hi250": 14990.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 13700,
     "alert": 13426,
@@ -2449,6 +3110,7 @@
    "ia_up_share": 76,
    "ia_median": 3.2,
    "close": 11840.0,
+   "prev_close": 11800.0,
    "date": "20261127",
    "rs": 87,
    "value20_eok": 1,
@@ -2494,6 +3156,27 @@
    "today": [],
    "vol_ratio": 0.29,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 90,
+    "atr20": 199,
+    "trig": [
+     false,
+     true,
+     true,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 2,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 188,
+    "hi250": 15400.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 12020,
     "alert": 11780,
@@ -2529,6 +3212,7 @@
    "ia_up_share": 86,
    "ia_median": 8.8,
    "close": 77900.0,
+   "prev_close": 73300.0,
    "date": "20261127",
    "rs": 87,
    "value20_eok": 54,
@@ -2572,6 +3256,27 @@
    "today": [],
    "vol_ratio": 1.18,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 95,
+    "atr20": 7200,
+    "trig": [
+     false,
+     true,
+     true,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 2,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 7225,
+    "hi250": 144000.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 83700,
     "alert": 82026,
@@ -2607,6 +3312,7 @@
    "ia_up_share": 62,
    "ia_median": 3.0,
    "close": 19000.0,
+   "prev_close": 18560.0,
    "date": "20261127",
    "rs": 87,
    "value20_eok": 3,
@@ -2652,6 +3358,27 @@
    ],
    "vol_ratio": 0.35,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 63,
+    "atr20": 936,
+    "trig": [
+     false,
+     true,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 1,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 922,
+    "hi250": 22500.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 19800,
     "alert": 19404,
@@ -2684,6 +3411,7 @@
    "ia_up_share": 93,
    "ia_median": 9.8,
    "close": 29100.0,
+   "prev_close": 29150.0,
    "date": "20261127",
    "rs": 87,
    "value20_eok": 14,
@@ -2727,6 +3455,27 @@
    "today": [],
    "vol_ratio": 1.31,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 10,
+    "atr20": 1910,
+    "trig": [
+     false,
+     true,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 1,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 1940,
+    "hi250": 33850.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 30900,
     "alert": 30282,
@@ -2759,6 +3508,7 @@
    "ia_up_share": 50,
    "ia_median": 2.0,
    "close": 12510.0,
+   "prev_close": 12220.0,
    "date": "20261127",
    "rs": 86,
    "value20_eok": 8,
@@ -2807,6 +3557,27 @@
    ],
    "vol_ratio": 1.01,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 92,
+    "atr20": 558,
+    "trig": [
+     false,
+     true,
+     true,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 2,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 550,
+    "hi250": 18010.0,
+    "vcp": true,
+    "mkt": false
+   },
    "levels": {
     "breakout": 12830,
     "alert": 12573,
@@ -2839,6 +3610,7 @@
    "ia_up_share": 50,
    "ia_median": 3.4,
    "close": 17350.0,
+   "prev_close": 17360.0,
    "date": "20261127",
    "rs": 86,
    "value20_eok": 14,
@@ -2883,6 +3655,27 @@
    "today": [],
    "vol_ratio": 1.2,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 50,
+    "atr20": 730,
+    "trig": [
+     false,
+     true,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 1,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 760,
+    "hi250": 18500.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 18500,
     "alert": 18130,
@@ -2915,6 +3708,7 @@
    "ia_up_share": 77,
    "ia_median": 6.0,
    "close": 26400.0,
+   "prev_close": 26300.0,
    "date": "20261127",
    "rs": 85,
    "value20_eok": 6,
@@ -2960,6 +3754,27 @@
    "today": [],
    "vol_ratio": 1.3,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 50,
+    "atr20": 955,
+    "trig": [
+     false,
+     true,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 1,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 915,
+    "hi250": 27600.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 27000,
     "alert": 26460,
@@ -2995,6 +3810,7 @@
    "ia_up_share": 0,
    "ia_median": 0.6,
    "close": 50300.0,
+   "prev_close": 49200.0,
    "date": "20261127",
    "rs": 85,
    "value20_eok": 87,
@@ -3038,6 +3854,27 @@
    "today": [],
    "vol_ratio": 1.29,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 75,
+    "atr20": 3415,
+    "trig": [
+     false,
+     false,
+     true,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 1,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 3478,
+    "hi250": 79000.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 54600,
     "alert": 53508,
@@ -3073,6 +3910,7 @@
    "ia_up_share": 50,
    "ia_median": 3.4,
    "close": 8660.0,
+   "prev_close": 8600.0,
    "date": "20261127",
    "rs": 84,
    "value20_eok": 10,
@@ -3118,6 +3956,27 @@
    ],
    "vol_ratio": 1.23,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 72,
+    "atr20": 256,
+    "trig": [
+     false,
+     true,
+     true,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 2,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 262,
+    "hi250": 10330.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 8910,
     "alert": 8732,
@@ -3150,6 +4009,7 @@
    "ia_up_share": 50,
    "ia_median": 3.4,
    "close": 14540.0,
+   "prev_close": 14490.0,
    "date": "20261127",
    "rs": 84,
    "value20_eok": 1,
@@ -3194,6 +4054,27 @@
    "today": [],
    "vol_ratio": 0.25,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 80,
+    "atr20": 758,
+    "trig": [
+     false,
+     true,
+     true,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 2,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 676,
+    "hi250": 17300.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 15280,
     "alert": 14974,
@@ -3229,6 +4110,7 @@
    "ia_up_share": 33,
    "ia_median": 0.3,
    "close": 23050.0,
+   "prev_close": 23300.0,
    "date": "20261127",
    "rs": 84,
    "value20_eok": 13,
@@ -3272,6 +4154,27 @@
    "today": [],
    "vol_ratio": 0.36,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 39,
+    "atr20": 1228,
+    "trig": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 0,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 1225,
+    "hi250": 26000.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 25100,
     "alert": 24598,
@@ -3304,6 +4207,7 @@
    "ia_up_share": 100,
    "ia_median": 5.4,
    "close": 106900.0,
+   "prev_close": 102200.0,
    "date": "20261127",
    "rs": 83,
    "value20_eok": 1251,
@@ -3350,6 +4254,27 @@
    ],
    "vol_ratio": 1.48,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 90,
+    "atr20": 13032,
+    "trig": [
+     false,
+     true,
+     true,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 2,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 12918,
+    "hi250": 182600.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 132000,
     "alert": 129360,
@@ -3385,6 +4310,7 @@
    "ia_up_share": 55,
    "ia_median": 2.1,
    "close": 22350.0,
+   "prev_close": 22150.0,
    "date": "20261127",
    "rs": 83,
    "value20_eok": 252,
@@ -3427,6 +4353,27 @@
    "today": [],
    "vol_ratio": 0.51,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 78,
+    "atr20": 952,
+    "trig": [
+     false,
+     true,
+     true,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 2,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 917,
+    "hi250": 24950.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 24250,
     "alert": 23765,
@@ -3459,6 +4406,7 @@
    "ia_up_share": 90,
    "ia_median": 4.8,
    "close": 27650.0,
+   "prev_close": 27900.0,
    "date": "20261127",
    "rs": 82,
    "value20_eok": 4,
@@ -3502,6 +4450,27 @@
    "today": [],
    "vol_ratio": 0.56,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 11,
+    "atr20": 1478,
+    "trig": [
+     false,
+     true,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 1,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 1502,
+    "hi250": 29650.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 29200,
     "alert": 28616,
@@ -3536,6 +4505,7 @@
    "ia_up_share": 100,
    "ia_median": 9.0,
    "close": 86600.0,
+   "prev_close": 81400.0,
    "date": "20261127",
    "rs": 90,
    "value20_eok": 210,
@@ -3580,6 +4550,27 @@
    ],
    "vol_ratio": 1.66,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 74,
+    "atr20": 6962,
+    "trig": [
+     true,
+     true,
+     true,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 3,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 7068,
+    "hi250": 131800.0,
+    "vcp": false,
+    "mkt": false
+   },
    "broke": {
     "pivot": 84700,
     "setups": [
@@ -3636,6 +4627,7 @@
    "ia_up_share": 100,
    "ia_median": 9.0,
    "close": 70000.0,
+   "prev_close": 67100.0,
    "date": "20261127",
    "rs": 90,
    "value20_eok": 155,
@@ -3677,6 +4669,27 @@
    "today": [],
    "vol_ratio": 1.3,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 76,
+    "atr20": 7380,
+    "trig": [
+     false,
+     true,
+     true,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 2,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 7330,
+    "hi250": 95300.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 78000,
     "alert": 76440,
@@ -3709,6 +4722,7 @@
    "ia_up_share": 70,
    "ia_median": 3.0,
    "close": 18830.0,
+   "prev_close": 15880.0,
    "date": "20261127",
    "rs": 98,
    "value20_eok": 305,
@@ -3752,6 +4766,27 @@
    ],
    "vol_ratio": 1.58,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 73,
+    "atr20": 1947,
+    "trig": [
+     true,
+     true,
+     true,
+     true,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 4,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 2000,
+    "hi250": 22450.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 22450,
     "alert": 22001,
@@ -3786,6 +4821,7 @@
    "ia_up_share": 70,
    "ia_median": 3.0,
    "close": 174000.0,
+   "prev_close": 163300.0,
    "date": "20261127",
    "rs": 99,
    "value20_eok": 973,
@@ -3812,6 +4848,27 @@
    ],
    "vol_ratio": 3.05,
    "stage": "1stage 진행 중",
+   "trig": {
+    "dcr": 40,
+    "atr20": 15565,
+    "trig": [
+     true,
+     true,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 2,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 15380,
+    "hi250": 188000.0,
+    "vcp": false,
+    "mkt": false
+   },
    "max_zone_prev": {
     "top": 125260,
     "pct": 41
@@ -3836,6 +4893,7 @@
    "ia_up_share": 75,
    "ia_median": 3.5,
    "close": 40850.0,
+   "prev_close": 40100.0,
    "date": "20261127",
    "rs": 98,
    "value20_eok": 1168,
@@ -3877,6 +4935,27 @@
    "today": [],
    "vol_ratio": 1.42,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 32,
+    "atr20": 5325,
+    "trig": [
+     false,
+     true,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 1,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 5270,
+    "hi250": 45400.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 45400,
     "alert": 44492,
@@ -3906,6 +4985,7 @@
    "ia_up_share": 82,
    "ia_median": 6.4,
    "close": 36000.0,
+   "prev_close": 33750.0,
    "date": "20261127",
    "rs": 98,
    "value20_eok": 192,
@@ -3933,6 +5013,27 @@
    ],
    "vol_ratio": 1.74,
    "stage": "1stage 진행 중",
+   "trig": {
+    "dcr": 61,
+    "atr20": 3128,
+    "trig": [
+     true,
+     true,
+     false,
+     false,
+     false,
+     true,
+     false
+    ],
+    "trig_n": 3,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 3201,
+    "hi250": 37350.0,
+    "vcp": false,
+    "mkt": false
+   },
    "broke": {
     "pivot": 35750,
     "setups": [],
@@ -3990,6 +5091,7 @@
    "ia_up_share": 91,
    "ia_median": 6.4,
    "close": 18050.0,
+   "prev_close": 17770.0,
    "date": "20261127",
    "rs": 87,
    "value20_eok": 136,
@@ -4031,6 +5133,27 @@
    "today": [],
    "vol_ratio": 1.34,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 29,
+    "atr20": 1712,
+    "trig": [
+     false,
+     true,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 1,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 1651,
+    "hi250": 28600.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 19860,
     "alert": 19463,
@@ -4063,6 +5186,7 @@
    "ia_up_share": 70,
    "ia_median": 3.0,
    "close": 60000.0,
+   "prev_close": 53100.0,
    "date": "20261127",
    "rs": 91,
    "value20_eok": 299,
@@ -4106,6 +5230,27 @@
    ],
    "vol_ratio": 2.47,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 80,
+    "atr20": 7952,
+    "trig": [
+     true,
+     true,
+     true,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 3,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 8352,
+    "hi250": 89100.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 89100,
     "alert": 87318,
@@ -4141,6 +5286,7 @@
    "ia_up_share": 74,
    "ia_median": 6.0,
    "close": 17790.0,
+   "prev_close": 17040.0,
    "date": "20261127",
    "rs": 95,
    "value20_eok": 370,
@@ -4194,6 +5340,27 @@
    "today": [],
    "vol_ratio": 1.08,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 86,
+    "atr20": 1723,
+    "trig": [
+     false,
+     true,
+     true,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 2,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 1700,
+    "hi250": 24550.0,
+    "vcp": true,
+    "mkt": false
+   },
    "levels": {
     "breakout": 24550,
     "alert": 24059,
@@ -4226,6 +5393,7 @@
    "ia_up_share": 62,
    "ia_median": 3.0,
    "close": 58600.0,
+   "prev_close": 56900.0,
    "date": "20261127",
    "rs": 93,
    "value20_eok": 1589,
@@ -4268,6 +5436,27 @@
    "today": [],
    "vol_ratio": 0.55,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 91,
+    "atr20": 4278,
+    "trig": [
+     false,
+     true,
+     true,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 2,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 4268,
+    "hi250": 70300.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 70300,
     "alert": 68894,
@@ -4299,6 +5488,7 @@
    "ia_up_share": 97,
    "ia_median": 8.4,
    "close": 15220.0,
+   "prev_close": 12700.0,
    "date": "20261127",
    "rs": 94,
    "value20_eok": 153,
@@ -4355,6 +5545,27 @@
    ],
    "vol_ratio": 9.15,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 75,
+    "atr20": 1306,
+    "trig": [
+     true,
+     true,
+     true,
+     true,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 4,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 1313,
+    "hi250": 23950.0,
+    "vcp": false,
+    "mkt": false
+   },
    "broke": {
     "pivot": 14080,
     "setups": [],
@@ -4411,6 +5622,7 @@
    "ia_up_share": 100,
    "ia_median": 7.8,
    "close": 52600.0,
+   "prev_close": 49500.0,
    "date": "20261127",
    "rs": 98,
    "value20_eok": 291,
@@ -4454,6 +5666,27 @@
    "today": [],
    "vol_ratio": 0.71,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 89,
+    "atr20": 7006,
+    "trig": [
+     false,
+     true,
+     true,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 2,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 6839,
+    "hi250": 68000.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 67000,
     "alert": 65660,
@@ -4488,6 +5721,7 @@
    "ia_up_share": 97,
    "ia_median": 8.5,
    "close": 28950.0,
+   "prev_close": 28000.0,
    "date": "20261127",
    "rs": 91,
    "value20_eok": 1486,
@@ -4531,6 +5765,27 @@
    "today": [],
    "vol_ratio": 1.17,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 76,
+    "atr20": 3818,
+    "trig": [
+     false,
+     true,
+     true,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 2,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 3762,
+    "hi250": 50600.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 36850,
     "alert": 36113,
@@ -4553,7 +5808,11 @@
     "정배열(일봉)"
    ],
    "tier": "대기",
-   "pool": false
+   "pool": false,
+   "rebreak": {
+    "pivot": 34500,
+    "date": "20261118"
+   }
   },
   {
    "stock": "와이씨",
@@ -4565,6 +5824,7 @@
    "ia_up_share": 100,
    "ia_median": 7.8,
    "close": 14300.0,
+   "prev_close": 13910.0,
    "date": "20261127",
    "rs": 78,
    "value20_eok": 226,
@@ -4607,6 +5867,27 @@
    "today": [],
    "vol_ratio": 0.9,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 85,
+    "atr20": 1496,
+    "trig": [
+     false,
+     true,
+     true,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 2,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 1466,
+    "hi250": 24150.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 16710,
     "alert": 16376,
@@ -4641,6 +5922,7 @@
    "ia_up_share": 85,
    "ia_median": 5.8,
    "close": 58300.0,
+   "prev_close": 55600.0,
    "date": "20261127",
    "rs": 95,
    "value20_eok": 119,
@@ -4682,6 +5964,27 @@
    "today": [],
    "vol_ratio": 1.21,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 76,
+    "atr20": 3702,
+    "trig": [
+     false,
+     true,
+     true,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 2,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 3748,
+    "hi250": 68500.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 60400,
     "alert": 59192,
@@ -4711,6 +6014,7 @@
    "ia_up_share": 85,
    "ia_median": 5.8,
    "close": 491000.0,
+   "prev_close": 471000.0,
    "date": "20261127",
    "rs": 75,
    "value20_eok": 614,
@@ -4753,6 +6057,27 @@
    "today": [],
    "vol_ratio": 0.97,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 48,
+    "atr20": 31550,
+    "trig": [
+     false,
+     true,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 1,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 32000,
+    "hi250": 647000.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 523000,
     "alert": 512540,
@@ -4787,6 +6112,7 @@
    "ia_up_share": 85,
    "ia_median": 5.8,
    "close": 221000.0,
+   "prev_close": 216500.0,
    "date": "20261127",
    "rs": 88,
    "value20_eok": 1338,
@@ -4845,6 +6171,27 @@
    ],
    "vol_ratio": 1.23,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 60,
+    "atr20": 8900,
+    "trig": [
+     false,
+     true,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 1,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 8960,
+    "hi250": 239244.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 239244,
     "alert": 234459,
@@ -4876,6 +6223,7 @@
    "ia_up_share": 86,
    "ia_median": 5.8,
    "close": 25350.0,
+   "prev_close": 25750.0,
    "date": "20261127",
    "rs": 92,
    "value20_eok": 126,
@@ -4917,6 +6265,27 @@
    "today": [],
    "vol_ratio": 0.71,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 24,
+    "atr20": 1795,
+    "trig": [
+     false,
+     true,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 1,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 1805,
+    "hi250": 31250.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 26800,
     "alert": 26264,
@@ -4937,7 +6306,11 @@
    },
    "missing": [],
    "tier": "대기",
-   "pool": false
+   "pool": false,
+   "rebreak": {
+    "pivot": 26050,
+    "date": "20261119"
+   }
   },
   {
    "stock": "대한항공",
@@ -4949,6 +6322,7 @@
    "ia_up_share": 55,
    "ia_median": 2.1,
    "close": 30150.0,
+   "prev_close": 29750.0,
    "date": "20261127",
    "rs": 87,
    "value20_eok": 937,
@@ -4991,6 +6365,27 @@
    "today": [],
    "vol_ratio": 0.65,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 87,
+    "atr20": 1562,
+    "trig": [
+     false,
+     true,
+     true,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 2,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 1590,
+    "hi250": 32950.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 32950,
     "alert": 32291,
@@ -5022,6 +6417,7 @@
    "ia_up_share": 55,
    "ia_median": 2.1,
    "close": 7470.0,
+   "prev_close": 7630.0,
    "date": "20261127",
    "rs": 88,
    "value20_eok": 124,
@@ -5062,6 +6458,27 @@
    "today": [],
    "vol_ratio": 0.97,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 41,
+    "atr20": 668,
+    "trig": [
+     false,
+     true,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 1,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 682,
+    "hi250": 8600.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 8600,
     "alert": 8428,
@@ -5094,6 +6511,7 @@
    "ia_up_share": 55,
    "ia_median": 2.1,
    "close": 7950.0,
+   "prev_close": 8390.0,
    "date": "20261127",
    "rs": 96,
    "value20_eok": 148,
@@ -5135,6 +6553,27 @@
    "today": [],
    "vol_ratio": 1.11,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 36,
+    "atr20": 755,
+    "trig": [
+     false,
+     true,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 1,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 774,
+    "hi250": 9370.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 9370,
     "alert": 9183,
@@ -5164,6 +6603,7 @@
    "ia_up_share": 33,
    "ia_median": 0.3,
    "close": 142600.0,
+   "prev_close": 146700.0,
    "date": "20261127",
    "rs": 83,
    "value20_eok": 257,
@@ -5211,6 +6651,27 @@
    "today": [],
    "vol_ratio": 1.17,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 38,
+    "atr20": 7080,
+    "trig": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 0,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 7000,
+    "hi250": 169000.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 152800,
     "alert": 149744,
@@ -5234,6 +6695,80 @@
    ],
    "tier": "대기",
    "pool": true
+  },
+  {
+   "stock": "코스맥스",
+   "code": "192820",
+   "market": "KOSPI",
+   "sector": "소비재 > 화장품",
+   "group": "화장품",
+   "ia": "나 홀로",
+   "ia_up_share": 33,
+   "ia_median": 0.3,
+   "close": 314000.0,
+   "prev_close": 343500.0,
+   "date": "20261127",
+   "rs": 95,
+   "value20_eok": 321,
+   "off_high_pct": -9.8,
+   "vol50": 103069,
+   "checks": {
+    "정배열(일봉)": true,
+    "정배열(주봉)": true,
+    "RS": true,
+    "고점 위치": true,
+    "시총": true,
+    "거래대금": true,
+    "1stage 상승": true
+   },
+   "gate_score": 7,
+   "gate_miss": [],
+   "gate_strict": true,
+   "gate_pass": true,
+   "setups": [],
+   "run_pct": 123,
+   "base": null,
+   "today": [],
+   "vol_ratio": 2.12,
+   "stage": "1stage 진행 중",
+   "trig": {
+    "dcr": 11,
+    "atr20": 22750,
+    "trig": [
+     true,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 1,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 23650,
+    "hi250": 348000.0,
+    "vcp": false,
+    "mkt": false
+   },
+   "max_zone_prev": {
+    "top": 203100,
+    "pct": 25
+   },
+   "max_zone": {
+    "top": 203100,
+    "pct": 24
+   },
+   "missing": [
+    "조정 구간 없음(1stage 진행 중)"
+   ],
+   "tier": null,
+   "pool": true,
+   "rebreak": {
+    "pivot": 320000,
+    "date": "20261125"
+   }
   }
  ],
  "running": [
@@ -5247,6 +6782,7 @@
    "ia_up_share": 70,
    "ia_median": 3.0,
    "close": 174000.0,
+   "prev_close": 163300.0,
    "date": "20261127",
    "rs": 99,
    "value20_eok": 973,
@@ -5273,6 +6809,27 @@
    ],
    "vol_ratio": 3.05,
    "stage": "1stage 진행 중",
+   "trig": {
+    "dcr": 40,
+    "atr20": 15565,
+    "trig": [
+     true,
+     true,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 2,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 15380,
+    "hi250": 188000.0,
+    "vcp": false,
+    "mkt": false
+   },
    "max_zone_prev": {
     "top": 125260,
     "pct": 41
@@ -5297,6 +6854,7 @@
    "ia_up_share": 82,
    "ia_median": 6.4,
    "close": 36000.0,
+   "prev_close": 33750.0,
    "date": "20261127",
    "rs": 98,
    "value20_eok": 192,
@@ -5324,6 +6882,27 @@
    ],
    "vol_ratio": 1.74,
    "stage": "1stage 진행 중",
+   "trig": {
+    "dcr": 61,
+    "atr20": 3128,
+    "trig": [
+     true,
+     true,
+     false,
+     false,
+     false,
+     true,
+     false
+    ],
+    "trig_n": 3,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 3201,
+    "hi250": 37350.0,
+    "vcp": false,
+    "mkt": false
+   },
    "broke": {
     "pivot": 35750,
     "setups": [],
@@ -5381,6 +6960,7 @@
    "ia_up_share": 50,
    "ia_median": 1.7,
    "close": 253000.0,
+   "prev_close": 243500.0,
    "date": "20261127",
    "rs": 98,
    "value20_eok": 1523,
@@ -5405,6 +6985,27 @@
    "today": [],
    "vol_ratio": 0.86,
    "stage": "1stage 진행 중",
+   "trig": {
+    "dcr": 67,
+    "atr20": 25815,
+    "trig": [
+     false,
+     true,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 1,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 26695,
+    "hi250": 260000.0,
+    "vcp": false,
+    "mkt": false
+   },
    "max_zone_prev": {
     "top": 131320,
     "pct": 50
@@ -5429,6 +7030,7 @@
    "ia_up_share": 100,
    "ia_median": 5.3,
    "close": 6770.0,
+   "prev_close": 6430.0,
    "date": "20261127",
    "rs": 96,
    "value20_eok": 117,
@@ -5453,6 +7055,27 @@
    "today": [],
    "vol_ratio": 1.7,
    "stage": "1stage 진행 중",
+   "trig": {
+    "dcr": 78,
+    "atr20": 666,
+    "trig": [
+     true,
+     true,
+     true,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 3,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 690,
+    "hi250": 6960.0,
+    "vcp": false,
+    "mkt": false
+   },
    "max_zone_prev": {
     "top": 5846,
     "pct": 34
@@ -5477,6 +7100,7 @@
    "ia_up_share": 55,
    "ia_median": 2.1,
    "close": 58700.0,
+   "prev_close": 58800.0,
    "date": "20261127",
    "rs": 96,
    "value20_eok": 161,
@@ -5501,6 +7125,27 @@
    "today": [],
    "vol_ratio": 0.41,
    "stage": "1stage 진행 중",
+   "trig": {
+    "dcr": 50,
+    "atr20": 850,
+    "trig": [
+     false,
+     true,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 1,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 775,
+    "hi250": 58800.0,
+    "vcp": false,
+    "mkt": false
+   },
    "max_zone_prev": {
     "top": 58800,
     "pct": 23
@@ -5525,6 +7170,7 @@
    "ia_up_share": 33,
    "ia_median": 0.3,
    "close": 314000.0,
+   "prev_close": 343500.0,
    "date": "20261127",
    "rs": 95,
    "value20_eok": 321,
@@ -5549,6 +7195,27 @@
    "today": [],
    "vol_ratio": 2.12,
    "stage": "1stage 진행 중",
+   "trig": {
+    "dcr": 11,
+    "atr20": 22750,
+    "trig": [
+     true,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 1,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 23650,
+    "hi250": 348000.0,
+    "vcp": false,
+    "mkt": false
+   },
    "max_zone_prev": {
     "top": 203100,
     "pct": 25
@@ -5561,7 +7228,11 @@
     "조정 구간 없음(1stage 진행 중)"
    ],
    "tier": null,
-   "pool": true
+   "pool": true,
+   "rebreak": {
+    "pivot": 320000,
+    "date": "20261125"
+   }
   }
  ],
  "near_miss": [
@@ -5575,6 +7246,7 @@
    "ia_up_share": null,
    "ia_median": null,
    "close": 16460.0,
+   "prev_close": 15820.0,
    "date": "20261127",
    "rs": 97,
    "value20_eok": 12,
@@ -5601,6 +7273,27 @@
    "today": [],
    "vol_ratio": 0.71,
    "stage": "1stage 진행 중",
+   "trig": {
+    "dcr": 64,
+    "atr20": 968,
+    "trig": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     true,
+     false
+    ],
+    "trig_n": 1,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 1000,
+    "hi250": 16860.0,
+    "vcp": false,
+    "mkt": false
+   },
    "max_zone_prev": {
     "top": 8254,
     "pct": 28
@@ -5626,6 +7319,7 @@
    "ia_up_share": 89,
    "ia_median": 5.8,
    "close": 24800.0,
+   "prev_close": 24250.0,
    "date": "20261127",
    "rs": 97,
    "value20_eok": 49,
@@ -5652,6 +7346,27 @@
    "today": [],
    "vol_ratio": 0.26,
    "stage": "1stage 진행 중",
+   "trig": {
+    "dcr": 100,
+    "atr20": 928,
+    "trig": [
+     false,
+     true,
+     true,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 2,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 933,
+    "hi250": 26150.0,
+    "vcp": false,
+    "mkt": false
+   },
    "max_zone_prev": {
     "top": 24657,
     "pct": 60
@@ -5677,6 +7392,7 @@
    "ia_up_share": 33,
    "ia_median": 0.1,
    "close": 16560.0,
+   "prev_close": 16400.0,
    "date": "20261127",
    "rs": 97,
    "value20_eok": 20,
@@ -5703,6 +7419,27 @@
    "today": [],
    "vol_ratio": 1.18,
    "stage": "1stage 진행 중",
+   "trig": {
+    "dcr": 65,
+    "atr20": 816,
+    "trig": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 0,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 844,
+    "hi250": 17230.0,
+    "vcp": false,
+    "mkt": false
+   },
    "max_zone_prev": {
     "top": 13630,
     "pct": 31
@@ -5728,6 +7465,7 @@
    "ia_up_share": 100,
    "ia_median": 4.0,
    "close": 78000.0,
+   "prev_close": 80100.0,
    "date": "20261127",
    "rs": 96,
    "value20_eok": 71,
@@ -5772,6 +7510,27 @@
    "today": [],
    "vol_ratio": 0.77,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 28,
+    "atr20": 5615,
+    "trig": [
+     false,
+     true,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 1,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 5625,
+    "hi250": 81400.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 81400,
     "alert": 79772,
@@ -5803,6 +7562,7 @@
    "ia_up_share": null,
    "ia_median": null,
    "close": 9000.0,
+   "prev_close": 8450.0,
    "date": "20261127",
    "rs": 95,
    "value20_eok": 3,
@@ -5850,6 +7610,27 @@
    ],
    "vol_ratio": 2.88,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 64,
+    "atr20": 621,
+    "trig": [
+     true,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 1,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 536,
+    "hi250": 10300.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 10300,
     "alert": 10094,
@@ -5881,6 +7662,7 @@
    "ia_up_share": 81,
    "ia_median": 6.2,
    "close": 2335.0,
+   "prev_close": 2265.0,
    "date": "20261127",
    "rs": 94,
    "value20_eok": 25,
@@ -5923,6 +7705,27 @@
    "today": [],
    "vol_ratio": 0.46,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 86,
+    "atr20": 171,
+    "trig": [
+     false,
+     true,
+     true,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 2,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 166,
+    "hi250": 2640.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 2510,
     "alert": 2460,
@@ -5954,6 +7757,7 @@
    "ia_up_share": 97,
    "ia_median": 8.4,
    "close": 49400.0,
+   "prev_close": 45350.0,
    "date": "20261127",
    "rs": 94,
    "value20_eok": 25,
@@ -5996,6 +7800,27 @@
    "today": [],
    "vol_ratio": 1.33,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 92,
+    "atr20": 3888,
+    "trig": [
+     false,
+     true,
+     true,
+     true,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 3,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 3875,
+    "hi250": 53500.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 53500,
     "alert": 52430,
@@ -6027,6 +7852,7 @@
    "ia_up_share": 77,
    "ia_median": 6.0,
    "close": 11190.0,
+   "prev_close": 11210.0,
    "date": "20261127",
    "rs": 93,
    "value20_eok": 5,
@@ -6071,6 +7897,27 @@
    "today": [],
    "vol_ratio": 0.34,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 80,
+    "atr20": 706,
+    "trig": [
+     false,
+     true,
+     true,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 2,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 705,
+    "hi250": 14080.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 12000,
     "alert": 11760,
@@ -6102,6 +7949,7 @@
    "ia_up_share": 50,
    "ia_median": 1.7,
    "close": 105200.0,
+   "prev_close": 103100.0,
    "date": "20261127",
    "rs": 92,
    "value20_eok": 16,
@@ -6144,6 +7992,27 @@
    "today": [],
    "vol_ratio": 0.49,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 100,
+    "atr20": 6665,
+    "trig": [
+     false,
+     true,
+     true,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 2,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 6725,
+    "hi250": 112900.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 112900,
     "alert": 110642,
@@ -6175,6 +8044,7 @@
    "ia_up_share": null,
    "ia_median": null,
    "close": 10580.0,
+   "prev_close": 10040.0,
    "date": "20261127",
    "rs": 91,
    "value20_eok": 6,
@@ -6204,6 +8074,27 @@
    ],
    "vol_ratio": 2.22,
    "stage": "1stage 진행 중",
+   "trig": {
+    "dcr": 92,
+    "atr20": 330,
+    "trig": [
+     true,
+     false,
+     true,
+     true,
+     false,
+     true,
+     false
+    ],
+    "trig_n": 4,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 350,
+    "hi250": 10630.0,
+    "vcp": false,
+    "mkt": false
+   },
    "max_zone_prev": {
     "top": 8826,
     "pct": 45
@@ -6229,6 +8120,7 @@
    "ia_up_share": 50,
    "ia_median": 3.4,
    "close": 101900.0,
+   "prev_close": 102700.0,
    "date": "20261127",
    "rs": 91,
    "value20_eok": 90,
@@ -6271,6 +8163,27 @@
    "today": [],
    "vol_ratio": 0.6,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 51,
+    "atr20": 3195,
+    "trig": [
+     false,
+     true,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 1,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 3265,
+    "hi250": 107600.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 107600,
     "alert": 105448,
@@ -6302,6 +8215,7 @@
    "ia_up_share": 100,
    "ia_median": 7.7,
    "close": 65500.0,
+   "prev_close": 64200.0,
    "date": "20261127",
    "rs": 90,
    "value20_eok": 31,
@@ -6344,6 +8258,27 @@
    "today": [],
    "vol_ratio": 0.5,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 71,
+    "atr20": 4125,
+    "trig": [
+     false,
+     true,
+     true,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 2,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 4145,
+    "hi250": 73000.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 72700,
     "alert": 71246,
@@ -6375,6 +8310,7 @@
    "ia_up_share": 60,
    "ia_median": 2.4,
    "close": 6610.0,
+   "prev_close": 6530.0,
    "date": "20261127",
    "rs": 90,
    "value20_eok": 74,
@@ -6443,6 +8379,27 @@
    "today": [],
    "vol_ratio": 1.67,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 60,
+    "atr20": 398,
+    "trig": [
+     true,
+     true,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 2,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 404,
+    "hi250": 7230.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 7230,
     "alert": 7085,
@@ -6475,6 +8432,7 @@
    "ia_up_share": 66,
    "ia_median": 3.0,
    "close": 25950.0,
+   "prev_close": 25800.0,
    "date": "20261127",
    "rs": 89,
    "value20_eok": 19,
@@ -6517,6 +8475,27 @@
    "today": [],
    "vol_ratio": 1.07,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 29,
+    "atr20": 1702,
+    "trig": [
+     false,
+     true,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 1,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 1650,
+    "hi250": 33300.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 27650,
     "alert": 27097,
@@ -6551,6 +8530,7 @@
    "ia_up_share": 70,
    "ia_median": 2.9,
    "close": 2540.0,
+   "prev_close": 2535.0,
    "date": "20261127",
    "rs": 89,
    "value20_eok": 18,
@@ -6594,6 +8574,27 @@
    "today": [],
    "vol_ratio": 0.57,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 85,
+    "atr20": 101,
+    "trig": [
+     false,
+     true,
+     true,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 2,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 100,
+    "hi250": 3280.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 2635,
     "alert": 2582,
@@ -6628,6 +8629,7 @@
    "ia_up_share": 33,
    "ia_median": 0.3,
    "close": 28550.0,
+   "prev_close": 28850.0,
    "date": "20261127",
    "rs": 84,
    "value20_eok": 30,
@@ -6682,6 +8684,27 @@
    "today": [],
    "vol_ratio": 0.83,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 38,
+    "atr20": 1290,
+    "trig": [
+     false,
+     false,
+     false,
+     false,
+     true,
+     false,
+     false
+    ],
+    "trig_n": 1,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 1240,
+    "hi250": 35950.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 32150,
     "alert": 31507,
@@ -6717,6 +8740,7 @@
    "ia_up_share": 70,
    "ia_median": 3.5,
    "close": 5740.0,
+   "prev_close": 5590.0,
    "date": "20261127",
    "rs": 82,
    "value20_eok": 11,
@@ -6759,6 +8783,27 @@
    "today": [],
    "vol_ratio": 0.76,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 100,
+    "atr20": 303,
+    "trig": [
+     false,
+     true,
+     true,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 2,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 299,
+    "hi250": 7750.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 5830,
     "alert": 5713,
@@ -6793,6 +8838,7 @@
    "ia_up_share": 19,
    "ia_median": 0.6,
    "close": 131400.0,
+   "prev_close": 132900.0,
    "date": "20261127",
    "rs": 79,
    "value20_eok": 42,
@@ -6835,6 +8881,27 @@
    "today": [],
    "vol_ratio": 0.95,
    "stage": "2stage 조정 중",
+   "trig": {
+    "dcr": 49,
+    "atr20": 7350,
+    "trig": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "trig_n": 0,
+    "trig_known": 7
+   },
+   "tg_next": {
+    "atr20": 7340,
+    "hi250": 155000.0,
+    "vcp": false,
+    "mkt": false
+   },
    "levels": {
     "breakout": 146900,
     "alert": 143962,

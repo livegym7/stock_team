@@ -199,7 +199,8 @@ def scan(stock, rows, rs_at, bench_ok, R, ia_at=None, require_ia=True, cap_at=No
         if not kind:
             continue
         res = simulate(rows, i, R)
-        trades.append({**ia, "gate_miss": miss, "stock": stock["name"], "code": stock["code"], "date": rows[i]["date"], "entry": c[i], "kind": kind,
+        tg = S.triggers(hist, prev, v[i] >= S.RULES["breakout_vol"] * vol50, ia["ia"] == "동반 상승", bench_ok.get(rows[i]["date"]))
+        trades.append({**ia, **tg, "gate_miss": miss, "stock": stock["name"], "code": stock["code"], "date": rows[i]["date"], "entry": c[i], "kind": kind,
                        "setups": setups, "rs": rs, "vol_ratio": round(v[i] / vol50, 2), "market_ok": bench_ok.get(rows[i]["date"]),
                        "pp_ok": bool(gate_pp and pp), "cap_eok": round(cap_at(i)) if cap_at else None,
                        **res})
@@ -311,6 +312,13 @@ def run_backtest(limit=None, workers=4):
                        for k in sorted({t["kind"] + " · " + t["ia"].split("(")[0] for t in loose})},
         "by_ia_market": by(lambda t: t["ia"].split("(")[0] + " · " + ("지수 20일선 위" if t["market_ok"] else "지수 20일선 아래")),
         "ia_rule": "인더스트리 액션(돌파 필수) = 신호일에 같은 업종(사용자 분류 custom, 없으면 네이버 업종 · 시총 2천억↑) 종목의 40% 이상이 +2%↑ 또는 업종 중앙값 +1.5%↑. 아래 '업종 동반/나 홀로' 줄은 조건 없이 잡은 신호를 나눠 본 비교",
+        # 트리거 비교 (2026-11-27, 깡토 5강 '여러 트리거가 같은 방향이면 확률이 오른다' — 비교 자료만, 정식 신호 조건은 그대로)
+        "by_trigger": {nm: {"있음": stats([t for t in closed if t["kind"] == "돌파" and t.get("trig") and t["trig"][k]]),
+                             "없음": stats([t for t in closed if t["kind"] == "돌파" and t.get("trig") and t["trig"][k] is False])}
+                       for k, nm in enumerate(S.TRIG_NAMES)},
+        "by_trigger_n": {f"{k}/7": stats([t for t in closed if t["kind"] == "돌파" and t.get("trig_n") == k]) for k in range(2, 8)},
+        "by_dcr": {lab: stats([t for t in closed if t["kind"] == "돌파" and t.get("dcr") is not None and lo <= t["dcr"] < hi])
+                   for lab, lo, hi in (("0~49", 0, 50), ("50~69", 50, 70), ("70~89", 70, 90), ("90~100", 90, 101))},
         "by_exit": dict(Counter(t["how"] for t in closed)),
         "r_hist": dict(sorted(Counter(max(-2, min(6, round(t["r"]))) for t in closed).items())),
         "curve": curve[::max(1, len(curve) // 200)] + curve[-1:],

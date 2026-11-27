@@ -361,9 +361,12 @@ def core_list():
                      
                       "stop": lv.get("stop_1r"), "dist": dist, "fp": fp, "tech": tech, "why": (f or {}).get("why") or [], "ia": r["ia"] == "동반 상승",
                       "ftype": (f or {}).get("type"), "fmax": (f or {}).get("max", 3), "fitems": (f or {}).get("items"), "fbad": not fok(f),
-                      "pool": r["pool"], "core": fok(f) and tech >= 2, "note": note})
+                      "pool": r["pool"], "core": fok(f) and tech >= 2, "note": note,
+                      # 트리거 (2026-11-27): trig = 목록 기준일 봉의 7개, tg = 다음 거래일 장중 계산 재료(ATR·52주 고가·VCP·시장), rb = 재돌파 선
+                      "trig": (r.get("trig") or {}).get("trig"), "dcr": (r.get("trig") or {}).get("dcr"), "tg": r.get("tg_next"),
+                      "rb": (r.get("rebreak") or {}).get("pivot"), "rb_d": (r.get("rebreak") or {}).get("date"), "re": "재돌파" in (r.get("today") or [])})
     items.sort(key=lambda x: (not x["core"], x["fbad"], x["ftype"] != "E", -x["fp"], x["dist"] if x["dist"] is not None else 99))
-    return {"as_of": sc.get("as_of"), "made_at": datetime.now(KST).strftime("%Y-%m-%d %H:%M"), "items": items[:20],
+    return {"as_of": sc.get("as_of"), "made_at": datetime.now(KST).strftime("%Y-%m-%d %H:%M"), "items": items[:80],   # 2026-11-27: 20개에서 잘려 매매 보드에서 감시 목록 종목이 빠지던 것을 바로잡음
             "n_core": sum(1 for x in items if x["core"]), "rule": "핵심 = 기술 2/3↑ + 펀더 0점 아님 (펀더: 다음 분기 이익·올해 EPS·추정치 상향, 추정치 없으면 발표 실적 / 기술: RS 80↑·기준가 10% 안·업종 동행)"}
 
 

@@ -1,9 +1,9 @@
 {
- "made_at": "2026-11-27 23:50",
- "seconds": 57,
+ "made_at": "2026-11-28 07:17",
+ "seconds": 265,
  "universe": 770,
  "period": [
-  "20240904",
+  "20240905",
   "20261127"
  ],
  "rules": {
@@ -39,34 +39,34 @@
   "max_loss_streak": 17
  },
  "all_with_pp": {
-  "n": 1103,
+  "n": 1102,
   "win_rate": 34.0,
   "avg_r": 0.45,
   "avg_win": 3.37,
   "avg_loss": -1.05,
   "payoff": 3.2,
   "profit_factor": 1.65,
-  "total_r": 497.5,
+  "total_r": 498.5,
   "reach_3r_pct": 34.0,
   "avg_days": 16.2,
-  "max_dd_r": -60.7,
+  "max_dd_r": -59.7,
   "max_loss_streak": 22
  },
  "open_trades": 6,
  "ia_required": true,
  "compare_without_ia": {
   "all": {
-   "n": 1435,
-   "win_rate": 32.5,
+   "n": 1434,
+   "win_rate": 32.6,
    "avg_r": 0.36,
    "avg_win": 3.29,
    "avg_loss": -1.05,
    "payoff": 3.12,
    "profit_factor": 1.51,
-   "total_r": 517.0,
-   "reach_3r_pct": 32.5,
-   "avg_days": 15.4,
-   "max_dd_r": -80.8,
+   "total_r": 518.0,
+   "reach_3r_pct": 32.6,
+   "avg_days": 15.3,
+   "max_dd_r": -79.8,
    "max_loss_streak": 22
   },
   "breakout": {
@@ -79,8 +79,8 @@
    "profit_factor": 1.48,
    "total_r": 296.2,
    "reach_3r_pct": 32.8,
-   "avg_days": 14.5,
-   "max_dd_r": -42.3,
+   "avg_days": 14.3,
+   "max_dd_r": -43.4,
    "max_loss_streak": 16
   }
  },
@@ -100,17 +100,17 @@
    "max_loss_streak": 17
   },
   "포켓피봇": {
-   "n": 625,
+   "n": 624,
    "win_rate": 32.2,
-   "avg_r": 0.37,
+   "avg_r": 0.38,
    "avg_win": 3.39,
    "avg_loss": -1.05,
    "payoff": 3.21,
-   "profit_factor": 1.52,
-   "total_r": 234.3,
+   "profit_factor": 1.53,
+   "total_r": 235.3,
    "reach_3r_pct": 32.2,
    "avg_days": 17.2,
-   "max_dd_r": -46.9,
+   "max_dd_r": -45.8,
    "max_loss_streak": 33
   }
  },
@@ -202,15 +202,15 @@
  },
  "by_market": {
   "지수 20일선 아래": {
-   "n": 275,
-   "win_rate": 33.1,
-   "avg_r": 0.48,
+   "n": 274,
+   "win_rate": 33.2,
+   "avg_r": 0.49,
    "avg_win": 3.58,
    "avg_loss": -1.05,
    "payoff": 3.4,
-   "profit_factor": 1.68,
-   "total_r": 132.1,
-   "reach_3r_pct": 33.1,
+   "profit_factor": 1.69,
+   "total_r": 133.2,
+   "reach_3r_pct": 33.2,
    "avg_days": 17.9,
    "max_dd_r": -33.3,
    "max_loss_streak": 19
@@ -232,17 +232,17 @@
  },
  "by_year": {
   "2024": {
-   "n": 72,
-   "win_rate": 22.2,
-   "avg_r": -0.21,
+   "n": 71,
+   "win_rate": 22.5,
+   "avg_r": -0.2,
    "avg_win": 2.69,
    "avg_loss": -1.04,
-   "payoff": 2.58,
-   "profit_factor": 0.74,
-   "total_r": -15.5,
-   "reach_3r_pct": 22.2,
-   "avg_days": 23.0,
-   "max_dd_r": -37.6,
+   "payoff": 2.57,
+   "profit_factor": 0.75,
+   "total_r": -14.4,
+   "reach_3r_pct": 22.5,
+   "avg_days": 23.3,
+   "max_dd_r": -36.6,
    "max_loss_streak": 14
   },
   "2025": {
@@ -276,17 +276,17 @@
  },
  "by_ia": {
   "나 홀로": {
-   "n": 374,
+   "n": 373,
    "win_rate": 32.4,
-   "avg_r": 0.48,
+   "avg_r": 0.49,
    "avg_win": 3.68,
    "avg_loss": -1.05,
    "payoff": 3.51,
    "profit_factor": 1.68,
-   "total_r": 179.9,
+   "total_r": 181.0,
    "reach_3r_pct": 32.4,
-   "avg_days": 18.0,
-   "max_dd_r": -36.9,
+   "avg_days": 18.1,
+   "max_dd_r": -35.9,
    "max_loss_streak": 23
   },
   "동반 상승": {
@@ -357,22 +357,22 @@
    "profit_factor": 1.56,
    "total_r": 5.2,
    "reach_3r_pct": 43.8,
-   "avg_days": 32,
+   "avg_days": 22.5,
    "max_dd_r": -3.8,
    "max_loss_streak": 3
   },
   "포켓피봇 · 나 홀로": {
-   "n": 327,
-   "win_rate": 32.1,
+   "n": 326,
+   "win_rate": 32.2,
    "avg_r": 0.51,
    "avg_win": 3.81,
    "avg_loss": -1.05,
    "payoff": 3.62,
-   "profit_factor": 1.71,
-   "total_r": 166.3,
-   "reach_3r_pct": 32.1,
-   "avg_days": 18.1,
-   "max_dd_r": -32.4,
+   "profit_factor": 1.72,
+   "total_r": 167.3,
+   "reach_3r_pct": 32.2,
+   "avg_days": 18.2,
+   "max_dd_r": -31.4,
    "max_loss_streak": 20
   },
   "포켓피봇 · 동반 상승": {
@@ -406,17 +406,17 @@
  },
  "by_ia_market": {
   "나 홀로 · 지수 20일선 아래": {
-   "n": 107,
-   "win_rate": 34.6,
-   "avg_r": 0.65,
+   "n": 106,
+   "win_rate": 34.9,
+   "avg_r": 0.67,
    "avg_win": 3.85,
    "avg_loss": -1.04,
    "payoff": 3.69,
-   "profit_factor": 1.95,
-   "total_r": 69.5,
-   "reach_3r_pct": 34.6,
-   "avg_days": 23.7,
-   "max_dd_r": -13.8,
+   "profit_factor": 1.98,
+   "total_r": 70.6,
+   "reach_3r_pct": 34.9,
+   "avg_days": 23.9,
+   "max_dd_r": -13.0,
    "max_loss_streak": 12
   },
   "나 홀로 · 지수 20일선 위": {
@@ -491,14 +491,348 @@
   }
  },
  "ia_rule": "인더스트리 액션(돌파 필수) = 신호일에 같은 업종(사용자 분류 custom, 없으면 네이버 업종 · 시총 2천억↑) 종목의 40% 이상이 +2%↑ 또는 업종 중앙값 +1.5%↑. 아래 '업종 동반/나 홀로' 줄은 조건 없이 잡은 신호를 나눠 본 비교",
+ "by_trigger": {
+  "거래량": {
+   "있음": {
+    "n": 478,
+    "win_rate": 36.4,
+    "avg_r": 0.55,
+    "avg_win": 3.35,
+    "avg_loss": -1.05,
+    "payoff": 3.18,
+    "profit_factor": 1.82,
+    "total_r": 263.1,
+    "reach_3r_pct": 36.4,
+    "avg_days": 14.9,
+    "max_dd_r": -25.0,
+    "max_loss_streak": 17
+   },
+   "없음": {
+    "n": 0
+   }
+  },
+  "업종 동행": {
+   "있음": {
+    "n": 478,
+    "win_rate": 36.4,
+    "avg_r": 0.55,
+    "avg_win": 3.35,
+    "avg_loss": -1.05,
+    "payoff": 3.18,
+    "profit_factor": 1.82,
+    "total_r": 263.1,
+    "reach_3r_pct": 36.4,
+    "avg_days": 14.9,
+    "max_dd_r": -25.0,
+    "max_loss_streak": 17
+   },
+   "없음": {
+    "n": 0
+   }
+  },
+  "윗꼬리 없음": {
+   "있음": {
+    "n": 390,
+    "win_rate": 38.2,
+    "avg_r": 0.63,
+    "avg_win": 3.36,
+    "avg_loss": -1.05,
+    "payoff": 3.2,
+    "profit_factor": 1.98,
+    "total_r": 247.4,
+    "reach_3r_pct": 38.2,
+    "avg_days": 15.1,
+    "max_dd_r": -22.7,
+    "max_loss_streak": 12
+   },
+   "없음": {
+    "n": 88,
+    "win_rate": 28.4,
+    "avg_r": 0.18,
+    "avg_win": 3.3,
+    "avg_loss": -1.06,
+    "payoff": 3.11,
+    "profit_factor": 1.24,
+    "total_r": 15.7,
+    "reach_3r_pct": 28.4,
+    "avg_days": 13.7,
+    "max_dd_r": -12.5,
+    "max_loss_streak": 11
+   }
+  },
+  "장대양봉": {
+   "있음": {
+    "n": 373,
+    "win_rate": 37.0,
+    "avg_r": 0.53,
+    "avg_win": 3.22,
+    "avg_loss": -1.05,
+    "payoff": 3.06,
+    "profit_factor": 1.8,
+    "total_r": 197.1,
+    "reach_3r_pct": 37.0,
+    "avg_days": 14.7,
+    "max_dd_r": -20.6,
+    "max_loss_streak": 13
+   },
+   "없음": {
+    "n": 105,
+    "win_rate": 34.3,
+    "avg_r": 0.63,
+    "avg_win": 3.84,
+    "avg_loss": -1.05,
+    "payoff": 3.67,
+    "profit_factor": 1.91,
+    "total_r": 66.0,
+    "reach_3r_pct": 34.3,
+    "avg_days": 15.6,
+    "max_dd_r": -19.3,
+    "max_loss_streak": 12
+   }
+  },
+  "VCP": {
+   "있음": {
+    "n": 18,
+    "win_rate": 27.8,
+    "avg_r": 0.03,
+    "avg_win": 2.89,
+    "avg_loss": -1.07,
+    "payoff": 2.69,
+    "profit_factor": 1.04,
+    "total_r": 0.5,
+    "reach_3r_pct": 27.8,
+    "avg_days": 13.3,
+    "max_dd_r": -5.3,
+    "max_loss_streak": 4
+   },
+   "없음": {
+    "n": 460,
+    "win_rate": 36.7,
+    "avg_r": 0.57,
+    "avg_win": 3.36,
+    "avg_loss": -1.05,
+    "payoff": 3.2,
+    "profit_factor": 1.86,
+    "total_r": 262.6,
+    "reach_3r_pct": 36.7,
+    "avg_days": 14.9,
+    "max_dd_r": -25.2,
+    "max_loss_streak": 17
+   }
+  },
+  "52주 신고가": {
+   "있음": {
+    "n": 315,
+    "win_rate": 37.5,
+    "avg_r": 0.62,
+    "avg_win": 3.41,
+    "avg_loss": -1.05,
+    "payoff": 3.23,
+    "profit_factor": 1.93,
+    "total_r": 194.1,
+    "reach_3r_pct": 37.5,
+    "avg_days": 14.1,
+    "max_dd_r": -19.7,
+    "max_loss_streak": 17
+   },
+   "없음": {
+    "n": 163,
+    "win_rate": 34.4,
+    "avg_r": 0.42,
+    "avg_win": 3.23,
+    "avg_loss": -1.05,
+    "payoff": 3.09,
+    "profit_factor": 1.62,
+    "total_r": 69.0,
+    "reach_3r_pct": 34.4,
+    "avg_days": 16.4,
+    "max_dd_r": -14.9,
+    "max_loss_streak": 12
+   }
+  },
+  "시장": {
+   "있음": {
+    "n": 383,
+    "win_rate": 37.1,
+    "avg_r": 0.56,
+    "avg_win": 3.3,
+    "avg_loss": -1.05,
+    "payoff": 3.13,
+    "profit_factor": 1.84,
+    "total_r": 214.6,
+    "reach_3r_pct": 37.1,
+    "avg_days": 15.1,
+    "max_dd_r": -31.2,
+    "max_loss_streak": 18
+   },
+   "없음": {
+    "n": 95,
+    "win_rate": 33.7,
+    "avg_r": 0.51,
+    "avg_win": 3.57,
+    "avg_loss": -1.04,
+    "payoff": 3.42,
+    "profit_factor": 1.74,
+    "total_r": 48.5,
+    "reach_3r_pct": 33.7,
+    "avg_days": 13.8,
+    "max_dd_r": -19.4,
+    "max_loss_streak": 11
+   }
+  }
+ },
+ "by_trigger_n": {
+  "2/7": {
+   "n": 7,
+   "win_rate": 14.3,
+   "avg_r": -0.54,
+   "avg_win": 2.42,
+   "avg_loss": -1.03,
+   "payoff": 2.35,
+   "profit_factor": 0.39,
+   "total_r": -3.8,
+   "reach_3r_pct": 14.3,
+   "avg_days": 6.9,
+   "max_dd_r": -5.2,
+   "max_loss_streak": 5
+  },
+  "3/7": {
+   "n": 25,
+   "win_rate": 24.0,
+   "avg_r": 0.46,
+   "avg_win": 5.25,
+   "avg_loss": -1.05,
+   "payoff": 5.02,
+   "profit_factor": 1.58,
+   "total_r": 11.6,
+   "reach_3r_pct": 24.0,
+   "avg_days": 19.6,
+   "max_dd_r": -7.2,
+   "max_loss_streak": 7
+  },
+  "4/7": {
+   "n": 93,
+   "win_rate": 34.4,
+   "avg_r": 0.32,
+   "avg_win": 2.95,
+   "avg_loss": -1.06,
+   "payoff": 2.79,
+   "profit_factor": 1.46,
+   "total_r": 29.9,
+   "reach_3r_pct": 34.4,
+   "avg_days": 13.6,
+   "max_dd_r": -11.2,
+   "max_loss_streak": 9
+  },
+  "5/7": {
+   "n": 153,
+   "win_rate": 39.9,
+   "avg_r": 0.8,
+   "avg_win": 3.58,
+   "avg_loss": -1.04,
+   "payoff": 3.44,
+   "profit_factor": 2.28,
+   "total_r": 122.9,
+   "reach_3r_pct": 39.9,
+   "avg_days": 16.5,
+   "max_dd_r": -15.5,
+   "max_loss_streak": 15
+  },
+  "6/7": {
+   "n": 191,
+   "win_rate": 37.2,
+   "avg_r": 0.52,
+   "avg_win": 3.18,
+   "avg_loss": -1.06,
+   "payoff": 3.0,
+   "profit_factor": 1.78,
+   "total_r": 98.7,
+   "reach_3r_pct": 37.2,
+   "avg_days": 13.6,
+   "max_dd_r": -29.4,
+   "max_loss_streak": 21
+  },
+  "7/7": {
+   "n": 9,
+   "win_rate": 33.3,
+   "avg_r": 0.42,
+   "avg_win": 3.4,
+   "avg_loss": -1.07,
+   "payoff": 3.17,
+   "profit_factor": 1.59,
+   "total_r": 3.8,
+   "reach_3r_pct": 33.3,
+   "avg_days": 17.1,
+   "max_dd_r": -2.3,
+   "max_loss_streak": 2
+  }
+ },
+ "by_dcr": {
+  "0~49": {
+   "n": 27,
+   "win_rate": 33.3,
+   "avg_r": 0.64,
+   "avg_win": 4.08,
+   "avg_loss": -1.08,
+   "payoff": 3.79,
+   "profit_factor": 1.9,
+   "total_r": 17.4,
+   "reach_3r_pct": 33.3,
+   "avg_days": 14.2,
+   "max_dd_r": -7.0,
+   "max_loss_streak": 6
+  },
+  "50~69": {
+   "n": 61,
+   "win_rate": 26.2,
+   "avg_r": -0.03,
+   "avg_win": 2.86,
+   "avg_loss": -1.05,
+   "payoff": 2.71,
+   "profit_factor": 0.96,
+   "total_r": -1.7,
+   "reach_3r_pct": 26.2,
+   "avg_days": 13.5,
+   "max_dd_r": -10.9,
+   "max_loss_streak": 10
+  },
+  "70~89": {
+   "n": 184,
+   "win_rate": 33.7,
+   "avg_r": 0.46,
+   "avg_win": 3.43,
+   "avg_loss": -1.05,
+   "payoff": 3.26,
+   "profit_factor": 1.66,
+   "total_r": 84.2,
+   "reach_3r_pct": 33.7,
+   "avg_days": 14.3,
+   "max_dd_r": -36.0,
+   "max_loss_streak": 32
+  },
+  "90~100": {
+   "n": 206,
+   "win_rate": 42.2,
+   "avg_r": 0.79,
+   "avg_win": 3.31,
+   "avg_loss": -1.05,
+   "payoff": 3.16,
+   "profit_factor": 2.31,
+   "total_r": 163.2,
+   "reach_3r_pct": 42.2,
+   "avg_days": 15.9,
+   "max_dd_r": -15.6,
+   "max_loss_streak": 15
+  }
+ },
  "by_exit": {
-  "손절": 728,
   "20일선 이탈": 314,
+  "손절": 727,
   "본전 청산": 61
  },
  "r_hist": {
   "-2": 7,
-  "-1": 721,
+  "-1": 720,
   "1": 55,
   "2": 115,
   "3": 94,
@@ -508,11 +842,11 @@
  },
  "curve": [
   [
-   "20240906",
+   "20240920",
    -1.03
   ],
   [
-   "20241008",
+   "20241011",
    -6.22
   ],
   [
@@ -521,55 +855,55 @@
   ],
   [
    "20241031",
-   -9.76
+   -6.3
   ],
   [
    "20241101",
    -7.73
   ],
   [
-   "20241108",
+   "20241111",
    -12.88
   ],
   [
-   "20241118",
-   -13.19
+   "20241119",
+   -10.23
   ],
   [
    "20241129",
    -15.38
   ],
   [
-   "20241204",
+   "20241205",
    -20.75
   ],
   [
    "20241209",
-   -25.9
+   -23.4
   ],
   [
    "20241219",
    -28.55
   ],
   [
-   "20241224",
+   "20241227",
    -33.7
   ],
   [
-   "20250109",
+   "20250113",
    -36.56
   ],
   [
-   "20250124",
-   -36.61
+   "20250131",
+   -33.16
   ],
   [
-   "20250131",
-   -35.37
+   "20250203",
+   -35.41
   ],
   [
    "20250210",
-   -32.62
+   -29.59
   ],
   [
    "20250217",
@@ -584,31 +918,31 @@
    -37.57
   ],
   [
-   "20250224",
-   -42.72
+   "20250225",
+   -43.03
   ],
   [
-   "20250225",
-   -41.99
+   "20250227",
+   -37.69
   ],
   [
    "20250228",
-   -35.98
+   -36.12
   ],
   [
    "20250304",
    -35.8
   ],
   [
-   "20250305",
-   -41.02
+   "20250306",
+   -38.52
   ],
   [
    "20250311",
    -39.61
   ],
   [
-   "20250313",
+   "20250318",
    -31.85
   ],
   [
@@ -616,64 +950,64 @@
    -33.54
   ],
   [
-   "20250324",
-   -34.56
+   "20250325",
+   -29.73
   ],
   [
-   "20250325",
+   "20250326",
    -34.88
   ],
   [
    "20250326",
-   -34.15
+   -34.17
   ],
   [
-   "20250328",
+   "20250331",
    -39.38
   ],
   [
    "20250403",
-   -44.78
+   -44.99
   ],
   [
    "20250407",
    -50.28
   ],
   [
-   "20250428",
+   "20250509",
    -55.43
   ],
   [
-   "20250513",
+   "20250516",
    -57.14
   ],
   [
-   "20250519",
-   -58.61
+   "20250523",
+   -56.24
   ],
   [
-   "20250530",
-   -58.58
+   "20250604",
+   -52.89
   ],
   [
    "20250613",
-   -50.26
+   -46.97
   ],
   [
-   "20250617",
+   "20250620",
    -52.12
   ],
   [
    "20250623",
-   -54.23
+   -54.42
   ],
   [
    "20250625",
    -56.27
   ],
   [
-   "20250626",
-   -52.69
+   "20250627",
+   -49.48
   ],
   [
    "20250701",
@@ -681,23 +1015,23 @@
   ],
   [
    "20250702",
-   -27.52
+   -24.49
   ],
   [
    "20250703",
-   -11.0
+   -6.99
   ],
   [
    "20250704",
-   -3.19
+   1.13
   ],
   [
    "20250704",
    20.49
   ],
   [
-   "20250704",
-   15.34
+   "20250707",
+   20.94
   ],
   [
    "20250708",
@@ -705,7 +1039,7 @@
   ],
   [
    "20250716",
-   28.66
+   31.11
   ],
   [
    "20250718",
@@ -720,19 +1054,19 @@
    39.58
   ],
   [
-   "20250723",
-   35.81
+   "20250724",
+   41.41
   ],
   [
-   "20250724",
-   47.71
+   "20250725",
+   52.61
   ],
   [
    "20250729",
    50.31
   ],
   [
-   "20250729",
+   "20250730",
    45.16
   ],
   [
@@ -740,7 +1074,7 @@
    45.89
   ],
   [
-   "20250801",
+   "20250804",
    40.74
   ],
   [
@@ -757,10 +1091,10 @@
   ],
   [
    "20250819",
-   24.67
+   27.76
   ],
   [
-   "20250819",
+   "20250820",
    25.11
   ],
   [
@@ -768,20 +1102,20 @@
    19.9
   ],
   [
-   "20250827",
-   14.42
+   "20250828",
+   14.38
   ],
   [
-   "20250902",
-   12.75
+   "20250903",
+   16.45
   ],
   [
    "20250908",
-   14.25
+   17.6
   ],
   [
    "20250917",
-   19.92
+   23.18
   ],
   [
    "20250919",
@@ -797,23 +1131,23 @@
   ],
   [
    "20250925",
-   43.18
+   45.8
   ],
   [
    "20250926",
    44.48
   ],
   [
-   "20250929",
-   39.33
+   "20250930",
+   42.63
   ],
   [
-   "20251002",
+   "20251010",
    49.98
   ],
   [
    "20251014",
-   50.66
+   55.06
   ],
   [
    "20251014",
@@ -828,7 +1162,7 @@
    42.71
   ],
   [
-   "20251029",
+   "20251030",
    37.56
   ],
   [
@@ -865,19 +1199,19 @@
   ],
   [
    "20251107",
-   33.28
+   33.16
   ],
   [
    "20251110",
-   35.89
+   41.79
   ],
   [
    "20251111",
    50.75
   ],
   [
-   "20251112",
-   58.61
+   "20251113",
+   63.39
   ],
   [
    "20251114",
@@ -885,7 +1219,7 @@
   ],
   [
    "20251117",
-   106.83
+   112.71
   ],
   [
    "20251118",
@@ -901,7 +1235,7 @@
   ],
   [
    "20251119",
-   129.12
+   133.07
   ],
   [
    "20251121",
@@ -912,11 +1246,11 @@
    128.65
   ],
   [
-   "20251125",
+   "20251126",
    123.5
   ],
   [
-   "20251201",
+   "20251205",
    127.48
   ],
   [
@@ -929,7 +1263,7 @@
   ],
   [
    "20251216",
-   132.95
+   136.59
   ],
   [
    "20251216",
@@ -941,34 +1275,34 @@
   ],
   [
    "20251218",
-   132.28
+   131.77
   ],
   [
-   "20251224",
+   "20251226",
    129.48
   ],
   [
-   "20251230",
+   "20260102",
    128.13
   ],
   [
-   "20260105",
-   122.98
+   "20260106",
+   131.47
   ],
   [
    "20260107",
    126.32
   ],
   [
-   "20260112",
-   121.17
+   "20260113",
+   125.39
   ],
   [
    "20260116",
    125.41
   ],
   [
-   "20260119",
+   "20260120",
    123.12
   ],
   [
@@ -976,12 +1310,12 @@
    122.24
   ],
   [
-   "20260121",
+   "20260123",
    119.54
   ],
   [
-   "20260126",
-   114.39
+   "20260127",
+   118.11
   ],
   [
    "20260129",
@@ -989,11 +1323,11 @@
   ],
   [
    "20260130",
-   113.53
+   113.11
   ],
   [
    "20260202",
-   121.88
+   124.38
   ],
   [
    "20260202",
@@ -1005,55 +1339,55 @@
   ],
   [
    "20260205",
-   124.73
+   127.23
   ],
   [
    "20260206",
-   139.76
+   143.68
   ],
   [
    "20260206",
-   151.84
+   151.78
   ],
   [
    "20260206",
-   148.82
+   148.36
   ],
   [
    "20260211",
    163.07
   ],
   [
-   "20260212",
-   168.34
+   "20260213",
+   175.03
   ],
   [
    "20260220",
-   178.89
+   183.69
   ],
   [
-   "20260223",
-   188.07
-  ],
-  [
-   "20260225",
-   195.24
+   "20260224",
+   192.27
   ],
   [
    "20260225",
-   200.62
+   199.15
+  ],
+  [
+   "20260227",
+   204.33
   ],
   [
    "20260303",
-   212.44
+   217.38
   ],
   [
    "20260303",
-   232.63
+   237.44
   ],
   [
    "20260303",
-   244.8
+   247.3
   ],
   [
    "20260303",
@@ -1061,15 +1395,15 @@
   ],
   [
    "20260304",
-   241.18
+   246.33
   ],
   [
    "20260304",
-   257.07
+   263.11
   ],
   [
    "20260304",
-   277.03
+   280.03
   ],
   [
    "20260304",
@@ -1077,19 +1411,19 @@
   ],
   [
    "20260304",
-   295.0
+   298.34
   ],
   [
    "20260304",
-   301.22
+   304.95
   ],
   [
    "20260304",
-   305.77
+   309.34
   ],
   [
    "20260304",
-   322.76
+   326.79
   ],
   [
    "20260304",
@@ -1097,11 +1431,11 @@
   ],
   [
    "20260304",
-   327.71
+   327.44
   ],
   [
    "20260304",
-   324.79
+   324.68
   ],
   [
    "20260304",
@@ -1125,11 +1459,11 @@
   ],
   [
    "20260319",
-   306.12
+   307.81
   ],
   [
    "20260323",
-   316.38
+   318.88
   ],
   [
    "20260323",
@@ -1137,7 +1471,7 @@
   ],
   [
    "20260324",
-   320.25
+   322.75
   ],
   [
    "20260326",
@@ -1145,7 +1479,7 @@
   ],
   [
    "20260327",
-   318.95
+   318.74
   ],
   [
    "20260330",
@@ -1153,11 +1487,11 @@
   ],
   [
    "20260330",
-   319.42
+   319.15
   ],
   [
    "20260331",
-   338.58
+   344.29
   ],
   [
    "20260331",
@@ -1168,7 +1502,7 @@
    342.56
   ],
   [
-   "20260403",
+   "20260406",
    336.21
   ],
   [
@@ -1177,23 +1511,23 @@
   ],
   [
    "20260413",
-   335.63
+   335.53
   ],
   [
-   "20260417",
+   "20260420",
    341.07
   ],
   [
-   "20260424",
+   "20260428",
    347.3
   ],
   [
-   "20260430",
+   "20260504",
    342.15
   ],
   [
    "20260506",
-   341.23
+   352.17
   ],
   [
    "20260507",
@@ -1205,7 +1539,7 @@
   ],
   [
    "20260511",
-   354.75
+   359.05
   ],
   [
    "20260511",
@@ -1213,7 +1547,7 @@
   ],
   [
    "20260512",
-   391.77
+   394.51
   ],
   [
    "20260512",
@@ -1232,12 +1566,12 @@
    390.17
   ],
   [
-   "20260514",
-   387.71
+   "20260515",
+   394.45
   ],
   [
    "20260515",
-   411.21
+   415.24
   ],
   [
    "20260515",
@@ -1245,27 +1579,27 @@
   ],
   [
    "20260518",
-   422.74
+   427.78
   ],
   [
    "20260518",
-   433.69
+   436.47
   ],
   [
    "20260518",
-   436.32
-  ],
-  [
-   "20260518",
-   433.67
+   438.82
   ],
   [
    "20260519",
-   445.75
+   438.82
   ],
   [
    "20260520",
-   450.43
+   449.5
+  ],
+  [
+   "20260526",
+   457.52
   ],
   [
    "20260527",
@@ -1277,7 +1611,7 @@
   ],
   [
    "20260529",
-   468.65
+   471.65
   ],
   [
    "20260602",
@@ -1285,19 +1619,19 @@
   ],
   [
    "20260605",
-   484.59
+   484.5
   ],
   [
    "20260608",
-   491.77
+   497.49
   ],
   [
    "20260608",
-   506.74
+   506.64
   ],
   [
-   "20260608",
-   503.43
+   "20260609",
+   509.1
   ],
   [
    "20260612",
@@ -1308,92 +1642,92 @@
    519.06
   ],
   [
-   "20260617",
+   "20260618",
    516.41
   ],
   [
-   "20260619",
-   511.26
+   "20260622",
+   513.76
   ],
   [
    "20260623",
    511.95
   ],
   [
-   "20260623",
+   "20260624",
    506.8
   ],
   [
-   "20260701",
-   510.38
+   "20260702",
+   532.98
   ],
   [
    "20260702",
    531.89
   ],
   [
-   "20260702",
-   526.6
+   "20260703",
+   531.99
   ],
   [
-   "20260706",
-   533.6
+   "20260707",
+   537.3
   ],
   [
    "20260720",
-   537.15
+   539.83
   ],
   [
    "20260729",
    534.68
   ],
   [
-   "20260807",
+   "20260825",
    529.53
   ],
   [
-   "20260903",
+   "20260904",
    524.35
   ],
   [
-   "20260914",
+   "20260916",
    525.3
   ],
   [
-   "20261002",
+   "20261007",
    520.02
   ],
   [
-   "20261012",
+   "20261013",
    518.97
   ],
   [
-   "20261014",
-   513.56
+   "20261015",
+   517.59
   ],
   [
-   "20261020",
-   513.99
+   "20261022",
+   516.88
   ],
   [
-   "20261026",
-   511.73
+   "20261029",
+   514.97
   ],
   [
-   "20261030",
+   "20261102",
    509.82
   ],
   [
-   "20261110",
+   "20261112",
    504.67
   ],
   [
-   "20261123",
+   "20261124",
    499.52
   ],
   [
    "20261125",
-   497.46
+   498.49
   ]
  ],
  "recent": [
@@ -1403,6 +1737,19 @@
    "ia_peers": 23,
    "ia_up_share": 100,
    "ia_median": 9.0,
+   "dcr": 74,
+   "atr20": 6962,
+   "trig": [
+    true,
+    true,
+    true,
+    false,
+    false,
+    false,
+    false
+   ],
+   "trig_n": 3,
+   "trig_known": 7,
    "gate_miss": [
     "정배열(일봉)"
    ],
@@ -1432,6 +1779,19 @@
    "ia_peers": 21,
    "ia_up_share": 76,
    "ia_median": 5.7,
+   "dcr": 93,
+   "atr20": 20700,
+   "trig": [
+    true,
+    true,
+    true,
+    true,
+    false,
+    true,
+    false
+   ],
+   "trig_n": 5,
+   "trig_known": 7,
    "gate_miss": [
     "정배열(일봉)"
    ],
@@ -1461,6 +1821,19 @@
    "ia_peers": 18,
    "ia_up_share": 44,
    "ia_median": 1.4,
+   "dcr": 100,
+   "atr20": 14970,
+   "trig": [
+    true,
+    true,
+    true,
+    true,
+    false,
+    true,
+    false
+   ],
+   "trig_n": 5,
+   "trig_known": 7,
    "gate_miss": [],
    "stock": "안랩",
    "code": "053800",
@@ -1488,6 +1861,19 @@
    "ia_peers": 10,
    "ia_up_share": 40,
    "ia_median": 0.7,
+   "dcr": 41,
+   "atr20": 574,
+   "trig": [
+    true,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "trig_n": 2,
+   "trig_known": 7,
    "gate_miss": [],
    "stock": "심텍홀딩스",
    "code": "036710",
@@ -1515,6 +1901,19 @@
    "ia_peers": 29,
    "ia_up_share": 62,
    "ia_median": 2.5,
+   "dcr": 89,
+   "atr20": 3612,
+   "trig": [
+    true,
+    true,
+    true,
+    false,
+    false,
+    false,
+    false
+   ],
+   "trig_n": 3,
+   "trig_known": 7,
    "gate_miss": [],
    "stock": "원익홀딩스",
    "code": "030530",
@@ -1540,6 +1939,19 @@
    "ia_peers": 73,
    "ia_up_share": 44,
    "ia_median": 1.7,
+   "dcr": 91,
+   "atr20": 1722,
+   "trig": [
+    true,
+    true,
+    true,
+    true,
+    false,
+    false,
+    false
+   ],
+   "trig_n": 4,
+   "trig_known": 7,
    "gate_miss": [],
    "stock": "동국제약",
    "code": "086450",
@@ -1567,6 +1979,19 @@
    "ia_peers": 29,
    "ia_up_share": 86,
    "ia_median": 4.8,
+   "dcr": 79,
+   "atr20": 3232,
+   "trig": [
+    true,
+    true,
+    true,
+    false,
+    false,
+    false,
+    false
+   ],
+   "trig_n": 3,
+   "trig_known": 7,
    "gate_miss": [],
    "stock": "원익홀딩스",
    "code": "030530",
@@ -1594,6 +2019,19 @@
    "ia_peers": 16,
    "ia_up_share": 100,
    "ia_median": 17.5,
+   "dcr": 100,
+   "atr20": 1893,
+   "trig": [
+    true,
+    true,
+    true,
+    true,
+    false,
+    false,
+    false
+   ],
+   "trig_n": 4,
+   "trig_known": 7,
    "gate_miss": [],
    "stock": "네오셈",
    "code": "253590",
@@ -1619,6 +2057,19 @@
    "ia_peers": 28,
    "ia_up_share": 75,
    "ia_median": 3.9,
+   "dcr": 56,
+   "atr20": 13260,
+   "trig": [
+    true,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "trig_n": 2,
+   "trig_known": 7,
    "gate_miss": [
     "정배열(일봉)"
    ],
@@ -1648,6 +2099,19 @@
    "ia_peers": 18,
    "ia_up_share": 56,
    "ia_median": 2.8,
+   "dcr": 91,
+   "atr20": 3357,
+   "trig": [
+    true,
+    true,
+    true,
+    false,
+    false,
+    false,
+    false
+   ],
+   "trig_n": 3,
+   "trig_known": 7,
    "gate_miss": [],
    "stock": "지니언스",
    "code": "263860",
@@ -1673,6 +2137,19 @@
    "ia_peers": 16,
    "ia_up_share": 12,
    "ia_median": -4.0,
+   "dcr": 45,
+   "atr20": 4990,
+   "trig": [
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "trig_n": 1,
+   "trig_known": 7,
    "gate_miss": [],
    "stock": "KT&G",
    "code": "033780",
@@ -1701,6 +2178,19 @@
    "ia_peers": 16,
    "ia_up_share": 62,
    "ia_median": 3.3,
+   "dcr": 64,
+   "atr20": 7398,
+   "trig": [
+    true,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "trig_n": 2,
+   "trig_known": 7,
    "gate_miss": [],
    "stock": "엑시콘",
    "code": "092870",
@@ -1726,6 +2216,19 @@
    "ia_peers": 20,
    "ia_up_share": 55,
    "ia_median": 2.2,
+   "dcr": 82,
+   "atr20": 5310,
+   "trig": [
+    true,
+    true,
+    true,
+    true,
+    false,
+    false,
+    false
+   ],
+   "trig_n": 4,
+   "trig_known": 7,
    "gate_miss": [
     "정배열(일봉)"
    ],
@@ -1755,6 +2258,19 @@
    "ia_peers": 29,
    "ia_up_share": 69,
    "ia_median": 3.5,
+   "dcr": 72,
+   "atr20": 2408,
+   "trig": [
+    true,
+    true,
+    true,
+    true,
+    false,
+    false,
+    false
+   ],
+   "trig_n": 4,
+   "trig_known": 7,
    "gate_miss": [],
    "stock": "원익홀딩스",
    "code": "030530",
@@ -1782,6 +2298,19 @@
    "ia_peers": 16,
    "ia_up_share": 100,
    "ia_median": 7.8,
+   "dcr": 94,
+   "atr20": 6480,
+   "trig": [
+    true,
+    true,
+    true,
+    false,
+    false,
+    true,
+    false
+   ],
+   "trig_n": 4,
+   "trig_known": 7,
    "gate_miss": [],
    "stock": "티에프이",
    "code": "425420",
@@ -1810,6 +2339,19 @@
    "ia_peers": 16,
    "ia_up_share": 100,
    "ia_median": 7.8,
+   "dcr": 100,
+   "atr20": 6575,
+   "trig": [
+    true,
+    true,
+    true,
+    true,
+    false,
+    true,
+    false
+   ],
+   "trig_n": 5,
+   "trig_known": 7,
    "gate_miss": [],
    "stock": "엑시콘",
    "code": "092870",
@@ -1838,6 +2380,19 @@
    "ia_peers": 3,
    "ia_up_share": 100,
    "ia_median": 8.9,
+   "dcr": 54,
+   "atr20": 4472,
+   "trig": [
+    true,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "trig_n": 2,
+   "trig_known": 7,
    "gate_miss": [
     "정배열(일봉)"
    ],
@@ -1867,6 +2422,19 @@
    "ia_peers": 21,
    "ia_up_share": 14,
    "ia_median": 0.5,
+   "dcr": 92,
+   "atr20": 1286,
+   "trig": [
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false
+   ],
+   "trig_n": 1,
+   "trig_known": 7,
    "gate_miss": [],
    "stock": "한국화장품제조",
    "code": "003350",
@@ -1894,6 +2462,19 @@
    "ia_peers": 16,
    "ia_up_share": 100,
    "ia_median": 8.8,
+   "dcr": 79,
+   "atr20": 1373,
+   "trig": [
+    true,
+    true,
+    true,
+    true,
+    false,
+    false,
+    false
+   ],
+   "trig_n": 4,
+   "trig_known": 7,
    "gate_miss": [
     "정배열(일봉)"
    ],
@@ -1923,6 +2504,19 @@
    "ia_peers": 29,
    "ia_up_share": 97,
    "ia_median": 7.3,
+   "dcr": 99,
+   "atr20": 1290,
+   "trig": [
+    true,
+    true,
+    true,
+    false,
+    false,
+    true,
+    false
+   ],
+   "trig_n": 4,
+   "trig_known": 7,
    "gate_miss": [],
    "stock": "뉴파워프라즈마",
    "code": "144960",
@@ -1950,6 +2544,19 @@
    "ia_peers": 21,
    "ia_up_share": 43,
    "ia_median": 1.5,
+   "dcr": 81,
+   "atr20": 6200,
+   "trig": [
+    true,
+    true,
+    true,
+    true,
+    false,
+    false,
+    false
+   ],
+   "trig_n": 4,
+   "trig_known": 7,
    "gate_miss": [
     "정배열(일봉)"
    ],
@@ -1979,6 +2586,19 @@
    "ia_peers": 16,
    "ia_up_share": 94,
    "ia_median": 10.9,
+   "dcr": 83,
+   "atr20": 2390,
+   "trig": [
+    true,
+    true,
+    true,
+    true,
+    false,
+    false,
+    false
+   ],
+   "trig_n": 4,
+   "trig_known": 7,
    "gate_miss": [],
    "stock": "오킨스전자",
    "code": "080580",
@@ -2004,6 +2624,19 @@
    "ia_peers": 16,
    "ia_up_share": 94,
    "ia_median": 10.9,
+   "dcr": 73,
+   "atr20": 2782,
+   "trig": [
+    true,
+    true,
+    true,
+    false,
+    false,
+    false,
+    false
+   ],
+   "trig_n": 3,
+   "trig_known": 7,
    "gate_miss": [],
    "stock": "디아이",
    "code": "003160",
@@ -2031,6 +2664,19 @@
    "ia_peers": 10,
    "ia_up_share": 20,
    "ia_median": -0.5,
+   "dcr": 69,
+   "atr20": 6765,
+   "trig": [
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false
+   ],
+   "trig_n": 1,
+   "trig_known": 7,
    "gate_miss": [],
    "stock": "DB손해보험",
    "code": "005830",
@@ -2059,6 +2705,19 @@
    "ia_peers": 29,
    "ia_up_share": 38,
    "ia_median": 1.1,
+   "dcr": 66,
+   "atr20": 785,
+   "trig": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "trig_n": 0,
+   "trig_known": 7,
    "gate_miss": [],
    "stock": "뉴파워프라즈마",
    "code": "144960",
@@ -2084,6 +2743,19 @@
    "ia_peers": 4,
    "ia_up_share": 0,
    "ia_median": 0.8,
+   "dcr": 60,
+   "atr20": 4180,
+   "trig": [
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "trig_n": 1,
+   "trig_known": 7,
    "gate_miss": [],
    "stock": "코웨이",
    "code": "021240",
@@ -2112,6 +2784,19 @@
    "ia_peers": 21,
    "ia_up_share": 67,
    "ia_median": 3.6,
+   "dcr": 60,
+   "atr20": 16500,
+   "trig": [
+    true,
+    true,
+    false,
+    false,
+    false,
+    true,
+    false
+   ],
+   "trig_n": 3,
+   "trig_known": 7,
    "gate_miss": [],
    "stock": "코스맥스",
    "code": "192820",
@@ -2140,6 +2825,19 @@
    "ia_peers": 18,
    "ia_up_share": 50,
    "ia_median": 1.9,
+   "dcr": 23,
+   "atr20": 1480,
+   "trig": [
+    true,
+    true,
+    false,
+    false,
+    false,
+    false,
+    true
+   ],
+   "trig_n": 3,
+   "trig_known": 7,
    "gate_miss": [],
    "stock": "지니언스",
    "code": "263860",
@@ -2167,6 +2865,19 @@
    "ia_peers": 18,
    "ia_up_share": 50,
    "ia_median": 1.9,
+   "dcr": 100,
+   "atr20": 1021,
+   "trig": [
+    true,
+    true,
+    true,
+    true,
+    false,
+    false,
+    true
+   ],
+   "trig_n": 5,
+   "trig_known": 7,
    "gate_miss": [
     "정배열(일봉)"
    ],
@@ -2196,6 +2907,19 @@
    "ia_peers": 23,
    "ia_up_share": 83,
    "ia_median": 3.7,
+   "dcr": 76,
+   "atr20": 9640,
+   "trig": [
+    false,
+    true,
+    true,
+    false,
+    false,
+    false,
+    true
+   ],
+   "trig_n": 3,
+   "trig_known": 7,
    "gate_miss": [],
    "stock": "SK이노베이션",
    "code": "096770",
@@ -2223,6 +2947,19 @@
    "ia_peers": 16,
    "ia_up_share": 12,
    "ia_median": -0.8,
+   "dcr": 35,
+   "atr20": 30100,
+   "trig": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "trig_n": 0,
+   "trig_known": 7,
    "gate_miss": [],
    "stock": "SK",
    "code": "034730",
@@ -2250,6 +2987,19 @@
    "ia_peers": 10,
    "ia_up_share": 80,
    "ia_median": 5.0,
+   "dcr": 95,
+   "atr20": 11700,
+   "trig": [
+    true,
+    true,
+    true,
+    true,
+    false,
+    false,
+    true
+   ],
+   "trig_n": 5,
+   "trig_known": 7,
    "gate_miss": [],
    "stock": "삼화콘덴서",
    "code": "001820",
@@ -2278,6 +3028,19 @@
    "ia_peers": 29,
    "ia_up_share": 62,
    "ia_median": 2.8,
+   "dcr": 94,
+   "atr20": 1030,
+   "trig": [
+    true,
+    true,
+    true,
+    true,
+    false,
+    false,
+    true
+   ],
+   "trig_n": 5,
+   "trig_known": 7,
    "gate_miss": [
     "정배열(일봉)"
    ],
@@ -2308,6 +3071,19 @@
    "ia_peers": 10,
    "ia_up_share": 90,
    "ia_median": 4.8,
+   "dcr": 58,
+   "atr20": 9382,
+   "trig": [
+    true,
+    true,
+    false,
+    true,
+    false,
+    false,
+    true
+   ],
+   "trig_n": 4,
+   "trig_known": 7,
    "gate_miss": [],
    "stock": "심텍",
    "code": "222800",
@@ -2336,6 +3112,19 @@
    "ia_peers": 16,
    "ia_up_share": 19,
    "ia_median": 0.0,
+   "dcr": 17,
+   "atr20": 730,
+   "trig": [
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    true
+   ],
+   "trig_n": 2,
+   "trig_known": 7,
    "gate_miss": [],
    "stock": "대원전선",
    "code": "006340",
@@ -2364,6 +3153,19 @@
    "ia_peers": 21,
    "ia_up_share": 5,
    "ia_median": -0.6,
+   "dcr": 46,
+   "atr20": 12575,
+   "trig": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "trig_n": 0,
+   "trig_known": 7,
    "gate_miss": [],
    "stock": "LG생활건강",
    "code": "051900",
@@ -2392,6 +3194,19 @@
    "ia_peers": 21,
    "ia_up_share": 38,
    "ia_median": 0.0,
+   "dcr": 64,
+   "atr20": 8695,
+   "trig": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "trig_n": 0,
+   "trig_known": 7,
    "gate_miss": [],
    "stock": "한국콜마",
    "code": "161890",
@@ -2419,6 +3234,19 @@
    "ia_peers": 10,
    "ia_up_share": 20,
    "ia_median": 1.8,
+   "dcr": 93,
+   "atr20": 1192,
+   "trig": [
+    true,
+    true,
+    true,
+    true,
+    false,
+    false,
+    false
+   ],
+   "trig_n": 4,
+   "trig_known": 7,
    "gate_miss": [
     "정배열(일봉)"
    ],
@@ -2449,6 +3277,19 @@
    "ia_peers": 26,
    "ia_up_share": 8,
    "ia_median": 0.1,
+   "dcr": 100,
+   "atr20": 5675,
+   "trig": [
+    true,
+    false,
+    true,
+    true,
+    false,
+    false,
+    true
+   ],
+   "trig_n": 4,
+   "trig_known": 7,
    "gate_miss": [],
    "stock": "빙그레",
    "code": "005180",
@@ -2476,6 +3317,19 @@
    "ia_peers": 16,
    "ia_up_share": 50,
    "ia_median": 2.1,
+   "dcr": 81,
+   "atr20": 22400,
+   "trig": [
+    true,
+    true,
+    true,
+    true,
+    false,
+    true,
+    true
+   ],
+   "trig_n": 6,
+   "trig_known": 7,
    "gate_miss": [],
    "stock": "티에스이",
    "code": "131290",
@@ -2505,6 +3359,19 @@
    "ia_peers": 29,
    "ia_up_share": 52,
    "ia_median": 2.0,
+   "dcr": 72,
+   "atr20": 409,
+   "trig": [
+    true,
+    true,
+    true,
+    false,
+    false,
+    true,
+    true
+   ],
+   "trig_n": 5,
+   "trig_known": 7,
    "gate_miss": [],
    "stock": "대우건설",
    "code": "047040",
@@ -2533,6 +3400,19 @@
    "ia_peers": 29,
    "ia_up_share": 10,
    "ia_median": -1.0,
+   "dcr": 52,
+   "atr20": 394,
+   "trig": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true
+   ],
+   "trig_n": 1,
+   "trig_known": 7,
    "gate_miss": [],
    "stock": "원익홀딩스",
    "code": "030530",
@@ -2560,6 +3440,19 @@
    "ia_peers": 10,
    "ia_up_share": 10,
    "ia_median": 0.3,
+   "dcr": 78,
+   "atr20": 31400,
+   "trig": [
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false
+   ],
+   "trig_n": 1,
+   "trig_known": 7,
    "gate_miss": [],
    "stock": "삼성전기",
    "code": "009150",
@@ -2587,6 +3480,19 @@
    "ia_peers": 74,
    "ia_up_share": 31,
    "ia_median": 0.7,
+   "dcr": 86,
+   "atr20": 11575,
+   "trig": [
+    true,
+    false,
+    true,
+    true,
+    false,
+    false,
+    true
+   ],
+   "trig_n": 4,
+   "trig_known": 7,
    "gate_miss": [],
    "stock": "삼천당제약",
    "code": "000250",
@@ -2614,6 +3520,19 @@
    "ia_peers": 16,
    "ia_up_share": 50,
    "ia_median": 1.6,
+   "dcr": 22,
+   "atr20": 386,
+   "trig": [
+    true,
+    true,
+    false,
+    false,
+    false,
+    false,
+    true
+   ],
+   "trig_n": 3,
+   "trig_known": 7,
    "gate_miss": [],
    "stock": "HJ중공업",
    "code": "097230",
@@ -2641,6 +3560,19 @@
    "ia_peers": 28,
    "ia_up_share": 57,
    "ia_median": 2.2,
+   "dcr": 74,
+   "atr20": 712,
+   "trig": [
+    true,
+    true,
+    true,
+    true,
+    false,
+    false,
+    true
+   ],
+   "trig_n": 5,
+   "trig_known": 7,
    "gate_miss": [
     "정배열(일봉)"
    ],
@@ -2670,6 +3602,19 @@
    "ia_peers": 10,
    "ia_up_share": 50,
    "ia_median": 1.8,
+   "dcr": 90,
+   "atr20": 22625,
+   "trig": [
+    true,
+    true,
+    true,
+    true,
+    false,
+    true,
+    true
+   ],
+   "trig_n": 6,
+   "trig_known": 7,
    "gate_miss": [],
    "stock": "LG이노텍",
    "code": "011070",
@@ -2698,6 +3643,19 @@
    "ia_peers": 29,
    "ia_up_share": 14,
    "ia_median": 0.0,
+   "dcr": 69,
+   "atr20": 402,
+   "trig": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true
+   ],
+   "trig_n": 1,
+   "trig_known": 7,
    "gate_miss": [],
    "stock": "삼표시멘트",
    "code": "038500",
@@ -2727,6 +3685,19 @@
    "ia_peers": 10,
    "ia_up_share": 0,
    "ia_median": -1.3,
+   "dcr": 18,
+   "atr20": 1416,
+   "trig": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true
+   ],
+   "trig_n": 1,
+   "trig_known": 7,
    "gate_miss": [],
    "stock": "에코아이",
    "code": "448280",
@@ -2754,6 +3725,19 @@
    "ia_peers": 73,
    "ia_up_share": 59,
    "ia_median": 2.5,
+   "dcr": 87,
+   "atr20": 4150,
+   "trig": [
+    false,
+    true,
+    true,
+    false,
+    false,
+    false,
+    false
+   ],
+   "trig_n": 2,
+   "trig_known": 7,
    "gate_miss": [],
    "stock": "한올바이오파마",
    "code": "009420",
@@ -2781,6 +3765,19 @@
    "ia_peers": 72,
    "ia_up_share": 60,
    "ia_median": 2.4,
+   "dcr": 74,
+   "atr20": 1042,
+   "trig": [
+    true,
+    true,
+    true,
+    true,
+    false,
+    true,
+    true
+   ],
+   "trig_n": 6,
+   "trig_known": 7,
    "gate_miss": [],
    "stock": "일동제약",
    "code": "249420",
@@ -2808,6 +3805,19 @@
    "ia_peers": 10,
    "ia_up_share": 90,
    "ia_median": 4.8,
+   "dcr": 58,
+   "atr20": 9382,
+   "trig": [
+    true,
+    true,
+    false,
+    true,
+    false,
+    false,
+    true
+   ],
+   "trig_n": 4,
+   "trig_known": 7,
    "gate_miss": [],
    "stock": "심텍",
    "code": "222800",
@@ -2836,6 +3846,19 @@
    "ia_peers": 29,
    "ia_up_share": 52,
    "ia_median": 2.5,
+   "dcr": 47,
+   "atr20": 4370,
+   "trig": [
+    true,
+    true,
+    false,
+    false,
+    false,
+    true,
+    true
+   ],
+   "trig_n": 4,
+   "trig_known": 7,
    "gate_miss": [],
    "stock": "유진테크",
    "code": "084370",
@@ -2864,6 +3887,19 @@
    "ia_peers": 23,
    "ia_up_share": 4,
    "ia_median": -1.5,
+   "dcr": 100,
+   "atr20": 17200,
+   "trig": [
+    true,
+    false,
+    true,
+    false,
+    true,
+    false,
+    true
+   ],
+   "trig_n": 4,
+   "trig_known": 7,
    "gate_miss": [],
    "stock": "LG에너지솔루션",
    "code": "373220",
@@ -2892,6 +3928,19 @@
    "ia_peers": 29,
    "ia_up_share": 69,
    "ia_median": 4.1,
+   "dcr": 85,
+   "atr20": 5980,
+   "trig": [
+    false,
+    true,
+    true,
+    false,
+    false,
+    false,
+    false
+   ],
+   "trig_n": 2,
+   "trig_known": 7,
    "gate_miss": [],
    "stock": "테스",
    "code": "095610",
@@ -2919,6 +3968,19 @@
    "ia_peers": 16,
    "ia_up_share": 88,
    "ia_median": 5.0,
+   "dcr": 9,
+   "atr20": 2330,
+   "trig": [
+    true,
+    true,
+    false,
+    false,
+    false,
+    false,
+    true
+   ],
+   "trig_n": 3,
+   "trig_known": 7,
    "gate_miss": [],
    "stock": "서진시스템",
    "code": "178320",
@@ -2944,6 +4006,19 @@
    "ia_peers": 74,
    "ia_up_share": 65,
    "ia_median": 3.4,
+   "dcr": 93,
+   "atr20": 13395,
+   "trig": [
+    true,
+    true,
+    true,
+    true,
+    false,
+    true,
+    true
+   ],
+   "trig_n": 6,
+   "trig_known": 7,
    "gate_miss": [],
    "stock": "에이비엘바이오",
    "code": "298380",
@@ -2971,6 +4046,19 @@
    "ia_peers": 16,
    "ia_up_share": 0,
    "ia_median": -1.0,
+   "dcr": 40,
+   "atr20": 18912,
+   "trig": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true
+   ],
+   "trig_n": 1,
+   "trig_known": 7,
    "gate_miss": [],
    "stock": "SK스퀘어",
    "code": "402340",

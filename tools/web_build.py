@@ -251,7 +251,7 @@ def watch():
     d = json.loads(Path(files[-1]).read_text(encoding="utf-8"))
     keep = ["stock", "code", "market", "sector", "close", "date", "rs", "value20_eok", "off_high_pct", "checks",
             "gate_score", "setups", "run_pct", "today", "vol_ratio", "stage", "levels", "overhead_zone",
-            "tier", "missing", "group", "ia", "ia_up_share", "gate_miss"]
+            "tier", "missing", "group", "ia", "ia_up_share", "gate_miss", "trig", "rebreak"]   # trig·rebreak = 트리거·재돌파(2026-11-27, 표시만)
     def slim(x):
         y = {k: x.get(k) for k in keep}
         b = x.get("base") or {}
@@ -261,7 +261,7 @@ def watch():
     return {"as_of": d.get("as_of"), "made_at": d.get("made_at"), "count": d.get("count"), "rules": d.get("rules"), "ia_rule": _ia_rule(),
             "source": d.get("source"), "watch": [slim(x) for x in d.get("watch", [])],
             "running": [slim(x) for x in d.get("running", [])], "near_miss": [slim(x) for x in d.get("near_miss", [])[:15]],
-            "signals": [slim(x) for x in d.get("signals", [])], "zone_signals": [slim(x) for x in d.get("zone_signals", [])], "pp_signals": [slim(x) for x in d.get("pp_signals", [])], "candidates": [slim(x) for x in d.get("candidates", [])]}
+            "signals": [slim(x) for x in d.get("signals", [])], "re_signals": [slim(x) for x in d.get("re_signals", [])], "zone_signals": [slim(x) for x in d.get("zone_signals", [])], "pp_signals": [slim(x) for x in d.get("pp_signals", [])], "candidates": [slim(x) for x in d.get("candidates", [])]}
 
 
 def polling(codes):
