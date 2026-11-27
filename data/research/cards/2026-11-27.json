@@ -3176,7 +3176,7 @@
    "업황은 만만치 않음",
    "역대 최고 수준"
   ],
-  "status": "card",
+  "status": "deep",
   "built_at": "2026-11-27 18:41",
   "error": null,
   "thesis": "조선주 주가는 상선 업황이 아니라 MASGA 같은 테마성 호재에 반응해 왔고 2026년은 수주가 늘었는데도 주가가 내려 업황은 녹록지 않다고 봅니다",
@@ -3207,7 +3207,9 @@
   ],
   "horizon": "2027",
   "filled_by": "sonnet",
-  "filled_at": "2026-11-27 18:43"
+  "filled_at": "2026-11-27 18:43",
+  "deep_file": "naver_industry_47254",
+  "deep_at": "2026-11-27 20:17"
  },
  "industry:47255": {
   "nid": "47255",
@@ -8492,7 +8494,7 @@
    "엔비디아 변수 외에도",
    "엔비디아 이사회가 젠슨"
   ],
-  "status": "card",
+  "status": "deep",
   "built_at": "2026-11-27 18:41",
   "error": null,
   "thesis": "젠슨 황은 복귀했지만 CRWV 5년물 CDS 스프레드가 10월 초 수준을 웃돌아 네오클라우드 7개사의 신용 위험은 남아 있다고 봅니다",
@@ -8519,7 +8521,9 @@
   "stocks_key": [],
   "horizon": "단기",
   "filled_by": "sonnet",
-  "filled_at": "2026-11-27 18:43"
+  "filled_at": "2026-11-27 18:43",
+  "deep_file": "naver_invest_40965",
+  "deep_at": "2026-11-27 20:17"
  },
  "invest:40966": {
   "nid": "40966",

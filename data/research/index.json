@@ -1625,6 +1625,102 @@
    "drive_modified": null,
    "analyzed_at": "2026-11-26 20:17",
    "depth": "full"
+  },
+  "naver_industry_47254": {
+   "title": "녹록지 않은 업황, 만만치 않은 경쟁 (iM증권, 2026-11-27)",
+   "broker": "iM증권",
+   "date": "2026-11-27",
+   "kind": "산업",
+   "subject": "조선 2027 전망",
+   "one_line": "조선 주가는 2025~2026년 수주가 아니라 MASGA 같은 테마에 반응했고 2027년은 중국 공급 확대(인도량 2026년 3,149만 CGT)로 업황이 녹록지 않지만 LNG선 호황과 낮아진 밸류에이션으로 Top Pick은 HD현대중공업이라는 전망입니다.",
+   "url": "https://stock.naver.com/research/industry/47254",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-27 20:17",
+   "depth": "full"
+  },
+  "naver_invest_40965": {
+   "title": "3Q 네오클라우드 실적 Review: 젠슨 황 효과의 이면 (키움증권, 2026-11-26)",
+   "broker": "키움증권",
+   "date": "2026-11-26",
+   "kind": "전략",
+   "subject": "네오클라우드 7개사",
+   "one_line": "젠슨 황 복귀로 리더십 공백은 사라졌지만 CRWV 5년물 CDS가 10월 초 수준을 웃돌고 수주 지표가 엇갈려 4Q26 수주와 12월 ERCOT 결과가 확인 지점이며 CRWV·WULF 선별 대응을 권고하는 리뷰입니다.",
+   "url": "https://stock.naver.com/research/invest/40965",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-27 20:17",
+   "depth": "full"
+  },
+  "naver_industry_47165": {
+   "title": "Re-NEWable Weekly [11월 4주차] (교보증권, 2026-11-23)",
+   "broker": "교보증권",
+   "date": "2026-11-23",
+   "kind": "산업",
+   "subject": "신재생에너지 주간",
+   "one_line": "미국 모듈 제시가격이 7월 대비 +35.1%로 232조 시행 전 급등하고 테슬라 $31억 폴리실리콘 공장 계획이 나왔지만 한국 태양광·풍력주는 1개월 -20~-37%였던 주간 점검입니다.",
+   "url": "https://stock.naver.com/research/industry/47165",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-27 20:17",
+   "depth": "full"
+  },
+  "naver_industry_47104": {
+   "title": "2027년 Commodity 시장 전망: 둔화 속 양극화 (iM증권, 2026-11-23)",
+   "broker": "iM증권",
+   "date": "2026-11-23",
+   "kind": "산업",
+   "subject": "철강·비철금속",
+   "one_line": "고금리 지속으로 27년 원자재 가격은 전반적으로 부진하고 공급 통제가 있는 비철금속과 증설 과잉인 철강의 디커플링이 이어지며 세아베스틸지주·Tenaris가 Top Pick이라는 전망입니다.",
+   "url": "https://stock.naver.com/research/industry/47104",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-27 20:17",
+   "depth": "full"
+  },
+  "naver_industry_47125": {
+   "title": "반도체 소부장 : AI 실적 랠리 (SK증권, 2026-11-23)",
+   "broker": "SK증권",
+   "date": "2026-11-23",
+   "kind": "산업",
+   "subject": "반도체 소부장",
+   "one_line": "국내 소부장 하락은 메모리 자체의 악화가 아니라 외부 요인(AI 투자 우려·병목 우려) 때문이며 삼성 P5·SK하이닉스 Y1 등 클린룸이 열리는 2027년부터 본격 실적 랠리가 시작된다는 업종 리포트입니다.",
+   "url": "https://stock.naver.com/research/industry/47125",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-27 20:17",
+   "depth": "full"
+  },
+  "naver_industry_47183": {
+   "title": "혼란 뒤의 공급 정상화, 그 속도가 관건 (iM증권, 2026-11-24)",
+   "broker": "iM증권",
+   "date": "2026-11-24",
+   "kind": "산업",
+   "subject": "정유·화학·에너지",
+   "one_line": "원유 공급은 호르무즈 우회로와 OPEC+ 정상화(85~90%)로 유가가 70~80달러로 안정되지만 정제품은 설비 피격으로 정상화가 더뎌 정제마진은 강세이고 화학은 증설·중국 순수출로 녹록지 않다는 2027 전망입니다.",
+   "url": "https://stock.naver.com/research/industry/47183",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-27 20:17",
+   "depth": "full"
+  },
+  "naver_invest_40956": {
+   "title": "어닝서프라이즈 전략과 3Q26 실적리뷰 (유진투자증권, 2026-11-26)",
+   "broker": "유진투자증권",
+   "date": "2026-11-26",
+   "kind": "전략",
+   "subject": "KOSPI 3Q26 실적",
+   "one_line": "2026년 KOSPI 영업이익은 약 997조원(+225%)으로 프리뷰 때보다 30조원 올랐고 3Q 영업이익 271조원의 70%가 삼성전자·SK하이닉스이며 12MF PER 3.3배로 역사적 저점이라는 리뷰입니다.",
+   "url": "https://stock.naver.com/research/invest/40956",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-27 20:17",
+   "depth": "full"
+  },
+  "naver_industry_47099": {
+   "title": "기름뿜뿜 Weekly: 가장 우려했던 것의 현실화. 중국, 합성수지 순수출국으로 전환 (iM증권, 2026-11-23)",
+   "broker": "iM증권",
+   "date": "2026-11-23",
+   "kind": "산업",
+   "subject": "석유화학 · 중국 순수출",
+   "one_line": "중국이 2026년부터 합성수지 순수출국으로 전환하고 PP·PVC 수출이 가속되며 ABS도 순수출 문턱이어서 중국을 최대 수출처로 둔 한국 석유화학에 수요 상실을 넘는 중장기 경쟁 부담이라는 주간 리뷰입니다.",
+   "url": "https://stock.naver.com/research/industry/47099",
+   "drive_modified": null,
+   "analyzed_at": "2026-11-27 20:17",
+   "depth": "full"
   }
  },
  "skipped": {

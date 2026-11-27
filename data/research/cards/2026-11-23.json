@@ -957,7 +957,7 @@
    "이는 PE 생산량은",
    "이란전쟁 이후 호르무즈"
   ],
-  "status": "card",
+  "status": "deep",
   "built_at": "2026-11-23 18:41",
   "error": null,
   "thesis": "중국이 합성수지 순수출국으로 전환해 한국 석유화학에 가장 우려했던 상황이 현실화됐습니다",
@@ -985,7 +985,9 @@
   "stocks_key": [],
   "horizon": "2027",
   "filled_by": "sonnet",
-  "filled_at": "2026-11-23 18:46"
+  "filled_at": "2026-11-23 18:46",
+  "deep_file": "naver_industry_47099",
+  "deep_at": "2026-11-27 20:17"
  },
  "industry:47100": {
   "nid": "47100",
@@ -3316,7 +3318,7 @@
    "전기동 가격 추이",
    "전망 2026 11"
   ],
-  "status": "card",
+  "status": "deep",
   "built_at": "2026-11-23 18:41",
   "error": null,
   "thesis": "27년 Commodity는 고금리로 전반 부진, 비철금속과 철강 디커플링은 공급 통제 유무로 지속됩니다",
@@ -3346,7 +3348,9 @@
   ],
   "horizon": "2027",
   "filled_by": "sonnet",
-  "filled_at": "2026-11-23 18:46"
+  "filled_at": "2026-11-23 18:46",
+  "deep_file": "naver_industry_47104",
+  "deep_at": "2026-11-27 20:17"
  },
  "industry:47105": {
   "nid": "47105",
@@ -11731,7 +11735,7 @@
    "십억달러 WFE Spending",
    "아니라 소재 부품"
   ],
-  "status": "card",
+  "status": "deep",
   "built_at": "2026-11-23 18:41",
   "error": null,
   "thesis": "반도체 소부장은 AI 수익성 확인 전까지 선별적이며 SK하이닉스 장비 체인과 국산화 업체 중심입니다",
@@ -11760,7 +11764,9 @@
   ],
   "horizon": "2027 하반기",
   "filled_by": "sonnet",
-  "filled_at": "2026-11-23 18:46"
+  "filled_at": "2026-11-23 18:46",
+  "deep_file": "naver_industry_47125",
+  "deep_at": "2026-11-27 20:17"
  },
  "industry:47126": {
   "nid": "47126",
@@ -30756,7 +30762,7 @@
    "원재료를 내재화하고 Crystal",
    "위험을 낮출 것으로"
   ],
-  "status": "card",
+  "status": "deep",
   "built_at": "2026-11-23 18:41",
   "error": null,
   "thesis": "BAAJA가 11/19 상원 최종 가결되며 재생에너지 인허가 개선이 진전됐습니다",
@@ -30787,7 +30793,9 @@
   ],
   "horizon": "하원·서명 단계",
   "filled_by": "sonnet",
-  "filled_at": "2026-11-23 18:46"
+  "filled_at": "2026-11-23 18:46",
+  "deep_file": "naver_industry_47165",
+  "deep_at": "2026-11-27 20:17"
  },
  "industry:47166": {
   "nid": "47166",
