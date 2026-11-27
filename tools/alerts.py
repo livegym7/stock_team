@@ -53,7 +53,7 @@ def breakout_watch(now, sent, limit=40):
     for tier, key in (("✅신호", "signals"), ("👀후보", "candidates"), ("대기", "watch")):
         for x in d.get(key) or []:
             lv = x.get("levels") or {}
-            if lv.get("breakout") or (x.get("max_zone") or {}).get("top"):   # 기준가가 없어도 최대 매물대가 있으면 본다 — 웹 '오늘 넘음'과 같은 대상 (2026-11-25)
+            if lv.get("breakout") or (x.get("max_zone") or {}).get("top") or x.get("rebreak"):   # 기준가가 없어도 최대 매물대가 있으면 본다 — 웹 '오늘 넘음'과 같은 대상 (2026-11-25)
                 items.append((tier, x))
     core = {}
     for cp in (os.environ.get("CORE_JSON") or "", str(Path(__file__).resolve().parent.parent / "web" / "core.json")):   # 핵심 후보(펀더 2/3↑+기술 2/3↑, 2026-11-14)
@@ -73,7 +73,8 @@ def breakout_watch(now, sent, limit=40):
         raw = json.loads(http_get("https://polling.finance.naver.com/api/realtime/domestic/stock/" + ",".join(codes[i:i + 40])))
         for r in raw.get("datas", []):
             num = lambda k: float(str(r.get(k) or "0").replace(",", "")) if str(r.get(k) or "").replace(",", "").replace(".", "").lstrip("-").isdigit() else None
-            q[r["itemCode"]] = {"price": num("closePrice"), "chg": num("fluctuationsRatio"), "vol": num("accumulatedTradingVolume")}
+            q[r["itemCode"]] = {"price": num("closePrice"), "chg": num("fluctuationsRatio"), "vol": num("accumulatedTradingVolume"),
+                                "open": num("openPrice"), "high": num("highPrice"), "low": num("lowPrice")}
     try:      # 주도 섹터 레이더 순위(어제 마감 기준 data/radar/latest.json) — 알림에 '업종 n위'로 표시만
         sec_rank = {g["group"]: g["rank"] for g in json.loads((DATA / "radar" / "latest.json").read_text(encoding="utf-8")).get("groups", [])}
     except Exception:
@@ -112,18 +113,28 @@ def breakout_watch(now, sent, limit=40):
         yc = x.get("close")
         zb = bool(zt and yc and yc <= zt < px)
         bo = bool(piv and px > piv)
+        rbp = (x.get("rebreak") or {}).get("pivot")     # 재돌파 선 (2026-11-27, 참고): 최근 신호 뒤 밀렸던 선을 다시 넘음
+        rbo = bool(rbp and yc and yc <= rbp < px)
         vok = vr is not None and vr >= RULES["breakout_vol"]
         rule = bo and vok and bool(ia and ia[0])
         # 2026-11-24 사용자 확정(단순화): 웹 신호 줄과 같게 — 오늘 기준가나 최대 매물대를 넘은 감시 목록 종목은 모두 알리고, 조건은 딱지(켜짐 ✓ / 꺼짐 ✗)로만 적는다. 살지 말지는 본인이 판단.
         # 기준가 근접(👀)은 전처럼 관찰 풀·핵심 후보만. 정식 신호(기준가 + 거래량 1.5배 + 업종 동행)를 세는 기준은 그대로다.
         mine = bool(x.get("pool")) or bool(cx.get("core"))
-        if bo or zb:
+        if bo or zb or rbo:
             ftxt = f"펀더 {'추정' if cx.get('ftype') == 'E' else '발표'} {cx['fp']}/{cx.get('fmax', 3)}{' ✓' if cx.get('fp') else ' ✗'}" if cx.get("ftype") else "펀더 확인 불가"
             tags = [f"기준가 {piv:,} ✓"] if bo else []
             tags += [f"매물대 {zt:,} ✓"] if zb else []
+            tags += [f"재돌파 {rbp:,} ✓(참고)"] if rbo and not bo else []
             tags += [f"거래량 {vr:.1f}배 {'✓' if vok else '✗'}" if vr else "거래량 확인 불가", ("동행 ✓" if ia[0] else "나 홀로 ✗") if ia else "업종 확인 불가", ftxt]
             if rk:
                 tags.append(f"업종 {rk}위" + ("(주도)" if rk <= 5 else ""))
+            # 트리거 n/7 (2026-11-27, 깡토 5강 — 표시만): screener.triggers와 같은 정의를 장중 시세로. 시장은 목록 기준일 값
+            tg = x.get("tg_next") or {}
+            rng = (r.get("high") or 0) - (r.get("low") or 0)
+            tv = [vok if vr else None, ia[0] if ia else None, ((px - r["low"]) / rng * 100 if rng > 0 else 100) >= 70 if r.get("low") else None,
+                  (px - r["open"] >= tg["atr20"]) if r.get("open") and tg.get("atr20") else None, bool(tg.get("vcp")),
+                  (px > tg["hi250"]) if tg.get("hi250") else None, tg.get("mkt")]
+            tags.append(f"트리거 {sum(1 for v in tv if v)}/7")
             head = f"🔔 {'🎯' if cx.get('core') else ''}{x['stock']} {px:,.0f}원 ({r.get('chg') or 0:+.2f}%) · " + " · ".join(tags)
             tail = " — 다섯 조건 중 기준가·거래량·동행 충족(장중), 종가로 확정" if rule else " — 종가로 확정, 판단은 본인"
             out.append((f"sig:{c}", head + tail))
