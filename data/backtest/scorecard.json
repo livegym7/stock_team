@@ -1,6 +1,12 @@
 {
  "signals": [
   {
+   "day": "20261125",
+   "stock": "코스맥스",
+   "code": "192820",
+   "setups": []
+  },
+  {
    "day": "20261124",
    "stock": "심텍홀딩스",
    "code": "036710",
@@ -61,12 +67,570 @@
    "setups": []
   }
  ],
- "signals_n": 9,
+ "signals_n": 10,
  "signals_target": 30,
  "signals_since": "2026-11-03",
- "made_at": "2026-11-25 18:26",
- "lists": 14,
+ "made_at": "2026-11-27 23:50",
+ "lists": 17,
  "rows": [
+  {
+   "list_day": "20261127",
+   "stock": "엑시콘",
+   "code": "092870",
+   "pivot": 67000,
+   "setups": [
+    "A"
+   ],
+   "days_after": 0,
+   "broke": false,
+   "max_up_pct": 0.0,
+   "low_vs_stop": false
+  },
+  {
+   "list_day": "20261127",
+   "stock": "진에어",
+   "code": "272450",
+   "pivot": 8600,
+   "setups": [
+    "A"
+   ],
+   "days_after": 0,
+   "broke": false,
+   "max_up_pct": 0.0,
+   "low_vs_stop": false
+  },
+  {
+   "list_day": "20261127",
+   "stock": "제주항공",
+   "code": "089590",
+   "pivot": 9370,
+   "setups": [
+    "A",
+    "D"
+   ],
+   "days_after": 0,
+   "broke": false,
+   "max_up_pct": 0.0,
+   "low_vs_stop": false
+  },
+  {
+   "list_day": "20261127",
+   "stock": "대한항공",
+   "code": "003490",
+   "pivot": 32950,
+   "setups": [
+    "A"
+   ],
+   "days_after": 0,
+   "broke": false,
+   "max_up_pct": 0.0,
+   "low_vs_stop": false
+  },
+  {
+   "list_day": "20261127",
+   "stock": "삼성E&A",
+   "code": "028050",
+   "pivot": 70300,
+   "setups": [
+    "A"
+   ],
+   "days_after": 0,
+   "broke": false,
+   "max_up_pct": 0.0,
+   "low_vs_stop": false
+  },
+  {
+   "list_day": "20261127",
+   "stock": "동국제약",
+   "code": "086450",
+   "pivot": 26800,
+   "setups": [
+    "A"
+   ],
+   "days_after": 0,
+   "broke": false,
+   "max_up_pct": 0.0,
+   "low_vs_stop": false
+  },
+  {
+   "list_day": "20261127",
+   "stock": "셀트리온",
+   "code": "068270",
+   "pivot": 239244,
+   "setups": [],
+   "days_after": 0,
+   "broke": false,
+   "max_up_pct": 0.0,
+   "low_vs_stop": false
+  },
+  {
+   "list_day": "20261127",
+   "stock": "한미사이언스",
+   "code": "008930",
+   "pivot": 60400,
+   "setups": [
+    "A"
+   ],
+   "days_after": 0,
+   "broke": false,
+   "max_up_pct": 0.0,
+   "low_vs_stop": false
+  },
+  {
+   "list_day": "20261127",
+   "stock": "한미약품",
+   "code": "128940",
+   "pivot": 523000,
+   "setups": [
+    "A"
+   ],
+   "days_after": 0,
+   "broke": false,
+   "max_up_pct": 0.0,
+   "low_vs_stop": false
+  },
+  {
+   "list_day": "20261127",
+   "stock": "NHN",
+   "code": "181710",
+   "pivot": 89100,
+   "setups": [],
+   "days_after": 0,
+   "broke": false,
+   "max_up_pct": 0.0,
+   "low_vs_stop": false
+  },
+  {
+   "list_day": "20261127",
+   "stock": "나노신소재",
+   "code": "121600",
+   "pivot": 78000,
+   "setups": [
+    "A"
+   ],
+   "days_after": 0,
+   "broke": false,
+   "max_up_pct": 0.0,
+   "low_vs_stop": false
+  },
+  {
+   "list_day": "20261127",
+   "stock": "루닛",
+   "code": "328130",
+   "pivot": 24550,
+   "setups": [
+    "C"
+   ],
+   "days_after": 0,
+   "broke": false,
+   "max_up_pct": 0.0,
+   "low_vs_stop": false
+  },
+  {
+   "list_day": "20261127",
+   "stock": "라온시큐어",
+   "code": "042510",
+   "pivot": 22450,
+   "setups": [],
+   "days_after": 0,
+   "broke": false,
+   "max_up_pct": 0.0,
+   "low_vs_stop": false
+  },
+  {
+   "list_day": "20261126",
+   "stock": "아모레퍼시픽",
+   "code": "090430",
+   "pivot": 152800,
+   "setups": [
+    "A"
+   ],
+   "days_after": 1,
+   "broke": false,
+   "max_up_pct": 0.5,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261126",
+   "stock": "에스엠",
+   "code": "041510",
+   "pivot": 124300,
+   "setups": [],
+   "days_after": 1,
+   "broke": false,
+   "max_up_pct": 0.8,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261126",
+   "stock": "한진",
+   "code": "002320",
+   "pivot": 22300,
+   "setups": [
+    "A"
+   ],
+   "days_after": 1,
+   "broke": false,
+   "max_up_pct": 10.3,
+   "low_vs_stop": false
+  },
+  {
+   "list_day": "20261126",
+   "stock": "제주항공",
+   "code": "089590",
+   "pivot": 9370,
+   "setups": [
+    "A",
+    "D"
+   ],
+   "days_after": 1,
+   "broke": false,
+   "max_up_pct": 0.0,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261126",
+   "stock": "진에어",
+   "code": "272450",
+   "pivot": 8600,
+   "setups": [
+    "A"
+   ],
+   "days_after": 1,
+   "broke": false,
+   "max_up_pct": 2.1,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261126",
+   "stock": "대한항공",
+   "code": "003490",
+   "pivot": 32950,
+   "setups": [
+    "A"
+   ],
+   "days_after": 1,
+   "broke": false,
+   "max_up_pct": 1.8,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261126",
+   "stock": "한진칼",
+   "code": "180640",
+   "pivot": 253000,
+   "setups": [
+    "A",
+    "E"
+   ],
+   "days_after": 1,
+   "broke": false,
+   "max_up_pct": 6.8,
+   "low_vs_stop": false
+  },
+  {
+   "list_day": "20261126",
+   "stock": "동국제약",
+   "code": "086450",
+   "pivot": 26800,
+   "setups": [
+    "A"
+   ],
+   "days_after": 1,
+   "broke": false,
+   "max_up_pct": 2.1,
+   "low_vs_stop": false
+  },
+  {
+   "list_day": "20261126",
+   "stock": "셀트리온",
+   "code": "068270",
+   "pivot": 220000,
+   "setups": [
+    "A"
+   ],
+   "days_after": 1,
+   "broke": true,
+   "break_day": "20261127",
+   "entry": 221000.0,
+   "result_r": -0.03,
+   "how": "보유 중(평가)"
+  },
+  {
+   "list_day": "20261126",
+   "stock": "한미약품",
+   "code": "128940",
+   "pivot": 523000,
+   "setups": [
+    "A"
+   ],
+   "days_after": 1,
+   "broke": false,
+   "max_up_pct": 7.4,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261126",
+   "stock": "한미사이언스",
+   "code": "008930",
+   "pivot": 60400,
+   "setups": [
+    "A"
+   ],
+   "days_after": 1,
+   "broke": false,
+   "max_up_pct": 6.7,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261126",
+   "stock": "와이씨",
+   "code": "232140",
+   "pivot": 16710,
+   "setups": [
+    "A"
+   ],
+   "days_after": 1,
+   "broke": false,
+   "max_up_pct": 3.9,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261126",
+   "stock": "원익홀딩스",
+   "code": "030530",
+   "pivot": 36850,
+   "setups": [
+    "A"
+   ],
+   "days_after": 1,
+   "broke": false,
+   "max_up_pct": 4.8,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261126",
+   "stock": "심텍홀딩스",
+   "code": "036710",
+   "pivot": 6800,
+   "setups": [],
+   "days_after": 1,
+   "broke": false,
+   "max_up_pct": 8.2,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261126",
+   "stock": "삼성E&A",
+   "code": "028050",
+   "pivot": 70300,
+   "setups": [
+    "A"
+   ],
+   "days_after": 1,
+   "broke": false,
+   "max_up_pct": 3.3,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261126",
+   "stock": "루닛",
+   "code": "328130",
+   "pivot": 18170,
+   "setups": [
+    "A"
+   ],
+   "days_after": 1,
+   "broke": false,
+   "max_up_pct": 5.3,
+   "low_vs_stop": false
+  },
+  {
+   "list_day": "20261126",
+   "stock": "나무가",
+   "code": "190510",
+   "pivot": 19860,
+   "setups": [
+    "A"
+   ],
+   "days_after": 1,
+   "broke": false,
+   "max_up_pct": 3.7,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261126",
+   "stock": "지니언스",
+   "code": "263860",
+   "pivot": 45400,
+   "setups": [
+    "A"
+   ],
+   "days_after": 1,
+   "broke": false,
+   "max_up_pct": 8.7,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261126",
+   "stock": "나노신소재",
+   "code": "121600",
+   "pivot": 78000,
+   "setups": [
+    "A"
+   ],
+   "days_after": 1,
+   "broke": false,
+   "max_up_pct": 6.1,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261126",
+   "stock": "이수스페셜티케미컬",
+   "code": "457190",
+   "pivot": 84700,
+   "setups": [
+    "A"
+   ],
+   "days_after": 1,
+   "broke": true,
+   "break_day": "20261127",
+   "entry": 86600.0,
+   "result_r": -0.03,
+   "how": "보유 중(평가)"
+  },
+  {
+   "list_day": "20261125",
+   "stock": "삼성E&A",
+   "code": "028050",
+   "pivot": 70300,
+   "setups": [
+    "A"
+   ],
+   "days_after": 2,
+   "broke": false,
+   "max_up_pct": 3.4,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261125",
+   "stock": "나무가",
+   "code": "190510",
+   "pivot": 19300,
+   "setups": [
+    "A"
+   ],
+   "days_after": 2,
+   "broke": false,
+   "max_up_pct": 24.8,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261125",
+   "stock": "루닛",
+   "code": "328130",
+   "pivot": 17570,
+   "setups": [
+    "A"
+   ],
+   "days_after": 2,
+   "broke": true,
+   "break_day": "20261127",
+   "entry": 17790.0,
+   "result_r": -0.03,
+   "how": "보유 중(평가)"
+  },
+  {
+   "list_day": "20261125",
+   "stock": "프로티나",
+   "code": "468530",
+   "pivot": 91500,
+   "setups": [],
+   "days_after": 2,
+   "broke": false,
+   "max_up_pct": 15.6,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261125",
+   "stock": "아모레퍼시픽",
+   "code": "090430",
+   "pivot": 152500,
+   "setups": [
+    "A"
+   ],
+   "days_after": 2,
+   "broke": false,
+   "max_up_pct": 4.2,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261125",
+   "stock": "KT&G",
+   "code": "033780",
+   "pivot": 201000,
+   "setups": [
+    "A"
+   ],
+   "days_after": 2,
+   "broke": false,
+   "max_up_pct": 0.2,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261125",
+   "stock": "셀트리온",
+   "code": "068270",
+   "pivot": 219000,
+   "setups": [
+    "A"
+   ],
+   "days_after": 2,
+   "broke": true,
+   "break_day": "20261127",
+   "entry": 221000.0,
+   "result_r": -0.03,
+   "how": "보유 중(평가)"
+  },
+  {
+   "list_day": "20261125",
+   "stock": "한미사이언스",
+   "code": "008930",
+   "pivot": 60400,
+   "setups": [
+    "A"
+   ],
+   "days_after": 2,
+   "broke": false,
+   "max_up_pct": 12.3,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261125",
+   "stock": "한미약품",
+   "code": "128940",
+   "pivot": 523000,
+   "setups": [
+    "A"
+   ],
+   "days_after": 2,
+   "broke": false,
+   "max_up_pct": 9.5,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261125",
+   "stock": "한진",
+   "code": "002320",
+   "pivot": 22300,
+   "setups": [
+    "A"
+   ],
+   "days_after": 2,
+   "broke": false,
+   "max_up_pct": 9.5,
+   "low_vs_stop": true
+  },
   {
    "list_day": "20261124",
    "stock": "루닛",
@@ -75,10 +639,12 @@
    "setups": [
     "A"
    ],
-   "days_after": 1,
-   "broke": false,
-   "max_up_pct": 9.7,
-   "low_vs_stop": true
+   "days_after": 3,
+   "broke": true,
+   "break_day": "20261127",
+   "entry": 17790.0,
+   "result_r": -0.03,
+   "how": "보유 중(평가)"
   },
   {
    "list_day": "20261124",
@@ -89,9 +655,9 @@
     "A",
     "C"
    ],
-   "days_after": 1,
+   "days_after": 3,
    "broke": false,
-   "max_up_pct": 7.9,
+   "max_up_pct": 10.3,
    "low_vs_stop": true
   },
   {
@@ -102,11 +668,11 @@
    "setups": [
     "A"
    ],
-   "days_after": 1,
+   "days_after": 3,
    "broke": true,
    "break_day": "20261125",
-   "entry": 322500.0,
-   "result_r": -0.03,
+   "entry": 329500.0,
+   "result_r": -0.62,
    "how": "보유 중(평가)"
   },
   {
@@ -117,9 +683,9 @@
    "setups": [
     "A"
    ],
-   "days_after": 1,
+   "days_after": 3,
    "broke": false,
-   "max_up_pct": 5.8,
+   "max_up_pct": 14.5,
    "low_vs_stop": true
   },
   {
@@ -130,10 +696,12 @@
    "setups": [
     "A"
    ],
-   "days_after": 1,
-   "broke": false,
-   "max_up_pct": 4.8,
-   "low_vs_stop": false
+   "days_after": 3,
+   "broke": true,
+   "break_day": "20261127",
+   "entry": 221000.0,
+   "result_r": -0.03,
+   "how": "보유 중(평가)"
   },
   {
    "list_day": "20261124",
@@ -143,11 +711,11 @@
    "setups": [
     "A"
    ],
-   "days_after": 1,
+   "days_after": 3,
    "broke": true,
    "break_day": "20261125",
    "entry": 157900.0,
-   "result_r": -0.03,
+   "result_r": 1.24,
    "how": "보유 중(평가)"
   },
   {
@@ -158,7 +726,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 1,
+   "days_after": 3,
    "broke": false,
    "max_up_pct": 3.8,
    "low_vs_stop": true
@@ -171,9 +739,9 @@
    "setups": [
     "A"
    ],
-   "days_after": 1,
+   "days_after": 3,
    "broke": false,
-   "max_up_pct": 6.9,
+   "max_up_pct": 10.9,
    "low_vs_stop": true
   },
   {
@@ -184,9 +752,9 @@
    "setups": [
     "A"
    ],
-   "days_after": 1,
+   "days_after": 3,
    "broke": false,
-   "max_up_pct": 6.5,
+   "max_up_pct": 25.8,
    "low_vs_stop": true
   },
   {
@@ -197,9 +765,9 @@
    "setups": [
     "A"
    ],
-   "days_after": 1,
+   "days_after": 3,
    "broke": false,
-   "max_up_pct": 3.8,
+   "max_up_pct": 17.9,
    "low_vs_stop": true
   },
   {
@@ -208,9 +776,9 @@
    "code": "437730",
    "pivot": 66700,
    "setups": [],
-   "days_after": 1,
+   "days_after": 3,
    "broke": false,
-   "max_up_pct": 6.8,
+   "max_up_pct": 7.6,
    "low_vs_stop": true
   },
   {
@@ -219,10 +787,12 @@
    "code": "290550",
    "pivot": 34950,
    "setups": [],
-   "days_after": 2,
-   "broke": false,
-   "max_up_pct": 10.5,
-   "low_vs_stop": true
+   "days_after": 4,
+   "broke": true,
+   "break_day": "20261127",
+   "entry": 36000.0,
+   "result_r": -0.03,
+   "how": "보유 중(평가)"
   },
   {
    "list_day": "20261123",
@@ -232,9 +802,9 @@
    "setups": [
     "A"
    ],
-   "days_after": 2,
+   "days_after": 4,
    "broke": false,
-   "max_up_pct": 15.5,
+   "max_up_pct": 17.0,
    "low_vs_stop": true
   },
   {
@@ -243,10 +813,12 @@
    "code": "437730",
    "pivot": 60300,
    "setups": [],
-   "days_after": 2,
-   "broke": false,
-   "max_up_pct": 19.3,
-   "low_vs_stop": false
+   "days_after": 4,
+   "broke": true,
+   "break_day": "20261126",
+   "entry": 61500.0,
+   "result_r": -0.21,
+   "how": "보유 중(평가)"
   },
   {
    "list_day": "20261123",
@@ -256,11 +828,11 @@
    "setups": [
     "A"
    ],
-   "days_after": 2,
+   "days_after": 4,
    "broke": true,
    "break_day": "20261125",
    "entry": 157900.0,
-   "result_r": -0.03,
+   "result_r": 1.24,
    "how": "보유 중(평가)"
   },
   {
@@ -272,9 +844,9 @@
     "A",
     "C"
    ],
-   "days_after": 2,
+   "days_after": 4,
    "broke": false,
-   "max_up_pct": 10.7,
+   "max_up_pct": 13.3,
    "low_vs_stop": true
   },
   {
@@ -285,11 +857,11 @@
    "setups": [
     "A"
    ],
-   "days_after": 2,
+   "days_after": 4,
    "broke": true,
    "break_day": "20261125",
-   "entry": 322500.0,
-   "result_r": -0.03,
+   "entry": 329500.0,
+   "result_r": -0.62,
    "how": "보유 중(평가)"
   },
   {
@@ -300,9 +872,9 @@
    "setups": [
     "A"
    ],
-   "days_after": 2,
+   "days_after": 4,
    "broke": false,
-   "max_up_pct": 8.5,
+   "max_up_pct": 17.4,
    "low_vs_stop": true
   },
   {
@@ -313,11 +885,11 @@
    "setups": [
     "A"
    ],
-   "days_after": 2,
+   "days_after": 4,
    "broke": true,
    "break_day": "20261125",
-   "entry": 65100.0,
-   "result_r": -0.03,
+   "entry": 64900.0,
+   "result_r": 0.86,
    "how": "보유 중(평가)"
   },
   {
@@ -328,10 +900,12 @@
    "setups": [
     "A"
    ],
-   "days_after": 2,
-   "broke": false,
-   "max_up_pct": 8.1,
-   "low_vs_stop": true
+   "days_after": 4,
+   "broke": true,
+   "break_day": "20261127",
+   "entry": 17790.0,
+   "result_r": -0.03,
+   "how": "보유 중(평가)"
   },
   {
    "list_day": "20261120",
@@ -341,11 +915,11 @@
    "setups": [
     "A"
    ],
-   "days_after": 3,
+   "days_after": 5,
    "broke": true,
    "break_day": "20261125",
-   "entry": 65100.0,
-   "result_r": -0.03,
+   "entry": 64900.0,
+   "result_r": 0.86,
    "how": "보유 중(평가)"
   },
   {
@@ -356,9 +930,9 @@
    "setups": [
     "A"
    ],
-   "days_after": 3,
+   "days_after": 5,
    "broke": false,
-   "max_up_pct": 7.3,
+   "max_up_pct": 9.8,
    "low_vs_stop": true
   },
   {
@@ -369,11 +943,11 @@
    "setups": [
     "A"
    ],
-   "days_after": 3,
+   "days_after": 5,
    "broke": true,
    "break_day": "20261125",
-   "entry": 322500.0,
-   "result_r": -0.03,
+   "entry": 329500.0,
+   "result_r": -0.62,
    "how": "보유 중(평가)"
   },
   {
@@ -384,9 +958,9 @@
    "setups": [
     "A"
    ],
-   "days_after": 3,
+   "days_after": 5,
    "broke": false,
-   "max_up_pct": 6.0,
+   "max_up_pct": 14.7,
    "low_vs_stop": true
   },
   {
@@ -397,9 +971,9 @@
    "setups": [
     "A"
    ],
-   "days_after": 3,
+   "days_after": 5,
    "broke": false,
-   "max_up_pct": 20.6,
+   "max_up_pct": 22.2,
    "low_vs_stop": true
   },
   {
@@ -410,347 +984,15 @@
    "setups": [
     "A"
    ],
-   "days_after": 3,
-   "broke": true,
-   "break_day": "20261125",
-   "entry": 157900.0,
-   "result_r": -0.03,
-   "how": "보유 중(평가)"
-  },
-  {
-   "list_day": "20261120",
-   "stock": "NHN",
-   "code": "181710",
-   "pivot": 89100,
-   "setups": [
-    "A"
-   ],
-   "days_after": 3,
-   "broke": false,
-   "max_up_pct": 0.0,
-   "low_vs_stop": true
-  },
-  {
-   "list_day": "20261120",
-   "stock": "코웨이",
-   "code": "021240",
-   "pivot": 111400,
-   "setups": [
-    "A"
-   ],
-   "days_after": 3,
-   "broke": false,
-   "max_up_pct": 0.8,
-   "low_vs_stop": true
-  },
-  {
-   "list_day": "20261120",
-   "stock": "루닛",
-   "code": "328130",
-   "pivot": 17570,
-   "setups": [
-    "A"
-   ],
-   "days_after": 3,
-   "broke": false,
-   "max_up_pct": 5.9,
-   "low_vs_stop": true
-  },
-  {
-   "list_day": "20261119",
-   "stock": "프로티나",
-   "code": "468530",
-   "pivot": 62800,
-   "setups": [
-    "A"
-   ],
-   "days_after": 4,
-   "broke": true,
-   "break_day": "20261125",
-   "entry": 65100.0,
-   "result_r": -0.03,
-   "how": "보유 중(평가)"
-  },
-  {
-   "list_day": "20261119",
-   "stock": "엑시콘",
-   "code": "092870",
-   "pivot": 68000,
-   "setups": [
-    "A"
-   ],
-   "days_after": 4,
-   "broke": false,
-   "max_up_pct": 7.1,
-   "low_vs_stop": true
-  },
-  {
-   "list_day": "20261119",
-   "stock": "아모레퍼시픽",
-   "code": "090430",
-   "pivot": 152500,
-   "setups": [
-    "A"
-   ],
-   "days_after": 4,
-   "broke": false,
-   "max_up_pct": 6.3,
-   "low_vs_stop": true
-  },
-  {
-   "list_day": "20261119",
-   "stock": "코스맥스",
-   "code": "192820",
-   "pivot": 320000,
-   "setups": [
-    "A"
-   ],
-   "days_after": 4,
-   "broke": true,
-   "break_day": "20261125",
-   "entry": 322500.0,
-   "result_r": -0.03,
-   "how": "보유 중(평가)"
-  },
-  {
-   "list_day": "20261119",
-   "stock": "나노신소재",
-   "code": "121600",
-   "pivot": 78000,
-   "setups": [
-    "A"
-   ],
-   "days_after": 4,
-   "broke": false,
-   "max_up_pct": 0.5,
-   "low_vs_stop": true
-  },
-  {
-   "list_day": "20261119",
-   "stock": "한미사이언스",
-   "code": "008930",
-   "pivot": 60400,
-   "setups": [
-    "A"
-   ],
-   "days_after": 4,
-   "broke": false,
-   "max_up_pct": 7.2,
-   "low_vs_stop": true
-  },
-  {
-   "list_day": "20261119",
-   "stock": "동국제약",
-   "code": "086450",
-   "pivot": 31250,
-   "setups": [],
-   "days_after": 4,
-   "broke": false,
-   "max_up_pct": 0.2,
-   "low_vs_stop": true
-  },
-  {
-   "list_day": "20261119",
-   "stock": "한진칼",
-   "code": "180640",
-   "pivot": 245000,
-   "setups": [
-    "A"
-   ],
-   "days_after": 4,
-   "broke": false,
-   "max_up_pct": 16.1,
-   "low_vs_stop": true
-  },
-  {
-   "list_day": "20261119",
-   "stock": "디케이티",
-   "code": "290550",
-   "pivot": 34950,
-   "setups": [],
-   "days_after": 4,
-   "broke": false,
-   "max_up_pct": 14.8,
-   "low_vs_stop": true
-  },
-  {
-   "list_day": "20261119",
-   "stock": "안랩",
-   "code": "053800",
-   "pivot": 137300,
-   "setups": [
-    "A"
-   ],
-   "days_after": 4,
-   "broke": true,
-   "break_day": "20261125",
-   "entry": 157900.0,
-   "result_r": -0.03,
-   "how": "보유 중(평가)"
-  },
-  {
-   "list_day": "20261119",
-   "stock": "NHN",
-   "code": "181710",
-   "pivot": 89100,
-   "setups": [
-    "A"
-   ],
-   "days_after": 4,
-   "broke": false,
-   "max_up_pct": -3.9,
-   "low_vs_stop": true
-  },
-  {
-   "list_day": "20261119",
-   "stock": "코웨이",
-   "code": "021240",
-   "pivot": 111400,
-   "setups": [
-    "A"
-   ],
-   "days_after": 4,
-   "broke": false,
-   "max_up_pct": 2.3,
-   "low_vs_stop": true
-  },
-  {
-   "list_day": "20261118",
-   "stock": "프로티나",
-   "code": "468530",
-   "pivot": 62800,
-   "setups": [
-    "A"
-   ],
-   "days_after": 5,
-   "broke": true,
-   "break_day": "20261125",
-   "entry": 65100.0,
-   "result_r": -0.03,
-   "how": "보유 중(평가)"
-  },
-  {
-   "list_day": "20261118",
-   "stock": "원익홀딩스",
-   "code": "030530",
-   "pivot": 37300,
-   "setups": [],
-   "days_after": 5,
-   "broke": false,
-   "max_up_pct": 3.9,
-   "low_vs_stop": true
-  },
-  {
-   "list_day": "20261118",
-   "stock": "엑시콘",
-   "code": "092870",
-   "pivot": 68000,
-   "setups": [
-    "A"
-   ],
-   "days_after": 5,
-   "broke": false,
-   "max_up_pct": 3.4,
-   "low_vs_stop": true
-  },
-  {
-   "list_day": "20261118",
-   "stock": "코스맥스",
-   "code": "192820",
-   "pivot": 320000,
-   "setups": [
-    "A"
-   ],
-   "days_after": 5,
-   "broke": true,
-   "break_day": "20261125",
-   "entry": 322500.0,
-   "result_r": -0.03,
-   "how": "보유 중(평가)"
-  },
-  {
-   "list_day": "20261118",
-   "stock": "한미사이언스",
-   "code": "008930",
-   "pivot": 60400,
-   "setups": [
-    "A"
-   ],
-   "days_after": 5,
-   "broke": false,
-   "max_up_pct": 5.0,
-   "low_vs_stop": true
-  },
-  {
-   "list_day": "20261118",
-   "stock": "동국제약",
-   "code": "086450",
-   "pivot": 26050,
-   "setups": [
-    "A"
-   ],
-   "days_after": 5,
-   "broke": true,
-   "break_day": "20261119",
-   "entry": 26600.0,
-   "result_r": -1.03,
-   "how": "손절"
-  },
-  {
-   "list_day": "20261118",
-   "stock": "대한항공",
-   "code": "003490",
-   "pivot": 32800,
-   "setups": [
-    "A",
-    "E"
-   ],
-   "days_after": 5,
-   "broke": false,
-   "max_up_pct": 5.3,
-   "low_vs_stop": true
-  },
-  {
-   "list_day": "20261118",
-   "stock": "한진칼",
-   "code": "180640",
-   "pivot": 245000,
-   "setups": [
-    "A"
-   ],
-   "days_after": 5,
-   "broke": false,
-   "max_up_pct": 11.9,
-   "low_vs_stop": true
-  },
-  {
-   "list_day": "20261118",
-   "stock": "디케이티",
-   "code": "290550",
-   "pivot": 34950,
-   "setups": [],
-   "days_after": 5,
-   "broke": false,
-   "max_up_pct": 20.2,
-   "low_vs_stop": true
-  },
-  {
-   "list_day": "20261118",
-   "stock": "안랩",
-   "code": "053800",
-   "pivot": 137300,
-   "setups": [
-    "A"
-   ],
    "days_after": 5,
    "broke": true,
    "break_day": "20261125",
    "entry": 157900.0,
-   "result_r": -0.03,
+   "result_r": 1.24,
    "how": "보유 중(평가)"
   },
   {
-   "list_day": "20261118",
+   "list_day": "20261120",
    "stock": "NHN",
    "code": "181710",
    "pivot": 89100,
@@ -763,15 +1005,359 @@
    "low_vs_stop": true
   },
   {
+   "list_day": "20261120",
+   "stock": "코웨이",
+   "code": "021240",
+   "pivot": 111400,
+   "setups": [
+    "A"
+   ],
+   "days_after": 5,
+   "broke": false,
+   "max_up_pct": 0.8,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261120",
+   "stock": "루닛",
+   "code": "328130",
+   "pivot": 17570,
+   "setups": [
+    "A"
+   ],
+   "days_after": 5,
+   "broke": true,
+   "break_day": "20261127",
+   "entry": 17790.0,
+   "result_r": -0.03,
+   "how": "보유 중(평가)"
+  },
+  {
+   "list_day": "20261119",
+   "stock": "프로티나",
+   "code": "468530",
+   "pivot": 62800,
+   "setups": [
+    "A"
+   ],
+   "days_after": 6,
+   "broke": true,
+   "break_day": "20261125",
+   "entry": 64900.0,
+   "result_r": 0.86,
+   "how": "보유 중(평가)"
+  },
+  {
+   "list_day": "20261119",
+   "stock": "엑시콘",
+   "code": "092870",
+   "pivot": 68000,
+   "setups": [
+    "A"
+   ],
+   "days_after": 6,
+   "broke": false,
+   "max_up_pct": 7.1,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261119",
+   "stock": "아모레퍼시픽",
+   "code": "090430",
+   "pivot": 152500,
+   "setups": [
+    "A"
+   ],
+   "days_after": 6,
+   "broke": false,
+   "max_up_pct": 8.8,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261119",
+   "stock": "코스맥스",
+   "code": "192820",
+   "pivot": 320000,
+   "setups": [
+    "A"
+   ],
+   "days_after": 6,
+   "broke": true,
+   "break_day": "20261125",
+   "entry": 329500.0,
+   "result_r": -0.62,
+   "how": "보유 중(평가)"
+  },
+  {
+   "list_day": "20261119",
+   "stock": "나노신소재",
+   "code": "121600",
+   "pivot": 78000,
+   "setups": [
+    "A"
+   ],
+   "days_after": 6,
+   "broke": false,
+   "max_up_pct": 11.7,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261119",
+   "stock": "한미사이언스",
+   "code": "008930",
+   "pivot": 60400,
+   "setups": [
+    "A"
+   ],
+   "days_after": 6,
+   "broke": false,
+   "max_up_pct": 16.0,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261119",
+   "stock": "동국제약",
+   "code": "086450",
+   "pivot": 31250,
+   "setups": [],
+   "days_after": 6,
+   "broke": false,
+   "max_up_pct": 0.2,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261119",
+   "stock": "한진칼",
+   "code": "180640",
+   "pivot": 245000,
+   "setups": [
+    "A"
+   ],
+   "days_after": 6,
+   "broke": true,
+   "break_day": "20261127",
+   "entry": 253000.0,
+   "result_r": -0.03,
+   "how": "보유 중(평가)"
+  },
+  {
+   "list_day": "20261119",
+   "stock": "디케이티",
+   "code": "290550",
+   "pivot": 34950,
+   "setups": [],
+   "days_after": 6,
+   "broke": true,
+   "break_day": "20261127",
+   "entry": 36000.0,
+   "result_r": -0.03,
+   "how": "보유 중(평가)"
+  },
+  {
+   "list_day": "20261119",
+   "stock": "안랩",
+   "code": "053800",
+   "pivot": 137300,
+   "setups": [
+    "A"
+   ],
+   "days_after": 6,
+   "broke": true,
+   "break_day": "20261125",
+   "entry": 157900.0,
+   "result_r": 1.24,
+   "how": "보유 중(평가)"
+  },
+  {
+   "list_day": "20261119",
+   "stock": "NHN",
+   "code": "181710",
+   "pivot": 89100,
+   "setups": [
+    "A"
+   ],
+   "days_after": 6,
+   "broke": false,
+   "max_up_pct": -3.9,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261119",
+   "stock": "코웨이",
+   "code": "021240",
+   "pivot": 111400,
+   "setups": [
+    "A"
+   ],
+   "days_after": 6,
+   "broke": false,
+   "max_up_pct": 2.3,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261118",
+   "stock": "프로티나",
+   "code": "468530",
+   "pivot": 62800,
+   "setups": [
+    "A"
+   ],
+   "days_after": 7,
+   "broke": true,
+   "break_day": "20261125",
+   "entry": 64900.0,
+   "result_r": 0.86,
+   "how": "보유 중(평가)"
+  },
+  {
+   "list_day": "20261118",
+   "stock": "원익홀딩스",
+   "code": "030530",
+   "pivot": 37300,
+   "setups": [],
+   "days_after": 7,
+   "broke": false,
+   "max_up_pct": 3.9,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261118",
+   "stock": "엑시콘",
+   "code": "092870",
+   "pivot": 68000,
+   "setups": [
+    "A"
+   ],
+   "days_after": 7,
+   "broke": false,
+   "max_up_pct": 3.4,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261118",
+   "stock": "코스맥스",
+   "code": "192820",
+   "pivot": 320000,
+   "setups": [
+    "A"
+   ],
+   "days_after": 7,
+   "broke": true,
+   "break_day": "20261125",
+   "entry": 329500.0,
+   "result_r": -0.62,
+   "how": "보유 중(평가)"
+  },
+  {
+   "list_day": "20261118",
+   "stock": "한미사이언스",
+   "code": "008930",
+   "pivot": 60400,
+   "setups": [
+    "A"
+   ],
+   "days_after": 7,
+   "broke": false,
+   "max_up_pct": 13.6,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261118",
+   "stock": "동국제약",
+   "code": "086450",
+   "pivot": 26050,
+   "setups": [
+    "A"
+   ],
+   "days_after": 7,
+   "broke": true,
+   "break_day": "20261119",
+   "entry": 26600.0,
+   "result_r": -1.03,
+   "how": "손절"
+  },
+  {
+   "list_day": "20261118",
+   "stock": "대한항공",
+   "code": "003490",
+   "pivot": 32800,
+   "setups": [
+    "A",
+    "E"
+   ],
+   "days_after": 7,
+   "broke": false,
+   "max_up_pct": 5.3,
+   "low_vs_stop": true
+  },
+  {
+   "list_day": "20261118",
+   "stock": "한진칼",
+   "code": "180640",
+   "pivot": 245000,
+   "setups": [
+    "A"
+   ],
+   "days_after": 7,
+   "broke": true,
+   "break_day": "20261127",
+   "entry": 253000.0,
+   "result_r": -0.03,
+   "how": "보유 중(평가)"
+  },
+  {
+   "list_day": "20261118",
+   "stock": "디케이티",
+   "code": "290550",
+   "pivot": 34950,
+   "setups": [],
+   "days_after": 7,
+   "broke": true,
+   "break_day": "20261127",
+   "entry": 36000.0,
+   "result_r": -0.03,
+   "how": "보유 중(평가)"
+  },
+  {
+   "list_day": "20261118",
+   "stock": "안랩",
+   "code": "053800",
+   "pivot": 137300,
+   "setups": [
+    "A"
+   ],
+   "days_after": 7,
+   "broke": true,
+   "break_day": "20261125",
+   "entry": 157900.0,
+   "result_r": 1.24,
+   "how": "보유 중(평가)"
+  },
+  {
+   "list_day": "20261118",
+   "stock": "NHN",
+   "code": "181710",
+   "pivot": 89100,
+   "setups": [
+    "A"
+   ],
+   "days_after": 7,
+   "broke": false,
+   "max_up_pct": 1.1,
+   "low_vs_stop": true
+  },
+  {
    "list_day": "20261118",
    "stock": "삼현",
    "code": "437730",
    "pivot": 60300,
    "setups": [],
-   "days_after": 5,
-   "broke": false,
-   "max_up_pct": 22.0,
-   "low_vs_stop": true
+   "days_after": 7,
+   "broke": true,
+   "break_day": "20261126",
+   "entry": 61500.0,
+   "result_r": -0.21,
+   "how": "보유 중(평가)"
   },
   {
    "list_day": "20261118",
@@ -781,7 +1367,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 5,
+   "days_after": 7,
    "broke": false,
    "max_up_pct": 5.3,
    "low_vs_stop": true
@@ -794,7 +1380,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 5,
+   "days_after": 7,
    "broke": false,
    "max_up_pct": 2.1,
    "low_vs_stop": true
@@ -807,7 +1393,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 6,
+   "days_after": 8,
    "broke": true,
    "break_day": "20261118",
    "entry": 35800.0,
@@ -822,7 +1408,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 6,
+   "days_after": 8,
    "broke": false,
    "max_up_pct": 12.3,
    "low_vs_stop": true
@@ -835,11 +1421,11 @@
    "setups": [
     "A"
    ],
-   "days_after": 6,
+   "days_after": 8,
    "broke": true,
    "break_day": "20261125",
-   "entry": 322500.0,
-   "result_r": -0.03,
+   "entry": 329500.0,
+   "result_r": -0.62,
    "how": "보유 중(평가)"
   },
   {
@@ -850,7 +1436,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 6,
+   "days_after": 8,
    "broke": true,
    "break_day": "20261119",
    "entry": 26600.0,
@@ -866,7 +1452,7 @@
     "A",
     "E"
    ],
-   "days_after": 6,
+   "days_after": 8,
    "broke": false,
    "max_up_pct": 3.3,
    "low_vs_stop": true
@@ -879,10 +1465,12 @@
    "setups": [
     "A"
    ],
-   "days_after": 6,
-   "broke": false,
-   "max_up_pct": 16.4,
-   "low_vs_stop": true
+   "days_after": 8,
+   "broke": true,
+   "break_day": "20261127",
+   "entry": 253000.0,
+   "result_r": -0.03,
+   "how": "보유 중(평가)"
   },
   {
    "list_day": "20261117",
@@ -892,11 +1480,11 @@
    "setups": [
     "A"
    ],
-   "days_after": 6,
+   "days_after": 8,
    "broke": true,
    "break_day": "20261125",
    "entry": 157900.0,
-   "result_r": -0.03,
+   "result_r": 1.24,
    "how": "보유 중(평가)"
   },
   {
@@ -907,7 +1495,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 6,
+   "days_after": 8,
    "broke": false,
    "max_up_pct": 4.7,
    "low_vs_stop": true
@@ -920,7 +1508,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 7,
+   "days_after": 9,
    "broke": true,
    "break_day": "20261118",
    "entry": 35800.0,
@@ -935,7 +1523,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 7,
+   "days_after": 9,
    "broke": false,
    "max_up_pct": 1.4,
    "low_vs_stop": true
@@ -948,11 +1536,11 @@
    "setups": [
     "A"
    ],
-   "days_after": 7,
+   "days_after": 9,
    "broke": true,
    "break_day": "20261125",
-   "entry": 322500.0,
-   "result_r": -0.03,
+   "entry": 329500.0,
+   "result_r": -0.62,
    "how": "보유 중(평가)"
   },
   {
@@ -964,11 +1552,11 @@
     "A",
     "E"
    ],
-   "days_after": 7,
+   "days_after": 9,
    "broke": true,
    "break_day": "20261119",
    "entry": 58600.0,
-   "result_r": -0.03,
+   "result_r": -0.01,
    "how": "보유 중(평가)"
   },
   {
@@ -979,11 +1567,11 @@
    "setups": [
     "A"
    ],
-   "days_after": 7,
+   "days_after": 9,
    "broke": true,
    "break_day": "20261125",
    "entry": 157900.0,
-   "result_r": -0.03,
+   "result_r": 1.24,
    "how": "보유 중(평가)"
   },
   {
@@ -994,7 +1582,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 7,
+   "days_after": 9,
    "broke": false,
    "max_up_pct": 4.2,
    "low_vs_stop": true
@@ -1007,7 +1595,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 8,
+   "days_after": 10,
    "broke": false,
    "max_up_pct": 0.1,
    "low_vs_stop": true
@@ -1020,7 +1608,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 8,
+   "days_after": 10,
    "broke": true,
    "break_day": "20261118",
    "entry": 35800.0,
@@ -1035,7 +1623,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 8,
+   "days_after": 10,
    "broke": false,
    "max_up_pct": -1.1,
    "low_vs_stop": true
@@ -1048,7 +1636,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 8,
+   "days_after": 10,
    "broke": false,
    "max_up_pct": 0.6,
    "low_vs_stop": true
@@ -1061,7 +1649,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 8,
+   "days_after": 10,
    "broke": false,
    "max_up_pct": 0.9,
    "low_vs_stop": true
@@ -1074,7 +1662,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 8,
+   "days_after": 10,
    "broke": false,
    "max_up_pct": 1.8,
    "low_vs_stop": true
@@ -1087,11 +1675,11 @@
    "setups": [
     "A"
    ],
-   "days_after": 8,
+   "days_after": 10,
    "broke": true,
    "break_day": "20261125",
-   "entry": 322500.0,
-   "result_r": -0.03,
+   "entry": 329500.0,
+   "result_r": -0.62,
    "how": "보유 중(평가)"
   },
   {
@@ -1102,7 +1690,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 8,
+   "days_after": 10,
    "broke": true,
    "break_day": "20261119",
    "entry": 26600.0,
@@ -1118,10 +1706,12 @@
     "A",
     "B"
    ],
-   "days_after": 8,
-   "broke": false,
-   "max_up_pct": 2.6,
-   "low_vs_stop": false
+   "days_after": 10,
+   "broke": true,
+   "break_day": "20261126",
+   "entry": 216500.0,
+   "result_r": 0.23,
+   "how": "보유 중(평가)"
   },
   {
    "list_day": "20261113",
@@ -1131,7 +1721,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 8,
+   "days_after": 10,
    "broke": false,
    "max_up_pct": 10.8,
    "low_vs_stop": true
@@ -1146,11 +1736,11 @@
     "E",
     "F"
    ],
-   "days_after": 8,
+   "days_after": 10,
    "broke": true,
    "break_day": "20261119",
    "entry": 58600.0,
-   "result_r": -0.03,
+   "result_r": -0.01,
    "how": "보유 중(평가)"
   },
   {
@@ -1161,11 +1751,11 @@
    "setups": [
     "A"
    ],
-   "days_after": 8,
+   "days_after": 10,
    "broke": true,
    "break_day": "20261116",
    "entry": 102600.0,
-   "result_r": 0.09,
+   "result_r": -0.11,
    "how": "보유 중(평가)"
   },
   {
@@ -1176,11 +1766,11 @@
    "setups": [
     "A"
    ],
-   "days_after": 8,
+   "days_after": 10,
    "broke": true,
    "break_day": "20261125",
    "entry": 157900.0,
-   "result_r": -0.03,
+   "result_r": 1.24,
    "how": "보유 중(평가)"
   },
   {
@@ -1191,7 +1781,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 8,
+   "days_after": 10,
    "broke": false,
    "max_up_pct": 3.6,
    "low_vs_stop": true
@@ -1202,7 +1792,7 @@
    "code": "002990",
    "pivot": 15390,
    "setups": [],
-   "days_after": 8,
+   "days_after": 10,
    "broke": false,
    "max_up_pct": 12.4,
    "low_vs_stop": true
@@ -1215,7 +1805,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 9,
+   "days_after": 11,
    "broke": true,
    "break_day": "20261113",
    "entry": 91900.0,
@@ -1230,7 +1820,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 9,
+   "days_after": 11,
    "broke": false,
    "max_up_pct": 6.1,
    "low_vs_stop": true
@@ -1243,7 +1833,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 9,
+   "days_after": 11,
    "broke": true,
    "break_day": "20261118",
    "entry": 35800.0,
@@ -1258,11 +1848,11 @@
    "setups": [
     "A"
    ],
-   "days_after": 9,
+   "days_after": 11,
    "broke": true,
    "break_day": "20261125",
-   "entry": 322500.0,
-   "result_r": -0.03,
+   "entry": 329500.0,
+   "result_r": -0.62,
    "how": "보유 중(평가)"
   },
   {
@@ -1271,7 +1861,7 @@
    "code": "263860",
    "pivot": 35200,
    "setups": [],
-   "days_after": 9,
+   "days_after": 11,
    "broke": true,
    "break_day": "20261117",
    "entry": 36600.0,
@@ -1286,11 +1876,11 @@
    "setups": [
     "A"
    ],
-   "days_after": 9,
+   "days_after": 11,
    "broke": true,
    "break_day": "20261125",
    "entry": 157900.0,
-   "result_r": -0.03,
+   "result_r": 1.24,
    "how": "보유 중(평가)"
   },
   {
@@ -1301,11 +1891,11 @@
    "setups": [
     "A"
    ],
-   "days_after": 9,
+   "days_after": 11,
    "broke": true,
    "break_day": "20261116",
    "entry": 102600.0,
-   "result_r": 0.09,
+   "result_r": -0.11,
    "how": "보유 중(평가)"
   },
   {
@@ -1316,7 +1906,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 9,
+   "days_after": 11,
    "broke": true,
    "break_day": "20261119",
    "entry": 26600.0,
@@ -1332,10 +1922,12 @@
     "A",
     "B"
    ],
-   "days_after": 9,
-   "broke": false,
-   "max_up_pct": 4.8,
-   "low_vs_stop": false
+   "days_after": 11,
+   "broke": true,
+   "break_day": "20261126",
+   "entry": 216500.0,
+   "result_r": 0.23,
+   "how": "보유 중(평가)"
   },
   {
    "list_day": "20261111",
@@ -1343,7 +1935,7 @@
    "code": "253590",
    "pivot": 18960,
    "setups": [],
-   "days_after": 10,
+   "days_after": 12,
    "broke": false,
    "max_up_pct": 9.6,
    "low_vs_stop": true
@@ -1356,7 +1948,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 10,
+   "days_after": 12,
    "broke": true,
    "break_day": "20261113",
    "entry": 91900.0,
@@ -1371,7 +1963,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 10,
+   "days_after": 12,
    "broke": false,
    "max_up_pct": 6.1,
    "low_vs_stop": true
@@ -1384,7 +1976,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 10,
+   "days_after": 12,
    "broke": false,
    "max_up_pct": 4.4,
    "low_vs_stop": true
@@ -1397,7 +1989,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 10,
+   "days_after": 12,
    "broke": true,
    "break_day": "20261118",
    "entry": 35800.0,
@@ -1410,7 +2002,7 @@
    "code": "121600",
    "pivot": 95300,
    "setups": [],
-   "days_after": 10,
+   "days_after": 12,
    "broke": false,
    "max_up_pct": 4.1,
    "low_vs_stop": true
@@ -1423,7 +2015,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 10,
+   "days_after": 12,
    "broke": false,
    "max_up_pct": 1.8,
    "low_vs_stop": true
@@ -1434,11 +2026,11 @@
    "code": "437730",
    "pivot": 52400,
    "setups": [],
-   "days_after": 10,
+   "days_after": 12,
    "broke": true,
    "break_day": "20261118",
    "entry": 53200.0,
-   "result_r": 1.49,
+   "result_r": 1.71,
    "how": "보유 중(평가)"
   },
   {
@@ -1449,7 +2041,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 10,
+   "days_after": 12,
    "broke": false,
    "max_up_pct": 5.2,
    "low_vs_stop": true
@@ -1460,7 +2052,7 @@
    "code": "263860",
    "pivot": 35200,
    "setups": [],
-   "days_after": 10,
+   "days_after": 12,
    "broke": true,
    "break_day": "20261117",
    "entry": 36600.0,
@@ -1475,11 +2067,11 @@
    "setups": [
     "A"
    ],
-   "days_after": 10,
+   "days_after": 12,
    "broke": true,
    "break_day": "20261125",
    "entry": 157900.0,
-   "result_r": -0.03,
+   "result_r": 1.24,
    "how": "보유 중(평가)"
   },
   {
@@ -1490,7 +2082,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 10,
+   "days_after": 12,
    "broke": false,
    "max_up_pct": 9.2,
    "low_vs_stop": false
@@ -1503,7 +2095,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 10,
+   "days_after": 12,
    "broke": true,
    "break_day": "20261119",
    "entry": 26600.0,
@@ -1518,7 +2110,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 11,
+   "days_after": 13,
    "broke": true,
    "break_day": "20261113",
    "entry": 91900.0,
@@ -1533,7 +2125,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 11,
+   "days_after": 13,
    "broke": false,
    "max_up_pct": 3.3,
    "low_vs_stop": true
@@ -1546,7 +2138,7 @@
    "setups": [
     "E"
    ],
-   "days_after": 11,
+   "days_after": 13,
    "broke": true,
    "break_day": "20261111",
    "entry": 80300.0,
@@ -1561,7 +2153,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 11,
+   "days_after": 13,
    "broke": false,
    "max_up_pct": 4.1,
    "low_vs_stop": true
@@ -1572,7 +2164,7 @@
    "code": "263860",
    "pivot": 35200,
    "setups": [],
-   "days_after": 11,
+   "days_after": 13,
    "broke": true,
    "break_day": "20261117",
    "entry": 36600.0,
@@ -1587,11 +2179,11 @@
    "setups": [
     "A"
    ],
-   "days_after": 11,
+   "days_after": 13,
    "broke": true,
    "break_day": "20261125",
    "entry": 157900.0,
-   "result_r": -0.03,
+   "result_r": 1.24,
    "how": "보유 중(평가)"
   },
   {
@@ -1602,7 +2194,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 11,
+   "days_after": 13,
    "broke": false,
    "max_up_pct": 9.8,
    "low_vs_stop": true
@@ -1615,7 +2207,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 11,
+   "days_after": 13,
    "broke": true,
    "break_day": "20261119",
    "entry": 26600.0,
@@ -1630,7 +2222,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 15,
+   "days_after": 17,
    "broke": false,
    "max_up_pct": 4.1,
    "low_vs_stop": true
@@ -1643,9 +2235,9 @@
    "setups": [
     "A"
    ],
-   "days_after": 15,
+   "days_after": 17,
    "broke": false,
-   "max_up_pct": 10.0,
+   "max_up_pct": 32.1,
    "low_vs_stop": true
   },
   {
@@ -1656,11 +2248,11 @@
    "setups": [
     "A"
    ],
-   "days_after": 15,
+   "days_after": 17,
    "broke": true,
    "break_day": "20261105",
    "entry": 215000.0,
-   "result_r": 0.03,
+   "result_r": 0.32,
    "how": "보유 중(평가)"
   },
   {
@@ -1672,7 +2264,7 @@
     "A",
     "C"
    ],
-   "days_after": 15,
+   "days_after": 17,
    "broke": true,
    "break_day": "20261119",
    "entry": 26600.0,
@@ -1685,7 +2277,7 @@
    "code": "091580",
    "pivot": 31550,
    "setups": [],
-   "days_after": 15,
+   "days_after": 17,
    "broke": false,
    "max_up_pct": 3.1,
    "low_vs_stop": true
@@ -1698,7 +2290,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 15,
+   "days_after": 17,
    "broke": false,
    "max_up_pct": 9.5,
    "low_vs_stop": true
@@ -1712,7 +2304,7 @@
     "A",
     "B"
    ],
-   "days_after": 15,
+   "days_after": 17,
    "broke": false,
    "max_up_pct": 0.6,
    "low_vs_stop": true
@@ -1725,7 +2317,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 15,
+   "days_after": 17,
    "broke": false,
    "max_up_pct": 0.7,
    "low_vs_stop": true
@@ -1738,7 +2330,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 15,
+   "days_after": 17,
    "broke": false,
    "max_up_pct": 7.5,
    "low_vs_stop": true
@@ -1751,7 +2343,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 15,
+   "days_after": 17,
    "broke": false,
    "max_up_pct": 2.0,
    "low_vs_stop": true
@@ -1764,7 +2356,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 15,
+   "days_after": 17,
    "broke": false,
    "max_up_pct": -5.6,
    "low_vs_stop": true
@@ -1777,7 +2369,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 15,
+   "days_after": 17,
    "broke": false,
    "max_up_pct": 25.0,
    "low_vs_stop": true
@@ -1790,7 +2382,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 15,
+   "days_after": 17,
    "broke": false,
    "max_up_pct": 8.9,
    "low_vs_stop": true
@@ -1803,7 +2395,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 15,
+   "days_after": 17,
    "broke": false,
    "max_up_pct": 1.5,
    "low_vs_stop": true
@@ -1816,7 +2408,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 15,
+   "days_after": 17,
    "broke": false,
    "max_up_pct": -2.8,
    "low_vs_stop": true
@@ -1829,7 +2421,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 15,
+   "days_after": 17,
    "broke": false,
    "max_up_pct": 0.5,
    "low_vs_stop": true
@@ -1842,7 +2434,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 15,
+   "days_after": 17,
    "broke": false,
    "max_up_pct": 2.2,
    "low_vs_stop": true
@@ -1856,7 +2448,7 @@
     "A",
     "E"
    ],
-   "days_after": 15,
+   "days_after": 17,
    "broke": true,
    "break_day": "20261113",
    "entry": 69400.0,
@@ -1871,7 +2463,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 16,
+   "days_after": 18,
    "broke": false,
    "max_up_pct": 5.4,
    "low_vs_stop": true
@@ -1884,7 +2476,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 16,
+   "days_after": 18,
    "broke": false,
    "max_up_pct": 11.0,
    "low_vs_stop": true
@@ -1897,7 +2489,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 16,
+   "days_after": 18,
    "broke": true,
    "break_day": "20261113",
    "entry": 69400.0,
@@ -1913,7 +2505,7 @@
     "A",
     "B"
    ],
-   "days_after": 16,
+   "days_after": 18,
    "broke": false,
    "max_up_pct": 2.2,
    "low_vs_stop": true
@@ -1926,7 +2518,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 16,
+   "days_after": 18,
    "broke": false,
    "max_up_pct": 7.8,
    "low_vs_stop": true
@@ -1939,7 +2531,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 16,
+   "days_after": 18,
    "broke": false,
    "max_up_pct": 2.6,
    "low_vs_stop": true
@@ -1953,7 +2545,7 @@
     "A",
     "C"
    ],
-   "days_after": 16,
+   "days_after": 18,
    "broke": false,
    "max_up_pct": 4.6,
    "low_vs_stop": true
@@ -1967,11 +2559,11 @@
     "A",
     "F"
    ],
-   "days_after": 16,
+   "days_after": 18,
    "broke": true,
    "break_day": "20261105",
    "entry": 215000.0,
-   "result_r": 0.03,
+   "result_r": 0.32,
    "how": "보유 중(평가)"
   },
   {
@@ -1982,7 +2574,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 16,
+   "days_after": 18,
    "broke": true,
    "break_day": "20261119",
    "entry": 26600.0,
@@ -1997,7 +2589,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 16,
+   "days_after": 18,
    "broke": false,
    "max_up_pct": 10.4,
    "low_vs_stop": true
@@ -2010,7 +2602,7 @@
    "setups": [
     "E"
    ],
-   "days_after": 16,
+   "days_after": 18,
    "broke": true,
    "break_day": "20261104",
    "entry": 187800.0,
@@ -2025,7 +2617,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 17,
+   "days_after": 19,
    "broke": false,
    "max_up_pct": 15.8,
    "low_vs_stop": true
@@ -2038,7 +2630,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 17,
+   "days_after": 19,
    "broke": true,
    "break_day": "20261119",
    "entry": 26600.0,
@@ -2053,7 +2645,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 17,
+   "days_after": 19,
    "broke": false,
    "max_up_pct": -1.5,
    "low_vs_stop": true
@@ -2066,7 +2658,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 17,
+   "days_after": 19,
    "broke": false,
    "max_up_pct": 5.8,
    "low_vs_stop": true
@@ -2079,7 +2671,7 @@
    "setups": [
     "A"
    ],
-   "days_after": 17,
+   "days_after": 19,
    "broke": false,
    "max_up_pct": -4.3,
    "low_vs_stop": true
@@ -2090,7 +2682,7 @@
    "code": "030530",
    "pivot": 37300,
    "setups": [],
-   "days_after": 17,
+   "days_after": 19,
    "broke": false,
    "max_up_pct": 9.3,
    "low_vs_stop": true
@@ -2103,12 +2695,12 @@
    "setups": [
     "A"
    ],
-   "days_after": 17,
+   "days_after": 19,
    "broke": false,
    "max_up_pct": 0.3,
    "low_vs_stop": true
   }
  ],
- "broke": 55,
- "total": 150
+ "broke": 73,
+ "total": 193
 }
