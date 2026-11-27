@@ -202,10 +202,13 @@ def analyze(rows):
     c = [r["close"] for r in rows]; v = [r["volume"] for r in rows]
     n = len(rows)
     out = {}
-    # 피벗 = 그 뒤로 한 번도 넘지 못한 가장 최근의 의미 있는 고점(앞뒤 10일 최고)이면서 베이스가 1주 이상
+    # 피벗 = 그 뒤로 종가가 한 번도 넘지 못한 가장 최근의 의미 있는 고점(앞 10일 최고)이면서 베이스가 1주 이상.
+    # 2026-11-27 바로잡음(사용자 지적 — 셀트리온 11/26): 예전엔 '장중 고가'가 한 번만 넘어도 그 쉬는 구간을 버리고
+    #   더 옛날 고점으로 거슬러 올라갔다. 책은 돌파를 종가로 보고 꼬리로 넘은 것은 실패한 돌파로 본다 → 쉬는 구간은 이어지고,
+    #   기준가는 그 뒤 꼬리 끝(쉬는 구간의 가장 높은 장중 가격)으로 올라간다(오닐·미너비니의 기준가, 다바스 박스 윗변과 같음).
     piv = None
     for i in range(n - 1 - RULES["min_base_days"], max(0, n - 260), -1):
-        if h[i] == max(h[max(0, i - 10):i + 11]) and h[i] >= max(h[i:]):
+        if h[i] == max(h[max(0, i - 10):i + 1]) and h[i] >= max(c[i:]):     # 앞 10일 최고 + 그 뒤 종가가 못 넘음(뒤 꼬리는 허용)
             piv = i
             break
     hi52 = max(h[-250:])
@@ -214,7 +217,8 @@ def analyze(rows):
         out["run_pct"] = round((c[-1] / min(l[-250:]) - 1) * 100)
         out["setups"] = []
         return out
-    pivot = h[piv]
+    pivot = max(h[piv:])          # 쉬는 구간의 가장 높은 장중 가격 (꼬리로 넘었다가 내려온 날이 있으면 그 꼬리 끝)
+    top = piv + h[piv:].index(pivot)
     lo1 = min(l[max(0, piv - 250):piv + 1])
     base_low = min(l[piv:])
     base_days = n - 1 - piv
@@ -224,7 +228,7 @@ def analyze(rows):
     pulls = swing_pullbacks(h, l, piv)
     vol10, vol50 = sma(v, 10), sma(v, 50)
     out["base"] = {
-        "pivot": round(pivot), "pivot_date": rows[piv]["date"], "days": base_days, "low": round(base_low),
+        "pivot": round(pivot), "pivot_date": rows[top]["date"], "base_start": rows[piv]["date"], "days": base_days, "low": round(base_low),
         "depth_pct": round(depth, 1), "stage1_pct": round(stage1), "giveback_pct": round(giveback),
         "pullbacks": pulls, "vol_dryup": round(vol10 / vol50, 2) if vol50 else None,
         "is_52w_high": pivot >= hi52,
@@ -254,7 +258,7 @@ def analyze(rows):
         if 35 <= cup_days <= 325 and 12 <= cup_depth <= 33 and 0.2 <= (low_i - left) / cup_days <= 0.8 \
                 and h[piv] >= h[left] * 0.85 and 5 <= handle_days <= 25 and handle_depth <= min(15, cup_depth / 2):
             setups.append("B")
-            out["handle_high"] = round(h[piv])
+            out["handle_high"] = round(pivot)
             out["cup"] = {"left_date": rows[left]["date"], "days": cup_days, "depth_pct": round(cup_depth, 1),
                           "handle_days": handle_days, "handle_depth_pct": round(handle_depth, 1)}
     # C VCP: 되돌림 2번 이상 연속 감소, 마지막 한 자릿수, 거래량 감소
