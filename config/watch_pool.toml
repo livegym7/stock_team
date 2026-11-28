@@ -1,19 +1,19 @@
 # 관찰 풀 — 전략 보고서 '큰 스트림'의 기업 지도 (strategy_tf.py pool, 2026-11-20 사용자 확정). 줄기가 유지되는 동안 풀도 유지.
 # 차트 조건으로 넣고 빼지 않음(차트 자리는 셋업 보드). 직접 고쳐도 됨. 감시 목록(screener --pool)은 이 풀 + RS 70↑만 본다. 주문 기능 없음.
-updated = "2026-11-21 09:43"
-source = "전략 보고서 제7호 · 2026-11-21(토) 큰 스트림"
+updated = "2026-11-28 09:29"
+source = "전략 보고서 제8호 · 2026-11-28(토) 큰 스트림"
 
 [[themes]]
 id = "T1"
 name = "🌳 AI 인프라 공급 병목"
 stage = "큰 스트림"
 stocks = [
-  { name = "삼성전자", code = "005930", role = "메모리 대형", group = "반도체(메모리·대형)", action = "관찰", fund = 3 },
+  { name = "삼성전자", code = "005930", role = "메모리 대형", group = "반도체(메모리·대형)", action = "관찰", fund = 2 },
   { name = "SK하이닉스", code = "000660", role = "메모리 대형(HBM)", group = "반도체(메모리·대형)", action = "관찰", fund = 3 },
-  { name = "티엘비", code = "356860", role = "기판(메모리 모듈 · 소캠)", group = "반도체 기판·전자부품", action = "관찰", fund = 3 },
-  { name = "심텍", code = "222800", role = "기판(메모리)", group = "반도체 기판·전자부품", action = "관찰", fund = 3 },
+  { name = "티엘비", code = "356860", role = "기판(메모리 모듈 · 소캠) · 먼저 볼 순서 1", group = "반도체 기판·전자부품", action = "관찰", fund = 3 },
+  { name = "심텍", code = "222800", role = "기판(메모리) ⭐보유", group = "반도체 기판·전자부품", action = "관찰", fund = 3 },
   { name = "하나머티리얼즈", code = "166090", role = "소재·부품(실리콘 부품)", group = "반도체 소재·부품", action = "관찰", fund = 3 },
-  { name = "엑시콘", code = "092870", role = "테스트(SSD 테스터)", group = "반도체 테스트·후공정", action = "관찰", fund = 3 },
+  { name = "엑시콘", code = "092870", role = "테스트(SSD 테스터) · 핵심 후보", group = "반도체 테스트·후공정", action = "관찰", fund = 2 },
 ]
 
 [[themes]]
@@ -21,11 +21,11 @@ id = "T2"
 name = "🌳 K-뷰티 수출"
 stage = "큰 스트림"
 stocks = [
-  { name = "코스맥스", code = "192820", role = "ODM 1위", group = "화장품", action = "관찰", fund = 2 },
-  { name = "한국콜마", code = "161890", role = "ODM 2위", group = "화장품", action = "관찰", fund = 3 },
-  { name = "펌텍코리아", code = "251970", role = "용기", group = "포장재", action = "관찰", fund = 2 },
-  { name = "아모레퍼시픽", code = "090430", role = "브랜드 대형", group = "화장품", action = "관찰", fund = 3 },
-  { name = "에이피알", code = "278470", role = "브랜드(기기·화장품)", group = "화장품", action = "관찰", fund = 3 },
+  { name = "코스맥스", code = "192820", role = "ODM 1위 ⭐보유 · 먼저 볼 순서 3", group = "화장품", action = "관찰", fund = 3 },
+  { name = "한국콜마", code = "161890", role = "ODM 2위", group = "화장품", action = "관찰", fund = 2 },
+  { name = "펌텍코리아", code = "251970", role = "용기", group = "포장재", action = "관찰", fund = 3 },
+  { name = "아모레퍼시픽", code = "090430", role = "브랜드 대형", group = "화장품", action = "관찰", fund = 2 },
+  { name = "에이피알", code = "278470", role = "브랜드(기기·화장품)", group = "화장품", action = "관찰", fund = 2 },
 ]
 
 [[themes]]
@@ -33,12 +33,12 @@ id = "T3"
 name = "🌳 국내 건설 · 플랜트"
 stage = "큰 스트림"
 stocks = [
-  { name = "삼성E&A", code = "028050", role = "선도(반도체 공장 · 플랜트)", group = "건설", action = "관찰", fund = 3 },
-  { name = "IPARK현대산업개발", code = "294870", role = "주택(원가율 개선)", group = "건설", action = "관찰", fund = 3 },
-  { name = "계룡건설", code = "013580", role = "공공주택", group = "건설", action = "관찰", fund = 3 },
-  { name = "GS건설", code = "006360", role = "데이터센터 · 주택", group = "건설", action = "관찰", fund = 0 },
+  { name = "삼성E&A", code = "028050", role = "선도(반도체 공장 · 플랜트) · 먼저 볼 순서 2 · 핵심 후보", group = "건설", action = "관찰", fund = 2 },
+  { name = "IPARK현대산업개발", code = "294870", role = "주택(원가율 개선)", group = "건설", action = "관찰", fund = 2 },
+  { name = "계룡건설", code = "013580", role = "공공주택", group = "건설", action = "관찰", fund = 1 },
+  { name = "GS건설", code = "006360", role = "데이터센터 · 주택", group = "건설", action = "관찰", fund = 2 },
   { name = "현대건설", code = "000720", role = "원전 · 주택", group = "건설", action = "관찰", fund = 3 },
 ]
 
-# 풀에 넣지 않은 스트림(약화·관찰·이익 미확인): 항공
+# 풀에 넣지 않은 스트림(약화·관찰·이익 미확인): 항공, 바이오 대형
 # 줄기 안이지만 보고서가 '회피'로 적은 종목: 티에스이, 코스메카코리아, 실리콘투, DL이앤씨, 대우건설

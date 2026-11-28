@@ -1,7 +1,18 @@
 {
- "fetched_at": "2026-11-27 06:53",
+ "fetched_at": "2026-11-28 09:34",
  "errors": [],
  "events": [
+  {
+   "date": "2026-08-20",
+   "time": "",
+   "kind": "earnings_kr",
+   "name": "쿠콘 기업설명회(IR)",
+   "detail": "",
+   "source": "DART 공시",
+   "code": "294570",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261106900332",
+   "id": "ir:294570:2026-08-20"
+  },
   {
    "date": "2026-10-19",
    "time": "10:00",
@@ -6106,6 +6117,28 @@
   },
   {
    "date": "2026-11-30",
+   "time": "",
+   "kind": "earnings_kr",
+   "name": "오름테라퓨틱 기업설명회(IR)",
+   "detail": "",
+   "source": "DART 공시",
+   "code": "475830",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261127900960",
+   "id": "ir:475830:2026-11-30"
+  },
+  {
+   "date": "2026-11-30",
+   "time": "",
+   "kind": "earnings_kr",
+   "name": "나무가 기업설명회(IR)",
+   "detail": "",
+   "source": "DART 공시",
+   "code": "190510",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261127900454",
+   "id": "ir:190510:2026-11-30"
+  },
+  {
+   "date": "2026-11-30",
    "time": "09:00",
    "kind": "earnings_kr",
    "name": "강원랜드 기업설명회(IR)",
@@ -6161,6 +6194,17 @@
   },
   {
    "date": "2026-12-01",
+   "time": "",
+   "kind": "earnings_kr",
+   "name": "LG화학 기업설명회(IR)",
+   "detail": "회사실적, 주요 경영현황 및 전략",
+   "source": "DART 공시",
+   "code": "051910",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261127800620",
+   "id": "ir:051910:2026-12-01"
+  },
+  {
+   "date": "2026-12-01",
    "time": "09:30",
    "kind": "earnings_kr",
    "name": "트리니티항공 기업설명회(IR)",
@@ -6171,6 +6215,17 @@
    "id": "ir:091810:2026-12-01"
   },
   {
+   "date": "2026-12-01",
+   "time": "15:30",
+   "kind": "earnings_kr",
+   "name": "아이마켓코리아 기업설명회(IR)",
+   "detail": "26년 3분기 경영실적 및 주요 경영현황 설명, Q&amp;A",
+   "source": "DART 공시",
+   "code": "122900",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261127800985",
+   "id": "ir:122900:2026-12-01"
+  },
+  {
    "date": "2026-12-02",
    "time": "",
    "kind": "earnings_us",
@@ -6179,6 +6234,17 @@
    "source": "Nasdaq 실적 캘린더",
    "symbol": "MRVL",
    "id": "us:MRVL:2026-12-01"
+  },
+  {
+   "date": "2026-12-02",
+   "time": "15:40",
+   "kind": "earnings_kr",
+   "name": "LG씨엔에스 기업설명회(IR)",
+   "detail": "2026년 3분기 경영실적 및 Q&amp;A",
+   "source": "DART 공시",
+   "code": "064400",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261127800401",
+   "id": "ir:064400:2026-12-02"
   },
   {
    "date": "2026-12-03",
