@@ -1,0 +1,517 @@
+{
+ "at": "2026-11-28 20:12",
+ "opinion": {
+  "title": "일요일 증안펀드 투자관리위, 월요일 시장안정 회의가 시초가 변수입니다",
+  "lines": [
+   "주말이라 한국 시장 숫자는 금요일(11/27) 종가입니다. 코스피 4,915.68(+4.34%), 코스닥 708.99(+8.13%)입니다. 기준은 네이버 16:15입니다.",
+   "29일(일) 증안펀드 투자관리위원회, 30일(월) 금융위원장과 5대 금융지주 회장 회의가 예정돼 기대와 실망이 함께 걸려 있습니다.",
+   "마이크론 일본 법인은 2027~2028년 DRAM 수급이 더 빠듯해질 것이라고 밝혔고, 코스피는 6월 고점 대비 -48%라는 정리가 나왔습니다.",
+   "반대 근거는 규모에 실망할 수 있다는 지적과 11월 한국이 아시아에서 꼴찌 성과였다는 점입니다. 보유 종목은 월요일 시초가 갭을 확인합니다."
+  ],
+  "delta": "12시 이후 증안펀드 일정, 마이크론 일본 법인 인터뷰, 앤스로픽 ARR 810억 달러, 코스피 밸류에이션 정리, 중국 B300 암시장 가격이 새로 나왔습니다."
+ },
+ "topics": [
+  {
+   "name": "미국 AI·기술주 반등",
+   "stance": "엇갈림",
+   "scope": "시장 전체 · 메인 스트림 영향",
+   "mine": true,
+   "one": "추수감사절 다음 날 단축장에서 AI·기술주가 반등했지만 기술적 반등이라는 시각이 남았습니다.",
+   "pro": [
+    "나스닥 +2.3%, 다우 주간 +5.46%로 22년 10월 이후 최대이고 샌디스크가 +16%로 주도했습니다 (shmstory·FastStockNews, 채널 요약)",
+    "UBS는 매도세가 소진되는 신호가 많아 거래가 적어도 작은 매수세로 크게 오를 수 있다고 봤습니다 (shmstory 정리, 개인 의견)",
+    "S&P500은 1950년 이후 4% 이상 반등한 첫날 뒤 1~12개월 후에도 더 높았다는 통계 정리입니다 (FastStockNews, 채널 요약)"
+   ],
+   "con": [
+    "XTB는 불안이 해소된 것은 아니고 현재는 기술적 반등으로 본다고 했습니다 (shmstory 정리, 개인 의견)",
+    "모건스탠리는 6개월 이내 큰 조정 가능성도 있다고 봤습니다 (shmstory 정리, 개인 의견)",
+    "마이크론은 노사 갈등으로 대만 투자 계획을 재검토 중이고 메가스피드 연계 중국 데이터센터에서 블랙웰 칩이 발견됐다는 보도가 있습니다 (shmstory, 채널 요약)"
+   ],
+   "so": "삼성전자는 손절 후 보유에서 빠졌고 보유 종목은 월요일 시초가 갭을 확인할 구간입니다. 가까운 손절가는 삼현 57,960원(금요일 종가 기준 -4.2%)입니다.",
+   "new": false,
+   "items": [
+    {
+     "t": "11:18",
+     "tone": "pos",
+     "text": "야간선물 +0.4% 마무리, 샌디스크 +16%, VIX 공포지수 8% 급락",
+     "src": "nje2e",
+     "new": false,
+     "url": "https://t.me/nje2e/46010",
+     "via": "채널"
+    },
+    {
+     "t": "09:58",
+     "tone": "pos",
+     "text": "S&P500은 1950년 이후 4% 이상 반등한 첫날이 7번뿐이며 매번 이후 더 높았다는 통계",
+     "src": "FastStockNews",
+     "new": false,
+     "url": "https://t.me/FastStockNews/128641",
+     "via": "채널"
+    },
+    {
+     "t": "08:45",
+     "tone": "pos",
+     "text": "뉴욕증시 AI·기술주 반등에 일제히 상승, 나스닥 +2.3%",
+     "src": "FastStockNews",
+     "new": false,
+     "url": "https://n.news.naver.com/mnews/article/001/0016468532?sid=104",
+     "via": "기사"
+    },
+    {
+     "t": "07:08",
+     "tone": "pos",
+     "text": "미국 증시 마감: 빅테크·헬스케어 주도로 내부 온기 확산, 애플 신고가",
+     "src": "maddingStock",
+     "new": false,
+     "url": "https://stockeasy.intellio.kr/us/briefing/2026-11-27",
+     "via": "기사"
+    },
+    {
+     "t": "05:45",
+     "tone": "pos",
+     "text": "11월 28일 시황: 추수감사절에 AI주 부활, 다우 주간 +5.46%, 전업종 상승",
+     "src": "shmstory",
+     "new": false,
+     "url": "https://t.me/shmstory/9278",
+     "via": "채널"
+    },
+    {
+     "t": "21:56",
+     "tone": "pos",
+     "text": "(11/27) 어도비: 추수감사절 온라인 소비 71억 달러로 전년 대비 +10.4%",
+     "src": "bornlupin",
+     "new": false,
+     "url": "https://t.me/bornlupin/21319",
+     "via": "채널"
+    }
+   ],
+   "report_link": ""
+  },
+  {
+   "name": "메모리·AI 반도체 수요",
+   "stance": "긍정",
+   "scope": "메인 스트림 · AI 인프라",
+   "mine": true,
+   "one": "마이크론 일본 법인은 2027년 DRAM 수급이 더 빠듯해진다고 했고 SK하이닉스는 일일 자사주 매수량을 2배로 늘렸습니다.",
+   "pro": [
+    "마이크론 일본 법인 대표가 2027~2028년 DRAM 수급이 2026년보다 더 빠듯해지고 고객사가 희망 물량의 50%만 조달한다고 밝혔습니다 (bornlupin, 닛케이 인용)",
+    "SK하이닉스가 자사주 일일 매수 주문량을 2배로 늘렸다는 보도입니다 (FastStockNews, 채널 요약)",
+    "노무라는 2027년 AI 서버 매출 전망을 상향하고 TSMC CoWoS 생산능력을 200만 장(+80%)으로 봤습니다 (bornlupin, 채널 요약)"
+   ],
+   "con": [
+    "스페이스X는 대형 클러스터 임대 가격이 오르는 반면 소규모 자원 임대 가격은 하락한다고 밝혀 수요가 대형에 쏠립니다 (bornlupin, 채널 요약)",
+    "앤트로픽이 10월에 스페이스X 컴퓨팅 임대료 60% 인상을 수용했다는 투자자 서한이 나와 AI 인프라 비용 부담이 드러났습니다 (bornlupin, 채널 요약)"
+   ],
+   "so": "보유 심텍은 기판 쪽 간접 노출이고 월요일 이후 반도체 수급 방향을 먼저 봅니다.",
+   "new": true,
+   "items": [
+    {
+     "t": "18:25",
+     "tone": "pos",
+     "text": "Situational Awareness 3분기 레터: 메모리가 RL 시대의 엔비디아인 이유",
+     "src": "Jstockclass",
+     "new": true,
+     "url": "https://t.me/Jstockclass/15587",
+     "via": "채널"
+    },
+    {
+     "t": "16:13",
+     "tone": "pos",
+     "text": "앤스로픽 ARR이 2025년 초 10억 달러에서 2026년 10월 810억 달러로 약 80배 성장했다는 정리",
+     "src": "bornlupin",
+     "new": true,
+     "url": "https://t.me/bornlupin/21330",
+     "via": "채널"
+    },
+    {
+     "t": "16:05",
+     "tone": "neu",
+     "text": "머스크: 구글이 스페이스X 컴퓨팅 임대에 관심, 대형 클러스터 임대 가격은 상승 중",
+     "src": "bornlupin",
+     "new": true,
+     "url": "https://t.me/bornlupin/21329",
+     "via": "채널"
+    },
+    {
+     "t": "15:36",
+     "tone": "pos",
+     "text": "마이크론 일본 법인 대표: 2027년 DRAM 수급 더 빠듯, 고객사는 희망 물량의 50%만 조달",
+     "src": "bornlupin",
+     "new": true,
+     "url": "https://nikkei.com/article/DGXZQOUB1637F0W6A111C2000000?n_cid=SNSTW001&n_tw=1795831933",
+     "via": "기사"
+    },
+    {
+     "t": "13:17",
+     "tone": "pos",
+     "text": "SK하이닉스, 자사주 일일 매수 주문량 2배로",
+     "src": "FastStockNews",
+     "new": true,
+     "url": "https://n.news.naver.com/article/001/0016468481",
+     "via": "기사"
+    },
+    {
+     "t": "09:36",
+     "tone": "pos",
+     "text": "노무라: AI 서버 ASP 상승 반영해 2027년 AI 서버 매출 전망 상향, 스페이스X 주문이 추가 요인",
+     "src": "bornlupin",
+     "new": false,
+     "url": "https://t.me/bornlupin/21324",
+     "via": "채널"
+    },
+    {
+     "t": "21:56",
+     "tone": "pos",
+     "text": "(11/27) [단독] 구글, 차세대 TPU에 커스텀 HBM5 추진, 미디어텍 베이스다이 유력",
+     "src": "nje2e",
+     "new": false,
+     "url": "https://economytribune.co.kr/news/articleView.html?idxno=3904543",
+     "via": "기사"
+    },
+    {
+     "t": "21:45",
+     "tone": "pos",
+     "text": "(11/27) SK하이닉스, 자사주 매입 속도 2배로 높인다",
+     "src": "corevalue",
+     "new": false,
+     "url": "https://naver.me/FwGDRC2b",
+     "via": "기사"
+    },
+    {
+     "t": "11:55",
+     "tone": "pos",
+     "text": "Situational Awareness 3분기 서한: SK하이닉스를 강화학습 시대의 엔비디아로 보는 메모리 논지",
+     "src": "bornlupin",
+     "new": false,
+     "url": "https://x.com/DrNHJ/status/2126510038139445353?a=22l1hp8flMS-3RG-MHM&s=20",
+     "via": "기사"
+    }
+   ],
+   "report_link": ""
+  },
+  {
+   "name": "코리아 디스카운트·밸류에이션",
+   "stance": "엇갈림",
+   "scope": "시장 전체",
+   "mine": true,
+   "one": "코스피는 6월 고점 대비 -48%로 닷컴·금융위기 하락폭에 가까워졌고 11월은 아시아에서 꼴찌였습니다.",
+   "pro": [
+    "코스피는 6월 고점 대비 48% 하락해 닷컴버블·금융위기(52~53%)에 근접했습니다 (Jstockclass, 채널 요약)",
+    "과거 -30% 이상 급락 뒤 평균 성과는 3개월 +16%, 6개월 +43%, 12개월 +59%라는 정리입니다 (Jstockclass, 개인 의견)",
+    "BofA 한국팀은 11월 대규모 그룹 콜을 50회 이상, 참석 투자자 1,000명 이상으로 사상 최대 규모로 진행했습니다 (Jstockclass, 채널 요약)"
+   ],
+   "con": [
+    "11월 한국 주가는 EPS가 개선됐는데도 밸류에이션 하락으로 아시아 꼴찌였습니다 (Jstockclass, 개인 의견)",
+    "아시아 증시 올해 상승률은 한국·대만을 포함하면 +5%, 제외하면 -10%라는 정리입니다 (Jstockclass, 채널 요약)"
+   ],
+   "so": "보유 종목은 평단 위인 JYP Ent.·코스맥스·심텍과 평단 아래 삼현이 섞여 있어, 월요일 갭과 손절가 거리를 먼저 확인합니다.",
+   "new": true,
+   "items": [
+    {
+     "t": "18:08",
+     "tone": "pos",
+     "text": "BofA Korea: 11월 역대 최대 규모 컨퍼런스콜, 반도체 32%·방산/조선 19% 비중",
+     "src": "Jstockclass",
+     "new": true,
+     "url": "https://t.me/Jstockclass/15586",
+     "via": "채널"
+    },
+    {
+     "t": "17:59",
+     "tone": "pos",
+     "text": "과거 -30% 이상 급락 뒤 평균 3개월 +16%, 6개월 +43%, 12개월 +59%라는 정리",
+     "src": "Jstockclass",
+     "new": true,
+     "url": "https://t.me/Jstockclass/15583",
+     "via": "채널"
+    },
+    {
+     "t": "17:59",
+     "tone": "neg",
+     "text": "코스피, 6월 고점 대비 48% 하락, 닷컴·금융위기(52~53%)에 근접",
+     "src": "Jstockclass",
+     "new": true,
+     "url": "https://t.me/Jstockclass/15582",
+     "via": "채널"
+    },
+    {
+     "t": "17:54",
+     "tone": "neg",
+     "text": "아시아 증시 YTD 상승률: 한국·대만 포함 +5%, 제외 -10%",
+     "src": "Jstockclass",
+     "new": true,
+     "url": "https://t.me/Jstockclass/15577",
+     "via": "채널"
+    }
+   ],
+   "report_link": ""
+  },
+  {
+   "name": "다음 주 일정·증안펀드",
+   "stance": "엇갈림",
+   "scope": "시장 전체",
+   "mine": true,
+   "one": "29일 증안펀드 투자관리위와 30일 시장안정 회의가 규모 기대를 충족할지가 월요일 변수입니다.",
+   "pro": [
+    "29일(일) 증안펀드 투자관리위원회가 열리고 30일(월) 금융위원장이 5대 금융지주 회장 등을 소집해 시장안정 방안을 논의합니다 (one_going, 채널 요약)",
+    "대만 국가안정기금은 3주간 1,984억 대만달러를 순매수해 증시를 방어했고 TSMC에 76.7%를 집중했습니다 (bornlupin, 채널 요약)",
+    "코스닥 신용잔고가 최근 4년 내 최저라는 정리입니다 (nje2e, 채널 요약)"
+   ],
+   "con": [
+    "정책 안전판이 시장 기대를 충족할지, 규모에 실망할지가 포인트라는 지적입니다 (one_going, 개인 의견)",
+    "외국인은 1~10월 순매수면 11월 순매도인 패턴이고 복귀는 1월부터라는 분석이 있습니다 (nje2e, 개인 의견)",
+    "다음 주 월스트리트 전망이 엇갈린다는 방송 정리입니다 (shmstory, 채널 요약)"
+   ],
+   "so": "월요일 개장 전 확인할 변수가 많아 보유 종목은 손절가와의 거리를 먼저 점검합니다.",
+   "new": true,
+   "items": [
+    {
+     "t": "14:25",
+     "tone": "neu",
+     "text": "12월 주요 증시일정을 정리해 두었다는 글",
+     "src": "one_going",
+     "new": true,
+     "url": "https://blog.naver.com/going_tothe_moon/224495873401",
+     "via": "기사"
+    },
+    {
+     "t": "14:24",
+     "tone": "neu",
+     "text": "29일 증안펀드 투자관리위, 30일 금융위원장이 5대 금융지주 회장 소집해 시장안정 방안 논의",
+     "src": "one_going",
+     "new": true,
+     "url": "https://t.me/one_going/4594",
+     "via": "채널"
+    },
+    {
+     "t": "12:11",
+     "tone": "neu",
+     "text": "외국인 매매 패턴: 추수감사절 이후 거래 감소, 1~10월 순매수면 11월 순매도, 복귀는 1월부터",
+     "src": "nje2e",
+     "new": false,
+     "url": "https://t.me/nje2e/46015",
+     "via": "채널"
+    },
+    {
+     "t": "09:16",
+     "tone": "neu",
+     "text": "대만 국가안정기금이 3주간 증시 방어 자금의 76.7%를 TSMC에 집중",
+     "src": "bornlupin",
+     "new": false,
+     "url": "https://ctee.com.tw/news/20261128700052-439901",
+     "via": "기사"
+    },
+    {
+     "t": "08:54",
+     "tone": "neu",
+     "text": "다음 주 일정: 30일 중국 PMI·AWS re:Invent, 12/1 한국 수출입, 12/3 젠슨 황 상원 청문회, 12/4 미국 고용",
+     "src": "bornlupin",
+     "new": false,
+     "url": "https://t.me/bornlupin/21322",
+     "via": "채널"
+    },
+    {
+     "t": "00:56",
+     "tone": "neu",
+     "text": "엔비디아 관련 청문회 일정: 12/1 젠슨 황 하원, 12/2 법률고문, 12/3 상원 공개 청문회",
+     "src": "one_going",
+     "new": false,
+     "url": "https://t.me/one_going/4593",
+     "via": "채널"
+    },
+    {
+     "t": "18:55",
+     "tone": "pos",
+     "text": "(11/27) 코스닥 신용잔고는 최근 4년 내 최저치",
+     "src": "nje2e",
+     "new": false,
+     "url": "https://t.me/nje2e/46000",
+     "via": "채널"
+    }
+   ],
+   "report_link": ""
+  },
+  {
+   "name": "AI 칩 규제·데이터센터 정책",
+   "stance": "엇갈림",
+   "scope": "관심 주제 · 정책",
+   "mine": false,
+   "one": "중국 암시장에서 엔비디아 B300 서버가 미국 가격의 5배 이상으로 거래된다는 보도가 나왔습니다.",
+   "pro": [
+    "텍사스가 동결했던 1,800개 이상 데이터센터 프로젝트의 인허가를 재개했다는 보도입니다 (bornlupin, 채널 요약)",
+    "중국이 반도체 소재 수출 제한 시한을 연장해 공급 차질 우려가 일단 해소됐다는 정리입니다 (shmstory, 채널 요약)",
+    "FCC 의장이 스페이스X 우주 데이터센터 사업을 전속력으로 추진하라고 촉구했다는 CNBC 인용입니다 (nje2e, 채널 요약)"
+   ],
+   "con": [
+    "중국 암시장에서 B300 서버가 대당 300만~340만 달러로 미국 현지 55만 달러의 5~6배라는 보도로 우회 반입 차단 압박이 커졌습니다 (nje2e, 채널 요약)",
+    "중국 데이터센터에서 엔비디아 블랙웰 칩이 발견됐다는 보도로 규제 강화 우려가 남았습니다 (nje2e, 채널 요약)"
+   ],
+   "so": "엔비디아 청문회가 12/1~3에 있어 반도체 수출 규제 방향이 월요일 이후 변수입니다.",
+   "new": true,
+   "items": [
+    {
+     "t": "14:01",
+     "tone": "neg",
+     "text": "엔비디아 B300 서버가 중국 암시장에서 미국 가격의 5~6배인 300만~340만 달러에 거래",
+     "src": "nje2e",
+     "new": true,
+     "url": "https://zdnet.co.kr/view?no=20261128113257",
+     "via": "기사"
+    },
+    {
+     "t": "13:18",
+     "tone": "pos",
+     "text": "FCC 의장, 스페이스X 우주 데이터센터 사업 전속력 추진 촉구(CNBC)",
+     "src": "nje2e",
+     "new": true,
+     "url": "https://t.me/nje2e/46017",
+     "via": "채널"
+    },
+    {
+     "t": "08:23",
+     "tone": "pos",
+     "text": "텍사스, 데이터센터 1,800개 이상 프로젝트 동결 해제, 허가 신청 쇄도",
+     "src": "bornlupin",
+     "new": false,
+     "url": "https://tomshardware.com/tech-industry/data-centers/texas-lifts-freeze-on-1-800-data-center-projects-in-greg-abbott-u-turn-companies-rush-for-permits-before-gina-hinojosas-january-arrival?utm",
+     "via": "기사"
+    },
+    {
+     "t": "23:42",
+     "tone": "neg",
+     "text": "(11/27) 중국 상하이 공장에서 엔비디아 블랙웰 칩이 발견됐다는 보도",
+     "src": "nje2e",
+     "new": false,
+     "url": "https://x.com/DeItaone/status/2126281449938567390",
+     "via": "기사"
+    },
+    {
+     "t": "22:37",
+     "tone": "neg",
+     "text": "(11/27) 미 공군 핵심 클라우드 플랫폼 Cloud One 해킹 피해 보도",
+     "src": "FastStockNews",
+     "new": false,
+     "url": "https://t.me/FastStockNews/128638",
+     "via": "채널"
+    }
+   ],
+   "report_link": ""
+  }
+ ],
+ "reports": {
+  "counts": {
+   "total": 14,
+   "up": 0,
+   "down": 2,
+   "new": false,
+   "keep": 2
+  },
+  "one": "12시 이후 새 리포트는 거의 없었고 변압기 스터디 글이 나왔습니다.",
+  "mine": "보유 종목의 직접 새 목표가 변경은 없습니다.",
+  "note": "건수는 요약 글에서 센 대략치입니다.",
+  "new": true,
+  "sectors": [
+   {
+    "dir": "down",
+    "name": "반도체 후공정·테스트",
+    "n": 2,
+    "text": "두산테스나 한화 175,000→100,000 · 유니테스트 한화 25,000→15,000",
+    "new": false
+   }
+  ],
+  "picks": [
+   {
+    "dir": "down",
+    "name": "두산테스나",
+    "broker": "한화투자",
+    "t": "16:13",
+    "change": "175,000 → 100,000 (-43%)",
+    "why": "목표가를 크게 낮췄고 매수 의견은 유지했습니다.",
+    "url": "",
+    "new": false
+   },
+   {
+    "dir": "down",
+    "name": "유니테스트",
+    "broker": "한화투자",
+    "t": "16:12",
+    "change": "25,000 → 15,000 (-40%)",
+    "why": "HBM 번인테스터 성장 시작이라는 논지이나 목표가를 낮췄습니다.",
+    "url": "",
+    "new": false
+   },
+   {
+    "dir": "note",
+    "name": "MPI",
+    "broker": "씨티",
+    "t": "22:15",
+    "change": "매수 유지",
+    "why": "대만 프로브 생산능력 확대로 내년 매출 +68%를 전망했습니다.",
+    "url": "",
+    "new": false
+   }
+  ]
+ },
+ "others": [
+  {
+   "group": "기업",
+   "items": [
+    {
+     "t": "17:15",
+     "tone": "neu",
+     "text": "변압기 스터디: HD현대일렉트릭은 2021년 1만 원 팔아 54원, 2025년 2,440원을 남겼다는 정리",
+     "src": "maddingStock",
+     "new": true,
+     "url": "https://blog.naver.com/love392722/224496041088",
+     "via": "기사"
+    }
+   ]
+  },
+  {
+   "group": "기업",
+   "items": [
+    {
+     "t": "18:00",
+     "tone": "neu",
+     "text": "큐리옥스바이오시스템즈가 229억 원 규모 전환사채 발행을 결정",
+     "src": "darthacking",
+     "new": false,
+     "url": "https://t.me/darthacking/159907",
+     "via": "채널"
+    },
+    {
+     "t": "17:52",
+     "tone": "neu",
+     "text": "휴림로봇이 회계처리기준 위반 관련 검찰 항소 판결 진행사항을 공시",
+     "src": "darthacking",
+     "new": false,
+     "url": "https://t.me/darthacking/159905",
+     "via": "채널"
+    }
+   ]
+  }
+ ],
+ "views": [
+  {
+   "channel": "Jstockclass",
+   "id": 15583,
+   "who": "과거 급락 사례 정리 (Jstockclass)",
+   "topic": "시장 국면",
+   "stance": "긍정",
+   "view": "과거 -30% 이상 급락 뒤에는 기다리면 올라왔고 평균 6개월 +43%였다는 정리입니다.",
+   "reason": "급락 후 성과 통계 정리",
+   "horizon": "중기"
+  },
+  {
+   "channel": "bornlupin",
+   "id": 21327,
+   "who": "마이크론 일본 법인 대표 (bornlupin 전달)",
+   "topic": "반도체",
+   "stance": "긍정",
+   "view": "2027~2028년 DRAM 수급이 2026년보다 더 빠듯해진다는 전망입니다.",
+   "reason": "닛케이 인터뷰 전달",
+   "horizon": "중기"
+  }
+ ],
+ "sources": "텔레그램 채널 요약(2차 자료) · 한국 시세 네이버 11/27 16:15 종가(금요일) · 미국 시황은 채널 요약 · 견해는 개인 의견 · 판단은 본인"
+}
